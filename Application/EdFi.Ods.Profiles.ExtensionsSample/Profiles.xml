@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <Profile name="Staff-Entity-Extension-IncludeOnly">
+    <Resource name="Staff" logicalSchema='Ed-Fi'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='GrandBend' memberSelection='IncludeOnly'> <!-- logicalSchema='GrandBend'> -->
+          <Property name='Tenured' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-Entity-Extension-ExcludeOnly">
+    <Resource name="Staff" logicalSchema='Ed-Fi'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='GrandBend' memberSelection='ExcludeOnly'> <!-- logicalSchema='GrandBend'> -->
+          <Property name='Tenured' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+
+  <Profile name="Staff-Include-All">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedInclude">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="HighlyQualifiedTeacher" />
+        <!-- property -->
+        <Property name="FirstName" />
+        <!-- Descriptor property -->
+        <Property name="CitizenshipStatusDescriptor" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Applicant-MixedInclude">
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BirthDate' />
+        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
+          <Property name='ApartmentRoomSuiteNumber' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll">
+        <Property name='BirthDate' />
+        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
+          <Property name='ApartmentRoomSuiteNumber' />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedExclude">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='GrandBend' memberSelection='IncludeOnly'> <!-- logicalSchema='GrandBend'> -->
+          <Property name='Tenured' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="HighlyQualifiedTeacher" />
+        <!-- property -->
+        <Property name="FirstName" />
+        <!-- Descriptor property -->
+        <Property name="CitizenshipStatusDescriptor" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedExclude2">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="HighlyQualifiedTeacher" />
+        <!-- property -->
+        <Property name="FirstName" />
+        <!-- Descriptor property -->
+        <Property name="CitizenshipStatusDescriptor" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Applicant-MixedInclude2">
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BirthDate' />
+        <Collection name='ApplicantAddresses' memberSelection='IncludeOnly'>
+          <Property name='ApartmentRoomSuiteNumber' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll">
+        <Property name='BirthDate' />
+        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
+          <Property name='ApartmentRoomSuiteNumber' />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Applicant-MixedInclude1">
+    <Resource name="Applicant" logicalSchema='GrandBend'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BirthDate' />
+        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
+          <Property name='ApartmentRoomSuiteNumber' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Student-Include-All">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+</Profiles>

@@ -1,0 +1,10 @@
+<Interchanges>
+	<!--<Interchange>
+		<Filename>StaffAssociation.xml</Filename>
+		<Type>staffassociation</Type>
+	</Interchange> -->
+	<Interchange>
+		<Filename>StudentEnrollment.xml</Filename>
+		<Type>studentenrollment</Type>
+	</Interchange>
+</Interchanges>

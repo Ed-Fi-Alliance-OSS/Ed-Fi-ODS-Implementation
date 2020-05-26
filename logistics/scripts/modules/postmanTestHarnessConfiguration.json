@@ -1,0 +1,758 @@
+{
+  "Vendors": [
+    {
+      "Email": "test1@ed-fi.org",
+      "VendorName": "ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "test2@other.org",
+      "VendorName": "other.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "Other_Namespace",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "test3@austin.org",
+      "VendorName": "austin.org",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901001",
+              "LocalEducationOrganizations": [ 255901001 ]
+            },
+            {
+              "ApiClientName": "255901044",
+              "LocalEducationOrganizations": [ 255901044 ]
+            },
+            {
+              "ApiClientName": "2001",
+              "LocalEducationOrganizations": [ 2001 ]
+            },
+            {
+              "ApiClientName": "2002",
+              "LocalEducationOrganizations": [ 2002 ]
+            },
+            {
+              "ApiClientName": "1",
+              "LocalEducationOrganizations": [ 1 ]
+            },
+            {
+              "ApiClientName": "2001_2002_2003",
+              "LocalEducationOrganizations": [ 2001, 2002, 2003 ]
+            },
+            {
+              "ApiClientName": "2001_2002",
+              "LocalEducationOrganizations": [ 2001, 2002 ]
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile1@ed-fi-org",
+      "VendorName": "Composite Single Profile Test1",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100001",
+              "LocalEducationOrganizations": [ 100001 ]
+            }
+          ]
+        }
+      ]
+
+    },
+    {
+      "Email": "SingleProfile2@ed-fi-org",
+      "VendorName": "Composite Single Profile Test2",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-ExcludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100002",
+              "LocalEducationOrganizations": [ 100002 ]
+            }
+          ]
+        }
+      ]
+
+    },
+    {
+      "Email": "SingleProfile3@ed-fi-org",
+      "VendorName": "Composite Single Profile Test3",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-References-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100003",
+              "LocalEducationOrganizations": [ 100003 ]
+            }
+          ]
+        }
+      ]
+
+    },
+    {
+      "Email": "SingleProfile4@ed-fi-org",
+      "VendorName": "Composite Single Profile Test4",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-References-ExcludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100004",
+              "LocalEducationOrganizations": [ 100004 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile5@ed-fi-org",
+      "VendorName": "Composite Single Profile Test5",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100005",
+              "LocalEducationOrganizations": [ 100005 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile6@ed-fi-org",
+      "VendorName": "Composite Single Profile Test6",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100006",
+              "LocalEducationOrganizations": [ 100006 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile7@ed-fi-org",
+      "VendorName": "Composite Single Profile Test7",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-WriteOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100007",
+              "LocalEducationOrganizations": [ 100007 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile8@ed-fi-org",
+      "VendorName": "Composite Single Profile Test8",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-Child-Collection-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100008",
+              "LocalEducationOrganizations": [ 100008 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile9@ed-fi-org",
+      "VendorName": "Composite Single Profile Test9",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100009",
+              "LocalEducationOrganizations": [ 100009 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile10@ed-fi-org",
+      "VendorName": "Composite Single Profile Test10",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "100010",
+              "LocalEducationOrganizations": [ 100010 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile11@ed-fi-org",
+      "VendorName": "Composite Single Profile Test11",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-For-Composites-With-Multiple-Resources" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_CompositesWithMultipleResources",
+              "LocalEducationOrganizations": [ 100011 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile112@ed-fi-org",
+      "VendorName": "Composite Single Profile Test112",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "100011",
+              "LocalEducationOrganizations": [ 100011 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile12@ed-fi-org",
+      "VendorName": "Composite Single Profile Test12",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ExcludeAllAddrsExceptPhysical",
+              "LocalEducationOrganizations": [ 100012 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "SingleProfile122@ed-fi-org",
+      "VendorName": "Composite Single Profile Test122",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "100012",
+              "LocalEducationOrganizations": [ 100012 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile1@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test1",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeOnly", "Test-Profile-Resource-ExcludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "200001",
+              "LocalEducationOrganizations": [ 200001 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile2@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test2",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly", "Test-Profile-Resource-ExcludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "200002",
+              "LocalEducationOrganizations": [ 200002 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile3@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test3",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "200003",
+              "LocalEducationOrganizations": [ 200003 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile32@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test32",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Student-Readable-Restricted", "Test-Profile-For-Composites-With-Multiple-Resources" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_StudentRestrictedMultipleResources",
+              "LocalEducationOrganizations": [ 200003 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile4@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test4",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "200004",
+              "LocalEducationOrganizations": [ 200004 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "MultipleProfile42@ed-fi-org",
+      "VendorName": "Composite Multiple Profile Test42",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-For-Composites-With-Multiple-Resources", "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_MultipleResourcesExceptPhysical",
+              "LocalEducationOrganizations": [ 200004 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest1@ed-fi.org",
+      "VendorName": "Profile Test1",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Assessment-Readable-Includes-Embedded-Object" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_EmbeddedObject",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest2@ed-fi.org",
+      "VendorName": "Profile Test2",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-ReadOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ResourceReadOnly",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest3@ed-fi.org",
+      "VendorName": "Profile Test3",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-Child-Collection-Filtered-To-IncludeOnly-Specific-Descriptors" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_SpecificDescriptors",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest4@ed-fi.org",
+      "VendorName": "Profile Test4",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_SpecificTypesDescriptors",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest5@ed-fi.org",
+      "VendorName": "Profile Test5",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_IncludeAll",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest6@ed-fi.org",
+      "VendorName": "Profile Test6",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_IncludeOnly",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest7@ed-fi.org",
+      "VendorName": "Profile Test7",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-References-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ReferencesIncludeOnly",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest8@ed-fi.org",
+      "VendorName": "Profile Test8",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ChildCollectionIncludeOnly",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest9@ed-fi.org",
+      "VendorName": "Profile Test9",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Academic-Week-Readable-Excludes-Optional-References" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_AcademicWeekReferences",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest10@ed-fi.org",
+      "VendorName": "Profile Test10",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_StaffOnlyIncludeAll",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest11@ed-fi.org",
+      "VendorName": "Profile Test11",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Non-Existing" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_NonExisting",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest12@ed-fi.org",
+      "VendorName": "Profile Test12",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeAll", "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_IncludeAll_StaffOnlyIncludeAll",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest13@ed-fi.org",
+      "VendorName": "Profile Test13",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Assessment-Readable-Excludes-Embedded-Object" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_Excludes_EmbeddedObject",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest14@ed-fi.org",
+      "VendorName": "Profile Test14",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Assessment-Writable-Includes-Embedded-Object" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_WritableIncludes_EmbeddedObject",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest15@ed-fi.org",
+      "VendorName": "Profile Test15",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Assessment-Writable-Excludes-Embedded-Object" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_WritableExcludes_EmbeddedObject",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest16@ed-fi.org",
+      "VendorName": "Profile Test16",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-WriteOnly" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ResourceWriteOnly",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest17@ed-fi.org",
+      "VendorName": "Profile Test17",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ExcludeOnlySpecificDescriptors",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest18@ed-fi.org",
+      "VendorName": "Profile Test18",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_ExcludeOnlySpecificTypesDescriptors",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest19@ed-fi.org",
+      "VendorName": "Profile Test19",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-StudentOnly-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_StudentOnlyResourceIncludeAll",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "ProfileTest20@ed-fi.org",
+      "VendorName": "Profile Test20",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "Profiles": [ "Test-Profile-Resource-IncludeAll", "Test-Profile-StaffOnly-Resource-IncludeAll", "Test-Profile-StudentOnly-Resource-IncludeAll" ],
+          "ApiClients": [
+            {
+              "ApiClientName": "ProfileTest_StaffOnlyStudentOnlyIncludeAll",
+              "LocalEducationOrganizations": [ 255901 ]
+            }
+          ]
+        }
+      ]
+    }
+
+  ]
+}
+

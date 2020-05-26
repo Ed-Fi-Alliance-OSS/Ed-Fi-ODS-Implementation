@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<InterchangeStudentEnrollment xsi:schemaLocation="http://ed-fi.org/vnext TDOE-Interchange-StudentEnrollment-Extension.xsd" xmlns="http://ed-fi.org/0200-Draft" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SectionReference xsi:type="SectionReferenceType" id="Section_223_Term_3">
+      <SectionIdentity>
+        <LocationReference>
+          <LocationIdentity>
+            <ClassroomIdentificationCode>101</ClassroomIdentificationCode>
+            <SchoolReference>
+              <SchoolIdentity>
+                <SchoolId>255901107</SchoolId>
+              </SchoolIdentity>
+            </SchoolReference>
+          </LocationIdentity>
+        </LocationReference>
+        <ClassPeriodReference>
+          <ClassPeriodIdentity>
+            <ClassPeriodName>01 - Traditional</ClassPeriodName>
+            <SchoolReference>
+              <SchoolIdentity>
+                <SchoolId>255901107</SchoolId>
+              </SchoolIdentity>
+            </SchoolReference>
+          </ClassPeriodIdentity>
+        </ClassPeriodReference>
+        <CourseOfferingReference>
+          <CourseOfferingIdentity>
+            <LocalCourseCode>ELA-01</LocalCourseCode>
+            <Term>Fall Semester</Term>
+            <SchoolYear>2011</SchoolYear>
+            <SchoolReference>
+              <SchoolIdentity>
+                <SchoolId>255901107</SchoolId>
+              </SchoolIdentity>
+            </SchoolReference>
+          </CourseOfferingIdentity>
+        </CourseOfferingReference>
+      </SectionIdentity>
+    </SectionReference>
+  <StudentSectionAssociation p1:type="TDOE-StudentSectionAssociationExtension" xmlns:p1="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://ed-fi.org/0200-Draft">
+    <StudentReference>
+      <StudentIdentity>
+        <StudentUniqueId>604827</StudentUniqueId>
+      </StudentIdentity>
+    </StudentReference>
+    <SectionReference ref="Section_223_Term_3" />
+    <BeginDate>2014-01-06</BeginDate>
+    <EndDate>2014-03-04</EndDate>
+    <HomeroomIndicator>false</HomeroomIndicator>
+    <VocationalOutsideIEPIndicator>N</VocationalOutsideIEPIndicator>
+  </StudentSectionAssociation>
+</InterchangeStudentEnrollment>
