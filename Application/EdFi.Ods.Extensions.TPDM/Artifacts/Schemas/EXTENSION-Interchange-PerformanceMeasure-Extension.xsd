@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/0320b" targetNamespace="http://ed-fi.org/0320b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Performance Measure Interchange Model =====</xs:documentation>
+  </xs:annotation>
+  <xs:element name="InterchangePerformanceMeasure">
+    <xs:annotation>
+      <xs:documentation>?</xs:documentation>
+    </xs:annotation>
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="PerformanceMeasure" type="EXTENSION-PerformanceMeasure" />
+        <xs:element name="PerformanceMeasureFacts" type="EXTENSION-PerformanceMeasureFacts" />
+        <xs:element name="Rubric" type="EXTENSION-Rubric" />
+        <xs:element name="RubricLevel" type="EXTENSION-RubricLevel" />
+        <xs:element name="RubricLevelResponse" type="EXTENSION-RubricLevelResponse" />
+        <xs:element name="RubricLevelResponseFacts" type="EXTENSION-RubricLevelResponseFacts" />
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

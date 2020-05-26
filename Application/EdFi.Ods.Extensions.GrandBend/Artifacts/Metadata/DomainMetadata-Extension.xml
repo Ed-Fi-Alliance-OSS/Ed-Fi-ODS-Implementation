@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="GrandBend" schema="grandbend">
+  <Aggregate root="Applicant">
+    <Entity table="Applicant" schema="grandbend"/>
+    <Entity table="ApplicantAddress" schema="grandbend"/>
+  </Aggregate>
+</AggregateExtensions>
