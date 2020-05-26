@@ -120,7 +120,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ProjectInformation", "_ProjectInformation", "{AF062E8B-178C-4ABE-B9E8-214B1DD4EC3A}"
 	ProjectSection(SolutionItems) = preProject
 		..\CONTRIBUTORS.md = ..\CONTRIBUTORS.md
-		Ed-Fi-Ods.sln.DotSettings = Ed-Fi-Ods.sln.DotSettings
 		..\NOTICES.md = ..\NOTICES.md
 		..\README.md = ..\README.md
 	EndProjectSection
