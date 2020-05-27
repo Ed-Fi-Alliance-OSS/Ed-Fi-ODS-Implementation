@@ -136,9 +136,9 @@ function Initialize-DevelopmentEnvironment {
 
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
-        $script:result += Reset-TestPopulatedTemplateDatabase
 
         if (-not ($NoDeploy)) {
+            $script:result += Reset-TestPopulatedTemplateDatabase
             $script:result += Initialize-DeploymentEnvironment -Engine $Engine -InstallType $InstallType -OdsTokens $OdsTokens -NoDuration
         }
 
