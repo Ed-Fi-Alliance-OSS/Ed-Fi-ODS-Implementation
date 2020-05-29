@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "1.1.1-pre99"
-    codeGen = "4.0.0-b01025ODS3858v3"
+    codeGen = "4.0.0-b01058ODS4174"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -136,9 +136,9 @@ function Initialize-DevelopmentEnvironment {
 
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
-        $script:result += Reset-TestPopulatedTemplateDatabase
 
         if (-not ($NoDeploy)) {
+            $script:result += Reset-TestPopulatedTemplateDatabase
             $script:result += Initialize-DeploymentEnvironment -Engine $Engine -InstallType $InstallType -OdsTokens $OdsTokens -NoDuration
         }
 
