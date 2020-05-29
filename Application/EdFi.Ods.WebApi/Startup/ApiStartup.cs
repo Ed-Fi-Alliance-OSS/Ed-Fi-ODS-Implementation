@@ -5,7 +5,6 @@
  
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Composites.Enrollment;
-using EdFi.Ods.Extensions.GrandBend;
 using EdFi.Ods.Extensions.Homograph;
 using EdFi.Ods.Extensions.Sample;
 using EdFi.Ods.WebApi.Startup;
@@ -20,7 +19,6 @@ namespace EdFi.Ods.WebApi.Startup
         protected override void EnsureAssembliesLoaded()
         {
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Enrollment>();
-            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Extensions_GrandBend>();
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Extensions_Sample>();
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Extensions_Homograph>();
         }

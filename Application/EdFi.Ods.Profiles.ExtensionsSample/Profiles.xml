@@ -5,8 +5,8 @@
   <Profile name="Staff-Entity-Extension-IncludeOnly">
     <Resource name="Staff" logicalSchema='Ed-Fi'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Extension name='GrandBend' memberSelection='IncludeOnly'> <!-- logicalSchema='GrandBend'> -->
-          <Property name='Tenured' />
+        <Extension name='Sample' memberSelection='IncludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
         </Extension>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />
@@ -16,8 +16,8 @@
   <Profile name="Staff-Entity-Extension-ExcludeOnly">
     <Resource name="Staff" logicalSchema='Ed-Fi'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Extension name='GrandBend' memberSelection='ExcludeOnly'> <!-- logicalSchema='GrandBend'> -->
-          <Property name='Tenured' />
+        <Extension name='Sample' memberSelection='ExcludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
         </Extension>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />
@@ -37,30 +37,30 @@
       <ReadContentType memberSelection="IncludeAll" />
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name="HighlyQualifiedTeacher" />
+        <Property name="BusRouteNumber" />
         <!-- property -->
-        <Property name="FirstName" />
+        <Property name="BusRouteDirection" />
         <!-- Descriptor property -->
-        <Property name="CitizenshipStatusDescriptor" />
+        <Property name="OperatingCost" />
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
   </Profile>
 
-  <Profile name="Applicant-MixedInclude">
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+  <Profile name="BusRoute-MixedInclude">
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name='BirthDate' />
-        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
-          <Property name='ApartmentRoomSuiteNumber' />
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
         </Collection>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll">
-        <Property name='BirthDate' />
-        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
-          <Property name='ApartmentRoomSuiteNumber' />
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
         </Collection>
       </WriteContentType>
     </Resource>
@@ -69,19 +69,19 @@
   <Profile name="Staff-and-Prospect-MixedExclude">
     <Resource name="Staff">
       <ReadContentType memberSelection="IncludeOnly">
-        <Extension name='GrandBend' memberSelection='IncludeOnly'> <!-- logicalSchema='GrandBend'> -->
-          <Property name='Tenured' />
+        <Extension name='Sample' memberSelection='IncludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
         </Extension>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="ExcludeOnly">
-        <Property name="HighlyQualifiedTeacher" />
+        <Property name="BusRouteNumber" />
         <!-- property -->
-        <Property name="FirstName" />
+        <Property name="BusRouteDirection" />
         <!-- Descriptor property -->
-        <Property name="CitizenshipStatusDescriptor" />
+        <Property name="OperatingCost" />
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
@@ -92,41 +92,41 @@
       <ReadContentType memberSelection="IncludeAll" />
       <WriteContentType memberSelection="IncludeAll" />
     </Resource>
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="IncludeAll" />
       <WriteContentType memberSelection="ExcludeOnly">
-        <Property name="HighlyQualifiedTeacher" />
+        <Property name="BusRouteNumber" />
         <!-- property -->
-        <Property name="FirstName" />
+        <Property name="BusRouteDirection" />
         <!-- Descriptor property -->
-        <Property name="CitizenshipStatusDescriptor" />
+        <Property name="OperatingCost" />
       </WriteContentType>
     </Resource>
   </Profile>
 
-  <Profile name="Applicant-MixedInclude2">
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+  <Profile name="BusRoute-MixedInclude2">
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name='BirthDate' />
-        <Collection name='ApplicantAddresses' memberSelection='IncludeOnly'>
-          <Property name='ApartmentRoomSuiteNumber' />
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='IncludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
         </Collection>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll">
-        <Property name='BirthDate' />
-        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
-          <Property name='ApartmentRoomSuiteNumber' />
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
         </Collection>
       </WriteContentType>
     </Resource>
   </Profile>
 
-  <Profile name="Applicant-MixedInclude1">
-    <Resource name="Applicant" logicalSchema='GrandBend'>
+  <Profile name="BusRoute-MixedInclude1">
+    <Resource name="BusRoute" logicalSchema='Sample'>
       <ReadContentType memberSelection="IncludeOnly">
-        <Property name='BirthDate' />
-        <Collection name='ApplicantAddresses' memberSelection='ExcludeOnly'>
-          <Property name='ApartmentRoomSuiteNumber' />
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
         </Collection>
       </ReadContentType>
       <WriteContentType memberSelection="IncludeAll" />

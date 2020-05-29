@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -315,10 +315,6 @@
     <ProjectReference Include="..\EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj">
       <Project>{BCD5C6A3-16D4-46CA-AD13-1F38A1A4245A}</Project>
       <Name>EdFi.Ods.Extensions.Sample</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\EdFi.Ods.Extensions.GrandBend\EdFi.Ods.Extensions.GrandBend.csproj">
-      <Project>{D4D57C46-B90E-47C5-8596-139D7B1C8375}</Project>
-      <Name>EdFi.Ods.Extensions.GrandBend</Name>
     </ProjectReference>
     <ProjectReference Include="..\EdFi.Ods.Extensions.TPDM\EdFi.Ods.Extensions.TPDM.csproj">
       <Project>{b6d495aa-c463-46e8-ab60-5857a0ff0708}</Project>
