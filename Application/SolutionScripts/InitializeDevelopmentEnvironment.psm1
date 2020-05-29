@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "1.1.1-pre99"
-    codeGen = "4.0.0-b01058ODS4174"
+    codeGen = "4.0.0-b01068ODS4057v3"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -112,19 +112,8 @@ function Initialize-DevelopmentEnvironment {
         $script:result += Install-DbDeploy
 
         if (-not $ExcludeCodeGen) {
-            # use SQLServer to generate identical CodeGen artifacts for both engines
-            $currentConfig = (Get-DeployConfig)
-            Set-DeployConfigFile (Join-Path (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi') 'Web.Base.config')
-            Set-DeployConfigOverride -Engine 'SQLServer'
-
-            $script:result += Reset-EmptyTemplateDatabase
-            # task depends on empty template database
             $script:result += Install-CodeGenUtility
             $script:result += Invoke-CodeGen
-
-            # restore previous config settings
-            Set-DeployConfigFile $currentConfig.configFile
-            Set-DeployConfigOverride -Engine $currentConfig.Engine
         }
 
         if (-not $NoRebuild) {
