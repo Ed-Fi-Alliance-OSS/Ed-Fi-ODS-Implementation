@@ -133,6 +133,36 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_Certification_TR_UpdateChangeVersion] ON [tpdm].[Certification] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[Certification]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[Certification] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationExam_TR_UpdateChangeVersion] ON [tpdm].[CertificationExam] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[CertificationExam]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[CertificationExam] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationExamResult_TR_UpdateChangeVersion] ON [tpdm].[CertificationExamResult] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[CertificationExamResult]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[CertificationExamResult] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_CompleterAsStaffAssociation_TR_UpdateChangeVersion] ON [tpdm].[CompleterAsStaffAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -143,52 +173,12 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_CourseCourseTranscriptFacts_TR_UpdateChangeVersion] ON [tpdm].[CourseCourseTranscriptFacts] AFTER UPDATE AS
+CREATE TRIGGER [tpdm].[tpdm_CredentialEvent_TR_UpdateChangeVersion] ON [tpdm].[CredentialEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[CourseCourseTranscriptFacts]
+    UPDATE [tpdm].[CredentialEvent]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[CourseCourseTranscriptFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentAcademicRecordFacts_TR_UpdateChangeVersion] ON [tpdm].[CourseStudentAcademicRecordFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[CourseStudentAcademicRecordFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[CourseStudentAcademicRecordFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentAssessmentFacts_TR_UpdateChangeVersion] ON [tpdm].[CourseStudentAssessmentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[CourseStudentAssessmentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[CourseStudentAssessmentFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentFacts_TR_UpdateChangeVersion] ON [tpdm].[CourseStudentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[CourseStudentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[CourseStudentFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationCourseTranscriptFacts_TR_UpdateChangeVersion] ON [tpdm].[EducationOrganizationCourseTranscriptFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[EducationOrganizationCourseTranscriptFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[EducationOrganizationCourseTranscriptFacts] u
+    FROM [tpdm].[CredentialEvent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -199,26 +189,6 @@ BEGIN
     UPDATE [tpdm].[EducationOrganizationFacts]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[EducationOrganizationFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentAcademicRecordFacts_TR_UpdateChangeVersion] ON [tpdm].[EducationOrganizationStudentAcademicRecordFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[EducationOrganizationStudentAcademicRecordFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[EducationOrganizationStudentAcademicRecordFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentAssessmentFacts_TR_UpdateChangeVersion] ON [tpdm].[EducationOrganizationStudentAssessmentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[EducationOrganizationStudentAssessmentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[EducationOrganizationStudentAssessmentFacts] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -253,6 +223,76 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_Evaluation_TR_UpdateChangeVersion] ON [tpdm].[Evaluation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[Evaluation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[Evaluation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationElement_TR_UpdateChangeVersion] ON [tpdm].[EvaluationElement] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EvaluationElement]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EvaluationElement] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationElementRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationElementRating] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EvaluationElementRating]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EvaluationElementRating] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationObjective_TR_UpdateChangeVersion] ON [tpdm].[EvaluationObjective] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EvaluationObjective]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EvaluationObjective] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationObjectiveRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationObjectiveRating] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EvaluationObjectiveRating]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EvaluationObjectiveRating] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[EvaluationRating] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[EvaluationRating]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[EvaluationRating] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_Goal_TR_UpdateChangeVersion] ON [tpdm].[Goal] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[Goal]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[Goal] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_OpenStaffPositionEvent_TR_UpdateChangeVersion] ON [tpdm].[OpenStaffPositionEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -263,32 +303,22 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasure_TR_UpdateChangeVersion] ON [tpdm].[PerformanceMeasure] AFTER UPDATE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluation_TR_UpdateChangeVersion] ON [tpdm].[PerformanceEvaluation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[PerformanceMeasure]
+    UPDATE [tpdm].[PerformanceEvaluation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[PerformanceMeasure] u
+    FROM [tpdm].[PerformanceEvaluation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureCourseAssociation_TR_UpdateChangeVersion] ON [tpdm].[PerformanceMeasureCourseAssociation] AFTER UPDATE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[PerformanceEvaluationRating] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[PerformanceMeasureCourseAssociation]
+    UPDATE [tpdm].[PerformanceEvaluationRating]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[PerformanceMeasureCourseAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureFacts_TR_UpdateChangeVersion] ON [tpdm].[PerformanceMeasureFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[PerformanceMeasureFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[PerformanceMeasureFacts] u
+    FROM [tpdm].[PerformanceEvaluationRating] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -323,6 +353,26 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasure_TR_UpdateChangeVersion] ON [tpdm].[QuantitativeMeasure] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[QuantitativeMeasure]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[QuantitativeMeasure] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasureScore_TR_UpdateChangeVersion] ON [tpdm].[QuantitativeMeasureScore] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[QuantitativeMeasureScore]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[QuantitativeMeasureScore] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_RecruitmentEvent_TR_UpdateChangeVersion] ON [tpdm].[RecruitmentEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -333,82 +383,12 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_Rubric_TR_UpdateChangeVersion] ON [tpdm].[Rubric] AFTER UPDATE AS
+CREATE TRIGGER [tpdm].[tpdm_RubricDimension_TR_UpdateChangeVersion] ON [tpdm].[RubricDimension] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[Rubric]
+    UPDATE [tpdm].[RubricDimension]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[Rubric] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_RubricLevel_TR_UpdateChangeVersion] ON [tpdm].[RubricLevel] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[RubricLevel]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[RubricLevel] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_RubricLevelResponse_TR_UpdateChangeVersion] ON [tpdm].[RubricLevelResponse] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[RubricLevelResponse]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[RubricLevelResponse] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_RubricLevelResponseFacts_TR_UpdateChangeVersion] ON [tpdm].[RubricLevelResponseFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[RubricLevelResponseFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[RubricLevelResponseFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_SectionCourseTranscriptFacts_TR_UpdateChangeVersion] ON [tpdm].[SectionCourseTranscriptFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[SectionCourseTranscriptFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[SectionCourseTranscriptFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentAcademicRecordFacts_TR_UpdateChangeVersion] ON [tpdm].[SectionStudentAcademicRecordFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[SectionStudentAcademicRecordFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[SectionStudentAcademicRecordFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentAssessmentFacts_TR_UpdateChangeVersion] ON [tpdm].[SectionStudentAssessmentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[SectionStudentAssessmentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[SectionStudentAssessmentFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentFacts_TR_UpdateChangeVersion] ON [tpdm].[SectionStudentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[SectionStudentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[SectionStudentFacts] u
+    FROM [tpdm].[RubricDimension] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -419,66 +399,6 @@ BEGIN
     UPDATE [tpdm].[StaffApplicantAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[StaffApplicantAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluation_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationComponent_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluationComponent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluationComponent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluationComponent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationComponentRating_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluationComponentRating] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluationComponentRating]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluationComponentRating] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationElement_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluationElement] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluationElement]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluationElement] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationElementRating_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluationElementRating] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluationElementRating]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluationElementRating] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationRating_TR_UpdateChangeVersion] ON [tpdm].[StaffEvaluationRating] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffEvaluationRating]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffEvaluationRating] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -593,12 +513,32 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_TalentManagementGoal_TR_UpdateChangeVersion] ON [tpdm].[TalentManagementGoal] AFTER UPDATE AS
+CREATE TRIGGER [tpdm].[tpdm_SurveyResponseTeacherCandidateTargetAssociation_TR_UpdateChangeVersion] ON [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [tpdm].[TalentManagementGoal]
+    UPDATE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TalentManagementGoal] u
+    FROM [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_SurveySectionAggregateResponse_TR_UpdateChangeVersion] ON [tpdm].[SurveySectionAggregateResponse] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[SurveySectionAggregateResponse]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[SurveySectionAggregateResponse] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_SurveySectionResponseTeacherCandidateTargetAssociation_TR_UpdateChangeVersion] ON [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

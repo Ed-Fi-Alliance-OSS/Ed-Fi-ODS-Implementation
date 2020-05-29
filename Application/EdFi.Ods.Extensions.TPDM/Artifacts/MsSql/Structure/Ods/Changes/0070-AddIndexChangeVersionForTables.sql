@@ -82,56 +82,38 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Certification') AND name = N'UX_Certification_ChangeVersion')
+    CREATE INDEX [UX_Certification_ChangeVersion] ON [tpdm].[Certification] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CertificationExam') AND name = N'UX_CertificationExam_ChangeVersion')
+    CREATE INDEX [UX_CertificationExam_ChangeVersion] ON [tpdm].[CertificationExam] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CertificationExamResult') AND name = N'UX_CertificationExamResult_ChangeVersion')
+    CREATE INDEX [UX_CertificationExamResult_ChangeVersion] ON [tpdm].[CertificationExamResult] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CompleterAsStaffAssociation') AND name = N'UX_CompleterAsStaffAssociation_ChangeVersion')
     CREATE INDEX [UX_CompleterAsStaffAssociation_ChangeVersion] ON [tpdm].[CompleterAsStaffAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseCourseTranscriptFacts') AND name = N'UX_CourseCourseTranscriptFacts_ChangeVersion')
-    CREATE INDEX [UX_CourseCourseTranscriptFacts_ChangeVersion] ON [tpdm].[CourseCourseTranscriptFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentAcademicRecordFacts') AND name = N'UX_CourseStudentAcademicRecordFacts_ChangeVersion')
-    CREATE INDEX [UX_CourseStudentAcademicRecordFacts_ChangeVersion] ON [tpdm].[CourseStudentAcademicRecordFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentAssessmentFacts') AND name = N'UX_CourseStudentAssessmentFacts_ChangeVersion')
-    CREATE INDEX [UX_CourseStudentAssessmentFacts_ChangeVersion] ON [tpdm].[CourseStudentAssessmentFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentFacts') AND name = N'UX_CourseStudentFacts_ChangeVersion')
-    CREATE INDEX [UX_CourseStudentFacts_ChangeVersion] ON [tpdm].[CourseStudentFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationCourseTranscriptFacts') AND name = N'UX_EducationOrganizationCourseTranscriptFacts_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationCourseTranscriptFacts_ChangeVersion] ON [tpdm].[EducationOrganizationCourseTranscriptFacts] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CredentialEvent') AND name = N'UX_CredentialEvent_ChangeVersion')
+    CREATE INDEX [UX_CredentialEvent_ChangeVersion] ON [tpdm].[CredentialEvent] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationFacts') AND name = N'UX_EducationOrganizationFacts_ChangeVersion')
     CREATE INDEX [UX_EducationOrganizationFacts_ChangeVersion] ON [tpdm].[EducationOrganizationFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationStudentAcademicRecordFacts') AND name = N'UX_EducationOrganizationStudentAcademicRecordFacts_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationStudentAcademicRecordFacts_ChangeVersion] ON [tpdm].[EducationOrganizationStudentAcademicRecordFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationStudentAssessmentFacts') AND name = N'UX_EducationOrganizationStudentAssessmentFacts_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationStudentAssessmentFacts_ChangeVersion] ON [tpdm].[EducationOrganizationStudentAssessmentFacts] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -154,26 +136,62 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Evaluation') AND name = N'UX_Evaluation_ChangeVersion')
+    CREATE INDEX [UX_Evaluation_ChangeVersion] ON [tpdm].[Evaluation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationElement') AND name = N'UX_EvaluationElement_ChangeVersion')
+    CREATE INDEX [UX_EvaluationElement_ChangeVersion] ON [tpdm].[EvaluationElement] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationElementRating') AND name = N'UX_EvaluationElementRating_ChangeVersion')
+    CREATE INDEX [UX_EvaluationElementRating_ChangeVersion] ON [tpdm].[EvaluationElementRating] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationObjective') AND name = N'UX_EvaluationObjective_ChangeVersion')
+    CREATE INDEX [UX_EvaluationObjective_ChangeVersion] ON [tpdm].[EvaluationObjective] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationObjectiveRating') AND name = N'UX_EvaluationObjectiveRating_ChangeVersion')
+    CREATE INDEX [UX_EvaluationObjectiveRating_ChangeVersion] ON [tpdm].[EvaluationObjectiveRating] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationRating') AND name = N'UX_EvaluationRating_ChangeVersion')
+    CREATE INDEX [UX_EvaluationRating_ChangeVersion] ON [tpdm].[EvaluationRating] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Goal') AND name = N'UX_Goal_ChangeVersion')
+    CREATE INDEX [UX_Goal_ChangeVersion] ON [tpdm].[Goal] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.OpenStaffPositionEvent') AND name = N'UX_OpenStaffPositionEvent_ChangeVersion')
     CREATE INDEX [UX_OpenStaffPositionEvent_ChangeVersion] ON [tpdm].[OpenStaffPositionEvent] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasure') AND name = N'UX_PerformanceMeasure_ChangeVersion')
-    CREATE INDEX [UX_PerformanceMeasure_ChangeVersion] ON [tpdm].[PerformanceMeasure] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceEvaluation') AND name = N'UX_PerformanceEvaluation_ChangeVersion')
+    CREATE INDEX [UX_PerformanceEvaluation_ChangeVersion] ON [tpdm].[PerformanceEvaluation] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasureCourseAssociation') AND name = N'UX_PerformanceMeasureCourseAssociation_ChangeVersion')
-    CREATE INDEX [UX_PerformanceMeasureCourseAssociation_ChangeVersion] ON [tpdm].[PerformanceMeasureCourseAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasureFacts') AND name = N'UX_PerformanceMeasureFacts_ChangeVersion')
-    CREATE INDEX [UX_PerformanceMeasureFacts_ChangeVersion] ON [tpdm].[PerformanceMeasureFacts] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceEvaluationRating') AND name = N'UX_PerformanceEvaluationRating_ChangeVersion')
+    CREATE INDEX [UX_PerformanceEvaluationRating_ChangeVersion] ON [tpdm].[PerformanceEvaluationRating] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -196,98 +214,32 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.QuantitativeMeasure') AND name = N'UX_QuantitativeMeasure_ChangeVersion')
+    CREATE INDEX [UX_QuantitativeMeasure_ChangeVersion] ON [tpdm].[QuantitativeMeasure] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.QuantitativeMeasureScore') AND name = N'UX_QuantitativeMeasureScore_ChangeVersion')
+    CREATE INDEX [UX_QuantitativeMeasureScore_ChangeVersion] ON [tpdm].[QuantitativeMeasureScore] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RecruitmentEvent') AND name = N'UX_RecruitmentEvent_ChangeVersion')
     CREATE INDEX [UX_RecruitmentEvent_ChangeVersion] ON [tpdm].[RecruitmentEvent] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Rubric') AND name = N'UX_Rubric_ChangeVersion')
-    CREATE INDEX [UX_Rubric_ChangeVersion] ON [tpdm].[Rubric] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevel') AND name = N'UX_RubricLevel_ChangeVersion')
-    CREATE INDEX [UX_RubricLevel_ChangeVersion] ON [tpdm].[RubricLevel] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevelResponse') AND name = N'UX_RubricLevelResponse_ChangeVersion')
-    CREATE INDEX [UX_RubricLevelResponse_ChangeVersion] ON [tpdm].[RubricLevelResponse] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevelResponseFacts') AND name = N'UX_RubricLevelResponseFacts_ChangeVersion')
-    CREATE INDEX [UX_RubricLevelResponseFacts_ChangeVersion] ON [tpdm].[RubricLevelResponseFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionCourseTranscriptFacts') AND name = N'UX_SectionCourseTranscriptFacts_ChangeVersion')
-    CREATE INDEX [UX_SectionCourseTranscriptFacts_ChangeVersion] ON [tpdm].[SectionCourseTranscriptFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentAcademicRecordFacts') AND name = N'UX_SectionStudentAcademicRecordFacts_ChangeVersion')
-    CREATE INDEX [UX_SectionStudentAcademicRecordFacts_ChangeVersion] ON [tpdm].[SectionStudentAcademicRecordFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentAssessmentFacts') AND name = N'UX_SectionStudentAssessmentFacts_ChangeVersion')
-    CREATE INDEX [UX_SectionStudentAssessmentFacts_ChangeVersion] ON [tpdm].[SectionStudentAssessmentFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentFacts') AND name = N'UX_SectionStudentFacts_ChangeVersion')
-    CREATE INDEX [UX_SectionStudentFacts_ChangeVersion] ON [tpdm].[SectionStudentFacts] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricDimension') AND name = N'UX_RubricDimension_ChangeVersion')
+    CREATE INDEX [UX_RubricDimension_ChangeVersion] ON [tpdm].[RubricDimension] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffApplicantAssociation') AND name = N'UX_StaffApplicantAssociation_ChangeVersion')
     CREATE INDEX [UX_StaffApplicantAssociation_ChangeVersion] ON [tpdm].[StaffApplicantAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluation') AND name = N'UX_StaffEvaluation_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluation_ChangeVersion] ON [tpdm].[StaffEvaluation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationComponent') AND name = N'UX_StaffEvaluationComponent_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluationComponent_ChangeVersion] ON [tpdm].[StaffEvaluationComponent] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationComponentRating') AND name = N'UX_StaffEvaluationComponentRating_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluationComponentRating_ChangeVersion] ON [tpdm].[StaffEvaluationComponentRating] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationElement') AND name = N'UX_StaffEvaluationElement_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluationElement_ChangeVersion] ON [tpdm].[StaffEvaluationElement] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationElementRating') AND name = N'UX_StaffEvaluationElementRating_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluationElementRating_ChangeVersion] ON [tpdm].[StaffEvaluationElementRating] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationRating') AND name = N'UX_StaffEvaluationRating_ChangeVersion')
-    CREATE INDEX [UX_StaffEvaluationRating_ChangeVersion] ON [tpdm].[StaffEvaluationRating] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -358,8 +310,20 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TalentManagementGoal') AND name = N'UX_TalentManagementGoal_ChangeVersion')
-    CREATE INDEX [UX_TalentManagementGoal_ChangeVersion] ON [tpdm].[TalentManagementGoal] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveyResponseTeacherCandidateTargetAssociation') AND name = N'UX_SurveyResponseTeacherCandidateTargetAssociation_ChangeVersion')
+    CREATE INDEX [UX_SurveyResponseTeacherCandidateTargetAssociation_ChangeVersion] ON [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveySectionAggregateResponse') AND name = N'UX_SurveySectionAggregateResponse_ChangeVersion')
+    CREATE INDEX [UX_SurveySectionAggregateResponse_ChangeVersion] ON [tpdm].[SurveySectionAggregateResponse] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveySectionResponseTeacherCandidateTargetAssociation') AND name = N'UX_SurveySectionResponseTeacherCandidateTargetAssociation_ChangeVersion')
+    CREATE INDEX [UX_SurveySectionResponseTeacherCandidateTargetAssociation_ChangeVersion] ON [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

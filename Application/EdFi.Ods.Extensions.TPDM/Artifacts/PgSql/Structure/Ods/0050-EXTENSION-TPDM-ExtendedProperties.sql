@@ -214,6 +214,8 @@ COMMENT ON COLUMN tpdm.Applicant.GenderDescriptorId IS 'The gender with which a 
 COMMENT ON COLUMN tpdm.Applicant.EconomicDisadvantaged IS 'An indication of inadequate financial condition of an individual''s family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.';
 COMMENT ON COLUMN tpdm.Applicant.FirstGenerationStudent IS 'Indicator of whether individual is a first generation college student.';
 COMMENT ON COLUMN tpdm.Applicant.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
+COMMENT ON COLUMN tpdm.Applicant.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.Applicant.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[ApplicantAddress] --
 COMMENT ON TABLE tpdm.ApplicantAddress IS 'The set of elements that describes an address, including the street address, city, state, and ZIP code.';
@@ -503,9 +505,50 @@ COMMENT ON COLUMN tpdm.BackgroundCheckStatusDescriptor.BackgroundCheckStatusDesc
 COMMENT ON TABLE tpdm.BackgroundCheckTypeDescriptor IS 'This descriptor defines the classification of the background check a person receives.';
 COMMENT ON COLUMN tpdm.BackgroundCheckTypeDescriptor.BackgroundCheckTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[BoardCertificationTypeDescriptor] --
-COMMENT ON TABLE tpdm.BoardCertificationTypeDescriptor IS 'The descriptor holds the type of board certification awarded to an individual.';
-COMMENT ON COLUMN tpdm.BoardCertificationTypeDescriptor.BoardCertificationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [tpdm].[Certification] --
+COMMENT ON TABLE tpdm.Certification IS 'An offering by an official granting authority of a certification or license that qualifies persons to perform specific job functions, such as full fill a teaching assignment.';
+COMMENT ON COLUMN tpdm.Certification.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.Certification.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+COMMENT ON COLUMN tpdm.Certification.CertificationTitle IS 'The title of the Certification.';
+COMMENT ON COLUMN tpdm.Certification.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.Certification.CertificationLevelDescriptorId IS 'The level (e.g., Elementary, Secondary) or category (administrative, specialist) of the Certification.';
+COMMENT ON COLUMN tpdm.Certification.CertificationFieldDescriptorId IS 'The field of certification (e.g., Mathematics, Music).';
+COMMENT ON COLUMN tpdm.Certification.CertificationStandardDescriptorId IS 'The standard, law or policy defining the certification.';
+COMMENT ON COLUMN tpdm.Certification.MinimumDegreeDescriptorId IS 'The minimum level of degree, if any, required for Certification.';
+COMMENT ON COLUMN tpdm.Certification.EducatorRoleDescriptorId IS 'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
+COMMENT ON COLUMN tpdm.Certification.PopulationServedDescriptorId IS 'The type of students the Section is offered and tailored to; for example: Bilingual students, Remedial education students, Gifted and talented students, Career and Technical Education students, Special education students.';
+COMMENT ON COLUMN tpdm.Certification.InstructionalSettingDescriptorId IS 'The setting authorized by the Certification in which a child receives education and related services; for example: Classroom, Virtual, Vocational.';
+COMMENT ON COLUMN tpdm.Certification.EffectiveDate IS 'The year, month and day on which the Certification is offered.';
+COMMENT ON COLUMN tpdm.Certification.EndDate IS 'The month, day, and year on which the Certification offering is expected to end.';
+
+-- Extended Properties [tpdm].[CertificationCertificationExam] --
+COMMENT ON TABLE tpdm.CertificationCertificationExam IS 'The Certification Eams required for the Certification.';
+COMMENT ON COLUMN tpdm.CertificationCertificationExam.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationCertificationExam.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.CertificationCertificationExam.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+COMMENT ON COLUMN tpdm.CertificationCertificationExam.Namespace IS 'Namespace for the CertificationExam.';
+
+-- Extended Properties [tpdm].[CertificationExam] --
+COMMENT ON TABLE tpdm.CertificationExam IS 'An examination required by one or more Certifications.';
+COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExam.Namespace IS 'Namespace for the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamTitle IS 'The title of the Certification Exam.';
+COMMENT ON COLUMN tpdm.CertificationExam.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamTypeDescriptorId IS 'The type or category of Certification Exam.';
+COMMENT ON COLUMN tpdm.CertificationExam.EffectiveDate IS 'The year, month and day on which the CertificationExam is offered.';
+COMMENT ON COLUMN tpdm.CertificationExam.EndDate IS 'The month, day, and year on which the CertificationExam offering is expected to end.';
+
+-- Extended Properties [tpdm].[CertificationExamResult] --
+COMMENT ON TABLE tpdm.CertificationExamResult IS 'The person''s result from taking a Certification Exam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamDate IS 'The year, month and day on which the CertificationExam is taken.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.Namespace IS 'Namespace for the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.AttemptNumber IS 'The number of the person''s attempt for the Certification Exam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamScore IS 'The score result for the Certification Exam attempt.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamPassIndicator IS 'Indicator that the person passed the Certification Exam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamStatusDescriptorId IS 'The status of the Certification Exam attempt.';
 
 -- Extended Properties [tpdm].[CertificationExamStatusDescriptor] --
 COMMENT ON TABLE tpdm.CertificationExamStatusDescriptor IS 'The status of the exam.';
@@ -514,6 +557,34 @@ COMMENT ON COLUMN tpdm.CertificationExamStatusDescriptor.CertificationExamStatus
 -- Extended Properties [tpdm].[CertificationExamTypeDescriptor] --
 COMMENT ON TABLE tpdm.CertificationExamTypeDescriptor IS 'The descriptor holds the type of certification exam that was taken.';
 COMMENT ON COLUMN tpdm.CertificationExamTypeDescriptor.CertificationExamTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[CertificationFieldDescriptor] --
+COMMENT ON TABLE tpdm.CertificationFieldDescriptor IS 'The field of certification for the credential (e.g., Mathematics, Music).';
+COMMENT ON COLUMN tpdm.CertificationFieldDescriptor.CertificationFieldDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[CertificationGradeLevel] --
+COMMENT ON TABLE tpdm.CertificationGradeLevel IS 'The grade level(s) certified for teaching.';
+COMMENT ON COLUMN tpdm.CertificationGradeLevel.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.CertificationGradeLevel.GradeLevelDescriptorId IS 'The grade level(s) certified for teaching.';
+COMMENT ON COLUMN tpdm.CertificationGradeLevel.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+
+-- Extended Properties [tpdm].[CertificationLevelDescriptor] --
+COMMENT ON TABLE tpdm.CertificationLevelDescriptor IS 'The level (e.g., Elementary, Secondary) or category (administrative, specialist) of the Certification.';
+COMMENT ON COLUMN tpdm.CertificationLevelDescriptor.CertificationLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[CertificationRoute] --
+COMMENT ON TABLE tpdm.CertificationRoute IS 'The process, program ,or pathway used to obtain certification.';
+COMMENT ON COLUMN tpdm.CertificationRoute.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.CertificationRoute.CertificationRouteDescriptorId IS 'The process, program ,or pathway used to obtain certification.';
+COMMENT ON COLUMN tpdm.CertificationRoute.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+
+-- Extended Properties [tpdm].[CertificationRouteDescriptor] --
+COMMENT ON TABLE tpdm.CertificationRouteDescriptor IS 'The process, program ,or pathway used to obtain a certification.';
+COMMENT ON COLUMN tpdm.CertificationRouteDescriptor.CertificationRouteDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[CertificationStandardDescriptor] --
+COMMENT ON TABLE tpdm.CertificationStandardDescriptor IS 'The standard, law or policy defining the certification.';
+COMMENT ON COLUMN tpdm.CertificationStandardDescriptor.CertificationStandardDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[CommunityOrganizationExtension] --
 COMMENT ON TABLE tpdm.CommunityOrganizationExtension IS '';
@@ -531,377 +602,51 @@ COMMENT ON COLUMN tpdm.CompleterAsStaffAssociation.StaffUSI IS 'A unique alphanu
 COMMENT ON COLUMN tpdm.CompleterAsStaffAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 
 -- Extended Properties [tpdm].[CoteachingStyleObservedDescriptor] --
-COMMENT ON TABLE tpdm.CoteachingStyleObservedDescriptor IS 'A type of co-teaching observed as part of the performance measure.';
+COMMENT ON TABLE tpdm.CoteachingStyleObservedDescriptor IS 'A type of co-teaching observed as part of the performance evaluation.';
 COMMENT ON COLUMN tpdm.CoteachingStyleObservedDescriptor.CoteachingStyleObservedDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[CourseCourseTranscriptFacts] --
-COMMENT ON TABLE tpdm.CourseCourseTranscriptFacts IS 'Data about the final grade earned of the group.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFacts.CourseTitle IS 'Data about the final letter grade earned of the group';
+-- Extended Properties [tpdm].[CredentialEvent] --
+COMMENT ON TABLE tpdm.CredentialEvent IS 'An event associated with a person''s Credential (e.g, suspension, revocation, or renewal).';
+COMMENT ON COLUMN tpdm.CredentialEvent.CredentialEventDate IS 'The year, month and day of the Credential Event.';
+COMMENT ON COLUMN tpdm.CredentialEvent.CredentialEventTypeDescriptorId IS 'The type of event associated with a person''s Credential (e.g, suspension, revocation, or renewal).';
+COMMENT ON COLUMN tpdm.CredentialEvent.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
+COMMENT ON COLUMN tpdm.CredentialEvent.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
+COMMENT ON COLUMN tpdm.CredentialEvent.CredentialEventReason IS 'The reason for the credential event, or any other descriptive text.';
 
--- Extended Properties [tpdm].[CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned] --
-COMMENT ON TABLE tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned IS 'Data about the final letter grade earned of the group';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FinalLetterGrade IS 'The final indicator of student performance in a class as submitted by the instructor.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.LetterGradeTypeNumber IS 'The number of students receiving a letter grade by letter grade type';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned.LetterGradeTypePercentage IS 'The percentage of students receiving a letter grade by type.';
-
--- Extended Properties [tpdm].[CourseCourseTranscriptFactsAggregatedNumericGradeEarned] --
-COMMENT ON TABLE tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned IS 'Data about the numeric grade received by the group';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.AverageFinalNumericGradeEarned IS 'The average final numeric grade for the group';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.NumericGradeNCount IS 'The total number of data values in set of data that makes up the average numeric grade for a group';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned.NumericGradeStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average numeric grade for a group of students';
-
--- Extended Properties [tpdm].[CourseCourseTranscriptFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.CourseCourseTranscriptFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.CourseCourseTranscriptFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[CourseStudentAcademicRecordFacts] --
-COMMENT ON TABLE tpdm.CourseStudentAcademicRecordFacts IS 'Complex type that provides data about a group of student and their academic record';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFacts.AggregatedGPAMax IS 'The maximum grade point average a student can receive in the course';
-
--- Extended Properties [tpdm].[CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5] --
-COMMENT ON TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5 IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4] --
-COMMENT ON TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4 IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[CourseStudentAcademicRecordFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[CourseStudentAssessmentFacts] --
-COMMENT ON TABLE tpdm.CourseStudentAssessmentFacts IS 'Complex type that provides data about a group of students and their assesssment score results and performance levels';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.AssessmentTitle IS 'The title of a specific assessment given to a group.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content. For example: Achievement test, Advanced placement, Alternate assessment/grade-level standards, Attitudinal test, Cognitive and perceptual skills test.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.AcademicSubjectDescriptorId IS 'The academic subject associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.GradeLevelDescriptorId IS 'The grade level associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.AdministrationDate IS 'The date a specific assessment was administered to a group of students';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFacts.TermDescriptorId IS 'The term in which the assessment was administered';
-
--- Extended Properties [tpdm].[CourseStudentAssessmentFactsAggregatedPerformanceLevel] --
-COMMENT ON TABLE tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel IS 'Data about the performance level for an assessment of a group';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the Student proficiency.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelMetNumber IS 'The number of students who met the performance level';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelMetPercentage IS 'The percentage of students who met the performance level.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelTypeNumber IS 'The number of students who achieved each performance level by performance level type';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelTypePercentage IS 'The percentage of students who achieved performance level by each performance level type.';
-
--- Extended Properties [tpdm].[CourseStudentAssessmentFactsAggregatedScoreResult] --
-COMMENT ON TABLE tpdm.CourseStudentAssessmentFactsAggregatedScoreResult IS 'Data about the score from an assessment of the group';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all Students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.AverageScoreResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.AverageScoreResult IS 'A meaningful average score or statistical expression of the performance of an group. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.ScoreNCount IS 'The total number of data values in set of data that makes up the average assessment score for a group';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsAggregatedScoreResult.ScoreStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average assessment score for a group of students';
-
--- Extended Properties [tpdm].[CourseStudentAssessmentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.CourseStudentAssessmentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.CourseStudentAssessmentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[CourseStudentFacts] --
-COMMENT ON TABLE tpdm.CourseStudentFacts IS 'This domain entity collects data for aggregated level students with whom the teacher candidate is associated through field work or student teaching	AggregatedStudentFact';
-COMMENT ON COLUMN tpdm.CourseStudentFacts.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedByDisability] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedByDisability IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.DisabilityDescriptorId IS 'Data about the disability of a group.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.TypeNumber IS 'The number of student who have a disability by disability type';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedByDisability.Percentage IS 'The percentage of students who have a disability by each specific disability type';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.StudentsDisabledNumber IS 'The number of students who have a disability.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled.StudentsDisabledPercentage IS 'Percentage of students who have a disability';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedELLEnrollment] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedELLEnrollment IS 'Data about the ELL enrollment of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.ELLEnrollmentNumber IS 'The number of students who are ELL.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedELLEnrollment.ELLEnrollmentPercentage IS 'The percentage of students who are identified as ELL';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedESLEnrollment] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedESLEnrollment IS 'Data about the ESL enrollment of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.ESLEnrollmentNumber IS 'The number of students who are ESL.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedESLEnrollment.ESLEnrollmentPercentage IS 'The percentage of students who are identified as ESL';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedGender] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedGender IS 'The information about the gender';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.GenderDescriptorId IS 'The gender with which a person associates.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.GenderTypeNumber IS 'The number of students who identify by each gender type';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedGender.GenderTypePercentage IS 'The percentage of students who associate with each gender type';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedHispanicLatinoEthnicity] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity IS 'Data about the Eth ethnicity of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicityNumber IS 'The number of students who are hispanic/latino';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicityPercentage IS 'The percentage of students who are identified as hispanic/latino.';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedLanguage] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedLanguage IS 'The data about the language';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.LanguageDescriptorId IS 'Data about the language of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.LanguageTypeNumber IS 'The number of students by each language type.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedLanguage.LanguageTypePercentage IS 'The percentage of students by language type.';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedRace] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedRace IS 'Data about the race of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.RaceTypeNumber IS 'The number of students by each race type';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedRace.RaceTypePercentage IS 'The percentage of students by each race type';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedSchoolFoodServiceProgramService] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService IS 'Identifies if the student is eligible for Free and Reduce Price Lunch';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.SchoolFoodServiceProgramServiceDescriptorId IS 'Information about the students who are enrolled based on School Food Services Eligibility';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.TypeNumber IS 'The number of students eligibile for SchoolFoodServicesEligibility by category';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService.TypePercentage IS 'The percentage of students who are eligible for SchoolFoodServicesEligibility by type.';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedSection504Enrollment] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedSection504Enrollment IS 'Information about the students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.Number504Enrolled IS 'The number of students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSection504Enrollment.Percentage504Enrolled IS 'The percentage of students who are enrolled in a 504 program';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedSex] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedSex IS 'Data about the sex of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.SexDescriptorId IS 'A person''s gender.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.SexTypeNumber IS 'The number of students by each sex type';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSex.SexTypePercentage IS 'The percentage of students by each sex type.';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedSPED] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedSPED IS 'Data about the enrollment in SPED of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.SPEDEnrollmentNumber IS 'The number of students enrolled in SPED';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedSPED.SPEDEnrollmentPercentage IS 'The percentage of students enrolled in a SPED program.';
-
--- Extended Properties [tpdm].[CourseStudentFactsAggregatedTitleIEnrollment] --
-COMMENT ON TABLE tpdm.CourseStudentFactsAggregatedTitleIEnrollment IS 'Data about the enrollment in Title I of the group';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentNumber IS 'The number of students eligible for Title I';
-COMMENT ON COLUMN tpdm.CourseStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentPercentage IS 'The percentage of students who are Title I eligible.';
-
--- Extended Properties [tpdm].[CourseStudentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.CourseStudentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.CourseStudentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[CredentialBoardCertification] --
-COMMENT ON TABLE tpdm.CredentialBoardCertification IS 'Board certification information for an individual.';
-COMMENT ON COLUMN tpdm.CredentialBoardCertification.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
-COMMENT ON COLUMN tpdm.CredentialBoardCertification.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
-COMMENT ON COLUMN tpdm.CredentialBoardCertification.BoardCertification IS 'An indication of whether an individual is board certified.';
-COMMENT ON COLUMN tpdm.CredentialBoardCertification.BoardCertificationDate IS 'The month, day, and year on which a board certification was awarded.';
-COMMENT ON COLUMN tpdm.CredentialBoardCertification.BoardCertificationTypeDescriptorId IS 'The type of board certification awarded to an individual.';
-
--- Extended Properties [tpdm].[CredentialCertificationExam] --
-COMMENT ON TABLE tpdm.CredentialCertificationExam IS 'Certification information for an individual.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamTitle IS 'The title or name of the certification.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamTypeDescriptorId IS 'The type of certification exam that was taken.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamStatusDescriptorId IS 'The status of the exam.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamDate IS 'The date the certification exam was administered.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.AttemptNumber IS 'The attempt number for this exam.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamOverallScore IS 'The overall score that was received on the certification exam.';
-COMMENT ON COLUMN tpdm.CredentialCertificationExam.CertificationExamPassFail IS 'Indicates if the certification exam was passed by the teacher candidate.';
+-- Extended Properties [tpdm].[CredentialEventTypeDescriptor] --
+COMMENT ON TABLE tpdm.CredentialEventTypeDescriptor IS 'The type of event associated with a person''s Credential (e.g, suspension, revocation, or renewal).';
+COMMENT ON COLUMN tpdm.CredentialEventTypeDescriptor.CredentialEventTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[CredentialExtension] --
 COMMENT ON TABLE tpdm.CredentialExtension IS '';
 COMMENT ON COLUMN tpdm.CredentialExtension.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
 COMMENT ON COLUMN tpdm.CredentialExtension.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
-COMMENT ON COLUMN tpdm.CredentialExtension.CurrentCredential IS 'Indicator of whether this is the credential currently being used for employment.';
-COMMENT ON COLUMN tpdm.CredentialExtension.RevocationDate IS 'The month, day, and year on which an active credential held by an individual was revoked.';
-COMMENT ON COLUMN tpdm.CredentialExtension.RevocationReason IS 'Expanded reason for the revocation of credential.';
-COMMENT ON COLUMN tpdm.CredentialExtension.SuspensionDate IS 'The month, day, and year on which an active credential held by an individual was suspended.';
-COMMENT ON COLUMN tpdm.CredentialExtension.SuspensionReason IS 'Expanded reason for the suspension of credential.';
-COMMENT ON COLUMN tpdm.CredentialExtension.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
+COMMENT ON COLUMN tpdm.CredentialExtension.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.CredentialExtension.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.CredentialExtension.CertificationTitle IS 'The title of the certification obtained by the educator.';
+COMMENT ON COLUMN tpdm.CredentialExtension.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.CredentialExtension.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+COMMENT ON COLUMN tpdm.CredentialExtension.CertificationRouteDescriptorId IS 'The process, program, or pathway used to obtain certification.';
+COMMENT ON COLUMN tpdm.CredentialExtension.BoardCertificationIndicator IS 'Indicator that the credential was granted under the authority of a national Board Certification.';
+COMMENT ON COLUMN tpdm.CredentialExtension.CredentialStatusDescriptorId IS 'The most recent status of the credential (e.g., active, suspended, etc.).';
+COMMENT ON COLUMN tpdm.CredentialExtension.CredentialStatusDate IS 'The month, day, and year on which the credential status was effective.';
 
--- Extended Properties [tpdm].[CredentialRecommendation] --
-COMMENT ON TABLE tpdm.CredentialRecommendation IS 'The information about the recommendation for the credential.';
-COMMENT ON COLUMN tpdm.CredentialRecommendation.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
-COMMENT ON COLUMN tpdm.CredentialRecommendation.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
-COMMENT ON COLUMN tpdm.CredentialRecommendation.CredentialFieldDescriptorId IS 'The field of certification for the certificate (e.g., Mathematics, Music).';
-COMMENT ON COLUMN tpdm.CredentialRecommendation.GradeLevelDescriptorId IS 'The grade level(s) certified for teaching.';
-COMMENT ON COLUMN tpdm.CredentialRecommendation.TeachingCredentialDescriptorId IS 'An indication of the category of a legal document giving authorization to perform teaching assignment services.';
+-- Extended Properties [tpdm].[CredentialStatusDescriptor] --
+COMMENT ON TABLE tpdm.CredentialStatusDescriptor IS 'The most recent status of the credential (e.g., active, suspended, etc.).';
+COMMENT ON COLUMN tpdm.CredentialStatusDescriptor.CredentialStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[CredentialRecommendingInstitution] --
-COMMENT ON TABLE tpdm.CredentialRecommendingInstitution IS 'Information regarding the institution that is recommending a candidate for certification.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.RecommendingInstutionName IS 'The full, legally accepted name of the institution.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.RecommendingDate IS 'The month, day, and year on which a recommendation for a candidate is made.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.RecommendingInstitutionCountryDescriptorId IS 'The country that the recommendation for a candidate was made in.';
-COMMENT ON COLUMN tpdm.CredentialRecommendingInstitution.RecommendingInstitutionStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a recommendation was issued.';
+-- Extended Properties [tpdm].[CredentialStudentAcademicRecord] --
+COMMENT ON TABLE tpdm.CredentialStudentAcademicRecord IS 'Reference to the person''s Student Academic Records for the school(s) with which the Credential is associated.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.CredentialIdentifier IS 'Identifier or serial number assigned to the credential.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.StateOfIssueStateAbbreviationDescriptorId IS 'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.TermDescriptorId IS 'The term for the session during the school year.';
 
--- Extended Properties [tpdm].[EducationOrganizationCourseTranscriptFacts] --
-COMMENT ON TABLE tpdm.EducationOrganizationCourseTranscriptFacts IS 'Data about the final grade earned of the group.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFacts.CourseTitle IS 'Data about the final letter grade earned of the group';
-
--- Extended Properties [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb] --
-COMMENT ON TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb IS 'Data about the final letter grade earned of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.FinalLetterGrade IS 'The final indicator of student performance in a class as submitted by the instructor.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.LetterGradeTypeNumber IS 'The number of students receiving a letter grade by letter grade type';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb.LetterGradeTypePercentage IS 'The percentage of students receiving a letter grade by type.';
-
--- Extended Properties [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712] --
-COMMENT ON TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712 IS 'Data about the numeric grade received by the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.AverageFinalNumericGradeEarned IS 'The average final numeric grade for the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.NumericGradeNCount IS 'The total number of data values in set of data that makes up the average numeric grade for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712.NumericGradeStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average numeric grade for a group of students';
-
--- Extended Properties [tpdm].[EducationOrganizationCourseTranscriptFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
+-- Extended Properties [tpdm].[DegreeDescriptor] --
+COMMENT ON TABLE tpdm.DegreeDescriptor IS 'The minimum level of degree, if any, required for Certification.';
+COMMENT ON COLUMN tpdm.DegreeDescriptor.DegreeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[EducationOrganizationFacts] --
 COMMENT ON TABLE tpdm.EducationOrganizationFacts IS 'Selective fact(s) about the education organization used for comparative analysis.';
@@ -951,89 +696,6 @@ COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.SchoolYear 
 COMMENT ON TABLE tpdm.EducationOrganizationNetworkExtension IS '';
 COMMENT ON COLUMN tpdm.EducationOrganizationNetworkExtension.EducationOrganizationNetworkId IS 'The identifier assigned to a network of education organizations.';
 COMMENT ON COLUMN tpdm.EducationOrganizationNetworkExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAcademicRecordFacts] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAcademicRecordFacts IS 'Complex type that provides data about a group of student and their academic record';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFacts.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFacts.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFacts.AggregatedGPAMax IS 'The maximum grade point average a student can receive in the education organization';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4 IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987 IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.SchoolYear IS 'The school year for which the data is associated';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAssessmentFacts] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAssessmentFacts IS 'Complex type that provides data about a group of students and their assesssment score results and performance levels';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.AssessmentTitle IS 'The title of a specific assessment given to a group.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content. For example: Achievement test, Advanced placement, Alternate assessment/grade-level standards, Attitudinal test, Cognitive and perceptual skills test.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.AcademicSubjectDescriptorId IS 'The academic subject associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.GradeLevelDescriptorId IS 'The grade level associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.AdministrationDate IS 'The date a specific assessment was administered to a group of students';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFacts.TermDescriptorId IS 'The term in which the assessment was administered';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce IS 'Data about the performance level for an assessment of a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the Student proficiency.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.PerformanceLevelMetNumber IS 'The number of students who met the performance level';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.PerformanceLevelMetPercentage IS 'The percentage of students who met the performance level.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.PerformanceLevelTypeNumber IS 'The number of students who achieved each performance level by performance level type';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce.PerformanceLevelTypePercentage IS 'The percentage of students who achieved performance level by each performance level type.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2 IS 'Data about the score from an assessment of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all Students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.AverageScoreResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.AverageScoreResult IS 'A meaningful average score or statistical expression of the performance of an group. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.ScoreNCount IS 'The total number of data values in set of data that makes up the average assessment score for a group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2.ScoreStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average assessment score for a group of students';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentAssessmentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
 
 -- Extended Properties [tpdm].[EducationOrganizationStudentFacts] --
 COMMENT ON TABLE tpdm.EducationOrganizationStudentFacts IS 'This domain entity collects data for aggregated level students.';
@@ -1165,6 +827,10 @@ COMMENT ON TABLE tpdm.EducationServiceCenterExtension IS '';
 COMMENT ON COLUMN tpdm.EducationServiceCenterExtension.EducationServiceCenterId IS 'The identifier assigned to an education service center.';
 COMMENT ON COLUMN tpdm.EducationServiceCenterExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
 
+-- Extended Properties [tpdm].[EducatorRoleDescriptor] --
+COMMENT ON TABLE tpdm.EducatorRoleDescriptor IS 'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
+COMMENT ON COLUMN tpdm.EducatorRoleDescriptor.EducatorRoleDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [tpdm].[EmploymentEvent] --
 COMMENT ON TABLE tpdm.EmploymentEvent IS 'The event associated with hiring staff for employment (or contract).';
 COMMENT ON COLUMN tpdm.EmploymentEvent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -1202,6 +868,205 @@ COMMENT ON COLUMN tpdm.EmploymentSeparationTypeDescriptor.EmploymentSeparationTy
 COMMENT ON TABLE tpdm.EnglishLanguageExamDescriptor IS 'Indicates that a person passed, failed, or did not take an English Language assessment (e.g., TOEFFL).';
 COMMENT ON COLUMN tpdm.EnglishLanguageExamDescriptor.EnglishLanguageExamDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [tpdm].[Evaluation] --
+COMMENT ON TABLE tpdm.Evaluation IS 'An evaluation instrument appled to evaluate an educator.  The evaluation could be internally developed, or could be an industry recognized instrument such as TTESS or Marzano.';
+COMMENT ON COLUMN tpdm.Evaluation.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.Evaluation.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.Evaluation.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.Evaluation.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.Evaluation.MinRating IS 'The minimum summary numerical rating or score for the evaluation. If omitted, assumed to be 0.0.';
+COMMENT ON COLUMN tpdm.Evaluation.MaxRating IS 'The maximum summary numerical rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.Evaluation.EvaluationTypeDescriptorId IS 'The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).';
+COMMENT ON COLUMN tpdm.Evaluation.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges.';
+
+-- Extended Properties [tpdm].[EvaluationElement] --
+COMMENT ON TABLE tpdm.EvaluationElement IS 'The lowest-level Elements or criterion of performance being evaluated by rubric, quantitative measure, or aggregate survey response.';
+COMMENT ON COLUMN tpdm.EvaluationElement.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElement.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationElement.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElement.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElement.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationElement.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationElement.SortOrder IS 'The sort order of this Evaluation Element.';
+COMMENT ON COLUMN tpdm.EvaluationElement.MinRating IS 'The minimum summary numerical rating or score for the evaluation element. If omitted, assumed to be 0.0.';
+COMMENT ON COLUMN tpdm.EvaluationElement.MaxRating IS 'The maximum summary numerical rating or score for the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElement.EvaluationTypeDescriptorId IS 'The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).';
+
+-- Extended Properties [tpdm].[EvaluationElementRating] --
+COMMENT ON TABLE tpdm.EvaluationElementRating IS 'The lowest-level rating for an Evaluation Element for an individual educator.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.EvaluationElementRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.AreaOfRefinement IS 'Area(s) identified for person to refine or improve as part of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.AreaOfReinforcement IS 'Area(s) identified for reinforcement or positive feedback as part of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.Comments IS 'Any comments about the performance evaluation to be captured.';
+COMMENT ON COLUMN tpdm.EvaluationElementRating.Feedback IS 'Feedback provided to the evaluated person.';
+
+-- Extended Properties [tpdm].[EvaluationElementRatingLevel] --
+COMMENT ON TABLE tpdm.EvaluationElementRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.EvaluationRatingLevelDescriptorId IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.MinRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
+
+-- Extended Properties [tpdm].[EvaluationElementRatingLevelDescriptor] --
+COMMENT ON TABLE tpdm.EvaluationElementRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingLevelDescriptor.EvaluationElementRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[EvaluationElementRatingResult] --
+COMMENT ON TABLE tpdm.EvaluationElementRatingResult IS 'The numerical summary rating or score for the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.Rating IS 'The numerical summary rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.RatingResultTitle IS 'The title of Rating Result.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationElementRatingResult.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+
+-- Extended Properties [tpdm].[EvaluationObjective] --
+COMMENT ON TABLE tpdm.EvaluationObjective IS 'A subcomponent of an Evaluation, a specific educator Objective or domain of performance that is being evaluated.  ';
+COMMENT ON COLUMN tpdm.EvaluationObjective.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.SortOrder IS 'The sort order of this Evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.MinRating IS 'The minimum summary numerical rating or score for the evaluation Objective. If omitted, assumed to be 0.0.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.MaxRating IS 'The maximum summary numerical rating or score for the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjective.EvaluationTypeDescriptorId IS 'The type of the evaluation Objective (e.g., observation, principal, peer, student survey, student growth).';
+
+-- Extended Properties [tpdm].[EvaluationObjectiveRating] --
+COMMENT ON TABLE tpdm.EvaluationObjectiveRating IS 'The rating for the component Evaluation Objective for an individual educator.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.ObjectiveRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRating.Comments IS 'Any comments about the performance evaluation to be captured.';
+
+-- Extended Properties [tpdm].[EvaluationObjectiveRatingLevel] --
+COMMENT ON TABLE tpdm.EvaluationObjectiveRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.EvaluationRatingLevelDescriptorId IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.MinRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
+
+-- Extended Properties [tpdm].[EvaluationObjectiveRatingResult] --
+COMMENT ON TABLE tpdm.EvaluationObjectiveRatingResult IS 'The numerical summary rating or score for the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.Rating IS 'The numerical summary rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.RatingResultTitle IS 'The title of Rating Result.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationObjectiveRatingResult.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+
+-- Extended Properties [tpdm].[EvaluationPeriodDescriptor] --
+COMMENT ON TABLE tpdm.EvaluationPeriodDescriptor IS 'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).';
+COMMENT ON COLUMN tpdm.EvaluationPeriodDescriptor.EvaluationPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[EvaluationRating] --
+COMMENT ON TABLE tpdm.EvaluationRating IS 'The summary weighting for the Evaluation instrument for an individual educator.';
+COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRating.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRating.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRating.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationRating.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationRating.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRating.EvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.EvaluationRating.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN tpdm.EvaluationRating.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN tpdm.EvaluationRating.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN tpdm.EvaluationRating.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRating.SchoolId IS 'The identifier assigned to a school.';
+
+-- Extended Properties [tpdm].[EvaluationRatingLevel] --
+COMMENT ON TABLE tpdm.EvaluationRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.EvaluationRatingLevelDescriptorId IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.MinRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
+
+-- Extended Properties [tpdm].[EvaluationRatingLevelDescriptor] --
+COMMENT ON TABLE tpdm.EvaluationRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.EvaluationRatingLevelDescriptor.EvaluationRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[EvaluationRatingResult] --
+COMMENT ON TABLE tpdm.EvaluationRatingResult IS 'The numerical summary rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.Rating IS 'The numerical summary rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.RatingResultTitle IS 'The title of Rating Result.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRatingResult.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+
+-- Extended Properties [tpdm].[EvaluationRatingReviewer] --
+COMMENT ON TABLE tpdm.EvaluationRatingReviewer IS 'The person(s) that conducted the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.TermDescriptorId IS 'The term for the session during the school year.';
+
+-- Extended Properties [tpdm].[EvaluationRatingReviewerReceivedTraining] --
+COMMENT ON TABLE tpdm.EvaluationRatingReviewerReceivedTraining IS 'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.ReceivedTrainingDate IS 'The date on which the person administering the performance meausre received training on how to conduct performance measures.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewerReceivedTraining.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges.';
+
+-- Extended Properties [tpdm].[EvaluationTypeDescriptor] --
+COMMENT ON TABLE tpdm.EvaluationTypeDescriptor IS 'The type of the evaluation (e.g., observation, principal, peer, student survey, student growth).';
+COMMENT ON COLUMN tpdm.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [tpdm].[FederalLocaleCodeDescriptor] --
 COMMENT ON TABLE tpdm.FederalLocaleCodeDescriptor IS 'The descriptor holds the federal locale code applicable to an education organization.';
 COMMENT ON COLUMN tpdm.FederalLocaleCodeDescriptor.FederalLocaleCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1218,6 +1083,29 @@ COMMENT ON COLUMN tpdm.FundingSourceDescriptor.FundingSourceDescriptorId IS 'A u
 COMMENT ON TABLE tpdm.GenderDescriptor IS 'The gender with with a person associates.';
 COMMENT ON COLUMN tpdm.GenderDescriptor.GenderDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [tpdm].[Goal] --
+COMMENT ON TABLE tpdm.Goal IS 'Goal for performance improvement assigned to an educator associated with an Evaluation Element.';
+COMMENT ON COLUMN tpdm.Goal.AssignmentDate IS 'The month, day, and year on which the goal was assigned.';
+COMMENT ON COLUMN tpdm.Goal.GoalTitle IS 'The name or title of the goal.';
+COMMENT ON COLUMN tpdm.Goal.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.Goal.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.Goal.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.Goal.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.Goal.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.Goal.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.Goal.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.Goal.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.Goal.GoalTypeDescriptorId IS 'The type of the goal (e.g., management, instruction).';
+COMMENT ON COLUMN tpdm.Goal.GoalDescription IS 'The description of the goal.';
+COMMENT ON COLUMN tpdm.Goal.DueDate IS 'The month, day, and year on which the goal is due or expected to be completed.';
+COMMENT ON COLUMN tpdm.Goal.CompletedIndicator IS 'Indicator that the goal was completed.';
+COMMENT ON COLUMN tpdm.Goal.CompletedDate IS 'The month, day, and year on which the goal was completed.';
+COMMENT ON COLUMN tpdm.Goal.Comments IS 'Any comments about the goal or its completion to be captured.';
+
+-- Extended Properties [tpdm].[GoalTypeDescriptor] --
+COMMENT ON TABLE tpdm.GoalTypeDescriptor IS 'The type of the goal (e.g., management, instruction).';
+COMMENT ON COLUMN tpdm.GoalTypeDescriptor.GoalTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [tpdm].[GradebookEntryExtension] --
 COMMENT ON TABLE tpdm.GradebookEntryExtension IS '';
 COMMENT ON COLUMN tpdm.GradebookEntryExtension.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
@@ -1229,6 +1117,16 @@ COMMENT ON COLUMN tpdm.GradebookEntryExtension.SectionIdentifier IS 'The local i
 COMMENT ON COLUMN tpdm.GradebookEntryExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
 COMMENT ON COLUMN tpdm.GradebookEntryExtension.ProgramGatewayDescriptorId IS 'Identifies the program gateway an assessment may be associated with for continuation in the program';
 
+-- Extended Properties [tpdm].[GraduationPlanRequiredCertification] --
+COMMENT ON TABLE tpdm.GraduationPlanRequiredCertification IS 'The title or reference to the certifiation(s) required for graduation.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.CertificationTitle IS 'The title of the Certification required for Graduation.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.GraduationPlanTypeDescriptorId IS 'The type of academic plan the student is following for graduation: for example, Minimum, Recommended, Distinguished, or Standard.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.GraduationSchoolYear IS 'The school year the student is expected to graduate.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.IssuerNamespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
+COMMENT ON COLUMN tpdm.GraduationPlanRequiredCertification.CertificationRouteDescriptorId IS 'The process, program ,or pathway used to obtain certification.';
+
 -- Extended Properties [tpdm].[HireStatusDescriptor] --
 COMMENT ON TABLE tpdm.HireStatusDescriptor IS 'The descriptor holds the current status of the application for hire (e.g., applied, recommended, rejected, exited, offered, hired).';
 COMMENT ON COLUMN tpdm.HireStatusDescriptor.HireStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1236,6 +1134,10 @@ COMMENT ON COLUMN tpdm.HireStatusDescriptor.HireStatusDescriptorId IS 'A unique 
 -- Extended Properties [tpdm].[HiringSourceDescriptor] --
 COMMENT ON TABLE tpdm.HiringSourceDescriptor IS 'The descriptor holds the source for the application (e.g.,job fair, website, referral, etc.).';
 COMMENT ON COLUMN tpdm.HiringSourceDescriptor.HiringSourceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[InstructionalSettingDescriptor] --
+COMMENT ON TABLE tpdm.InstructionalSettingDescriptor IS 'The setting authorized by the Certification in which a child receives education and related services; for example: Classroom, Virtual, Vocational.';
+COMMENT ON COLUMN tpdm.InstructionalSettingDescriptor.InstructionalSettingDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[InternalExternalHireDescriptor] --
 COMMENT ON TABLE tpdm.InternalExternalHireDescriptor IS 'Indicates whether the hire was an internal or external person.';
@@ -1245,14 +1147,14 @@ COMMENT ON COLUMN tpdm.InternalExternalHireDescriptor.InternalExternalHireDescri
 COMMENT ON TABLE tpdm.LevelOfDegreeAwardedDescriptor IS 'The descriptor holds the level of degree awarded by the teacher prep program to the person (e.g., Certificate Only, Bachelor''s, Master''s, etc.).';
 COMMENT ON COLUMN tpdm.LevelOfDegreeAwardedDescriptor.LevelOfDegreeAwardedDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[LevelTypeDescriptor] --
-COMMENT ON TABLE tpdm.LevelTypeDescriptor IS 'The descriptor holds the level (e.g., 1, 2, 3, etc.) of the rubric at which the data is captured.';
-COMMENT ON COLUMN tpdm.LevelTypeDescriptor.LevelTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
 -- Extended Properties [tpdm].[LocalEducationAgencyExtension] --
 COMMENT ON TABLE tpdm.LocalEducationAgencyExtension IS '';
 COMMENT ON COLUMN tpdm.LocalEducationAgencyExtension.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
 COMMENT ON COLUMN tpdm.LocalEducationAgencyExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
+
+-- Extended Properties [tpdm].[ObjectiveRatingLevelDescriptor] --
+COMMENT ON TABLE tpdm.ObjectiveRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.ObjectiveRatingLevelDescriptor.ObjectiveRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[OpenStaffPositionEvent] --
 COMMENT ON TABLE tpdm.OpenStaffPositionEvent IS 'Reflects milestones like vacancy approved, vacancy posted, date onboarded, processing date, orientation date, etc.';
@@ -1290,95 +1192,95 @@ COMMENT ON COLUMN tpdm.OpenStaffPositionExtension.TotalBudgeted IS 'Including sa
 COMMENT ON TABLE tpdm.OpenStaffPositionReasonDescriptor IS 'The descriptor holds the reason for the open staff position (e.g., new position, replacement, etc.).';
 COMMENT ON COLUMN tpdm.OpenStaffPositionReasonDescriptor.OpenStaffPositionReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[PerformanceMeasure] --
-COMMENT ON TABLE tpdm.PerformanceMeasure IS 'Information about the performance measure';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.PerformanceMeasureTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance measure conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.TermDescriptorId IS 'The term for the session during the school year.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.ScheduleDateOfPerformanceMeasure IS 'The month, day, and year on which the performance measure was to be conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.ActualDateOfPerformanceMeasure IS 'The month, day, and year on which the performance measure was conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.TimeOfPerformanceMeasure IS 'An indication of the the time at which the performance measure was conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.DurationOfPerformanceMeasure IS 'The actual or estimated number of clock minutes during which the performance measure was conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.Announced IS 'An indicator of whether the performance measure was announced or not.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.CoteachingStyleObservedDescriptorId IS 'A type of co-teaching observed as part of the performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.Comments IS 'Any comments about the performance measure to be captured';
-COMMENT ON COLUMN tpdm.PerformanceMeasure.PerformanceMeasureInstanceDescriptorId IS 'Instance of the performance measure taken by the individual.';
+-- Extended Properties [tpdm].[PerformanceEvaluation] --
+COMMENT ON TABLE tpdm.PerformanceEvaluation IS 'A performance evaluation of an educator, typically regularly scheduled and uniformly applied, comporsed of one or more Evaluations.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.EvaluationPeriodDescriptorId IS 'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluation.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance evaluation.';
 
--- Extended Properties [tpdm].[PerformanceMeasureCourseAssociation] --
-COMMENT ON TABLE tpdm.PerformanceMeasureCourseAssociation IS 'The course offered by the education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureCourseAssociation.CourseCode IS 'A unique alphanumeric code assigned to a course.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureCourseAssociation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureCourseAssociation.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
+-- Extended Properties [tpdm].[PerformanceEvaluationGradeLevel] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationGradeLevel IS 'The grade levels involved with the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationGradeLevel.GradeLevelDescriptorId IS 'The grade levels involved with the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationGradeLevel.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationGradeLevel.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationGradeLevel.TermDescriptorId IS 'The term for the session during the school year.';
 
--- Extended Properties [tpdm].[PerformanceMeasureFacts] --
-COMMENT ON TABLE tpdm.PerformanceMeasureFacts IS 'This entity represents aggregated information regarding performance measure data.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.FactsAsOfDate IS 'The as-of-date for the aggregated observation data.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.PerformanceMeasureTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance measure conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFacts.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance measure.';
+-- Extended Properties [tpdm].[PerformanceEvaluationProgramGateway] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationProgramGateway IS 'Identifies the program gateway that may be associated for continuation in the program.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationProgramGateway.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationProgramGateway.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationProgramGateway.ProgramGatewayDescriptorId IS 'Identifies the program gateway that may be associated for continuation in the program.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationProgramGateway.TermDescriptorId IS 'The term for the session during the school year.';
 
--- Extended Properties [tpdm].[PerformanceMeasureFactsGradeLevel] --
-COMMENT ON TABLE tpdm.PerformanceMeasureFactsGradeLevel IS 'The grade levels for the aggregated performance measure data.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.FactsAsOfDate IS 'The as-of-date for the aggregated observation data.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.GradeLevelDescriptorId IS 'The grade levels for the aggregated performance measure data.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureFactsGradeLevel.SchoolYear IS 'The identifier for the school year.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRating] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRating IS 'The summary rating for a Performance Evaluation across all Evaluation instruments for an individual educator.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.ActualDate IS 'The month, day, and year on which the performance evaluation was conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.Announced IS 'An indicator of whether the performance evaluation was announced or not.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.Comments IS 'Any comments about the performance evaluation to be captured.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.CoteachingStyleObservedDescriptorId IS 'A type of co-teaching observed as part of the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.ActualDuration IS 'The actual or estimated number of clock minutes during which the performance evaluation was conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.PerformanceEvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.ScheduleDate IS 'The month, day, and year on which the performance evaluation was to be conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRating.ActualTime IS 'An indication of the the time at which the performance evaluation was conducted.';
 
--- Extended Properties [tpdm].[PerformanceMeasureGradeLevel] --
-COMMENT ON TABLE tpdm.PerformanceMeasureGradeLevel IS 'The grade levels for the performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureGradeLevel.GradeLevelDescriptorId IS 'The grade levels for the performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureGradeLevel.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRatingLevel] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for the evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.EvaluationRatingLevelDescriptorId IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.MinRating IS 'The minimum numerical rating or score to achieve the evaluation rating level.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevel.MaxRating IS 'The maximum numerical rating or score to achieve the evaluation rating level.';
 
--- Extended Properties [tpdm].[PerformanceMeasureInstanceDescriptor] --
-COMMENT ON TABLE tpdm.PerformanceMeasureInstanceDescriptor IS 'Instance of the performance measure taken by the individual.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureInstanceDescriptor.PerformanceMeasureInstanceDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRatingLevelDescriptor] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor IS 'The rating level achieved based upon the rating or score.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingLevelDescriptor.PerformanceEvaluationRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[PerformanceMeasurePersonBeingReviewed] --
-COMMENT ON TABLE tpdm.PerformanceMeasurePersonBeingReviewed IS 'Information regarding the person taking the performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.LastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.ProspectIdentifier IS 'The identifier for the prospect.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.PerformanceMeasurePersonBeingReviewed.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRatingResult] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingResult IS 'The numerical summary rating or score for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.Rating IS 'The numerical summary rating or score for the evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.RatingResultTitle IS 'The title of Rating Result.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingResult.ResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
 
--- Extended Properties [tpdm].[PerformanceMeasureProgramGateway] --
-COMMENT ON TABLE tpdm.PerformanceMeasureProgramGateway IS 'Identifies the program gateway that may be associated for continuation in the program.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureProgramGateway.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureProgramGateway.ProgramGatewayDescriptorId IS 'Identifies the program gateway that may be associated for continuation in the program.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRatingReviewer] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingReviewer IS 'The person(s) that conducted the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.TermDescriptorId IS 'The term for the session during the school year.';
 
--- Extended Properties [tpdm].[PerformanceMeasureReviewer] --
-COMMENT ON TABLE tpdm.PerformanceMeasureReviewer IS 'The person that conducted the performance measure.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewer.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewer.LastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewer.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewer.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+-- Extended Properties [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining IS 'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.LastSurname IS 'The name borne in common by members of a family.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.ReceivedTrainingDate IS 'The date on which the person administering the performance meausre received training on how to conduct performance measures.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewerReceivedTraining.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges.';
 
--- Extended Properties [tpdm].[PerformanceMeasureReviewerReceivedTraining] --
-COMMENT ON TABLE tpdm.PerformanceMeasureReviewerReceivedTraining IS 'An indication that the person administering the performance measure has or has not received training on conducting performance measures.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewerReceivedTraining.FirstName IS 'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewerReceivedTraining.LastSurname IS 'The name borne in common by members of a family.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewerReceivedTraining.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewerReceivedTraining.ReceivedTrainingDate IS 'The date on which the person administering the performance meausre received training on how to conduct performance measures.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureReviewerReceivedTraining.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges.';
-
--- Extended Properties [tpdm].[PerformanceMeasureRubric] --
-COMMENT ON TABLE tpdm.PerformanceMeasureRubric IS 'Reference to the rubric.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureRubric.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureRubric.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureRubric.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureRubric.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-
--- Extended Properties [tpdm].[PerformanceMeasureTypeDescriptor] --
-COMMENT ON TABLE tpdm.PerformanceMeasureTypeDescriptor IS 'The descriptor holds the type (e.g., walkthrough, summative) of observation conducted.';
-COMMENT ON COLUMN tpdm.PerformanceMeasureTypeDescriptor.PerformanceMeasureTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [tpdm].[PerformanceEvaluationTypeDescriptor] --
+COMMENT ON TABLE tpdm.PerformanceEvaluationTypeDescriptor IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationTypeDescriptor.PerformanceEvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[PostSecondaryInstitutionExtension] --
 COMMENT ON TABLE tpdm.PostSecondaryInstitutionExtension IS '';
@@ -1403,7 +1305,7 @@ COMMENT ON TABLE tpdm.ProfessionalDevelopmentOfferedByDescriptor IS 'The descrip
 COMMENT ON COLUMN tpdm.ProfessionalDevelopmentOfferedByDescriptor.ProfessionalDevelopmentOfferedByDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[ProgramGatewayDescriptor] --
-COMMENT ON TABLE tpdm.ProgramGatewayDescriptor IS 'The descriptor holds the program gateway that is associated with continuation in a program.';
+COMMENT ON TABLE tpdm.ProgramGatewayDescriptor IS 'Identifies the program gateway that may be associated for continuation in the program.';
 COMMENT ON COLUMN tpdm.ProgramGatewayDescriptor.ProgramGatewayDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[Prospect] --
@@ -1432,6 +1334,8 @@ COMMENT ON COLUMN tpdm.Prospect.EconomicDisadvantaged IS 'An indication of inade
 COMMENT ON COLUMN tpdm.Prospect.FirstGenerationStudent IS 'Indicator of whether individual is a first generation college student.';
 COMMENT ON COLUMN tpdm.Prospect.ProspectTypeDescriptorId IS 'Reflects the type of prospect, such as TPP Applicant, Hire, or Mentor Teacher.';
 COMMENT ON COLUMN tpdm.Prospect.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
+COMMENT ON COLUMN tpdm.Prospect.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.Prospect.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[ProspectAid] --
 COMMENT ON TABLE tpdm.ProspectAid IS 'This entity represents the financial aid a person is awarded.';
@@ -1550,6 +1454,41 @@ COMMENT ON COLUMN tpdm.ProspectTouchpoint.TouchpointDate IS 'The date of the tou
 COMMENT ON TABLE tpdm.ProspectTypeDescriptor IS 'Reflects the type of prospect, such as TPP Applicant, Hire, or Mentor Teacher.';
 COMMENT ON COLUMN tpdm.ProspectTypeDescriptor.ProspectTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [tpdm].[QuantitativeMeasure] --
+COMMENT ON TABLE tpdm.QuantitativeMeasure IS 'A quantitative measure of educator performance associated with an Evaluation Element.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.QuantitativeMeasureIdentifier IS 'An assigned unique identifier for the quantitative measure.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.QuantitativeMeasureTypeDescriptorId IS 'The type of the quantitative measure (e.g., achievement, growth).';
+COMMENT ON COLUMN tpdm.QuantitativeMeasure.QuantitativeMeasureDatatypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+
+-- Extended Properties [tpdm].[QuantitativeMeasureDatatypeDescriptor] --
+COMMENT ON TABLE tpdm.QuantitativeMeasureDatatypeDescriptor IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureDatatypeDescriptor.QuantitativeMeasureDatatypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [tpdm].[QuantitativeMeasureScore] --
+COMMENT ON TABLE tpdm.QuantitativeMeasureScore IS 'The score or value for a Quantitative Measure achieved by an individual educator.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.QuantitativeMeasureIdentifier IS 'An assigned unique identifier for the quantitative measure.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.ScoreValue IS 'The score value for the quantitive measure.';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureScore.StandardError IS 'The standard error for the quantitative measure.';
+
+-- Extended Properties [tpdm].[QuantitativeMeasureTypeDescriptor] --
+COMMENT ON TABLE tpdm.QuantitativeMeasureTypeDescriptor IS 'The type of the quantitative measure (e.g., achievement, growth).';
+COMMENT ON COLUMN tpdm.QuantitativeMeasureTypeDescriptor.QuantitativeMeasureTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [tpdm].[RecruitmentEvent] --
 COMMENT ON TABLE tpdm.RecruitmentEvent IS 'Events associated with the recruitment process.';
 COMMENT ON COLUMN tpdm.RecruitmentEvent.EventDate IS 'The date of the event.';
@@ -1562,78 +1501,22 @@ COMMENT ON COLUMN tpdm.RecruitmentEvent.EventLocation IS 'The location of the ev
 COMMENT ON TABLE tpdm.RecruitmentEventTypeDescriptor IS 'The type of event.';
 COMMENT ON COLUMN tpdm.RecruitmentEventTypeDescriptor.RecruitmentEventTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[Rubric] --
-COMMENT ON TABLE tpdm.Rubric IS 'This entity represents the rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.Rubric.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.Rubric.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.Rubric.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.Rubric.RubricDescription IS 'The description of the rubric.';
-COMMENT ON COLUMN tpdm.Rubric.InterRaterReliabilityScore IS 'A score indicating how much homogeneity, or consensus, there is in the ratings given by judges.';
+-- Extended Properties [tpdm].[RubricDimension] --
+COMMENT ON TABLE tpdm.RubricDimension IS 'The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric rating and rating level.';
+COMMENT ON COLUMN tpdm.RubricDimension.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.RubricDimension.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.RubricDimension.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.RubricDimension.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.RubricDimension.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.RubricDimension.RubricRating IS 'The rating achieved for the rubric dimension.';
+COMMENT ON COLUMN tpdm.RubricDimension.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.RubricDimension.RubricRatingLevelDescriptorId IS 'The rating level achieved for the rubric dimension.';
+COMMENT ON COLUMN tpdm.RubricDimension.CriterionDescription IS 'The criterion description for the rubric dimension.';
+COMMENT ON COLUMN tpdm.RubricDimension.DimensionOrder IS 'The order for the rubric dimension.';
 
--- Extended Properties [tpdm].[RubricLevel] --
-COMMENT ON TABLE tpdm.RubricLevel IS 'This entity represents the level of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevel.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevel.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevel.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-
--- Extended Properties [tpdm].[RubricLevelInformation] --
-COMMENT ON TABLE tpdm.RubricLevelInformation IS 'Information about the level of the rubric at which the data is captured.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.LevelTypeDescriptorId IS 'The level (e.g., 1, 2, 3, etc.) of the rubric at which the data is captured.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.LevelTitle IS 'The title of the level of the rubric at which the data is captured.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.LevelDescription IS 'The description of the level of the rubric at which the data is captured.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.MinimumScore IS 'The minimum score for the level of the rubic.';
-COMMENT ON COLUMN tpdm.RubricLevelInformation.MaximumScore IS 'The maximum score for the level of the rubic.';
-
--- Extended Properties [tpdm].[RubricLevelResponse] --
-COMMENT ON TABLE tpdm.RubricLevelResponse IS 'This entity represents the response to the rubric level.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.PerformanceMeasureIdentifier IS 'An assigned unique identifier for the performance measure instance.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.NumericResponse IS 'The score for the specified level of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.TextResponse IS 'The text response(s) for the question.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.AreaOfRefinement IS 'Indicator that the rubric component is an area of refinement.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.AreaOfReinforcement IS 'Indicator that the rubric component is an area of reinforcement.';
-COMMENT ON COLUMN tpdm.RubricLevelResponse.Comments IS 'Any comments about the response provided at the rubric level.';
-
--- Extended Properties [tpdm].[RubricLevelResponseFacts] --
-COMMENT ON TABLE tpdm.RubricLevelResponseFacts IS 'This entity represents the rubric level response at the aggregate level.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.FactsAsOfDate IS 'The as-of-date for the aggregated observation data.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFacts.SchoolYear IS 'The identifier for the school year.';
-
--- Extended Properties [tpdm].[RubricLevelResponseFactsAggregatedNumericResponse] --
-COMMENT ON TABLE tpdm.RubricLevelResponseFactsAggregatedNumericResponse IS 'Numeric response survey data provided at the aggregate level.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.FactsAsOfDate IS 'The as-of-date for the aggregated observation data.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.AverageNumericResponse IS 'The average numeric response for the survey.';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.NumericResponseNCount IS 'The total number of data values in set of data that makes up the average numeric grade for a group';
-COMMENT ON COLUMN tpdm.RubricLevelResponseFactsAggregatedNumericResponse.NumericResponseStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average numeric grade for a group of students';
-
--- Extended Properties [tpdm].[RubricLevelTheme] --
-COMMENT ON TABLE tpdm.RubricLevelTheme IS 'The theme of the specified level of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelTheme.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.RubricLevelTheme.RubricLevelCode IS 'The identifying code for the question, unique for the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelTheme.RubricTitle IS 'The title or name of the rubric.';
-COMMENT ON COLUMN tpdm.RubricLevelTheme.RubricTypeDescriptorId IS 'The type of rubric used to conduct the observation.';
-COMMENT ON COLUMN tpdm.RubricLevelTheme.ThemeDescriptorId IS 'The theme of the specified level of the rubric.';
-
--- Extended Properties [tpdm].[RubricTypeDescriptor] --
-COMMENT ON TABLE tpdm.RubricTypeDescriptor IS 'The descriptor holds the rubric types.';
-COMMENT ON COLUMN tpdm.RubricTypeDescriptor.RubricTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [tpdm].[RubricRatingLevelDescriptor] --
+COMMENT ON TABLE tpdm.RubricRatingLevelDescriptor IS 'The rating level achieved for the rubric dimension.';
+COMMENT ON COLUMN tpdm.RubricRatingLevelDescriptor.RubricRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[SalaryTypeDescriptor] --
 COMMENT ON TABLE tpdm.SalaryTypeDescriptor IS 'The descriptor holds the type of salary that a staff member is receiving.';
@@ -1649,348 +1532,6 @@ COMMENT ON COLUMN tpdm.SchoolExtension.ImprovingSchool IS 'An indication of whet
 -- Extended Properties [tpdm].[SchoolStatusDescriptor] --
 COMMENT ON TABLE tpdm.SchoolStatusDescriptor IS 'The descriptor holds the status of a school e.g. priority or focus.';
 COMMENT ON COLUMN tpdm.SchoolStatusDescriptor.SchoolStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[SectionCourseTranscriptFacts] --
-COMMENT ON TABLE tpdm.SectionCourseTranscriptFacts IS 'Data about the final grade earned of the group.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFacts.CourseTitle IS 'Data about the final letter grade earned of the group';
-
--- Extended Properties [tpdm].[SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned] --
-COMMENT ON TABLE tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned IS 'Data about the final letter grade earned of the group';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.FinalLetterGrade IS 'The final indicator of student performance in a class as submitted by the instructor.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.LetterGradeTypeNumber IS 'The number of students receiving a letter grade by letter grade type';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned.LetterGradeTypePercentage IS 'The percentage of students receiving a letter grade by type.';
-
--- Extended Properties [tpdm].[SectionCourseTranscriptFactsAggregatedNumericGradeEarned] --
-COMMENT ON TABLE tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned IS 'Data about the numeric grade received by the group';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.AverageFinalNumericGradeEarned IS 'The average final numeric grade for the group';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.NumericGradeNCount IS 'The total number of data values in set of data that makes up the average numeric grade for a group';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned.NumericGradeStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average numeric grade for a group of students';
-
--- Extended Properties [tpdm].[SectionCourseTranscriptFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.SectionCourseTranscriptFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.FactsAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.SectionCourseTranscriptFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[SectionStudentAcademicRecordFacts] --
-COMMENT ON TABLE tpdm.SectionStudentAcademicRecordFacts IS 'Complex type that provides data about a group of students and their academic record.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFacts.AggregatedGPAMax IS 'The maximum GPA a student can earn for the section';
-
--- Extended Properties [tpdm].[SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d] --
-COMMENT ON TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301] --
-COMMENT ON TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301 IS 'Data about the cumulative grade point for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.GradePointAverage IS 'The average cumulative grade point average for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.GradePointNCount IS 'The total number of data values in set of data that makes up the average grade point for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301.GradePointStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average grade point for a group of students';
-
--- Extended Properties [tpdm].[SectionStudentAcademicRecordFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[SectionStudentAssessmentFacts] --
-COMMENT ON TABLE tpdm.SectionStudentAssessmentFacts IS 'This domain entity collects data for aggregated level students with whom the teacher candidate is associated through field work or student teaching.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.AssessmentTitle IS 'The title of any specific assessment given to a group.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.AssessmentCategoryDescriptorId IS 'The category of an assessment based on format and content. For example: Achievement test, Advanced placement, Alternate assessment/grade-level standards, Attitudinal test, Cognitive and perceptual skills test.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.AcademicSubjectDescriptorId IS 'The academic subject associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.GradeLevelDescriptorId IS 'The grade level associated with a CourseStudentAssessment.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFacts.AdministrationDate IS 'The date a specific assessment was administered to a group of students';
-
--- Extended Properties [tpdm].[SectionStudentAssessmentFactsAggregatedPerformanceLevel] --
-COMMENT ON TABLE tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel IS 'Data about the performance level for an assessment of a group';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelDescriptorId IS 'A specification of which performance level value describes the Student proficiency.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelMetNumber IS 'The number of students who met the performance level';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelMetPercentage IS 'The percentage of students who met the performance level.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelTypeNumber IS 'The number of students who achieved each performance level by performance level type';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel.PerformanceLevelTypePercentage IS 'The percentage of students who achieved performance level by each performance level type.';
-
--- Extended Properties [tpdm].[SectionStudentAssessmentFactsAggregatedScoreResult] --
-COMMENT ON TABLE tpdm.SectionStudentAssessmentFactsAggregatedScoreResult IS 'Data about the score from an assessment of the group';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.AssessmentReportingMethodDescriptorId IS 'The method that the administrator of the assessment uses to report the performance and achievement of all Students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.AverageScoreResultDatatypeTypeDescriptorId IS 'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.AverageScoreResult IS 'A meaningful average score or statistical expression of the performance of an group. The results can be expressed as a number, percentile, range, level, etc.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.ScoreNCount IS 'The total number of data values in set of data that makes up the average assessment score for a group';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsAggregatedScoreResult.ScoreStandardDeviation IS 'A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average assessment score for a group of students';
-
--- Extended Properties [tpdm].[SectionStudentAssessmentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.SectionStudentAssessmentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.TakenSchoolYear IS 'The school year the assessment was taken';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.SectionStudentAssessmentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[SectionStudentFacts] --
-COMMENT ON TABLE tpdm.SectionStudentFacts IS 'This domain entity collects data for aggregated level students.';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFacts.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedByDisability] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedByDisability IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.DisabilityDescriptorId IS 'Data about the disability of a group.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.TypeNumber IS 'The number of student who have a disability by disability type';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedByDisability.Percentage IS 'The percentage of students who have a disability by each specific disability type';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.StudentsDisabledNumber IS 'The number of students who have a disability.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled.StudentsDisabledPercentage IS 'Percentage of students who have a disability';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedELLEnrollment] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedELLEnrollment IS 'Data about the ELL enrollment of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.ELLEnrollmentNumber IS 'The number of students who are ELL.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedELLEnrollment.ELLEnrollmentPercentage IS 'The percentage of students who are identified as ELL';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedESLEnrollment] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedESLEnrollment IS 'Data about the ESL enrollment of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.ESLEnrollmentNumber IS 'The number of students who are ESL.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedESLEnrollment.ESLEnrollmentPercentage IS 'The percentage of students who are identified as ESL';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedGender] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedGender IS 'The information about the gender';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.GenderDescriptorId IS 'The gender with which a person associates.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.GenderTypeNumber IS 'The number of students who identify by each gender type';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedGender.GenderTypePercentage IS 'The percentage of students who associate with each gender type';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedHispanicLatinoEthnicity] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity IS 'Data about the ethnicity of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicityNumber IS 'The number of students who are hispanic/latino';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity.HispanicLatinoEthnicityPercentage IS 'The percentage of students who are identified as hispanic/latino.';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedLanguage] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedLanguage IS 'The data about the language';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.LanguageDescriptorId IS 'Data about the language of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.LanguageTypeNumber IS 'The number of students by each language type.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedLanguage.LanguageTypePercentage IS 'The percentage of students by language type.';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedRace] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedRace IS 'Data about the race of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.RaceTypeNumber IS 'The number of students by each race type';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedRace.RaceTypePercentage IS 'The percentage of students by each race type';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedSchoolFoodServiceProgramService] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService IS 'Identifies if the student is eligible for Free and Reduce Price Lunch';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.SchoolFoodServiceProgramServiceDescriptorId IS 'Information about the students who are enrolled based on School Food Services Eligibility';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.TypeNumber IS 'The number of students eligibile for SchoolFoodServicesEligibility by category';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService.TypePercentage IS 'The percentage of students who are eligible for SchoolFoodServicesEligibility by type.';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedSection504Enrollment] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedSection504Enrollment IS 'Information about the students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.Number504Enrolled IS 'The number of students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSection504Enrollment.Percentage504Enrolled IS 'The percentage of students who are enrolled in a 504 program';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedSex] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedSex IS 'Data about the sex of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SexDescriptorId IS 'A person''s gender.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SexTypeNumber IS 'The number of students by each sex type';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSex.SexTypePercentage IS 'The percentage of students by each sex type.';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedSPED] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedSPED IS 'Data about the enrollment in SPED of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SPEDEnrollmentNumber IS 'The number of students enrolled in SPED';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedSPED.SPEDEnrollmentPercentage IS 'The percentage of students enrolled in a SPED program.';
-
--- Extended Properties [tpdm].[SectionStudentFactsAggregatedTitleIEnrollment] --
-COMMENT ON TABLE tpdm.SectionStudentFactsAggregatedTitleIEnrollment IS 'Data about the enrollment in Title I of the group';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentNumber IS 'The number of students eligible for Title I';
-COMMENT ON COLUMN tpdm.SectionStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentPercentage IS 'The percentage of students who are Title I eligible.';
-
--- Extended Properties [tpdm].[SectionStudentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.SectionStudentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.SectionStudentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
 
 -- Extended Properties [tpdm].[StaffApplicantAssociation] --
 COMMENT ON TABLE tpdm.StaffApplicantAssociation IS 'Associated applicant(s) represented by this staff member.';
@@ -2014,114 +1555,6 @@ COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN tpdm.StaffEducationOrganizationAssignmentAssociationExtension.YearsOfExperienceAtCurrentEducationOrganization IS 'The total number of years that an individual has previously held a teaching position in one or more education institutions.';
-
--- Extended Properties [tpdm].[StaffEvaluation] --
-COMMENT ON TABLE tpdm.StaffEvaluation IS 'A staff evaluation instrument applied by an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.MaxRating IS 'The maximum summary numerical rating or score for the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.MinRating IS 'The minimum summary numerical rating or score for the staff evaluation. If omitted, assumed to be 0.0.';
-COMMENT ON COLUMN tpdm.StaffEvaluation.StaffEvaluationPeriodDescriptorId IS 'The period for the staff evaluation (e.g., BOY, MOY, EOY, Summer).';
-COMMENT ON COLUMN tpdm.StaffEvaluation.StaffEvaluationTypeDescriptorId IS 'The type of the staff evaluation (e.g., observation, principal, peer, student survey, student growth).';
-
--- Extended Properties [tpdm].[StaffEvaluationComponent] --
-COMMENT ON TABLE tpdm.StaffEvaluationComponent IS 'The components of the evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.MaxRating IS 'The max rating for the scale used for the Evaluation Component, if different from the overall staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.MinRating IS 'The minimum rating for the scale used for the Evaluation Component, if different from the overall staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.RubricReference IS 'The reference to rubric title or identifier.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponent.StaffEvaluationTypeDescriptorId IS 'The type of the staff evaluation (e.g., observation, principal, peer, student survey, student growth).';
-
--- Extended Properties [tpdm].[StaffEvaluationComponentRating] --
-COMMENT ON TABLE tpdm.StaffEvaluationComponentRating IS 'The rating for the component parts of the evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.ComponentRating IS 'The Component Level rating.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.StaffEvaluationDate IS 'The date for the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentRating.StaffEvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
-
--- Extended Properties [tpdm].[StaffEvaluationComponentStaffRatingLevel] --
-COMMENT ON TABLE tpdm.StaffEvaluationComponentStaffRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.StaffEvaluationLevel IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.MaxLevel IS 'The maximum rating to achieve the level.';
-COMMENT ON COLUMN tpdm.StaffEvaluationComponentStaffRatingLevel.MinLevel IS 'The minimum rating to achieve the level.';
-
--- Extended Properties [tpdm].[StaffEvaluationElement] --
-COMMENT ON TABLE tpdm.StaffEvaluationElement IS 'The Evaluation Elements that are the parts of the Evaluation Component.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.EvaluationElement IS 'The Evaluation Element name or title (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.MaxRating IS 'The max rating for the scale used for the Evaluation Component, if different from the overall staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.MinRating IS 'The minimum rating for the scale used for the Evaluation Component, if different from the overall staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElement.RubricReference IS 'The reference to rubric title or identifier.';
-
--- Extended Properties [tpdm].[StaffEvaluationElementRating] --
-COMMENT ON TABLE tpdm.StaffEvaluationElementRating IS 'The ratings for the individual elements of the evaluation component.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.EvaluationElement IS 'The Evaluation Element name or title (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.StaffEvaluationDate IS 'The date for the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.ElementRating IS 'The Element Level rating.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementRating.StaffEvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
-
--- Extended Properties [tpdm].[StaffEvaluationElementStaffRatingLevel] --
-COMMENT ON TABLE tpdm.StaffEvaluationElementStaffRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.EvaluationComponent IS 'The Evaluation Component (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.EvaluationElement IS 'The Evaluation Element name or title (e.g., Preparation, classroom control, delivery of instruction, etc.).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.StaffEvaluationLevel IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.MaxLevel IS 'The maximum rating to achieve the level.';
-COMMENT ON COLUMN tpdm.StaffEvaluationElementStaffRatingLevel.MinLevel IS 'The minimum rating to achieve the level.';
-
--- Extended Properties [tpdm].[StaffEvaluationPeriodDescriptor] --
-COMMENT ON TABLE tpdm.StaffEvaluationPeriodDescriptor IS 'The descriptor holds the period for the staff evaluation (e.g., BOY, MOY, EOY, Summer).';
-COMMENT ON COLUMN tpdm.StaffEvaluationPeriodDescriptor.StaffEvaluationPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[StaffEvaluationRating] --
-COMMENT ON TABLE tpdm.StaffEvaluationRating IS 'The summary rating for a staff evaluation applied to an individual educator.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.StaffEvaluationDate IS 'The date for the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.Rating IS 'The numerical summary rating or score for the evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.StaffEvaluationRatingLevelDescriptorId IS 'The rating level achieved based upon the rating or score.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRating.EvaluatedByStaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-
--- Extended Properties [tpdm].[StaffEvaluationRatingLevelDescriptor] --
-COMMENT ON TABLE tpdm.StaffEvaluationRatingLevelDescriptor IS 'The descriptor holds the rating level achieved based upon the rating or score.';
-COMMENT ON COLUMN tpdm.StaffEvaluationRatingLevelDescriptor.StaffEvaluationRatingLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[StaffEvaluationStaffRatingLevel] --
-COMMENT ON TABLE tpdm.StaffEvaluationStaffRatingLevel IS 'The descriptive level(s) of ratings (cut scores) for staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.StaffEvaluationLevel IS 'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.StaffEvaluationTitle IS 'The name or title of the staff evaluation.';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.MaxLevel IS 'The maximum rating to achieve the level.';
-COMMENT ON COLUMN tpdm.StaffEvaluationStaffRatingLevel.MinLevel IS 'The minimum rating to achieve the level.';
-
--- Extended Properties [tpdm].[StaffEvaluationTypeDescriptor] --
-COMMENT ON TABLE tpdm.StaffEvaluationTypeDescriptor IS 'The descriptor holds the  type of the staff evaluation (e.g., observation, principal, peer, student survey, student growth).';
-COMMENT ON COLUMN tpdm.StaffEvaluationTypeDescriptor.StaffEvaluationTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[StaffExtension] --
 COMMENT ON TABLE tpdm.StaffExtension IS '';
@@ -2348,21 +1781,48 @@ COMMENT ON COLUMN tpdm.StudentGradebookEntryExtension.AssignmentPassed IS 'Indic
 COMMENT ON TABLE tpdm.StudentGrowthTypeDescriptor IS 'Identification of the type of score that was used to determine student growth';
 COMMENT ON COLUMN tpdm.StudentGrowthTypeDescriptor.StudentGrowthTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[SurveyLevelDescriptor] --
-COMMENT ON TABLE tpdm.SurveyLevelDescriptor IS 'Provides information about the respondents of a survey and how they can be grouped together (ex., grade level, grade band, course type, etc.).';
-COMMENT ON COLUMN tpdm.SurveyLevelDescriptor.SurveyLevelDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+-- Extended Properties [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] --
+COMMENT ON TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation IS 'The association provides information about the survey being taken and who the survey is about.';
+COMMENT ON COLUMN tpdm.SurveyResponseTeacherCandidateTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN tpdm.SurveyResponseTeacherCandidateTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
+COMMENT ON COLUMN tpdm.SurveyResponseTeacherCandidateTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
+COMMENT ON COLUMN tpdm.SurveyResponseTeacherCandidateTargetAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 
--- Extended Properties [tpdm].[TalentManagementGoal] --
-COMMENT ON TABLE tpdm.TalentManagementGoal IS 'Talent management goal(s) for education organization.';
-COMMENT ON COLUMN tpdm.TalentManagementGoal.GoalTitle IS 'The title or description of the goal.';
-COMMENT ON COLUMN tpdm.TalentManagementGoal.SchoolYear IS 'The school year the Staff evaluation is applied.';
-COMMENT ON COLUMN tpdm.TalentManagementGoal.GoalValue IS 'The target value for the goal.';
+-- Extended Properties [tpdm].[SurveySectionAggregateResponse] --
+COMMENT ON TABLE tpdm.SurveySectionAggregateResponse IS 'The aggregate or average score across the surveying population for a survey section being used for performance evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.EvaluationDate IS 'The date for the person''s evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.SurveySectionTitle IS 'The title or label for the survey section.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.SurveySectionAggregateResponse.ScoreValue IS 'The score value for the aggregate survey section response.';
 
--- Extended Properties [tpdm].[TalentManagementGoalEducationOrganization] --
-COMMENT ON TABLE tpdm.TalentManagementGoalEducationOrganization IS 'The Education Organization(s) associated with the talent management goals.';
-COMMENT ON COLUMN tpdm.TalentManagementGoalEducationOrganization.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.TalentManagementGoalEducationOrganization.GoalTitle IS 'The title or description of the goal.';
-COMMENT ON COLUMN tpdm.TalentManagementGoalEducationOrganization.SchoolYear IS 'The school year the Staff evaluation is applied.';
+-- Extended Properties [tpdm].[SurveySectionExtension] --
+COMMENT ON TABLE tpdm.SurveySectionExtension IS '';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.SurveySectionTitle IS 'The title or label for the survey section.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.PerformanceEvaluationTitle IS 'An assigned unique identifier for the performance evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.PerformanceEvaluationTypeDescriptorId IS 'The type (e.g., walkthrough, summative) of performance evaluation conducted.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.EvaluationTitle IS 'The name or title of the evaluation.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.EvaluationObjectiveTitle IS 'The name or title of the evaluation Objective.';
+COMMENT ON COLUMN tpdm.SurveySectionExtension.EvaluationElementTitle IS 'The name or title of the evaluation element.';
+
+-- Extended Properties [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] --
+COMMENT ON TABLE tpdm.SurveySectionResponseTeacherCandidateTargetAssociation IS 'This association provides information about the survey section and the teacher candidate the survey section is about.';
+COMMENT ON COLUMN tpdm.SurveySectionResponseTeacherCandidateTargetAssociation.Namespace IS 'Namespace for the Survey.';
+COMMENT ON COLUMN tpdm.SurveySectionResponseTeacherCandidateTargetAssociation.SurveyIdentifier IS 'The unique survey identifier from the survey tool.';
+COMMENT ON COLUMN tpdm.SurveySectionResponseTeacherCandidateTargetAssociation.SurveyResponseIdentifier IS 'The identifier of the survey typically from the survey application.';
+COMMENT ON COLUMN tpdm.SurveySectionResponseTeacherCandidateTargetAssociation.SurveySectionTitle IS 'The title or label for the survey section.';
+COMMENT ON COLUMN tpdm.SurveySectionResponseTeacherCandidateTargetAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 
 -- Extended Properties [tpdm].[TeacherCandidate] --
 COMMENT ON TABLE tpdm.TeacherCandidate IS 'This entity represents an individual for whom instruction and/or services in a Teacher Preparation Program are provided under the jurisdiction of a Teacher Preparation Provider.  A teacher candidate is a person who has been enrolled in a teacher preparation program.';
@@ -2402,6 +1862,8 @@ COMMENT ON COLUMN tpdm.TeacherCandidate.PreviousCareerDescriptorId IS 'The caree
 COMMENT ON COLUMN tpdm.TeacherCandidate.ProgramComplete IS 'An indication of whether a teacher candidate has completed the teacher preparation program.';
 COMMENT ON COLUMN tpdm.TeacherCandidate.FirstGenerationStudent IS 'Indicator of whether individual is a first generation college student.';
 COMMENT ON COLUMN tpdm.TeacherCandidate.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN tpdm.TeacherCandidate.PersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.TeacherCandidate.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[TeacherCandidateAcademicRecord] --
 COMMENT ON TABLE tpdm.TeacherCandidateAcademicRecord IS 'This educational entity represents the cumulative record of academic achievement for a teacher candidate.';
@@ -2945,10 +2407,6 @@ COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.EducationOrga
 COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.GradeLevelDescriptorId IS 'The grade levels served at the TPP Program.';
 COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.ProgramName IS 'The name of the Teacher Preparation Program.';
 COMMENT ON COLUMN tpdm.TeacherPreparationProviderProgramGradeLevel.ProgramTypeDescriptorId IS 'The type of program.';
-
--- Extended Properties [tpdm].[ThemeDescriptor] --
-COMMENT ON TABLE tpdm.ThemeDescriptor IS 'The descriptor holds the theme of the specified level of the rubric.';
-COMMENT ON COLUMN tpdm.ThemeDescriptor.ThemeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [tpdm].[TPPDegreeTypeDescriptor] --
 COMMENT ON TABLE tpdm.TPPDegreeTypeDescriptor IS 'The descriptor holds the degree that a teacher candidate accomplishes.';

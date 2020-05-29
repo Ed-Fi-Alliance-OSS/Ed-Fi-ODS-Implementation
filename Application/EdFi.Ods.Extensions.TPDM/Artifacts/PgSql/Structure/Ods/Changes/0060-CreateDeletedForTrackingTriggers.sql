@@ -270,19 +270,18 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.BackgroundCheckTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.BackgroundCheckTypeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.BoardCertificationTypeDescriptor_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.CertificationExamResult_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.BoardCertificationTypeDescriptor(BoardCertificationTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.BoardCertificationTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.BoardCertificationTypeDescriptorId;
+    INSERT INTO tracked_deletes_tpdm.CertificationExamResult(CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.CertificationExamDate, OLD.CertificationExamIdentifier, OLD.Namespace, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.BoardCertificationTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.BoardCertificationTypeDescriptor_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationExamResult 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationExamResult_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.CertificationExamStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -312,6 +311,88 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationExamTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationExamTypeDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_tpdm.CertificationExam_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.CertificationExam(CertificationExamIdentifier, Namespace, Id, ChangeVersion)
+    VALUES (OLD.CertificationExamIdentifier, OLD.Namespace, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationExam 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationExam_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.CertificationFieldDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.CertificationFieldDescriptor(CertificationFieldDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CertificationFieldDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CertificationFieldDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationFieldDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationFieldDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.CertificationLevelDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.CertificationLevelDescriptor(CertificationLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CertificationLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CertificationLevelDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationLevelDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.CertificationRouteDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.CertificationRouteDescriptor(CertificationRouteDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CertificationRouteDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CertificationRouteDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationRouteDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationRouteDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.CertificationStandardDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.CertificationStandardDescriptor(CertificationStandardDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CertificationStandardDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CertificationStandardDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CertificationStandardDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CertificationStandardDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.Certification_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.Certification(CertificationIdentifier, IssuerNamespace, Id, ChangeVersion)
+    VALUES (OLD.CertificationIdentifier, OLD.IssuerNamespace, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.Certification 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.Certification_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_tpdm.CompleterAsStaffAssociation_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -339,70 +420,60 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CoteachingStyleObservedDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CoteachingStyleObservedDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.CourseCourseTranscriptFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.CredentialEventTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CourseCourseTranscriptFacts(CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.CourseCode, OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.FactsAsOfDate, OLD.SchoolYear, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.CredentialEventTypeDescriptor(CredentialEventTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CredentialEventTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CredentialEventTypeDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CourseCourseTranscriptFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CourseCourseTranscriptFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CredentialEventTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CredentialEventTypeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.CourseStudentAcademicRecordFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.CredentialEvent_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CourseStudentAcademicRecordFacts(CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.CourseCode, OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.SchoolYear, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.CredentialEvent(CredentialEventDate, CredentialEventTypeDescriptorId, CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.CredentialEventDate, OLD.CredentialEventTypeDescriptorId, OLD.CredentialIdentifier, OLD.StateOfIssueStateAbbreviationDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CourseStudentAcademicRecordFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CourseStudentAcademicRecordFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CredentialEvent 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CredentialEvent_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.CourseStudentAssessmentFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.CredentialStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CourseStudentAssessmentFacts(CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, ChangeVersion)
-    VALUES (OLD.CourseCode, OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.TakenSchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.CredentialStatusDescriptor(CredentialStatusDescriptorId, Id, ChangeVersion)
+    SELECT OLD.CredentialStatusDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.CredentialStatusDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CourseStudentAssessmentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CourseStudentAssessmentFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CredentialStatusDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CredentialStatusDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.CourseStudentFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.DegreeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CourseStudentFacts(CourseCode, EducationOrganizationId, FactAsOfDate, Id, ChangeVersion)
-    VALUES (OLD.CourseCode, OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.DegreeDescriptor(DegreeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.DegreeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.DegreeDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.CourseStudentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.CourseStudentFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationCourseTranscriptFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.EducationOrganizationCourseTranscriptFacts(EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.FactsAsOfDate, OLD.SchoolYear, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationCourseTranscriptFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationCourseTranscriptFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.DegreeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.DegreeDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationFacts_TR_DelTrkg()
     RETURNS trigger AS
@@ -417,32 +488,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationFacts 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationFacts_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationStudentAcademicRecordFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.EducationOrganizationStudentAcademicRecordFacts(EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.SchoolYear, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationStudentAcademicRecordFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationStudentAcademicRecordFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationStudentAssessmentFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.EducationOrganizationStudentAssessmentFacts(EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.TakenSchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationStudentAssessmentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationStudentAssessmentFacts_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationStudentFacts_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -455,6 +500,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationStudentFacts 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationStudentFacts_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EducatorRoleDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EducatorRoleDescriptor(EducatorRoleDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EducatorRoleDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EducatorRoleDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducatorRoleDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducatorRoleDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.EmploymentEventTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -538,6 +597,140 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EnglishLanguageExamDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EnglishLanguageExamDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationElementRatingLevelDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationElementRatingLevelDescriptor(EvaluationElementRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EvaluationElementRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EvaluationElementRatingLevelDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationElementRatingLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationElementRatingLevelDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationElementRating_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationElementRating(EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationDate, OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationElementRating 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationElementRating_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationElement_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationElement(EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationElement 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationElement_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationObjectiveRating_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationObjectiveRating(EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationDate, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationObjectiveRating 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationObjectiveRating_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationObjective_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationObjective(EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationObjective 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationObjective_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationPeriodDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationPeriodDescriptor(EvaluationPeriodDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EvaluationPeriodDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EvaluationPeriodDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationPeriodDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationPeriodDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationRatingLevelDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationRatingLevelDescriptor(EvaluationRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EvaluationRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EvaluationRatingLevelDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationRatingLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationRatingLevelDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationRating_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationRating(EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationDate, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationRating 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationRating_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.EvaluationTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.EvaluationTypeDescriptor(EvaluationTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.EvaluationTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.EvaluationTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EvaluationTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EvaluationTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.Evaluation_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.Evaluation(EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.Evaluation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.Evaluation_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_tpdm.FederalLocaleCodeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -594,6 +787,33 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.GenderDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.GenderDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_tpdm.GoalTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.GoalTypeDescriptor(GoalTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.GoalTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.GoalTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.GoalTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.GoalTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.Goal_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.Goal(AssignmentDate, GoalTitle, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.AssignmentDate, OLD.GoalTitle, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.Goal 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.Goal_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_tpdm.HireStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -621,6 +841,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.HiringSourceDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.HiringSourceDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.InstructionalSettingDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.InstructionalSettingDescriptor(InstructionalSettingDescriptorId, Id, ChangeVersion)
+    SELECT OLD.InstructionalSettingDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.InstructionalSettingDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.InstructionalSettingDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.InstructionalSettingDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.InternalExternalHireDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -650,19 +884,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.LevelOfDegreeAwardedDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.LevelOfDegreeAwardedDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.LevelTypeDescriptor_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.ObjectiveRatingLevelDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.LevelTypeDescriptor(LevelTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.LevelTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.LevelTypeDescriptorId;
+    INSERT INTO tracked_deletes_tpdm.ObjectiveRatingLevelDescriptor(ObjectiveRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ObjectiveRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ObjectiveRatingLevelDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.LevelTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.LevelTypeDescriptor_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.ObjectiveRatingLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.ObjectiveRatingLevelDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.OpenStaffPositionEventStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -719,72 +953,59 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.OpenStaffPositionReasonDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.OpenStaffPositionReasonDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.PerformanceMeasureCourseAssociation_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.PerformanceEvaluationRatingLevelDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.PerformanceMeasureCourseAssociation(CourseCode, EducationOrganizationId, PerformanceMeasureIdentifier, Id, ChangeVersion)
-    VALUES (OLD.CourseCode, OLD.EducationOrganizationId, OLD.PerformanceMeasureIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.PerformanceEvaluationRatingLevelDescriptor(PerformanceEvaluationRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.PerformanceEvaluationRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.PerformanceEvaluationRatingLevelDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceMeasureCourseAssociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceMeasureCourseAssociation_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceEvaluationRatingLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceEvaluationRatingLevelDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.PerformanceMeasureFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.PerformanceEvaluationRating_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.PerformanceMeasureFacts(EducationOrganizationId, FactsAsOfDate, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactsAsOfDate, OLD.RubricTitle, OLD.RubricTypeDescriptorId, OLD.SchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.PerformanceEvaluationRating(PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceMeasureFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceMeasureFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceEvaluationRating 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceEvaluationRating_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.PerformanceMeasureInstanceDescriptor_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.PerformanceEvaluationTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.PerformanceMeasureInstanceDescriptor(PerformanceMeasureInstanceDescriptorId, Id, ChangeVersion)
-    SELECT OLD.PerformanceMeasureInstanceDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.PerformanceMeasureInstanceDescriptorId;
+    INSERT INTO tracked_deletes_tpdm.PerformanceEvaluationTypeDescriptor(PerformanceEvaluationTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.PerformanceEvaluationTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.PerformanceEvaluationTypeDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceMeasureInstanceDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceMeasureInstanceDescriptor_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceEvaluationTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceEvaluationTypeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.PerformanceMeasureTypeDescriptor_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.PerformanceEvaluation_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.PerformanceMeasureTypeDescriptor(PerformanceMeasureTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.PerformanceMeasureTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.PerformanceMeasureTypeDescriptorId;
+    INSERT INTO tracked_deletes_tpdm.PerformanceEvaluation(PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceMeasureTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceMeasureTypeDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.PerformanceMeasure_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.PerformanceMeasure(PerformanceMeasureIdentifier, Id, ChangeVersion)
-    VALUES (OLD.PerformanceMeasureIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceMeasure 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceMeasure_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.PerformanceEvaluation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.PerformanceEvaluation_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.PreviousCareerDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -881,6 +1102,60 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.Prospect 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.Prospect_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_tpdm.QuantitativeMeasureDatatypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.QuantitativeMeasureDatatypeDescriptor(QuantitativeMeasureDatatypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.QuantitativeMeasureDatatypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.QuantitativeMeasureDatatypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.QuantitativeMeasureDatatypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.QuantitativeMeasureDatatypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.QuantitativeMeasureScore_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.QuantitativeMeasureScore(EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, QuantitativeMeasureIdentifier, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationDate, OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.QuantitativeMeasureIdentifier, OLD.SourceSystemDescriptorId, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.QuantitativeMeasureScore 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.QuantitativeMeasureScore_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.QuantitativeMeasureTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.QuantitativeMeasureTypeDescriptor(QuantitativeMeasureTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.QuantitativeMeasureTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.QuantitativeMeasureTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.QuantitativeMeasureTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.QuantitativeMeasureTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.QuantitativeMeasure_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.QuantitativeMeasure(EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.QuantitativeMeasureIdentifier, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.QuantitativeMeasure 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.QuantitativeMeasure_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_tpdm.RecruitmentEventTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -908,71 +1183,32 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RecruitmentEvent 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RecruitmentEvent_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.RubricLevelResponseFacts_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.RubricDimension_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.RubricLevelResponseFacts(EducationOrganizationId, FactsAsOfDate, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactsAsOfDate, OLD.RubricLevelCode, OLD.RubricTitle, OLD.RubricTypeDescriptorId, OLD.SchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.RubricDimension(EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, RubricRating, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.RubricRating, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricLevelResponseFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricLevelResponseFacts_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricDimension 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricDimension_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.RubricLevelResponse_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.RubricRatingLevelDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.RubricLevelResponse(EducationOrganizationId, PerformanceMeasureIdentifier, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.PerformanceMeasureIdentifier, OLD.RubricLevelCode, OLD.RubricTitle, OLD.RubricTypeDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.RubricRatingLevelDescriptor(RubricRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT OLD.RubricRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.RubricRatingLevelDescriptorId;
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricLevelResponse 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricLevelResponse_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.RubricLevel_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.RubricLevel(EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.RubricLevelCode, OLD.RubricTitle, OLD.RubricTypeDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricLevel 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricLevel_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.RubricTypeDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.RubricTypeDescriptor(RubricTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.RubricTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.RubricTypeDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricTypeDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.Rubric_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.Rubric(EducationOrganizationId, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.RubricTitle, OLD.RubricTypeDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.Rubric 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.Rubric_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.RubricRatingLevelDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.RubricRatingLevelDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.SalaryTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -1002,58 +1238,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SchoolStatusDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SchoolStatusDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.SectionCourseTranscriptFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.SectionCourseTranscriptFacts(FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    VALUES (OLD.FactAsOfDate, OLD.FactsAsOfDate, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SectionCourseTranscriptFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SectionCourseTranscriptFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.SectionStudentAcademicRecordFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.SectionStudentAcademicRecordFacts(FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    VALUES (OLD.FactAsOfDate, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SectionStudentAcademicRecordFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SectionStudentAcademicRecordFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.SectionStudentAssessmentFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.SectionStudentAssessmentFacts(FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear, Id, ChangeVersion)
-    VALUES (OLD.FactAsOfDate, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.TakenSchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SectionStudentAssessmentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SectionStudentAssessmentFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.SectionStudentFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.SectionStudentFacts(FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    VALUES (OLD.FactAsOfDate, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SectionStudentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SectionStudentFacts_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.StaffApplicantAssociation_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -1066,126 +1250,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffApplicantAssociation 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffApplicantAssociation_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationComponentRating_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationComponentRating(ComponentRating, EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.ComponentRating, OLD.EducationOrganizationId, OLD.EvaluationComponent, OLD.SchoolYear, OLD.StaffEvaluationDate, OLD.StaffEvaluationTitle, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationComponentRating 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationComponentRating_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationComponent_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationComponent(EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.EvaluationComponent, OLD.SchoolYear, OLD.StaffEvaluationTitle, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationComponent 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationComponent_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationElementRating_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationElementRating(EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.EvaluationComponent, OLD.EvaluationElement, OLD.SchoolYear, OLD.StaffEvaluationDate, OLD.StaffEvaluationTitle, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationElementRating 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationElementRating_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationElement_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationElement(EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.EvaluationComponent, OLD.EvaluationElement, OLD.SchoolYear, OLD.StaffEvaluationTitle, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationElement 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationElement_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationPeriodDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationPeriodDescriptor(StaffEvaluationPeriodDescriptorId, Id, ChangeVersion)
-    SELECT OLD.StaffEvaluationPeriodDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.StaffEvaluationPeriodDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationPeriodDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationPeriodDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationRatingLevelDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationRatingLevelDescriptor(StaffEvaluationRatingLevelDescriptorId, Id, ChangeVersion)
-    SELECT OLD.StaffEvaluationRatingLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.StaffEvaluationRatingLevelDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationRatingLevelDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationRatingLevelDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationRating_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationRating(EducationOrganizationId, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.SchoolYear, OLD.StaffEvaluationDate, OLD.StaffEvaluationTitle, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationRating 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationRating_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluationTypeDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluationTypeDescriptor(StaffEvaluationTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.StaffEvaluationTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.StaffEvaluationTypeDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluationTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluationTypeDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffEvaluation_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffEvaluation(EducationOrganizationId, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.SchoolYear, OLD.StaffEvaluationTitle, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffEvaluation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffEvaluation_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.StaffFieldworkAbsenceEvent_TR_DelTrkg()
     RETURNS trigger AS
@@ -1344,19 +1408,44 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StudentGrowthTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StudentGrowthTypeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.SurveyLevelDescriptor_TR_DelTrkg()
+CREATE FUNCTION tracked_deletes_tpdm.SurveyResponseTeacherCandidateTargetAssociation_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.SurveyLevelDescriptor(SurveyLevelDescriptorId, Id, ChangeVersion)
-    SELECT OLD.SurveyLevelDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.SurveyLevelDescriptorId;
+    INSERT INTO tracked_deletes_tpdm.SurveyResponseTeacherCandidateTargetAssociation(Namespace, SurveyIdentifier, SurveyResponseIdentifier, TeacherCandidateIdentifier, Id, ChangeVersion)
+    VALUES (OLD.Namespace, OLD.SurveyIdentifier, OLD.SurveyResponseIdentifier, OLD.TeacherCandidateIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
 
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SurveyLevelDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SurveyLevelDescriptor_TR_DelTrkg();
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SurveyResponseTeacherCandidateTargetAssociation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SurveyResponseTeacherCandidateTargetAssociation_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.SurveySectionAggregateResponse_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.SurveySectionAggregateResponse(EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, Namespace, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveySectionTitle, TermDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EvaluationDate, OLD.EvaluationElementTitle, OLD.EvaluationObjectiveTitle, OLD.EvaluationTitle, OLD.Namespace, OLD.PerformanceEvaluationTitle, OLD.PerformanceEvaluationTypeDescriptorId, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.SurveyIdentifier, OLD.SurveySectionTitle, OLD.TermDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SurveySectionAggregateResponse 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SurveySectionAggregateResponse_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.SurveySectionResponseTeacherCandidateTargetAs_948dd8_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.SurveySectionResponseTeacherCandidateTargetAssociation(Namespace, SurveyIdentifier, SurveyResponseIdentifier, SurveySectionTitle, TeacherCandidateIdentifier, Id, ChangeVersion)
+    VALUES (OLD.Namespace, OLD.SurveyIdentifier, OLD.SurveyResponseIdentifier, OLD.SurveySectionTitle, OLD.TeacherCandidateIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.SurveySectionResponseTeacherCandidateTargetAssociation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.SurveySectionResponseTeacherCandidateTargetAs_948dd8_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.TPPDegreeTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -1385,19 +1474,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TPPProgramPathwayDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TPPProgramPathwayDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.TalentManagementGoal_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TalentManagementGoal(GoalTitle, SchoolYear, Id, ChangeVersion)
-    VALUES (OLD.GoalTitle, OLD.SchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TalentManagementGoal 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TalentManagementGoal_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateAcademicRecord_TR_DelTrkg()
     RETURNS trigger AS
@@ -1635,20 +1711,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherPreparationProvider 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherPreparationProvider_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.ThemeDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.ThemeDescriptor(ThemeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.ThemeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.ThemeDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.ThemeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.ThemeDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.University_TR_DelTrkg()
     RETURNS trigger AS

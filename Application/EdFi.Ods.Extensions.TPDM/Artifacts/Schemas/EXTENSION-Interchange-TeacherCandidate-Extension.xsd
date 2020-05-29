@@ -18,6 +18,10 @@
         <xs:element name="TeacherCandidateCourseTranscript" type="EXTENSION-TeacherCandidateCourseTranscript" />
         <xs:element name="TeacherCandidateFieldworkAbsenceEvent" type="EXTENSION-TeacherCandidateFieldworkAbsenceEvent" />
         <xs:element name="TeacherCandidateFieldworkExperience" type="EXTENSION-TeacherCandidateFieldworkExperience" />
+        <xs:element name="Certification" type="EXTENSION-Certification" />
+        <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
+        <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
+        <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
         <xs:element name="CompleterAsStaffAssociation" type="EXTENSION-CompleterAsStaffAssociation" />
         <xs:element name="TeacherCandidateFieldworkExperienceSectionAssociation" type="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociation" />
         <xs:element name="TeacherCandidateStaffAssociation" type="EXTENSION-TeacherCandidateStaffAssociation" />

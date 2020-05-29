@@ -29,23 +29,17 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_e7ad52_Id ON tpdm.Application(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_143de6_Id ON tpdm.ApplicationEvent(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_86846f_Id ON tpdm.Certification(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_cb139c_Id ON tpdm.CertificationExam(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_aed83e_Id ON tpdm.CertificationExamResult(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_447e8f_Id ON tpdm.CompleterAsStaffAssociation(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_055fb2_Id ON tpdm.CourseCourseTranscriptFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_6cdc01_Id ON tpdm.CourseStudentAcademicRecordFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_157c1d_Id ON tpdm.CourseStudentAssessmentFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_81ddd0_Id ON tpdm.CourseStudentFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_092fc4_Id ON tpdm.EducationOrganizationCourseTranscriptFacts(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_3d6d96_Id ON tpdm.CredentialEvent(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_f4fab0_Id ON tpdm.EducationOrganizationFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_347c34_Id ON tpdm.EducationOrganizationStudentAcademicRecordFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_7c74f1_Id ON tpdm.EducationOrganizationStudentAssessmentFacts(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_eedec2_Id ON tpdm.EducationOrganizationStudentFacts(Id);
 
@@ -53,13 +47,25 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_786774_Id ON tpdm.EmploymentEvent(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_f51cef_Id ON tpdm.EmploymentSeparationEvent(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_163e44_Id ON tpdm.Evaluation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_e53186_Id ON tpdm.EvaluationElement(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_4479ea_Id ON tpdm.EvaluationElementRating(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_d4565d_Id ON tpdm.EvaluationObjective(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_7ae19d_Id ON tpdm.EvaluationObjectiveRating(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_bfaa20_Id ON tpdm.EvaluationRating(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_cdbf69_Id ON tpdm.Goal(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_e809b0_Id ON tpdm.OpenStaffPositionEvent(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_97e755_Id ON tpdm.PerformanceMeasure(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_15d685_Id ON tpdm.PerformanceEvaluation(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_e21917_Id ON tpdm.PerformanceMeasureCourseAssociation(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_be96e7_Id ON tpdm.PerformanceMeasureFacts(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_759abe_Id ON tpdm.PerformanceEvaluationRating(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8c4ca1_Id ON tpdm.ProfessionalDevelopmentEvent(Id);
 
@@ -67,37 +73,15 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_f84f61_Id ON tpdm.Prospect(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_dc8233_Id ON tpdm.ProspectProfessionalDevelopmentEventAttendance(Id);
 
+CREATE UNIQUE INDEX IF NOT EXISTS UX_8b89fe_Id ON tpdm.QuantitativeMeasure(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_e61067_Id ON tpdm.QuantitativeMeasureScore(Id);
+
 CREATE UNIQUE INDEX IF NOT EXISTS UX_6232e8_Id ON tpdm.RecruitmentEvent(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_f13a78_Id ON tpdm.Rubric(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_6ab97b_Id ON tpdm.RubricLevel(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_c8ffc2_Id ON tpdm.RubricLevelResponse(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_98f7aa_Id ON tpdm.RubricLevelResponseFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_51c6b9_Id ON tpdm.SectionCourseTranscriptFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_f7814e_Id ON tpdm.SectionStudentAcademicRecordFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_aeccab_Id ON tpdm.SectionStudentAssessmentFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_5b8d40_Id ON tpdm.SectionStudentFacts(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_643c81_Id ON tpdm.RubricDimension(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_11e466_Id ON tpdm.StaffApplicantAssociation(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_5f5473_Id ON tpdm.StaffEvaluation(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_60e7ab_Id ON tpdm.StaffEvaluationComponent(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_6b5a36_Id ON tpdm.StaffEvaluationComponentRating(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_9e0757_Id ON tpdm.StaffEvaluationElement(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_e94b2b_Id ON tpdm.StaffEvaluationElementRating(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_e34e81_Id ON tpdm.StaffEvaluationRating(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_420d2e_Id ON tpdm.StaffFieldworkAbsenceEvent(Id);
 
@@ -121,7 +105,11 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_7bf40b_Id ON tpdm.StaffTeacherPreparationPr
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_5bac62_Id ON tpdm.StaffTeacherPreparationProviderProgramAssociation(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_c4d5a9_Id ON tpdm.TalentManagementGoal(Id);
+CREATE UNIQUE INDEX IF NOT EXISTS UX_049bd0_Id ON tpdm.SurveyResponseTeacherCandidateTargetAssociation(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_f37ae9_Id ON tpdm.SurveySectionAggregateResponse(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_948dd8_Id ON tpdm.SurveySectionResponseTeacherCandidateTargetAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_835b49_Id ON tpdm.TeacherCandidate(Id);
 

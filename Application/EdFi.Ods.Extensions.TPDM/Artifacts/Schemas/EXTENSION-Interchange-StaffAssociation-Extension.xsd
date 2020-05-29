@@ -22,18 +22,12 @@
         <xs:element name="StaffEducationOrganizationContactAssociation" type="StaffEducationOrganizationContactAssociation" />
         <xs:element name="StaffAbsenceEvent" type="StaffAbsenceEvent" />
         <xs:element name="Credential" type="EXTENSION-CredentialExtension" />
+        <xs:element name="Person" type="Person" />
         <xs:element name="EmploymentEvent" type="EXTENSION-EmploymentEvent" />
         <xs:element name="EmploymentSeparationEvent" type="EXTENSION-EmploymentSeparationEvent" />
         <xs:element name="OpenStaffPositionEvent" type="EXTENSION-OpenStaffPositionEvent" />
-        <xs:element name="StaffEvaluation" type="EXTENSION-StaffEvaluation" />
-        <xs:element name="StaffEvaluationComponent" type="EXTENSION-StaffEvaluationComponent" />
-        <xs:element name="StaffEvaluationComponentRating" type="EXTENSION-StaffEvaluationComponentRating" />
-        <xs:element name="StaffEvaluationElement" type="EXTENSION-StaffEvaluationElement" />
-        <xs:element name="StaffEvaluationElementRating" type="EXTENSION-StaffEvaluationElementRating" />
-        <xs:element name="StaffEvaluationRating" type="EXTENSION-StaffEvaluationRating" />
         <xs:element name="StaffFieldworkAbsenceEvent" type="EXTENSION-StaffFieldworkAbsenceEvent" />
         <xs:element name="StaffFieldworkExperience" type="EXTENSION-StaffFieldworkExperience" />
-        <xs:element name="TalentManagementGoal" type="EXTENSION-TalentManagementGoal" />
         <xs:element name="StaffFieldworkExperienceSectionAssociation" type="EXTENSION-StaffFieldworkExperienceSectionAssociation" />
         <xs:element name="StaffTeacherPreparationProviderAssociation" type="EXTENSION-StaffTeacherPreparationProviderAssociation" />
         <xs:element name="StaffTeacherPreparationProviderProgramAssociation" type="EXTENSION-StaffTeacherPreparationProviderProgramAssociation" />

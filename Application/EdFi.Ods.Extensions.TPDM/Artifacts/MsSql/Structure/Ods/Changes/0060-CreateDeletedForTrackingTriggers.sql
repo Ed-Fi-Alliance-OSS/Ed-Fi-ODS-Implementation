@@ -350,21 +350,20 @@ ALTER TABLE [tpdm].[BackgroundCheckTypeDescriptor] ENABLE TRIGGER [tpdm_Backgrou
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_BoardCertificationTypeDescriptor_TR_DeleteTracking] ON [tpdm].[BoardCertificationTypeDescriptor] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_CertificationExamResult_TR_DeleteTracking] ON [tpdm].[CertificationExamResult] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[BoardCertificationTypeDescriptor](BoardCertificationTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.BoardCertificationTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CertificationExamResult](CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT  CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.BoardCertificationTypeDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[BoardCertificationTypeDescriptor] ENABLE TRIGGER [tpdm_BoardCertificationTypeDescriptor_TR_DeleteTracking]
+ALTER TABLE [tpdm].[CertificationExamResult] ENABLE TRIGGER [tpdm_CertificationExamResult_TR_DeleteTracking]
 GO
 
 
@@ -404,6 +403,112 @@ ALTER TABLE [tpdm].[CertificationExamTypeDescriptor] ENABLE TRIGGER [tpdm_Certif
 GO
 
 
+CREATE TRIGGER [tpdm].[tpdm_CertificationExam_TR_DeleteTracking] ON [tpdm].[CertificationExam] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[CertificationExam](CertificationExamIdentifier, Namespace, Id, ChangeVersion)
+    SELECT  CertificationExamIdentifier, Namespace, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[CertificationExam] ENABLE TRIGGER [tpdm_CertificationExam_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationFieldDescriptor_TR_DeleteTracking] ON [tpdm].[CertificationFieldDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[CertificationFieldDescriptor](CertificationFieldDescriptorId, Id, ChangeVersion)
+    SELECT  d.CertificationFieldDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationFieldDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[CertificationFieldDescriptor] ENABLE TRIGGER [tpdm_CertificationFieldDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationLevelDescriptor_TR_DeleteTracking] ON [tpdm].[CertificationLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[CertificationLevelDescriptor](CertificationLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.CertificationLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[CertificationLevelDescriptor] ENABLE TRIGGER [tpdm_CertificationLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationRouteDescriptor_TR_DeleteTracking] ON [tpdm].[CertificationRouteDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[CertificationRouteDescriptor](CertificationRouteDescriptorId, Id, ChangeVersion)
+    SELECT  d.CertificationRouteDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationRouteDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[CertificationRouteDescriptor] ENABLE TRIGGER [tpdm_CertificationRouteDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_CertificationStandardDescriptor_TR_DeleteTracking] ON [tpdm].[CertificationStandardDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[CertificationStandardDescriptor](CertificationStandardDescriptorId, Id, ChangeVersion)
+    SELECT  d.CertificationStandardDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CertificationStandardDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[CertificationStandardDescriptor] ENABLE TRIGGER [tpdm_CertificationStandardDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_Certification_TR_DeleteTracking] ON [tpdm].[Certification] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[Certification](CertificationIdentifier, IssuerNamespace, Id, ChangeVersion)
+    SELECT  CertificationIdentifier, IssuerNamespace, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[Certification] ENABLE TRIGGER [tpdm_Certification_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [tpdm].[tpdm_CompleterAsStaffAssociation_TR_DeleteTracking] ON [tpdm].[CompleterAsStaffAssociation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -439,88 +544,74 @@ ALTER TABLE [tpdm].[CoteachingStyleObservedDescriptor] ENABLE TRIGGER [tpdm_Cote
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_CourseCourseTranscriptFacts_TR_DeleteTracking] ON [tpdm].[CourseCourseTranscriptFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_CredentialEventTypeDescriptor_TR_DeleteTracking] ON [tpdm].[CredentialEventTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CourseCourseTranscriptFacts](CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    SELECT  CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CredentialEventTypeDescriptor](CredentialEventTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.CredentialEventTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CredentialEventTypeDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[CourseCourseTranscriptFacts] ENABLE TRIGGER [tpdm_CourseCourseTranscriptFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[CredentialEventTypeDescriptor] ENABLE TRIGGER [tpdm_CredentialEventTypeDescriptor_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentAcademicRecordFacts_TR_DeleteTracking] ON [tpdm].[CourseStudentAcademicRecordFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_CredentialEvent_TR_DeleteTracking] ON [tpdm].[CredentialEvent] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CourseStudentAcademicRecordFacts](CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    SELECT  CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CredentialEvent](CredentialEventDate, CredentialEventTypeDescriptorId, CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId, Id, ChangeVersion)
+    SELECT  CredentialEventDate, CredentialEventTypeDescriptorId, CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFacts] ENABLE TRIGGER [tpdm_CourseStudentAcademicRecordFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[CredentialEvent] ENABLE TRIGGER [tpdm_CredentialEvent_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentAssessmentFacts_TR_DeleteTracking] ON [tpdm].[CourseStudentAssessmentFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_CredentialStatusDescriptor_TR_DeleteTracking] ON [tpdm].[CredentialStatusDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CourseStudentAssessmentFacts](CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, ChangeVersion)
-    SELECT  CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CredentialStatusDescriptor](CredentialStatusDescriptorId, Id, ChangeVersion)
+    SELECT  d.CredentialStatusDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.CredentialStatusDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[CourseStudentAssessmentFacts] ENABLE TRIGGER [tpdm_CourseStudentAssessmentFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[CredentialStatusDescriptor] ENABLE TRIGGER [tpdm_CredentialStatusDescriptor_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_CourseStudentFacts_TR_DeleteTracking] ON [tpdm].[CourseStudentFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_DegreeDescriptor_TR_DeleteTracking] ON [tpdm].[DegreeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CourseStudentFacts](CourseCode, EducationOrganizationId, FactAsOfDate, Id, ChangeVersion)
-    SELECT  CourseCode, EducationOrganizationId, FactAsOfDate, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[DegreeDescriptor](DegreeDescriptorId, Id, ChangeVersion)
+    SELECT  d.DegreeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.DegreeDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[CourseStudentFacts] ENABLE TRIGGER [tpdm_CourseStudentFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationCourseTranscriptFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationCourseTranscriptFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[EducationOrganizationCourseTranscriptFacts](EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFacts] ENABLE TRIGGER [tpdm_EducationOrganizationCourseTranscriptFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[DegreeDescriptor] ENABLE TRIGGER [tpdm_DegreeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -541,40 +632,6 @@ ALTER TABLE [tpdm].[EducationOrganizationFacts] ENABLE TRIGGER [tpdm_EducationOr
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentAcademicRecordFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationStudentAcademicRecordFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[EducationOrganizationStudentAcademicRecordFacts](EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFacts] ENABLE TRIGGER [tpdm_EducationOrganizationStudentAcademicRecordFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentAssessmentFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationStudentAssessmentFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[EducationOrganizationStudentAssessmentFacts](EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactAsOfDate, TakenSchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFacts] ENABLE TRIGGER [tpdm_EducationOrganizationStudentAssessmentFacts_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationStudentFacts] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -589,6 +646,24 @@ END
 GO
 
 ALTER TABLE [tpdm].[EducationOrganizationStudentFacts] ENABLE TRIGGER [tpdm_EducationOrganizationStudentFacts_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EducatorRoleDescriptor_TR_DeleteTracking] ON [tpdm].[EducatorRoleDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EducatorRoleDescriptor](EducatorRoleDescriptorId, Id, ChangeVersion)
+    SELECT  d.EducatorRoleDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EducatorRoleDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EducatorRoleDescriptor] ENABLE TRIGGER [tpdm_EducatorRoleDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -698,6 +773,180 @@ ALTER TABLE [tpdm].[EnglishLanguageExamDescriptor] ENABLE TRIGGER [tpdm_EnglishL
 GO
 
 
+CREATE TRIGGER [tpdm].[tpdm_EvaluationElementRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[EvaluationElementRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationElementRatingLevelDescriptor](EvaluationElementRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.EvaluationElementRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationElementRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationElementRatingLevelDescriptor] ENABLE TRIGGER [tpdm_EvaluationElementRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationElementRating_TR_DeleteTracking] ON [tpdm].[EvaluationElementRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationElementRating](EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationElementRating] ENABLE TRIGGER [tpdm_EvaluationElementRating_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationElement_TR_DeleteTracking] ON [tpdm].[EvaluationElement] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationElement](EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationElement] ENABLE TRIGGER [tpdm_EvaluationElement_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationObjectiveRating_TR_DeleteTracking] ON [tpdm].[EvaluationObjectiveRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationObjectiveRating](EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationObjectiveRating] ENABLE TRIGGER [tpdm_EvaluationObjectiveRating_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationObjective_TR_DeleteTracking] ON [tpdm].[EvaluationObjective] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationObjective](EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationObjective] ENABLE TRIGGER [tpdm_EvaluationObjective_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationPeriodDescriptor_TR_DeleteTracking] ON [tpdm].[EvaluationPeriodDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationPeriodDescriptor](EvaluationPeriodDescriptorId, Id, ChangeVersion)
+    SELECT  d.EvaluationPeriodDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationPeriodDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationPeriodDescriptor] ENABLE TRIGGER [tpdm_EvaluationPeriodDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[EvaluationRatingLevelDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationRatingLevelDescriptor](EvaluationRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.EvaluationRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationRatingLevelDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationRatingLevelDescriptor] ENABLE TRIGGER [tpdm_EvaluationRatingLevelDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationRating_TR_DeleteTracking] ON [tpdm].[EvaluationRating] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationRating](EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationRating] ENABLE TRIGGER [tpdm_EvaluationRating_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_EvaluationTypeDescriptor_TR_DeleteTracking] ON [tpdm].[EvaluationTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[EvaluationTypeDescriptor](EvaluationTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.EvaluationTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.EvaluationTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[EvaluationTypeDescriptor] ENABLE TRIGGER [tpdm_EvaluationTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_Evaluation_TR_DeleteTracking] ON [tpdm].[Evaluation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[Evaluation](EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[Evaluation] ENABLE TRIGGER [tpdm_Evaluation_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [tpdm].[tpdm_FederalLocaleCodeDescriptor_TR_DeleteTracking] ON [tpdm].[FederalLocaleCodeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -770,6 +1019,41 @@ ALTER TABLE [tpdm].[GenderDescriptor] ENABLE TRIGGER [tpdm_GenderDescriptor_TR_D
 GO
 
 
+CREATE TRIGGER [tpdm].[tpdm_GoalTypeDescriptor_TR_DeleteTracking] ON [tpdm].[GoalTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[GoalTypeDescriptor](GoalTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.GoalTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.GoalTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[GoalTypeDescriptor] ENABLE TRIGGER [tpdm_GoalTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_Goal_TR_DeleteTracking] ON [tpdm].[Goal] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[Goal](AssignmentDate, GoalTitle, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT  AssignmentDate, GoalTitle, PersonId, SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[Goal] ENABLE TRIGGER [tpdm_Goal_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [tpdm].[tpdm_HireStatusDescriptor_TR_DeleteTracking] ON [tpdm].[HireStatusDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -803,6 +1087,24 @@ END
 GO
 
 ALTER TABLE [tpdm].[HiringSourceDescriptor] ENABLE TRIGGER [tpdm_HiringSourceDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_InstructionalSettingDescriptor_TR_DeleteTracking] ON [tpdm].[InstructionalSettingDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[InstructionalSettingDescriptor](InstructionalSettingDescriptorId, Id, ChangeVersion)
+    SELECT  d.InstructionalSettingDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.InstructionalSettingDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[InstructionalSettingDescriptor] ENABLE TRIGGER [tpdm_InstructionalSettingDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -842,21 +1144,21 @@ ALTER TABLE [tpdm].[LevelOfDegreeAwardedDescriptor] ENABLE TRIGGER [tpdm_LevelOf
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_LevelTypeDescriptor_TR_DeleteTracking] ON [tpdm].[LevelTypeDescriptor] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_ObjectiveRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[ObjectiveRatingLevelDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[LevelTypeDescriptor](LevelTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.LevelTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[ObjectiveRatingLevelDescriptor](ObjectiveRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.ObjectiveRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.LevelTypeDescriptorId = b.DescriptorId
+            INNER JOIN edfi.Descriptor b ON d.ObjectiveRatingLevelDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[LevelTypeDescriptor] ENABLE TRIGGER [tpdm_LevelTypeDescriptor_TR_DeleteTracking]
+ALTER TABLE [tpdm].[ObjectiveRatingLevelDescriptor] ENABLE TRIGGER [tpdm_ObjectiveRatingLevelDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -931,90 +1233,73 @@ ALTER TABLE [tpdm].[OpenStaffPositionReasonDescriptor] ENABLE TRIGGER [tpdm_Open
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureCourseAssociation_TR_DeleteTracking] ON [tpdm].[PerformanceMeasureCourseAssociation] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluationRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[PerformanceEvaluationRatingLevelDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[PerformanceMeasureCourseAssociation](CourseCode, EducationOrganizationId, PerformanceMeasureIdentifier, Id, ChangeVersion)
-    SELECT  CourseCode, EducationOrganizationId, PerformanceMeasureIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[PerformanceEvaluationRatingLevelDescriptor](PerformanceEvaluationRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.PerformanceEvaluationRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationRatingLevelDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[PerformanceMeasureCourseAssociation] ENABLE TRIGGER [tpdm_PerformanceMeasureCourseAssociation_TR_DeleteTracking]
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingLevelDescriptor] ENABLE TRIGGER [tpdm_PerformanceEvaluationRatingLevelDescriptor_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureFacts_TR_DeleteTracking] ON [tpdm].[PerformanceMeasureFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluationRating_TR_DeleteTracking] ON [tpdm].[PerformanceEvaluationRating] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[PerformanceMeasureFacts](EducationOrganizationId, FactsAsOfDate, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactsAsOfDate, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[PerformanceEvaluationRating](PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
-ALTER TABLE [tpdm].[PerformanceMeasureFacts] ENABLE TRIGGER [tpdm_PerformanceMeasureFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[PerformanceEvaluationRating] ENABLE TRIGGER [tpdm_PerformanceEvaluationRating_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureInstanceDescriptor_TR_DeleteTracking] ON [tpdm].[PerformanceMeasureInstanceDescriptor] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluationTypeDescriptor_TR_DeleteTracking] ON [tpdm].[PerformanceEvaluationTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[PerformanceMeasureInstanceDescriptor](PerformanceMeasureInstanceDescriptorId, Id, ChangeVersion)
-    SELECT  d.PerformanceMeasureInstanceDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[PerformanceEvaluationTypeDescriptor](PerformanceEvaluationTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.PerformanceEvaluationTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.PerformanceMeasureInstanceDescriptorId = b.DescriptorId
+            INNER JOIN edfi.Descriptor b ON d.PerformanceEvaluationTypeDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[PerformanceMeasureInstanceDescriptor] ENABLE TRIGGER [tpdm_PerformanceMeasureInstanceDescriptor_TR_DeleteTracking]
+ALTER TABLE [tpdm].[PerformanceEvaluationTypeDescriptor] ENABLE TRIGGER [tpdm_PerformanceEvaluationTypeDescriptor_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasureTypeDescriptor_TR_DeleteTracking] ON [tpdm].[PerformanceMeasureTypeDescriptor] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_PerformanceEvaluation_TR_DeleteTracking] ON [tpdm].[PerformanceEvaluation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[PerformanceMeasureTypeDescriptor](PerformanceMeasureTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.PerformanceMeasureTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.PerformanceMeasureTypeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[PerformanceMeasureTypeDescriptor] ENABLE TRIGGER [tpdm_PerformanceMeasureTypeDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_PerformanceMeasure_TR_DeleteTracking] ON [tpdm].[PerformanceMeasure] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[PerformanceMeasure](PerformanceMeasureIdentifier, Id, ChangeVersion)
-    SELECT  PerformanceMeasureIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[PerformanceEvaluation](PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
-ALTER TABLE [tpdm].[PerformanceMeasure] ENABLE TRIGGER [tpdm_PerformanceMeasure_TR_DeleteTracking]
+ALTER TABLE [tpdm].[PerformanceEvaluation] ENABLE TRIGGER [tpdm_PerformanceEvaluation_TR_DeleteTracking]
 GO
 
 
@@ -1141,6 +1426,76 @@ ALTER TABLE [tpdm].[Prospect] ENABLE TRIGGER [tpdm_Prospect_TR_DeleteTracking]
 GO
 
 
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasureDatatypeDescriptor_TR_DeleteTracking] ON [tpdm].[QuantitativeMeasureDatatypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[QuantitativeMeasureDatatypeDescriptor](QuantitativeMeasureDatatypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.QuantitativeMeasureDatatypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.QuantitativeMeasureDatatypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[QuantitativeMeasureDatatypeDescriptor] ENABLE TRIGGER [tpdm_QuantitativeMeasureDatatypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasureScore_TR_DeleteTracking] ON [tpdm].[QuantitativeMeasureScore] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[QuantitativeMeasureScore](EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, QuantitativeMeasureIdentifier, SourceSystemDescriptorId, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, QuantitativeMeasureIdentifier, SourceSystemDescriptorId, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[QuantitativeMeasureScore] ENABLE TRIGGER [tpdm_QuantitativeMeasureScore_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasureTypeDescriptor_TR_DeleteTracking] ON [tpdm].[QuantitativeMeasureTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[QuantitativeMeasureTypeDescriptor](QuantitativeMeasureTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.QuantitativeMeasureTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.QuantitativeMeasureTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [tpdm].[QuantitativeMeasureTypeDescriptor] ENABLE TRIGGER [tpdm_QuantitativeMeasureTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_QuantitativeMeasure_TR_DeleteTracking] ON [tpdm].[QuantitativeMeasure] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[QuantitativeMeasure](EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[QuantitativeMeasure] ENABLE TRIGGER [tpdm_QuantitativeMeasure_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [tpdm].[tpdm_RecruitmentEventTypeDescriptor_TR_DeleteTracking] ON [tpdm].[RecruitmentEventTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -1176,89 +1531,38 @@ ALTER TABLE [tpdm].[RecruitmentEvent] ENABLE TRIGGER [tpdm_RecruitmentEvent_TR_D
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_RubricLevelResponseFacts_TR_DeleteTracking] ON [tpdm].[RubricLevelResponseFacts] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_RubricDimension_TR_DeleteTracking] ON [tpdm].[RubricDimension] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[RubricLevelResponseFacts](EducationOrganizationId, FactsAsOfDate, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactsAsOfDate, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, SchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[RubricDimension](EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, RubricRating, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, RubricRating, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
 
-ALTER TABLE [tpdm].[RubricLevelResponseFacts] ENABLE TRIGGER [tpdm_RubricLevelResponseFacts_TR_DeleteTracking]
+ALTER TABLE [tpdm].[RubricDimension] ENABLE TRIGGER [tpdm_RubricDimension_TR_DeleteTracking]
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_RubricLevelResponse_TR_DeleteTracking] ON [tpdm].[RubricLevelResponse] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_RubricRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[RubricRatingLevelDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[RubricLevelResponse](EducationOrganizationId, PerformanceMeasureIdentifier, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, PerformanceMeasureIdentifier, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[RubricRatingLevelDescriptor](RubricRatingLevelDescriptorId, Id, ChangeVersion)
+    SELECT  d.RubricRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RubricRatingLevelDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[RubricLevelResponse] ENABLE TRIGGER [tpdm_RubricLevelResponse_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_RubricLevel_TR_DeleteTracking] ON [tpdm].[RubricLevel] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[RubricLevel](EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[RubricLevel] ENABLE TRIGGER [tpdm_RubricLevel_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_RubricTypeDescriptor_TR_DeleteTracking] ON [tpdm].[RubricTypeDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[RubricTypeDescriptor](RubricTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.RubricTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.RubricTypeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[RubricTypeDescriptor] ENABLE TRIGGER [tpdm_RubricTypeDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_Rubric_TR_DeleteTracking] ON [tpdm].[Rubric] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[Rubric](EducationOrganizationId, RubricTitle, RubricTypeDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, RubricTitle, RubricTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[Rubric] ENABLE TRIGGER [tpdm_Rubric_TR_DeleteTracking]
+ALTER TABLE [tpdm].[RubricRatingLevelDescriptor] ENABLE TRIGGER [tpdm_RubricRatingLevelDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -1298,74 +1602,6 @@ ALTER TABLE [tpdm].[SchoolStatusDescriptor] ENABLE TRIGGER [tpdm_SchoolStatusDes
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_SectionCourseTranscriptFacts_TR_DeleteTracking] ON [tpdm].[SectionCourseTranscriptFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[SectionCourseTranscriptFacts](FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    SELECT  FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[SectionCourseTranscriptFacts] ENABLE TRIGGER [tpdm_SectionCourseTranscriptFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentAcademicRecordFacts_TR_DeleteTracking] ON [tpdm].[SectionStudentAcademicRecordFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[SectionStudentAcademicRecordFacts](FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    SELECT  FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFacts] ENABLE TRIGGER [tpdm_SectionStudentAcademicRecordFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentAssessmentFacts_TR_DeleteTracking] ON [tpdm].[SectionStudentAssessmentFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[SectionStudentAssessmentFacts](FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear, Id, ChangeVersion)
-    SELECT  FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[SectionStudentAssessmentFacts] ENABLE TRIGGER [tpdm_SectionStudentAssessmentFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_SectionStudentFacts_TR_DeleteTracking] ON [tpdm].[SectionStudentFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[SectionStudentFacts](FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, ChangeVersion)
-    SELECT  FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[SectionStudentFacts] ENABLE TRIGGER [tpdm_SectionStudentFacts_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_StaffApplicantAssociation_TR_DeleteTracking] ON [tpdm].[StaffApplicantAssociation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -1380,162 +1616,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[StaffApplicantAssociation] ENABLE TRIGGER [tpdm_StaffApplicantAssociation_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationComponentRating_TR_DeleteTracking] ON [tpdm].[StaffEvaluationComponentRating] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationComponentRating](ComponentRating, EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    SELECT  ComponentRating, EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationComponentRating] ENABLE TRIGGER [tpdm_StaffEvaluationComponentRating_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationComponent_TR_DeleteTracking] ON [tpdm].[StaffEvaluationComponent] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationComponent](EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationTitle, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationComponent] ENABLE TRIGGER [tpdm_StaffEvaluationComponent_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationElementRating_TR_DeleteTracking] ON [tpdm].[StaffEvaluationElementRating] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationElementRating](EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationElementRating] ENABLE TRIGGER [tpdm_StaffEvaluationElementRating_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationElement_TR_DeleteTracking] ON [tpdm].[StaffEvaluationElement] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationElement](EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationTitle, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationElement] ENABLE TRIGGER [tpdm_StaffEvaluationElement_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationPeriodDescriptor_TR_DeleteTracking] ON [tpdm].[StaffEvaluationPeriodDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationPeriodDescriptor](StaffEvaluationPeriodDescriptorId, Id, ChangeVersion)
-    SELECT  d.StaffEvaluationPeriodDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.StaffEvaluationPeriodDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationPeriodDescriptor] ENABLE TRIGGER [tpdm_StaffEvaluationPeriodDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationRatingLevelDescriptor_TR_DeleteTracking] ON [tpdm].[StaffEvaluationRatingLevelDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationRatingLevelDescriptor](StaffEvaluationRatingLevelDescriptorId, Id, ChangeVersion)
-    SELECT  d.StaffEvaluationRatingLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.StaffEvaluationRatingLevelDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationRatingLevelDescriptor] ENABLE TRIGGER [tpdm_StaffEvaluationRatingLevelDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationRating_TR_DeleteTracking] ON [tpdm].[StaffEvaluationRating] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationRating](EducationOrganizationId, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationRating] ENABLE TRIGGER [tpdm_StaffEvaluationRating_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluationTypeDescriptor_TR_DeleteTracking] ON [tpdm].[StaffEvaluationTypeDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluationTypeDescriptor](StaffEvaluationTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.StaffEvaluationTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.StaffEvaluationTypeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluationTypeDescriptor] ENABLE TRIGGER [tpdm_StaffEvaluationTypeDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffEvaluation_TR_DeleteTracking] ON [tpdm].[StaffEvaluation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffEvaluation](EducationOrganizationId, SchoolYear, StaffEvaluationTitle, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, SchoolYear, StaffEvaluationTitle, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffEvaluation] ENABLE TRIGGER [tpdm_StaffEvaluation_TR_DeleteTracking]
 GO
 
 
@@ -1744,21 +1824,54 @@ ALTER TABLE [tpdm].[StudentGrowthTypeDescriptor] ENABLE TRIGGER [tpdm_StudentGro
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_SurveyLevelDescriptor_TR_DeleteTracking] ON [tpdm].[SurveyLevelDescriptor] AFTER DELETE AS
+CREATE TRIGGER [tpdm].[tpdm_SurveyResponseTeacherCandidateTargetAssociation_TR_DeleteTracking] ON [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
         RETURN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[SurveyLevelDescriptor](SurveyLevelDescriptorId, Id, ChangeVersion)
-    SELECT  d.SurveyLevelDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[SurveyResponseTeacherCandidateTargetAssociation](Namespace, SurveyIdentifier, SurveyResponseIdentifier, TeacherCandidateIdentifier, Id, ChangeVersion)
+    SELECT  Namespace, SurveyIdentifier, SurveyResponseIdentifier, TeacherCandidateIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.SurveyLevelDescriptorId = b.DescriptorId
 END
 GO
 
-ALTER TABLE [tpdm].[SurveyLevelDescriptor] ENABLE TRIGGER [tpdm_SurveyLevelDescriptor_TR_DeleteTracking]
+ALTER TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] ENABLE TRIGGER [tpdm_SurveyResponseTeacherCandidateTargetAssociation_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_SurveySectionAggregateResponse_TR_DeleteTracking] ON [tpdm].[SurveySectionAggregateResponse] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[SurveySectionAggregateResponse](EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, Namespace, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveySectionTitle, TermDescriptorId, Id, ChangeVersion)
+    SELECT  EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, Namespace, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveySectionTitle, TermDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[SurveySectionAggregateResponse] ENABLE TRIGGER [tpdm_SurveySectionAggregateResponse_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_SurveySectionResponseTeacherCandidateTargetAssociation_TR_DeleteTracking] ON [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation](Namespace, SurveyIdentifier, SurveyResponseIdentifier, SurveySectionTitle, TeacherCandidateIdentifier, Id, ChangeVersion)
+    SELECT  Namespace, SurveyIdentifier, SurveyResponseIdentifier, SurveySectionTitle, TeacherCandidateIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] ENABLE TRIGGER [tpdm_SurveySectionResponseTeacherCandidateTargetAssociation_TR_DeleteTracking]
 GO
 
 
@@ -1795,23 +1908,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[TPPProgramPathwayDescriptor] ENABLE TRIGGER [tpdm_TPPProgramPathwayDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_TalentManagementGoal_TR_DeleteTracking] ON [tpdm].[TalentManagementGoal] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TalentManagementGoal](GoalTitle, SchoolYear, Id, ChangeVersion)
-    SELECT  GoalTitle, SchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[TalentManagementGoal] ENABLE TRIGGER [tpdm_TalentManagementGoal_TR_DeleteTracking]
 GO
 
 
@@ -2121,24 +2217,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[TeacherPreparationProvider] ENABLE TRIGGER [tpdm_TeacherPreparationProvider_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_ThemeDescriptor_TR_DeleteTracking] ON [tpdm].[ThemeDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[ThemeDescriptor](ThemeDescriptorId, Id, ChangeVersion)
-    SELECT  d.ThemeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.ThemeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [tpdm].[ThemeDescriptor] ENABLE TRIGGER [tpdm_ThemeDescriptor_TR_DeleteTracking]
 GO
 
 
