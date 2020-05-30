@@ -106,3 +106,6 @@ downloads/
 node_modules/
 newman/
 environment.json
+
+# NetCore Webapi
+/**/WebApiLog*

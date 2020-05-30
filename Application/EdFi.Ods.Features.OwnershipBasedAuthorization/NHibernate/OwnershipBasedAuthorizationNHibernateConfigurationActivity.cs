@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
  
 using System.Linq;
-using EdFi.Ods.Api.NHibernate.Architecture;
+using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.SqlServer;

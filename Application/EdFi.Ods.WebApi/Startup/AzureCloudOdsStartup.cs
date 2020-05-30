@@ -5,6 +5,7 @@
  
 using System;
 using System.Web.Configuration;
+using EdFi.Ods.Api;
 using EdFi.Ods.WebApi.Startup;
 using log4net;
 using log4net.Repository.Hierarchy;
@@ -15,7 +16,7 @@ using Microsoft.Owin;
 
 namespace EdFi.Ods.WebApi.Startup
 {
-    public class AzureCloudOdsStartup : Api.Startup.StartupBase
+    public class AzureCloudOdsStartup : StartupBase
     {
         protected override void ConfigurationSpecificRegistration()
         {

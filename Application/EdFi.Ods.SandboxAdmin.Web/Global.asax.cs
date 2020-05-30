@@ -15,7 +15,6 @@ using EdFi.Ods.Admin.Infrastructure;
 using EdFi.Ods.Admin.Initialization;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Admin.Services;
-using EdFi.Ods.Common.Http.InversionOfControl;
 using EdFi.Ods.Common.InversionOfControl;
 using Hangfire;
 using Hangfire.Windsor;
