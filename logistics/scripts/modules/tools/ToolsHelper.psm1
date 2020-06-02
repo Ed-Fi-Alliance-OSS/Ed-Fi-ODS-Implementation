@@ -147,7 +147,7 @@ function Install-ToolCodeGenUtility {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
             Path = $toolsPath
-            Name = 'edfi.ods.codegen.console'
+            Name = 'edfi.ods.codegen'
             Version = $toolVersion
         }
 
