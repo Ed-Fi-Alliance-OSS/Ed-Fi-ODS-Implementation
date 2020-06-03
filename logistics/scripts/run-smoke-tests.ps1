@@ -102,7 +102,7 @@ function Get-SmokeTestConfiguration {
     $config.smokeTestExecutable = $smokeTestExe
     $config.smokeTestDll = $smokeTestDll
     $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\EdFi.Ods.Api.IntegrationTestHarness.exe.config"
-    $config.noExtensions = $true
+    $config.noExtensions = $false
 
     $config.testSets = $testSets
 
