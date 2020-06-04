@@ -11,8 +11,7 @@ const getVersionString = (v) => `${v.major}.${v.minor}.${v.patch}${v.prerelease 
 // stops patch versions of 0 from being displayed in previous releases
 const getPatchVersion = (v) => (v.patch === 0 && v.suite <= 3 && v.major <= 3 ? '' : '.' + v.patch)
 
-const getDisplayVersion = (v) =>
-  `Suite ${v.suite} v${v.major}.${v.minor}${getPatchVersion(v)}${v.prerelease != null ? '-prerelease' : ''}`
+const getDisplayVersion = (v) => `${v.major}.${v.minor}${getPatchVersion(v)}${v.prerelease != null ? '-prerelease' : ''}`
 
 const nextSuiteVersion = (v) => newVersion(v.suite + 1, 1, 0, 0, null)
 
@@ -49,6 +48,11 @@ const apiUrlFor = (state) =>
   state.config.apiUrlTemplate
     .replace('{{version}}', getVersionString(state.version))
     .replace('{{suite}}', state.version.suite.toString())
+
+const getDisplayVersionFor = (state) =>
+    state.config.displayVersionTemplate
+        .replace('{{version}}', getDisplayVersion(state.version))
+        .replace('{{suite}}', state.version.suite.toString())
 
 const newTransitions = () => ({
   default: {
@@ -157,7 +161,7 @@ const createSections = (state) => {
 const createVersionRows = (state) => {
   state.forEach((s) => {
     const template = document.querySelector('#versionTemplate').innerHTML
-    const versionRow = template.replace(/{{apiVersion}}/g, getDisplayVersion(s.version))
+    const versionRow = template.replace(/{{apiVersion}}/g, getDisplayVersionFor(s))
 
     const div = document.createElement('div')
     div.innerHTML = versionRow
@@ -202,11 +206,13 @@ const showError = (err) => {
  * @property {Object} initialVersion - the initial version to use when searching urls
  * @property {string} docsUrlTemplate - the template used when searching for swagger docs page
  * @property {string=} apiUrlTemplate - an optional template to display the api version endpoint
+ * @property {string} displayVersionTemplate - the template used to display a human readable representation of the version
  * @property {string=} prerelease - an optional prerelease tag to look for in url route
  *
  * @description
  * Running Locally:
  *    Disable CORS in Chrome: Win + R -> chrome.exe --user-data-dir="C://chromeDev" --disable-web-security
+ *    Open LandingPage/index.html in browser with CORS disabled
  *    Update apiUrlBaseForLocalTesting variable below if needed
  */
 const getConfigs = () => {
@@ -216,28 +222,41 @@ const getConfigs = () => {
 
   const configs = [
     {
-      initialVersion: newVersion(3, 4, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/api/`,
+      initialVersion: newVersion(2, 2, 4, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
     },
     {
       initialVersion: newVersion(3, 3, 1, 0, null),
       docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
       apiUrlTemplate: `${apiUrlBase}/v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
     },
     {
-      initialVersion: newVersion(2, 2, 4, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
+      initialVersion: newVersion(3, 4, 0, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/docs/`,
+      apiUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Shared Instance`
+    },
+    {
+      initialVersion: newVersion(3, 4, 0, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/docs/`,
+      apiUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Year Specific`
+    },
+    {
+      initialVersion: newVersion(3, 4, 0, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/docs/`,
+      apiUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
     },
   ]
 
   return configs
 }
 
-;(() => {
+const init = (configs = getConfigs()) => {
   console.time('✔️')
-
-  const configs = getConfigs()
   configs.forEach((c) => console.log(c))
 
   const searches = configs.map((config) => {
@@ -265,4 +284,6 @@ const getConfigs = () => {
 
     console.timeEnd('✔️')
   })
-})()
+}
+
+init();
