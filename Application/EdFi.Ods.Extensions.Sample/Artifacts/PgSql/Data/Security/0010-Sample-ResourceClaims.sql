@@ -3,6 +3,7 @@ declare appId int;
 declare systemDescriptorsResourceClaimId int;
 declare relationshipBasedDataResourceClaimId int;
 declare educationOrganizationsResourceClaimId int;
+declare authStrategyId int;
 
 begin
 
@@ -127,5 +128,22 @@ VALUES (
     , appId
     );
 
+
+select AuthorizationStrategyId into authStrategyId from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
+
+--- These Resources need explicit metadata ---
+insert into dbo.ResourceClaimAuthorizationMetadatas
+    (Action_ActionId
+    ,AuthorizationStrategy_AuthorizationStrategyId
+    ,ResourceClaim_ResourceClaimId
+    ,ValidationRuleSetName)
+select ac.ActionId, authStrategyId, ResourceClaimId, null
+from dbo.ResourceClaims
+inner join lateral
+    (select ActionId
+    from dbo.Actions
+    where ActionName in ('Create', 'Read', 'Update', 'Delete')) as ac on true
+where ResourceName in ('studentGraduationPlanAssociation'
+, 'studentArtProgramAssociation');
 
 end $$

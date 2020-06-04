@@ -861,7 +861,4 @@ INSERT INTO sample.StudentFavoriteBookArtMedium
            ,student604854Usi
            ,1);
 
-
-raise notice 'Value: %', artMediumDescriptorId;
-
 end $$;
