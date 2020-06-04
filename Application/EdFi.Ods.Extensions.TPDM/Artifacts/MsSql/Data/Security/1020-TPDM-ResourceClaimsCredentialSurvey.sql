@@ -35,6 +35,15 @@ INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, Parent
 VALUES ('certificationFieldDescriptor', 'certificationFieldDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('certificationLevelDescriptor', 'certificationLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
+
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('certificationRouteDescriptor', 'certificationRouteDescriptors, 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
+
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('certificationStandardDescriptor', 'certificationStandardDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
+
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('credentialEventTypeDescriptor', 'credentialEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
