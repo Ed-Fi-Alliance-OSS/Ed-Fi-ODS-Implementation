@@ -751,6 +751,38 @@
           ]
         }
       ]
+    },
+    {
+      "Email": "multipleEdorg@ed-fi.org",
+      "VendorName": "multipleEdorg",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "SIS Vendor",
+          "ApiClients": [
+            {
+              "ApiClientName": "MultipleEdorg_255901001_5001",
+              "LocalEducationOrganizations": [ 255901001, 5001 ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Email": "multipleEdorg2@ed-fi.org",
+      "VendorName": "multipleEdorg2",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "SIS Vendor",
+          "ApiClients": [
+            {
+              "ApiClientName": "MultipleEdorg_5001_51",
+              "LocalEducationOrganizations": [ 51, 5001 ]
+            }
+          ]
+        }
+      ]
     }
 
   ]
