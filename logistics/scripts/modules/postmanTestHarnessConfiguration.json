@@ -754,7 +754,7 @@
     },
     {
       "Email": "multipleEdorg@ed-fi.org",
-      "VendorName": "ed-fi.org",
+      "VendorName": "multipleEdorg",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
@@ -770,7 +770,7 @@
     },
     {
       "Email": "multipleEdorg2@ed-fi.org",
-      "VendorName": "ed-fi.org",
+      "VendorName": "multipleEdorg2",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
