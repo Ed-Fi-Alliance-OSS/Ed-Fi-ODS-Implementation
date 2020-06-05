@@ -305,6 +305,7 @@ function Install-EdFiOdsWebApi {
         $result += Invoke-TransformWebConfigAppSettings -Config $config
         $result += Invoke-TransformWebConfigConnectionStrings -Config $config
         $result += Install-Application -Config $config
+        $result += New-SqlLogins -Config $config
 
         $result
     }
@@ -508,6 +509,29 @@ function Install-Application {
             CertThumbprint = $Config.CertThumbprint
         }
         Install-EdFiApplicationIntoIIS @iisParams
+    }
+}
+
+function New-SqlLogins {
+    [CmdletBinding()]
+    param (
+        [hashtable]
+        [Parameter(Mandatory=$true)]
+        $Config
+    )
+
+    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+
+        if($Config.usingSharedCredentials)
+        {
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName
+        }
+        else
+        {
+            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
+        }
     }
 }
 
