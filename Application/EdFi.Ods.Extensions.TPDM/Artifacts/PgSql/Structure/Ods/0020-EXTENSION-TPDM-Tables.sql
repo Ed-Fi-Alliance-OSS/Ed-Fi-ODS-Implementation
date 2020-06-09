@@ -319,6 +319,8 @@ CREATE TABLE tpdm.Applicant (
     EconomicDisadvantaged BOOLEAN NULL,
     FirstGenerationStudent BOOLEAN NULL,
     TeacherCandidateIdentifier VARCHAR(32) NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -750,11 +752,81 @@ CREATE TABLE tpdm.BackgroundCheckTypeDescriptor (
     CONSTRAINT BackgroundCheckTypeDescriptor_PK PRIMARY KEY (BackgroundCheckTypeDescriptorId)
 ); 
 
--- Table tpdm.BoardCertificationTypeDescriptor --
-CREATE TABLE tpdm.BoardCertificationTypeDescriptor (
-    BoardCertificationTypeDescriptorId INT NOT NULL,
-    CONSTRAINT BoardCertificationTypeDescriptor_PK PRIMARY KEY (BoardCertificationTypeDescriptorId)
+-- Table tpdm.Certification --
+CREATE TABLE tpdm.Certification (
+    CertificationIdentifier VARCHAR(60) NOT NULL,
+    IssuerNamespace VARCHAR(255) NOT NULL,
+    CertificationTitle VARCHAR(64) NOT NULL,
+    EducationOrganizationId INT NULL,
+    CertificationLevelDescriptorId INT NULL,
+    CertificationFieldDescriptorId INT NULL,
+    CertificationStandardDescriptorId INT NULL,
+    MinimumDegreeDescriptorId INT NULL,
+    EducatorRoleDescriptorId INT NULL,
+    PopulationServedDescriptorId INT NULL,
+    InstructionalSettingDescriptorId INT NULL,
+    EffectiveDate DATE NULL,
+    EndDate DATE NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT Certification_PK PRIMARY KEY (CertificationIdentifier, IssuerNamespace)
 ); 
+ALTER TABLE tpdm.Certification ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Certification ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.Certification ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.CertificationCertificationExam --
+CREATE TABLE tpdm.CertificationCertificationExam (
+    CertificationExamIdentifier VARCHAR(60) NOT NULL,
+    CertificationIdentifier VARCHAR(60) NOT NULL,
+    IssuerNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT CertificationCertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, CertificationIdentifier, IssuerNamespace, Namespace)
+); 
+ALTER TABLE tpdm.CertificationCertificationExam ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.CertificationExam --
+CREATE TABLE tpdm.CertificationExam (
+    CertificationExamIdentifier VARCHAR(60) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    CertificationExamTitle VARCHAR(60) NOT NULL,
+    EducationOrganizationId INT NULL,
+    CertificationExamTypeDescriptorId INT NULL,
+    EffectiveDate DATE NULL,
+    EndDate DATE NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT CertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, Namespace)
+); 
+ALTER TABLE tpdm.CertificationExam ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CertificationExam ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.CertificationExam ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.CertificationExamResult --
+CREATE TABLE tpdm.CertificationExamResult (
+    CertificationExamDate DATE NOT NULL,
+    CertificationExamIdentifier VARCHAR(60) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    AttemptNumber INT NULL,
+    CertificationExamScore DECIMAL(6, 3) NULL,
+    CertificationExamPassIndicator BOOLEAN NULL,
+    CertificationExamStatusDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT CertificationExamResult_PK PRIMARY KEY (CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId)
+); 
+ALTER TABLE tpdm.CertificationExamResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CertificationExamResult ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.CertificationExamResult ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.CertificationExamStatusDescriptor --
 CREATE TABLE tpdm.CertificationExamStatusDescriptor (
@@ -766,6 +838,50 @@ CREATE TABLE tpdm.CertificationExamStatusDescriptor (
 CREATE TABLE tpdm.CertificationExamTypeDescriptor (
     CertificationExamTypeDescriptorId INT NOT NULL,
     CONSTRAINT CertificationExamTypeDescriptor_PK PRIMARY KEY (CertificationExamTypeDescriptorId)
+); 
+
+-- Table tpdm.CertificationFieldDescriptor --
+CREATE TABLE tpdm.CertificationFieldDescriptor (
+    CertificationFieldDescriptorId INT NOT NULL,
+    CONSTRAINT CertificationFieldDescriptor_PK PRIMARY KEY (CertificationFieldDescriptorId)
+); 
+
+-- Table tpdm.CertificationGradeLevel --
+CREATE TABLE tpdm.CertificationGradeLevel (
+    CertificationIdentifier VARCHAR(60) NOT NULL,
+    GradeLevelDescriptorId INT NOT NULL,
+    IssuerNamespace VARCHAR(255) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT CertificationGradeLevel_PK PRIMARY KEY (CertificationIdentifier, GradeLevelDescriptorId, IssuerNamespace)
+); 
+ALTER TABLE tpdm.CertificationGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.CertificationLevelDescriptor --
+CREATE TABLE tpdm.CertificationLevelDescriptor (
+    CertificationLevelDescriptorId INT NOT NULL,
+    CONSTRAINT CertificationLevelDescriptor_PK PRIMARY KEY (CertificationLevelDescriptorId)
+); 
+
+-- Table tpdm.CertificationRoute --
+CREATE TABLE tpdm.CertificationRoute (
+    CertificationIdentifier VARCHAR(60) NOT NULL,
+    CertificationRouteDescriptorId INT NOT NULL,
+    IssuerNamespace VARCHAR(255) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT CertificationRoute_PK PRIMARY KEY (CertificationIdentifier, CertificationRouteDescriptorId, IssuerNamespace)
+); 
+ALTER TABLE tpdm.CertificationRoute ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.CertificationRouteDescriptor --
+CREATE TABLE tpdm.CertificationRouteDescriptor (
+    CertificationRouteDescriptorId INT NOT NULL,
+    CONSTRAINT CertificationRouteDescriptor_PK PRIMARY KEY (CertificationRouteDescriptorId)
+); 
+
+-- Table tpdm.CertificationStandardDescriptor --
+CREATE TABLE tpdm.CertificationStandardDescriptor (
+    CertificationStandardDescriptorId INT NOT NULL,
+    CONSTRAINT CertificationStandardDescriptor_PK PRIMARY KEY (CertificationStandardDescriptorId)
 ); 
 
 -- Table tpdm.CommunityOrganizationExtension --
@@ -806,543 +922,71 @@ CREATE TABLE tpdm.CoteachingStyleObservedDescriptor (
     CONSTRAINT CoteachingStyleObservedDescriptor_PK PRIMARY KEY (CoteachingStyleObservedDescriptorId)
 ); 
 
--- Table tpdm.CourseCourseTranscriptFacts --
-CREATE TABLE tpdm.CourseCourseTranscriptFacts (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    CourseTitle VARCHAR(60) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT CourseCourseTranscriptFacts_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseCourseTranscriptFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.CourseCourseTranscriptFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.CourseCourseTranscriptFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned --
-CREATE TABLE tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    FinalLetterGrade VARCHAR(20) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    LetterGradeTypeNumber INT NULL,
-    LetterGradeTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, FinalLetterGrade, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned --
-CREATE TABLE tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    AverageFinalNumericGradeEarned DECIMAL(9, 2) NOT NULL,
-    NumericGradeNCount INT NULL,
-    NumericGradeStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseCourseTranscriptFactsAggregatedNumericGradeEarned_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseCourseTranscriptFactsAggregatedNumericGradeEarned ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseCourseTranscriptFactsStudentsEnrolled --
-CREATE TABLE tpdm.CourseCourseTranscriptFactsStudentsEnrolled (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseCourseTranscriptFactsStudentsEnrolled_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseCourseTranscriptFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAcademicRecordFacts --
-CREATE TABLE tpdm.CourseStudentAcademicRecordFacts (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    AggregatedGPAMax DECIMAL(18, 4) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT CourseStudentAcademicRecordFacts_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentAcademicRecordFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.CourseStudentAcademicRecordFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.CourseStudentAcademicRecordFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5 --
-CREATE TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5 (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAcademicRecordFactsAggregatedCumulati_4b17a5_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedCumulativeGrad_4b17a5 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4 --
-CREATE TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4 (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAcademicRecordFactsAggregatedSessionG_c23df4_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentAcademicRecordFactsAggregatedSessionGradePo_c23df4 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled --
-CREATE TABLE tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAcademicRecordFactsStudentsEnrolled_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentAcademicRecordFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAssessmentFacts --
-CREATE TABLE tpdm.CourseStudentAssessmentFacts (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentTitle VARCHAR(100) NULL,
-    AssessmentCategoryDescriptorId INT NULL,
-    AcademicSubjectDescriptorId INT NULL,
-    GradeLevelDescriptorId INT NULL,
-    AdministrationDate DATE NULL,
-    TermDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT CourseStudentAssessmentFacts_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.CourseStudentAssessmentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.CourseStudentAssessmentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.CourseStudentAssessmentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel --
-CREATE TABLE tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    PerformanceLevelDescriptorId INT NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    PerformanceLevelMetNumber INT NULL,
-    PerformanceLevelMetPercentage DECIMAL(5, 4) NULL,
-    PerformanceLevelTypeNumber INT NULL,
-    PerformanceLevelTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAssessmentFactsAggregatedPerformanceLevel_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, PerformanceLevelDescriptorId, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.CourseStudentAssessmentFactsAggregatedPerformanceLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAssessmentFactsAggregatedScoreResult --
-CREATE TABLE tpdm.CourseStudentAssessmentFactsAggregatedScoreResult (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentReportingMethodDescriptorId INT NOT NULL,
-    AverageScoreResultDatatypeTypeDescriptorId INT NOT NULL,
-    AverageScoreResult VARCHAR(35) NOT NULL,
-    ScoreNCount INT NULL,
-    ScoreStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAssessmentFactsAggregatedScoreResult_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.CourseStudentAssessmentFactsAggregatedScoreResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentAssessmentFactsStudentsEnrolled --
-CREATE TABLE tpdm.CourseStudentAssessmentFactsStudentsEnrolled (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentAssessmentFactsStudentsEnrolled_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.CourseStudentAssessmentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFacts --
-CREATE TABLE tpdm.CourseStudentFacts (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT CourseStudentFacts_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.CourseStudentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.CourseStudentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedByDisability --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedByDisability (
-    CourseCode VARCHAR(60) NOT NULL,
-    DisabilityDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    Percentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedByDisability_PK PRIMARY KEY (CourseCode, DisabilityDescriptorId, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedByDisability ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    StudentsDisabledNumber INT NULL,
-    StudentsDisabledPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedELLEnrollment --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedELLEnrollment (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ELLEnrollmentNumber INT NULL,
-    ELLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedELLEnrollment_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedELLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedESLEnrollment --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedESLEnrollment (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ESLEnrollmentNumber INT NULL,
-    ESLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedESLEnrollment_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedESLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedGender --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedGender (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    GenderDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    GenderTypeNumber INT NULL,
-    GenderTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedGender_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, GenderDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedGender ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    HispanicLatinoEthnicity BOOLEAN NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    HispanicLatinoEthnicityNumber INT NULL,
-    HispanicLatinoEthnicityPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedHispanicLatinoEthnicity_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, HispanicLatinoEthnicity)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedHispanicLatinoEthnicity ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedLanguage --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedLanguage (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    LanguageDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    LanguageTypeNumber INT NULL,
-    LanguageTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedLanguage_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, LanguageDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedRace --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedRace (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    RaceDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    RaceTypeNumber INT NULL,
-    RaceTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedRace_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, RaceDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedRace ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolFoodServiceProgramServiceDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    TypePercentage INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedSchoolFoodServiceProgramService_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SchoolFoodServiceProgramServiceDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedSchoolFoodServiceProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedSection504Enrollment --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedSection504Enrollment (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    Number504Enrolled INT NULL,
-    Percentage504Enrolled DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedSection504Enrollment_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedSection504Enrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedSex --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedSex (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SexDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SexTypeNumber INT NULL,
-    SexTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedSex_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate, SexDescriptorId)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedSex ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedSPED --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedSPED (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SPEDEnrollmentNumber INT NULL,
-    SPEDEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedSPED_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedSPED ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsAggregatedTitleIEnrollment --
-CREATE TABLE tpdm.CourseStudentFactsAggregatedTitleIEnrollment (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TitleIEnrollmentNumber INT NULL,
-    TitleIEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsAggregatedTitleIEnrollment_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsAggregatedTitleIEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CourseStudentFactsStudentsEnrolled --
-CREATE TABLE tpdm.CourseStudentFactsStudentsEnrolled (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CourseStudentFactsStudentsEnrolled_PK PRIMARY KEY (CourseCode, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.CourseStudentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CredentialBoardCertification --
-CREATE TABLE tpdm.CredentialBoardCertification (
+-- Table tpdm.CredentialEvent --
+CREATE TABLE tpdm.CredentialEvent (
+    CredentialEventDate DATE NOT NULL,
+    CredentialEventTypeDescriptorId INT NOT NULL,
     CredentialIdentifier VARCHAR(60) NOT NULL,
     StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
-    BoardCertification BOOLEAN NULL,
-    BoardCertificationDate DATE NULL,
-    BoardCertificationTypeDescriptorId INT NOT NULL,
+    CredentialEventReason VARCHAR(1024) NULL,
+    Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CredentialBoardCertification_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT CredentialEvent_PK PRIMARY KEY (CredentialEventDate, CredentialEventTypeDescriptorId, CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 ); 
-ALTER TABLE tpdm.CredentialBoardCertification ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CredentialEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CredentialEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.CredentialEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table tpdm.CredentialCertificationExam --
-CREATE TABLE tpdm.CredentialCertificationExam (
-    CertificationExamTitle VARCHAR(60) NOT NULL,
-    CredentialIdentifier VARCHAR(60) NOT NULL,
-    StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
-    CertificationExamTypeDescriptorId INT NULL,
-    CertificationExamStatusDescriptorId INT NULL,
-    CertificationExamDate DATE NOT NULL,
-    AttemptNumber INT NULL,
-    CertificationExamOverallScore INT NULL,
-    CertificationExamPassFail BOOLEAN NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CredentialCertificationExam_PK PRIMARY KEY (CertificationExamTitle, CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
+-- Table tpdm.CredentialEventTypeDescriptor --
+CREATE TABLE tpdm.CredentialEventTypeDescriptor (
+    CredentialEventTypeDescriptorId INT NOT NULL,
+    CONSTRAINT CredentialEventTypeDescriptor_PK PRIMARY KEY (CredentialEventTypeDescriptorId)
 ); 
-ALTER TABLE tpdm.CredentialCertificationExam ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.CredentialExtension --
 CREATE TABLE tpdm.CredentialExtension (
     CredentialIdentifier VARCHAR(60) NOT NULL,
     StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
-    CurrentCredential BOOLEAN NULL,
-    RevocationDate DATE NULL,
-    RevocationReason VARCHAR(40) NULL,
-    SuspensionDate DATE NULL,
-    SuspensionReason VARCHAR(40) NULL,
-    ValueTypeDescriptorId INT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    CertificationTitle VARCHAR(64) NOT NULL,
+    CertificationIdentifier VARCHAR(60) NULL,
+    IssuerNamespace VARCHAR(255) NULL,
+    CertificationRouteDescriptorId INT NULL,
+    BoardCertificationIndicator BOOLEAN NULL,
+    CredentialStatusDescriptorId INT NULL,
+    CredentialStatusDate DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT CredentialExtension_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
 ); 
 ALTER TABLE tpdm.CredentialExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.CredentialRecommendation --
-CREATE TABLE tpdm.CredentialRecommendation (
+-- Table tpdm.CredentialStatusDescriptor --
+CREATE TABLE tpdm.CredentialStatusDescriptor (
+    CredentialStatusDescriptorId INT NOT NULL,
+    CONSTRAINT CredentialStatusDescriptor_PK PRIMARY KEY (CredentialStatusDescriptorId)
+); 
+
+-- Table tpdm.CredentialStudentAcademicRecord --
+CREATE TABLE tpdm.CredentialStudentAcademicRecord (
     CredentialIdentifier VARCHAR(60) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
     StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
-    CredentialFieldDescriptorId INT NULL,
-    GradeLevelDescriptorId INT NOT NULL,
-    TeachingCredentialDescriptorId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CredentialRecommendation_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-); 
-ALTER TABLE tpdm.CredentialRecommendation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CredentialRecommendingInstitution --
-CREATE TABLE tpdm.CredentialRecommendingInstitution (
-    CredentialIdentifier VARCHAR(60) NOT NULL,
-    StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
-    RecommendingInstutionName VARCHAR(75) NOT NULL,
-    RecommendingDate DATE NULL,
-    RecommendingInstitutionCountryDescriptorId INT NULL,
-    RecommendingInstitutionStateAbbreviationDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CredentialRecommendingInstitution_PK PRIMARY KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-); 
-ALTER TABLE tpdm.CredentialRecommendingInstitution ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationCourseTranscriptFacts --
-CREATE TABLE tpdm.EducationOrganizationCourseTranscriptFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
+    StudentUSI INT NOT NULL,
     TermDescriptorId INT NOT NULL,
-    CourseTitle VARCHAR(60) NULL,
-    Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT EducationOrganizationCourseTranscriptFacts_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
+    CONSTRAINT CredentialStudentAcademicRecord_PK PRIMARY KEY (CredentialIdentifier, EducationOrganizationId, SchoolYear, StateOfIssueStateAbbreviationDescriptorId, StudentUSI, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.CredentialStudentAcademicRecord ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb --
-CREATE TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    FinalLetterGrade VARCHAR(20) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    LetterGradeTypeNumber INT NULL,
-    LetterGradeTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationCourseTranscriptFactsAggregat_c260fb_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, FactsAsOfDate, FinalLetterGrade, SchoolYear, TermDescriptorId)
+-- Table tpdm.DegreeDescriptor --
+CREATE TABLE tpdm.DegreeDescriptor (
+    DegreeDescriptorId INT NOT NULL,
+    CONSTRAINT DegreeDescriptor_PK PRIMARY KEY (DegreeDescriptorId)
 ); 
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedFina_c260fb ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712 --
-CREATE TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712 (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    AverageFinalNumericGradeEarned DECIMAL(9, 2) NOT NULL,
-    NumericGradeNCount INT NULL,
-    NumericGradeStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationCourseTranscriptFactsAggregat_80e712_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFactsAggregatedNume_80e712 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled --
-CREATE TABLE tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationCourseTranscriptFactsStudentsEnrolled_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, FactsAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationCourseTranscriptFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.EducationOrganizationFacts --
 CREATE TABLE tpdm.EducationOrganizationFacts (
@@ -1417,131 +1061,6 @@ CREATE TABLE tpdm.EducationOrganizationNetworkExtension (
     CONSTRAINT EducationOrganizationNetworkExtension_PK PRIMARY KEY (EducationOrganizationNetworkId)
 ); 
 ALTER TABLE tpdm.EducationOrganizationNetworkExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAcademicRecordFacts --
-CREATE TABLE tpdm.EducationOrganizationStudentAcademicRecordFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    AggregatedGPAMax DECIMAL(18, 4) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAcademicRecordFacts_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4 --
-CREATE TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4 (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAcademicRecordFactsAgg_8992b4_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_8992b4 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987 --
-CREATE TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987 (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAcademicRecordFactsAgg_cb9987_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsAggregate_cb9987 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled --
-CREATE TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    TermDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAcademicRecordFactsStu_22edfd_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SchoolYear, TermDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAssessmentFacts --
-CREATE TABLE tpdm.EducationOrganizationStudentAssessmentFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentTitle VARCHAR(100) NULL,
-    AssessmentCategoryDescriptorId INT NULL,
-    AcademicSubjectDescriptorId INT NULL,
-    GradeLevelDescriptorId INT NULL,
-    AdministrationDate DATE NULL,
-    TermDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAssessmentFacts_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce --
-CREATE TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    PerformanceLevelDescriptorId INT NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    PerformanceLevelMetNumber INT NULL,
-    PerformanceLevelMetPercentage DECIMAL(5, 4) NULL,
-    PerformanceLevelTypeNumber INT NULL,
-    PerformanceLevelTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAssessmentFactsAggrega_18e7ce_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, PerformanceLevelDescriptorId, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedPer_18e7ce ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2 --
-CREATE TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2 (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentReportingMethodDescriptorId INT NOT NULL,
-    AverageScoreResultDatatypeTypeDescriptorId INT NOT NULL,
-    AverageScoreResult VARCHAR(35) NOT NULL,
-    ScoreNCount INT NULL,
-    ScoreStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAssessmentFactsAggrega_37bcc2_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFactsAggregatedSco_37bcc2 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled --
-CREATE TABLE tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentAssessmentFactsStudentsEnrolled_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentAssessmentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.EducationOrganizationStudentFacts --
 CREATE TABLE tpdm.EducationOrganizationStudentFacts (
@@ -1742,6 +1261,12 @@ CREATE TABLE tpdm.EducationServiceCenterExtension (
 ); 
 ALTER TABLE tpdm.EducationServiceCenterExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table tpdm.EducatorRoleDescriptor --
+CREATE TABLE tpdm.EducatorRoleDescriptor (
+    EducatorRoleDescriptorId INT NOT NULL,
+    CONSTRAINT EducatorRoleDescriptor_PK PRIMARY KEY (EducatorRoleDescriptorId)
+); 
+
 -- Table tpdm.EmploymentEvent --
 CREATE TABLE tpdm.EmploymentEvent (
     EducationOrganizationId INT NOT NULL,
@@ -1805,6 +1330,299 @@ CREATE TABLE tpdm.EnglishLanguageExamDescriptor (
     CONSTRAINT EnglishLanguageExamDescriptor_PK PRIMARY KEY (EnglishLanguageExamDescriptorId)
 ); 
 
+-- Table tpdm.Evaluation --
+CREATE TABLE tpdm.Evaluation (
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    EvaluationTypeDescriptorId INT NULL,
+    InterRaterReliabilityScore INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT Evaluation_PK PRIMARY KEY (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.Evaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Evaluation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.Evaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationElement --
+CREATE TABLE tpdm.EvaluationElement (
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    SortOrder INT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    EvaluationTypeDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT EvaluationElement_PK PRIMARY KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationElement ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElement ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.EvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationElementRating --
+CREATE TABLE tpdm.EvaluationElementRating (
+    EvaluationDate DATE NOT NULL,
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    EvaluationElementRatingLevelDescriptorId INT NULL,
+    AreaOfRefinement VARCHAR(1024) NULL,
+    AreaOfReinforcement VARCHAR(1024) NULL,
+    Comments VARCHAR(1024) NULL,
+    Feedback VARCHAR(1024) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT EvaluationElementRating_PK PRIMARY KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.EvaluationElementRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationElementRatingLevel --
+CREATE TABLE tpdm.EvaluationElementRatingLevel (
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationRatingLevelDescriptorId INT NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationElementRatingLevel_PK PRIMARY KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationRatingLevelDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationElementRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationElementRatingLevelDescriptor --
+CREATE TABLE tpdm.EvaluationElementRatingLevelDescriptor (
+    EvaluationElementRatingLevelDescriptorId INT NOT NULL,
+    CONSTRAINT EvaluationElementRatingLevelDescriptor_PK PRIMARY KEY (EvaluationElementRatingLevelDescriptorId)
+); 
+
+-- Table tpdm.EvaluationElementRatingResult --
+CREATE TABLE tpdm.EvaluationElementRatingResult (
+    EvaluationDate DATE NOT NULL,
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    Rating DECIMAL(6, 3) NOT NULL,
+    RatingResultTitle VARCHAR(50) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ResultDatatypeTypeDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationElementRatingResult_PK PRIMARY KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, Rating, RatingResultTitle, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationElementRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationObjective --
+CREATE TABLE tpdm.EvaluationObjective (
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    SortOrder INT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    EvaluationTypeDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT EvaluationObjective_PK PRIMARY KEY (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.EvaluationObjective ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationObjectiveRating --
+CREATE TABLE tpdm.EvaluationObjectiveRating (
+    EvaluationDate DATE NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ObjectiveRatingLevelDescriptorId INT NULL,
+    Comments VARCHAR(1024) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT EvaluationObjectiveRating_PK PRIMARY KEY (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.EvaluationObjectiveRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationObjectiveRatingLevel --
+CREATE TABLE tpdm.EvaluationObjectiveRatingLevel (
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationRatingLevelDescriptorId INT NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationObjectiveRatingLevel_PK PRIMARY KEY (EvaluationObjectiveTitle, EvaluationRatingLevelDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationObjectiveRatingResult --
+CREATE TABLE tpdm.EvaluationObjectiveRatingResult (
+    EvaluationDate DATE NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    Rating DECIMAL(6, 3) NOT NULL,
+    RatingResultTitle VARCHAR(50) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ResultDatatypeTypeDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationObjectiveRatingResult_PK PRIMARY KEY (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, Rating, RatingResultTitle, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationObjectiveRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationPeriodDescriptor --
+CREATE TABLE tpdm.EvaluationPeriodDescriptor (
+    EvaluationPeriodDescriptorId INT NOT NULL,
+    CONSTRAINT EvaluationPeriodDescriptor_PK PRIMARY KEY (EvaluationPeriodDescriptorId)
+); 
+
+-- Table tpdm.EvaluationRating --
+CREATE TABLE tpdm.EvaluationRating (
+    EvaluationDate DATE NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    EvaluationRatingLevelDescriptorId INT NULL,
+    SectionIdentifier VARCHAR(255) NULL,
+    LocalCourseCode VARCHAR(60) NULL,
+    SessionName VARCHAR(60) NULL,
+    SchoolYear SMALLINT NULL,
+    SchoolId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT EvaluationRating_PK PRIMARY KEY (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.EvaluationRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.EvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationRatingLevel --
+CREATE TABLE tpdm.EvaluationRatingLevel (
+    EvaluationRatingLevelDescriptorId INT NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationRatingLevel_PK PRIMARY KEY (EvaluationRatingLevelDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationRatingLevelDescriptor --
+CREATE TABLE tpdm.EvaluationRatingLevelDescriptor (
+    EvaluationRatingLevelDescriptorId INT NOT NULL,
+    CONSTRAINT EvaluationRatingLevelDescriptor_PK PRIMARY KEY (EvaluationRatingLevelDescriptorId)
+); 
+
+-- Table tpdm.EvaluationRatingResult --
+CREATE TABLE tpdm.EvaluationRatingResult (
+    EvaluationDate DATE NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    Rating DECIMAL(6, 3) NOT NULL,
+    RatingResultTitle VARCHAR(50) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ResultDatatypeTypeDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationRatingResult_PK PRIMARY KEY (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, Rating, RatingResultTitle, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationRatingReviewer --
+CREATE TABLE tpdm.EvaluationRatingReviewer (
+    EvaluationDate DATE NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    FirstName VARCHAR(75) NOT NULL,
+    LastSurname VARCHAR(75) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationRatingReviewer_PK PRIMARY KEY (EvaluationDate, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationRatingReviewerReceivedTraining --
+CREATE TABLE tpdm.EvaluationRatingReviewerReceivedTraining (
+    EvaluationDate DATE NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    FirstName VARCHAR(75) NOT NULL,
+    LastSurname VARCHAR(75) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ReceivedTrainingDate DATE NULL,
+    InterRaterReliabilityScore INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT EvaluationRatingReviewerReceivedTraining_PK PRIMARY KEY (EvaluationDate, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.EvaluationTypeDescriptor --
+CREATE TABLE tpdm.EvaluationTypeDescriptor (
+    EvaluationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT EvaluationTypeDescriptor_PK PRIMARY KEY (EvaluationTypeDescriptorId)
+); 
+
 -- Table tpdm.FederalLocaleCodeDescriptor --
 CREATE TABLE tpdm.FederalLocaleCodeDescriptor (
     FederalLocaleCodeDescriptorId INT NOT NULL,
@@ -1829,6 +1647,40 @@ CREATE TABLE tpdm.GenderDescriptor (
     CONSTRAINT GenderDescriptor_PK PRIMARY KEY (GenderDescriptorId)
 ); 
 
+-- Table tpdm.Goal --
+CREATE TABLE tpdm.Goal (
+    AssignmentDate DATE NOT NULL,
+    GoalTitle VARCHAR(255) NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NULL,
+    TermDescriptorId INT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NULL,
+    EvaluationTitle VARCHAR(50) NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NULL,
+    EvaluationElementTitle VARCHAR(255) NULL,
+    GoalTypeDescriptorId INT NULL,
+    GoalDescription VARCHAR(1024) NULL,
+    DueDate DATE NULL,
+    CompletedIndicator BOOLEAN NULL,
+    CompletedDate DATE NULL,
+    Comments VARCHAR(1024) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT Goal_PK PRIMARY KEY (AssignmentDate, GoalTitle, PersonId, SourceSystemDescriptorId)
+); 
+ALTER TABLE tpdm.Goal ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.Goal ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.Goal ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.GoalTypeDescriptor --
+CREATE TABLE tpdm.GoalTypeDescriptor (
+    GoalTypeDescriptorId INT NOT NULL,
+    CONSTRAINT GoalTypeDescriptor_PK PRIMARY KEY (GoalTypeDescriptorId)
+); 
+
 -- Table tpdm.GradebookEntryExtension --
 CREATE TABLE tpdm.GradebookEntryExtension (
     DateAssigned DATE NOT NULL,
@@ -1844,6 +1696,20 @@ CREATE TABLE tpdm.GradebookEntryExtension (
 ); 
 ALTER TABLE tpdm.GradebookEntryExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table tpdm.GraduationPlanRequiredCertification --
+CREATE TABLE tpdm.GraduationPlanRequiredCertification (
+    CertificationTitle VARCHAR(64) NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    GraduationPlanTypeDescriptorId INT NOT NULL,
+    GraduationSchoolYear SMALLINT NOT NULL,
+    CertificationIdentifier VARCHAR(60) NULL,
+    IssuerNamespace VARCHAR(255) NULL,
+    CertificationRouteDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT GraduationPlanRequiredCertification_PK PRIMARY KEY (CertificationTitle, EducationOrganizationId, GraduationPlanTypeDescriptorId, GraduationSchoolYear)
+); 
+ALTER TABLE tpdm.GraduationPlanRequiredCertification ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table tpdm.HireStatusDescriptor --
 CREATE TABLE tpdm.HireStatusDescriptor (
     HireStatusDescriptorId INT NOT NULL,
@@ -1854,6 +1720,12 @@ CREATE TABLE tpdm.HireStatusDescriptor (
 CREATE TABLE tpdm.HiringSourceDescriptor (
     HiringSourceDescriptorId INT NOT NULL,
     CONSTRAINT HiringSourceDescriptor_PK PRIMARY KEY (HiringSourceDescriptorId)
+); 
+
+-- Table tpdm.InstructionalSettingDescriptor --
+CREATE TABLE tpdm.InstructionalSettingDescriptor (
+    InstructionalSettingDescriptorId INT NOT NULL,
+    CONSTRAINT InstructionalSettingDescriptor_PK PRIMARY KEY (InstructionalSettingDescriptorId)
 ); 
 
 -- Table tpdm.InternalExternalHireDescriptor --
@@ -1868,12 +1740,6 @@ CREATE TABLE tpdm.LevelOfDegreeAwardedDescriptor (
     CONSTRAINT LevelOfDegreeAwardedDescriptor_PK PRIMARY KEY (LevelOfDegreeAwardedDescriptorId)
 ); 
 
--- Table tpdm.LevelTypeDescriptor --
-CREATE TABLE tpdm.LevelTypeDescriptor (
-    LevelTypeDescriptorId INT NOT NULL,
-    CONSTRAINT LevelTypeDescriptor_PK PRIMARY KEY (LevelTypeDescriptorId)
-); 
-
 -- Table tpdm.LocalEducationAgencyExtension --
 CREATE TABLE tpdm.LocalEducationAgencyExtension (
     LocalEducationAgencyId INT NOT NULL,
@@ -1882,6 +1748,12 @@ CREATE TABLE tpdm.LocalEducationAgencyExtension (
     CONSTRAINT LocalEducationAgencyExtension_PK PRIMARY KEY (LocalEducationAgencyId)
 ); 
 ALTER TABLE tpdm.LocalEducationAgencyExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.ObjectiveRatingLevelDescriptor --
+CREATE TABLE tpdm.ObjectiveRatingLevelDescriptor (
+    ObjectiveRatingLevelDescriptorId INT NOT NULL,
+    CONSTRAINT ObjectiveRatingLevelDescriptor_PK PRIMARY KEY (ObjectiveRatingLevelDescriptorId)
+); 
 
 -- Table tpdm.OpenStaffPositionEvent --
 CREATE TABLE tpdm.OpenStaffPositionEvent (
@@ -1938,153 +1810,140 @@ CREATE TABLE tpdm.OpenStaffPositionReasonDescriptor (
     CONSTRAINT OpenStaffPositionReasonDescriptor_PK PRIMARY KEY (OpenStaffPositionReasonDescriptorId)
 ); 
 
--- Table tpdm.PerformanceMeasure --
-CREATE TABLE tpdm.PerformanceMeasure (
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    PerformanceMeasureTypeDescriptorId INT NOT NULL,
+-- Table tpdm.PerformanceEvaluation --
+CREATE TABLE tpdm.PerformanceEvaluation (
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
     TermDescriptorId INT NOT NULL,
-    AcademicSubjectDescriptorId INT NULL,
-    ScheduleDateOfPerformanceMeasure DATE NULL,
-    ActualDateOfPerformanceMeasure DATE NOT NULL,
-    TimeOfPerformanceMeasure TIME NULL,
-    DurationOfPerformanceMeasure INT NULL,
-    Announced BOOLEAN NULL,
-    CoteachingStyleObservedDescriptorId INT NULL,
-    Comments VARCHAR(1024) NULL,
-    PerformanceMeasureInstanceDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT PerformanceMeasure_PK PRIMARY KEY (PerformanceMeasureIdentifier)
-); 
-ALTER TABLE tpdm.PerformanceMeasure ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.PerformanceMeasure ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.PerformanceMeasure ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.PerformanceMeasureCourseAssociation --
-CREATE TABLE tpdm.PerformanceMeasureCourseAssociation (
-    CourseCode VARCHAR(60) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT PerformanceMeasureCourseAssociation_PK PRIMARY KEY (CourseCode, EducationOrganizationId, PerformanceMeasureIdentifier)
-); 
-ALTER TABLE tpdm.PerformanceMeasureCourseAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.PerformanceMeasureCourseAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.PerformanceMeasureCourseAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.PerformanceMeasureFacts --
-CREATE TABLE tpdm.PerformanceMeasureFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
     SchoolYear SMALLINT NOT NULL,
-    PerformanceMeasureTypeDescriptorId INT NOT NULL,
+    EvaluationPeriodDescriptorId INT NOT NULL,
+    EducationOrganizationId INT NOT NULL,
     AcademicSubjectDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT PerformanceMeasureFacts_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, RubricTitle, RubricTypeDescriptorId, SchoolYear)
+    CONSTRAINT PerformanceEvaluation_PK PRIMARY KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.PerformanceMeasureFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.PerformanceMeasureFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.PerformanceMeasureFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.PerformanceEvaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table tpdm.PerformanceMeasureFactsGradeLevel --
-CREATE TABLE tpdm.PerformanceMeasureFactsGradeLevel (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
+-- Table tpdm.PerformanceEvaluationGradeLevel --
+CREATE TABLE tpdm.PerformanceEvaluationGradeLevel (
     GradeLevelDescriptorId INT NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureFactsGradeLevel_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, GradeLevelDescriptorId, RubricTitle, RubricTypeDescriptorId, SchoolYear)
+    CONSTRAINT PerformanceEvaluationGradeLevel_PK PRIMARY KEY (GradeLevelDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.PerformanceMeasureFactsGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.PerformanceMeasureGradeLevel --
-CREATE TABLE tpdm.PerformanceMeasureGradeLevel (
-    GradeLevelDescriptorId INT NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureGradeLevel_PK PRIMARY KEY (GradeLevelDescriptorId, PerformanceMeasureIdentifier)
-); 
-ALTER TABLE tpdm.PerformanceMeasureGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.PerformanceMeasureInstanceDescriptor --
-CREATE TABLE tpdm.PerformanceMeasureInstanceDescriptor (
-    PerformanceMeasureInstanceDescriptorId INT NOT NULL,
-    CONSTRAINT PerformanceMeasureInstanceDescriptor_PK PRIMARY KEY (PerformanceMeasureInstanceDescriptorId)
-); 
-
--- Table tpdm.PerformanceMeasurePersonBeingReviewed --
-CREATE TABLE tpdm.PerformanceMeasurePersonBeingReviewed (
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    FirstName VARCHAR(75) NOT NULL,
-    LastSurname VARCHAR(75) NOT NULL,
-    ProspectIdentifier VARCHAR(32) NULL,
-    EducationOrganizationId INT NULL,
-    StaffUSI INT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasurePersonBeingReviewed_PK PRIMARY KEY (PerformanceMeasureIdentifier)
-); 
-ALTER TABLE tpdm.PerformanceMeasurePersonBeingReviewed ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.PerformanceMeasureProgramGateway --
-CREATE TABLE tpdm.PerformanceMeasureProgramGateway (
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
+-- Table tpdm.PerformanceEvaluationProgramGateway --
+CREATE TABLE tpdm.PerformanceEvaluationProgramGateway (
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
     ProgramGatewayDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureProgramGateway_PK PRIMARY KEY (PerformanceMeasureIdentifier, ProgramGatewayDescriptorId)
+    CONSTRAINT PerformanceEvaluationProgramGateway_PK PRIMARY KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, ProgramGatewayDescriptorId, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.PerformanceMeasureProgramGateway ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationProgramGateway ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.PerformanceMeasureReviewer --
-CREATE TABLE tpdm.PerformanceMeasureReviewer (
+-- Table tpdm.PerformanceEvaluationRating --
+CREATE TABLE tpdm.PerformanceEvaluationRating (
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ActualDate DATE NOT NULL,
+    Announced BOOLEAN NULL,
+    Comments VARCHAR(1024) NULL,
+    CoteachingStyleObservedDescriptorId INT NULL,
+    ActualDuration INT NULL,
+    PerformanceEvaluationRatingLevelDescriptorId INT NULL,
+    ScheduleDate DATE NULL,
+    ActualTime TIME NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT PerformanceEvaluationRating_PK PRIMARY KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.PerformanceEvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.PerformanceEvaluationRatingLevel --
+CREATE TABLE tpdm.PerformanceEvaluationRatingLevel (
+    EvaluationRatingLevelDescriptorId INT NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    MinRating DECIMAL(6, 3) NULL,
+    MaxRating DECIMAL(6, 3) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT PerformanceEvaluationRatingLevel_PK PRIMARY KEY (EvaluationRatingLevelDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.PerformanceEvaluationRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.PerformanceEvaluationRatingLevelDescriptor --
+CREATE TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor (
+    PerformanceEvaluationRatingLevelDescriptorId INT NOT NULL,
+    CONSTRAINT PerformanceEvaluationRatingLevelDescriptor_PK PRIMARY KEY (PerformanceEvaluationRatingLevelDescriptorId)
+); 
+
+-- Table tpdm.PerformanceEvaluationRatingResult --
+CREATE TABLE tpdm.PerformanceEvaluationRatingResult (
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    Rating DECIMAL(6, 3) NOT NULL,
+    RatingResultTitle VARCHAR(50) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ResultDatatypeTypeDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT PerformanceEvaluationRatingResult_PK PRIMARY KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, Rating, RatingResultTitle, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.PerformanceEvaluationRatingResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.PerformanceEvaluationRatingReviewer --
+CREATE TABLE tpdm.PerformanceEvaluationRatingReviewer (
     FirstName VARCHAR(75) NOT NULL,
     LastSurname VARCHAR(75) NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    StaffUSI INT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureReviewer_PK PRIMARY KEY (FirstName, LastSurname, PerformanceMeasureIdentifier)
+    CONSTRAINT PerformanceEvaluationRatingReviewer_PK PRIMARY KEY (FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.PerformanceMeasureReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.PerformanceMeasureReviewerReceivedTraining --
-CREATE TABLE tpdm.PerformanceMeasureReviewerReceivedTraining (
+-- Table tpdm.PerformanceEvaluationRatingReviewerReceivedTraining --
+CREATE TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining (
     FirstName VARCHAR(75) NOT NULL,
     LastSurname VARCHAR(75) NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
     ReceivedTrainingDate DATE NULL,
     InterRaterReliabilityScore INT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureReviewerReceivedTraining_PK PRIMARY KEY (FirstName, LastSurname, PerformanceMeasureIdentifier)
+    CONSTRAINT PerformanceEvaluationRatingReviewerReceivedTraining_PK PRIMARY KEY (FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.PerformanceMeasureReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
--- Table tpdm.PerformanceMeasureRubric --
-CREATE TABLE tpdm.PerformanceMeasureRubric (
-    EducationOrganizationId INT NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT PerformanceMeasureRubric_PK PRIMARY KEY (EducationOrganizationId, PerformanceMeasureIdentifier, RubricTitle, RubricTypeDescriptorId)
-); 
-ALTER TABLE tpdm.PerformanceMeasureRubric ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.PerformanceMeasureTypeDescriptor --
-CREATE TABLE tpdm.PerformanceMeasureTypeDescriptor (
-    PerformanceMeasureTypeDescriptorId INT NOT NULL,
-    CONSTRAINT PerformanceMeasureTypeDescriptor_PK PRIMARY KEY (PerformanceMeasureTypeDescriptorId)
+-- Table tpdm.PerformanceEvaluationTypeDescriptor --
+CREATE TABLE tpdm.PerformanceEvaluationTypeDescriptor (
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    CONSTRAINT PerformanceEvaluationTypeDescriptor_PK PRIMARY KEY (PerformanceEvaluationTypeDescriptorId)
 ); 
 
 -- Table tpdm.PostSecondaryInstitutionExtension --
@@ -2158,6 +2017,8 @@ CREATE TABLE tpdm.Prospect (
     FirstGenerationStudent BOOLEAN NULL,
     ProspectTypeDescriptorId INT NULL,
     TeacherCandidateIdentifier VARCHAR(32) NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -2340,6 +2201,63 @@ CREATE TABLE tpdm.ProspectTypeDescriptor (
     CONSTRAINT ProspectTypeDescriptor_PK PRIMARY KEY (ProspectTypeDescriptorId)
 ); 
 
+-- Table tpdm.QuantitativeMeasure --
+CREATE TABLE tpdm.QuantitativeMeasure (
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    QuantitativeMeasureIdentifier VARCHAR(64) NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    QuantitativeMeasureTypeDescriptorId INT NULL,
+    QuantitativeMeasureDatatypeDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT QuantitativeMeasure_PK PRIMARY KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId)
+); 
+ALTER TABLE tpdm.QuantitativeMeasure ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.QuantitativeMeasure ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.QuantitativeMeasure ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.QuantitativeMeasureDatatypeDescriptor --
+CREATE TABLE tpdm.QuantitativeMeasureDatatypeDescriptor (
+    QuantitativeMeasureDatatypeDescriptorId INT NOT NULL,
+    CONSTRAINT QuantitativeMeasureDatatypeDescriptor_PK PRIMARY KEY (QuantitativeMeasureDatatypeDescriptorId)
+); 
+
+-- Table tpdm.QuantitativeMeasureScore --
+CREATE TABLE tpdm.QuantitativeMeasureScore (
+    EvaluationDate DATE NOT NULL,
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    QuantitativeMeasureIdentifier VARCHAR(64) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ScoreValue DECIMAL(6, 3) NOT NULL,
+    StandardError DECIMAL(6, 3) NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT QuantitativeMeasureScore_PK PRIMARY KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, QuantitativeMeasureIdentifier, SourceSystemDescriptorId, TermDescriptorId)
+); 
+ALTER TABLE tpdm.QuantitativeMeasureScore ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.QuantitativeMeasureScore ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.QuantitativeMeasureScore ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.QuantitativeMeasureTypeDescriptor --
+CREATE TABLE tpdm.QuantitativeMeasureTypeDescriptor (
+    QuantitativeMeasureTypeDescriptorId INT NOT NULL,
+    CONSTRAINT QuantitativeMeasureTypeDescriptor_PK PRIMARY KEY (QuantitativeMeasureTypeDescriptorId)
+); 
+
 -- Table tpdm.RecruitmentEvent --
 CREATE TABLE tpdm.RecruitmentEvent (
     EventDate DATE NOT NULL,
@@ -2363,127 +2281,32 @@ CREATE TABLE tpdm.RecruitmentEventTypeDescriptor (
     CONSTRAINT RecruitmentEventTypeDescriptor_PK PRIMARY KEY (RecruitmentEventTypeDescriptorId)
 ); 
 
--- Table tpdm.Rubric --
-CREATE TABLE tpdm.Rubric (
-    EducationOrganizationId INT NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    RubricDescription VARCHAR(255) NULL,
-    InterRaterReliabilityScore INT NULL,
+-- Table tpdm.RubricDimension --
+CREATE TABLE tpdm.RubricDimension (
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    RubricRating INT NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    RubricRatingLevelDescriptorId INT NULL,
+    CriterionDescription VARCHAR(1024) NOT NULL,
+    DimensionOrder INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT Rubric_PK PRIMARY KEY (EducationOrganizationId, RubricTitle, RubricTypeDescriptorId)
+    CONSTRAINT RubricDimension_PK PRIMARY KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, RubricRating, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.Rubric ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.Rubric ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.Rubric ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.RubricDimension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.RubricDimension ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.RubricDimension ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table tpdm.RubricLevel --
-CREATE TABLE tpdm.RubricLevel (
-    EducationOrganizationId INT NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT RubricLevel_PK PRIMARY KEY (EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId)
-); 
-ALTER TABLE tpdm.RubricLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.RubricLevel ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.RubricLevel ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricLevelInformation --
-CREATE TABLE tpdm.RubricLevelInformation (
-    EducationOrganizationId INT NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    LevelTypeDescriptorId INT NOT NULL,
-    LevelTitle VARCHAR(255) NOT NULL,
-    LevelDescription VARCHAR(255) NULL,
-    MinimumScore VARCHAR(35) NULL,
-    MaximumScore VARCHAR(35) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT RubricLevelInformation_PK PRIMARY KEY (EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId)
-); 
-ALTER TABLE tpdm.RubricLevelInformation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricLevelResponse --
-CREATE TABLE tpdm.RubricLevelResponse (
-    EducationOrganizationId INT NOT NULL,
-    PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    NumericResponse INT NOT NULL,
-    TextResponse VARCHAR(2048) NULL,
-    AreaOfRefinement BOOLEAN NULL,
-    AreaOfReinforcement BOOLEAN NULL,
-    Comments VARCHAR(1024) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT RubricLevelResponse_PK PRIMARY KEY (EducationOrganizationId, PerformanceMeasureIdentifier, RubricLevelCode, RubricTitle, RubricTypeDescriptorId)
-); 
-ALTER TABLE tpdm.RubricLevelResponse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.RubricLevelResponse ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.RubricLevelResponse ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricLevelResponseFacts --
-CREATE TABLE tpdm.RubricLevelResponseFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT RubricLevelResponseFacts_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, SchoolYear)
-); 
-ALTER TABLE tpdm.RubricLevelResponseFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.RubricLevelResponseFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.RubricLevelResponseFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricLevelResponseFactsAggregatedNumericResponse --
-CREATE TABLE tpdm.RubricLevelResponseFactsAggregatedNumericResponse (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    AverageNumericResponse DECIMAL(18, 4) NOT NULL,
-    NumericResponseNCount INT NULL,
-    NumericResponseStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT RubricLevelResponseFactsAggregatedNumericResponse_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, SchoolYear)
-); 
-ALTER TABLE tpdm.RubricLevelResponseFactsAggregatedNumericResponse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricLevelTheme --
-CREATE TABLE tpdm.RubricLevelTheme (
-    EducationOrganizationId INT NOT NULL,
-    RubricLevelCode VARCHAR(64) NOT NULL,
-    RubricTitle VARCHAR(255) NOT NULL,
-    RubricTypeDescriptorId INT NOT NULL,
-    ThemeDescriptorId INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT RubricLevelTheme_PK PRIMARY KEY (EducationOrganizationId, RubricLevelCode, RubricTitle, RubricTypeDescriptorId, ThemeDescriptorId)
-); 
-ALTER TABLE tpdm.RubricLevelTheme ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.RubricTypeDescriptor --
-CREATE TABLE tpdm.RubricTypeDescriptor (
-    RubricTypeDescriptorId INT NOT NULL,
-    CONSTRAINT RubricTypeDescriptor_PK PRIMARY KEY (RubricTypeDescriptorId)
+-- Table tpdm.RubricRatingLevelDescriptor --
+CREATE TABLE tpdm.RubricRatingLevelDescriptor (
+    RubricRatingLevelDescriptorId INT NOT NULL,
+    CONSTRAINT RubricRatingLevelDescriptor_PK PRIMARY KEY (RubricRatingLevelDescriptorId)
 ); 
 
 -- Table tpdm.SalaryTypeDescriptor --
@@ -2508,476 +2331,6 @@ CREATE TABLE tpdm.SchoolStatusDescriptor (
     SchoolStatusDescriptorId INT NOT NULL,
     CONSTRAINT SchoolStatusDescriptor_PK PRIMARY KEY (SchoolStatusDescriptorId)
 ); 
-
--- Table tpdm.SectionCourseTranscriptFacts --
-CREATE TABLE tpdm.SectionCourseTranscriptFacts (
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    CourseTitle VARCHAR(60) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT SectionCourseTranscriptFacts_PK PRIMARY KEY (FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionCourseTranscriptFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.SectionCourseTranscriptFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SectionCourseTranscriptFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned --
-CREATE TABLE tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned (
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    FinalLetterGrade VARCHAR(20) NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    LetterGradeTypeNumber INT NULL,
-    LetterGradeTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned_PK PRIMARY KEY (FactAsOfDate, FactsAsOfDate, FinalLetterGrade, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned --
-CREATE TABLE tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned (
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    AverageFinalNumericGradeEarned DECIMAL(9, 2) NOT NULL,
-    NumericGradeNCount INT NULL,
-    NumericGradeStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionCourseTranscriptFactsAggregatedNumericGradeEarned_PK PRIMARY KEY (FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionCourseTranscriptFactsAggregatedNumericGradeEarned ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionCourseTranscriptFactsStudentsEnrolled --
-CREATE TABLE tpdm.SectionCourseTranscriptFactsStudentsEnrolled (
-    FactAsOfDate DATE NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionCourseTranscriptFactsStudentsEnrolled_PK PRIMARY KEY (FactAsOfDate, FactsAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionCourseTranscriptFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAcademicRecordFacts --
-CREATE TABLE tpdm.SectionStudentAcademicRecordFacts (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    AggregatedGPAMax DECIMAL(18, 4) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT SectionStudentAcademicRecordFacts_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentAcademicRecordFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.SectionStudentAcademicRecordFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SectionStudentAcademicRecordFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d --
-CREATE TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAcademicRecordFactsAggregatedCumulat_f08d2d_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedCumulativeGra_f08d2d ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301 --
-CREATE TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301 (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    GradePointAverage DECIMAL(18, 4) NOT NULL,
-    GradePointNCount INT NULL,
-    GradePointStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAcademicRecordFactsAggregatedSession_fca301_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentAcademicRecordFactsAggregatedSessionGradeP_fca301 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled --
-CREATE TABLE tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAcademicRecordFactsStudentsEnrolled_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentAcademicRecordFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAssessmentFacts --
-CREATE TABLE tpdm.SectionStudentAssessmentFacts (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentTitle VARCHAR(100) NULL,
-    AssessmentCategoryDescriptorId INT NULL,
-    AcademicSubjectDescriptorId INT NULL,
-    GradeLevelDescriptorId INT NULL,
-    AdministrationDate DATE NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT SectionStudentAssessmentFacts_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.SectionStudentAssessmentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.SectionStudentAssessmentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SectionStudentAssessmentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel --
-CREATE TABLE tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    PerformanceLevelDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    PerformanceLevelMetNumber INT NULL,
-    PerformanceLevelMetPercentage DECIMAL(5, 4) NULL,
-    PerformanceLevelTypeNumber INT NULL,
-    PerformanceLevelTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAssessmentFactsAggregatedPerformanceLevel_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, PerformanceLevelDescriptorId, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.SectionStudentAssessmentFactsAggregatedPerformanceLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAssessmentFactsAggregatedScoreResult --
-CREATE TABLE tpdm.SectionStudentAssessmentFactsAggregatedScoreResult (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    AssessmentReportingMethodDescriptorId INT NOT NULL,
-    AverageScoreResultDatatypeTypeDescriptorId INT NOT NULL,
-    AverageScoreResult VARCHAR(35) NOT NULL,
-    ScoreNCount INT NULL,
-    ScoreStandardDeviation INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAssessmentFactsAggregatedScoreResult_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.SectionStudentAssessmentFactsAggregatedScoreResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentAssessmentFactsStudentsEnrolled --
-CREATE TABLE tpdm.SectionStudentAssessmentFactsStudentsEnrolled (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    TakenSchoolYear SMALLINT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentAssessmentFactsStudentsEnrolled_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TakenSchoolYear)
-); 
-ALTER TABLE tpdm.SectionStudentAssessmentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFacts --
-CREATE TABLE tpdm.SectionStudentFacts (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT SectionStudentFacts_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.SectionStudentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.SectionStudentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedByDisability --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedByDisability (
-    DisabilityDescriptorId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    Percentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedByDisability_PK PRIMARY KEY (DisabilityDescriptorId, FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedByDisability ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    StudentsDisabledNumber INT NULL,
-    StudentsDisabledPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedELLEnrollment --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedELLEnrollment (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ELLEnrollmentNumber INT NULL,
-    ELLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedELLEnrollment_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedELLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedESLEnrollment --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedESLEnrollment (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ESLEnrollmentNumber INT NULL,
-    ESLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedESLEnrollment_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedESLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedGender --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedGender (
-    FactAsOfDate DATE NOT NULL,
-    GenderDescriptorId INT NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    GenderTypeNumber INT NULL,
-    GenderTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedGender_PK PRIMARY KEY (FactAsOfDate, GenderDescriptorId, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedGender ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity (
-    FactAsOfDate DATE NOT NULL,
-    HispanicLatinoEthnicity BOOLEAN NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    HispanicLatinoEthnicityNumber INT NULL,
-    HispanicLatinoEthnicityPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedHispanicLatinoEthnicity_PK PRIMARY KEY (FactAsOfDate, HispanicLatinoEthnicity, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedHispanicLatinoEthnicity ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedLanguage --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedLanguage (
-    FactAsOfDate DATE NOT NULL,
-    LanguageDescriptorId INT NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    LanguageTypeNumber INT NULL,
-    LanguageTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedLanguage_PK PRIMARY KEY (FactAsOfDate, LanguageDescriptorId, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedRace --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedRace (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    RaceDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    RaceTypeNumber INT NULL,
-    RaceTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedRace_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, RaceDescriptorId, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedRace ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolFoodServiceProgramServiceDescriptorId INT NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    TypePercentage INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedSchoolFoodServiceProgramService_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolFoodServiceProgramServiceDescriptorId, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedSchoolFoodServiceProgramService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedSection504Enrollment --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedSection504Enrollment (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    Number504Enrolled INT NULL,
-    Percentage504Enrolled DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedSection504Enrollment_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedSection504Enrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedSex --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedSex (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    SexDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SexTypeNumber INT NULL,
-    SexTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedSex_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, SexDescriptorId)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedSex ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedSPED --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedSPED (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SPEDEnrollmentNumber INT NULL,
-    SPEDEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedSPED_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedSPED ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsAggregatedTitleIEnrollment --
-CREATE TABLE tpdm.SectionStudentFactsAggregatedTitleIEnrollment (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TitleIEnrollmentNumber INT NULL,
-    TitleIEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsAggregatedTitleIEnrollment_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsAggregatedTitleIEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.SectionStudentFactsStudentsEnrolled --
-CREATE TABLE tpdm.SectionStudentFactsStudentsEnrolled (
-    FactAsOfDate DATE NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT SectionStudentFactsStudentsEnrolled_PK PRIMARY KEY (FactAsOfDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.SectionStudentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.StaffApplicantAssociation --
 CREATE TABLE tpdm.StaffApplicantAssociation (
@@ -3018,186 +2371,6 @@ CREATE TABLE tpdm.StaffEducationOrganizationAssignmentAssociationExtension (
     CONSTRAINT StaffEducationOrganizationAssignmentAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
 ); 
 ALTER TABLE tpdm.StaffEducationOrganizationAssignmentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluation --
-CREATE TABLE tpdm.StaffEvaluation (
-    EducationOrganizationId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxRating DECIMAL(6, 3) NOT NULL,
-    MinRating DECIMAL(6, 3) NULL,
-    StaffEvaluationPeriodDescriptorId INT NULL,
-    StaffEvaluationTypeDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluation_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationComponent --
-CREATE TABLE tpdm.StaffEvaluationComponent (
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxRating DECIMAL(6, 3) NOT NULL,
-    MinRating DECIMAL(6, 3) NULL,
-    RubricReference VARCHAR(255) NULL,
-    StaffEvaluationTypeDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluationComponent_PK PRIMARY KEY (EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluationComponent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluationComponent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluationComponent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationComponentRating --
-CREATE TABLE tpdm.StaffEvaluationComponentRating (
-    ComponentRating DECIMAL(6, 3) NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationDate DATE NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    StaffUSI INT NOT NULL,
-    StaffEvaluationRatingLevelDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluationComponentRating_PK PRIMARY KEY (ComponentRating, EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffEvaluationComponentRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluationComponentRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluationComponentRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationComponentStaffRatingLevel --
-CREATE TABLE tpdm.StaffEvaluationComponentStaffRatingLevel (
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationLevel VARCHAR(50) NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxLevel DECIMAL(6, 3) NOT NULL,
-    MinLevel DECIMAL(6, 3) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffEvaluationComponentStaffRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationComponent, SchoolYear, StaffEvaluationLevel, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluationComponentStaffRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationElement --
-CREATE TABLE tpdm.StaffEvaluationElement (
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    EvaluationElement VARCHAR(255) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxRating DECIMAL(6, 3) NOT NULL,
-    MinRating DECIMAL(6, 3) NULL,
-    RubricReference VARCHAR(255) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluationElement_PK PRIMARY KEY (EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluationElement ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluationElement ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluationElement ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationElementRating --
-CREATE TABLE tpdm.StaffEvaluationElementRating (
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    EvaluationElement VARCHAR(255) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationDate DATE NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    StaffUSI INT NOT NULL,
-    ElementRating DECIMAL(6, 3) NOT NULL,
-    StaffEvaluationRatingLevelDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluationElementRating_PK PRIMARY KEY (EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffEvaluationElementRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluationElementRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluationElementRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationElementStaffRatingLevel --
-CREATE TABLE tpdm.StaffEvaluationElementStaffRatingLevel (
-    EducationOrganizationId INT NOT NULL,
-    EvaluationComponent VARCHAR(50) NOT NULL,
-    EvaluationElement VARCHAR(255) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationLevel VARCHAR(50) NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxLevel DECIMAL(6, 3) NOT NULL,
-    MinLevel DECIMAL(6, 3) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffEvaluationElementStaffRatingLevel_PK PRIMARY KEY (EducationOrganizationId, EvaluationComponent, EvaluationElement, SchoolYear, StaffEvaluationLevel, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluationElementStaffRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationPeriodDescriptor --
-CREATE TABLE tpdm.StaffEvaluationPeriodDescriptor (
-    StaffEvaluationPeriodDescriptorId INT NOT NULL,
-    CONSTRAINT StaffEvaluationPeriodDescriptor_PK PRIMARY KEY (StaffEvaluationPeriodDescriptorId)
-); 
-
--- Table tpdm.StaffEvaluationRating --
-CREATE TABLE tpdm.StaffEvaluationRating (
-    EducationOrganizationId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationDate DATE NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    StaffUSI INT NOT NULL,
-    Rating DECIMAL(6, 3) NOT NULL,
-    StaffEvaluationRatingLevelDescriptorId INT NULL,
-    EvaluatedByStaffUSI INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffEvaluationRating_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StaffEvaluationDate, StaffEvaluationTitle, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffEvaluationRating ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffEvaluationRating ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffEvaluationRating ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationRatingLevelDescriptor --
-CREATE TABLE tpdm.StaffEvaluationRatingLevelDescriptor (
-    StaffEvaluationRatingLevelDescriptorId INT NOT NULL,
-    CONSTRAINT StaffEvaluationRatingLevelDescriptor_PK PRIMARY KEY (StaffEvaluationRatingLevelDescriptorId)
-); 
-
--- Table tpdm.StaffEvaluationStaffRatingLevel --
-CREATE TABLE tpdm.StaffEvaluationStaffRatingLevel (
-    EducationOrganizationId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    StaffEvaluationLevel VARCHAR(50) NOT NULL,
-    StaffEvaluationTitle VARCHAR(50) NOT NULL,
-    MaxLevel DECIMAL(6, 3) NOT NULL,
-    MinLevel DECIMAL(6, 3) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffEvaluationStaffRatingLevel_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StaffEvaluationLevel, StaffEvaluationTitle)
-); 
-ALTER TABLE tpdm.StaffEvaluationStaffRatingLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffEvaluationTypeDescriptor --
-CREATE TABLE tpdm.StaffEvaluationTypeDescriptor (
-    StaffEvaluationTypeDescriptorId INT NOT NULL,
-    CONSTRAINT StaffEvaluationTypeDescriptor_PK PRIMARY KEY (StaffEvaluationTypeDescriptorId)
-); 
 
 -- Table tpdm.StaffExtension --
 CREATE TABLE tpdm.StaffExtension (
@@ -3577,36 +2750,79 @@ CREATE TABLE tpdm.StudentGrowthTypeDescriptor (
     CONSTRAINT StudentGrowthTypeDescriptor_PK PRIMARY KEY (StudentGrowthTypeDescriptorId)
 ); 
 
--- Table tpdm.SurveyLevelDescriptor --
-CREATE TABLE tpdm.SurveyLevelDescriptor (
-    SurveyLevelDescriptorId INT NOT NULL,
-    CONSTRAINT SurveyLevelDescriptor_PK PRIMARY KEY (SurveyLevelDescriptorId)
-); 
-
--- Table tpdm.TalentManagementGoal --
-CREATE TABLE tpdm.TalentManagementGoal (
-    GoalTitle VARCHAR(255) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    GoalValue DECIMAL(12, 3) NOT NULL,
+-- Table tpdm.SurveyResponseTeacherCandidateTargetAssociation --
+CREATE TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation (
+    Namespace VARCHAR(255) NOT NULL,
+    SurveyIdentifier VARCHAR(60) NOT NULL,
+    SurveyResponseIdentifier VARCHAR(60) NOT NULL,
+    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT TalentManagementGoal_PK PRIMARY KEY (GoalTitle, SchoolYear)
+    CONSTRAINT SurveyResponseTeacherCandidateTargetAssociation_PK PRIMARY KEY (Namespace, SurveyIdentifier, SurveyResponseIdentifier, TeacherCandidateIdentifier)
 ); 
-ALTER TABLE tpdm.TalentManagementGoal ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.TalentManagementGoal ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.TalentManagementGoal ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
--- Table tpdm.TalentManagementGoalEducationOrganization --
-CREATE TABLE tpdm.TalentManagementGoalEducationOrganization (
-    EducationOrganizationId INT NOT NULL,
-    GoalTitle VARCHAR(255) NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
+-- Table tpdm.SurveySectionAggregateResponse --
+CREATE TABLE tpdm.SurveySectionAggregateResponse (
+    EvaluationDate DATE NOT NULL,
+    EvaluationElementTitle VARCHAR(255) NOT NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+    EvaluationTitle VARCHAR(50) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+    PersonId VARCHAR(32) NOT NULL,
+    SourceSystemDescriptorId INT NOT NULL,
+    SurveyIdentifier VARCHAR(60) NOT NULL,
+    SurveySectionTitle VARCHAR(255) NOT NULL,
+    TermDescriptorId INT NOT NULL,
+    ScoreValue DECIMAL(6, 3) NOT NULL,
+    Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT TalentManagementGoalEducationOrganization_PK PRIMARY KEY (EducationOrganizationId, GoalTitle, SchoolYear)
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT SurveySectionAggregateResponse_PK PRIMARY KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, Namespace, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, SurveyIdentifier, SurveySectionTitle, TermDescriptorId)
 ); 
-ALTER TABLE tpdm.TalentManagementGoalEducationOrganization ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveySectionAggregateResponse ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveySectionAggregateResponse ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.SurveySectionAggregateResponse ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.SurveySectionExtension --
+CREATE TABLE tpdm.SurveySectionExtension (
+    Namespace VARCHAR(255) NOT NULL,
+    SurveyIdentifier VARCHAR(60) NOT NULL,
+    SurveySectionTitle VARCHAR(255) NOT NULL,
+    PerformanceEvaluationTitle VARCHAR(50) NULL,
+    TermDescriptorId INT NULL,
+    PerformanceEvaluationTypeDescriptorId INT NULL,
+    EvaluationTitle VARCHAR(50) NULL,
+    EvaluationObjectiveTitle VARCHAR(50) NULL,
+    EvaluationElementTitle VARCHAR(255) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT SurveySectionExtension_PK PRIMARY KEY (Namespace, SurveyIdentifier, SurveySectionTitle)
+); 
+ALTER TABLE tpdm.SurveySectionExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.SurveySectionResponseTeacherCandidateTargetAssociation --
+CREATE TABLE tpdm.SurveySectionResponseTeacherCandidateTargetAssociation (
+    Namespace VARCHAR(255) NOT NULL,
+    SurveyIdentifier VARCHAR(60) NOT NULL,
+    SurveyResponseIdentifier VARCHAR(60) NOT NULL,
+    SurveySectionTitle VARCHAR(255) NOT NULL,
+    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT SurveySectionResponseTeacherCandidateTargetAssociation_PK PRIMARY KEY (Namespace, SurveyIdentifier, SurveyResponseIdentifier, SurveySectionTitle, TeacherCandidateIdentifier)
+); 
+ALTER TABLE tpdm.SurveySectionResponseTeacherCandidateTargetAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.SurveySectionResponseTeacherCandidateTargetAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.SurveySectionResponseTeacherCandidateTargetAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.TeacherCandidate --
 CREATE TABLE tpdm.TeacherCandidate (
@@ -3641,6 +2857,8 @@ CREATE TABLE tpdm.TeacherCandidate (
     ProgramComplete BOOLEAN NULL,
     FirstGenerationStudent BOOLEAN NULL,
     StudentUSI INT NOT NULL,
+    PersonId VARCHAR(32) NULL,
+    SourceSystemDescriptorId INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
@@ -4444,12 +3662,6 @@ CREATE TABLE tpdm.TeacherPreparationProviderProgramGradeLevel (
     CONSTRAINT TeacherPreparationProviderProgramGradeLevel_PK PRIMARY KEY (EducationOrganizationId, GradeLevelDescriptorId, ProgramName, ProgramTypeDescriptorId)
 ); 
 ALTER TABLE tpdm.TeacherPreparationProviderProgramGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.ThemeDescriptor --
-CREATE TABLE tpdm.ThemeDescriptor (
-    ThemeDescriptorId INT NOT NULL,
-    CONSTRAINT ThemeDescriptor_PK PRIMARY KEY (ThemeDescriptorId)
-); 
 
 -- Table tpdm.TPPDegreeTypeDescriptor --
 CREATE TABLE tpdm.TPPDegreeTypeDescriptor (

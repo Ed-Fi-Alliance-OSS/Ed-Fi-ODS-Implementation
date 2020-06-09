@@ -29,23 +29,17 @@ CREATE INDEX IF NOT EXISTS UX_e7ad52_ChangeVersion ON tpdm.Application(ChangeVer
 
 CREATE INDEX IF NOT EXISTS UX_143de6_ChangeVersion ON tpdm.ApplicationEvent(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_86846f_ChangeVersion ON tpdm.Certification(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_cb139c_ChangeVersion ON tpdm.CertificationExam(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_aed83e_ChangeVersion ON tpdm.CertificationExamResult(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_447e8f_ChangeVersion ON tpdm.CompleterAsStaffAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_055fb2_ChangeVersion ON tpdm.CourseCourseTranscriptFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_6cdc01_ChangeVersion ON tpdm.CourseStudentAcademicRecordFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_157c1d_ChangeVersion ON tpdm.CourseStudentAssessmentFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_81ddd0_ChangeVersion ON tpdm.CourseStudentFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_092fc4_ChangeVersion ON tpdm.EducationOrganizationCourseTranscriptFacts(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_3d6d96_ChangeVersion ON tpdm.CredentialEvent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_f4fab0_ChangeVersion ON tpdm.EducationOrganizationFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_347c34_ChangeVersion ON tpdm.EducationOrganizationStudentAcademicRecordFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_7c74f1_ChangeVersion ON tpdm.EducationOrganizationStudentAssessmentFacts(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_eedec2_ChangeVersion ON tpdm.EducationOrganizationStudentFacts(ChangeVersion);
 
@@ -53,13 +47,25 @@ CREATE INDEX IF NOT EXISTS UX_786774_ChangeVersion ON tpdm.EmploymentEvent(Chang
 
 CREATE INDEX IF NOT EXISTS UX_f51cef_ChangeVersion ON tpdm.EmploymentSeparationEvent(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_163e44_ChangeVersion ON tpdm.Evaluation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_e53186_ChangeVersion ON tpdm.EvaluationElement(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_4479ea_ChangeVersion ON tpdm.EvaluationElementRating(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_d4565d_ChangeVersion ON tpdm.EvaluationObjective(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_7ae19d_ChangeVersion ON tpdm.EvaluationObjectiveRating(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_bfaa20_ChangeVersion ON tpdm.EvaluationRating(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_cdbf69_ChangeVersion ON tpdm.Goal(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_e809b0_ChangeVersion ON tpdm.OpenStaffPositionEvent(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_97e755_ChangeVersion ON tpdm.PerformanceMeasure(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_15d685_ChangeVersion ON tpdm.PerformanceEvaluation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_e21917_ChangeVersion ON tpdm.PerformanceMeasureCourseAssociation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_be96e7_ChangeVersion ON tpdm.PerformanceMeasureFacts(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_759abe_ChangeVersion ON tpdm.PerformanceEvaluationRating(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_8c4ca1_ChangeVersion ON tpdm.ProfessionalDevelopmentEvent(ChangeVersion);
 
@@ -67,37 +73,15 @@ CREATE INDEX IF NOT EXISTS UX_f84f61_ChangeVersion ON tpdm.Prospect(ChangeVersio
 
 CREATE INDEX IF NOT EXISTS UX_dc8233_ChangeVersion ON tpdm.ProspectProfessionalDevelopmentEventAttendance(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_8b89fe_ChangeVersion ON tpdm.QuantitativeMeasure(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_e61067_ChangeVersion ON tpdm.QuantitativeMeasureScore(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_6232e8_ChangeVersion ON tpdm.RecruitmentEvent(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_f13a78_ChangeVersion ON tpdm.Rubric(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_6ab97b_ChangeVersion ON tpdm.RubricLevel(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_c8ffc2_ChangeVersion ON tpdm.RubricLevelResponse(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_98f7aa_ChangeVersion ON tpdm.RubricLevelResponseFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_51c6b9_ChangeVersion ON tpdm.SectionCourseTranscriptFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_f7814e_ChangeVersion ON tpdm.SectionStudentAcademicRecordFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_aeccab_ChangeVersion ON tpdm.SectionStudentAssessmentFacts(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_5b8d40_ChangeVersion ON tpdm.SectionStudentFacts(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_643c81_ChangeVersion ON tpdm.RubricDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_11e466_ChangeVersion ON tpdm.StaffApplicantAssociation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_5f5473_ChangeVersion ON tpdm.StaffEvaluation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_60e7ab_ChangeVersion ON tpdm.StaffEvaluationComponent(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_6b5a36_ChangeVersion ON tpdm.StaffEvaluationComponentRating(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_9e0757_ChangeVersion ON tpdm.StaffEvaluationElement(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_e94b2b_ChangeVersion ON tpdm.StaffEvaluationElementRating(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_e34e81_ChangeVersion ON tpdm.StaffEvaluationRating(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_420d2e_ChangeVersion ON tpdm.StaffFieldworkAbsenceEvent(ChangeVersion);
 
@@ -121,7 +105,11 @@ CREATE INDEX IF NOT EXISTS UX_7bf40b_ChangeVersion ON tpdm.StaffTeacherPreparati
 
 CREATE INDEX IF NOT EXISTS UX_5bac62_ChangeVersion ON tpdm.StaffTeacherPreparationProviderProgramAssociation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_c4d5a9_ChangeVersion ON tpdm.TalentManagementGoal(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_049bd0_ChangeVersion ON tpdm.SurveyResponseTeacherCandidateTargetAssociation(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_f37ae9_ChangeVersion ON tpdm.SurveySectionAggregateResponse(ChangeVersion);
+
+CREATE INDEX IF NOT EXISTS UX_948dd8_ChangeVersion ON tpdm.SurveySectionResponseTeacherCandidateTargetAssociation(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_835b49_ChangeVersion ON tpdm.TeacherCandidate(ChangeVersion);
 

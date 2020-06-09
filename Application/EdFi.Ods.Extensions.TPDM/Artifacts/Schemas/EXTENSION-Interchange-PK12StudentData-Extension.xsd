@@ -15,18 +15,7 @@
         <xs:element name="AnonymizedStudentAcademicRecord" type="EXTENSION-AnonymizedStudentAcademicRecord" />
         <xs:element name="AnonymizedStudentAssessment" type="EXTENSION-AnonymizedStudentAssessment" />
         <xs:element name="AnonymizedStudentCourseTranscript" type="EXTENSION-AnonymizedStudentCourseTranscript" />
-        <xs:element name="CourseCourseTranscriptFacts" type="EXTENSION-CourseCourseTranscriptFacts" />
-        <xs:element name="CourseStudentAcademicRecordFacts" type="EXTENSION-CourseStudentAcademicRecordFacts" />
-        <xs:element name="CourseStudentAssessmentFacts" type="EXTENSION-CourseStudentAssessmentFacts" />
-        <xs:element name="CourseStudentFacts" type="EXTENSION-CourseStudentFacts" />
-        <xs:element name="EducationOrganizationCourseTranscriptFacts" type="EXTENSION-EducationOrganizationCourseTranscriptFacts" />
-        <xs:element name="EducationOrganizationStudentAcademicRecordFacts" type="EXTENSION-EducationOrganizationStudentAcademicRecordFacts" />
-        <xs:element name="EducationOrganizationStudentAssessmentFacts" type="EXTENSION-EducationOrganizationStudentAssessmentFacts" />
         <xs:element name="EducationOrganizationStudentFacts" type="EXTENSION-EducationOrganizationStudentFacts" />
-        <xs:element name="SectionCourseTranscriptFacts" type="EXTENSION-SectionCourseTranscriptFacts" />
-        <xs:element name="SectionStudentAcademicRecordFacts" type="EXTENSION-SectionStudentAcademicRecordFacts" />
-        <xs:element name="SectionStudentAssessmentFacts" type="EXTENSION-SectionStudentAssessmentFacts" />
-        <xs:element name="SectionStudentFacts" type="EXTENSION-SectionStudentFacts" />
         <xs:element name="StaffStudentGrowthMeasure" type="EXTENSION-StaffStudentGrowthMeasure" />
         <xs:element name="TeacherCandidateStudentGrowthMeasure" type="EXTENSION-TeacherCandidateStudentGrowthMeasure" />
         <xs:element name="AnonymizedStudentCourseAssociation" type="EXTENSION-AnonymizedStudentCourseAssociation" />

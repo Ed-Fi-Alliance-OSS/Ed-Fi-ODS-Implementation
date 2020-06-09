@@ -95,6 +95,27 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Certification') AND name = N'UX_Certification_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_Certification_Id ON [tpdm].[Certification]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CertificationExam') AND name = N'UX_CertificationExam_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_CertificationExam_Id ON [tpdm].[CertificationExam]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CertificationExamResult') AND name = N'UX_CertificationExamResult_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_CertificationExamResult_Id ON [tpdm].[CertificationExamResult]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CompleterAsStaffAssociation') AND name = N'UX_CompleterAsStaffAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_CompleterAsStaffAssociation_Id ON [tpdm].[CompleterAsStaffAssociation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -102,36 +123,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseCourseTranscriptFacts') AND name = N'UX_CourseCourseTranscriptFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_CourseCourseTranscriptFacts_Id ON [tpdm].[CourseCourseTranscriptFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentAcademicRecordFacts') AND name = N'UX_CourseStudentAcademicRecordFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_CourseStudentAcademicRecordFacts_Id ON [tpdm].[CourseStudentAcademicRecordFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentAssessmentFacts') AND name = N'UX_CourseStudentAssessmentFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_CourseStudentAssessmentFacts_Id ON [tpdm].[CourseStudentAssessmentFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CourseStudentFacts') AND name = N'UX_CourseStudentFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_CourseStudentFacts_Id ON [tpdm].[CourseStudentFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationCourseTranscriptFacts') AND name = N'UX_EducationOrganizationCourseTranscriptFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationCourseTranscriptFacts_Id ON [tpdm].[EducationOrganizationCourseTranscriptFacts]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.CredentialEvent') AND name = N'UX_CredentialEvent_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_CredentialEvent_Id ON [tpdm].[CredentialEvent]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -139,20 +132,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationFacts') AND name = N'UX_EducationOrganizationFacts_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationFacts_Id ON [tpdm].[EducationOrganizationFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationStudentAcademicRecordFacts') AND name = N'UX_EducationOrganizationStudentAcademicRecordFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationStudentAcademicRecordFacts_Id ON [tpdm].[EducationOrganizationStudentAcademicRecordFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationStudentAssessmentFacts') AND name = N'UX_EducationOrganizationStudentAssessmentFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_EducationOrganizationStudentAssessmentFacts_Id ON [tpdm].[EducationOrganizationStudentAssessmentFacts]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -179,6 +158,55 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Evaluation') AND name = N'UX_Evaluation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_Evaluation_Id ON [tpdm].[Evaluation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationElement') AND name = N'UX_EvaluationElement_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EvaluationElement_Id ON [tpdm].[EvaluationElement]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationElementRating') AND name = N'UX_EvaluationElementRating_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EvaluationElementRating_Id ON [tpdm].[EvaluationElementRating]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationObjective') AND name = N'UX_EvaluationObjective_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EvaluationObjective_Id ON [tpdm].[EvaluationObjective]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationObjectiveRating') AND name = N'UX_EvaluationObjectiveRating_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EvaluationObjectiveRating_Id ON [tpdm].[EvaluationObjectiveRating]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationRating') AND name = N'UX_EvaluationRating_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_EvaluationRating_Id ON [tpdm].[EvaluationRating]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Goal') AND name = N'UX_Goal_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_Goal_Id ON [tpdm].[Goal]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.OpenStaffPositionEvent') AND name = N'UX_OpenStaffPositionEvent_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_OpenStaffPositionEvent_Id ON [tpdm].[OpenStaffPositionEvent]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -186,22 +214,15 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasure') AND name = N'UX_PerformanceMeasure_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_PerformanceMeasure_Id ON [tpdm].[PerformanceMeasure]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceEvaluation') AND name = N'UX_PerformanceEvaluation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_PerformanceEvaluation_Id ON [tpdm].[PerformanceEvaluation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasureCourseAssociation') AND name = N'UX_PerformanceMeasureCourseAssociation_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_PerformanceMeasureCourseAssociation_Id ON [tpdm].[PerformanceMeasureCourseAssociation]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceMeasureFacts') AND name = N'UX_PerformanceMeasureFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_PerformanceMeasureFacts_Id ON [tpdm].[PerformanceMeasureFacts]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.PerformanceEvaluationRating') AND name = N'UX_PerformanceEvaluationRating_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_PerformanceEvaluationRating_Id ON [tpdm].[PerformanceEvaluationRating]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -228,6 +249,20 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.QuantitativeMeasure') AND name = N'UX_QuantitativeMeasure_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_QuantitativeMeasure_Id ON [tpdm].[QuantitativeMeasure]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.QuantitativeMeasureScore') AND name = N'UX_QuantitativeMeasureScore_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_QuantitativeMeasureScore_Id ON [tpdm].[QuantitativeMeasureScore]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RecruitmentEvent') AND name = N'UX_RecruitmentEvent_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_RecruitmentEvent_Id ON [tpdm].[RecruitmentEvent]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
@@ -235,57 +270,8 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Rubric') AND name = N'UX_Rubric_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_Rubric_Id ON [tpdm].[Rubric]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevel') AND name = N'UX_RubricLevel_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_RubricLevel_Id ON [tpdm].[RubricLevel]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevelResponse') AND name = N'UX_RubricLevelResponse_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_RubricLevelResponse_Id ON [tpdm].[RubricLevelResponse]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricLevelResponseFacts') AND name = N'UX_RubricLevelResponseFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_RubricLevelResponseFacts_Id ON [tpdm].[RubricLevelResponseFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionCourseTranscriptFacts') AND name = N'UX_SectionCourseTranscriptFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_SectionCourseTranscriptFacts_Id ON [tpdm].[SectionCourseTranscriptFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentAcademicRecordFacts') AND name = N'UX_SectionStudentAcademicRecordFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_SectionStudentAcademicRecordFacts_Id ON [tpdm].[SectionStudentAcademicRecordFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentAssessmentFacts') AND name = N'UX_SectionStudentAssessmentFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_SectionStudentAssessmentFacts_Id ON [tpdm].[SectionStudentAssessmentFacts]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SectionStudentFacts') AND name = N'UX_SectionStudentFacts_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_SectionStudentFacts_Id ON [tpdm].[SectionStudentFacts]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.RubricDimension') AND name = N'UX_RubricDimension_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_RubricDimension_Id ON [tpdm].[RubricDimension]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -293,48 +279,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffApplicantAssociation') AND name = N'UX_StaffApplicantAssociation_Id')
     CREATE UNIQUE NONCLUSTERED INDEX UX_StaffApplicantAssociation_Id ON [tpdm].[StaffApplicantAssociation]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluation') AND name = N'UX_StaffEvaluation_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluation_Id ON [tpdm].[StaffEvaluation]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationComponent') AND name = N'UX_StaffEvaluationComponent_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluationComponent_Id ON [tpdm].[StaffEvaluationComponent]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationComponentRating') AND name = N'UX_StaffEvaluationComponentRating_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluationComponentRating_Id ON [tpdm].[StaffEvaluationComponentRating]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationElement') AND name = N'UX_StaffEvaluationElement_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluationElement_Id ON [tpdm].[StaffEvaluationElement]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationElementRating') AND name = N'UX_StaffEvaluationElementRating_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluationElementRating_Id ON [tpdm].[StaffEvaluationElementRating]
-    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffEvaluationRating') AND name = N'UX_StaffEvaluationRating_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_StaffEvaluationRating_Id ON [tpdm].[StaffEvaluationRating]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT
@@ -417,8 +361,22 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TalentManagementGoal') AND name = N'UX_TalentManagementGoal_Id')
-    CREATE UNIQUE NONCLUSTERED INDEX UX_TalentManagementGoal_Id ON [tpdm].[TalentManagementGoal]
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveyResponseTeacherCandidateTargetAssociation') AND name = N'UX_SurveyResponseTeacherCandidateTargetAssociation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_SurveyResponseTeacherCandidateTargetAssociation_Id ON [tpdm].[SurveyResponseTeacherCandidateTargetAssociation]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveySectionAggregateResponse') AND name = N'UX_SurveySectionAggregateResponse_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_SurveySectionAggregateResponse_Id ON [tpdm].[SurveySectionAggregateResponse]
+    (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.SurveySectionResponseTeacherCandidateTargetAssociation') AND name = N'UX_SurveySectionResponseTeacherCandidateTargetAssociation_Id')
+    CREATE UNIQUE NONCLUSTERED INDEX UX_SurveySectionResponseTeacherCandidateTargetAssociation_Id ON [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation]
     (Id) WITH (PAD_INDEX = ON, FILLFACTOR = 75, STATISTICS_NORECOMPUTE = OFF) ON [PRIMARY]
     GO
 COMMIT

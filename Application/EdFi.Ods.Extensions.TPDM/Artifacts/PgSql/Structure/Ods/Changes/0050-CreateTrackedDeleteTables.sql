@@ -223,12 +223,34 @@ CREATE TABLE tracked_deletes_tpdm.BackgroundCheckTypeDescriptor
        CONSTRAINT BackgroundCheckTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.BoardCertificationTypeDescriptor
+CREATE TABLE tracked_deletes_tpdm.Certification
 (
-       BoardCertificationTypeDescriptorId INT NOT NULL,
+       CertificationIdentifier VARCHAR(60) NOT NULL,
+       IssuerNamespace VARCHAR(255) NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT BoardCertificationTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT Certification_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationExam
+(
+       CertificationExamIdentifier VARCHAR(60) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationExam_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationExamResult
+(
+       CertificationExamDate DATE NOT NULL,
+       CertificationExamIdentifier VARCHAR(60) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationExamResult_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.CertificationExamStatusDescriptor
@@ -245,6 +267,38 @@ CREATE TABLE tracked_deletes_tpdm.CertificationExamTypeDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT CertificationExamTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationFieldDescriptor
+(
+       CertificationFieldDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationFieldDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationLevelDescriptor
+(
+       CertificationLevelDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationRouteDescriptor
+(
+       CertificationRouteDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationRouteDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.CertificationStandardDescriptor
+(
+       CertificationStandardDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT CertificationStandardDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.CompleterAsStaffAssociation
@@ -264,62 +318,39 @@ CREATE TABLE tracked_deletes_tpdm.CoteachingStyleObservedDescriptor
        CONSTRAINT CoteachingStyleObservedDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.CourseCourseTranscriptFacts
+CREATE TABLE tracked_deletes_tpdm.CredentialEvent
 (
-       CourseCode VARCHAR(60) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       TermDescriptorId INT NOT NULL,
+       CredentialEventDate DATE NOT NULL,
+       CredentialEventTypeDescriptorId INT NOT NULL,
+       CredentialIdentifier VARCHAR(60) NOT NULL,
+       StateOfIssueStateAbbreviationDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT CourseCourseTranscriptFacts_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT CredentialEvent_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.CourseStudentAcademicRecordFacts
+CREATE TABLE tracked_deletes_tpdm.CredentialEventTypeDescriptor
 (
-       CourseCode VARCHAR(60) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       TermDescriptorId INT NOT NULL,
+       CredentialEventTypeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT CourseStudentAcademicRecordFacts_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT CredentialEventTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.CourseStudentAssessmentFacts
+CREATE TABLE tracked_deletes_tpdm.CredentialStatusDescriptor
 (
-       CourseCode VARCHAR(60) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       TakenSchoolYear SMALLINT NOT NULL,
+       CredentialStatusDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT CourseStudentAssessmentFacts_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT CredentialStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.CourseStudentFacts
+CREATE TABLE tracked_deletes_tpdm.DegreeDescriptor
 (
-       CourseCode VARCHAR(60) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
+       DegreeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT CourseStudentFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.EducationOrganizationCourseTranscriptFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       TermDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT EducationOrganizationCourseTranscriptFacts_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT DegreeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.EducationOrganizationFacts
@@ -332,27 +363,6 @@ CREATE TABLE tracked_deletes_tpdm.EducationOrganizationFacts
        CONSTRAINT EducationOrganizationFacts_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.EducationOrganizationStudentAcademicRecordFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       TermDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT EducationOrganizationStudentAcademicRecordFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.EducationOrganizationStudentAssessmentFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       TakenSchoolYear SMALLINT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT EducationOrganizationStudentAssessmentFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.EducationOrganizationStudentFacts
 (
        EducationOrganizationId INT NOT NULL,
@@ -360,6 +370,14 @@ CREATE TABLE tracked_deletes_tpdm.EducationOrganizationStudentFacts
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT EducationOrganizationStudentFacts_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EducatorRoleDescriptor
+(
+       EducatorRoleDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EducatorRoleDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.EmploymentEvent
@@ -414,6 +432,119 @@ CREATE TABLE tracked_deletes_tpdm.EnglishLanguageExamDescriptor
        CONSTRAINT EnglishLanguageExamDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_tpdm.Evaluation
+(
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT Evaluation_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationElement
+(
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationElement_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationElementRating
+(
+       EvaluationDate DATE NOT NULL,
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationElementRating_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationElementRatingLevelDescriptor
+(
+       EvaluationElementRatingLevelDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationElementRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationObjective
+(
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationObjective_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationObjectiveRating
+(
+       EvaluationDate DATE NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationObjectiveRating_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationPeriodDescriptor
+(
+       EvaluationPeriodDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationRating
+(
+       EvaluationDate DATE NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationRating_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationRatingLevelDescriptor
+(
+       EvaluationRatingLevelDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.EvaluationTypeDescriptor
+(
+       EvaluationTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT EvaluationTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_tpdm.FederalLocaleCodeDescriptor
 (
        FederalLocaleCodeDescriptorId INT NOT NULL,
@@ -446,6 +577,25 @@ CREATE TABLE tracked_deletes_tpdm.GenderDescriptor
        CONSTRAINT GenderDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_tpdm.Goal
+(
+       AssignmentDate DATE NOT NULL,
+       GoalTitle VARCHAR(255) NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT Goal_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.GoalTypeDescriptor
+(
+       GoalTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT GoalTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_tpdm.HireStatusDescriptor
 (
        HireStatusDescriptorId INT NOT NULL,
@@ -460,6 +610,14 @@ CREATE TABLE tracked_deletes_tpdm.HiringSourceDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT HiringSourceDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.InstructionalSettingDescriptor
+(
+       InstructionalSettingDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT InstructionalSettingDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.InternalExternalHireDescriptor
@@ -478,12 +636,12 @@ CREATE TABLE tracked_deletes_tpdm.LevelOfDegreeAwardedDescriptor
        CONSTRAINT LevelOfDegreeAwardedDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.LevelTypeDescriptor
+CREATE TABLE tracked_deletes_tpdm.ObjectiveRatingLevelDescriptor
 (
-       LevelTypeDescriptorId INT NOT NULL,
+       ObjectiveRatingLevelDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT LevelTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT ObjectiveRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.OpenStaffPositionEvent
@@ -521,50 +679,42 @@ CREATE TABLE tracked_deletes_tpdm.OpenStaffPositionReasonDescriptor
        CONSTRAINT OpenStaffPositionReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.PerformanceMeasure
+CREATE TABLE tracked_deletes_tpdm.PerformanceEvaluation
 (
-       PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT PerformanceMeasure_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT PerformanceEvaluation_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.PerformanceMeasureCourseAssociation
+CREATE TABLE tracked_deletes_tpdm.PerformanceEvaluationRating
 (
-       CourseCode VARCHAR(60) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT PerformanceMeasureCourseAssociation_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT PerformanceEvaluationRating_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.PerformanceMeasureFacts
+CREATE TABLE tracked_deletes_tpdm.PerformanceEvaluationRatingLevelDescriptor
 (
-       EducationOrganizationId INT NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       RubricTitle VARCHAR(255) NOT NULL,
-       RubricTypeDescriptorId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
+       PerformanceEvaluationRatingLevelDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT PerformanceMeasureFacts_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT PerformanceEvaluationRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.PerformanceMeasureInstanceDescriptor
+CREATE TABLE tracked_deletes_tpdm.PerformanceEvaluationTypeDescriptor
 (
-       PerformanceMeasureInstanceDescriptorId INT NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT PerformanceMeasureInstanceDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.PerformanceMeasureTypeDescriptor
-(
-       PerformanceMeasureTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT PerformanceMeasureTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT PerformanceEvaluationTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.PreviousCareerDescriptor
@@ -627,6 +777,53 @@ CREATE TABLE tracked_deletes_tpdm.ProspectTypeDescriptor
        CONSTRAINT ProspectTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_tpdm.QuantitativeMeasure
+(
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       QuantitativeMeasureIdentifier VARCHAR(64) NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT QuantitativeMeasure_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.QuantitativeMeasureDatatypeDescriptor
+(
+       QuantitativeMeasureDatatypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT QuantitativeMeasureDatatypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.QuantitativeMeasureScore
+(
+       EvaluationDate DATE NOT NULL,
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       QuantitativeMeasureIdentifier VARCHAR(64) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT QuantitativeMeasureScore_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.QuantitativeMeasureTypeDescriptor
+(
+       QuantitativeMeasureTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT QuantitativeMeasureTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_tpdm.RecruitmentEvent
 (
        EventDate DATE NOT NULL,
@@ -644,58 +841,26 @@ CREATE TABLE tracked_deletes_tpdm.RecruitmentEventTypeDescriptor
        CONSTRAINT RecruitmentEventTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.Rubric
+CREATE TABLE tracked_deletes_tpdm.RubricDimension
 (
-       EducationOrganizationId INT NOT NULL,
-       RubricTitle VARCHAR(255) NOT NULL,
-       RubricTypeDescriptorId INT NOT NULL,
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       RubricRating INT NOT NULL,
+       TermDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT Rubric_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT RubricDimension_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.RubricLevel
+CREATE TABLE tracked_deletes_tpdm.RubricRatingLevelDescriptor
 (
-       EducationOrganizationId INT NOT NULL,
-       RubricLevelCode VARCHAR(64) NOT NULL,
-       RubricTitle VARCHAR(255) NOT NULL,
-       RubricTypeDescriptorId INT NOT NULL,
+       RubricRatingLevelDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT RubricLevel_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.RubricLevelResponse
-(
-       EducationOrganizationId INT NOT NULL,
-       PerformanceMeasureIdentifier VARCHAR(64) NOT NULL,
-       RubricLevelCode VARCHAR(64) NOT NULL,
-       RubricTitle VARCHAR(255) NOT NULL,
-       RubricTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT RubricLevelResponse_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.RubricLevelResponseFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       RubricLevelCode VARCHAR(64) NOT NULL,
-       RubricTitle VARCHAR(255) NOT NULL,
-       RubricTypeDescriptorId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT RubricLevelResponseFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.RubricTypeDescriptor
-(
-       RubricTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT RubricTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT RubricRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.SalaryTypeDescriptor
@@ -714,60 +879,6 @@ CREATE TABLE tracked_deletes_tpdm.SchoolStatusDescriptor
        CONSTRAINT SchoolStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.SectionCourseTranscriptFacts
-(
-       FactAsOfDate DATE NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SectionCourseTranscriptFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.SectionStudentAcademicRecordFacts
-(
-       FactAsOfDate DATE NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SectionStudentAcademicRecordFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.SectionStudentAssessmentFacts
-(
-       FactAsOfDate DATE NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       TakenSchoolYear SMALLINT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SectionStudentAssessmentFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.SectionStudentFacts
-(
-       FactAsOfDate DATE NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SectionStudentFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.StaffApplicantAssociation
 (
        ApplicantIdentifier VARCHAR(32) NOT NULL,
@@ -776,103 +887,6 @@ CREATE TABLE tracked_deletes_tpdm.StaffApplicantAssociation
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT StaffApplicantAssociation_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluation
-(
-       EducationOrganizationId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluation_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationComponent
-(
-       EducationOrganizationId INT NOT NULL,
-       EvaluationComponent VARCHAR(50) NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationComponent_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationComponentRating
-(
-       ComponentRating DECIMAL(6, 3) NOT NULL,
-       EducationOrganizationId INT NOT NULL,
-       EvaluationComponent VARCHAR(50) NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationDate DATE NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationComponentRating_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationElement
-(
-       EducationOrganizationId INT NOT NULL,
-       EvaluationComponent VARCHAR(50) NOT NULL,
-       EvaluationElement VARCHAR(255) NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationElement_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationElementRating
-(
-       EducationOrganizationId INT NOT NULL,
-       EvaluationComponent VARCHAR(50) NOT NULL,
-       EvaluationElement VARCHAR(255) NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationDate DATE NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationElementRating_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationPeriodDescriptor
-(
-       StaffEvaluationPeriodDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationRating
-(
-       EducationOrganizationId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffEvaluationDate DATE NOT NULL,
-       StaffEvaluationTitle VARCHAR(50) NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationRating_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationRatingLevelDescriptor
-(
-       StaffEvaluationRatingLevelDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationRatingLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffEvaluationTypeDescriptor
-(
-       StaffEvaluationTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEvaluationTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.StaffFieldworkAbsenceEvent
@@ -1009,12 +1023,46 @@ CREATE TABLE tracked_deletes_tpdm.StudentGrowthTypeDescriptor
        CONSTRAINT StudentGrowthTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.SurveyLevelDescriptor
+CREATE TABLE tracked_deletes_tpdm.SurveyResponseTeacherCandidateTargetAssociation
 (
-       SurveyLevelDescriptorId INT NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
+       SurveyIdentifier VARCHAR(60) NOT NULL,
+       SurveyResponseIdentifier VARCHAR(60) NOT NULL,
+       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SurveyLevelDescriptor_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT SurveyResponseTeacherCandidateTargetAssociation_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.SurveySectionAggregateResponse
+(
+       EvaluationDate DATE NOT NULL,
+       EvaluationElementTitle VARCHAR(255) NOT NULL,
+       EvaluationObjectiveTitle VARCHAR(50) NOT NULL,
+       EvaluationTitle VARCHAR(50) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
+       PerformanceEvaluationTitle VARCHAR(50) NOT NULL,
+       PerformanceEvaluationTypeDescriptorId INT NOT NULL,
+       PersonId VARCHAR(32) NOT NULL,
+       SourceSystemDescriptorId INT NOT NULL,
+       SurveyIdentifier VARCHAR(60) NOT NULL,
+       SurveySectionTitle VARCHAR(255) NOT NULL,
+       TermDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SurveySectionAggregateResponse_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.SurveySectionResponseTeacherCandidateTargetAssociation
+(
+       Namespace VARCHAR(255) NOT NULL,
+       SurveyIdentifier VARCHAR(60) NOT NULL,
+       SurveyResponseIdentifier VARCHAR(60) NOT NULL,
+       SurveySectionTitle VARCHAR(255) NOT NULL,
+       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SurveySectionResponseTeacherCandidateTargetAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.TPPDegreeTypeDescriptor
@@ -1031,15 +1079,6 @@ CREATE TABLE tracked_deletes_tpdm.TPPProgramPathwayDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TPPProgramPathwayDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.TalentManagementGoal
-(
-       GoalTitle VARCHAR(255) NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TalentManagementGoal_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.TeacherCandidate
@@ -1233,14 +1272,6 @@ CREATE TABLE tracked_deletes_tpdm.TeacherPreparationProviderProgram
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TeacherPreparationProviderProgram_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.ThemeDescriptor
-(
-       ThemeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT ThemeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.University

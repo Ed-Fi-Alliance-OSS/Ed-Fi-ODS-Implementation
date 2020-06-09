@@ -481,6 +481,8 @@ CREATE TABLE [tpdm].[Applicant] (
     [EconomicDisadvantaged] [BIT] NULL,
     [FirstGenerationStudent] [BIT] NULL,
     [TeacherCandidateIdentifier] [NVARCHAR](32) NULL,
+    [PersonId] [NVARCHAR](32) NULL,
+    [SourceSystemDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -1126,13 +1128,111 @@ CREATE TABLE [tpdm].[BackgroundCheckTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[BoardCertificationTypeDescriptor] --
-CREATE TABLE [tpdm].[BoardCertificationTypeDescriptor] (
-    [BoardCertificationTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [BoardCertificationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [BoardCertificationTypeDescriptorId] ASC
+-- Table [tpdm].[Certification] --
+CREATE TABLE [tpdm].[Certification] (
+    [CertificationIdentifier] [NVARCHAR](60) NOT NULL,
+    [IssuerNamespace] [NVARCHAR](255) NOT NULL,
+    [CertificationTitle] [NVARCHAR](64) NOT NULL,
+    [EducationOrganizationId] [INT] NULL,
+    [CertificationLevelDescriptorId] [INT] NULL,
+    [CertificationFieldDescriptorId] [INT] NULL,
+    [CertificationStandardDescriptorId] [INT] NULL,
+    [MinimumDegreeDescriptorId] [INT] NULL,
+    [EducatorRoleDescriptorId] [INT] NULL,
+    [PopulationServedDescriptorId] [INT] NULL,
+    [InstructionalSettingDescriptorId] [INT] NULL,
+    [EffectiveDate] [DATE] NULL,
+    [EndDate] [DATE] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [Certification_PK] PRIMARY KEY CLUSTERED (
+        [CertificationIdentifier] ASC,
+        [IssuerNamespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[Certification] ADD CONSTRAINT [Certification_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[Certification] ADD CONSTRAINT [Certification_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[Certification] ADD CONSTRAINT [Certification_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[CertificationCertificationExam] --
+CREATE TABLE [tpdm].[CertificationCertificationExam] (
+    [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
+    [CertificationIdentifier] [NVARCHAR](60) NOT NULL,
+    [IssuerNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CertificationCertificationExam_PK] PRIMARY KEY CLUSTERED (
+        [CertificationExamIdentifier] ASC,
+        [CertificationIdentifier] ASC,
+        [IssuerNamespace] ASC,
+        [Namespace] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[CertificationCertificationExam] ADD CONSTRAINT [CertificationCertificationExam_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[CertificationExam] --
+CREATE TABLE [tpdm].[CertificationExam] (
+    [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [CertificationExamTitle] [NVARCHAR](60) NOT NULL,
+    [EducationOrganizationId] [INT] NULL,
+    [CertificationExamTypeDescriptorId] [INT] NULL,
+    [EffectiveDate] [DATE] NULL,
+    [EndDate] [DATE] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [CertificationExam_PK] PRIMARY KEY CLUSTERED (
+        [CertificationExamIdentifier] ASC,
+        [Namespace] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[CertificationExam] ADD CONSTRAINT [CertificationExam_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[CertificationExam] ADD CONSTRAINT [CertificationExam_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[CertificationExam] ADD CONSTRAINT [CertificationExam_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[CertificationExamResult] --
+CREATE TABLE [tpdm].[CertificationExamResult] (
+    [CertificationExamDate] [DATE] NOT NULL,
+    [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [AttemptNumber] [INT] NULL,
+    [CertificationExamScore] [DECIMAL](6, 3) NULL,
+    [CertificationExamPassIndicator] [BIT] NULL,
+    [CertificationExamStatusDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [CertificationExamResult_PK] PRIMARY KEY CLUSTERED (
+        [CertificationExamDate] ASC,
+        [CertificationExamIdentifier] ASC,
+        [Namespace] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[CertificationExamResult] ADD CONSTRAINT [CertificationExamResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[CertificationExamResult] ADD CONSTRAINT [CertificationExamResult_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[CertificationExamResult] ADD CONSTRAINT [CertificationExamResult_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [tpdm].[CertificationExamStatusDescriptor] --
@@ -1149,6 +1249,74 @@ CREATE TABLE [tpdm].[CertificationExamTypeDescriptor] (
     [CertificationExamTypeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [CertificationExamTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
         [CertificationExamTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[CertificationFieldDescriptor] --
+CREATE TABLE [tpdm].[CertificationFieldDescriptor] (
+    [CertificationFieldDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CertificationFieldDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CertificationFieldDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[CertificationGradeLevel] --
+CREATE TABLE [tpdm].[CertificationGradeLevel] (
+    [CertificationIdentifier] [NVARCHAR](60) NOT NULL,
+    [GradeLevelDescriptorId] [INT] NOT NULL,
+    [IssuerNamespace] [NVARCHAR](255) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CertificationGradeLevel_PK] PRIMARY KEY CLUSTERED (
+        [CertificationIdentifier] ASC,
+        [GradeLevelDescriptorId] ASC,
+        [IssuerNamespace] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[CertificationGradeLevel] ADD CONSTRAINT [CertificationGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[CertificationLevelDescriptor] --
+CREATE TABLE [tpdm].[CertificationLevelDescriptor] (
+    [CertificationLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CertificationLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CertificationLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[CertificationRoute] --
+CREATE TABLE [tpdm].[CertificationRoute] (
+    [CertificationIdentifier] [NVARCHAR](60) NOT NULL,
+    [CertificationRouteDescriptorId] [INT] NOT NULL,
+    [IssuerNamespace] [NVARCHAR](255) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [CertificationRoute_PK] PRIMARY KEY CLUSTERED (
+        [CertificationIdentifier] ASC,
+        [CertificationRouteDescriptorId] ASC,
+        [IssuerNamespace] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[CertificationRoute] ADD CONSTRAINT [CertificationRoute_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[CertificationRouteDescriptor] --
+CREATE TABLE [tpdm].[CertificationRouteDescriptor] (
+    [CertificationRouteDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CertificationRouteDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CertificationRouteDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[CertificationStandardDescriptor] --
+CREATE TABLE [tpdm].[CertificationStandardDescriptor] (
+    [CertificationStandardDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CertificationStandardDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CertificationStandardDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1209,664 +1377,54 @@ CREATE TABLE [tpdm].[CoteachingStyleObservedDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[CourseCourseTranscriptFacts] --
-CREATE TABLE [tpdm].[CourseCourseTranscriptFacts] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [CourseTitle] [NVARCHAR](60) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [CourseCourseTranscriptFacts_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFacts] ADD CONSTRAINT [CourseCourseTranscriptFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFacts] ADD CONSTRAINT [CourseCourseTranscriptFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFacts] ADD CONSTRAINT [CourseCourseTranscriptFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned] --
-CREATE TABLE [tpdm].[CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [FinalLetterGrade] [NVARCHAR](20) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [LetterGradeTypeNumber] [INT] NULL,
-    [LetterGradeTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [FinalLetterGrade] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned] ADD CONSTRAINT [CourseCourseTranscriptFactsAggregatedFinalLetterGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseCourseTranscriptFactsAggregatedNumericGradeEarned] --
-CREATE TABLE [tpdm].[CourseCourseTranscriptFactsAggregatedNumericGradeEarned] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [AverageFinalNumericGradeEarned] [DECIMAL](9, 2) NOT NULL,
-    [NumericGradeNCount] [INT] NULL,
-    [NumericGradeStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseCourseTranscriptFactsAggregatedNumericGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFactsAggregatedNumericGradeEarned] ADD CONSTRAINT [CourseCourseTranscriptFactsAggregatedNumericGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseCourseTranscriptFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[CourseCourseTranscriptFactsStudentsEnrolled] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseCourseTranscriptFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseCourseTranscriptFactsStudentsEnrolled] ADD CONSTRAINT [CourseCourseTranscriptFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAcademicRecordFacts] --
-CREATE TABLE [tpdm].[CourseStudentAcademicRecordFacts] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [AggregatedGPAMax] [DECIMAL](18, 4) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [CourseStudentAcademicRecordFacts_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFacts] ADD CONSTRAINT [CourseStudentAcademicRecordFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFacts] ADD CONSTRAINT [CourseStudentAcademicRecordFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFacts] ADD CONSTRAINT [CourseStudentAcademicRecordFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[CourseStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] --
-CREATE TABLE [tpdm].[CourseStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] ADD CONSTRAINT [CourseStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAcademicRecordFactsAggregatedSessionGradePointAverage] --
-CREATE TABLE [tpdm].[CourseStudentAcademicRecordFactsAggregatedSessionGradePointAverage] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAcademicRecordFactsAggregatedSessionGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFactsAggregatedSessionGradePointAverage] ADD CONSTRAINT [CourseStudentAcademicRecordFactsAggregatedSessionGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAcademicRecordFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[CourseStudentAcademicRecordFactsStudentsEnrolled] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAcademicRecordFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAcademicRecordFactsStudentsEnrolled] ADD CONSTRAINT [CourseStudentAcademicRecordFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAssessmentFacts] --
-CREATE TABLE [tpdm].[CourseStudentAssessmentFacts] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentTitle] [NVARCHAR](100) NULL,
-    [AssessmentCategoryDescriptorId] [INT] NULL,
-    [AcademicSubjectDescriptorId] [INT] NULL,
-    [GradeLevelDescriptorId] [INT] NULL,
-    [AdministrationDate] [DATE] NULL,
-    [TermDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [CourseStudentAssessmentFacts_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFacts] ADD CONSTRAINT [CourseStudentAssessmentFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFacts] ADD CONSTRAINT [CourseStudentAssessmentFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFacts] ADD CONSTRAINT [CourseStudentAssessmentFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[CourseStudentAssessmentFactsAggregatedPerformanceLevel] --
-CREATE TABLE [tpdm].[CourseStudentAssessmentFactsAggregatedPerformanceLevel] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [PerformanceLevelDescriptorId] [INT] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [PerformanceLevelMetNumber] [INT] NULL,
-    [PerformanceLevelMetPercentage] [DECIMAL](5, 4) NULL,
-    [PerformanceLevelTypeNumber] [INT] NULL,
-    [PerformanceLevelTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAssessmentFactsAggregatedPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [PerformanceLevelDescriptorId] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFactsAggregatedPerformanceLevel] ADD CONSTRAINT [CourseStudentAssessmentFactsAggregatedPerformanceLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAssessmentFactsAggregatedScoreResult] --
-CREATE TABLE [tpdm].[CourseStudentAssessmentFactsAggregatedScoreResult] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentReportingMethodDescriptorId] [INT] NOT NULL,
-    [AverageScoreResultDatatypeTypeDescriptorId] [INT] NOT NULL,
-    [AverageScoreResult] [NVARCHAR](35) NOT NULL,
-    [ScoreNCount] [INT] NULL,
-    [ScoreStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAssessmentFactsAggregatedScoreResult_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFactsAggregatedScoreResult] ADD CONSTRAINT [CourseStudentAssessmentFactsAggregatedScoreResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentAssessmentFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[CourseStudentAssessmentFactsStudentsEnrolled] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentAssessmentFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentAssessmentFactsStudentsEnrolled] ADD CONSTRAINT [CourseStudentAssessmentFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFacts] --
-CREATE TABLE [tpdm].[CourseStudentFacts] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [CourseStudentFacts_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFacts] ADD CONSTRAINT [CourseStudentFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[CourseStudentFacts] ADD CONSTRAINT [CourseStudentFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[CourseStudentFacts] ADD CONSTRAINT [CourseStudentFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedByDisability] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedByDisability] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [DisabilityDescriptorId] [INT] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TypeNumber] [INT] NULL,
-    [Percentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedByDisability_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [DisabilityDescriptorId] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedByDisability] ADD CONSTRAINT [CourseStudentFactsAggregatedByDisability_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [StudentsDisabledNumber] [INT] NULL,
-    [StudentsDisabledPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled] ADD CONSTRAINT [CourseStudentFactsAggregatedDisabilityTotalStudentsDisabled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedELLEnrollment] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedELLEnrollment] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [ELLEnrollmentNumber] [INT] NULL,
-    [ELLEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedELLEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedELLEnrollment] ADD CONSTRAINT [CourseStudentFactsAggregatedELLEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedESLEnrollment] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedESLEnrollment] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [ESLEnrollmentNumber] [INT] NULL,
-    [ESLEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedESLEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedESLEnrollment] ADD CONSTRAINT [CourseStudentFactsAggregatedESLEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedGender] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedGender] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [GenderDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [GenderTypeNumber] [INT] NULL,
-    [GenderTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedGender_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [GenderDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedGender] ADD CONSTRAINT [CourseStudentFactsAggregatedGender_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedHispanicLatinoEthnicity] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedHispanicLatinoEthnicity] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [HispanicLatinoEthnicity] [BIT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [HispanicLatinoEthnicityNumber] [INT] NULL,
-    [HispanicLatinoEthnicityPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedHispanicLatinoEthnicity_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [HispanicLatinoEthnicity] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedHispanicLatinoEthnicity] ADD CONSTRAINT [CourseStudentFactsAggregatedHispanicLatinoEthnicity_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedLanguage] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedLanguage] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LanguageDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [LanguageTypeNumber] [INT] NULL,
-    [LanguageTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedLanguage_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [LanguageDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedLanguage] ADD CONSTRAINT [CourseStudentFactsAggregatedLanguage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedRace] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedRace] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [RaceDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [RaceTypeNumber] [INT] NULL,
-    [RaceTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedRace_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [RaceDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedRace] ADD CONSTRAINT [CourseStudentFactsAggregatedRace_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedSchoolFoodServiceProgramService] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedSchoolFoodServiceProgramService] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolFoodServiceProgramServiceDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TypeNumber] [INT] NULL,
-    [TypePercentage] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedSchoolFoodServiceProgramService_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolFoodServiceProgramServiceDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedSchoolFoodServiceProgramService] ADD CONSTRAINT [CourseStudentFactsAggregatedSchoolFoodServiceProgramService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedSection504Enrollment] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedSection504Enrollment] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [Number504Enrolled] [INT] NULL,
-    [Percentage504Enrolled] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedSection504Enrollment_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedSection504Enrollment] ADD CONSTRAINT [CourseStudentFactsAggregatedSection504Enrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedSex] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedSex] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SexDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [SexTypeNumber] [INT] NULL,
-    [SexTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedSex_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SexDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedSex] ADD CONSTRAINT [CourseStudentFactsAggregatedSex_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedSPED] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedSPED] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [SPEDEnrollmentNumber] [INT] NULL,
-    [SPEDEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedSPED_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedSPED] ADD CONSTRAINT [CourseStudentFactsAggregatedSPED_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsAggregatedTitleIEnrollment] --
-CREATE TABLE [tpdm].[CourseStudentFactsAggregatedTitleIEnrollment] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TitleIEnrollmentNumber] [INT] NULL,
-    [TitleIEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsAggregatedTitleIEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsAggregatedTitleIEnrollment] ADD CONSTRAINT [CourseStudentFactsAggregatedTitleIEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CourseStudentFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[CourseStudentFactsStudentsEnrolled] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CourseStudentFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CourseStudentFactsStudentsEnrolled] ADD CONSTRAINT [CourseStudentFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CredentialBoardCertification] --
-CREATE TABLE [tpdm].[CredentialBoardCertification] (
+-- Table [tpdm].[CredentialEvent] --
+CREATE TABLE [tpdm].[CredentialEvent] (
+    [CredentialEventDate] [DATE] NOT NULL,
+    [CredentialEventTypeDescriptorId] [INT] NOT NULL,
     [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
-    [BoardCertification] [BIT] NULL,
-    [BoardCertificationDate] [DATE] NULL,
-    [BoardCertificationTypeDescriptorId] [INT] NOT NULL,
+    [CredentialEventReason] [NVARCHAR](1024) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CredentialBoardCertification_PK] PRIMARY KEY CLUSTERED (
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [CredentialEvent_PK] PRIMARY KEY CLUSTERED (
+        [CredentialEventDate] ASC,
+        [CredentialEventTypeDescriptorId] ASC,
         [CredentialIdentifier] ASC,
         [StateOfIssueStateAbbreviationDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[CredentialBoardCertification] ADD CONSTRAINT [CredentialBoardCertification_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[CredentialEvent] ADD CONSTRAINT [CredentialEvent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[CredentialEvent] ADD CONSTRAINT [CredentialEvent_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[CredentialEvent] ADD CONSTRAINT [CredentialEvent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [tpdm].[CredentialCertificationExam] --
-CREATE TABLE [tpdm].[CredentialCertificationExam] (
-    [CertificationExamTitle] [NVARCHAR](60) NOT NULL,
-    [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
-    [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
-    [CertificationExamTypeDescriptorId] [INT] NULL,
-    [CertificationExamStatusDescriptorId] [INT] NULL,
-    [CertificationExamDate] [DATE] NOT NULL,
-    [AttemptNumber] [INT] NULL,
-    [CertificationExamOverallScore] [INT] NULL,
-    [CertificationExamPassFail] [BIT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CredentialCertificationExam_PK] PRIMARY KEY CLUSTERED (
-        [CertificationExamTitle] ASC,
-        [CredentialIdentifier] ASC,
-        [StateOfIssueStateAbbreviationDescriptorId] ASC
+-- Table [tpdm].[CredentialEventTypeDescriptor] --
+CREATE TABLE [tpdm].[CredentialEventTypeDescriptor] (
+    [CredentialEventTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CredentialEventTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CredentialEventTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CredentialCertificationExam] ADD CONSTRAINT [CredentialCertificationExam_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [tpdm].[CredentialExtension] --
 CREATE TABLE [tpdm].[CredentialExtension] (
     [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
-    [CurrentCredential] [BIT] NULL,
-    [RevocationDate] [DATE] NULL,
-    [RevocationReason] [NVARCHAR](40) NULL,
-    [SuspensionDate] [DATE] NULL,
-    [SuspensionReason] [NVARCHAR](40) NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [CertificationTitle] [NVARCHAR](64) NOT NULL,
+    [CertificationIdentifier] [NVARCHAR](60) NULL,
+    [IssuerNamespace] [NVARCHAR](255) NULL,
+    [CertificationRouteDescriptorId] [INT] NULL,
+    [BoardCertificationIndicator] [BIT] NULL,
+    [CredentialStatusDescriptorId] [INT] NULL,
+    [CredentialStatusDate] [DATE] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CredentialExtension_PK] PRIMARY KEY CLUSTERED (
         [CredentialIdentifier] ASC,
@@ -1877,138 +1435,44 @@ GO
 ALTER TABLE [tpdm].[CredentialExtension] ADD CONSTRAINT [CredentialExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[CredentialRecommendation] --
-CREATE TABLE [tpdm].[CredentialRecommendation] (
+-- Table [tpdm].[CredentialStatusDescriptor] --
+CREATE TABLE [tpdm].[CredentialStatusDescriptor] (
+    [CredentialStatusDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [CredentialStatusDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [CredentialStatusDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[CredentialStudentAcademicRecord] --
+CREATE TABLE [tpdm].[CredentialStudentAcademicRecord] (
     [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
     [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
-    [CredentialFieldDescriptorId] [INT] NULL,
-    [GradeLevelDescriptorId] [INT] NOT NULL,
-    [TeachingCredentialDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CredentialRecommendation_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [CredentialStudentAcademicRecord_PK] PRIMARY KEY CLUSTERED (
         [CredentialIdentifier] ASC,
-        [StateOfIssueStateAbbreviationDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CredentialRecommendation] ADD CONSTRAINT [CredentialRecommendation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[CredentialRecommendingInstitution] --
-CREATE TABLE [tpdm].[CredentialRecommendingInstitution] (
-    [CredentialIdentifier] [NVARCHAR](60) NOT NULL,
-    [StateOfIssueStateAbbreviationDescriptorId] [INT] NOT NULL,
-    [RecommendingInstutionName] [NVARCHAR](75) NOT NULL,
-    [RecommendingDate] [DATE] NULL,
-    [RecommendingInstitutionCountryDescriptorId] [INT] NULL,
-    [RecommendingInstitutionStateAbbreviationDescriptorId] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [CredentialRecommendingInstitution_PK] PRIMARY KEY CLUSTERED (
-        [CredentialIdentifier] ASC,
-        [StateOfIssueStateAbbreviationDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[CredentialRecommendingInstitution] ADD CONSTRAINT [CredentialRecommendingInstitution_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationCourseTranscriptFacts] --
-CREATE TABLE [tpdm].[EducationOrganizationCourseTranscriptFacts] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [CourseTitle] [NVARCHAR](60) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [EducationOrganizationCourseTranscriptFacts_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
         [SchoolYear] ASC,
+        [StateOfIssueStateAbbreviationDescriptorId] ASC,
+        [StudentUSI] ASC,
         [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFacts] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFacts] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFacts] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [tpdm].[CredentialStudentAcademicRecord] ADD CONSTRAINT [CredentialStudentAcademicRecord_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedFinalLetterGradeEarned] --
-CREATE TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedFinalLetterGradeEarned] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [FinalLetterGrade] [NVARCHAR](20) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [LetterGradeTypeNumber] [INT] NULL,
-    [LetterGradeTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationCourseTranscriptFactsAggregatedFinalLetterGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [FinalLetterGrade] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
+-- Table [tpdm].[DegreeDescriptor] --
+CREATE TABLE [tpdm].[DegreeDescriptor] (
+    [DegreeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DegreeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DegreeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedFinalLetterGradeEarned] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFactsAggregatedFinalLetterGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedNumericGradeEarned] --
-CREATE TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedNumericGradeEarned] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [AverageFinalNumericGradeEarned] [DECIMAL](9, 2) NOT NULL,
-    [NumericGradeNCount] [INT] NULL,
-    [NumericGradeStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationCourseTranscriptFactsAggregatedNumericGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsAggregatedNumericGradeEarned] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFactsAggregatedNumericGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationCourseTranscriptFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsStudentsEnrolled] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationCourseTranscriptFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationCourseTranscriptFactsStudentsEnrolled] ADD CONSTRAINT [EducationOrganizationCourseTranscriptFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [tpdm].[EducationOrganizationFacts] --
@@ -2116,188 +1580,6 @@ CREATE TABLE [tpdm].[EducationOrganizationNetworkExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[EducationOrganizationNetworkExtension] ADD CONSTRAINT [EducationOrganizationNetworkExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAcademicRecordFacts] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFacts] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [AggregatedGPAMax] [DECIMAL](18, 4) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAcademicRecordFacts_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFacts] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFacts] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFacts] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedSessionGradePointAverage] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedSessionGradePointAverage] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsAggregatedSessionGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsAggregatedSessionGradePointAverage] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsAggregatedSessionGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [TermDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [SchoolYear] ASC,
-        [TermDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled] ADD CONSTRAINT [EducationOrganizationStudentAcademicRecordFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAssessmentFacts] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAssessmentFacts] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentTitle] [NVARCHAR](100) NULL,
-    [AssessmentCategoryDescriptorId] [INT] NULL,
-    [AcademicSubjectDescriptorId] [INT] NULL,
-    [GradeLevelDescriptorId] [INT] NULL,
-    [AdministrationDate] [DATE] NULL,
-    [TermDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAssessmentFacts_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFacts] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFacts] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFacts] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedPerformanceLevel] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedPerformanceLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [PerformanceLevelDescriptorId] [INT] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [PerformanceLevelMetNumber] [INT] NULL,
-    [PerformanceLevelMetPercentage] [DECIMAL](5, 4) NULL,
-    [PerformanceLevelTypeNumber] [INT] NULL,
-    [PerformanceLevelTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAssessmentFactsAggregatedPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [PerformanceLevelDescriptorId] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedPerformanceLevel] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFactsAggregatedPerformanceLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedScoreResult] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedScoreResult] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentReportingMethodDescriptorId] [INT] NOT NULL,
-    [AverageScoreResultDatatypeTypeDescriptorId] [INT] NOT NULL,
-    [AverageScoreResult] [NVARCHAR](35) NOT NULL,
-    [ScoreNCount] [INT] NULL,
-    [ScoreStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAssessmentFactsAggregatedScoreResult_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsAggregatedScoreResult] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFactsAggregatedScoreResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[EducationOrganizationStudentAssessmentFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsStudentsEnrolled] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [EducationOrganizationStudentAssessmentFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactAsOfDate] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[EducationOrganizationStudentAssessmentFactsStudentsEnrolled] ADD CONSTRAINT [EducationOrganizationStudentAssessmentFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [tpdm].[EducationOrganizationStudentFacts] --
@@ -2587,6 +1869,15 @@ GO
 ALTER TABLE [tpdm].[EducationServiceCenterExtension] ADD CONSTRAINT [EducationServiceCenterExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [tpdm].[EducatorRoleDescriptor] --
+CREATE TABLE [tpdm].[EducatorRoleDescriptor] (
+    [EducatorRoleDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EducatorRoleDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EducatorRoleDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [tpdm].[EmploymentEvent] --
 CREATE TABLE [tpdm].[EmploymentEvent] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -2678,6 +1969,470 @@ CREATE TABLE [tpdm].[EnglishLanguageExamDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [tpdm].[Evaluation] --
+CREATE TABLE [tpdm].[Evaluation] (
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [EvaluationTypeDescriptorId] [INT] NULL,
+    [InterRaterReliabilityScore] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [Evaluation_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[Evaluation] ADD CONSTRAINT [Evaluation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[Evaluation] ADD CONSTRAINT [Evaluation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[Evaluation] ADD CONSTRAINT [Evaluation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationElement] --
+CREATE TABLE [tpdm].[EvaluationElement] (
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [SortOrder] [INT] NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [EvaluationTypeDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [EvaluationElement_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationElement] ADD CONSTRAINT [EvaluationElement_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[EvaluationElement] ADD CONSTRAINT [EvaluationElement_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[EvaluationElement] ADD CONSTRAINT [EvaluationElement_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationElementRating] --
+CREATE TABLE [tpdm].[EvaluationElementRating] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [EvaluationElementRatingLevelDescriptorId] [INT] NULL,
+    [AreaOfRefinement] [NVARCHAR](1024) NULL,
+    [AreaOfReinforcement] [NVARCHAR](1024) NULL,
+    [Comments] [NVARCHAR](1024) NULL,
+    [Feedback] [NVARCHAR](1024) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [EvaluationElementRating_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationElementRating] ADD CONSTRAINT [EvaluationElementRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[EvaluationElementRating] ADD CONSTRAINT [EvaluationElementRating_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[EvaluationElementRating] ADD CONSTRAINT [EvaluationElementRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationElementRatingLevel] --
+CREATE TABLE [tpdm].[EvaluationElementRatingLevel] (
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationElementRatingLevel_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationRatingLevelDescriptorId] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationElementRatingLevel] ADD CONSTRAINT [EvaluationElementRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationElementRatingLevelDescriptor] --
+CREATE TABLE [tpdm].[EvaluationElementRatingLevelDescriptor] (
+    [EvaluationElementRatingLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EvaluationElementRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationElementRatingLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[EvaluationElementRatingResult] --
+CREATE TABLE [tpdm].[EvaluationElementRatingResult] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [Rating] [DECIMAL](6, 3) NOT NULL,
+    [RatingResultTitle] [NVARCHAR](50) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ResultDatatypeTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationElementRatingResult_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [Rating] ASC,
+        [RatingResultTitle] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationElementRatingResult] ADD CONSTRAINT [EvaluationElementRatingResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationObjective] --
+CREATE TABLE [tpdm].[EvaluationObjective] (
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [SortOrder] [INT] NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [EvaluationTypeDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [EvaluationObjective_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationObjective] ADD CONSTRAINT [EvaluationObjective_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[EvaluationObjective] ADD CONSTRAINT [EvaluationObjective_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[EvaluationObjective] ADD CONSTRAINT [EvaluationObjective_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationObjectiveRating] --
+CREATE TABLE [tpdm].[EvaluationObjectiveRating] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ObjectiveRatingLevelDescriptorId] [INT] NULL,
+    [Comments] [NVARCHAR](1024) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [EvaluationObjectiveRating_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationObjectiveRating] ADD CONSTRAINT [EvaluationObjectiveRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[EvaluationObjectiveRating] ADD CONSTRAINT [EvaluationObjectiveRating_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[EvaluationObjectiveRating] ADD CONSTRAINT [EvaluationObjectiveRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationObjectiveRatingLevel] --
+CREATE TABLE [tpdm].[EvaluationObjectiveRatingLevel] (
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationObjectiveRatingLevel_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationRatingLevelDescriptorId] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationObjectiveRatingLevel] ADD CONSTRAINT [EvaluationObjectiveRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationObjectiveRatingResult] --
+CREATE TABLE [tpdm].[EvaluationObjectiveRatingResult] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [Rating] [DECIMAL](6, 3) NOT NULL,
+    [RatingResultTitle] [NVARCHAR](50) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ResultDatatypeTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationObjectiveRatingResult_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [Rating] ASC,
+        [RatingResultTitle] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationObjectiveRatingResult] ADD CONSTRAINT [EvaluationObjectiveRatingResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationPeriodDescriptor] --
+CREATE TABLE [tpdm].[EvaluationPeriodDescriptor] (
+    [EvaluationPeriodDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EvaluationPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationPeriodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[EvaluationRating] --
+CREATE TABLE [tpdm].[EvaluationRating] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [EvaluationRatingLevelDescriptorId] [INT] NULL,
+    [SectionIdentifier] [NVARCHAR](255) NULL,
+    [LocalCourseCode] [NVARCHAR](60) NULL,
+    [SessionName] [NVARCHAR](60) NULL,
+    [SchoolYear] [SMALLINT] NULL,
+    [SchoolId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [EvaluationRating_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationRating] ADD CONSTRAINT [EvaluationRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[EvaluationRating] ADD CONSTRAINT [EvaluationRating_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[EvaluationRating] ADD CONSTRAINT [EvaluationRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[EvaluationRatingLevel] --
+CREATE TABLE [tpdm].[EvaluationRatingLevel] (
+    [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationRatingLevel_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationRatingLevelDescriptorId] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationRatingLevel] ADD CONSTRAINT [EvaluationRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationRatingLevelDescriptor] --
+CREATE TABLE [tpdm].[EvaluationRatingLevelDescriptor] (
+    [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EvaluationRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationRatingLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[EvaluationRatingResult] --
+CREATE TABLE [tpdm].[EvaluationRatingResult] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [Rating] [DECIMAL](6, 3) NOT NULL,
+    [RatingResultTitle] [NVARCHAR](50) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ResultDatatypeTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationRatingResult_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [Rating] ASC,
+        [RatingResultTitle] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationRatingResult] ADD CONSTRAINT [EvaluationRatingResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationRatingReviewer] --
+CREATE TABLE [tpdm].[EvaluationRatingReviewer] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [FirstName] [NVARCHAR](75) NOT NULL,
+    [LastSurname] [NVARCHAR](75) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationRatingReviewer_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationTitle] ASC,
+        [FirstName] ASC,
+        [LastSurname] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationRatingReviewer] ADD CONSTRAINT [EvaluationRatingReviewer_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationRatingReviewerReceivedTraining] --
+CREATE TABLE [tpdm].[EvaluationRatingReviewerReceivedTraining] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [FirstName] [NVARCHAR](75) NOT NULL,
+    [LastSurname] [NVARCHAR](75) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ReceivedTrainingDate] [DATE] NULL,
+    [InterRaterReliabilityScore] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [EvaluationRatingReviewerReceivedTraining_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationTitle] ASC,
+        [FirstName] ASC,
+        [LastSurname] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[EvaluationRatingReviewerReceivedTraining] ADD CONSTRAINT [EvaluationRatingReviewerReceivedTraining_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[EvaluationTypeDescriptor] --
+CREATE TABLE [tpdm].[EvaluationTypeDescriptor] (
+    [EvaluationTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [EvaluationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [tpdm].[FederalLocaleCodeDescriptor] --
 CREATE TABLE [tpdm].[FederalLocaleCodeDescriptor] (
     [FederalLocaleCodeDescriptorId] [INT] NOT NULL,
@@ -2714,6 +2469,52 @@ CREATE TABLE [tpdm].[GenderDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [tpdm].[Goal] --
+CREATE TABLE [tpdm].[Goal] (
+    [AssignmentDate] [DATE] NOT NULL,
+    [GoalTitle] [NVARCHAR](255) NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NULL,
+    [TermDescriptorId] [INT] NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NULL,
+    [EvaluationTitle] [NVARCHAR](50) NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NULL,
+    [GoalTypeDescriptorId] [INT] NULL,
+    [GoalDescription] [NVARCHAR](1024) NULL,
+    [DueDate] [DATE] NULL,
+    [CompletedIndicator] [BIT] NULL,
+    [CompletedDate] [DATE] NULL,
+    [Comments] [NVARCHAR](1024) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [Goal_PK] PRIMARY KEY CLUSTERED (
+        [AssignmentDate] ASC,
+        [GoalTitle] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[Goal] ADD CONSTRAINT [Goal_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[Goal] ADD CONSTRAINT [Goal_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[Goal] ADD CONSTRAINT [Goal_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[GoalTypeDescriptor] --
+CREATE TABLE [tpdm].[GoalTypeDescriptor] (
+    [GoalTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [GoalTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [GoalTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [tpdm].[GradebookEntryExtension] --
 CREATE TABLE [tpdm].[GradebookEntryExtension] (
     [DateAssigned] [DATE] NOT NULL,
@@ -2739,6 +2540,27 @@ GO
 ALTER TABLE [tpdm].[GradebookEntryExtension] ADD CONSTRAINT [GradebookEntryExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [tpdm].[GraduationPlanRequiredCertification] --
+CREATE TABLE [tpdm].[GraduationPlanRequiredCertification] (
+    [CertificationTitle] [NVARCHAR](64) NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [GraduationPlanTypeDescriptorId] [INT] NOT NULL,
+    [GraduationSchoolYear] [SMALLINT] NOT NULL,
+    [CertificationIdentifier] [NVARCHAR](60) NULL,
+    [IssuerNamespace] [NVARCHAR](255) NULL,
+    [CertificationRouteDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [GraduationPlanRequiredCertification_PK] PRIMARY KEY CLUSTERED (
+        [CertificationTitle] ASC,
+        [EducationOrganizationId] ASC,
+        [GraduationPlanTypeDescriptorId] ASC,
+        [GraduationSchoolYear] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[GraduationPlanRequiredCertification] ADD CONSTRAINT [GraduationPlanRequiredCertification_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [tpdm].[HireStatusDescriptor] --
 CREATE TABLE [tpdm].[HireStatusDescriptor] (
     [HireStatusDescriptorId] [INT] NOT NULL,
@@ -2753,6 +2575,15 @@ CREATE TABLE [tpdm].[HiringSourceDescriptor] (
     [HiringSourceDescriptorId] [INT] NOT NULL,
     CONSTRAINT [HiringSourceDescriptor_PK] PRIMARY KEY CLUSTERED (
         [HiringSourceDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[InstructionalSettingDescriptor] --
+CREATE TABLE [tpdm].[InstructionalSettingDescriptor] (
+    [InstructionalSettingDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [InstructionalSettingDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [InstructionalSettingDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -2775,15 +2606,6 @@ CREATE TABLE [tpdm].[LevelOfDegreeAwardedDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[LevelTypeDescriptor] --
-CREATE TABLE [tpdm].[LevelTypeDescriptor] (
-    [LevelTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [LevelTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [LevelTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- Table [tpdm].[LocalEducationAgencyExtension] --
 CREATE TABLE [tpdm].[LocalEducationAgencyExtension] (
     [LocalEducationAgencyId] [INT] NOT NULL,
@@ -2795,6 +2617,15 @@ CREATE TABLE [tpdm].[LocalEducationAgencyExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[LocalEducationAgencyExtension] ADD CONSTRAINT [LocalEducationAgencyExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[ObjectiveRatingLevelDescriptor] --
+CREATE TABLE [tpdm].[ObjectiveRatingLevelDescriptor] (
+    [ObjectiveRatingLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ObjectiveRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ObjectiveRatingLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [tpdm].[OpenStaffPositionEvent] --
@@ -2875,223 +2706,213 @@ CREATE TABLE [tpdm].[OpenStaffPositionReasonDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[PerformanceMeasure] --
-CREATE TABLE [tpdm].[PerformanceMeasure] (
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [PerformanceMeasureTypeDescriptorId] [INT] NOT NULL,
+-- Table [tpdm].[PerformanceEvaluation] --
+CREATE TABLE [tpdm].[PerformanceEvaluation] (
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
-    [AcademicSubjectDescriptorId] [INT] NULL,
-    [ScheduleDateOfPerformanceMeasure] [DATE] NULL,
-    [ActualDateOfPerformanceMeasure] [DATE] NOT NULL,
-    [TimeOfPerformanceMeasure] [TIME](7) NULL,
-    [DurationOfPerformanceMeasure] [INT] NULL,
-    [Announced] [BIT] NULL,
-    [CoteachingStyleObservedDescriptorId] [INT] NULL,
-    [Comments] [NVARCHAR](1024) NULL,
-    [PerformanceMeasureInstanceDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [PerformanceMeasure_PK] PRIMARY KEY CLUSTERED (
-        [PerformanceMeasureIdentifier] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasure] ADD CONSTRAINT [PerformanceMeasure_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasure] ADD CONSTRAINT [PerformanceMeasure_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasure] ADD CONSTRAINT [PerformanceMeasure_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[PerformanceMeasureCourseAssociation] --
-CREATE TABLE [tpdm].[PerformanceMeasureCourseAssociation] (
-    [CourseCode] [NVARCHAR](60) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [PerformanceMeasureCourseAssociation_PK] PRIMARY KEY CLUSTERED (
-        [CourseCode] ASC,
-        [EducationOrganizationId] ASC,
-        [PerformanceMeasureIdentifier] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasureCourseAssociation] ADD CONSTRAINT [PerformanceMeasureCourseAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasureCourseAssociation] ADD CONSTRAINT [PerformanceMeasureCourseAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasureCourseAssociation] ADD CONSTRAINT [PerformanceMeasureCourseAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[PerformanceMeasureFacts] --
-CREATE TABLE [tpdm].[PerformanceMeasureFacts] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
     [SchoolYear] [SMALLINT] NOT NULL,
-    [PerformanceMeasureTypeDescriptorId] [INT] NOT NULL,
+    [EvaluationPeriodDescriptorId] [INT] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
     [AcademicSubjectDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [PerformanceMeasureFacts_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactsAsOfDate] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC,
-        [SchoolYear] ASC
+    CONSTRAINT [PerformanceEvaluation_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureFacts] ADD CONSTRAINT [PerformanceMeasureFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[PerformanceEvaluation] ADD CONSTRAINT [PerformanceEvaluation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureFacts] ADD CONSTRAINT [PerformanceMeasureFacts_DF_Id] DEFAULT (newid()) FOR [Id]
+ALTER TABLE [tpdm].[PerformanceEvaluation] ADD CONSTRAINT [PerformanceEvaluation_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureFacts] ADD CONSTRAINT [PerformanceMeasureFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [tpdm].[PerformanceEvaluation] ADD CONSTRAINT [PerformanceEvaluation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [tpdm].[PerformanceMeasureFactsGradeLevel] --
-CREATE TABLE [tpdm].[PerformanceMeasureFactsGradeLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
+-- Table [tpdm].[PerformanceEvaluationGradeLevel] --
+CREATE TABLE [tpdm].[PerformanceEvaluationGradeLevel] (
     [GradeLevelDescriptorId] [INT] NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureFactsGradeLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactsAsOfDate] ASC,
+    CONSTRAINT [PerformanceEvaluationGradeLevel_PK] PRIMARY KEY CLUSTERED (
         [GradeLevelDescriptorId] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC,
-        [SchoolYear] ASC
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureFactsGradeLevel] ADD CONSTRAINT [PerformanceMeasureFactsGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[PerformanceEvaluationGradeLevel] ADD CONSTRAINT [PerformanceEvaluationGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[PerformanceMeasureGradeLevel] --
-CREATE TABLE [tpdm].[PerformanceMeasureGradeLevel] (
-    [GradeLevelDescriptorId] [INT] NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureGradeLevel_PK] PRIMARY KEY CLUSTERED (
-        [GradeLevelDescriptorId] ASC,
-        [PerformanceMeasureIdentifier] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasureGradeLevel] ADD CONSTRAINT [PerformanceMeasureGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[PerformanceMeasureInstanceDescriptor] --
-CREATE TABLE [tpdm].[PerformanceMeasureInstanceDescriptor] (
-    [PerformanceMeasureInstanceDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [PerformanceMeasureInstanceDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [PerformanceMeasureInstanceDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [tpdm].[PerformanceMeasurePersonBeingReviewed] --
-CREATE TABLE [tpdm].[PerformanceMeasurePersonBeingReviewed] (
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [FirstName] [NVARCHAR](75) NOT NULL,
-    [LastSurname] [NVARCHAR](75) NOT NULL,
-    [ProspectIdentifier] [NVARCHAR](32) NULL,
-    [EducationOrganizationId] [INT] NULL,
-    [StaffUSI] [INT] NULL,
-    [TeacherCandidateIdentifier] [NVARCHAR](32) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasurePersonBeingReviewed_PK] PRIMARY KEY CLUSTERED (
-        [PerformanceMeasureIdentifier] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasurePersonBeingReviewed] ADD CONSTRAINT [PerformanceMeasurePersonBeingReviewed_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[PerformanceMeasureProgramGateway] --
-CREATE TABLE [tpdm].[PerformanceMeasureProgramGateway] (
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
+-- Table [tpdm].[PerformanceEvaluationProgramGateway] --
+CREATE TABLE [tpdm].[PerformanceEvaluationProgramGateway] (
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
     [ProgramGatewayDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureProgramGateway_PK] PRIMARY KEY CLUSTERED (
-        [PerformanceMeasureIdentifier] ASC,
-        [ProgramGatewayDescriptorId] ASC
+    CONSTRAINT [PerformanceEvaluationProgramGateway_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [ProgramGatewayDescriptorId] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureProgramGateway] ADD CONSTRAINT [PerformanceMeasureProgramGateway_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[PerformanceEvaluationProgramGateway] ADD CONSTRAINT [PerformanceEvaluationProgramGateway_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[PerformanceMeasureReviewer] --
-CREATE TABLE [tpdm].[PerformanceMeasureReviewer] (
+-- Table [tpdm].[PerformanceEvaluationRating] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRating] (
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ActualDate] [DATE] NOT NULL,
+    [Announced] [BIT] NULL,
+    [Comments] [NVARCHAR](1024) NULL,
+    [CoteachingStyleObservedDescriptorId] [INT] NULL,
+    [ActualDuration] [INT] NULL,
+    [PerformanceEvaluationRatingLevelDescriptorId] [INT] NULL,
+    [ScheduleDate] [DATE] NULL,
+    [ActualTime] [TIME](7) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [PerformanceEvaluationRating_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[PerformanceEvaluationRating] ADD CONSTRAINT [PerformanceEvaluationRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[PerformanceEvaluationRating] ADD CONSTRAINT [PerformanceEvaluationRating_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[PerformanceEvaluationRating] ADD CONSTRAINT [PerformanceEvaluationRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[PerformanceEvaluationRatingLevel] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRatingLevel] (
+    [EvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [MinRating] [DECIMAL](6, 3) NULL,
+    [MaxRating] [DECIMAL](6, 3) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [PerformanceEvaluationRatingLevel_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationRatingLevelDescriptorId] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingLevel] ADD CONSTRAINT [PerformanceEvaluationRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[PerformanceEvaluationRatingLevelDescriptor] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRatingLevelDescriptor] (
+    [PerformanceEvaluationRatingLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PerformanceEvaluationRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationRatingLevelDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[PerformanceEvaluationRatingResult] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRatingResult] (
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [Rating] [DECIMAL](6, 3) NOT NULL,
+    [RatingResultTitle] [NVARCHAR](50) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ResultDatatypeTypeDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [PerformanceEvaluationRatingResult_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [Rating] ASC,
+        [RatingResultTitle] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingResult] ADD CONSTRAINT [PerformanceEvaluationRatingResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[PerformanceEvaluationRatingReviewer] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRatingReviewer] (
     [FirstName] [NVARCHAR](75) NOT NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [StaffUSI] [INT] NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureReviewer_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [PerformanceEvaluationRatingReviewer_PK] PRIMARY KEY CLUSTERED (
         [FirstName] ASC,
         [LastSurname] ASC,
-        [PerformanceMeasureIdentifier] ASC
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureReviewer] ADD CONSTRAINT [PerformanceMeasureReviewer_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingReviewer] ADD CONSTRAINT [PerformanceEvaluationRatingReviewer_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[PerformanceMeasureReviewerReceivedTraining] --
-CREATE TABLE [tpdm].[PerformanceMeasureReviewerReceivedTraining] (
+-- Table [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] --
+CREATE TABLE [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] (
     [FirstName] [NVARCHAR](75) NOT NULL,
     [LastSurname] [NVARCHAR](75) NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
     [ReceivedTrainingDate] [DATE] NULL,
     [InterRaterReliabilityScore] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureReviewerReceivedTraining_PK] PRIMARY KEY CLUSTERED (
+    CONSTRAINT [PerformanceEvaluationRatingReviewerReceivedTraining_PK] PRIMARY KEY CLUSTERED (
         [FirstName] ASC,
         [LastSurname] ASC,
-        [PerformanceMeasureIdentifier] ASC
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[PerformanceMeasureReviewerReceivedTraining] ADD CONSTRAINT [PerformanceMeasureReviewerReceivedTraining_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] ADD CONSTRAINT [PerformanceEvaluationRatingReviewerReceivedTraining_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
--- Table [tpdm].[PerformanceMeasureRubric] --
-CREATE TABLE [tpdm].[PerformanceMeasureRubric] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [PerformanceMeasureRubric_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [PerformanceMeasureIdentifier] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[PerformanceMeasureRubric] ADD CONSTRAINT [PerformanceMeasureRubric_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[PerformanceMeasureTypeDescriptor] --
-CREATE TABLE [tpdm].[PerformanceMeasureTypeDescriptor] (
-    [PerformanceMeasureTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [PerformanceMeasureTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [PerformanceMeasureTypeDescriptorId] ASC
+-- Table [tpdm].[PerformanceEvaluationTypeDescriptor] --
+CREATE TABLE [tpdm].[PerformanceEvaluationTypeDescriptor] (
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PerformanceEvaluationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PerformanceEvaluationTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -3186,6 +3007,8 @@ CREATE TABLE [tpdm].[Prospect] (
     [FirstGenerationStudent] [BIT] NULL,
     [ProspectTypeDescriptorId] [INT] NULL,
     [TeacherCandidateIdentifier] [NVARCHAR](32) NULL,
+    [PersonId] [NVARCHAR](32) NULL,
+    [SourceSystemDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -3462,6 +3285,96 @@ CREATE TABLE [tpdm].[ProspectTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [tpdm].[QuantitativeMeasure] --
+CREATE TABLE [tpdm].[QuantitativeMeasure] (
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [QuantitativeMeasureIdentifier] [NVARCHAR](64) NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [QuantitativeMeasureTypeDescriptorId] [INT] NULL,
+    [QuantitativeMeasureDatatypeDescriptorId] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [QuantitativeMeasure_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [QuantitativeMeasureIdentifier] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasure] ADD CONSTRAINT [QuantitativeMeasure_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasure] ADD CONSTRAINT [QuantitativeMeasure_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasure] ADD CONSTRAINT [QuantitativeMeasure_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[QuantitativeMeasureDatatypeDescriptor] --
+CREATE TABLE [tpdm].[QuantitativeMeasureDatatypeDescriptor] (
+    [QuantitativeMeasureDatatypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [QuantitativeMeasureDatatypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [QuantitativeMeasureDatatypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [tpdm].[QuantitativeMeasureScore] --
+CREATE TABLE [tpdm].[QuantitativeMeasureScore] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [QuantitativeMeasureIdentifier] [NVARCHAR](64) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ScoreValue] [DECIMAL](6, 3) NOT NULL,
+    [StandardError] [DECIMAL](6, 3) NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [QuantitativeMeasureScore_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [QuantitativeMeasureIdentifier] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [TermDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasureScore] ADD CONSTRAINT [QuantitativeMeasureScore_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasureScore] ADD CONSTRAINT [QuantitativeMeasureScore_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[QuantitativeMeasureScore] ADD CONSTRAINT [QuantitativeMeasureScore_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[QuantitativeMeasureTypeDescriptor] --
+CREATE TABLE [tpdm].[QuantitativeMeasureTypeDescriptor] (
+    [QuantitativeMeasureTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [QuantitativeMeasureTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [QuantitativeMeasureTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [tpdm].[RecruitmentEvent] --
 CREATE TABLE [tpdm].[RecruitmentEvent] (
     [EventDate] [DATE] NOT NULL,
@@ -3495,190 +3408,45 @@ CREATE TABLE [tpdm].[RecruitmentEventTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[Rubric] --
-CREATE TABLE [tpdm].[Rubric] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [RubricDescription] [NVARCHAR](255) NULL,
-    [InterRaterReliabilityScore] [INT] NULL,
+-- Table [tpdm].[RubricDimension] --
+CREATE TABLE [tpdm].[RubricDimension] (
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [RubricRating] [INT] NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [RubricRatingLevelDescriptorId] [INT] NULL,
+    [CriterionDescription] [NVARCHAR](1024) NOT NULL,
+    [DimensionOrder] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [Rubric_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC
+    CONSTRAINT [RubricDimension_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [RubricRating] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[Rubric] ADD CONSTRAINT [Rubric_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[RubricDimension] ADD CONSTRAINT [RubricDimension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
-ALTER TABLE [tpdm].[Rubric] ADD CONSTRAINT [Rubric_DF_Id] DEFAULT (newid()) FOR [Id]
+ALTER TABLE [tpdm].[RubricDimension] ADD CONSTRAINT [RubricDimension_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [tpdm].[Rubric] ADD CONSTRAINT [Rubric_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[RubricLevel] --
-CREATE TABLE [tpdm].[RubricLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [RubricLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevel] ADD CONSTRAINT [RubricLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[RubricLevel] ADD CONSTRAINT [RubricLevel_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[RubricLevel] ADD CONSTRAINT [RubricLevel_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [tpdm].[RubricDimension] ADD CONSTRAINT [RubricDimension_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [tpdm].[RubricLevelInformation] --
-CREATE TABLE [tpdm].[RubricLevelInformation] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [LevelTypeDescriptorId] [INT] NOT NULL,
-    [LevelTitle] [NVARCHAR](255) NOT NULL,
-    [LevelDescription] [NVARCHAR](255) NULL,
-    [MinimumScore] [NVARCHAR](35) NULL,
-    [MaximumScore] [NVARCHAR](35) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [RubricLevelInformation_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevelInformation] ADD CONSTRAINT [RubricLevelInformation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[RubricLevelResponse] --
-CREATE TABLE [tpdm].[RubricLevelResponse] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [PerformanceMeasureIdentifier] [NVARCHAR](64) NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [NumericResponse] [INT] NOT NULL,
-    [TextResponse] [NVARCHAR](2048) NULL,
-    [AreaOfRefinement] [BIT] NULL,
-    [AreaOfReinforcement] [BIT] NULL,
-    [Comments] [NVARCHAR](1024) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [RubricLevelResponse_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [PerformanceMeasureIdentifier] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponse] ADD CONSTRAINT [RubricLevelResponse_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponse] ADD CONSTRAINT [RubricLevelResponse_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponse] ADD CONSTRAINT [RubricLevelResponse_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[RubricLevelResponseFacts] --
-CREATE TABLE [tpdm].[RubricLevelResponseFacts] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [RubricLevelResponseFacts_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactsAsOfDate] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC,
-        [SchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponseFacts] ADD CONSTRAINT [RubricLevelResponseFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponseFacts] ADD CONSTRAINT [RubricLevelResponseFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponseFacts] ADD CONSTRAINT [RubricLevelResponseFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[RubricLevelResponseFactsAggregatedNumericResponse] --
-CREATE TABLE [tpdm].[RubricLevelResponseFactsAggregatedNumericResponse] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [AverageNumericResponse] [DECIMAL](18, 4) NOT NULL,
-    [NumericResponseNCount] [INT] NULL,
-    [NumericResponseStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [RubricLevelResponseFactsAggregatedNumericResponse_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [FactsAsOfDate] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC,
-        [SchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevelResponseFactsAggregatedNumericResponse] ADD CONSTRAINT [RubricLevelResponseFactsAggregatedNumericResponse_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[RubricLevelTheme] --
-CREATE TABLE [tpdm].[RubricLevelTheme] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [RubricLevelCode] [NVARCHAR](64) NOT NULL,
-    [RubricTitle] [NVARCHAR](255) NOT NULL,
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    [ThemeDescriptorId] [INT] NOT NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [RubricLevelTheme_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [RubricLevelCode] ASC,
-        [RubricTitle] ASC,
-        [RubricTypeDescriptorId] ASC,
-        [ThemeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[RubricLevelTheme] ADD CONSTRAINT [RubricLevelTheme_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[RubricTypeDescriptor] --
-CREATE TABLE [tpdm].[RubricTypeDescriptor] (
-    [RubricTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [RubricTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [RubricTypeDescriptorId] ASC
+-- Table [tpdm].[RubricRatingLevelDescriptor] --
+CREATE TABLE [tpdm].[RubricRatingLevelDescriptor] (
+    [RubricRatingLevelDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [RubricRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [RubricRatingLevelDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -3714,744 +3482,6 @@ CREATE TABLE [tpdm].[SchoolStatusDescriptor] (
         [SchoolStatusDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
-GO
-
--- Table [tpdm].[SectionCourseTranscriptFacts] --
-CREATE TABLE [tpdm].[SectionCourseTranscriptFacts] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [CourseTitle] [NVARCHAR](60) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [SectionCourseTranscriptFacts_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFacts] ADD CONSTRAINT [SectionCourseTranscriptFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFacts] ADD CONSTRAINT [SectionCourseTranscriptFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFacts] ADD CONSTRAINT [SectionCourseTranscriptFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned] --
-CREATE TABLE [tpdm].[SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [FinalLetterGrade] [NVARCHAR](20) NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [LetterGradeTypeNumber] [INT] NULL,
-    [LetterGradeTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [FinalLetterGrade] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned] ADD CONSTRAINT [SectionCourseTranscriptFactsAggregatedFinalLetterGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionCourseTranscriptFactsAggregatedNumericGradeEarned] --
-CREATE TABLE [tpdm].[SectionCourseTranscriptFactsAggregatedNumericGradeEarned] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [AverageFinalNumericGradeEarned] [DECIMAL](9, 2) NOT NULL,
-    [NumericGradeNCount] [INT] NULL,
-    [NumericGradeStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionCourseTranscriptFactsAggregatedNumericGradeEarned_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFactsAggregatedNumericGradeEarned] ADD CONSTRAINT [SectionCourseTranscriptFactsAggregatedNumericGradeEarned_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionCourseTranscriptFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[SectionCourseTranscriptFactsStudentsEnrolled] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [FactsAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionCourseTranscriptFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [FactsAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionCourseTranscriptFactsStudentsEnrolled] ADD CONSTRAINT [SectionCourseTranscriptFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAcademicRecordFacts] --
-CREATE TABLE [tpdm].[SectionStudentAcademicRecordFacts] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [AggregatedGPAMax] [DECIMAL](18, 4) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [SectionStudentAcademicRecordFacts_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFacts] ADD CONSTRAINT [SectionStudentAcademicRecordFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFacts] ADD CONSTRAINT [SectionStudentAcademicRecordFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFacts] ADD CONSTRAINT [SectionStudentAcademicRecordFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[SectionStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] --
-CREATE TABLE [tpdm].[SectionStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage] ADD CONSTRAINT [SectionStudentAcademicRecordFactsAggregatedCumulativeGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAcademicRecordFactsAggregatedSessionGradePointAverage] --
-CREATE TABLE [tpdm].[SectionStudentAcademicRecordFactsAggregatedSessionGradePointAverage] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [GradePointAverage] [DECIMAL](18, 4) NOT NULL,
-    [GradePointNCount] [INT] NULL,
-    [GradePointStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAcademicRecordFactsAggregatedSessionGradePointAverage_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFactsAggregatedSessionGradePointAverage] ADD CONSTRAINT [SectionStudentAcademicRecordFactsAggregatedSessionGradePointAverage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAcademicRecordFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[SectionStudentAcademicRecordFactsStudentsEnrolled] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAcademicRecordFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAcademicRecordFactsStudentsEnrolled] ADD CONSTRAINT [SectionStudentAcademicRecordFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAssessmentFacts] --
-CREATE TABLE [tpdm].[SectionStudentAssessmentFacts] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentTitle] [NVARCHAR](100) NULL,
-    [AssessmentCategoryDescriptorId] [INT] NULL,
-    [AcademicSubjectDescriptorId] [INT] NULL,
-    [GradeLevelDescriptorId] [INT] NULL,
-    [AdministrationDate] [DATE] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [SectionStudentAssessmentFacts_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFacts] ADD CONSTRAINT [SectionStudentAssessmentFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFacts] ADD CONSTRAINT [SectionStudentAssessmentFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFacts] ADD CONSTRAINT [SectionStudentAssessmentFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[SectionStudentAssessmentFactsAggregatedPerformanceLevel] --
-CREATE TABLE [tpdm].[SectionStudentAssessmentFactsAggregatedPerformanceLevel] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [PerformanceLevelDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [PerformanceLevelMetNumber] [INT] NULL,
-    [PerformanceLevelMetPercentage] [DECIMAL](5, 4) NULL,
-    [PerformanceLevelTypeNumber] [INT] NULL,
-    [PerformanceLevelTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAssessmentFactsAggregatedPerformanceLevel_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [PerformanceLevelDescriptorId] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFactsAggregatedPerformanceLevel] ADD CONSTRAINT [SectionStudentAssessmentFactsAggregatedPerformanceLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAssessmentFactsAggregatedScoreResult] --
-CREATE TABLE [tpdm].[SectionStudentAssessmentFactsAggregatedScoreResult] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [AssessmentReportingMethodDescriptorId] [INT] NOT NULL,
-    [AverageScoreResultDatatypeTypeDescriptorId] [INT] NOT NULL,
-    [AverageScoreResult] [NVARCHAR](35) NOT NULL,
-    [ScoreNCount] [INT] NULL,
-    [ScoreStandardDeviation] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAssessmentFactsAggregatedScoreResult_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFactsAggregatedScoreResult] ADD CONSTRAINT [SectionStudentAssessmentFactsAggregatedScoreResult_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentAssessmentFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[SectionStudentAssessmentFactsStudentsEnrolled] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [TakenSchoolYear] [SMALLINT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentAssessmentFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [TakenSchoolYear] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentAssessmentFactsStudentsEnrolled] ADD CONSTRAINT [SectionStudentAssessmentFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFacts] --
-CREATE TABLE [tpdm].[SectionStudentFacts] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [SectionStudentFacts_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFacts] ADD CONSTRAINT [SectionStudentFacts_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[SectionStudentFacts] ADD CONSTRAINT [SectionStudentFacts_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[SectionStudentFacts] ADD CONSTRAINT [SectionStudentFacts_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedByDisability] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedByDisability] (
-    [DisabilityDescriptorId] [INT] NOT NULL,
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TypeNumber] [INT] NULL,
-    [Percentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedByDisability_PK] PRIMARY KEY CLUSTERED (
-        [DisabilityDescriptorId] ASC,
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedByDisability] ADD CONSTRAINT [SectionStudentFactsAggregatedByDisability_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [StudentsDisabledNumber] [INT] NULL,
-    [StudentsDisabledPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled] ADD CONSTRAINT [SectionStudentFactsAggregatedDisabilityTotalStudentsDisabled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedELLEnrollment] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedELLEnrollment] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [ELLEnrollmentNumber] [INT] NULL,
-    [ELLEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedELLEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedELLEnrollment] ADD CONSTRAINT [SectionStudentFactsAggregatedELLEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedESLEnrollment] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedESLEnrollment] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [ESLEnrollmentNumber] [INT] NULL,
-    [ESLEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedESLEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedESLEnrollment] ADD CONSTRAINT [SectionStudentFactsAggregatedESLEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedGender] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedGender] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [GenderDescriptorId] [INT] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [GenderTypeNumber] [INT] NULL,
-    [GenderTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedGender_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [GenderDescriptorId] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedGender] ADD CONSTRAINT [SectionStudentFactsAggregatedGender_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedHispanicLatinoEthnicity] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedHispanicLatinoEthnicity] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [HispanicLatinoEthnicity] [BIT] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [HispanicLatinoEthnicityNumber] [INT] NULL,
-    [HispanicLatinoEthnicityPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedHispanicLatinoEthnicity_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [HispanicLatinoEthnicity] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedHispanicLatinoEthnicity] ADD CONSTRAINT [SectionStudentFactsAggregatedHispanicLatinoEthnicity_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedLanguage] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedLanguage] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LanguageDescriptorId] [INT] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [LanguageTypeNumber] [INT] NULL,
-    [LanguageTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedLanguage_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LanguageDescriptorId] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedLanguage] ADD CONSTRAINT [SectionStudentFactsAggregatedLanguage_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedRace] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedRace] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [RaceDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [RaceTypeNumber] [INT] NULL,
-    [RaceTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedRace_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [RaceDescriptorId] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedRace] ADD CONSTRAINT [SectionStudentFactsAggregatedRace_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedSchoolFoodServiceProgramService] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedSchoolFoodServiceProgramService] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolFoodServiceProgramServiceDescriptorId] [INT] NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TypeNumber] [INT] NULL,
-    [TypePercentage] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedSchoolFoodServiceProgramService_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolFoodServiceProgramServiceDescriptorId] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedSchoolFoodServiceProgramService] ADD CONSTRAINT [SectionStudentFactsAggregatedSchoolFoodServiceProgramService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedSection504Enrollment] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedSection504Enrollment] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [Number504Enrolled] [INT] NULL,
-    [Percentage504Enrolled] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedSection504Enrollment_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedSection504Enrollment] ADD CONSTRAINT [SectionStudentFactsAggregatedSection504Enrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedSex] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedSex] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [SexDescriptorId] [INT] NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [SexTypeNumber] [INT] NULL,
-    [SexTypePercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedSex_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [SexDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedSex] ADD CONSTRAINT [SectionStudentFactsAggregatedSex_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedSPED] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedSPED] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [SPEDEnrollmentNumber] [INT] NULL,
-    [SPEDEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedSPED_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedSPED] ADD CONSTRAINT [SectionStudentFactsAggregatedSPED_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsAggregatedTitleIEnrollment] --
-CREATE TABLE [tpdm].[SectionStudentFactsAggregatedTitleIEnrollment] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [TitleIEnrollmentNumber] [INT] NULL,
-    [TitleIEnrollmentPercentage] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsAggregatedTitleIEnrollment_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsAggregatedTitleIEnrollment] ADD CONSTRAINT [SectionStudentFactsAggregatedTitleIEnrollment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[SectionStudentFactsStudentsEnrolled] --
-CREATE TABLE [tpdm].[SectionStudentFactsStudentsEnrolled] (
-    [FactAsOfDate] [DATE] NOT NULL,
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [ValueTypeDescriptorId] [INT] NULL,
-    [NumberStudentsEnrolled] [INT] NULL,
-    [PercentAtRisk] [DECIMAL](5, 4) NULL,
-    [PercentMobility] [DECIMAL](5, 4) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [SectionStudentFactsStudentsEnrolled_PK] PRIMARY KEY CLUSTERED (
-        [FactAsOfDate] ASC,
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[SectionStudentFactsStudentsEnrolled] ADD CONSTRAINT [SectionStudentFactsStudentsEnrolled_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [tpdm].[StaffApplicantAssociation] --
@@ -4512,280 +3542,6 @@ CREATE TABLE [tpdm].[StaffEducationOrganizationAssignmentAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[StaffEducationOrganizationAssignmentAssociationExtension] ADD CONSTRAINT [StaffEducationOrganizationAssignmentAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffEvaluation] --
-CREATE TABLE [tpdm].[StaffEvaluation] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxRating] [DECIMAL](6, 3) NOT NULL,
-    [MinRating] [DECIMAL](6, 3) NULL,
-    [StaffEvaluationPeriodDescriptorId] [INT] NULL,
-    [StaffEvaluationTypeDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluation_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluation] ADD CONSTRAINT [StaffEvaluation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluation] ADD CONSTRAINT [StaffEvaluation_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluation] ADD CONSTRAINT [StaffEvaluation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationComponent] --
-CREATE TABLE [tpdm].[StaffEvaluationComponent] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxRating] [DECIMAL](6, 3) NOT NULL,
-    [MinRating] [DECIMAL](6, 3) NULL,
-    [RubricReference] [NVARCHAR](255) NULL,
-    [StaffEvaluationTypeDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluationComponent_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponent] ADD CONSTRAINT [StaffEvaluationComponent_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponent] ADD CONSTRAINT [StaffEvaluationComponent_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponent] ADD CONSTRAINT [StaffEvaluationComponent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationComponentRating] --
-CREATE TABLE [tpdm].[StaffEvaluationComponentRating] (
-    [ComponentRating] [DECIMAL](6, 3) NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationDate] [DATE] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [StaffEvaluationRatingLevelDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluationComponentRating_PK] PRIMARY KEY CLUSTERED (
-        [ComponentRating] ASC,
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationDate] ASC,
-        [StaffEvaluationTitle] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponentRating] ADD CONSTRAINT [StaffEvaluationComponentRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponentRating] ADD CONSTRAINT [StaffEvaluationComponentRating_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponentRating] ADD CONSTRAINT [StaffEvaluationComponentRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationComponentStaffRatingLevel] --
-CREATE TABLE [tpdm].[StaffEvaluationComponentStaffRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationLevel] [NVARCHAR](50) NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxLevel] [DECIMAL](6, 3) NOT NULL,
-    [MinLevel] [DECIMAL](6, 3) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffEvaluationComponentStaffRatingLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationLevel] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationComponentStaffRatingLevel] ADD CONSTRAINT [StaffEvaluationComponentStaffRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffEvaluationElement] --
-CREATE TABLE [tpdm].[StaffEvaluationElement] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [EvaluationElement] [NVARCHAR](255) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxRating] [DECIMAL](6, 3) NOT NULL,
-    [MinRating] [DECIMAL](6, 3) NULL,
-    [RubricReference] [NVARCHAR](255) NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluationElement_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [EvaluationElement] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElement] ADD CONSTRAINT [StaffEvaluationElement_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElement] ADD CONSTRAINT [StaffEvaluationElement_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElement] ADD CONSTRAINT [StaffEvaluationElement_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationElementRating] --
-CREATE TABLE [tpdm].[StaffEvaluationElementRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [EvaluationElement] [NVARCHAR](255) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationDate] [DATE] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [ElementRating] [DECIMAL](6, 3) NOT NULL,
-    [StaffEvaluationRatingLevelDescriptorId] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluationElementRating_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [EvaluationElement] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationDate] ASC,
-        [StaffEvaluationTitle] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElementRating] ADD CONSTRAINT [StaffEvaluationElementRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElementRating] ADD CONSTRAINT [StaffEvaluationElementRating_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElementRating] ADD CONSTRAINT [StaffEvaluationElementRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationElementStaffRatingLevel] --
-CREATE TABLE [tpdm].[StaffEvaluationElementStaffRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [EvaluationComponent] [NVARCHAR](50) NOT NULL,
-    [EvaluationElement] [NVARCHAR](255) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationLevel] [NVARCHAR](50) NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxLevel] [DECIMAL](6, 3) NOT NULL,
-    [MinLevel] [DECIMAL](6, 3) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffEvaluationElementStaffRatingLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [EvaluationComponent] ASC,
-        [EvaluationElement] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationLevel] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationElementStaffRatingLevel] ADD CONSTRAINT [StaffEvaluationElementStaffRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffEvaluationPeriodDescriptor] --
-CREATE TABLE [tpdm].[StaffEvaluationPeriodDescriptor] (
-    [StaffEvaluationPeriodDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [StaffEvaluationPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [StaffEvaluationPeriodDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [tpdm].[StaffEvaluationRating] --
-CREATE TABLE [tpdm].[StaffEvaluationRating] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationDate] [DATE] NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [Rating] [DECIMAL](6, 3) NOT NULL,
-    [StaffEvaluationRatingLevelDescriptorId] [INT] NULL,
-    [EvaluatedByStaffUSI] [INT] NULL,
-    [Discriminator] [NVARCHAR](128) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    [LastModifiedDate] [DATETIME2] NOT NULL,
-    [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [StaffEvaluationRating_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationDate] ASC,
-        [StaffEvaluationTitle] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationRating] ADD CONSTRAINT [StaffEvaluationRating_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationRating] ADD CONSTRAINT [StaffEvaluationRating_DF_Id] DEFAULT (newid()) FOR [Id]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationRating] ADD CONSTRAINT [StaffEvaluationRating_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
-GO
-
--- Table [tpdm].[StaffEvaluationRatingLevelDescriptor] --
-CREATE TABLE [tpdm].[StaffEvaluationRatingLevelDescriptor] (
-    [StaffEvaluationRatingLevelDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [StaffEvaluationRatingLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [StaffEvaluationRatingLevelDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [tpdm].[StaffEvaluationStaffRatingLevel] --
-CREATE TABLE [tpdm].[StaffEvaluationStaffRatingLevel] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [StaffEvaluationLevel] [NVARCHAR](50) NOT NULL,
-    [StaffEvaluationTitle] [NVARCHAR](50) NOT NULL,
-    [MaxLevel] [DECIMAL](6, 3) NOT NULL,
-    [MinLevel] [DECIMAL](6, 3) NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffEvaluationStaffRatingLevel_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [SchoolYear] ASC,
-        [StaffEvaluationLevel] ASC,
-        [StaffEvaluationTitle] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [tpdm].[StaffEvaluationStaffRatingLevel] ADD CONSTRAINT [StaffEvaluationStaffRatingLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[StaffEvaluationTypeDescriptor] --
-CREATE TABLE [tpdm].[StaffEvaluationTypeDescriptor] (
-    [StaffEvaluationTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [StaffEvaluationTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [StaffEvaluationTypeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 
 -- Table [tpdm].[StaffExtension] --
@@ -5358,51 +4114,120 @@ CREATE TABLE [tpdm].[StudentGrowthTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [tpdm].[SurveyLevelDescriptor] --
-CREATE TABLE [tpdm].[SurveyLevelDescriptor] (
-    [SurveyLevelDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [SurveyLevelDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [SurveyLevelDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [tpdm].[TalentManagementGoal] --
-CREATE TABLE [tpdm].[TalentManagementGoal] (
-    [GoalTitle] [NVARCHAR](255) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [GoalValue] [DECIMAL](12, 3) NOT NULL,
+-- Table [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] --
+CREATE TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] (
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
+    [SurveyResponseIdentifier] [NVARCHAR](60) NOT NULL,
+    [TeacherCandidateIdentifier] [NVARCHAR](32) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
-    CONSTRAINT [TalentManagementGoal_PK] PRIMARY KEY CLUSTERED (
-        [GoalTitle] ASC,
-        [SchoolYear] ASC
+    CONSTRAINT [SurveyResponseTeacherCandidateTargetAssociation_PK] PRIMARY KEY CLUSTERED (
+        [Namespace] ASC,
+        [SurveyIdentifier] ASC,
+        [SurveyResponseIdentifier] ASC,
+        [TeacherCandidateIdentifier] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[TalentManagementGoal] ADD CONSTRAINT [TalentManagementGoal_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveyResponseTeacherCandidateTargetAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
-ALTER TABLE [tpdm].[TalentManagementGoal] ADD CONSTRAINT [TalentManagementGoal_DF_Id] DEFAULT (newid()) FOR [Id]
+ALTER TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveyResponseTeacherCandidateTargetAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [tpdm].[TalentManagementGoal] ADD CONSTRAINT [TalentManagementGoal_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+ALTER TABLE [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveyResponseTeacherCandidateTargetAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
--- Table [tpdm].[TalentManagementGoalEducationOrganization] --
-CREATE TABLE [tpdm].[TalentManagementGoalEducationOrganization] (
-    [EducationOrganizationId] [INT] NOT NULL,
-    [GoalTitle] [NVARCHAR](255) NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
+-- Table [tpdm].[SurveySectionAggregateResponse] --
+CREATE TABLE [tpdm].[SurveySectionAggregateResponse] (
+    [EvaluationDate] [DATE] NOT NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NOT NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NOT NULL,
+    [EvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NOT NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NOT NULL,
+    [SourceSystemDescriptorId] [INT] NOT NULL,
+    [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
+    [SurveySectionTitle] [NVARCHAR](255) NOT NULL,
+    [TermDescriptorId] [INT] NOT NULL,
+    [ScoreValue] [DECIMAL](6, 3) NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [TalentManagementGoalEducationOrganization_PK] PRIMARY KEY CLUSTERED (
-        [EducationOrganizationId] ASC,
-        [GoalTitle] ASC,
-        [SchoolYear] ASC
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [SurveySectionAggregateResponse_PK] PRIMARY KEY CLUSTERED (
+        [EvaluationDate] ASC,
+        [EvaluationElementTitle] ASC,
+        [EvaluationObjectiveTitle] ASC,
+        [EvaluationTitle] ASC,
+        [Namespace] ASC,
+        [PerformanceEvaluationTitle] ASC,
+        [PerformanceEvaluationTypeDescriptorId] ASC,
+        [PersonId] ASC,
+        [SourceSystemDescriptorId] ASC,
+        [SurveyIdentifier] ASC,
+        [SurveySectionTitle] ASC,
+        [TermDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [tpdm].[TalentManagementGoalEducationOrganization] ADD CONSTRAINT [TalentManagementGoalEducationOrganization_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [tpdm].[SurveySectionAggregateResponse] ADD CONSTRAINT [SurveySectionAggregateResponse_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[SurveySectionAggregateResponse] ADD CONSTRAINT [SurveySectionAggregateResponse_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[SurveySectionAggregateResponse] ADD CONSTRAINT [SurveySectionAggregateResponse_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [tpdm].[SurveySectionExtension] --
+CREATE TABLE [tpdm].[SurveySectionExtension] (
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
+    [SurveySectionTitle] [NVARCHAR](255) NOT NULL,
+    [PerformanceEvaluationTitle] [NVARCHAR](50) NULL,
+    [TermDescriptorId] [INT] NULL,
+    [PerformanceEvaluationTypeDescriptorId] [INT] NULL,
+    [EvaluationTitle] [NVARCHAR](50) NULL,
+    [EvaluationObjectiveTitle] [NVARCHAR](50) NULL,
+    [EvaluationElementTitle] [NVARCHAR](255) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [SurveySectionExtension_PK] PRIMARY KEY CLUSTERED (
+        [Namespace] ASC,
+        [SurveyIdentifier] ASC,
+        [SurveySectionTitle] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[SurveySectionExtension] ADD CONSTRAINT [SurveySectionExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] --
+CREATE TABLE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] (
+    [Namespace] [NVARCHAR](255) NOT NULL,
+    [SurveyIdentifier] [NVARCHAR](60) NOT NULL,
+    [SurveyResponseIdentifier] [NVARCHAR](60) NOT NULL,
+    [SurveySectionTitle] [NVARCHAR](255) NOT NULL,
+    [TeacherCandidateIdentifier] [NVARCHAR](32) NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [SurveySectionResponseTeacherCandidateTargetAssociation_PK] PRIMARY KEY CLUSTERED (
+        [Namespace] ASC,
+        [SurveyIdentifier] ASC,
+        [SurveyResponseIdentifier] ASC,
+        [SurveySectionTitle] ASC,
+        [TeacherCandidateIdentifier] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveySectionResponseTeacherCandidateTargetAssociation_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveySectionResponseTeacherCandidateTargetAssociation_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [tpdm].[SurveySectionResponseTeacherCandidateTargetAssociation] ADD CONSTRAINT [SurveySectionResponseTeacherCandidateTargetAssociation_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [tpdm].[TeacherCandidate] --
@@ -5438,6 +4263,8 @@ CREATE TABLE [tpdm].[TeacherCandidate] (
     [ProgramComplete] [BIT] NULL,
     [FirstGenerationStudent] [BIT] NULL,
     [StudentUSI] [INT] NOT NULL,
+    [PersonId] [NVARCHAR](32) NULL,
+    [SourceSystemDescriptorId] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,
@@ -6612,15 +5439,6 @@ CREATE TABLE [tpdm].[TeacherPreparationProviderProgramGradeLevel] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [tpdm].[TeacherPreparationProviderProgramGradeLevel] ADD CONSTRAINT [TeacherPreparationProviderProgramGradeLevel_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [tpdm].[ThemeDescriptor] --
-CREATE TABLE [tpdm].[ThemeDescriptor] (
-    [ThemeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [ThemeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [ThemeDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
 GO
 
 -- Table [tpdm].[TPPDegreeTypeDescriptor] --

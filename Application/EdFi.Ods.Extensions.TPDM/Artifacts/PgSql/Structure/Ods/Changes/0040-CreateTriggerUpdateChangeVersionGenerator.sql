@@ -42,31 +42,22 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Application
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ApplicationEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Certification
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CertificationExam
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CertificationExamResult
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CompleterAsStaffAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CourseCourseTranscriptFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CourseStudentAcademicRecordFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CourseStudentAssessmentFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CourseStudentFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationCourseTranscriptFacts
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CredentialEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationStudentAcademicRecordFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationStudentAssessmentFacts
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationStudentFacts
@@ -78,16 +69,34 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EmploymentEvent
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EmploymentSeparationEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Evaluation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationElement
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationElementRating
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationObjective
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationObjectiveRating
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationRating
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Goal
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.OpenStaffPositionEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceMeasure
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceEvaluation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceMeasureCourseAssociation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceMeasureFacts
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceEvaluationRating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ProfessionalDevelopmentEvent
@@ -99,52 +108,19 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Prospect
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ProspectProfessionalDevelopmentEventAttendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.QuantitativeMeasure
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.QuantitativeMeasureScore
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RecruitmentEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Rubric
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricLevel
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricLevelResponse
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricLevelResponseFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SectionCourseTranscriptFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SectionStudentAcademicRecordFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SectionStudentAssessmentFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SectionStudentFacts
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricDimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffApplicantAssociation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluationComponent
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluationComponentRating
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluationElement
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluationElementRating
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffEvaluationRating
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffFieldworkAbsenceEvent
@@ -180,7 +156,13 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffTeacherPreparation
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffTeacherPreparationProviderProgramAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TalentManagementGoal
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SurveyResponseTeacherCandidateTargetAssociation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SurveySectionAggregateResponse
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.SurveySectionResponseTeacherCandidateTargetAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidate
