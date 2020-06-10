@@ -9,5 +9,9 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>EdFi.Ods.SwaggerUI</description>
     <releaseNotes></releaseNotes>
+	<license type="file">LICENSE.txt</license>
   </metadata>
+  <files>    
+    <file src="../../LICENSE.txt" target="LICENSE" />    
+  </files>
 </package>
