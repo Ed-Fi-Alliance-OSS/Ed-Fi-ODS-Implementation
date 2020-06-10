@@ -12,6 +12,6 @@
 	<license type="file">LICENSE.txt</license>
   </metadata>
   <files>    
-    <file src="../../LICENSE.txt" target="LICENSE" />    
+    <file src="../../LICENSE.txt" />    
   </files>
 </package>

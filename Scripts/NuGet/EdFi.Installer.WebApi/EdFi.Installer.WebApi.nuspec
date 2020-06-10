@@ -9,11 +9,13 @@
     <copyright>Copyright © 2020, Ed-Fi Alliance, LLC and contributors.</copyright>
     <summary>Application installer modules for the Ed-Fi ODS/API WebApi application</summary>
     <description>Application installer modules for the Ed-Fi ODS/API WebApi application</description>
+	<license type="file">LICENSE.txt</license>
   </metadata>
   <files>  
     <file src="Install-EdFiOdsWebApi.psm1" />
     <file src="Ed-Fi-Common/**" />
     <file src="Ed-Fi-ODS/**" />
     <file src="Ed-Fi-ODS-Implementation/**" />
+	<file src="../../../LICENSE.txt" />
   </files>
 </package>
