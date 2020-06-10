@@ -130,18 +130,19 @@ VALUES (
     , @applicationId
     )
 	
---SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');	
+SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');	
+
 --- These Resources need explicit metadata ---
---INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
---    ([Action_ActionId]
---    ,[AuthorizationStrategy_AuthorizationStrategyId]
---    ,[ResourceClaim_ResourceClaimId]
---    ,[ValidationRuleSetName])
---SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
---FROM [dbo].[ResourceClaims]
---CROSS APPLY 
---    (SELECT ActionId
---    FROM [dbo].[Actions]
---    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS ac
---WHERE ResourceName IN ('studentArtProgramAssociations')
---, 'studentGraduationPlanAssociation');
+INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+    ([Action_ActionId]
+    ,[AuthorizationStrategy_AuthorizationStrategyId]
+   ,[ResourceClaim_ResourceClaimId]
+    ,[ValidationRuleSetName])
+SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+FROM [dbo].[ResourceClaims]
+CROSS APPLY 
+    (SELECT ActionId
+    FROM [dbo].[Actions]
+    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS ac
+WHERE ResourceName IN ('studentArtProgramAssociation'
+, 'studentGraduationPlanAssociation');
