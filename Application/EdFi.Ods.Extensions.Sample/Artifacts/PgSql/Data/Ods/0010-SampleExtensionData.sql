@@ -447,7 +447,7 @@ INSERT INTO sample.BusRoute
     , StaffClassificationDescriptorId
     , BeginDate)
 VALUES
-    ('602', 102, 'Northbound', '1', '$10000', '2010-05-29', 375.33, '57', 9.75, 60.5, 3630, disabilityDescriptorId, staff207230AssignmentStaffUsi, staff207230AssignmentEducationOrganizationId, staff207230AssignmentStaffClassificationDescriptorId, staff207230AssignmentBeginDate);
+    ('602', 102, 'Northbound', '1', '5', '2010-05-29', 375.33, '57', 9.75, 60.5, 3630, disabilityDescriptorId, staff207230AssignmentStaffUsi, staff207230AssignmentEducationOrganizationId, staff207230AssignmentStaffClassificationDescriptorId, staff207230AssignmentBeginDate);
 
 INSERT INTO sample.BusRouteBusYear
     (BusId
