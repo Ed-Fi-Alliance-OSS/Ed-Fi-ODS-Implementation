@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>	
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -280,7 +281,7 @@
     <Compile Include="Startup\AzureCloudOdsStartup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj">
+      <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj">
       <Project>{8ef5be5d-b40b-469e-bee2-2d0dde097975}</Project>
       <Name>EdFi.Common</Name>
     </ProjectReference>
@@ -321,6 +322,9 @@
       <Name>EdFi.Ods.Extensions.TPDM</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+		<None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+	</ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
