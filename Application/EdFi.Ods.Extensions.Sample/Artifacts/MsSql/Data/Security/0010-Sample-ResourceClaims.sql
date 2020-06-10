@@ -3,6 +3,8 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+DECLARE @AuthorizationStrategyId INT;
+
 DECLARE @applicationId INT
 SELECT @applicationId = ApplicationId
 FROM [dbo].[Applications]
@@ -127,3 +129,19 @@ VALUES (
     , @relationshipBasedDataResourceClaimId
     , @applicationId
     )
+	
+--SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');	
+--- These Resources need explicit metadata ---
+--INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
+--    ([Action_ActionId]
+--    ,[AuthorizationStrategy_AuthorizationStrategyId]
+--    ,[ResourceClaim_ResourceClaimId]
+--    ,[ValidationRuleSetName])
+--SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
+--FROM [dbo].[ResourceClaims]
+--CROSS APPLY 
+--    (SELECT ActionId
+--    FROM [dbo].[Actions]
+--    WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS ac
+--WHERE ResourceName IN ('studentArtProgramAssociations')
+--, 'studentGraduationPlanAssociation');
