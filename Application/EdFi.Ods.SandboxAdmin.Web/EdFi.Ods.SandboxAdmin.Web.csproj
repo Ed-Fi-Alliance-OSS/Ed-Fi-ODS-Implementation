@@ -295,8 +295,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="../../LICENSE.txt" Pack="true" PackagePath="LICENSE.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\Fonts\fontawesome-webfont.eot" />
     <Content Include="Content\Fonts\fontawesome-webfont.ttf" />
     <Content Include="Content\Fonts\fontawesome-webfont.woff" />
