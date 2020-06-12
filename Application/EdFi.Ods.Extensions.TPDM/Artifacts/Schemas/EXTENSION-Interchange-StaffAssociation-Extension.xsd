@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/0320b" targetNamespace="http://ed-fi.org/0320b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
   <xs:annotation>
     <xs:documentation>===== Staff Association Interchange Model =====</xs:documentation>
@@ -28,6 +28,10 @@
         <xs:element name="OpenStaffPositionEvent" type="EXTENSION-OpenStaffPositionEvent" />
         <xs:element name="StaffFieldworkAbsenceEvent" type="EXTENSION-StaffFieldworkAbsenceEvent" />
         <xs:element name="StaffFieldworkExperience" type="EXTENSION-StaffFieldworkExperience" />
+        <xs:element name="Certification" type="EXTENSION-Certification" />
+        <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
+        <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
+        <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
         <xs:element name="StaffFieldworkExperienceSectionAssociation" type="EXTENSION-StaffFieldworkExperienceSectionAssociation" />
         <xs:element name="StaffTeacherPreparationProviderAssociation" type="EXTENSION-StaffTeacherPreparationProviderAssociation" />
         <xs:element name="StaffTeacherPreparationProviderProgramAssociation" type="EXTENSION-StaffTeacherPreparationProviderProgramAssociation" />
