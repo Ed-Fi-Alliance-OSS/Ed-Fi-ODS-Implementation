@@ -56,7 +56,7 @@ param(
     [string] $secret = $null,
     [string] $namespaceUri = "http://edfi.org",
     [string] $schoolYear = $null,
-    [string[]] $testSets = @("NonDestructiveApi", "NonDestructiveSdk"),
+    [string[]] $testSets = @("NonDestructiveApi"),
     [string] $smokeTestExe =  ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
     [switch] $noRebuild
@@ -102,7 +102,7 @@ function Get-SmokeTestConfiguration {
     $config.smokeTestExecutable = $smokeTestExe
     $config.smokeTestDll = $smokeTestDll
     $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\EdFi.Ods.Api.IntegrationTestHarness.exe.config"
-    $config.noExtensions = $true
+    $config.noExtensions = $false
 
     $config.testSets = $testSets
 
