@@ -1,7 +1,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.852
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 15.0.28307.852
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.WebService.Tests", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.WebService.Tests\EdFi.Ods.WebService.Tests.csproj", "{D642F18C-9E3A-40E0-9A8E-B4BEA3EB65C0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj", "{8D7CB143-8818-47A8-89E8-702D485E8DA0}"
