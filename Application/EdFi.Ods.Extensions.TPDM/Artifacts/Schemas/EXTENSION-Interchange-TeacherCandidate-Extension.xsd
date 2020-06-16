@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/0320b" targetNamespace="http://ed-fi.org/0320b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
   <xs:annotation>
     <xs:documentation>===== Teacher Candidate Interchange Model =====</xs:documentation>
@@ -22,11 +22,15 @@
         <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
         <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
         <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
+        <xs:element name="Person" type="Person" />
         <xs:element name="CompleterAsStaffAssociation" type="EXTENSION-CompleterAsStaffAssociation" />
         <xs:element name="TeacherCandidateFieldworkExperienceSectionAssociation" type="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociation" />
         <xs:element name="TeacherCandidateStaffAssociation" type="EXTENSION-TeacherCandidateStaffAssociation" />
         <xs:element name="TeacherCandidateTeacherPreparationProviderAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociation" />
         <xs:element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociation" />
+        <xs:element name="StudentSchoolAssociation" type="StudentSchoolAssociation" />
+        <xs:element name="StudentEducationOrganizationAssociation" type="StudentEducationOrganizationAssociation" />
+        <xs:element name="StudentEducationOrganizationResponsibilityAssociation" type="StudentEducationOrganizationResponsibilityAssociation" />
       </xs:choice>
     </xs:complexType>
   </xs:element>
