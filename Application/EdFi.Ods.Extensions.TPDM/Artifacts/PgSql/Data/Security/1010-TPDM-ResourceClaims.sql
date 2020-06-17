@@ -7,8 +7,8 @@ declare relationshipBasedDataResourceClaimId int;
 declare authStrategyId int;
 begin
 
-select ApplicationId into appId 
-from dbo.Applications 
+select ApplicationId into appId
+from dbo.Applications
 where ApplicationName = 'Ed-Fi ODS API';
 
 select ResourceClaimId into educationOrganizationsResourceClaimId
@@ -205,7 +205,7 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('anonymizedStudent', 'anonymizedStudent', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', relationshipBasedDataResourceClaimId, appId);
+values ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', educationOrganizationsResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('teacherCandidateStaffAssociation', 'teacherCandidateStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation', relationshipBasedDataResourceClaimId, appId);
@@ -454,7 +454,7 @@ values ('evaluationPeriodDescriptor', 'evaluationPeriodDescriptor', 'http://ed-f
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('evaluationRatingLevelDescriptor', 'evaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor', systenDescriptorsResourceClaimId, appId);
- 
+
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('evaluationTypeDescriptor', 'evaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor', systenDescriptorsResourceClaimId, appId);
 
