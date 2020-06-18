@@ -195,6 +195,7 @@ function Get-SubtypesByFeature {
     return @{
         changeQueries               = 'changes'
         ownershipBasedAuthorization = 'RecordOwnership'
+        publishing                  = 'Publishing'
     }
 }
 
