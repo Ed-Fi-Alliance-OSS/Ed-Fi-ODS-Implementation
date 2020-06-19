@@ -353,25 +353,6 @@ CREATE TABLE [tracked_deletes_tpdm].[DegreeDescriptor]
        CONSTRAINT PK_DegreeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[EducationOrganizationFacts]
-(
-       EducationOrganizationId [INT] NOT NULL,
-       FactsAsOfDate [DATE] NOT NULL,
-       SchoolYear [SMALLINT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_EducationOrganizationFacts PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[EducationOrganizationStudentFacts]
-(
-       EducationOrganizationId [INT] NOT NULL,
-       FactAsOfDate [DATE] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_EducationOrganizationStudentFacts PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[EducatorRoleDescriptor]
 (
        EducatorRoleDescriptorId [INT] NOT NULL,
@@ -551,6 +532,31 @@ CREATE TABLE [tracked_deletes_tpdm].[FederalLocaleCodeDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_FederalLocaleCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_tpdm].[FieldworkExperience]
+(
+       BeginDate [DATE] NOT NULL,
+       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_FieldworkExperience PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_tpdm].[FieldworkExperienceSectionAssociation]
+(
+       BeginDate [DATE] NOT NULL,
+       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
+       LocalCourseCode [NVARCHAR](60) NOT NULL,
+       SchoolId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
+       SectionIdentifier [NVARCHAR](255) NOT NULL,
+       SessionName [NVARCHAR](60) NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_FieldworkExperienceSectionAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[FieldworkTypeDescriptor]
@@ -889,41 +895,6 @@ CREATE TABLE [tracked_deletes_tpdm].[StaffApplicantAssociation]
        CONSTRAINT PK_StaffApplicantAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[StaffFieldworkAbsenceEvent]
-(
-       AbsenceEventCategoryDescriptorId [INT] NOT NULL,
-       EventDate [DATE] NOT NULL,
-       StaffUSI [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffFieldworkAbsenceEvent PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[StaffFieldworkExperience]
-(
-       BeginDate [DATE] NOT NULL,
-       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
-       StaffUSI [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffFieldworkExperience PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[StaffFieldworkExperienceSectionAssociation]
-(
-       BeginDate [DATE] NOT NULL,
-       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
-       LocalCourseCode [NVARCHAR](60) NOT NULL,
-       SchoolId [INT] NOT NULL,
-       SchoolYear [SMALLINT] NOT NULL,
-       SectionIdentifier [NVARCHAR](255) NOT NULL,
-       SessionName [NVARCHAR](60) NOT NULL,
-       StaffUSI [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffFieldworkExperienceSectionAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[StaffProfessionalDevelopmentEventAttendance]
 (
        AttendanceDate [DATE] NOT NULL,
@@ -1120,40 +1091,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateCourseTranscript]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TeacherCandidateCourseTranscript PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateFieldworkAbsenceEvent]
-(
-       AbsenceEventCategoryDescriptorId [INT] NOT NULL,
-       TeacherCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherCandidateFieldworkAbsenceEvent PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateFieldworkExperience]
-(
-       BeginDate [DATE] NOT NULL,
-       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
-       TeacherCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherCandidateFieldworkExperience PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation]
-(
-       BeginDate [DATE] NOT NULL,
-       FieldworkIdentifier [NVARCHAR](64) NOT NULL,
-       LocalCourseCode [NVARCHAR](60) NOT NULL,
-       SchoolId [INT] NOT NULL,
-       SchoolYear [SMALLINT] NOT NULL,
-       SectionIdentifier [NVARCHAR](255) NOT NULL,
-       SessionName [NVARCHAR](60) NOT NULL,
-       TeacherCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherCandidateFieldworkExperienceSectionAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance]

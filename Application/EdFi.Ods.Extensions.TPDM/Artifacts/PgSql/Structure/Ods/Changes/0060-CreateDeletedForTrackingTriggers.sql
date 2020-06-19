@@ -475,32 +475,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.DegreeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.DegreeDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.EducationOrganizationFacts(EducationOrganizationId, FactsAsOfDate, SchoolYear, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactsAsOfDate, OLD.SchoolYear, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationFacts_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.EducationOrganizationStudentFacts_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.EducationOrganizationStudentFacts(EducationOrganizationId, FactAsOfDate, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.FactAsOfDate, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.EducationOrganizationStudentFacts 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.EducationOrganizationStudentFacts_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.EducatorRoleDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -744,6 +718,32 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.FederalLocaleCodeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.FederalLocaleCodeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.FieldworkExperienceSectionAssociation_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.FieldworkExperienceSectionAssociation(BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.FieldworkExperienceSectionAssociation 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.FieldworkExperienceSectionAssociation_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_tpdm.FieldworkExperience_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_tpdm.FieldworkExperience(BeginDate, FieldworkIdentifier, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.FieldworkExperience 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.FieldworkExperience_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.FieldworkTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -1251,45 +1251,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffApplicantAssociation 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffApplicantAssociation_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_tpdm.StaffFieldworkAbsenceEvent_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffFieldworkAbsenceEvent(AbsenceEventCategoryDescriptorId, EventDate, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.AbsenceEventCategoryDescriptorId, OLD.EventDate, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffFieldworkAbsenceEvent 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffFieldworkAbsenceEvent_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffFieldworkExperienceSectionAssociation_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffFieldworkExperienceSectionAssociation(BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffFieldworkExperienceSectionAssociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffFieldworkExperienceSectionAssociation_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.StaffFieldworkExperience_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.StaffFieldworkExperience(BeginDate, FieldworkIdentifier, StaffUSI, Id, ChangeVersion)
-    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.StaffUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.StaffFieldworkExperience 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.StaffFieldworkExperience_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_tpdm.StaffProfessionalDevelopmentEventAttendance_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -1514,45 +1475,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateCourseTranscript 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateCourseTranscript_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateFieldworkAbsenceEvent_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TeacherCandidateFieldworkAbsenceEvent(AbsenceEventCategoryDescriptorId, TeacherCandidateIdentifier, Id, ChangeVersion)
-    VALUES (OLD.AbsenceEventCategoryDescriptorId, OLD.TeacherCandidateIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateFieldworkAbsenceEvent 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateFieldworkAbsenceEvent_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateFieldworkExperienceSectionAss_1a948e_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TeacherCandidateFieldworkExperienceSectionAssociation(BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TeacherCandidateIdentifier, Id, ChangeVersion)
-    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.LocalCourseCode, OLD.SchoolId, OLD.SchoolYear, OLD.SectionIdentifier, OLD.SessionName, OLD.TeacherCandidateIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateFieldworkExperienceSectionAssociation 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateFieldworkExperienceSectionAss_1a948e_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateFieldworkExperience_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_tpdm.TeacherCandidateFieldworkExperience(BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier, Id, ChangeVersion)
-    VALUES (OLD.BeginDate, OLD.FieldworkIdentifier, OLD.TeacherCandidateIdentifier, OLD.Id, nextval('changes.ChangeVersionSequence'));
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON tpdm.TeacherCandidateFieldworkExperience 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_tpdm.TeacherCandidateFieldworkExperience_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_tpdm.TeacherCandidateProfessionalDevelopmentEventA_8c39c1_TR_DelTrkg()
     RETURNS trigger AS

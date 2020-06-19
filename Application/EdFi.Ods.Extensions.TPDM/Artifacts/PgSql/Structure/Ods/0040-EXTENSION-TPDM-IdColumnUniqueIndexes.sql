@@ -39,10 +39,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_447e8f_Id ON tpdm.CompleterAsStaffAssociati
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_3d6d96_Id ON tpdm.CredentialEvent(Id);
 
-CREATE UNIQUE INDEX IF NOT EXISTS UX_f4fab0_Id ON tpdm.EducationOrganizationFacts(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_eedec2_Id ON tpdm.EducationOrganizationStudentFacts(Id);
-
 CREATE UNIQUE INDEX IF NOT EXISTS UX_786774_Id ON tpdm.EmploymentEvent(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_f51cef_Id ON tpdm.EmploymentSeparationEvent(Id);
@@ -58,6 +54,10 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_d4565d_Id ON tpdm.EvaluationObjective(Id);
 CREATE UNIQUE INDEX IF NOT EXISTS UX_7ae19d_Id ON tpdm.EvaluationObjectiveRating(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_bfaa20_Id ON tpdm.EvaluationRating(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_fd30bb_Id ON tpdm.FieldworkExperience(Id);
+
+CREATE UNIQUE INDEX IF NOT EXISTS UX_b2abcd_Id ON tpdm.FieldworkExperienceSectionAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_cdbf69_Id ON tpdm.Goal(Id);
 
@@ -82,12 +82,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_6232e8_Id ON tpdm.RecruitmentEvent(Id);
 CREATE UNIQUE INDEX IF NOT EXISTS UX_643c81_Id ON tpdm.RubricDimension(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_11e466_Id ON tpdm.StaffApplicantAssociation(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_420d2e_Id ON tpdm.StaffFieldworkAbsenceEvent(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_fe2944_Id ON tpdm.StaffFieldworkExperience(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_aa4534_Id ON tpdm.StaffFieldworkExperienceSectionAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_b4a1e0_Id ON tpdm.StaffProfessionalDevelopmentEventAttendance(Id);
 
@@ -116,12 +110,6 @@ CREATE UNIQUE INDEX IF NOT EXISTS UX_835b49_Id ON tpdm.TeacherCandidate(Id);
 CREATE UNIQUE INDEX IF NOT EXISTS UX_163dde_Id ON tpdm.TeacherCandidateAcademicRecord(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_87fd83_Id ON tpdm.TeacherCandidateCourseTranscript(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_30d301_Id ON tpdm.TeacherCandidateFieldworkAbsenceEvent(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_fe5770_Id ON tpdm.TeacherCandidateFieldworkExperience(Id);
-
-CREATE UNIQUE INDEX IF NOT EXISTS UX_1a948e_Id ON tpdm.TeacherCandidateFieldworkExperienceSectionAssociation(Id);
 
 CREATE UNIQUE INDEX IF NOT EXISTS UX_8c39c1_Id ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance(Id);
 

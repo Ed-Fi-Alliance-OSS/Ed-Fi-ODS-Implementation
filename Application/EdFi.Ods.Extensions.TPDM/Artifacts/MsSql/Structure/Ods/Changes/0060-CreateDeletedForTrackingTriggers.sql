@@ -615,40 +615,6 @@ ALTER TABLE [tpdm].[DegreeDescriptor] ENABLE TRIGGER [tpdm_DegreeDescriptor_TR_D
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[EducationOrganizationFacts](EducationOrganizationId, FactsAsOfDate, SchoolYear, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactsAsOfDate, SchoolYear, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[EducationOrganizationFacts] ENABLE TRIGGER [tpdm_EducationOrganizationFacts_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentFacts_TR_DeleteTracking] ON [tpdm].[EducationOrganizationStudentFacts] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[EducationOrganizationStudentFacts](EducationOrganizationId, FactAsOfDate, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, FactAsOfDate, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[EducationOrganizationStudentFacts] ENABLE TRIGGER [tpdm_EducationOrganizationStudentFacts_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_EducatorRoleDescriptor_TR_DeleteTracking] ON [tpdm].[EducatorRoleDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -962,6 +928,40 @@ END
 GO
 
 ALTER TABLE [tpdm].[FederalLocaleCodeDescriptor] ENABLE TRIGGER [tpdm_FederalLocaleCodeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_FieldworkExperienceSectionAssociation_TR_DeleteTracking] ON [tpdm].[FieldworkExperienceSectionAssociation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[FieldworkExperienceSectionAssociation](BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[FieldworkExperienceSectionAssociation] ENABLE TRIGGER [tpdm_FieldworkExperienceSectionAssociation_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [tpdm].[tpdm_FieldworkExperience_TR_DeleteTracking] ON [tpdm].[FieldworkExperience] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_tpdm].[FieldworkExperience](BeginDate, FieldworkIdentifier, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, FieldworkIdentifier, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [tpdm].[FieldworkExperience] ENABLE TRIGGER [tpdm_FieldworkExperience_TR_DeleteTracking]
 GO
 
 
@@ -1619,57 +1619,6 @@ ALTER TABLE [tpdm].[StaffApplicantAssociation] ENABLE TRIGGER [tpdm_StaffApplica
 GO
 
 
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkAbsenceEvent_TR_DeleteTracking] ON [tpdm].[StaffFieldworkAbsenceEvent] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffFieldworkAbsenceEvent](AbsenceEventCategoryDescriptorId, EventDate, StaffUSI, Id, ChangeVersion)
-    SELECT  AbsenceEventCategoryDescriptorId, EventDate, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffFieldworkAbsenceEvent] ENABLE TRIGGER [tpdm_StaffFieldworkAbsenceEvent_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkExperienceSectionAssociation_TR_DeleteTracking] ON [tpdm].[StaffFieldworkExperienceSectionAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffFieldworkExperienceSectionAssociation](BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI, Id, ChangeVersion)
-    SELECT  BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffFieldworkExperienceSectionAssociation] ENABLE TRIGGER [tpdm_StaffFieldworkExperienceSectionAssociation_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkExperience_TR_DeleteTracking] ON [tpdm].[StaffFieldworkExperience] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[StaffFieldworkExperience](BeginDate, FieldworkIdentifier, StaffUSI, Id, ChangeVersion)
-    SELECT  BeginDate, FieldworkIdentifier, StaffUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[StaffFieldworkExperience] ENABLE TRIGGER [tpdm_StaffFieldworkExperience_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [tpdm].[tpdm_StaffProfessionalDevelopmentEventAttendance_TR_DeleteTracking] ON [tpdm].[StaffProfessionalDevelopmentEventAttendance] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -1960,57 +1909,6 @@ END
 GO
 
 ALTER TABLE [tpdm].[TeacherCandidateCourseTranscript] ENABLE TRIGGER [tpdm_TeacherCandidateCourseTranscript_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkAbsenceEvent_TR_DeleteTracking] ON [tpdm].[TeacherCandidateFieldworkAbsenceEvent] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TeacherCandidateFieldworkAbsenceEvent](AbsenceEventCategoryDescriptorId, TeacherCandidateIdentifier, Id, ChangeVersion)
-    SELECT  AbsenceEventCategoryDescriptorId, TeacherCandidateIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[TeacherCandidateFieldworkAbsenceEvent] ENABLE TRIGGER [tpdm_TeacherCandidateFieldworkAbsenceEvent_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkExperienceSectionAssociation_TR_DeleteTracking] ON [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation](BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TeacherCandidateIdentifier, Id, ChangeVersion)
-    SELECT  BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TeacherCandidateIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] ENABLE TRIGGER [tpdm_TeacherCandidateFieldworkExperienceSectionAssociation_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkExperience_TR_DeleteTracking] ON [tpdm].[TeacherCandidateFieldworkExperience] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_tpdm].[TeacherCandidateFieldworkExperience](BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier, Id, ChangeVersion)
-    SELECT  BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [tpdm].[TeacherCandidateFieldworkExperience] ENABLE TRIGGER [tpdm_TeacherCandidateFieldworkExperience_TR_DeleteTracking]
 GO
 
 
