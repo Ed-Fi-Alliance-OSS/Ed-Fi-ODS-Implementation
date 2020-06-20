@@ -53,9 +53,11 @@ function Get-DefaultTemplateConfiguration {
     $config.bulkLoadDirectorySchema = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
     $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Metadata\")
     $config.bulkLoadTempDirectory = Join-Path $env:temp "CreateDatabaseTemplate"
+    $config.bulkLoadTempDirectorySchema = Join-Path $config.bulkLoadTempDirectory "Schemas"
     $config.bulkLoadTempDirectoryBootstrap = Join-Path $config.bulkLoadTempDirectory "Bootstrap"
     $config.bulkLoadTempDirectorySample = Join-Path $config.bulkLoadTempDirectory "Sample"
     $config.bulkLoadTempJsonConfig = Join-Path $config.bulkLoadTempDirectory "config.json"
+    $config.bulkLoadMaxRequests = 500
 
     $config.database = $config.databaseIds.ods.database
     $config.databaseConnectionString = $config.csbs[$config.databaseIds.ods.connectionStringKey]
@@ -139,6 +141,7 @@ function New-DatabaseTemplate {
         subTypeNames    = @()
         transient       = $true
     }
+    if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
     Initialize-EdFiDatabaseWithDbDeploy @params
 }
 
@@ -159,6 +162,24 @@ function New-TempDirectory {
     Write-Host "Created Temp Directory: " -ForegroundColor Green -NoNewline
     Write-Host $directory
     Write-Host
+}
+
+function Copy-SchemaFiles {
+    param(
+        [hashtable] $config = (Get-TemplateConfiguration)
+    )
+
+    $directory = New-Item -Force $config.bulkLoadTempDirectorySchema -ItemType Directory
+    foreach ($schemaDirectory in $config.schemaDirectories) {
+        $xsdFiles = Get-ChildItem $schemaDirectory -Recurse -Filter "*.xsd"
+        foreach ($xsdFile in $xsdFiles) {
+            $elapsed = Use-Stopwatch {
+                Write-Host "copy to $($directory.Name)\$($xsdFile.Name) " -NoNewline
+                Copy-Item -Path $xsdFile.FullName -Destination "$directory\$xsdFile"
+            }
+            Write-Host $elapsed.duration -ForegroundColor DarkGray
+        }
+    }
 }
 
 function Copy-InterchangeFiles {
@@ -289,8 +310,8 @@ function Invoke-LoadBootstrapData {
         bulkLoadDirectoryMetadata   = $config.bulkLoadDirectoryMetadata
         bulkLoadDirectorySchema     = $config.bulkLoadDirectorySchema
         bulkLoadForceReloadMetadata = $true
-        bulkLoadMaxRequests         = 500
-        BulkLoadNoXmlValidation     = $false
+        bulkLoadMaxRequests         = $config.bulkLoadMaxRequests
+        BulkLoadNoXmlValidation     = $config.noValidation
         bulkLoadRetries             = 0
         bulkLoadTaskCapacity        = 50
     }
@@ -324,9 +345,9 @@ function Invoke-LoadSampleData {
         bulkLoadDirectorySchema     = $config.bulkLoadDirectorySchema
         bulkLoadDirectoryWorking    = $config.bulkLoadTempDirectory
         bulkLoadForceReloadMetadata = $true
-        bulkLoadMaxRequests         = 500
-        BulkLoadNoXmlValidation     = $false
-        bulkLoadRetries             = 1
+        bulkLoadMaxRequests         = $config.bulkLoadMaxRequests
+        BulkLoadNoXmlValidation     = $config.noValidation
+        bulkLoadRetries             = 0
         bulkLoadTaskCapacity        = 50
     }
 

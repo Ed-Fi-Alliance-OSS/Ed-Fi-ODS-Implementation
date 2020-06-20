@@ -207,7 +207,7 @@ INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, Parent
 VALUES ('anonymizedStudent', 'anonymizedStudent', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-VALUES ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', @relationshipBasedDataResourceClaimId, @ApplicationId);
+VALUES ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', @educationOrganizationsResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('teacherCandidateStaffAssociation', 'teacherCandidateStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation', @relationshipBasedDataResourceClaimId, @ApplicationId);
@@ -423,7 +423,7 @@ VALUES ('coteachingStyleObservedDescriptor', 'coteachingStyleObservedDescriptor'
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('certificationExamStatusDescriptor', 'certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
- 
+
 SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
 
 --- These Resources need explicit metadata ---
@@ -434,7 +434,7 @@ INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas]
     ,[ValidationRuleSetName])
 SELECT ac.ActionId, @AuthorizationStrategyId, ResourceClaimId, null
 FROM [dbo].[ResourceClaims]
-CROSS APPLY 
+CROSS APPLY
     (SELECT ActionId
     FROM [dbo].[Actions]
     WHERE ActionName IN ('Create', 'Read', 'Update', 'Delete')) AS ac
