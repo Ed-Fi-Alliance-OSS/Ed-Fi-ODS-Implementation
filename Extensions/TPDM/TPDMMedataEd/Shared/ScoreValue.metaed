@@ -1,0 +1,4 @@
+Shared Decimal ScoreValue
+    documentation "The score value for a performance evaluation metric."
+    total digits 6
+    decimal places 3

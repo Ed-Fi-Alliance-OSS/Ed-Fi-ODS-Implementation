@@ -1,0 +1,13 @@
+Domain Entity EdFi.School additions
+
+  // FederalLocaleCode is intended as an extension to the abstract entity EducationOrganization (though its CEDS equivalent, Economic Research Service Rural-Urban Continuum Code, would make it part of Address), but that's not yet supported by MetaEd
+  descriptor FederalLocaleCode
+    documentation "The federal locale code associated with an education organization."
+    is optional
+
+  descriptor SchoolStatus
+    documentation "The status of school e.g. priority or focus."
+    is optional
+  bool ImprovingSchool
+    documentation "An indication of whether a school is identified as an improving school."
+    is optional

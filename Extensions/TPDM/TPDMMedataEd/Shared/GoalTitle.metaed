@@ -1,0 +1,4 @@
+Shared String GoalTitle
+    documentation "The title or description of the goal."
+    min length 1
+    max length 255

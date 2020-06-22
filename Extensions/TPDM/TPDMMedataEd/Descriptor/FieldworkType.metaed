@@ -1,0 +1,2 @@
+Descriptor FieldworkType
+  documentation "The descriptor holds the type of fieldwork being executed by a teacher candidate."

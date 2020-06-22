@@ -1,0 +1,11 @@
+Common SiteCoordinator
+  documentation "The education site coordinator, acting on behalf of a community or educational board, provides on-site administrative coordination for their organization."
+  date BeginDate
+    documentation "Month, day, and year of the start or effective date of a staff member's site coordinator position for an Education Organization."
+    is required
+  date EndDate
+    documentation "Month, day, and year of the end or termination date of a staff member's employment, contract, or relationship with the LEA."
+    is optional
+  bool SiteCoordinator
+    documentation "An indication that a staff is a site coordinator."
+    is optional

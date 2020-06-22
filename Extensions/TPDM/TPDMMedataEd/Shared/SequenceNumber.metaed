@@ -1,0 +1,3 @@
+Shared Integer SequenceNumber
+    documentation "The sequence number of the application events. This is used to discriminate between mutiple events of the same type in the same day."
+    min value 0

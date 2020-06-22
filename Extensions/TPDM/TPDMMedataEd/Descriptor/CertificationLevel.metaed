@@ -1,0 +1,2 @@
+Descriptor CertificationLevel
+    documentation "The level (e.g., Elementary, Secondary) or category (administrative, specialist) of the Certification."

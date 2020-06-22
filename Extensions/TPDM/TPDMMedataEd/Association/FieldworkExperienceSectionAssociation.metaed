@@ -1,0 +1,6 @@
+Association FieldworkExperienceSectionAssociation
+  documentation "The section the field work experience is associated with."
+  domain entity FieldworkExperience
+    documentation "Reference to FieldworkExperience."
+  domain entity EdFi.Section
+    documentation "The section the field work experience is associated with."

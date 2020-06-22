@@ -1,0 +1,4 @@
+Shared String EvaluationObjectiveTitle
+    documentation "The name or title of the Evaluation Objective."
+    min length 1
+    max length 50

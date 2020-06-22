@@ -1,0 +1,4 @@
+Domain Entity EdFi.GraduationPlan additions
+    common RequiredCertification
+        documentation "The title or reference to the certifiation(s) required for graduation."
+        is optional collection

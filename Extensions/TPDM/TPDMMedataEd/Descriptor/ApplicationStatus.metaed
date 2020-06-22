@@ -1,0 +1,2 @@
+Descriptor ApplicationStatus
+  documentation "The descriptor holds the current status of the application (e.g., received, phone screen, interview, awaiting decision, etc.)."

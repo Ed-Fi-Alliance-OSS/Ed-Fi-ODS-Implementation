@@ -1,0 +1,33 @@
+Domain Entity Goal
+    documentation "Goal for performance improvement assigned to an educator associated with an Evaluation Element."
+    domain entity EdFi.Person
+        documentation "The person to whom the goal is assigned."
+        is part of identity
+    shared string GoalTitle
+        documentation "The name or title of the goal."
+        is part of identity
+    date AssignmentDate
+        documentation "The month, day, and year on which the goal was assigned."
+        is part of identity
+    domain entity EvaluationElement
+        documentation "The Evaluation Element associated with the goal."
+        is optional
+    descriptor GoalType
+        documentation "The type of the goal (e.g., management, instruction)."
+        is optional
+    shared string EdFi.Description
+        documentation "The description of the goal."
+        is optional
+        role name Goal
+    date DueDate
+        documentation "The month, day, and year on which the goal is due or expected to be completed."
+        is optional
+    bool CompletedIndicator
+        documentation "Indicator that the goal was completed."
+        is optional
+    date CompletedDate
+        documentation "The month, day, and year on which the goal was completed."
+        is optional
+    shared string Comments
+        documentation "Any comments about the goal or its completion to be captured."
+        is optional

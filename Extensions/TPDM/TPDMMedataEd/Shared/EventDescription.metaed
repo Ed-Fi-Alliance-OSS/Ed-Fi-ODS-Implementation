@@ -1,0 +1,3 @@
+Shared String EventDescription
+    documentation "The long description of the event."
+    max length 255

@@ -1,0 +1,2 @@
+Descriptor FundingSource
+  documentation "The descriptor holds the funding source (e.g., federal, district)."

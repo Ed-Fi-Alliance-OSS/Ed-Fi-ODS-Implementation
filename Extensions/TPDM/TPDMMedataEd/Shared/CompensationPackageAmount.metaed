@@ -1,0 +1,4 @@
+Shared Decimal CompensationPackageAmount
+    documentation "A compensation package amount associated with a staff position."
+    total digits 9
+    decimal places 2

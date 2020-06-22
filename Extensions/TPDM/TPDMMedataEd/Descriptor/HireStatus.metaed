@@ -1,0 +1,2 @@
+Descriptor HireStatus
+  documentation "The descriptor holds the current status of the application for hire (e.g., applied, recommended, rejected, exited, offered, hired)."

@@ -1,0 +1,14 @@
+Common ProspectQualifications
+  documentation "The qualifications of a prospective mentor teacher."
+  bool Eligible
+    documentation "An indication of whether the prospect is eligible for the position."
+    is required
+  bool CapacityToServe
+    documentation "An indication of whether or not a prospect mentor teacher has capacity to serve."
+    is optional
+  shared decimal YearsOfService named YearsOfServiceCurrentPlacement
+    documentation "The total number of years of service at the current school."
+    is optional
+  shared decimal YearsOfService named YearsOfServiceTotal
+    documentation "The total number of years of service as a teacher."
+    is required

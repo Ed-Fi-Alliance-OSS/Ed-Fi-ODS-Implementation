@@ -1,0 +1,4 @@
+Shared String ApplicantIdentifier
+  documentation "Identifier assigned to a person making formal application for an open staff position."
+  min length 1
+  max length 32

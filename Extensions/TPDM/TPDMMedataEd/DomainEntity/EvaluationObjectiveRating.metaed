@@ -1,0 +1,19 @@
+Domain Entity EvaluationObjectiveRating
+    documentation "The rating for the component Evaluation Objective for an individual educator."
+    domain entity EvaluationRating
+        documentation "Reference to the person's Evalution Rating."
+        is part of identity
+        merge EvaluationRating.Evaluation.EvaluationTitle with EvaluationObjective.Evaluation.EvaluationTitle
+    domain entity EvaluationObjective
+        documentation "The Evaluation Domain applied for the person."
+        is part of identity
+    common RatingResult
+        documentation "The numerical summary rating or score for the evaluation Objective."
+        is optional collection
+        role name Objective
+    descriptor ObjectiveRatingLevel
+        documentation "The rating level achieved based upon the rating or score."
+        is optional
+    shared string Comments
+        documentation "Any comments about the performance evaluation to be captured."
+        is optional

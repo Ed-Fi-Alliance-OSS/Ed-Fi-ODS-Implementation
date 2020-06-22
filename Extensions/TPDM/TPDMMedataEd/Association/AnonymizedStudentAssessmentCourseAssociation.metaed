@@ -1,0 +1,6 @@
+Association AnonymizedStudentAssessmentCourseAssociation
+  documentation "The course associated with aggregated student data."
+  domain entity AnonymizedStudentAssessment
+    documentation "Reference to assessment."
+  domain entity EdFi.Course
+    documentation "The course associated with aggregated student data."

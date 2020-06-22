@@ -1,0 +1,4 @@
+Shared Decimal HoursCompleted
+  documentation "The number of hours completed during the fieldwork experience."
+  total digits 5
+  decimal places 2

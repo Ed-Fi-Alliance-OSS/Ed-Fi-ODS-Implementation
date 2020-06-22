@@ -1,0 +1,10 @@
+Association EdFi.StaffEducationOrganizationEmploymentAssociation additions
+    domain entity EmploymentEvent
+        documentation "The associated Employment event upon hiring."
+        is optional
+    domain entity EmploymentSeparationEvent
+        documentation "The associated separation event upon termination."
+        is optional
+    enumeration EdFi.SchoolYear
+        documentation "The school year for the employment association."
+        is optional

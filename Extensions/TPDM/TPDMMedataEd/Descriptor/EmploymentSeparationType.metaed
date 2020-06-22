@@ -1,0 +1,2 @@
+Descriptor EmploymentSeparationType
+    documentation "The descriptor holds the type of separation (e.g., termination, displacement, retirement, transfer, voluntary departure)."

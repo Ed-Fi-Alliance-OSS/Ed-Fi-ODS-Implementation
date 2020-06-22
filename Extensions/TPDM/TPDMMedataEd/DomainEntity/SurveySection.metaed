@@ -1,0 +1,4 @@
+Domain Entity EdFi.SurveySection additions
+    domain entity EvaluationElement
+        documentation "The Evaluation Element associated with the quantitative measure."
+        is optional
