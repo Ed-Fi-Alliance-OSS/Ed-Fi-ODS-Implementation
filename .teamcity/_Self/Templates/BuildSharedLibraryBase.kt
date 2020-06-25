@@ -25,7 +25,6 @@ open class BuildSharedLibraryBase : BuildAndTestBaseClass() {
         params {
             param("project.testDirectory", "Ed-Fi-ODS/tests/%project.name%.UnitTests/**")
             param("version.prerelease", "pre%build.counter%")
-            param("project.name", "%system.teamcity.buildConfName%")
             param("project.file.sln", "%project.directory%/%project.name%.sln")
             param("project.file.csproj", "%project.directory%/%project.name%.csproj")
             param("version.informational", "%version.core%")
