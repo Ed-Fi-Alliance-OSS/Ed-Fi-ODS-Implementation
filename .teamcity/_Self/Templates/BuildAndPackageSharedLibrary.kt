@@ -18,43 +18,17 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.powerShell
 import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.vcs
 import jetbrains.buildServer.configs.kotlin.v2019_2.vcs.GitVcsRoot
 
-object BuildAndPackageSharedLibrary : BuildAndTestBaseClass() {
+object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
     init {
         name = "Build and Package Shared Library"
 
         artifactRules = "**/%project.name%*.nupkg"
         publishArtifacts = PublishMode.SUCCESSFUL
 
-        params {
-            param("project.testDirectory", "Ed-Fi-ODS/tests/%project.name%.UnitTests/**")
-            param("version.prerelease", "pre%build.counter%")
-            param("project.name", "%system.teamcity.buildConfName%")
-            param("project.file.sln", "%project.directory%/%project.name%.sln")
-            param("project.file.csproj", "%project.directory%/%project.name%.csproj")
-            param("version.informational", "%version.core%")
-            param("project.rootDirectory", "Ed-Fi-ODS/application/")
-            param("project.directory", "%project.rootDirectory%/%project.name%")
-        }
-
         steps {
-            dotnetBuild {
-                name = "Build"
-                id = "Build"
-                projects = "%project.file.sln%"
-                configuration = "%msbuild.configuration%"
-                param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
-            }
-            dotnetTest {
-                name = "Test"
-                id = "Test"
-                projects = "%project.file.sln%"
-                configuration = "%msbuild.configuration%"
-                skipBuild = true
-                param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
-            }
             dotnetPack {
                 name = "Pack Pre-Release"
-                id = "Pack_PreRelease"
+                id = "BuildAndPackageSharedLibrary_Pack_PreRelease"
                 projects = "%project.file.csproj%"
                 configuration = "%msbuild.configuration%"
                 outputDir = "%teamcity.build.checkoutDir%"
@@ -64,12 +38,20 @@ object BuildAndPackageSharedLibrary : BuildAndTestBaseClass() {
             }
             dotnetPack {
                 name = "Pack Release"
-                id = "Pack_Release"
+                id = "BuildAndPackageSharedLibrary_Pack_Release"
                 projects = "%project.file.csproj%"
                 configuration = "%msbuild.configuration%"
                 outputDir = "%teamcity.build.checkoutDir%"
                 skipBuild = true
                 args = "-p:VersionPrefix=%version.core%"
+                param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
+            }
+            dotnetNugetPush {
+                name = "Publish Pre-Release"
+                id = "BuildAndPackageSharedLibrary_Publish_PreRelease"
+                packages = "%project.name%.%version.core%-%version.prerelease%.nupkg"
+                serverUrl = "%myget.feed%"
+                apiKey = "%myget.apiKey%"
                 param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
             }
         }
