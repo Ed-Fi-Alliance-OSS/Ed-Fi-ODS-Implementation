@@ -26,5 +26,7 @@ object EdFiCommonProject : Project({
 
     params {
         param("project.name", "EdFi.Common")
+        // Temporary version
+        param("version.core", "0.1.0")
     }
 })

@@ -13,6 +13,8 @@ object EdFiOdsImplementation : Project({
     description = "Build configurations managed through the Ed-Fi-ODS-Implementation repository"
 
     params {
+        param("build.feature.freeDiskSpace", "2gb")
+        param("msbuild.configuration", "release")
         param("git.branch.default", "development")
         param("git.branch.specification", """
             refs/heads/(*)

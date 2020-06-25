@@ -30,7 +30,7 @@ open class BuildAndTestBaseClass : Template({
     }
 
     params {
-        param("vcs.checkout.rules", "+:. => Ed-Fi-ODS-Implementation")
+        param("vcs.checkout.rules.implementation", "+:. => Ed-Fi-ODS-Implementation")
         param("vcs.checkout.rules.ods", "+:. => Ed-Fi-ODS")
     }
 
