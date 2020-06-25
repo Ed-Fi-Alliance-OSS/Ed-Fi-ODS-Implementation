@@ -13,5 +13,5 @@ object BranchBuild : BuildType ({
     name = "Branch Build, Package, and Publish"
     id = RelativeId("BranchBuild")
 
-    templates(_self.templates.BuildAndPackageSharedLibrary)
+    templates(lib.templates.BuildAndPackageSharedLibrary)
 })

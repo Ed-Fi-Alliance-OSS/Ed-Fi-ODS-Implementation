@@ -24,8 +24,5 @@ object EdFiOdsImplementation : Project({
 
     subProject(lib.SharedLibrariesProject)
 
-    template(_self.templates.BuildSharedLibraryPullRequest)
-    template(_self.templates.BuildAndPackageSharedLibrary)
-
     vcsRoot(_self.vcsRoots.EdFiOds)
 })

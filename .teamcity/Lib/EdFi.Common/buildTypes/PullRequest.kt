@@ -13,5 +13,5 @@ object PullRequestBuild : BuildType ({
     name = "Pull Request Build and Test"
     id = RelativeId("PullRequestBuild")
 
-    templates(_self.templates.BuildSharedLibraryPullRequest)
+    templates(lib.templates.BuildSharedLibraryPullRequest)
 })

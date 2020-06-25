@@ -16,4 +16,6 @@ object SharedLibrariesProject : Project({
 
     subProject(lib.edFiCommon.EdFiCommonProject)
 
+    template(lib.templates.BuildSharedLibraryPullRequest)
+    template(lib.templates.BuildAndPackageSharedLibrary)
 })
