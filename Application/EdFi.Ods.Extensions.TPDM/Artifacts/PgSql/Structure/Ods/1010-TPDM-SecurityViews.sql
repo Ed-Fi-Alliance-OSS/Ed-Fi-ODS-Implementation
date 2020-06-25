@@ -21,6 +21,8 @@ SELECT  edorg.EducationOrganizationId,
         cp.CommunityProviderId,
         psi.PostSecondaryInstitutionId,
         sch.SchoolId,
+        edorg.Discriminator AS FullEducationOrganizationType,
+		edorg.NameOfInstitution,
         u.UniversityId,
         tpp.TeacherPreparationProviderId
 FROM    edfi.EducationOrganization edorg
