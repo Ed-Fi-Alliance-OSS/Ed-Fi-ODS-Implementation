@@ -18,7 +18,10 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 object BuildSharedLibraryPullRequest : BuildSharedLibraryBase() {
     init {
         params {
-            param("vcs.checkout.rules.ods", "+:application/EdFi.Common => Ed-Fi-ODS/application/EdFi.Common")
+            param("vcs.checkout.rules.ods", """
+                +:application/%project.name% => Ed-Fi-ODS/application/%project.name%
+                +:tests/%project.name% => Ed-Fi-ODS/tests/%project.name%
+            """.trimIndent())
         }
 
         features {
