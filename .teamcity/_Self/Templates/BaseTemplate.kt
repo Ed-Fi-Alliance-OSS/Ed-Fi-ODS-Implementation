@@ -13,10 +13,23 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.freeDiskSpace
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildFeatures.swabra
 import jetbrains.buildServer.configs.kotlin.v2019_2.buildSteps.powerShell
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.BuildFailureOnMetric
+import jetbrains.buildServer.configs.kotlin.v2019_2.failureConditions.failOnMetricChange
 
 open class BuildAndTestBaseClass : Template({
 
     option("shouldFailBuildOnAnyErrorMessage", "true")
+
+    failureConditions {
+        failOnMetricChange {
+            id = ""
+            metric = BuildFailureOnMetric.MetricType.TEST_FAILED_COUNT
+            threshold = 0
+            units = BuildFailureOnMetric.MetricUnit.DEFAULT_UNIT
+            comparison = BuildFailureOnMetric.MetricComparison.MORE
+            compareTo = value()
+        }
+    }
 
     features {
         freeDiskSpace {
