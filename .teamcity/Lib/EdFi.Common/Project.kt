@@ -17,6 +17,8 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 
 object EdFiCommonProject : Project({
+    name = "EdFi.Common"
+    id = RelativeId("EdFiCommon")
     description = "Build configurations for the EdFi.Common shared library"
 
 })

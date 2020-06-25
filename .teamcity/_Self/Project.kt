@@ -20,7 +20,7 @@ object EdFiOdsImplementation : Project({
         """.trimIndent())
     }
 
-    subProject(lib.edFiCommon.EdFiCommonProject)
+    subProject(lib.SharedLibrariesProject)
 
     template(_self.templates.BuildSharedLibrary)
     template(_self.templates.BuildAndPackageSharedLibrary)
