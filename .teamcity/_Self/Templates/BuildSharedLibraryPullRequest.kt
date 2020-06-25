@@ -17,20 +17,6 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.triggers.VcsTrigger
 
 object BuildSharedLibraryPullRequest : BuildSharedLibraryBase() {
     init {
-        params {
-            // This allows a build type to "inherit" the default rule
-            // set and add extra rules, withoutout having to duplicate
-            // the inherited/default rules. For example, can customize
-            // with param("vcs.checkout.rules.ods.additional", "+:tests/%project.name%.IntegrationTests => ...etc")
-            param("vcs.checkout.rules.ods.additional", "")
-            param("vcs.checkout.rules.ods", """
-                +:Application/%project.name% => Ed-Fi-ODS/Application/%project.name%
-                +:tests/%project.name%.UnitTests => Ed-Fi-ODS/tests/%project.name%.UnitTests
-                +:tests/EdFi.TestFixture => Ed-FI-ODS/tests/EdFi.TestFixture
-                %vcs.checkout.rules.ods.additional%
-            """.trimIndent())
-        }
-
         features {
             commitStatusPublisher {
                 publisher = github {
