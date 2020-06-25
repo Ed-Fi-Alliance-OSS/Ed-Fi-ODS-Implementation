@@ -28,6 +28,7 @@ open class BuildAndTestBaseClass : Template({
             units = BuildFailureOnMetric.MetricUnit.DEFAULT_UNIT
             comparison = BuildFailureOnMetric.MetricComparison.MORE
             compareTo = value()
+            stopBuildOnFailure = true
         }
     }
 
