@@ -25,10 +25,4 @@ To debug in IntelliJ Idea, open the 'Maven Projects' tool window (View
 
 version = "2019.2"
 
-project {
-
-    params {
-        param("git.branch.default", "development")
-    }
-}
-
+project(_self.EdFiOdsImplementation)
