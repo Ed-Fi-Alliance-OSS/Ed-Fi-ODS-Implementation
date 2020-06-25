@@ -26,9 +26,9 @@ object BuildSharedLibraryPullRequest : BuildSharedLibraryBase() {
             param("vcs.checkout.rules.ods", """
                 +:Application/%project.name% => Ed-Fi-ODS/Application/%project.name%
                 +:tests/%project.name%.UnitTests => Ed-Fi-ODS/tests/%project.name%.UnitTests
+                +:tests/EdFi.TestFixture => Ed-FI-ODS/tests/EdFi.TestFixture
                 %vcs.checkout.rules.ods.additional%
             """.trimIndent())
-                // +:tests/EdFi.TestFixture => Ed-FI-ODS/tests/EdFi.TestFixture
         }
 
         features {
