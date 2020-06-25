@@ -1,6 +1,19 @@
+-- SPDX-License-Identifier: Apache-2.0
+-- Licensed to the Ed-Fi Alliance under one or more agreements.
+-- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+-- See the LICENSE and NOTICES files in the project root for more information.
+
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToUniversityId;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToTeacherPreparationProviderId;
+DROP VIEW IF EXISTS auth.StaffUSIToTeacherPreparationProviderId;
+DROP VIEW IF EXISTS auth.StaffUSIToUniversityId;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToEducationServiceCenterId;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdToStateAgencyId;
+DROP VIEW IF EXISTS auth.EducationOrganizationIdentifiers;
+
+-- add university and teacherpreparationprovider
 CREATE OR REPLACE VIEW auth.EducationOrganizationIdentifiers
 AS
--- NOTE: Multiple results for a single Education Organization are possible if they are a part of multiple Education Organization Networks
 SELECT  edorg.EducationOrganizationId,
         CASE
             WHEN sea.StateEducationAgencyId IS NOT NULL THEN N'StateEducationAgency'
@@ -61,19 +74,68 @@ WHERE   --Use same CASE as above to eliminate non-institutions (e.g. Networks)
             WHEN tpp.TeacherPreparationProviderId IS NOT NULL THEN 'TeacherPreparationProvider'
         END IS NOT NULL;
 
-CREATE VIEW auth.EducationOrganizationIdToUniversityId
+-- recreate dependent views on educationorganizationidentifiers
+
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToEducationServiceCenterId
+AS
+-- Only LEAs and Schools are accessible to ESC-level claims
+    SELECT EducationServiceCenterId
+         ,LocalEducationAgencyId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE LocalEducationAgencyId IS NOT NULL
+
+    UNION
+    SELECT EducationServiceCenterId
+         ,SchoolId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE SchoolId IS NOT NULL
+
+    UNION
+-- ESC-level claims also can access the ESC
+    SELECT EducationServiceCenterId
+         ,EducationServiceCenterId AS EducationOrganizationId
+    FROM edfi.EducationServiceCenter;
+
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToStateAgencyId
+AS
+-- Only ESCs, LEAs and Schools are accessible to State-level claims
+    SELECT StateEducationAgencyId
+         ,EducationServiceCenterId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE EducationServiceCenterId IS NOT NULL
+
+    UNION
+    SELECT StateEducationAgencyId
+         ,LocalEducationAgencyId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE LocalEducationAgencyId IS NOT NULL
+
+    UNION
+    SELECT StateEducationAgencyId
+         ,SchoolId AS EducationOrganizationId
+    FROM auth.EducationOrganizationIdentifiers
+    WHERE SchoolId IS NOT NULL
+
+    UNION
+-- State-level claims also can access the State
+    SELECT StateEducationAgencyId
+         ,StateEducationAgencyId AS EducationOrganizationId
+    FROM edfi.StateEducationAgency;
+
+-- new views
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToUniversityId
 AS
     SELECT UniversityId
           ,UniversityId AS EducationOrganizationId
     FROM tpdm.University;
 
-CREATE VIEW auth.EducationOrganizationIdToTeacherPreparationProviderId
+CREATE OR REPLACE VIEW auth.EducationOrganizationIdToTeacherPreparationProviderId
 AS
     SELECT TeacherPreparationProviderId
           ,TeacherPreparationProviderId AS EducationOrganizationId
     FROM tpdm.TeacherPreparationProvider;
 
-CREATE VIEW auth.StaffUSIToTeacherPreparationProviderId
+CREATE OR REPLACE VIEW auth.StaffUSIToTeacherPreparationProviderId
 AS
     SELECT emp.EducationOrganizationId AS TeacherPreparationProviderId
           ,emp.StaffUSI
@@ -89,7 +151,7 @@ AS
              INNER JOIN auth.EducationOrganizationToStaffUSI_Assignment assgn ON
         tpp.TeacherPreparationProviderId = assgn.EducationOrganizationId;
 
-CREATE VIEW auth.StaffUSIToUniversityId
+CREATE OR REPLACE VIEW auth.StaffUSIToUniversityId
 AS
     SELECT emp.EducationOrganizationId AS UniversityId
           ,emp.StaffUSI
