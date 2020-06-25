@@ -18,7 +18,7 @@ object EdFiOdsImplementation : Project({
         param("git.branch.default", "development")
         param("git.branch.specification", """
             refs/heads/(*)
-            refs/(pull/*)/merge
+            refs/(pull/*)/head
         """.trimIndent())
     }
 
