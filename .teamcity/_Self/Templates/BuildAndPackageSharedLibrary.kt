@@ -32,7 +32,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
                 formatStderrAsError = true
                 scriptMode = script {
                     content = """
-                        ${"$"}padded = %build.counter%".PadLeft(4,'0')
+                        ${"$"}padded = "%build.counter%".PadLeft(4,'0')
                         Write-Host "##teamcity[setParameter name='build.counter' value='${"$"}padded']"
                     """.trimIndent()
                 }
