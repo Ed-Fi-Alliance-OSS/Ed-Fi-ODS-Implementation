@@ -20,5 +20,5 @@ object EdFiOdsImplementation : Project({
         """.trimIndent())
     }
 
-    vcsRoot(EdFiOds)
+    vcsRoot(_self.vcsRoots.EdFiOds)
 })
