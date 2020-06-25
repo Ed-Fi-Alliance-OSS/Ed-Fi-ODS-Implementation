@@ -20,5 +20,7 @@ object EdFiOdsImplementation : Project({
         """.trimIndent())
     }
 
+    template(_self.templates.BuildAndPackageSharedLibrary)
+
     vcsRoot(_self.vcsRoots.EdFiOds)
 })
