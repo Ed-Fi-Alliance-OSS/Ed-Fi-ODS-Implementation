@@ -24,7 +24,7 @@ object BuildSharedLibraryPullRequest : BuildSharedLibraryBase() {
             // with param("vcs.checkout.rules.ods.additional", "+:tests/%project.name%.IntegrationTests => ...etc")
             param("vcs.checkout.rules.ods.additional", "")
             param("vcs.checkout.rules.ods", """
-                +:application/%project.name% => Ed-Fi-ODS/application/%project.name%
+                +:Application/%project.name% => Ed-Fi-ODS/Application/%project.name%
                 +:tests/%project.name%.UnitTests => Ed-Fi-ODS/tests/%project.name%.UnitTests
                 +:tests/EdFi.TestFixture => Ed-FI-ODS/tests/EdFi.TestFixture
                 %vcs.checkout.rules.ods.additional%
