@@ -70,10 +70,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
         triggers {
             vcs {
                 id = "vcsTrigger"
-                triggerRules = """
-                    +:%project.directory%/**
-                    +:%project.testDirectory%/**
-                """.trimIndent()
+                branchFilter = "+:<default>"
             }
         }
 

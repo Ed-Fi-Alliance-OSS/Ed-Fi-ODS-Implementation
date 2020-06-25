@@ -23,6 +23,7 @@ object EdFiCommonProject : Project({
     description = "Build configurations for the EdFi.Common shared library"
 
     buildType(lib.edFiCommon.buildTypes.PullRequestBuild)
+    buildType(lib.edFiCommon.buildTypes.BranchBuild)
 
     params {
         param("project.name", "EdFi.Common")
