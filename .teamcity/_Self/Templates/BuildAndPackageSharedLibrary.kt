@@ -26,6 +26,17 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
         publishArtifacts = PublishMode.SUCCESSFUL
 
         steps {
+            powerShell {
+                name ="Created Four-Digit Build Number"
+                id = "BuildAndPackageSharedLibrary_Padded_BuildNumber"
+                formatStderrAsError = true
+                scriptMode = script {
+                    content = """
+                        ${"$"}padded = %build.counter%".PadLeft(4,'0')
+                        Write-Host "##teamcity[setParameter name='build.counter' value='${"$"}padded']"
+                    """.trimIndent()
+                }
+            }
             dotnetPack {
                 name = "Pack Pre-Release"
                 id = "BuildAndPackageSharedLibrary_Pack_PreRelease"
