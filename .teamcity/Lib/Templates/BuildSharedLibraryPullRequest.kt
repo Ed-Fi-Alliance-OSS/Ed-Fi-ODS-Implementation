@@ -47,7 +47,7 @@ object BuildSharedLibraryPullRequest : BuildSharedLibraryBase() {
                 branchFilter = """
                     +:*
                     -:<default>
-                    -:refs/heads
+                    -:refs/heads/*
                 """.trimIndent()
             }
         }
