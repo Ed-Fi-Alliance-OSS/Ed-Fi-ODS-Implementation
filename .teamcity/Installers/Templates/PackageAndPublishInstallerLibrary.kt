@@ -32,6 +32,7 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
                 +:scripts/NuGet => scripts/NuGet
                 %vcs.checkout.rules.implementation.additional%
             """)
+            param("vcs.checkout.rules.implementation.additional", "")
         }
 
         steps {
