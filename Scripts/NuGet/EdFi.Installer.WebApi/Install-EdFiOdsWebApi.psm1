@@ -414,8 +414,7 @@ function Invoke-TransformWebConfigAppSettings {
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $appSettings = @{
-            "apiStartup:type" = $Config.InstallType
-            "bulk:featureIsEnabled" = $false
+            "apiStartup:type" = $Config.InstallType           
         }
 
         if ($Config.WebApiFeatures) {

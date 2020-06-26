@@ -126,17 +126,13 @@ function Invoke-FeatureOverride {
             UseIntegratedSecurity=$true
         }
         WebApiFeatures = @{
-            BearerTokenTimeoutMinutes="BearerTokenTimeoutMinutes"
-            QueuePrefix = "QueuePrefix"
-            QueueAutoCreate="QueueAutoCreate"
-            CommitUploadCommandMessageEndPoint="CommitUploadCommandMessageEndPoint"
+            BearerTokenTimeoutMinutes="BearerTokenTimeoutMinutes"                                   
             ExcludedExtensionSources="GrandBend"
             FeatureIsEnabled=@{
                 changeQueries = $true
                 openApiMetadata = $false
                 composites = $false
-                profiles = $false
-                bulk = $false
+                profiles = $false                
                 identityManagement = $false
                 extensions = $false
                 ownershipBasedAuthorization = $true
