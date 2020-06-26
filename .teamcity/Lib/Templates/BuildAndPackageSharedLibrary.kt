@@ -23,7 +23,6 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
         name = "Build and Package Shared Library"
 
         artifactRules = "**/%project.name%*.nupkg"
-        publishArtifacts = PublishMode.SUCCESSFUL
 
         steps {
             powerShell {
