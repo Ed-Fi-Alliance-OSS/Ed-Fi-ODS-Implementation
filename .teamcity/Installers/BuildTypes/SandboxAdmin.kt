@@ -8,7 +8,7 @@ package installers.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 
-object EdFiInstallerSandboxAdmin : BuildType({
+object SandboxAdmin : BuildType({
     templates(installers.templates.PackageAndPublishInstallerLibrary)
     id = RelativeId("Installers_SandboxAdmin")
     name = "EdFi.Installer.SandboxAdmin"

@@ -18,7 +18,7 @@ object InstallersProject : Project({
         param("api.semantic.version", "4.0.0")
     }
 
-    buildType(installers.buildTypes.EdFiInstallerSandboxAdmin)
+    buildType(installers.buildTypes.SandboxAdmin)
 
     template(installers.templates.PackageAndPublishInstallerLibrary)
 })
