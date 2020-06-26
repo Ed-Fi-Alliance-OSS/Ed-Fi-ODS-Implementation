@@ -1,0 +1,7 @@
+Association AnonymizedStudentAssessmentSectionAssociation
+  documentation "The course associated with aggregated student data."
+  domain entity AnonymizedStudentAssessment
+    documentation "Reference to assessment."
+  domain entity EdFi.Section
+    documentation "The section associated with aggregated student data."
+    merge Section.CourseOffering.Session.SchoolYear with AnonymizedStudentAssessment.AnonymizedStudent.SchoolYear

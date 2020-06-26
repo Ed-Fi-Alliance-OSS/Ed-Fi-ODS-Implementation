@@ -1,0 +1,70 @@
+Domain Entity AnonymizedStudent
+  documentation "Domain entity to collect data for indiviudal students with whom the teacher candidate is associated through field work or student teaching"
+  shared string AnonymizedStudentIdentifier
+    documentation "Unique identifier for anonymized student"
+    is part of identity
+  enumeration EdFi.SchoolYear
+    documentation "The school year for which the data is associated"
+    is part of identity
+  date FactsAsOfDate
+    documentation "The date for which the data element is relevant"
+    is part of identity
+  descriptor ValueType
+    documentation "Domain entity to collect data for indiviudal students with whom the teacher candidate is associated through field work or student teaching"
+    is optional
+//  domain entity EducationOrganization
+//    documentation "The education organization associated with aggregated student data"
+//    is optional
+//  domain entity Course
+//    documentation "The course associated with aggregated student data"
+//    is optional
+//    merge Course.EducationOrganization with EducationOrganization
+//  domain entity Section
+//    documentation "The section associated with aggregated student data"
+//    is optional
+  descriptor EdFi.Sex
+    documentation "A person's gender."
+    is optional
+  descriptor Gender
+    documentation "The gender with which a person associates."
+    is optional
+  bool HispanicLatinoEthnicity
+    documentation "An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, ""Spanish origin,"" can be used in addition to ""Hispanic or Latino."""
+    is optional
+  descriptor EdFi.Race
+    documentation "The general racial category which most clearly reflects the individual's
+                   recognition of his or her community or with which the individual most
+                   identifies. The data model allows for multiple entries so that each individual
+                   can specify all appropriate races."
+    is optional collection
+    is queryable field
+  common EdFi.Language
+    documentation "The language(s) the individual uses to communicate."
+    is optional collection
+  common EdFi.Disability
+    documentation "A disability category that describes a child's impairment."
+    is optional collection
+  descriptor EdFi.GradeLevel
+    documentation "The grade level for the student."
+    is optional
+  bool Section504Enrollment
+    documentation "Information about the students who are enrolled in a 504 program"
+    is optional
+  bool ELLEnrollment
+    documentation "Data about the ELL enrollment of the student"
+    is optional
+  bool ESLEnrollment
+    documentation "Data about the ESL enrollment of the student"
+    is optional
+  bool SPEDEnrollment
+    documentation "Data about the enrollment in SPED of the student"
+    is optional
+  bool TitleIEnrollment
+    documentation "Data about the enrollment in Title I of the student"
+    is optional
+  bool AtriskIndicator
+    documentation "An indicator that identifies if the student has been flagged as being at risk according to the District's definition of at risk."
+    is optional
+  integer Mobility
+    documentation "The number of times a student has moved schools during the current school year."
+    is optional

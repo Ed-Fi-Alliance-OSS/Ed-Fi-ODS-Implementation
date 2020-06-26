@@ -1,0 +1,2 @@
+Descriptor WithdrawReason
+  documentation "The descriptor holds the reason applicant withdrew application."

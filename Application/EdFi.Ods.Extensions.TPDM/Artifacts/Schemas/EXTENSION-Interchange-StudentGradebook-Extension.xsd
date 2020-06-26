@@ -11,7 +11,7 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
-        <xs:element name="GradebookEntry" type="EXTENSION-GradebookEntryExtension" />
+        <xs:element name="GradebookEntry" type="GradebookEntry" />
         <xs:element name="StudentGradebookEntry" type="EXTENSION-StudentGradebookEntryExtension" />
       </xs:choice>
     </xs:complexType>

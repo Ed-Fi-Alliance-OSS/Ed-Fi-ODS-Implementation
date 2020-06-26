@@ -1,0 +1,2 @@
+Descriptor RubricRatingLevel
+    documentation "The rating level achieved for the rubric dimension."

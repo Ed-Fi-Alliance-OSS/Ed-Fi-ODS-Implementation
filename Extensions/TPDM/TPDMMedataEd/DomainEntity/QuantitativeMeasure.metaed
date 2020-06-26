@@ -1,0 +1,14 @@
+Domain Entity QuantitativeMeasure
+    documentation "A quantitative measure of educator performance associated with an Evaluation Element."
+    domain entity EvaluationElement
+        documentation "The Evaluation Element associated with the quantitative measure."
+        is part of identity
+    shared string QuantitativeMeasureIdentifier
+        documentation "An assigned unique identifier for the quantitative measure."
+        is part of identity
+    descriptor QuantitativeMeasureType
+        documentation "The type of the quantitative measure (e.g., achievement, growth)."
+        is optional
+    descriptor QuantitativeMeasureDatatype
+        documentation "The datatype of the result. The results can be expressed as a number, percentile, range, level, etc."
+        is optional

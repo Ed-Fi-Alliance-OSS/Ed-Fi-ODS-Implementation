@@ -1117,30 +1117,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.CommunityOrganizationExtension ADD CONSTRAINT FK_3e81e4_CommunityOrganization FOREIGN KEY (CommunityOrganizationId)
-REFERENCES edfi.CommunityOrganization (CommunityOrganizationId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.CommunityOrganizationExtension ADD CONSTRAINT FK_3e81e4_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_3e81e4_FederalLocaleCodeDescriptor
-ON tpdm.CommunityOrganizationExtension (FederalLocaleCodeDescriptorId ASC);
-
-ALTER TABLE tpdm.CommunityProviderExtension ADD CONSTRAINT FK_cdc438_CommunityProvider FOREIGN KEY (CommunityProviderId)
-REFERENCES edfi.CommunityProvider (CommunityProviderId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.CommunityProviderExtension ADD CONSTRAINT FK_cdc438_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_cdc438_FederalLocaleCodeDescriptor
-ON tpdm.CommunityProviderExtension (FederalLocaleCodeDescriptorId ASC);
-
 ALTER TABLE tpdm.CompleterAsStaffAssociation ADD CONSTRAINT FK_447e8f_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)
 ;
@@ -1236,324 +1212,6 @@ ALTER TABLE tpdm.DegreeDescriptor ADD CONSTRAINT FK_0700f5_Descriptor FOREIGN KE
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE tpdm.EducationOrganizationFacts ADD CONSTRAINT FK_f4fab0_EducationOrganization FOREIGN KEY (EducationOrganizationId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-CREATE INDEX FK_f4fab0_EducationOrganization
-ON tpdm.EducationOrganizationFacts (EducationOrganizationId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFacts ADD CONSTRAINT FK_f4fab0_SchoolYearType FOREIGN KEY (SchoolYear)
-REFERENCES edfi.SchoolYearType (SchoolYear)
-;
-
-CREATE INDEX FK_f4fab0_SchoolYearType
-ON tpdm.EducationOrganizationFacts (SchoolYear ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFactsAggregatedSalary ADD CONSTRAINT FK_cf5648_EducationOrganizationFacts FOREIGN KEY (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-REFERENCES tpdm.EducationOrganizationFacts (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationFactsVacancies ADD CONSTRAINT FK_e99d3f_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
-REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
-;
-
-CREATE INDEX FK_e99d3f_AcademicSubjectDescriptor
-ON tpdm.EducationOrganizationFactsVacancies (AcademicSubjectDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFactsVacancies ADD CONSTRAINT FK_e99d3f_EducationOrganizationFacts FOREIGN KEY (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-REFERENCES tpdm.EducationOrganizationFacts (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_e99d3f_EducationOrganizationFacts
-ON tpdm.EducationOrganizationFactsVacancies (EducationOrganizationId ASC, FactsAsOfDate ASC, SchoolYear ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFactsVacancies ADD CONSTRAINT FK_e99d3f_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_e99d3f_ValueTypeDescriptor
-ON tpdm.EducationOrganizationFactsVacancies (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFactsVacanciesGradeLevel ADD CONSTRAINT FK_9d78ac_EducationOrganizationFactsVacancies FOREIGN KEY (AcademicSubjectDescriptorId, EducationOrganizationId, FactsAsOfDate, SchoolYear)
-REFERENCES tpdm.EducationOrganizationFactsVacancies (AcademicSubjectDescriptorId, EducationOrganizationId, FactsAsOfDate, SchoolYear)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_9d78ac_EducationOrganizationFactsVacancies
-ON tpdm.EducationOrganizationFactsVacanciesGradeLevel (AcademicSubjectDescriptorId ASC, EducationOrganizationId ASC, FactsAsOfDate ASC, SchoolYear ASC);
-
-ALTER TABLE tpdm.EducationOrganizationFactsVacanciesGradeLevel ADD CONSTRAINT FK_9d78ac_GradeLevelDescriptor FOREIGN KEY (GradeLevelDescriptorId)
-REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
-;
-
-CREATE INDEX FK_9d78ac_GradeLevelDescriptor
-ON tpdm.EducationOrganizationFactsVacanciesGradeLevel (GradeLevelDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationNetworkExtension ADD CONSTRAINT FK_e81d7b_EducationOrganizationNetwork FOREIGN KEY (EducationOrganizationNetworkId)
-REFERENCES edfi.EducationOrganizationNetwork (EducationOrganizationNetworkId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationNetworkExtension ADD CONSTRAINT FK_e81d7b_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_e81d7b_FederalLocaleCodeDescriptor
-ON tpdm.EducationOrganizationNetworkExtension (FederalLocaleCodeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFacts ADD CONSTRAINT FK_eedec2_EducationOrganization FOREIGN KEY (EducationOrganizationId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-CREATE INDEX FK_eedec2_EducationOrganization
-ON tpdm.EducationOrganizationStudentFacts (EducationOrganizationId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability ADD CONSTRAINT FK_174ab3_DisabilityDescriptor FOREIGN KEY (DisabilityDescriptorId)
-REFERENCES edfi.DisabilityDescriptor (DisabilityDescriptorId)
-;
-
-CREATE INDEX FK_174ab3_DisabilityDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedByDisability (DisabilityDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability ADD CONSTRAINT FK_174ab3_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_174ab3_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedByDisability (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability ADD CONSTRAINT FK_174ab3_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_174ab3_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedByDisability (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e ADD CONSTRAINT FK_2e2e1e_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e ADD CONSTRAINT FK_2e2e1e_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_2e2e1e_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment ADD CONSTRAINT FK_9d808a_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment ADD CONSTRAINT FK_9d808a_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_9d808a_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment ADD CONSTRAINT FK_d7677c_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment ADD CONSTRAINT FK_d7677c_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_d7677c_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender ADD CONSTRAINT FK_cdcd86_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_cdcd86_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedGender (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender ADD CONSTRAINT FK_cdcd86_GenderDescriptor FOREIGN KEY (GenderDescriptorId)
-REFERENCES tpdm.GenderDescriptor (GenderDescriptorId)
-;
-
-CREATE INDEX FK_cdcd86_GenderDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedGender (GenderDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender ADD CONSTRAINT FK_cdcd86_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_cdcd86_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedGender (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a ADD CONSTRAINT FK_4ee82a_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_4ee82a_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a ADD CONSTRAINT FK_4ee82a_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_4ee82a_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage ADD CONSTRAINT FK_4f5f77_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_4f5f77_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedLanguage (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage ADD CONSTRAINT FK_4f5f77_LanguageDescriptor FOREIGN KEY (LanguageDescriptorId)
-REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)
-;
-
-CREATE INDEX FK_4f5f77_LanguageDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedLanguage (LanguageDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage ADD CONSTRAINT FK_4f5f77_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_4f5f77_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedLanguage (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace ADD CONSTRAINT FK_f4c698_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_f4c698_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedRace (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace ADD CONSTRAINT FK_f4c698_RaceDescriptor FOREIGN KEY (RaceDescriptorId)
-REFERENCES edfi.RaceDescriptor (RaceDescriptorId)
-;
-
-CREATE INDEX FK_f4c698_RaceDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedRace (RaceDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace ADD CONSTRAINT FK_f4c698_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_f4c698_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedRace (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 ADD CONSTRAINT FK_b449c2_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_b449c2_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 ADD CONSTRAINT FK_b449c2_SchoolFoodServiceProgramServiceDescriptor FOREIGN KEY (SchoolFoodServiceProgramServiceDescriptorId)
-REFERENCES edfi.SchoolFoodServiceProgramServiceDescriptor (SchoolFoodServiceProgramServiceDescriptorId)
-;
-
-CREATE INDEX FK_b449c2_SchoolFoodServiceProgramServiceDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 (SchoolFoodServiceProgramServiceDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 ADD CONSTRAINT FK_b449c2_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_b449c2_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment ADD CONSTRAINT FK_23244f_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment ADD CONSTRAINT FK_23244f_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_23244f_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex ADD CONSTRAINT FK_b55d60_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_b55d60_EducationOrganizationStudentFacts
-ON tpdm.EducationOrganizationStudentFactsAggregatedSex (EducationOrganizationId ASC, FactAsOfDate ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex ADD CONSTRAINT FK_b55d60_SexDescriptor FOREIGN KEY (SexDescriptorId)
-REFERENCES edfi.SexDescriptor (SexDescriptorId)
-;
-
-CREATE INDEX FK_b55d60_SexDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSex (SexDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex ADD CONSTRAINT FK_b55d60_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_b55d60_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSex (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSPED ADD CONSTRAINT FK_44bed5_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSPED ADD CONSTRAINT FK_44bed5_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_44bed5_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedSPED (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment ADD CONSTRAINT FK_ff9c02_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment ADD CONSTRAINT FK_ff9c02_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_ff9c02_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsStudentsEnrolled ADD CONSTRAINT FK_c6f237_EducationOrganizationStudentFacts FOREIGN KEY (EducationOrganizationId, FactAsOfDate)
-REFERENCES tpdm.EducationOrganizationStudentFacts (EducationOrganizationId, FactAsOfDate)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFactsStudentsEnrolled ADD CONSTRAINT FK_c6f237_ValueTypeDescriptor FOREIGN KEY (ValueTypeDescriptorId)
-REFERENCES tpdm.ValueTypeDescriptor (ValueTypeDescriptorId)
-;
-
-CREATE INDEX FK_c6f237_ValueTypeDescriptor
-ON tpdm.EducationOrganizationStudentFactsStudentsEnrolled (ValueTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.EducationServiceCenterExtension ADD CONSTRAINT FK_5453a2_EducationServiceCenter FOREIGN KEY (EducationServiceCenterId)
-REFERENCES edfi.EducationServiceCenter (EducationServiceCenterId)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.EducationServiceCenterExtension ADD CONSTRAINT FK_5453a2_FederalLocaleCodeDescriptor FOREIGN KEY (FederalLocaleCodeDescriptorId)
-REFERENCES tpdm.FederalLocaleCodeDescriptor (FederalLocaleCodeDescriptorId)
-;
-
-CREATE INDEX FK_5453a2_FederalLocaleCodeDescriptor
-ON tpdm.EducationServiceCenterExtension (FederalLocaleCodeDescriptorId ASC);
 
 ALTER TABLE tpdm.EducatorRoleDescriptor ADD CONSTRAINT FK_bc8b94_Descriptor FOREIGN KEY (EducatorRoleDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -1870,6 +1528,62 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE tpdm.FieldworkExperience ADD CONSTRAINT FK_fd30bb_FieldworkTypeDescriptor FOREIGN KEY (FieldworkTypeDescriptorId)
+REFERENCES tpdm.FieldworkTypeDescriptor (FieldworkTypeDescriptorId)
+;
+
+CREATE INDEX FK_fd30bb_FieldworkTypeDescriptor
+ON tpdm.FieldworkExperience (FieldworkTypeDescriptorId ASC);
+
+ALTER TABLE tpdm.FieldworkExperience ADD CONSTRAINT FK_fd30bb_ProgramGatewayDescriptor FOREIGN KEY (ProgramGatewayDescriptorId)
+REFERENCES tpdm.ProgramGatewayDescriptor (ProgramGatewayDescriptorId)
+;
+
+CREATE INDEX FK_fd30bb_ProgramGatewayDescriptor
+ON tpdm.FieldworkExperience (ProgramGatewayDescriptorId ASC);
+
+ALTER TABLE tpdm.FieldworkExperience ADD CONSTRAINT FK_fd30bb_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_fd30bb_Student
+ON tpdm.FieldworkExperience (StudentUSI ASC);
+
+ALTER TABLE tpdm.FieldworkExperienceCoteaching ADD CONSTRAINT FK_1a4745_FieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StudentUSI)
+REFERENCES tpdm.FieldworkExperience (BeginDate, FieldworkIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE tpdm.FieldworkExperienceSchool ADD CONSTRAINT FK_5dbddd_FieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StudentUSI)
+REFERENCES tpdm.FieldworkExperience (BeginDate, FieldworkIdentifier, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_5dbddd_FieldworkExperience
+ON tpdm.FieldworkExperienceSchool (BeginDate ASC, FieldworkIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE tpdm.FieldworkExperienceSchool ADD CONSTRAINT FK_5dbddd_School FOREIGN KEY (SchoolId)
+REFERENCES edfi.School (SchoolId)
+;
+
+CREATE INDEX FK_5dbddd_School
+ON tpdm.FieldworkExperienceSchool (SchoolId ASC);
+
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation ADD CONSTRAINT FK_b2abcd_FieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StudentUSI)
+REFERENCES tpdm.FieldworkExperience (BeginDate, FieldworkIdentifier, StudentUSI)
+;
+
+CREATE INDEX FK_b2abcd_FieldworkExperience
+ON tpdm.FieldworkExperienceSectionAssociation (BeginDate ASC, FieldworkIdentifier ASC, StudentUSI ASC);
+
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation ADD CONSTRAINT FK_b2abcd_Section FOREIGN KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
+REFERENCES edfi.Section (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
+ON UPDATE CASCADE
+;
+
+CREATE INDEX FK_b2abcd_Section
+ON tpdm.FieldworkExperienceSectionAssociation (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
+
 ALTER TABLE tpdm.FieldworkTypeDescriptor ADD CONSTRAINT FK_a16a29_Descriptor FOREIGN KEY (FieldworkTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -1910,19 +1624,6 @@ ALTER TABLE tpdm.GoalTypeDescriptor ADD CONSTRAINT FK_403c02_Descriptor FOREIGN 
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE tpdm.GradebookEntryExtension ADD CONSTRAINT FK_8342b2_GradebookEntry FOREIGN KEY (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.GradebookEntry (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-ON DELETE CASCADE
-ON UPDATE CASCADE
-;
-
-ALTER TABLE tpdm.GradebookEntryExtension ADD CONSTRAINT FK_8342b2_ProgramGatewayDescriptor FOREIGN KEY (ProgramGatewayDescriptorId)
-REFERENCES tpdm.ProgramGatewayDescriptor (ProgramGatewayDescriptorId)
-;
-
-CREATE INDEX FK_8342b2_ProgramGatewayDescriptor
-ON tpdm.GradebookEntryExtension (ProgramGatewayDescriptorId ASC);
 
 ALTER TABLE tpdm.GraduationPlanRequiredCertification ADD CONSTRAINT FK_bd70a1_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
 REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
@@ -2654,76 +2355,6 @@ ALTER TABLE tpdm.StaffExtension ADD CONSTRAINT FK_d7b81a_Staff FOREIGN KEY (Staf
 REFERENCES edfi.Staff (StaffUSI)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent ADD CONSTRAINT FK_420d2e_AbsenceEventCategoryDescriptor FOREIGN KEY (AbsenceEventCategoryDescriptorId)
-REFERENCES edfi.AbsenceEventCategoryDescriptor (AbsenceEventCategoryDescriptorId)
-;
-
-CREATE INDEX FK_420d2e_AbsenceEventCategoryDescriptor
-ON tpdm.StaffFieldworkAbsenceEvent (AbsenceEventCategoryDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent ADD CONSTRAINT FK_420d2e_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-CREATE INDEX FK_420d2e_Staff
-ON tpdm.StaffFieldworkAbsenceEvent (StaffUSI ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperience ADD CONSTRAINT FK_fe2944_FieldworkTypeDescriptor FOREIGN KEY (FieldworkTypeDescriptorId)
-REFERENCES tpdm.FieldworkTypeDescriptor (FieldworkTypeDescriptorId)
-;
-
-CREATE INDEX FK_fe2944_FieldworkTypeDescriptor
-ON tpdm.StaffFieldworkExperience (FieldworkTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperience ADD CONSTRAINT FK_fe2944_ProgramGatewayDescriptor FOREIGN KEY (ProgramGatewayDescriptorId)
-REFERENCES tpdm.ProgramGatewayDescriptor (ProgramGatewayDescriptorId)
-;
-
-CREATE INDEX FK_fe2944_ProgramGatewayDescriptor
-ON tpdm.StaffFieldworkExperience (ProgramGatewayDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperience ADD CONSTRAINT FK_fe2944_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-CREATE INDEX FK_fe2944_Staff
-ON tpdm.StaffFieldworkExperience (StaffUSI ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperienceCoteaching ADD CONSTRAINT FK_1cf4c8_StaffFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StaffUSI)
-REFERENCES tpdm.StaffFieldworkExperience (BeginDate, FieldworkIdentifier, StaffUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.StaffFieldworkExperienceSchool ADD CONSTRAINT FK_6e47f9_School FOREIGN KEY (SchoolId)
-REFERENCES edfi.School (SchoolId)
-;
-
-CREATE INDEX FK_6e47f9_School
-ON tpdm.StaffFieldworkExperienceSchool (SchoolId ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperienceSchool ADD CONSTRAINT FK_6e47f9_StaffFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StaffUSI)
-REFERENCES tpdm.StaffFieldworkExperience (BeginDate, FieldworkIdentifier, StaffUSI)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_6e47f9_StaffFieldworkExperience
-ON tpdm.StaffFieldworkExperienceSchool (BeginDate ASC, FieldworkIdentifier ASC, StaffUSI ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation ADD CONSTRAINT FK_aa4534_Section FOREIGN KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.Section (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-ON UPDATE CASCADE
-;
-
-CREATE INDEX FK_aa4534_Section
-ON tpdm.StaffFieldworkExperienceSectionAssociation (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
-
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation ADD CONSTRAINT FK_aa4534_StaffFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, StaffUSI)
-REFERENCES tpdm.StaffFieldworkExperience (BeginDate, FieldworkIdentifier, StaffUSI)
-;
-
-CREATE INDEX FK_aa4534_StaffFieldworkExperience
-ON tpdm.StaffFieldworkExperienceSectionAssociation (BeginDate ASC, FieldworkIdentifier ASC, StaffUSI ASC);
 
 ALTER TABLE tpdm.StaffHighlyQualifiedAcademicSubject ADD CONSTRAINT FK_37449d_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
 REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
@@ -3591,76 +3222,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_a3a2ab_TeacherCandidate
 ON tpdm.TeacherCandidateElectronicMail (TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent ADD CONSTRAINT FK_30d301_AbsenceEventCategoryDescriptor FOREIGN KEY (AbsenceEventCategoryDescriptorId)
-REFERENCES edfi.AbsenceEventCategoryDescriptor (AbsenceEventCategoryDescriptorId)
-;
-
-CREATE INDEX FK_30d301_AbsenceEventCategoryDescriptor
-ON tpdm.TeacherCandidateFieldworkAbsenceEvent (AbsenceEventCategoryDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent ADD CONSTRAINT FK_30d301_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
-;
-
-CREATE INDEX FK_30d301_TeacherCandidate
-ON tpdm.TeacherCandidateFieldworkAbsenceEvent (TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ADD CONSTRAINT FK_fe5770_FieldworkTypeDescriptor FOREIGN KEY (FieldworkTypeDescriptorId)
-REFERENCES tpdm.FieldworkTypeDescriptor (FieldworkTypeDescriptorId)
-;
-
-CREATE INDEX FK_fe5770_FieldworkTypeDescriptor
-ON tpdm.TeacherCandidateFieldworkExperience (FieldworkTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ADD CONSTRAINT FK_fe5770_ProgramGatewayDescriptor FOREIGN KEY (ProgramGatewayDescriptorId)
-REFERENCES tpdm.ProgramGatewayDescriptor (ProgramGatewayDescriptorId)
-;
-
-CREATE INDEX FK_fe5770_ProgramGatewayDescriptor
-ON tpdm.TeacherCandidateFieldworkExperience (ProgramGatewayDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ADD CONSTRAINT FK_fe5770_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
-;
-
-CREATE INDEX FK_fe5770_TeacherCandidate
-ON tpdm.TeacherCandidateFieldworkExperience (TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceCoteaching ADD CONSTRAINT FK_fb9534_TeacherCandidateFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidateFieldworkExperience (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-ON DELETE CASCADE
-;
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSchool ADD CONSTRAINT FK_c8ae63_School FOREIGN KEY (SchoolId)
-REFERENCES edfi.School (SchoolId)
-;
-
-CREATE INDEX FK_c8ae63_School
-ON tpdm.TeacherCandidateFieldworkExperienceSchool (SchoolId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSchool ADD CONSTRAINT FK_c8ae63_TeacherCandidateFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidateFieldworkExperience (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_c8ae63_TeacherCandidateFieldworkExperience
-ON tpdm.TeacherCandidateFieldworkExperienceSchool (BeginDate ASC, FieldworkIdentifier ASC, TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation ADD CONSTRAINT FK_1a948e_Section FOREIGN KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-REFERENCES edfi.Section (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-ON UPDATE CASCADE
-;
-
-CREATE INDEX FK_1a948e_Section
-ON tpdm.TeacherCandidateFieldworkExperienceSectionAssociation (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation ADD CONSTRAINT FK_1a948e_TeacherCandidateFieldworkExperience FOREIGN KEY (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidateFieldworkExperience (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-;
-
-CREATE INDEX FK_1a948e_TeacherCandidateFieldworkExperience
-ON tpdm.TeacherCandidateFieldworkExperienceSectionAssociation (BeginDate ASC, FieldworkIdentifier ASC, TeacherCandidateIdentifier ASC);
 
 ALTER TABLE tpdm.TeacherCandidateIdentificationCode ADD CONSTRAINT FK_6f624f_StudentIdentificationSystemDescriptor FOREIGN KEY (StudentIdentificationSystemDescriptorId)
 REFERENCES edfi.StudentIdentificationSystemDescriptor (StudentIdentificationSystemDescriptorId)

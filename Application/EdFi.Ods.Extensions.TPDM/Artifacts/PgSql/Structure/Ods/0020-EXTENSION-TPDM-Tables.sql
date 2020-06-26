@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 -- Table tpdm.AidTypeDescriptor --
 CREATE TABLE tpdm.AidTypeDescriptor (
     AidTypeDescriptorId INT NOT NULL,
@@ -884,24 +879,6 @@ CREATE TABLE tpdm.CertificationStandardDescriptor (
     CONSTRAINT CertificationStandardDescriptor_PK PRIMARY KEY (CertificationStandardDescriptorId)
 ); 
 
--- Table tpdm.CommunityOrganizationExtension --
-CREATE TABLE tpdm.CommunityOrganizationExtension (
-    CommunityOrganizationId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CommunityOrganizationExtension_PK PRIMARY KEY (CommunityOrganizationId)
-); 
-ALTER TABLE tpdm.CommunityOrganizationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.CommunityProviderExtension --
-CREATE TABLE tpdm.CommunityProviderExtension (
-    CommunityProviderId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CommunityProviderExtension_PK PRIMARY KEY (CommunityProviderId)
-); 
-ALTER TABLE tpdm.CommunityProviderExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
 -- Table tpdm.CompleterAsStaffAssociation --
 CREATE TABLE tpdm.CompleterAsStaffAssociation (
     StaffUSI INT NOT NULL,
@@ -987,279 +964,6 @@ CREATE TABLE tpdm.DegreeDescriptor (
     DegreeDescriptorId INT NOT NULL,
     CONSTRAINT DegreeDescriptor_PK PRIMARY KEY (DegreeDescriptorId)
 ); 
-
--- Table tpdm.EducationOrganizationFacts --
-CREATE TABLE tpdm.EducationOrganizationFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    NumberAdministratorsEmployed INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    NumberTeachersEmployed INT NULL,
-    PercentStudentsFreeReducedLunch DECIMAL(5, 4) NULL,
-    PercentStudentsLimitedEnglishProficiency DECIMAL(5, 4) NULL,
-    PercentStudentsSpecialEducation DECIMAL(5, 4) NULL,
-    HiringRate DECIMAL(5, 4) NULL,
-    RetentionRate DECIMAL(5, 4) NULL,
-    RetirementRate DECIMAL(5, 4) NULL,
-    AverageYearsInDistrictEmployed DECIMAL(5, 2) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT EducationOrganizationFacts_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.EducationOrganizationFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducationOrganizationFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationFactsAggregatedSalary --
-CREATE TABLE tpdm.EducationOrganizationFactsAggregatedSalary (
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    AverageSalary MONEY NOT NULL,
-    CountOfSalariesAveraged INT NULL,
-    StandardDeviation INT NULL,
-    SalaryMinRange INT NULL,
-    SalaryMaxRange INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationFactsAggregatedSalary_PK PRIMARY KEY (EducationOrganizationId, FactsAsOfDate, SchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationFactsAggregatedSalary ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationFactsVacancies --
-CREATE TABLE tpdm.EducationOrganizationFactsVacancies (
-    AcademicSubjectDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberOfVacancies INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationFactsVacancies_PK PRIMARY KEY (AcademicSubjectDescriptorId, EducationOrganizationId, FactsAsOfDate, SchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationFactsVacancies ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationFactsVacanciesGradeLevel --
-CREATE TABLE tpdm.EducationOrganizationFactsVacanciesGradeLevel (
-    AcademicSubjectDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactsAsOfDate DATE NOT NULL,
-    GradeLevelDescriptorId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationFactsVacanciesGradeLevel_PK PRIMARY KEY (AcademicSubjectDescriptorId, EducationOrganizationId, FactsAsOfDate, GradeLevelDescriptorId, SchoolYear)
-); 
-ALTER TABLE tpdm.EducationOrganizationFactsVacanciesGradeLevel ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationNetworkExtension --
-CREATE TABLE tpdm.EducationOrganizationNetworkExtension (
-    EducationOrganizationNetworkId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationNetworkExtension_PK PRIMARY KEY (EducationOrganizationNetworkId)
-); 
-ALTER TABLE tpdm.EducationOrganizationNetworkExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFacts --
-CREATE TABLE tpdm.EducationOrganizationStudentFacts (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFacts_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFacts ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.EducationOrganizationStudentFacts ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.EducationOrganizationStudentFacts ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedByDisability --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability (
-    DisabilityDescriptorId INT NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    Percentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedByDisability_PK PRIMARY KEY (DisabilityDescriptorId, EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    StudentsDisabledNumber INT NULL,
-    StudentsDisabledPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedDisabil_2e2e1e_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ELLEnrollmentNumber INT NULL,
-    ELLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedELLEnrollment_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    ESLEnrollmentNumber INT NULL,
-    ESLEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedESLEnrollment_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedGender --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    GenderDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    GenderTypeNumber INT NULL,
-    GenderTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedGender_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, GenderDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    HispanicLatinoEthnicity BOOLEAN NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    HispanicLatinoEthnicityNumber INT NULL,
-    HispanicLatinoEthnicityPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedHispani_4ee82a_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, HispanicLatinoEthnicity)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedLanguage --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    LanguageDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    LanguageTypeNumber INT NULL,
-    LanguageTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedLanguage_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, LanguageDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedRace --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    RaceDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    RaceTypeNumber INT NULL,
-    RaceTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedRace_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, RaceDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SchoolFoodServiceProgramServiceDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TypeNumber INT NULL,
-    TypePercentage INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedSchoolF_b449c2_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SchoolFoodServiceProgramServiceDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    Number504Enrolled INT NULL,
-    Percentage504Enrolled DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedSection_23244f_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedSex --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    SexDescriptorId INT NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SexTypeNumber INT NULL,
-    SexTypePercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedSex_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate, SexDescriptorId)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedSPED --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedSPED (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    SPEDEnrollmentNumber INT NULL,
-    SPEDEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedSPED_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedSPED ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    TitleIEnrollmentNumber INT NULL,
-    TitleIEnrollmentPercentage DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsAggregatedTitleIEnrollment_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationOrganizationStudentFactsStudentsEnrolled --
-CREATE TABLE tpdm.EducationOrganizationStudentFactsStudentsEnrolled (
-    EducationOrganizationId INT NOT NULL,
-    FactAsOfDate DATE NOT NULL,
-    ValueTypeDescriptorId INT NULL,
-    NumberStudentsEnrolled INT NULL,
-    PercentAtRisk DECIMAL(5, 4) NULL,
-    PercentMobility DECIMAL(5, 4) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationOrganizationStudentFactsStudentsEnrolled_PK PRIMARY KEY (EducationOrganizationId, FactAsOfDate)
-); 
-ALTER TABLE tpdm.EducationOrganizationStudentFactsStudentsEnrolled ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.EducationServiceCenterExtension --
-CREATE TABLE tpdm.EducationServiceCenterExtension (
-    EducationServiceCenterId INT NOT NULL,
-    FederalLocaleCodeDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT EducationServiceCenterExtension_PK PRIMARY KEY (EducationServiceCenterId)
-); 
-ALTER TABLE tpdm.EducationServiceCenterExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.EducatorRoleDescriptor --
 CREATE TABLE tpdm.EducatorRoleDescriptor (
@@ -1629,6 +1333,68 @@ CREATE TABLE tpdm.FederalLocaleCodeDescriptor (
     CONSTRAINT FederalLocaleCodeDescriptor_PK PRIMARY KEY (FederalLocaleCodeDescriptorId)
 ); 
 
+-- Table tpdm.FieldworkExperience --
+CREATE TABLE tpdm.FieldworkExperience (
+    BeginDate DATE NOT NULL,
+    FieldworkIdentifier VARCHAR(64) NOT NULL,
+    StudentUSI INT NOT NULL,
+    FieldworkTypeDescriptorId INT NOT NULL,
+    HoursCompleted DECIMAL(5, 2) NULL,
+    EndDate DATE NULL,
+    ProgramGatewayDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT FieldworkExperience_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, StudentUSI)
+); 
+ALTER TABLE tpdm.FieldworkExperience ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.FieldworkExperience ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.FieldworkExperience ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.FieldworkExperienceCoteaching --
+CREATE TABLE tpdm.FieldworkExperienceCoteaching (
+    BeginDate DATE NOT NULL,
+    FieldworkIdentifier VARCHAR(64) NOT NULL,
+    StudentUSI INT NOT NULL,
+    CoteachingBeginDate DATE NOT NULL,
+    CoteachingEndDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT FieldworkExperienceCoteaching_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, StudentUSI)
+); 
+ALTER TABLE tpdm.FieldworkExperienceCoteaching ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.FieldworkExperienceSchool --
+CREATE TABLE tpdm.FieldworkExperienceSchool (
+    BeginDate DATE NOT NULL,
+    FieldworkIdentifier VARCHAR(64) NOT NULL,
+    SchoolId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT FieldworkExperienceSchool_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, SchoolId, StudentUSI)
+); 
+ALTER TABLE tpdm.FieldworkExperienceSchool ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table tpdm.FieldworkExperienceSectionAssociation --
+CREATE TABLE tpdm.FieldworkExperienceSectionAssociation (
+    BeginDate DATE NOT NULL,
+    FieldworkIdentifier VARCHAR(64) NOT NULL,
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT FieldworkExperienceSectionAssociation_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+); 
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table tpdm.FieldworkTypeDescriptor --
 CREATE TABLE tpdm.FieldworkTypeDescriptor (
     FieldworkTypeDescriptorId INT NOT NULL,
@@ -1680,21 +1446,6 @@ CREATE TABLE tpdm.GoalTypeDescriptor (
     GoalTypeDescriptorId INT NOT NULL,
     CONSTRAINT GoalTypeDescriptor_PK PRIMARY KEY (GoalTypeDescriptorId)
 ); 
-
--- Table tpdm.GradebookEntryExtension --
-CREATE TABLE tpdm.GradebookEntryExtension (
-    DateAssigned DATE NOT NULL,
-    GradebookEntryTitle VARCHAR(60) NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    ProgramGatewayDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT GradebookEntryExtension_PK PRIMARY KEY (DateAssigned, GradebookEntryTitle, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
-); 
-ALTER TABLE tpdm.GradebookEntryExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.GraduationPlanRequiredCertification --
 CREATE TABLE tpdm.GraduationPlanRequiredCertification (
@@ -2383,85 +2134,6 @@ CREATE TABLE tpdm.StaffExtension (
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 ); 
 ALTER TABLE tpdm.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffFieldworkAbsenceEvent --
-CREATE TABLE tpdm.StaffFieldworkAbsenceEvent (
-    AbsenceEventCategoryDescriptorId INT NOT NULL,
-    EventDate DATE NOT NULL,
-    StaffUSI INT NOT NULL,
-    AbsenceEventReason VARCHAR(255) NULL,
-    HoursAbsent DECIMAL(3, 2) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffFieldworkAbsenceEvent_PK PRIMARY KEY (AbsenceEventCategoryDescriptorId, EventDate, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffFieldworkExperience --
-CREATE TABLE tpdm.StaffFieldworkExperience (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    StaffUSI INT NOT NULL,
-    FieldworkTypeDescriptorId INT NOT NULL,
-    HoursCompleted DECIMAL(5, 2) NULL,
-    EndDate DATE NULL,
-    ProgramGatewayDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffFieldworkExperience_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffFieldworkExperience ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffFieldworkExperience ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffFieldworkExperience ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffFieldworkExperienceCoteaching --
-CREATE TABLE tpdm.StaffFieldworkExperienceCoteaching (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    StaffUSI INT NOT NULL,
-    CoteachingBeginDate DATE NOT NULL,
-    CoteachingEndDate DATE NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffFieldworkExperienceCoteaching_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffFieldworkExperienceCoteaching ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffFieldworkExperienceSchool --
-CREATE TABLE tpdm.StaffFieldworkExperienceSchool (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    SchoolId INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffFieldworkExperienceSchool_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, SchoolId, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffFieldworkExperienceSchool ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.StaffFieldworkExperienceSectionAssociation --
-CREATE TABLE tpdm.StaffFieldworkExperienceSectionAssociation (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    StaffUSI INT NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT StaffFieldworkExperienceSectionAssociation_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
-); 
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.StaffHighlyQualifiedAcademicSubject --
 CREATE TABLE tpdm.StaffHighlyQualifiedAcademicSubject (
@@ -3208,85 +2880,6 @@ CREATE TABLE tpdm.TeacherCandidateElectronicMail (
     CONSTRAINT TeacherCandidateElectronicMail_PK PRIMARY KEY (ElectronicMailAddress, ElectronicMailTypeDescriptorId, TeacherCandidateIdentifier)
 ); 
 ALTER TABLE tpdm.TeacherCandidateElectronicMail ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.TeacherCandidateFieldworkAbsenceEvent --
-CREATE TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent (
-    AbsenceEventCategoryDescriptorId INT NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    EventDate DATE NOT NULL,
-    AbsenceEventReason VARCHAR(255) NULL,
-    HoursAbsent DECIMAL(3, 2) NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT TeacherCandidateFieldworkAbsenceEvent_PK PRIMARY KEY (AbsenceEventCategoryDescriptorId, TeacherCandidateIdentifier)
-); 
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.TeacherCandidateFieldworkExperience --
-CREATE TABLE tpdm.TeacherCandidateFieldworkExperience (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    FieldworkTypeDescriptorId INT NOT NULL,
-    HoursCompleted DECIMAL(5, 2) NULL,
-    EndDate DATE NULL,
-    ProgramGatewayDescriptorId INT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT TeacherCandidateFieldworkExperience_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-); 
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table tpdm.TeacherCandidateFieldworkExperienceCoteaching --
-CREATE TABLE tpdm.TeacherCandidateFieldworkExperienceCoteaching (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    CoteachingBeginDate DATE NOT NULL,
-    CoteachingEndDate DATE NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT TeacherCandidateFieldworkExperienceCoteaching_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, TeacherCandidateIdentifier)
-); 
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceCoteaching ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.TeacherCandidateFieldworkExperienceSchool --
-CREATE TABLE tpdm.TeacherCandidateFieldworkExperienceSchool (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    SchoolId INT NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT TeacherCandidateFieldworkExperienceSchool_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, SchoolId, TeacherCandidateIdentifier)
-); 
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSchool ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table tpdm.TeacherCandidateFieldworkExperienceSectionAssociation --
-CREATE TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation (
-    BeginDate DATE NOT NULL,
-    FieldworkIdentifier VARCHAR(64) NOT NULL,
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-    Discriminator VARCHAR(128) NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    LastModifiedDate TIMESTAMP NOT NULL,
-    Id UUID NOT NULL,
-    CONSTRAINT TeacherCandidateFieldworkExperienceSectionAssociation_PK PRIMARY KEY (BeginDate, FieldworkIdentifier, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, TeacherCandidateIdentifier)
-); 
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.TeacherCandidateIdentificationCode --
 CREATE TABLE tpdm.TeacherCandidateIdentificationCode (

@@ -1,0 +1,16 @@
+Interchange PerformanceEvaluation
+    documentation ""
+    domain entity Evaluation
+    domain entity EvaluationRating
+    domain entity EvaluationElement
+    domain entity EvaluationElementRating
+    domain entity EvaluationObjective
+    domain entity EvaluationObjectiveRating
+    domain entity Goal
+    domain entity PerformanceEvaluation
+    domain entity PerformanceEvaluationRating
+    domain entity QuantitativeMeasure
+    domain entity QuantitativeMeasureScore
+    domain entity RubricDimension
+    domain entity EdFi.SurveySection
+    domain entity SurveySectionAggregateResponse

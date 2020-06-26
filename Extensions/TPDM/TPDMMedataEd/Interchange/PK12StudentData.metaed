@@ -1,0 +1,20 @@
+Interchange PK12StudentData
+
+    documentation "?"
+
+    domain entity AnonymizedStudent
+    domain entity AnonymizedStudentAcademicRecord
+    domain entity AnonymizedStudentAssessment
+    domain entity AnonymizedStudentCourseTranscript
+    domain entity StaffStudentGrowthMeasure
+    domain entity TeacherCandidateStudentGrowthMeasure
+
+    association AnonymizedStudentCourseAssociation
+    association AnonymizedStudentEducationOrganizationAssociation
+    association AnonymizedStudentSectionAssociation
+    association StaffStudentGrowthMeasureCourseAssociation
+    association StaffStudentGrowthMeasureEducationOrganizationAssociation
+    association StaffStudentGrowthMeasureSectionAssociation
+    association TeacherCandidateStudentGrowthMeasureCourseAssociation
+    association TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation
+    association TeacherCandidateStudentGrowthMeasureSectionAssociation

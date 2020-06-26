@@ -57,12 +57,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CompleterAsStaffAssocia
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.CredentialEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EducationOrganizationStudentFacts
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EmploymentEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
@@ -85,6 +79,12 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationObjectiveRati
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.EvaluationRating
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.FieldworkExperience
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.FieldworkExperienceSectionAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Goal
@@ -121,15 +121,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricDimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffApplicantAssociation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffFieldworkAbsenceEvent
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffFieldworkExperience
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffFieldworkExperienceSectionAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffProfessionalDevelopmentEventAttendance
@@ -172,15 +163,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateAcademi
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateCourseTranscript
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateFieldworkAbsenceEvent
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateFieldworkExperience
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateFieldworkExperienceSectionAssociation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance

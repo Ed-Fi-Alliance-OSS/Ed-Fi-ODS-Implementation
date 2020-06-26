@@ -353,25 +353,6 @@ CREATE TABLE tracked_deletes_tpdm.DegreeDescriptor
        CONSTRAINT DegreeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.EducationOrganizationFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactsAsOfDate DATE NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT EducationOrganizationFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.EducationOrganizationStudentFacts
-(
-       EducationOrganizationId INT NOT NULL,
-       FactAsOfDate DATE NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT EducationOrganizationStudentFacts_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.EducatorRoleDescriptor
 (
        EducatorRoleDescriptorId INT NOT NULL,
@@ -551,6 +532,31 @@ CREATE TABLE tracked_deletes_tpdm.FederalLocaleCodeDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT FederalLocaleCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.FieldworkExperience
+(
+       BeginDate DATE NOT NULL,
+       FieldworkIdentifier VARCHAR(64) NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT FieldworkExperience_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_tpdm.FieldworkExperienceSectionAssociation
+(
+       BeginDate DATE NOT NULL,
+       FieldworkIdentifier VARCHAR(64) NOT NULL,
+       LocalCourseCode VARCHAR(60) NOT NULL,
+       SchoolId INT NOT NULL,
+       SchoolYear SMALLINT NOT NULL,
+       SectionIdentifier VARCHAR(255) NOT NULL,
+       SessionName VARCHAR(60) NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT FieldworkExperienceSectionAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.FieldworkTypeDescriptor
@@ -889,41 +895,6 @@ CREATE TABLE tracked_deletes_tpdm.StaffApplicantAssociation
        CONSTRAINT StaffApplicantAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_tpdm.StaffFieldworkAbsenceEvent
-(
-       AbsenceEventCategoryDescriptorId INT NOT NULL,
-       EventDate DATE NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffFieldworkAbsenceEvent_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffFieldworkExperience
-(
-       BeginDate DATE NOT NULL,
-       FieldworkIdentifier VARCHAR(64) NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffFieldworkExperience_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.StaffFieldworkExperienceSectionAssociation
-(
-       BeginDate DATE NOT NULL,
-       FieldworkIdentifier VARCHAR(64) NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       StaffUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffFieldworkExperienceSectionAssociation_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_tpdm.StaffProfessionalDevelopmentEventAttendance
 (
        AttendanceDate DATE NOT NULL,
@@ -1120,40 +1091,6 @@ CREATE TABLE tracked_deletes_tpdm.TeacherCandidateCourseTranscript
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TeacherCandidateCourseTranscript_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.TeacherCandidateFieldworkAbsenceEvent
-(
-       AbsenceEventCategoryDescriptorId INT NOT NULL,
-       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TeacherCandidateFieldworkAbsenceEvent_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.TeacherCandidateFieldworkExperience
-(
-       BeginDate DATE NOT NULL,
-       FieldworkIdentifier VARCHAR(64) NOT NULL,
-       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TeacherCandidateFieldworkExperience_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_tpdm.TeacherCandidateFieldworkExperienceSectionAssociation
-(
-       BeginDate DATE NOT NULL,
-       FieldworkIdentifier VARCHAR(64) NOT NULL,
-       LocalCourseCode VARCHAR(60) NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       SectionIdentifier VARCHAR(255) NOT NULL,
-       SessionName VARCHAR(60) NOT NULL,
-       TeacherCandidateIdentifier VARCHAR(32) NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TeacherCandidateFieldworkExperienceSectionAssociation_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance

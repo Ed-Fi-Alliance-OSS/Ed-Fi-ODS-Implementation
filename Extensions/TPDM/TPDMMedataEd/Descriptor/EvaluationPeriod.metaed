@@ -1,0 +1,2 @@
+Descriptor EvaluationPeriod
+    documentation "The period for the evaluation (e.g., BOY, MOY, EOY, Summer)."

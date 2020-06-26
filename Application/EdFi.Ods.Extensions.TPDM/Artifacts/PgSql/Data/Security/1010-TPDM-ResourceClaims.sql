@@ -115,13 +115,7 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('staffProfessionalDevelopmentEventAttendance', 'staffProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProfessionalDevelopmentEventAttendance', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('staffFieldworkExperienceSectionAssociation', 'staffFieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffFieldworkExperienceSectionAssociation', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('staffFieldworkExperience', 'staffFieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/staffFieldworkExperience', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('staffFieldworkAbsenceEvent', 'staffFieldworkAbsenceEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/staffFieldworkAbsenceEvent', relationshipBasedDataResourceClaimId, appId);
+values ('fieldworkExperienceSectionAssociation', 'fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('staffEvaluationRating', 'staffEvaluationRating', 'http://ed-fi.org/ods/identity/claims/tpdm/staffEvaluationRating', relationshipBasedDataResourceClaimId, appId);
@@ -211,15 +205,6 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('teacherCandidateStaffAssociation', 'teacherCandidateStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('teacherCandidateFieldworkExperienceSectionAssociation', 'teacherCandidateFieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateFieldworkExperienceSectionAssociation', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('teacherCandidateFieldworkExperience', 'teacherCandidateFieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateFieldworkExperience', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('teacherCandidateFieldworkAbsenceEvent', 'teacherCandidateFieldworkAbsenceEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateFieldworkAbsenceEvent', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('rubricLevelResponse', 'rubricLevelResponse', 'http://ed-fi.org/ods/identity/claims/tpdm/rubricLevelResponse', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -253,12 +238,6 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('performanceMeasureFacts', 'performanceMeasureFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceMeasureFacts', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('educationOrganizationStudentFacts', 'educationOrganizationStudentFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/educationOrganizationStudentFacts', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('educationOrganizationFacts', 'educationOrganizationFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/educationOrganizationFacts', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('educationOrganizationCourseTranscriptFacts', 'educationOrganizationCourseTranscriptFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/educationOrganizationCourseTranscriptFacts', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -272,6 +251,9 @@ values ('courseStudentAcademicRecordFacts', 'courseStudentAcademicRecordFacts', 
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('courseCourseTranscriptFacts', 'courseCourseTranscriptFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/courseCourseTranscriptFacts', relationshipBasedDataResourceClaimId, appId);
+
+insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+values ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', educationOrganizationsResourceClaimId, appId);
 
 --- Descriptors ---
 
@@ -563,8 +545,6 @@ where ResourceName in ('anonymizedStudent'
 , 'anonymizedStudentAssessment'
 , 'talentManagementGoal'
 , 'teacherCandidate'
-, 'teacherCandidateFieldworkAbsenceEvent'
-, 'teacherCandidateFieldworkExperience'
 , 'teacherCandidateProfessionalDevelopmentEventAttendance'
 , 'teacherCandidateStudentGrowthMeasure'
 , 'teacherCandidateTeacherPreparationProviderAssociation'
@@ -579,8 +559,6 @@ where ResourceName in ('anonymizedStudent'
 , 'anonymizedStudentAcademicRecord'
 , 'prospect'
 , 'performanceMeasureFact'
-, 'educationOrganizationStudentFacts'
-, 'educationOrganizationFacts'
 , 'educationOrganizationCourseTranscriptFacts'
 , 'courseStudentFacts'
 , 'courseStudentAssessmentFacts'
@@ -602,7 +580,6 @@ where ResourceName in ('anonymizedStudent'
 , 'teacherCandidateStudentGrowthMeasureSectionAssociation'
 , 'teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation'
 , 'teacherCandidateStaffAssociation'
-, 'teacherCandidateFieldworkExperienceSectionAssociation'
 , 'teacherCandidateCourseTranscript'
 , 'teacherCandidateAcademicRecord'
 , 'staffTeacherPreparationProviderProgramAssociation'
@@ -612,9 +589,7 @@ where ResourceName in ('anonymizedStudent'
 , 'staffStudentGrowthMeasure'
 , 'staffProspectAssociation'
 , 'staffProfessionalDevelopmentEventAttendance'
-, 'staffFieldworkExperienceSectionAssociation'
-, 'staffFieldworkExperience'
-, 'staffFieldworkAbsenceEvent'
+, 'fieldworkExperienceSectionAssociation'
 , 'staffEvaluationRating'
 , 'staffEvaluationElementRating'
 , 'staffEvaluationElement'

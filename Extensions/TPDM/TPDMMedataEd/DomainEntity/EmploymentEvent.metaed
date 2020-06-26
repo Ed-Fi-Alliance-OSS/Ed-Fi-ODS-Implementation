@@ -1,0 +1,39 @@
+Domain Entity EmploymentEvent
+    documentation "The event associated with hiring staff for employment (or contract)."
+    descriptor EmploymentEventType
+        documentation "The type of the employment event (e.g., transfer, new hire, title change)."
+        is part of identity
+    date HireDate
+        documentation "The month, day, and year on which an individual was hired for a position."
+        is optional
+        is queryable field
+    bool EarlyHire
+        documentation "Indicator of whether this was an early hire."
+        is optional
+    descriptor InternalExternalHire
+        documentation "Indicates whether the hire was an internal or external person."
+        is optional
+    bool MutualConsent
+        documentation "Indicator of whether this was a mutual consent hire."
+        is optional
+    bool RestrictedChoice
+        documentation "Indicator of whether this was a restricted choice hire."
+        is optional
+    domain entity EdFi.OpenStaffPosition
+        documentation "The open staff position associated with the employment event."
+        is part of identity
+    domain entity EducationOrganization
+        documentation "The reference to the employing Ed Org."
+        is queryable only
+    domain entity Staff
+        documentation "The reference to the staff."
+        is queryable only
+    descriptor EmploymentStatus
+        documentation "Reflects the type of employment or contract; for example:
+                       Probationary
+                       Contractual
+                       Substitute/temporary
+                       Tenured or permanent
+                       Volunteer/no contract
+                       ..."
+        is queryable only

@@ -948,50 +948,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-CommunityOrganizationExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="CommunityOrganization">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-CommunityProviderExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="CommunityProvider">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-CredentialEvent">
     <xs:annotation>
       <xs:documentation>An event associated with a person's Credential (e.g, suspension, revocation, or renewal).</xs:documentation>
@@ -1083,233 +1039,6 @@
           <xs:element name="StudentAcademicRecordReference" type="StudentAcademicRecordReferenceType" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Reference to the person's Student Academic Records for the school(s) with which the Credential is associated.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationFacts">
-    <xs:annotation>
-      <xs:documentation>Selective fact(s) about the education organization used for comparative analysis.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="FactsAsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The as-of date for the fact(s) about the Education Organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolYear" type="SchoolYearType">
-            <xs:annotation>
-              <xs:documentation>The school year associated with the fact(s).</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="NumberAdministratorsEmployed" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Number of administrators employed by education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="NumberStudentsEnrolled" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Enrollment count of students.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="NumberTeachersEmployed" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Number of teachers employed by education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="PercentStudentsFreeReducedLunch" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The percent of students eligible for free and reduced lunches.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="PercentStudentsLimitedEnglishProficiency" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Percent of students in education organization with limited English proficiency.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="PercentStudentsSpecialEducation" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Percent of students in education organization in special education program.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>The Education Organization(s) associated with the facts.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HiringRate" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The percent of staff hired for the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="RetentionRate" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The percent of staff retained for the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="RetirementRate" type="Percent" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The percent of staff retired for the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Vacancies" type="EXTENSION-Vacancies" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>This entity represents actual and projected vacancies for the education organization.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedSalary" type="EXTENSION-AggregatedSalary" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Salary information collected at the aggregate level.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AverageYearsInDistrictEmployed" type="NumberOfYears" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The average number of years that all staff have been employed in the current district of employment.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationNetworkExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="EducationOrganizationNetwork">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationStudentFacts">
-    <xs:annotation>
-      <xs:documentation>This domain entity collects data for aggregated level students.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>The education organization associated with aggregated student data</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FactAsOfDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The date for which the data element is relevant</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StudentsEnrolled" type="EXTENSION-StudentsEnrolled" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The information about the number of students enrolled</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedSex" type="EXTENSION-AggregatedSex" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Data about the sex of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedGender" type="EXTENSION-AggregatedGender" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The information about the gender</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedHispanicLatinoEthnicity" type="EXTENSION-AggregatedHispanicLatinoEthnicity" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Data about the ethnicity of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedRace" type="EXTENSION-AggregatedRace" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Data about the race of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedSchoolFoodServiceProgramService" type="EXTENSION-AggregatedSchoolFoodServiceProgramService" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Identifies if the student is eligible for Free and Reduce Price Lunch</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedLanguage" type="EXTENSION-AggregatedLanguage" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The data about the language</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedByDisability" type="EXTENSION-AggregatedByDisability" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Information about the disability of a group aggregated by course.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedDisabilityTotalStudentsDisabled" type="EXTENSION-AggregatedDisabilityTotalStudentsDisabled" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Information about the disability of a group aggregated by course.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedELLEnrollment" type="EXTENSION-AggregatedELLEnrollment" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Data about the ELL enrollment of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedESLEnrollment" type="EXTENSION-AggregatedESLEnrollment" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Data about the ESL enrollment of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedSection504Enrollment" type="EXTENSION-AggregatedSection504Enrollment" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Information about the students who are enrolled in a 504 program</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedSPED" type="EXTENSION-AggregatedSPED" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Data about the enrollment in SPED of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AggregatedTitleIEnrollment" type="EXTENSION-AggregatedTitleIEnrollment" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Data about the enrollment in Title I of the group</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationServiceCenterExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="EducationServiceCenter">
-        <xs:sequence>
-          <xs:element name="FederalLocaleCode" type="EXTENSION-FederalLocaleCodeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The federal locale code associated with an education organization.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FederalLocaleCodeDescriptor</ann:Descriptor>
-              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1728,6 +1457,71 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperience">
+    <xs:annotation>
+      <xs:documentation>The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
+            <xs:annotation>
+              <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>The student associated with the fieldwork experience.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolReference" type="SchoolReferenceType" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The school the field work experience is associated with</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="FieldworkType" type="EXTENSION-FieldworkTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of fieldwork being executed by a staff.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-FieldworkTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HoursCompleted" type="EXTENSION-HoursCompleted" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of hours completed during the fieldwork experience.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the staff first starts fieldwork.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the staff ends fieldwork.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Coteaching" type="EXTENSION-Coteaching" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramGateway" type="EXTENSION-ProgramGatewayDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The descriptor holds the program gateway that is associated with continuation in a program.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ProgramGatewayDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-Goal">
     <xs:annotation>
       <xs:documentation>Goal for performance improvement assigned to an educator associated with an Evaluation Element.</xs:documentation>
@@ -1789,28 +1583,6 @@
           <xs:element name="Comments" type="EXTENSION-Comments" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Any comments about the goal or its completion to be captured.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-GradebookEntryExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="GradebookEntry">
-        <xs:sequence>
-          <xs:element name="ProgramGateway" type="EXTENSION-ProgramGatewayDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identifies the program gateway an assessment may be associated with for continuation in the program</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ProgramGatewayDescriptor</ann:Descriptor>
-              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2687,113 +2459,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkAbsenceEvent">
-    <xs:annotation>
-      <xs:documentation>Expanded reason for the staff absence</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>The staff associated with this absence event</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EventDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Date for this absence event</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AbsenceEventCategory" type="AbsenceEventCategoryDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AbsenceEventCategoryDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AbsenceEventReason" type="EXTENSION-AbsenceEventReason" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Expanded reason for the staff absence</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HoursAbsent" type="EXTENSION-HoursPerDay" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The hours the staff was absence if not the entire working day</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperience">
-    <xs:annotation>
-      <xs:documentation>The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
-            <xs:annotation>
-              <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>The staff the field work experience is associated with</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolReference" type="SchoolReferenceType" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The school the field work experience is associated with</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FieldworkType" type="EXTENSION-FieldworkTypeDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The type of fieldwork being executed by a staff.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FieldworkTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HoursCompleted" type="EXTENSION-HoursCompleted" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of hours completed during the fieldwork experience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BeginDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The month, day, and year on which the staff first starts fieldwork.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EndDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The month, day, and year on which the staff ends fieldwork.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Coteaching" type="EXTENSION-Coteaching" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramGateway" type="EXTENSION-ProgramGatewayDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The descriptor holds the program gateway that is associated with continuation in a program.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ProgramGatewayDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffProfessionalDevelopmentEventAttendance">
     <xs:annotation>
       <xs:documentation>This event entity represents the recording of whether a staff is in attendance for professional development.</xs:documentation>
@@ -3493,113 +3158,6 @@
           <xs:element name="AlternativeCourseCode" type="LocalCourseCode" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The local code assigned by the school that identifies the course offering, the code from an external educational organization, or other alternate course code.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkAbsenceEvent">
-    <xs:annotation>
-      <xs:documentation>Expanded reason for the staff absence</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-            <xs:annotation>
-              <xs:documentation>The staff associated with this absence event</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EventDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Date for this absence event</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AbsenceEventCategory" type="AbsenceEventCategoryDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AbsenceEventCategoryDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AbsenceEventReason" type="EXTENSION-AbsenceEventReason" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Expanded reason for the teacher candidate absence</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HoursAbsent" type="EXTENSION-HoursPerDay" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The hours the staff was absent if not the entire working day.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperience">
-    <xs:annotation>
-      <xs:documentation>The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
-            <xs:annotation>
-              <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-            <xs:annotation>
-              <xs:documentation>The teacher candidate associated with the fieldwork experience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolReference" type="SchoolReferenceType" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The school the teacher candidate is assigned to.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="FieldworkType" type="EXTENSION-FieldworkTypeDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The type of fieldwork being executed by a teacher candidate.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-FieldworkTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HoursCompleted" type="EXTENSION-HoursCompleted" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of hours completed during the fieldwork experience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BeginDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The month, day, and year on which the teacher candidate first starts fieldwork.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EndDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The month, day, and year on which the teacher candidate ends fieldwork.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Coteaching" type="EXTENSION-Coteaching" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramGateway" type="EXTENSION-ProgramGatewayDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The descriptor holds the program gateway that is associated with continuation in a program.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ProgramGatewayDescriptor</ann:Descriptor>
-              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -4741,6 +4299,30 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperienceSectionAssociation">
+    <xs:annotation>
+      <xs:documentation>The section the field work experience is associated with.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="FieldworkExperienceReference" type="EXTENSION-FieldworkExperienceReferenceType">
+            <xs:annotation>
+              <xs:documentation>Reference to FieldworkExperience.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SectionReference" type="SectionReferenceType">
+            <xs:annotation>
+              <xs:documentation>The section the field work experience is associated with.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffApplicantAssociation">
     <xs:annotation>
       <xs:documentation>Associated applicant(s) represented by this staff member.</xs:documentation>
@@ -4778,30 +4360,6 @@
           <xs:element name="YearsOfExperienceAtCurrentEducationOrganization" type="NumberOfYears" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The total number of years that an individual has previously held a teaching position in one or more education institutions.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperienceSectionAssociation">
-    <xs:annotation>
-      <xs:documentation>The section the field work experience is associated with.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="StaffFieldworkExperienceReference" type="EXTENSION-StaffFieldworkExperienceReferenceType">
-            <xs:annotation>
-              <xs:documentation>Reference to StaffFieldworkExperience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SectionReference" type="SectionReferenceType">
-            <xs:annotation>
-              <xs:documentation>The section the field work experience is associated with.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -5068,30 +4626,6 @@
           <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
             <xs:annotation>
               <xs:documentation>Reference to the teacher candidate.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociation">
-    <xs:annotation>
-      <xs:documentation>The section the teacher candidate is assigned to.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateFieldworkExperienceReference" type="EXTENSION-TeacherCandidateFieldworkExperienceReferenceType">
-            <xs:annotation>
-              <xs:documentation>Reference to TeacherCandidateFieldworkExperience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SectionReference" type="SectionReferenceType">
-            <xs:annotation>
-              <xs:documentation>The section the teacher candidate is assigned to.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -6125,89 +5659,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationFactsIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of an EducationOrganizationFacts.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="FactsAsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The as-of date for the fact(s) about the Education Organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SchoolYear" type="SchoolYearType">
-        <xs:annotation>
-          <xs:documentation>The school year associated with the fact(s).</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>The Education Organization(s) associated with the facts.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationFactsReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an EducationOrganizationFacts. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="EducationOrganizationFactsIdentity" type="EXTENSION-EducationOrganizationFactsIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of an EducationOrganizationFacts.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationStudentFactsIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of an EducationOrganizationStudentFacts.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>The education organization associated with aggregated student data</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="FactAsOfDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The date for which the data element is relevant</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-EducationOrganizationStudentFactsReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for an EducationOrganizationStudentFacts. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="EducationOrganizationStudentFactsIdentity" type="EXTENSION-EducationOrganizationStudentFactsIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of an EducationOrganizationStudentFacts.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-EmploymentEventIdentityType">
     <xs:annotation>
       <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of an EmploymentEvent.</xs:documentation>
@@ -6522,6 +5973,89 @@
           <xs:element name="EvaluationIdentity" type="EXTENSION-EvaluationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of an Evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperienceIdentityType">
+    <xs:annotation>
+      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a FieldworkExperience.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
+        <xs:annotation>
+          <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>The student associated with the fieldwork experience.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeginDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The month, day, and year on which the staff first starts fieldwork.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperienceReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a FieldworkExperience. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="FieldworkExperienceIdentity" type="EXTENSION-FieldworkExperienceIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a FieldworkExperience.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperienceSectionAssociationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a FieldworkExperienceSectionAssociation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="FieldworkExperienceReference" type="EXTENSION-FieldworkExperienceReferenceType">
+        <xs:annotation>
+          <xs:documentation>Reference to FieldworkExperience.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SectionReference" type="SectionReferenceType">
+        <xs:annotation>
+          <xs:documentation>The section the field work experience is associated with.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-FieldworkExperienceSectionAssociationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a FieldworkExperienceSectionAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="FieldworkExperienceSectionAssociationIdentity" type="EXTENSION-FieldworkExperienceSectionAssociationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a FieldworkExperienceSectionAssociation.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -7014,136 +6548,6 @@
           <xs:element name="StaffApplicantAssociationIdentity" type="EXTENSION-StaffApplicantAssociationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a StaffApplicantAssociation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkAbsenceEventIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a StaffFieldworkAbsenceEvent.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>The staff associated with this absence event</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="EventDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>Date for this absence event</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AbsenceEventCategory" type="AbsenceEventCategoryDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>AbsenceEventCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkAbsenceEventReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a StaffFieldworkAbsenceEvent. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="StaffFieldworkAbsenceEventIdentity" type="EXTENSION-StaffFieldworkAbsenceEventIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a StaffFieldworkAbsenceEvent.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperienceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a StaffFieldworkExperience.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
-        <xs:annotation>
-          <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>The staff the field work experience is associated with</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="BeginDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The month, day, and year on which the staff first starts fieldwork.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperienceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a StaffFieldworkExperience. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="StaffFieldworkExperienceIdentity" type="EXTENSION-StaffFieldworkExperienceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a StaffFieldworkExperience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperienceSectionAssociationIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a StaffFieldworkExperienceSectionAssociation.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="StaffFieldworkExperienceReference" type="EXTENSION-StaffFieldworkExperienceReferenceType">
-        <xs:annotation>
-          <xs:documentation>Reference to StaffFieldworkExperience.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SectionReference" type="SectionReferenceType">
-        <xs:annotation>
-          <xs:documentation>The section the field work experience is associated with.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffFieldworkExperienceSectionAssociationReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a StaffFieldworkExperienceSectionAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="StaffFieldworkExperienceSectionAssociationIdentity" type="EXTENSION-StaffFieldworkExperienceSectionAssociationIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a StaffFieldworkExperienceSectionAssociation.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -7691,131 +7095,6 @@
           <xs:element name="TeacherCandidateCourseTranscriptIdentity" type="EXTENSION-TeacherCandidateCourseTranscriptIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a TeacherCandidateCourseTranscript.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkAbsenceEventIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a TeacherCandidateFieldworkAbsenceEvent.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-        <xs:annotation>
-          <xs:documentation>The staff associated with this absence event</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AbsenceEventCategory" type="AbsenceEventCategoryDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>AbsenceEventCategoryDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkAbsenceEventReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherCandidateFieldworkAbsenceEvent. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateFieldworkAbsenceEventIdentity" type="EXTENSION-TeacherCandidateFieldworkAbsenceEventIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a TeacherCandidateFieldworkAbsenceEvent.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperienceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherCandidateFieldworkExperience.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="FieldworkIdentifier" type="EXTENSION-FieldworkIdentifier">
-        <xs:annotation>
-          <xs:documentation>The unique identifier for the fieldwork experience</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-        <xs:annotation>
-          <xs:documentation>The teacher candidate associated with the fieldwork experience.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="BeginDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>The month, day, and year on which the teacher candidate first starts fieldwork.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperienceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherCandidateFieldworkExperience. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateFieldworkExperienceIdentity" type="EXTENSION-TeacherCandidateFieldworkExperienceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Encapsulates primary attributes that can be used to look up the identity of a TeacherCandidateFieldworkExperience.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociationIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a TeacherCandidateFieldworkExperienceSectionAssociation.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherCandidateFieldworkExperienceReference" type="EXTENSION-TeacherCandidateFieldworkExperienceReferenceType">
-        <xs:annotation>
-          <xs:documentation>Reference to TeacherCandidateFieldworkExperience.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SectionReference" type="SectionReferenceType">
-        <xs:annotation>
-          <xs:documentation>The section the teacher candidate is assigned to.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociationReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherCandidateFieldworkExperienceSectionAssociation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateFieldworkExperienceSectionAssociationIdentity" type="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociationIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a TeacherCandidateFieldworkExperienceSectionAssociation.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -8850,430 +8129,6 @@
   <xs:annotation>
     <xs:documentation>===== Common Types =====</xs:documentation>
   </xs:annotation>
-  <xs:complexType name="EXTENSION-AggregatedByDisability">
-    <xs:annotation>
-      <xs:documentation>Students in the course who have a disability by disability type</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Disability" type="DisabilityDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>Data about the disability of a group.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>DisabilityDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of student who have a disability by disability type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Percentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who have a disability by each specific disability type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedDisabilityTotalStudentsDisabled">
-    <xs:annotation>
-      <xs:documentation>Information about the total number of students with a disability.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StudentsDisabledNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who have a disability.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StudentsDisabledPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>Percentage of students who have a disability</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedELLEnrollment">
-    <xs:annotation>
-      <xs:documentation>Data about the ELL enrollment of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ELLEnrollmentNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who are ELL.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ELLEnrollmentPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are identified as ELL</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedESLEnrollment">
-    <xs:annotation>
-      <xs:documentation>Data about the ESL enrollment of the group	ESL</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ESLEnrollmentNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who are ESL.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ESLEnrollmentPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are identified as ESL</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedGender">
-    <xs:annotation>
-      <xs:documentation>The information about the gender</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Gender" type="EXTENSION-GenderDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The gender with which a person associates.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-GenderDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="GenderTypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who identify by each gender type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="GenderTypePercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who associate with each gender type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedHispanicLatinoEthnicity">
-    <xs:annotation>
-      <xs:documentation>Data about the Eth ethnicity of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="HispanicLatinoEthnicity" type="xs:boolean">
-        <xs:annotation>
-          <xs:documentation>An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="HispanicLatinoEthnicityNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who are hispanic/latino</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="HispanicLatinoEthnicityPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are identified as hispanic/latino.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedLanguage">
-    <xs:annotation>
-      <xs:documentation>The data about the language</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Language" type="LanguageDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>Data about the language of the group</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="LanguageTypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students by each language type.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="LanguageTypePercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students by language type.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedRace">
-    <xs:annotation>
-      <xs:documentation>Data about the race of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Race" type="RaceDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>RaceDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="RaceTypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students by each race type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="RaceTypePercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students by each race type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedSalary">
-    <xs:annotation>
-      <xs:documentation>Salary information collected at the aggregate level.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="AverageSalary" type="Currency">
-        <xs:annotation>
-          <xs:documentation>The average of salaries collected at the aggregate level.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="CountOfSalariesAveraged" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of salaries averaged that were collected at the aggregate level.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="StandardDeviation" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The standard deviation of the salaries collected at the aggregate level.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SalaryMinRange" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The minimum value in a salary range for staff.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SalaryMaxRange" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The maximum value in a salary range for staff.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedSchoolFoodServiceProgramService">
-    <xs:annotation>
-      <xs:documentation>Identifies if the student is eligible for Free and Reduce Price Lunch</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SchoolFoodServiceProgramService" type="SchoolFoodServiceProgramServiceDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>Information about the students who are enrolled based on School Food Services Eligibility</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>SchoolFoodServiceProgramServiceDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students eligibile for SchoolFoodServicesEligibility by category</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TypePercentage" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are eligible for SchoolFoodServicesEligibility by type.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedSection504Enrollment">
-    <xs:annotation>
-      <xs:documentation>Information about the students who are enrolled in a 504 program</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Number504Enrolled" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students who are enrolled in a 504 program</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Percentage504Enrolled" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are enrolled in a 504 program</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedSex">
-    <xs:annotation>
-      <xs:documentation>Data about the sex of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="Sex" type="SexDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>A person's gender.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>SexDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SexTypeNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students by each sex type</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SexTypePercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students by each sex type.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedSPED">
-    <xs:annotation>
-      <xs:documentation>Data about the enrollment in SPED of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SPEDEnrollmentNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students enrolled in SPED</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="SPEDEnrollmentPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students enrolled in a SPED program.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-AggregatedSurveyQuestionMatrixElementResponse">
     <xs:annotation>
       <xs:documentation>Matrix element response survey data provided at the aggregate level.</xs:documentation>
@@ -9300,34 +8155,6 @@
       <xs:element name="NumericResponseStandardDeviation" type="xs:int" minOccurs="0">
         <xs:annotation>
           <xs:documentation>A measure used to quantify the amount of variation or dispersion of a set of data values, in this case specific to the average numeric grade for a group of students</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-AggregatedTitleIEnrollment">
-    <xs:annotation>
-      <xs:documentation>Data about the enrollment in Title I of the group</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TitleIEnrollmentNumber" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The number of students eligible for Title I</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TitleIEnrollmentPercentage" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who are Title I eligible.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -9853,39 +8680,6 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StudentsEnrolled">
-    <xs:annotation>
-      <xs:documentation>This aggregated fact entity holds the information regarding number of students enrolled in an education organization, course, or section or have data pertaining to academic records or assessments.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The value of the data, i.e., is the data projected, actual or other</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NumberStudentsEnrolled" type="xs:int" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The total number of students enrolled in the respective Section.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="PercentAtRisk" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percent of students who have been identified as at risk.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="PercentMobility" type="Percent" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The percentage of students who have moved at least once during the school year.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TeacherCandidateAbsenceEvent">
     <xs:annotation>
       <xs:documentation>The information regarding the teacher candidate absence event.</xs:documentation>
@@ -10148,45 +8942,6 @@
       <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType">
         <xs:annotation>
           <xs:documentation>The grade level associated with the degree plan for the teacher candidate.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-Vacancies">
-    <xs:annotation>
-      <xs:documentation>This entity represents actual and projected vacancies for the education organization.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Common</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ValueType" type="EXTENSION-ValueTypeDescriptorReferenceType" minOccurs="0">
-        <xs:annotation>
-          <xs:documentation>The type (i.e. actual or projected) of value.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-ValueTypeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AcademicSubject" type="AcademicSubjectDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a vacancy.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="NumberOfVacancies" type="xs:int">
-        <xs:annotation>
-          <xs:documentation>The number of vacancies, projected or actual, associated with an education organization.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="GradeLevel" type="GradeLevelDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
-        <xs:annotation>
-          <xs:documentation>The grade level(s) for which the vacancy is responsible.</xs:documentation>
           <xs:appinfo>
             <ann:Descriptor>GradeLevelDescriptor</ann:Descriptor>
           </xs:appinfo>

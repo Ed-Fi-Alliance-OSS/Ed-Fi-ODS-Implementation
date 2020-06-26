@@ -1,0 +1,34 @@
+Domain Entity PerformanceEvaluation
+    documentation "A performance evaluation of an educator, typically regularly scheduled and uniformly applied, comporsed of one or more Evaluations."
+    shared string EvaluationTitle
+        documentation "An assigned unique identifier for the performance evaluation."
+        is part of identity
+        role name Performance
+    descriptor EdFi.Term
+        documentation "The term for the session during the school year."
+        is part of identity
+    descriptor PerformanceEvaluationType
+        documentation "The type (e.g., walkthrough, summative) of performance evaluation conducted."
+        is part of identity
+    common RatingLevel
+        documentation "The descriptive level(s) of ratings (cut scores) for the evaluation."
+        is optional collection
+        role name PerformanceEvaluation
+    enumeration EdFi.SchoolYear
+        documentation "The identifier for the school year."
+        is required
+    descriptor EvaluationPeriod
+        documentation "The period for the evaluation (e.g., BOY, MOY, EOY, Summer)."
+        is required
+    domain entity EdFi.EducationOrganization
+        documentation "Provides user information to lookup and link to an existing educational organization record."
+        is required
+    descriptor EdFi.AcademicSubject
+        documentation "The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance evaluation."
+        is optional
+    descriptor EdFi.GradeLevel
+        documentation "The grade levels involved with the performance evaluation."
+        is optional collection
+    descriptor ProgramGateway
+        documentation "Identifies the program gateway that may be associated for continuation in the program."
+        is optional collection

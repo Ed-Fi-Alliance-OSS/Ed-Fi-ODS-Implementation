@@ -1,0 +1,2 @@
+Descriptor ApplicationEventType
+  documentation "The descriptor holds the description of application event (e.g., added to pool, phone screen, interview, sample lesson)."

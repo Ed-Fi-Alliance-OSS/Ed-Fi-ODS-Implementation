@@ -1,0 +1,2 @@
+Descriptor CertificationExamType
+  documentation "The descriptor holds the type of certification exam that was taken."

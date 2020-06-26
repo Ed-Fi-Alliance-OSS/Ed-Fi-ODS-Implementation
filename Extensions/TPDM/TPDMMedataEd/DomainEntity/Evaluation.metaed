@@ -1,0 +1,26 @@
+Domain Entity Evaluation
+    documentation "An evaluation instrument appled to evaluate an educator.  The evaluation could be internally developed, or could be an industry recognized instrument such as TTESS or Marzano."
+    domain entity PerformanceEvaluation
+        documentation "Reference to the person's Performance Evalution."
+        is part of identity
+    shared string EvaluationTitle
+        documentation "The name or title of the evaluation."
+        is part of identity
+    shared decimal Rating
+        documentation "The minimum summary numerical rating or score for the evaluation. If omitted, assumed to be 0.0."
+        is optional
+        role name Min
+    shared decimal Rating
+        documentation "The maximum summary numerical rating or score for the evaluation."
+        is optional
+        role name Max
+    descriptor EvaluationType
+        documentation "The type of the evaluation (e.g., observation, principal, peer, student survey, student growth)."
+        is optional
+    common RatingLevel
+        documentation "The descriptive level(s) of ratings (cut scores) for the evaluation."
+        is optional collection
+        role name Evaluation
+    integer InterRaterReliabilityScore
+        documentation "A score indicating how much homogeneity, or consensus, there is in the ratings given by judges."
+        is optional

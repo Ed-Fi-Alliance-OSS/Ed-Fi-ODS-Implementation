@@ -1,0 +1,4 @@
+Shared String ResearchExperienceTitle
+  documentation "The title of the research experience."
+  min length 1
+  max length 60

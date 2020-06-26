@@ -1,0 +1,2 @@
+Descriptor OpenStaffPositionEventType
+    documentation "The descriptor holds the milestones like vacancy approved, vacancy posted, date onboarded. processing date, orientation date  etc."

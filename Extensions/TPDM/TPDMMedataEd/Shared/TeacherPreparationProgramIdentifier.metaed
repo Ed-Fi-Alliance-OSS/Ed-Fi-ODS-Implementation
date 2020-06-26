@@ -1,0 +1,4 @@
+Shared String TeacherPreparationProgramIdentifier
+    documentation "An ID assigned to the teacher preparation program."
+    min length 1
+    max length 75

@@ -1,0 +1,17 @@
+Common CurrentPosition
+    documentation "The current position of the prospect."
+    shared string EdFi.NameOfInstitution
+        documentation "The formal name of the education organization."
+        is required
+    shared string EdFi.Whereabouts named Location
+        documentation "The location, typically City and State, for the institution."
+        is required
+    shared string EdFi.PositionTitle
+        documentation "The descriptive name of an individual's position."
+        is required
+    descriptor EdFi.AcademicSubject
+        documentation "The academic subject the staff person's assignment to a school."
+        is optional
+    descriptor EdFi.GradeLevel
+        documentation "The set of grade levels for which the individual's assignment is responsible."
+        is optional collection

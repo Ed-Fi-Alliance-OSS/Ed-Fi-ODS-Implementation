@@ -1,0 +1,8 @@
+Common Touchpoint
+    documentation "Content associated with different touchpoints with the prospect."
+    shared string TouchpointContent
+        documentation "The content associated with or an artifact from the touchpoint."
+        is part of identity
+    date TouchpointDate
+        documentation "The date of the touchpoint."
+        is part of identity

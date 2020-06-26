@@ -1,0 +1,33 @@
+Domain Entity TeacherPreparationProviderProgram
+  documentation "This entity represents information regarding a teacher preparation provider program."
+    domain entity EdFi.EducationOrganization
+      documentation "Relates the program to an EducationOrganization."
+      is part of identity
+      is queryable field
+    shared string EdFi.ProgramId
+      documentation "A unique number or alphanumeric code assigned to a program by a school, school system, a state, or other agency or entity."
+      is optional
+      is queryable field
+    shared string TeacherPreparationProgramName named ProgramName
+      documentation "The name of the Teacher Preparation Program."
+      is part of identity
+      is queryable field
+    descriptor EdFi.ProgramType
+      documentation "The type of program."
+      is part of identity
+      is queryable field
+    descriptor EdFi.GradeLevel
+      documentation "The grade levels served at the TPP Program."
+      is optional collection
+    shared string Specialization named MajorSpecialization
+      documentation "The major area for a degree or area of specialization for a certificate."
+      is optional
+    shared string Specialization named MinorSpecialization
+      documentation "The minor area for a degree or area of specialization for a certificate."
+      is optional
+    descriptor TeacherPreparationProgramType
+      documentation "The descriptor holds the type of teacher prep program (e.g., college, alternative, TFA, etc.)."
+      is optional
+    descriptor TPPProgramPathway
+      documentation "A code for describing the program pathway, for example: Residency, Internship, Traditional"
+      is optional

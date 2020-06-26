@@ -1,0 +1,4 @@
+Shared String Comments
+    documentation "Any comments to be captured."
+    min length 1
+    max length 1024

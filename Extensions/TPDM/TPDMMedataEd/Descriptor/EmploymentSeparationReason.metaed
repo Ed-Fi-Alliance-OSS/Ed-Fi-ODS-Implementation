@@ -1,0 +1,2 @@
+Descriptor EmploymentSeparationReason
+    documentation "The descriptor holds the reason(s) for the separation."

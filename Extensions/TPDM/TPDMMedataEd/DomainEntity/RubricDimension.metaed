@@ -1,0 +1,18 @@
+Domain Entity RubricDimension
+    documentation "The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric rating and rating level."
+    domain entity EvaluationElement
+        documentation "The Evaluation Element associated with the rubric dimension."
+        is part of identity
+    integer RubricRating
+        documentation "The rating achieved for the rubric dimension."
+        is part of identity
+    descriptor RubricRatingLevel
+        documentation "The rating level achieved for the rubric dimension."
+        is optional
+    shared string EdFi.Description
+        documentation "The criterion description for the rubric dimension."
+        is required
+        role name Criterion
+    integer DimensionOrder
+        documentation "The order for the rubric dimension."
+        is optional

@@ -586,16 +586,6 @@ COMMENT ON COLUMN tpdm.CertificationRouteDescriptor.CertificationRouteDescriptor
 COMMENT ON TABLE tpdm.CertificationStandardDescriptor IS 'The standard, law or policy defining the certification.';
 COMMENT ON COLUMN tpdm.CertificationStandardDescriptor.CertificationStandardDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [tpdm].[CommunityOrganizationExtension] --
-COMMENT ON TABLE tpdm.CommunityOrganizationExtension IS '';
-COMMENT ON COLUMN tpdm.CommunityOrganizationExtension.CommunityOrganizationId IS 'The identifier assigned to a CommunityOrganization.';
-COMMENT ON COLUMN tpdm.CommunityOrganizationExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-
--- Extended Properties [tpdm].[CommunityProviderExtension] --
-COMMENT ON TABLE tpdm.CommunityProviderExtension IS '';
-COMMENT ON COLUMN tpdm.CommunityProviderExtension.CommunityProviderId IS 'The identifier assigned to a CommunityProvider.';
-COMMENT ON COLUMN tpdm.CommunityProviderExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-
 -- Extended Properties [tpdm].[CompleterAsStaffAssociation] --
 COMMENT ON TABLE tpdm.CompleterAsStaffAssociation IS 'This describes a teacher candidate who has completed a teacher prep program and is considered a completer who is now also employed as a staff member in a partnering K12 district.  This is the same person but may have two different identifiers, one as a (former) teacher candidate and one as an employed staff person.';
 COMMENT ON COLUMN tpdm.CompleterAsStaffAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
@@ -647,185 +637,6 @@ COMMENT ON COLUMN tpdm.CredentialStudentAcademicRecord.TermDescriptorId IS 'The 
 -- Extended Properties [tpdm].[DegreeDescriptor] --
 COMMENT ON TABLE tpdm.DegreeDescriptor IS 'The minimum level of degree, if any, required for Certification.';
 COMMENT ON COLUMN tpdm.DegreeDescriptor.DegreeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[EducationOrganizationFacts] --
-COMMENT ON TABLE tpdm.EducationOrganizationFacts IS 'Selective fact(s) about the education organization used for comparative analysis.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.FactsAsOfDate IS 'The as-of date for the fact(s) about the Education Organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.SchoolYear IS 'The school year associated with the fact(s).';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.NumberAdministratorsEmployed IS 'Number of administrators employed by education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.NumberStudentsEnrolled IS 'Enrollment count of students.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.NumberTeachersEmployed IS 'Number of teachers employed by education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.PercentStudentsFreeReducedLunch IS 'The percent of students eligible for free and reduced lunches.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.PercentStudentsLimitedEnglishProficiency IS 'Percent of students in education organization with limited English proficiency.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.PercentStudentsSpecialEducation IS 'Percent of students in education organization in special education program.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.HiringRate IS 'The percent of staff hired for the education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.RetentionRate IS 'The percent of staff retained for the education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.RetirementRate IS 'The percent of staff retired for the education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFacts.AverageYearsInDistrictEmployed IS 'The average number of years that all staff have been employed in the current district of employment.';
-
--- Extended Properties [tpdm].[EducationOrganizationFactsAggregatedSalary] --
-COMMENT ON TABLE tpdm.EducationOrganizationFactsAggregatedSalary IS 'Salary information collected at the aggregate level.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.FactsAsOfDate IS 'The as-of date for the fact(s) about the Education Organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.SchoolYear IS 'The school year associated with the fact(s).';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.AverageSalary IS 'The average of salaries collected at the aggregate level.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.CountOfSalariesAveraged IS 'The number of salaries averaged that were collected at the aggregate level.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.StandardDeviation IS 'The standard deviation of the salaries collected at the aggregate level.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.SalaryMinRange IS 'The minimum value in a salary range for staff.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsAggregatedSalary.SalaryMaxRange IS 'The maximum value in a salary range for staff.';
-
--- Extended Properties [tpdm].[EducationOrganizationFactsVacancies] --
-COMMENT ON TABLE tpdm.EducationOrganizationFactsVacancies IS 'This entity represents actual and projected vacancies for the education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a vacancy.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.FactsAsOfDate IS 'The as-of date for the fact(s) about the Education Organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.SchoolYear IS 'The school year associated with the fact(s).';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.ValueTypeDescriptorId IS 'The type (i.e. actual or projected) of value.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacancies.NumberOfVacancies IS 'The number of vacancies, projected or actual, associated with an education organization.';
-
--- Extended Properties [tpdm].[EducationOrganizationFactsVacanciesGradeLevel] --
-COMMENT ON TABLE tpdm.EducationOrganizationFactsVacanciesGradeLevel IS 'The grade level(s) for which the vacancy is responsible.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.AcademicSubjectDescriptorId IS 'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a vacancy.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.FactsAsOfDate IS 'The as-of date for the fact(s) about the Education Organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.GradeLevelDescriptorId IS 'The grade level(s) for which the vacancy is responsible.';
-COMMENT ON COLUMN tpdm.EducationOrganizationFactsVacanciesGradeLevel.SchoolYear IS 'The school year associated with the fact(s).';
-
--- Extended Properties [tpdm].[EducationOrganizationNetworkExtension] --
-COMMENT ON TABLE tpdm.EducationOrganizationNetworkExtension IS '';
-COMMENT ON COLUMN tpdm.EducationOrganizationNetworkExtension.EducationOrganizationNetworkId IS 'The identifier assigned to a network of education organizations.';
-COMMENT ON COLUMN tpdm.EducationOrganizationNetworkExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFacts] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFacts IS 'This domain entity collects data for aggregated level students.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFacts.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFacts.FactAsOfDate IS 'The date for which the data element is relevant';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedByDisability] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedByDisability IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.DisabilityDescriptorId IS 'Data about the disability of a group.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.TypeNumber IS 'The number of student who have a disability by disability type';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedByDisability.Percentage IS 'The percentage of students who have a disability by each specific disability type';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e IS 'Information about the disability of a group aggregated by course.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e.StudentsDisabledNumber IS 'The number of students who have a disability.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedDisabilityTot_2e2e1e.StudentsDisabledPercentage IS 'Percentage of students who have a disability';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedELLEnrollment] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment IS 'Data about the ELL enrollment of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment.ELLEnrollmentNumber IS 'The number of students who are ELL.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedELLEnrollment.ELLEnrollmentPercentage IS 'The percentage of students who are identified as ELL';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedESLEnrollment] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment IS 'Data about the ESL enrollment of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment.ESLEnrollmentNumber IS 'The number of students who are ESL.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedESLEnrollment.ESLEnrollmentPercentage IS 'The percentage of students who are identified as ESL';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedGender] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedGender IS 'The information about the gender';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.GenderDescriptorId IS 'The gender with which a person associates.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.GenderTypeNumber IS 'The number of students who identify by each gender type';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedGender.GenderTypePercentage IS 'The percentage of students who associate with each gender type';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a IS 'Data about the ethnicity of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.HispanicLatinoEthnicity IS 'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.HispanicLatinoEthnicityNumber IS 'The number of students who are hispanic/latino';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedHispanicLatin_4ee82a.HispanicLatinoEthnicityPercentage IS 'The percentage of students who are identified as hispanic/latino.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedLanguage] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedLanguage IS 'The data about the language';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.LanguageDescriptorId IS 'Data about the language of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.LanguageTypeNumber IS 'The number of students by each language type.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedLanguage.LanguageTypePercentage IS 'The percentage of students by language type.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedRace] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedRace IS 'Data about the race of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.RaceDescriptorId IS 'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.RaceTypeNumber IS 'The number of students by each race type';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedRace.RaceTypePercentage IS 'The percentage of students by each race type';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2 IS 'Identifies if the student is eligible for Free and Reduce Price Lunch';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.SchoolFoodServiceProgramServiceDescriptorId IS 'Information about the students who are enrolled based on School Food Services Eligibility';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.TypeNumber IS 'The number of students eligibile for SchoolFoodServicesEligibility by category';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSchoolFoodSer_b449c2.TypePercentage IS 'The percentage of students who are eligible for SchoolFoodServicesEligibility by type.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSection504Enrollment] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment IS 'Information about the students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment.Number504Enrolled IS 'The number of students who are enrolled in a 504 program';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSection504Enrollment.Percentage504Enrolled IS 'The percentage of students who are enrolled in a 504 program';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSex] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedSex IS 'Data about the sex of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.SexDescriptorId IS 'A person''s gender.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.SexTypeNumber IS 'The number of students by each sex type';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSex.SexTypePercentage IS 'The percentage of students by each sex type.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSPED] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedSPED IS 'Data about the enrollment in SPED of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSPED.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSPED.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSPED.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSPED.SPEDEnrollmentNumber IS 'The number of students enrolled in SPED';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedSPED.SPEDEnrollmentPercentage IS 'The percentage of students enrolled in a SPED program.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedTitleIEnrollment] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment IS 'Data about the enrollment in Title I of the group';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentNumber IS 'The number of students eligible for Title I';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsAggregatedTitleIEnrollment.TitleIEnrollmentPercentage IS 'The percentage of students who are Title I eligible.';
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsStudentsEnrolled] --
-COMMENT ON TABLE tpdm.EducationOrganizationStudentFactsStudentsEnrolled IS 'The information about the number of students enrolled';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.FactAsOfDate IS 'The date for which the data element is relevant';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.ValueTypeDescriptorId IS 'The value of the data, i.e., is the data projected, actual or other';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.NumberStudentsEnrolled IS 'The total number of students enrolled in the respective Section.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.PercentAtRisk IS 'The percent of students who have been identified as at risk.';
-COMMENT ON COLUMN tpdm.EducationOrganizationStudentFactsStudentsEnrolled.PercentMobility IS 'The percentage of students who have moved at least once during the school year.';
-
--- Extended Properties [tpdm].[EducationServiceCenterExtension] --
-COMMENT ON TABLE tpdm.EducationServiceCenterExtension IS '';
-COMMENT ON COLUMN tpdm.EducationServiceCenterExtension.EducationServiceCenterId IS 'The identifier assigned to an education service center.';
-COMMENT ON COLUMN tpdm.EducationServiceCenterExtension.FederalLocaleCodeDescriptorId IS 'The federal locale code associated with an education organization.';
 
 -- Extended Properties [tpdm].[EducatorRoleDescriptor] --
 COMMENT ON TABLE tpdm.EducatorRoleDescriptor IS 'The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications.';
@@ -1071,6 +882,42 @@ COMMENT ON COLUMN tpdm.EvaluationTypeDescriptor.EvaluationTypeDescriptorId IS 'A
 COMMENT ON TABLE tpdm.FederalLocaleCodeDescriptor IS 'The descriptor holds the federal locale code applicable to an education organization.';
 COMMENT ON COLUMN tpdm.FederalLocaleCodeDescriptor.FederalLocaleCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [tpdm].[FieldworkExperience] --
+COMMENT ON TABLE tpdm.FieldworkExperience IS 'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
+COMMENT ON COLUMN tpdm.FieldworkExperience.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.FieldworkTypeDescriptorId IS 'The type of fieldwork being executed by a staff.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.HoursCompleted IS 'The number of hours completed during the fieldwork experience.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.EndDate IS 'The month, day, and year on which the staff ends fieldwork.';
+COMMENT ON COLUMN tpdm.FieldworkExperience.ProgramGatewayDescriptorId IS 'The descriptor holds the program gateway that is associated with continuation in a program.';
+
+-- Extended Properties [tpdm].[FieldworkExperienceCoteaching] --
+COMMENT ON TABLE tpdm.FieldworkExperienceCoteaching IS 'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceCoteaching.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceCoteaching.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
+COMMENT ON COLUMN tpdm.FieldworkExperienceCoteaching.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceCoteaching.CoteachingBeginDate IS 'The month, day, and year on which the teacher candidate first starts co-teaching.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceCoteaching.CoteachingEndDate IS 'The month, day, and year on which the teacher candidate stopped co-teaching.';
+
+-- Extended Properties [tpdm].[FieldworkExperienceSchool] --
+COMMENT ON TABLE tpdm.FieldworkExperienceSchool IS 'The school the field work experience is associated with';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSchool.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSchool.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSchool.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSchool.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
+-- Extended Properties [tpdm].[FieldworkExperienceSectionAssociation] --
+COMMENT ON TABLE tpdm.FieldworkExperienceSectionAssociation IS 'The section the field work experience is associated with.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN tpdm.FieldworkExperienceSectionAssociation.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+
 -- Extended Properties [tpdm].[FieldworkTypeDescriptor] --
 COMMENT ON TABLE tpdm.FieldworkTypeDescriptor IS 'The descriptor holds the type of fieldwork being executed by a teacher candidate.';
 COMMENT ON COLUMN tpdm.FieldworkTypeDescriptor.FieldworkTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -1105,17 +952,6 @@ COMMENT ON COLUMN tpdm.Goal.Comments IS 'Any comments about the goal or its comp
 -- Extended Properties [tpdm].[GoalTypeDescriptor] --
 COMMENT ON TABLE tpdm.GoalTypeDescriptor IS 'The type of the goal (e.g., management, instruction).';
 COMMENT ON COLUMN tpdm.GoalTypeDescriptor.GoalTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [tpdm].[GradebookEntryExtension] --
-COMMENT ON TABLE tpdm.GradebookEntryExtension IS '';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.DateAssigned IS 'The date the assignment, homework, or assessment was assigned or executed.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.GradebookEntryTitle IS 'The name or title of the activity to be recorded in the GradebookEntry.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.GradebookEntryExtension.ProgramGatewayDescriptorId IS 'Identifies the program gateway an assessment may be associated with for continuation in the program';
 
 -- Extended Properties [tpdm].[GraduationPlanRequiredCertification] --
 COMMENT ON TABLE tpdm.GraduationPlanRequiredCertification IS 'The title or reference to the certifiation(s) required for graduation.';
@@ -1563,50 +1399,6 @@ COMMENT ON COLUMN tpdm.StaffExtension.ProbationCompleteDate IS 'The date the pro
 COMMENT ON COLUMN tpdm.StaffExtension.Tenured IS 'Indicator of whether the staff member is tenured.';
 COMMENT ON COLUMN tpdm.StaffExtension.GenderDescriptorId IS 'The gender with which a person associates.';
 COMMENT ON COLUMN tpdm.StaffExtension.TenureTrack IS 'An indication that the staff is on track for tenure.';
-
--- Extended Properties [tpdm].[StaffFieldworkAbsenceEvent] --
-COMMENT ON TABLE tpdm.StaffFieldworkAbsenceEvent IS 'Expanded reason for the staff absence';
-COMMENT ON COLUMN tpdm.StaffFieldworkAbsenceEvent.AbsenceEventCategoryDescriptorId IS 'The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.';
-COMMENT ON COLUMN tpdm.StaffFieldworkAbsenceEvent.EventDate IS 'Date for this absence event';
-COMMENT ON COLUMN tpdm.StaffFieldworkAbsenceEvent.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffFieldworkAbsenceEvent.AbsenceEventReason IS 'Expanded reason for the staff absence';
-COMMENT ON COLUMN tpdm.StaffFieldworkAbsenceEvent.HoursAbsent IS 'The hours the staff was absence if not the entire working day';
-
--- Extended Properties [tpdm].[StaffFieldworkExperience] --
-COMMENT ON TABLE tpdm.StaffFieldworkExperience IS 'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.FieldworkTypeDescriptorId IS 'The type of fieldwork being executed by a staff.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.HoursCompleted IS 'The number of hours completed during the fieldwork experience.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.EndDate IS 'The month, day, and year on which the staff ends fieldwork.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperience.ProgramGatewayDescriptorId IS 'The descriptor holds the program gateway that is associated with continuation in a program.';
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceCoteaching] --
-COMMENT ON TABLE tpdm.StaffFieldworkExperienceCoteaching IS 'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceCoteaching.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceCoteaching.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceCoteaching.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceCoteaching.CoteachingBeginDate IS 'The month, day, and year on which the teacher candidate first starts co-teaching.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceCoteaching.CoteachingEndDate IS 'The month, day, and year on which the teacher candidate stopped co-teaching.';
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceSchool] --
-COMMENT ON TABLE tpdm.StaffFieldworkExperienceSchool IS 'The school the field work experience is associated with';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSchool.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSchool.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSchool.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSchool.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceSectionAssociation] --
-COMMENT ON TABLE tpdm.StaffFieldworkExperienceSectionAssociation IS 'The section the field work experience is associated with.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.BeginDate IS 'The month, day, and year on which the staff first starts fieldwork.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.StaffFieldworkExperienceSectionAssociation.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 
 -- Extended Properties [tpdm].[StaffHighlyQualifiedAcademicSubject] --
 COMMENT ON TABLE tpdm.StaffHighlyQualifiedAcademicSubject IS 'The academic subject(s) in which the staff is deemed to be "highly qualified".';
@@ -2129,50 +1921,6 @@ COMMENT ON COLUMN tpdm.TeacherCandidateElectronicMail.ElectronicMailTypeDescript
 COMMENT ON COLUMN tpdm.TeacherCandidateElectronicMail.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 COMMENT ON COLUMN tpdm.TeacherCandidateElectronicMail.PrimaryEmailAddressIndicator IS 'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.';
 COMMENT ON COLUMN tpdm.TeacherCandidateElectronicMail.DoNotPublishIndicator IS 'An indication that the electronic email address should not be published.';
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkAbsenceEvent] --
-COMMENT ON TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent IS 'Expanded reason for the staff absence';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkAbsenceEvent.AbsenceEventCategoryDescriptorId IS 'The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkAbsenceEvent.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkAbsenceEvent.EventDate IS 'Date for this absence event';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkAbsenceEvent.AbsenceEventReason IS 'Expanded reason for the teacher candidate absence';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkAbsenceEvent.HoursAbsent IS 'The hours the staff was absent if not the entire working day.';
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperience] --
-COMMENT ON TABLE tpdm.TeacherCandidateFieldworkExperience IS 'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.BeginDate IS 'The month, day, and year on which the teacher candidate first starts fieldwork.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.FieldworkTypeDescriptorId IS 'The type of fieldwork being executed by a teacher candidate.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.HoursCompleted IS 'The number of hours completed during the fieldwork experience.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.EndDate IS 'The month, day, and year on which the teacher candidate ends fieldwork.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperience.ProgramGatewayDescriptorId IS 'The descriptor holds the program gateway that is associated with continuation in a program.';
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceCoteaching] --
-COMMENT ON TABLE tpdm.TeacherCandidateFieldworkExperienceCoteaching IS 'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceCoteaching.BeginDate IS 'The month, day, and year on which the teacher candidate first starts fieldwork.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceCoteaching.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceCoteaching.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceCoteaching.CoteachingBeginDate IS 'The month, day, and year on which the teacher candidate first starts co-teaching.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceCoteaching.CoteachingEndDate IS 'The month, day, and year on which the teacher candidate stopped co-teaching.';
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceSchool] --
-COMMENT ON TABLE tpdm.TeacherCandidateFieldworkExperienceSchool IS 'The school the teacher candidate is assigned to.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSchool.BeginDate IS 'The month, day, and year on which the teacher candidate first starts fieldwork.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSchool.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSchool.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSchool.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] --
-COMMENT ON TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation IS 'The section the teacher candidate is assigned to.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.BeginDate IS 'The month, day, and year on which the teacher candidate first starts fieldwork.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.FieldworkIdentifier IS 'The unique identifier for the fieldwork experience';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN tpdm.TeacherCandidateFieldworkExperienceSectionAssociation.TeacherCandidateIdentifier IS 'A unique alphanumeric code assigned to a teacher candidate.';
 
 -- Extended Properties [tpdm].[TeacherCandidateIdentificationCode] --
 COMMENT ON TABLE tpdm.TeacherCandidateIdentificationCode IS 'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a teacher candidate.';

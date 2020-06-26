@@ -1,0 +1,11 @@
+Common Seniority
+    documentation "Entries of job experience contributing to computations of seniority."
+    descriptor EdFi.CredentialField
+        documentation "The field of the credential being applied."
+        is part of identity
+    shared string EdFi.NameOfInstitution
+        documentation "The name of the education organization worked."
+        is part of identity
+    shared decimal EdFi.NumberOfYears named YearsExperience
+        documentation "The number of years of experience."
+        is required

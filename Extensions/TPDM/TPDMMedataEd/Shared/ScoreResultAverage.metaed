@@ -1,0 +1,4 @@
+Shared Decimal ScoreResultAverage
+  documentation "A meaningful average score or statistical expression of the performance of an group. The results can be expressed as a number, percentile, range, level, etc."
+  total digits 18
+  decimal places 4

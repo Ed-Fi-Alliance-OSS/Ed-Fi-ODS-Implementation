@@ -1,0 +1,4 @@
+Shared String TouchpointContent
+    documentation "The content associated with or an artifact from the touchpoint."
+    min length 0
+    max length 255

@@ -1,0 +1,4 @@
+Shared String ProfessionalDevelopmentTitle
+	documentation "The title or name for a professional development."
+	min length 1
+	max length 60

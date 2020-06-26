@@ -1,0 +1,57 @@
+Domain Entity TeacherCandidateCourseTranscript
+    documentation "This entity is the final record of a student's performance in their courses at the end of a semester or school year."
+    descriptor EdFi.CourseAttemptResult
+        documentation "The result from the student's attempt to take the course, for example:
+        Pass
+        Fail
+        Incomplete
+        Withdrawn."
+        is part of identity
+    inline common EdFi.Credits
+        documentation "The number of credits a student attempted and could earn for successfully completing a given course."
+        is optional
+        role name Attempted
+    inline common EdFi.Credits
+        documentation "The number of credits a student earned for completing a given course."
+        is required
+        role name Earned
+    common EdFi.AdditionalCredits
+        documentation "The number of additional credits a student attempted and could earn for successfully completing a given course (e.g., dual credit, AP, IB)."
+        is optional collection
+        role name Earned
+    descriptor EdFi.GradeLevel
+        documentation "Student's grade level at time of course."
+        is optional
+        role name WhenTaken
+    descriptor EdFi.MethodCreditEarned
+        documentation "The method the credits were earned (e.g., Classroom, Examination, Transfer)."
+        is optional
+    shared string EdFi.GradeEarned named FinalLetterGradeEarned
+        documentation "The final indicator of student performance in a class as submitted by the instructor."
+        is optional
+    shared decimal EdFi.NumericGrade named FinalNumericGradeEarned
+        documentation "The final indicator of student performance in a class as submitted by the instructor."
+        is optional
+    descriptor EdFi.CourseRepeatCode
+        documentation "Indicates that an academic course has been repeated by a student and how that repeat is to be computed in the student's academic grade average."
+        is optional
+    domain entity EdFi.Course
+        documentation "The course recorded in the course transcript entry."
+        is part of identity
+        role name Course
+    domain entity EdFi.School
+        documentation "The School that provided the reported instruction."
+        is optional
+    domain entity TeacherCandidateAcademicRecord
+        documentation "Link to the student's academic record for a semester/school year."
+        is part of identity
+    shared string EdFi.CourseTitle
+        documentation "The descriptive name given to a course of study offered in a school or other institution or organization. In departmentalized classes at the elementary, secondary, and postsecondary levels (and for staff development activities), this refers to the name by which a course is identified (e.g., American History, English III). For elementary and other non-departmentalized classes, it refers to any portion of the instruction for which a grade or report is assigned (e.g., reading, composition, spelling, language arts)."
+        is optional
+    shared string EdFi.CourseTitle named AlternativeCourseTitle
+        documentation "The descriptive name given to a course of study offered in the school, if different from the CourseTitle."
+        is optional
+    shared string EdFi.LocalCourseCode named CourseCode
+        documentation "The local code assigned by the school that identifies the course offering, the code from an external educational organization, or other alternate course code."
+        is optional
+        role name Alternative

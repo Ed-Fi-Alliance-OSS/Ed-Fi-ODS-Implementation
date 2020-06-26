@@ -1,0 +1,4 @@
+Shared String RatingResultTitle
+    documentation "The title of a Rating Result."
+    min length 1
+    max length 50

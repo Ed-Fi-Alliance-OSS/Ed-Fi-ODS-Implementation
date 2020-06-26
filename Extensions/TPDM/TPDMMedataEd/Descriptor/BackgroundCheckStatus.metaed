@@ -1,0 +1,2 @@
+Descriptor BackgroundCheckStatus
+  documentation "This descriptor holds the  status of the background check (e.g., pending, under investigation, offense(s) found, etc.)."

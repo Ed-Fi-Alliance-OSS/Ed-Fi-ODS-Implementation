@@ -1,0 +1,4 @@
+Shared String QuantitativeMeasureIdentifier
+    documentation "An assigned unique identifier for the quantitative measure."
+    min length 1
+    max length 64

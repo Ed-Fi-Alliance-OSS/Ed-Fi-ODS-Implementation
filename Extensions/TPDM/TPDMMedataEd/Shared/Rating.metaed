@@ -1,0 +1,4 @@
+Shared Decimal Rating
+    documentation "The numerical summary rating or score for an evaluation."
+    total digits 6
+    decimal places 3
