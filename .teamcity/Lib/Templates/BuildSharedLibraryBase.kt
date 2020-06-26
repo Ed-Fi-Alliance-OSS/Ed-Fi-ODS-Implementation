@@ -39,6 +39,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 +:Application/%project.name% => Ed-Fi-ODS/Application/%project.name%
                 +:tests/%project.name%.UnitTests => Ed-Fi-ODS/tests/%project.name%.UnitTests
                 +:tests/EdFi.TestFixture => Ed-FI-ODS/tests/EdFi.TestFixture
+                +:Application/NuGetArtifacts => Ed-Fi-ODS/Application/NuGetArtifacts
                 %vcs.checkout.rules.ods.additional%
             """.trimIndent())
         }
