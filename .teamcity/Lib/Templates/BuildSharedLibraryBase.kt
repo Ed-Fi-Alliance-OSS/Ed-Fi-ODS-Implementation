@@ -50,7 +50,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 projects = "%project.file.sln%"
                 configuration = "%msbuild.configuration%"
                 param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
-                args = "-p:AssemblyVersion=%version.core%.%build.counter% -p:FileVersion%version.core%.%build.counter% -p:InformationalVersion=%version.core%"
+                args = "-p:AssemblyVersion=%version.core%.%build.counter% -p:FileVersion=%version.core%.%build.counter% -p:InformationalVersion=%version.core%"
             }
             dotnetTest {
                 name = "Test"
