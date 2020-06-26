@@ -8,11 +8,11 @@ package installers.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 
-object SandboxAdmin : BuildType({
+object SwaggerUI : BuildType({
     templates(installers.templates.PackageAndPublishInstallerLibrary)
-    id = RelativeId("Installers_SandboxAdmin")
-    name = "EdFi.Installer.SandboxAdmin"
-    description = "PowerShell deployment orchestration for Sandbox Admin."
+    id = RelativeId("Installers_SwaggerUI")
+    name = "EdFi.Installer.SwaggerUI"
+    description = "PowerShell deployment orchestration for ODS Swagger UI."
 
     publishArtifacts = PublishMode.SUCCESSFUL
 

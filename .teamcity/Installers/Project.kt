@@ -19,6 +19,7 @@ object InstallersProject : Project({
     }
 
     buildType(installers.buildTypes.SandboxAdmin)
+    buildType(installers.buildTypes.SwaggerUI)
 
     template(installers.templates.PackageAndPublishInstallerLibrary)
 })
