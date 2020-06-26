@@ -71,7 +71,9 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                             "-c", "%msbuild.configuration%",
                             "--no-build"
                         )
-                        &dotnet test @parameters
+                        &dotnet @parameters
+
+                        return ${"$"}LASTEXITCODE
                     """.trimIndent()
                 }
             }
