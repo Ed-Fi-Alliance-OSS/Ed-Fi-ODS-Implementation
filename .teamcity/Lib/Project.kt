@@ -20,6 +20,7 @@ object SharedLibrariesProject : Project({
 
     subProject(lib.edFiCommon.EdFiCommonProject)
     subProject(lib.edFiAdminDataAccess.EdFiAdminDataAccessProject)
+    subProject(lib.edFiSecurityDataAccess.EdFiSecurityDataAccessProject)
     subProject(lib.edFiLoadTools.EdFiLoadToolsProject)
 
     template(lib.templates.BuildSharedLibraryPullRequest)
