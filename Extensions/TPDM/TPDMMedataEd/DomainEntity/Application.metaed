@@ -1,0 +1,64 @@
+Domain Entity Application
+  documentation "An application for employment or contract."
+  shared string ApplicationIdentifier
+    documentation "Identifier assigned to the application for an open staff position."
+    is part of identity
+    is queryable field
+  domain entity EdFi.EducationOrganization
+    documentation "The education organization, typically a LocalEducationAgency, associated with the application."
+    is part of identity
+    is queryable field
+  date ApplicationDate
+    documentation "The month, day, and year the application was submitted."
+    is required
+    is queryable field
+  descriptor EdFi.Term
+    documentation "The intended term of enrollment for which the application is being submitted."
+    is optional collection
+  descriptor ApplicationStatus
+    documentation "Indicates the current status of the application (e.g., received, phone screen, interview, awaiting decision, etc.)."
+    is required
+    is queryable field
+  bool CurrentEmployee
+    documentation "Indicator as to whether the applicant is a current employee of the school district."
+    is optional
+  descriptor EdFi.AcademicSubject
+    documentation "The academic subject for which the application is made."
+    is optional
+    is queryable field
+  date AcceptedDate
+    documentation "The date of job acceptance, if offered."
+    is optional
+  descriptor ApplicationSource
+    documentation "Specifies the source for the application (e.g., Job fair, website, referral)."
+    is optional
+    is queryable field
+  date FirstContactDate
+    documentation "Date applicant was first contacted after submitting application."
+    is optional
+  descriptor EdFi.AcademicSubject
+    documentation "The high need academic subject for the application, if any."
+    is optional
+    role name HighNeeds
+    is queryable field
+  descriptor HireStatus
+    documentation "Indicates the current status of the application for hire (e.g., applied, recommended, rejected, exited, offered, hired)."
+    is optional
+    is queryable field
+  descriptor HiringSource
+    documentation "The source for the application (e.g.,job fair, website, referral, etc.)."
+    is optional
+  date WithdrawDate
+    documentation "The date the application was withdrawn by the applicant."
+    is optional
+  descriptor WithdrawReason
+    documentation "Reason applicant withdrew application."
+    is optional
+  domain entity Applicant
+    documentation "The applicant submitting the application."
+    is part of identity
+    is queryable field
+  domain entity EdFi.OpenStaffPosition
+    documentation "The open staff position(s) associated with the application."
+    is optional collection
+    is queryable field

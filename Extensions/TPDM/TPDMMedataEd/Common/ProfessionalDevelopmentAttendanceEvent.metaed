@@ -1,0 +1,32 @@
+Common ProfessionalDevelopmentAttendanceEvent
+  documentation "The information regarding the professional development attendance event."
+  inline common EdFi.AttendanceEvent
+    documentation "Details of the AttendanceEvent."
+    is required
+  date EndDate
+    documentation "The end date for the professional development."
+    is optional
+  bool MultipleSession
+    documentation "An indication of whether or not a professional development event is comprised of multiple sessions or not."
+    is optional
+  descriptor ProfessionalDevelopmentOfferedBy
+    documentation "A code describing an organization that is offering a specific professional development."
+    is required
+  shared string ProfessionalDevelopmentReason
+    documentation "The reported reason for a teacher candidate's professional development."
+    is optional
+  shared string ProfessionalDevelopmentTitle
+    documentation "The title or name for a professional development."
+    is optional
+  bool Required
+    documentation "An indication of whether a teacher candidate is active in an professional development."
+    is optional
+  domain entity EdFi.School
+    documentation "The school the teacher candidate is assigned to."
+    is optional
+  domain entity TeacherCandidate
+    documentation "The teacher candidate associated with the fieldwork experience."
+    is optional
+  integer TotalHours
+    documentation "The number of total hours the professional development contains."
+    is optional

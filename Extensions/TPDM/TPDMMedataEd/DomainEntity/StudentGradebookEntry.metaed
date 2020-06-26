@@ -1,0 +1,7 @@
+Domain Entity EdFi.StudentGradebookEntry additions
+  date DateCompleted
+    documentation "The date that the assignment was completed."
+    is optional
+  bool AssignmentPassed
+    documentation "Indication of whether the assignment was passed or not."
+    is optional

@@ -1,0 +1,2 @@
+Descriptor EvaluationType
+    documentation "The type of the evaluation (e.g., observation, principal, peer, student survey, student growth)."

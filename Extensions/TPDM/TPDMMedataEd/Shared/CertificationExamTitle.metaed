@@ -1,0 +1,4 @@
+Shared String CertificationExamTitle
+  documentation "The title or name of the certification."
+  min length 1
+  max length 60

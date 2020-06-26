@@ -1,0 +1,30 @@
+Domain Entity FieldworkExperience
+    documentation "The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students."
+    shared string FieldworkIdentifier
+        documentation "The unique identifier for the fieldwork experience"
+        is part of identity
+        is queryable field
+    domain entity EdFi.Student
+        documentation "The student associated with the fieldwork experience."
+        is part of identity
+    domain entity EdFi.School
+        documentation "The school the field work experience is associated with"
+        is required collection
+    descriptor FieldworkType
+        documentation "The type of fieldwork being executed by a staff."
+        is required
+    shared decimal HoursCompleted
+        documentation "The number of hours completed during the fieldwork experience."
+        is optional
+    date BeginDate
+        documentation "The month, day, and year on which the staff first starts fieldwork."
+        is part of identity
+    date EndDate
+        documentation "The month, day, and year on which the staff ends fieldwork."
+        is optional
+    common Coteaching
+        documentation "The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space."
+        is optional
+    descriptor ProgramGateway
+        documentation "The descriptor holds the program gateway that is associated with continuation in a program."
+        is optional

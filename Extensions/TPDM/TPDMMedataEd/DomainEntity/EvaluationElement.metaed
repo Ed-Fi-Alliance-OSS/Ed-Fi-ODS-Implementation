@@ -1,0 +1,26 @@
+Domain Entity EvaluationElement
+    documentation "The lowest-level Elements or criterion of performance being evaluated by rubric, quantitative measure, or aggregate survey response."
+    domain entity EvaluationObjective
+        documentation "The Evaluation Objective applied for the person."
+        is part of identity
+    shared string EvaluationElementTitle
+        documentation "The name or title of the evaluation element."
+        is part of identity
+    integer SortOrder
+        documentation "The sort order of this Evaluation Element."
+        is optional
+    shared decimal Rating
+        documentation "The minimum summary numerical rating or score for the evaluation element. If omitted, assumed to be 0.0."
+        is optional
+        role name Min
+    shared decimal Rating
+        documentation "The maximum summary numerical rating or score for the evaluation element."
+        is optional
+        role name Max
+    descriptor EvaluationType
+        documentation "The type of the evaluation (e.g., observation, principal, peer, student survey, student growth)."
+        is optional
+    common RatingLevel
+        documentation "The descriptive level(s) of ratings (cut scores) for evaluation element."
+        is optional collection
+        role name Element

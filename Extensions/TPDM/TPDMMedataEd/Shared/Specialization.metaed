@@ -1,0 +1,4 @@
+Shared String Specialization
+    documentation "An area of specialization."
+    min length 1
+    max length 75

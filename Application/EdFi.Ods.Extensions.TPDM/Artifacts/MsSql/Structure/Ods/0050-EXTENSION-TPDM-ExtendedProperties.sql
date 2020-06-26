@@ -1035,22 +1035,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationStandardDescriptor', @level2type=N'COLUMN', @level2name=N'CertificationStandardDescriptorId'
 GO
 
--- Extended Properties [tpdm].[CommunityOrganizationExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityOrganizationExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a CommunityOrganization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityOrganizationExtension', @level2type=N'COLUMN', @level2name=N'CommunityOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityOrganizationExtension', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
-GO
-
--- Extended Properties [tpdm].[CommunityProviderExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityProviderExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a CommunityProvider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityProviderExtension', @level2type=N'COLUMN', @level2name=N'CommunityProviderId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CommunityProviderExtension', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
-GO
-
 -- Extended Properties [tpdm].[CompleterAsStaffAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This describes a teacher candidate who has completed a teacher prep program and is considered a completer who is now also employed as a staff member in a partnering K12 district.  This is the same person but may have two different identifiers, one as a (former) teacher candidate and one as an employed staff person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CompleterAsStaffAssociation'
 GO
@@ -1137,322 +1121,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum level of degree, if any, required for Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'DegreeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'DegreeDescriptor', @level2type=N'COLUMN', @level2name=N'DegreeDescriptorId'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationFacts] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Selective fact(s) about the education organization used for comparative analysis.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The as-of date for the fact(s) about the Education Organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'FactsAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the fact(s).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of administrators employed by education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'NumberAdministratorsEmployed'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Enrollment count of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'NumberStudentsEnrolled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of teachers employed by education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'NumberTeachersEmployed'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent of students eligible for free and reduced lunches.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'PercentStudentsFreeReducedLunch'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Percent of students in education organization with limited English proficiency.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'PercentStudentsLimitedEnglishProficiency'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Percent of students in education organization in special education program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'PercentStudentsSpecialEducation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent of staff hired for the education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'HiringRate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent of staff retained for the education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'RetentionRate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent of staff retired for the education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'RetirementRate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The average number of years that all staff have been employed in the current district of employment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFacts', @level2type=N'COLUMN', @level2name=N'AverageYearsInDistrictEmployed'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationFactsAggregatedSalary] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Salary information collected at the aggregate level.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The as-of date for the fact(s) about the Education Organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'FactsAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the fact(s).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The average of salaries collected at the aggregate level.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'AverageSalary'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of salaries averaged that were collected at the aggregate level.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'CountOfSalariesAveraged'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The standard deviation of the salaries collected at the aggregate level.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'StandardDeviation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The minimum value in a salary range for staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'SalaryMinRange'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum value in a salary range for staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsAggregatedSalary', @level2type=N'COLUMN', @level2name=N'SalaryMaxRange'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationFactsVacancies] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This entity represents actual and projected vacancies for the education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a vacancy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The as-of date for the fact(s) about the Education Organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'FactsAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the fact(s).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (i.e. actual or projected) of value.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of vacancies, projected or actual, associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacancies', @level2type=N'COLUMN', @level2name=N'NumberOfVacancies'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationFactsVacanciesGradeLevel] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level(s) for which the vacancy is responsible.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a vacancy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The as-of date for the fact(s) about the Education Organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel', @level2type=N'COLUMN', @level2name=N'FactsAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level(s) for which the vacancy is responsible.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year associated with the fact(s).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationFactsVacanciesGradeLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationNetworkExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationNetworkExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a network of education organizations.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationNetworkExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationNetworkId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationNetworkExtension', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFacts] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This domain entity collects data for aggregated level students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFacts'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFacts', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFacts', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedByDisability] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the disability of a group aggregated by course.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the disability of a group.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of student who have a disability by disability type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'TypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who have a disability by each specific disability type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedByDisability', @level2type=N'COLUMN', @level2name=N'Percentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the disability of a group aggregated by course.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who have a disability.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled', @level2type=N'COLUMN', @level2name=N'StudentsDisabledNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Percentage of students who have a disability', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled', @level2type=N'COLUMN', @level2name=N'StudentsDisabledPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedELLEnrollment] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the ELL enrollment of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who are ELL.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment', @level2type=N'COLUMN', @level2name=N'ELLEnrollmentNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are identified as ELL', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedELLEnrollment', @level2type=N'COLUMN', @level2name=N'ELLEnrollmentPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedESLEnrollment] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the ESL enrollment of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who are ESL.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment', @level2type=N'COLUMN', @level2name=N'ESLEnrollmentNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are identified as ESL', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedESLEnrollment', @level2type=N'COLUMN', @level2name=N'ESLEnrollmentPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedGender] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The information about the gender', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender with which a person associates.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who identify by each gender type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'GenderTypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who associate with each gender type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedGender', @level2type=N'COLUMN', @level2name=N'GenderTypePercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the ethnicity of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'HispanicLatinoEthnicity'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who are hispanic/latino', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'HispanicLatinoEthnicityNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are identified as hispanic/latino.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity', @level2type=N'COLUMN', @level2name=N'HispanicLatinoEthnicityPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedLanguage] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The data about the language', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the language of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students by each language type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'LanguageTypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students by language type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedLanguage', @level2type=N'COLUMN', @level2name=N'LanguageTypePercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedRace] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the race of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'RaceDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students by each race type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'RaceTypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students by each race type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedRace', @level2type=N'COLUMN', @level2name=N'RaceTypePercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies if the student is eligible for Free and Reduce Price Lunch', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the students who are enrolled based on School Food Services Eligibility', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'SchoolFoodServiceProgramServiceDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students eligibile for SchoolFoodServicesEligibility by category', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'TypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are eligible for SchoolFoodServicesEligibility by type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService', @level2type=N'COLUMN', @level2name=N'TypePercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSection504Enrollment] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about the students who are enrolled in a 504 program', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students who are enrolled in a 504 program', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment', @level2type=N'COLUMN', @level2name=N'Number504Enrolled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are enrolled in a 504 program', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSection504Enrollment', @level2type=N'COLUMN', @level2name=N'Percentage504Enrolled'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSex] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the sex of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person''s gender.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'SexDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students by each sex type', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'SexTypeNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students by each sex type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSex', @level2type=N'COLUMN', @level2name=N'SexTypePercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedSPED] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the enrollment in SPED of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students enrolled in SPED', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED', @level2type=N'COLUMN', @level2name=N'SPEDEnrollmentNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students enrolled in a SPED program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedSPED', @level2type=N'COLUMN', @level2name=N'SPEDEnrollmentPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsAggregatedTitleIEnrollment] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data about the enrollment in Title I of the group', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of students eligible for Title I', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment', @level2type=N'COLUMN', @level2name=N'TitleIEnrollmentNumber'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who are Title I eligible.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsAggregatedTitleIEnrollment', @level2type=N'COLUMN', @level2name=N'TitleIEnrollmentPercentage'
-GO
-
--- Extended Properties [tpdm].[EducationOrganizationStudentFactsStudentsEnrolled] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The information about the number of students enrolled', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for which the data element is relevant', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'FactAsOfDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the data, i.e., is the data projected, actual or other', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'ValueTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of students enrolled in the respective Section.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'NumberStudentsEnrolled'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percent of students who have been identified as at risk.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'PercentAtRisk'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The percentage of students who have moved at least once during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationOrganizationStudentFactsStudentsEnrolled', @level2type=N'COLUMN', @level2name=N'PercentMobility'
-GO
-
--- Extended Properties [tpdm].[EducationServiceCenterExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationServiceCenterExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education service center.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationServiceCenterExtension', @level2type=N'COLUMN', @level2name=N'EducationServiceCenterId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EducationServiceCenterExtension', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[EducatorRoleDescriptor] --
@@ -1891,6 +1559,70 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FederalLocaleCodeDescriptor', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
 GO
 
+-- Extended Properties [tpdm].[FieldworkExperience] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of fieldwork being executed by a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of hours completed during the fieldwork experience.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'HoursCompleted'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff ends fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'EndDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the program gateway that is associated with continuation in a program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperience', @level2type=N'COLUMN', @level2name=N'ProgramGatewayDescriptorId'
+GO
+
+-- Extended Properties [tpdm].[FieldworkExperienceCoteaching] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate stopped co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingEndDate'
+GO
+
+-- Extended Properties [tpdm].[FieldworkExperienceSchool] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school the field work experience is associated with', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSchool'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
+-- Extended Properties [tpdm].[FieldworkExperienceSectionAssociation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The section the field work experience is associated with.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SessionName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+
 -- Extended Properties [tpdm].[FieldworkTypeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the type of fieldwork being executed by a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'FieldworkTypeDescriptor'
 GO
@@ -1949,26 +1681,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the goal (e.g., management, instruction).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GoalTypeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GoalTypeDescriptor', @level2type=N'COLUMN', @level2name=N'GoalTypeDescriptorId'
-GO
-
--- Extended Properties [tpdm].[GradebookEntryExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the assignment, homework, or assessment was assigned or executed.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'DateAssigned'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the activity to be recorded in the GradebookEntry.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'GradebookEntryTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'SessionName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the program gateway an assessment may be associated with for continuation in the program', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GradebookEntryExtension', @level2type=N'COLUMN', @level2name=N'ProgramGatewayDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[GraduationPlanRequiredCertification] --
@@ -2743,84 +2455,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender with which a person associates.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the staff is on track for tenure.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'TenureTrack'
-GO
-
--- Extended Properties [tpdm].[StaffFieldworkAbsenceEvent] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Expanded reason for the staff absence', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'AbsenceEventCategoryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this absence event', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'EventDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Expanded reason for the staff absence', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'AbsenceEventReason'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The hours the staff was absence if not the entire working day', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'HoursAbsent'
-GO
-
--- Extended Properties [tpdm].[StaffFieldworkExperience] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of fieldwork being executed by a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of hours completed during the fieldwork experience.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'HoursCompleted'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff ends fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'EndDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the program gateway that is associated with continuation in a program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperience', @level2type=N'COLUMN', @level2name=N'ProgramGatewayDescriptorId'
-GO
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceCoteaching] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingBeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate stopped co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingEndDate'
-GO
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceSchool] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school the field work experience is associated with', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSchool'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-
--- Extended Properties [tpdm].[StaffFieldworkExperienceSectionAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The section the field work experience is associated with.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the staff first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SessionName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO
 
 -- Extended Properties [tpdm].[StaffHighlyQualifiedAcademicSubject] --
@@ -3753,84 +3387,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic mail address should be used as the principal electronic mail address for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateElectronicMail', @level2type=N'COLUMN', @level2name=N'PrimaryEmailAddressIndicator'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic email address should not be published.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateElectronicMail', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkAbsenceEvent] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Expanded reason for the staff absence', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the code describing the type of leave taken, for example: Sick, Personal, Vacation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'AbsenceEventCategoryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this absence event', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'EventDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Expanded reason for the teacher candidate absence', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'AbsenceEventReason'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The hours the staff was absent if not the entire working day.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkAbsenceEvent', @level2type=N'COLUMN', @level2name=N'HoursAbsent'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperience] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The information regarding a postsecondary instructional course in a particular field of study that typically involves a prescribed number or instruction periods or meetings for enrolled students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of fieldwork being executed by a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'FieldworkTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of hours completed during the fieldwork experience.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'HoursCompleted'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate ends fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'EndDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptor holds the program gateway that is associated with continuation in a program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperience', @level2type=N'COLUMN', @level2name=N'ProgramGatewayDescriptorId'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceCoteaching] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The act of two teachers (teacher candidate and cooperating teacher) working together with groups of students; sharing the planning, organization, delivery, and assessment of instruction, as well as the physical space.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingBeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate stopped co-teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceCoteaching', @level2type=N'COLUMN', @level2name=N'CoteachingEndDate'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceSchool] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school the teacher candidate is assigned to.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSchool'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSchool', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The section the teacher candidate is assigned to.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day, and year on which the teacher candidate first starts fieldwork.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'BeginDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the fieldwork experience', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'FieldworkIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code assigned by the School that identifies the course offering provided for the instruction of students.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'LocalCourseCode'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local identifier assigned to a section.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SectionIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'SessionName'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateFieldworkExperienceSectionAssociation', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
 GO
 
 -- Extended Properties [tpdm].[TeacherCandidateIdentificationCode] --

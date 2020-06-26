@@ -1,0 +1,4 @@
+Shared Decimal AverageNumericResponse
+  documentation "The average numeric response for the survey."
+  total digits 18
+  decimal places 4

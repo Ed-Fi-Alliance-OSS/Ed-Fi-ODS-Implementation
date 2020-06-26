@@ -1,0 +1,40 @@
+Domain Entity PerformanceEvaluationRating
+    documentation "The summary rating for a Performance Evaluation across all Evaluation instruments for an individual educator."
+    domain entity EdFi.Person
+        documentation "The person whose performance is being evaluated."
+        is part of identity
+    domain entity PerformanceEvaluation
+        documentation "The performance evaluation definition being applied."
+        is part of identity
+    date ActualDate
+        documentation "The month, day, and year on which the performance evaluation was conducted."
+        is required
+    bool Announced
+        documentation "An indicator of whether the performance evaluation was announced or not."
+        is optional
+    shared string Comments
+        documentation "Any comments about the performance evaluation to be captured."
+        is optional
+    descriptor CoteachingStyleObserved
+        documentation "A type of co-teaching observed as part of the performance evaluation."
+        is optional
+    shared integer EdFi.Duration
+        documentation "The actual or estimated number of clock minutes during which the performance evaluation was conducted."
+        is optional
+        role name Actual
+    common RatingResult
+        documentation "The numerical summary rating or score for the performance evaluation."
+        is optional collection
+        role name PerformanceEvaluation
+    descriptor PerformanceEvaluationRatingLevel
+        documentation "The rating level achieved based upon the rating or score."
+        is optional
+    common Reviewer
+        documentation "The person(s) that conducted the performance evaluation."
+        is optional collection
+    date ScheduleDate
+        documentation "The month, day, and year on which the performance evaluation was to be conducted."
+        is optional
+    time ActualTime
+        documentation "An indication of the the time at which the performance evaluation was conducted."
+        is optional

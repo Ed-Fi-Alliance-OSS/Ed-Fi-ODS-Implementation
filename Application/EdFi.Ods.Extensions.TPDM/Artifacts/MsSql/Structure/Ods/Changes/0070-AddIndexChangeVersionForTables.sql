@@ -112,18 +112,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationFacts') AND name = N'UX_EducationOrganizationFacts_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationFacts_ChangeVersion] ON [tpdm].[EducationOrganizationFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EducationOrganizationStudentFacts') AND name = N'UX_EducationOrganizationStudentFacts_ChangeVersion')
-    CREATE INDEX [UX_EducationOrganizationStudentFacts_ChangeVersion] ON [tpdm].[EducationOrganizationStudentFacts] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EmploymentEvent') AND name = N'UX_EmploymentEvent_ChangeVersion')
     CREATE INDEX [UX_EmploymentEvent_ChangeVersion] ON [tpdm].[EmploymentEvent] ([ChangeVersion] ASC)
     GO
@@ -168,6 +156,18 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.EvaluationRating') AND name = N'UX_EvaluationRating_ChangeVersion')
     CREATE INDEX [UX_EvaluationRating_ChangeVersion] ON [tpdm].[EvaluationRating] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.FieldworkExperience') AND name = N'UX_FieldworkExperience_ChangeVersion')
+    CREATE INDEX [UX_FieldworkExperience_ChangeVersion] ON [tpdm].[FieldworkExperience] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.FieldworkExperienceSectionAssociation') AND name = N'UX_FieldworkExperienceSectionAssociation_ChangeVersion')
+    CREATE INDEX [UX_FieldworkExperienceSectionAssociation_ChangeVersion] ON [tpdm].[FieldworkExperienceSectionAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -240,24 +240,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffApplicantAssociation') AND name = N'UX_StaffApplicantAssociation_ChangeVersion')
     CREATE INDEX [UX_StaffApplicantAssociation_ChangeVersion] ON [tpdm].[StaffApplicantAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffFieldworkAbsenceEvent') AND name = N'UX_StaffFieldworkAbsenceEvent_ChangeVersion')
-    CREATE INDEX [UX_StaffFieldworkAbsenceEvent_ChangeVersion] ON [tpdm].[StaffFieldworkAbsenceEvent] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffFieldworkExperience') AND name = N'UX_StaffFieldworkExperience_ChangeVersion')
-    CREATE INDEX [UX_StaffFieldworkExperience_ChangeVersion] ON [tpdm].[StaffFieldworkExperience] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffFieldworkExperienceSectionAssociation') AND name = N'UX_StaffFieldworkExperienceSectionAssociation_ChangeVersion')
-    CREATE INDEX [UX_StaffFieldworkExperienceSectionAssociation_ChangeVersion] ON [tpdm].[StaffFieldworkExperienceSectionAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -342,24 +324,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateCourseTranscript') AND name = N'UX_TeacherCandidateCourseTranscript_ChangeVersion')
     CREATE INDEX [UX_TeacherCandidateCourseTranscript_ChangeVersion] ON [tpdm].[TeacherCandidateCourseTranscript] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateFieldworkAbsenceEvent') AND name = N'UX_TeacherCandidateFieldworkAbsenceEvent_ChangeVersion')
-    CREATE INDEX [UX_TeacherCandidateFieldworkAbsenceEvent_ChangeVersion] ON [tpdm].[TeacherCandidateFieldworkAbsenceEvent] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateFieldworkExperience') AND name = N'UX_TeacherCandidateFieldworkExperience_ChangeVersion')
-    CREATE INDEX [UX_TeacherCandidateFieldworkExperience_ChangeVersion] ON [tpdm].[TeacherCandidateFieldworkExperience] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateFieldworkExperienceSectionAssociation') AND name = N'UX_TeacherCandidateFieldworkExperienceSectionAssociation_ChangeVersion')
-    CREATE INDEX [UX_TeacherCandidateFieldworkExperienceSectionAssociation_ChangeVersion] ON [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] ([ChangeVersion] ASC)
     GO
 COMMIT
 

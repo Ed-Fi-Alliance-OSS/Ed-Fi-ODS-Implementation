@@ -1,0 +1,11 @@
+Common RequiredCertification
+    documentation "The title or reference to the certifiation(s) required for graduation."
+    shared string CertificationTitle
+        documentation "The title of the Certification required for Graduation."
+        is part of identity
+    domain entity Certification
+        documentation "Reference to the Certification associated with this person's Graduation Plan."
+        is optional
+    descriptor CertificationRoute
+        documentation "The process, program ,or pathway used to obtain certification."
+        is optional

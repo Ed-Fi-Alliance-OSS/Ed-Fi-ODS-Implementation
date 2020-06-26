@@ -1,0 +1,2 @@
+Descriptor ApplicationEventResult
+  documentation "The descriptor holds the recommendation, result or conclusion of the application event (e.g., Continue, exit, recommend for hire)."

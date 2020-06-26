@@ -1,0 +1,14 @@
+Common Reviewer
+    documentation "The person who conducted the performance measure."
+    shared string EdFi.FirstName
+        documentation "A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change."
+        is part of identity
+    shared string EdFi.LastSurname
+        documentation "The name borne in common by members of a family."
+        is part of identity
+    common ReceivedTraining
+        documentation "An indication that the person administering the performance evauation has or has not received training on conducting performance measures."
+        is optional
+    domain entity EdFi.Person
+        documentation "The person associated with the performance measure."
+        is optional

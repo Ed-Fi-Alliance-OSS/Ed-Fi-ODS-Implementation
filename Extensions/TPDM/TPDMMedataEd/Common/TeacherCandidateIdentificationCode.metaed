@@ -1,0 +1,12 @@
+Common TeacherCandidateIdentificationCode
+    documentation "A coding scheme that is used for identification and record-keeping purposes by schools, social services or other agencies to refer to a teacher candidate."
+    shared string EdFi.IdentificationCode
+        documentation "A unique number or alphanumeric code assigned to a student by a school, school system, a state, or other agency or entity."
+        is required
+    descriptor EdFi.StudentIdentificationSystem
+        documentation "A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a student."
+        is part of identity
+    shared string EdFi.IdentificationCode
+        documentation "The organization code or name assigning the StudentIdentificationCode."
+        is part of identity
+        role name AssigningOrganization

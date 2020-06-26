@@ -1,0 +1,2 @@
+Descriptor OpenStaffPositionEventStatus
+    documentation "The descriptor holds the status of the milestone (e.g., pending, completed, cancelled)."

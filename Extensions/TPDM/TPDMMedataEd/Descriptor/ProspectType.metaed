@@ -1,0 +1,2 @@
+Descriptor ProspectType
+  documentation "Reflects the type of prospect, such as TPP Applicant, Hire, or Mentor Teacher."

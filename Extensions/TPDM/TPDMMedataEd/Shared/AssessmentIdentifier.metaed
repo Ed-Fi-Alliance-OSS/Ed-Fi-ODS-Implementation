@@ -1,0 +1,4 @@
+Shared String AssessmentIdentifier
+  documentation "An identifier that uniquely identifies the assessment to which the student results are associated."
+  min length 1
+  max length 60

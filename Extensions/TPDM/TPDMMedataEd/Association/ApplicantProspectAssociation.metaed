@@ -1,0 +1,6 @@
+Association ApplicantProspectAssociation
+  documentation "Associated previously identified prospect."
+  domain entity Applicant
+    documentation "Reference to applicant."
+  domain entity Prospect
+    documentation "Associated previously identified prospect."

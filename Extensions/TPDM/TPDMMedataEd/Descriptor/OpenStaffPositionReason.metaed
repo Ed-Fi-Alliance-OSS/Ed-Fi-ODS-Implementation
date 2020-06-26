@@ -1,0 +1,2 @@
+Descriptor OpenStaffPositionReason
+  documentation "The descriptor holds the reason for the open staff position (e.g., new position, replacement, etc.)."

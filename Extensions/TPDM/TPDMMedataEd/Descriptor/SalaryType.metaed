@@ -1,0 +1,2 @@
+Descriptor SalaryType
+  documentation "The descriptor holds the type of salary that a staff member is receiving."

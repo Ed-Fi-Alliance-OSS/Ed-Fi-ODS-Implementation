@@ -1,0 +1,4 @@
+Shared String EvaluationElementTitle
+    documentation "The name or title of the evaluation element."
+    min length 1
+    max length 255

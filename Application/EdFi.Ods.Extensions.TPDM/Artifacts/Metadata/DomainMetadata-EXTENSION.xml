@@ -138,29 +138,6 @@
   <Aggregate root="DegreeDescriptor">
     <Entity table="DegreeDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="EducationOrganizationFacts">
-    <Entity table="EducationOrganizationFacts" schema="tpdm"/>
-    <Entity table="EducationOrganizationFactsAggregatedSalary" schema="tpdm"/>
-    <Entity table="EducationOrganizationFactsVacancies" schema="tpdm"/>
-    <Entity table="EducationOrganizationFactsVacanciesGradeLevel" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="EducationOrganizationStudentFacts">
-    <Entity table="EducationOrganizationStudentFacts" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedByDisability" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedDisabilityTotalStudentsDisabled" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedELLEnrollment" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedESLEnrollment" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedGender" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedHispanicLatinoEthnicity" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedLanguage" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedRace" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedSPED" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedSchoolFoodServiceProgramService" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedSection504Enrollment" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedSex" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsAggregatedTitleIEnrollment" schema="tpdm"/>
-    <Entity table="EducationOrganizationStudentFactsStudentsEnrolled" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="EducatorRoleDescriptor">
     <Entity table="EducatorRoleDescriptor" isA="Descriptor" schema="tpdm"/>
   </Aggregate>
@@ -222,6 +199,14 @@
   </Aggregate>
   <Aggregate root="FederalLocaleCodeDescriptor">
     <Entity table="FederalLocaleCodeDescriptor" isA="Descriptor" schema="tpdm"/>
+  </Aggregate>
+  <Aggregate root="FieldworkExperience">
+    <Entity table="FieldworkExperience" schema="tpdm"/>
+    <Entity table="FieldworkExperienceCoteaching" schema="tpdm"/>
+    <Entity table="FieldworkExperienceSchool" schema="tpdm" isRequiredCollection="true"/>
+  </Aggregate>
+  <Aggregate root="FieldworkExperienceSectionAssociation">
+    <Entity table="FieldworkExperienceSectionAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="FieldworkTypeDescriptor">
     <Entity table="FieldworkTypeDescriptor" isA="Descriptor" schema="tpdm"/>
@@ -352,17 +337,6 @@
   <Aggregate root="StaffApplicantAssociation">
     <Entity table="StaffApplicantAssociation" schema="tpdm"/>
   </Aggregate>
-  <Aggregate root="StaffFieldworkAbsenceEvent">
-    <Entity table="StaffFieldworkAbsenceEvent" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="StaffFieldworkExperience">
-    <Entity table="StaffFieldworkExperience" schema="tpdm"/>
-    <Entity table="StaffFieldworkExperienceCoteaching" schema="tpdm"/>
-    <Entity table="StaffFieldworkExperienceSchool" schema="tpdm" isRequiredCollection="true"/>
-  </Aggregate>
-  <Aggregate root="StaffFieldworkExperienceSectionAssociation">
-    <Entity table="StaffFieldworkExperienceSectionAssociation" schema="tpdm"/>
-  </Aggregate>
   <Aggregate root="StaffProfessionalDevelopmentEventAttendance">
     <Entity table="StaffProfessionalDevelopmentEventAttendance" schema="tpdm"/>
   </Aggregate>
@@ -449,17 +423,6 @@
   <Aggregate root="TeacherCandidateCourseTranscript">
     <Entity table="TeacherCandidateCourseTranscript" schema="tpdm"/>
     <Entity table="TeacherCandidateCourseTranscriptEarnedAdditionalCredits" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateFieldworkAbsenceEvent">
-    <Entity table="TeacherCandidateFieldworkAbsenceEvent" schema="tpdm"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateFieldworkExperience">
-    <Entity table="TeacherCandidateFieldworkExperience" schema="tpdm"/>
-    <Entity table="TeacherCandidateFieldworkExperienceCoteaching" schema="tpdm"/>
-    <Entity table="TeacherCandidateFieldworkExperienceSchool" schema="tpdm" isRequiredCollection="true"/>
-  </Aggregate>
-  <Aggregate root="TeacherCandidateFieldworkExperienceSectionAssociation">
-    <Entity table="TeacherCandidateFieldworkExperienceSectionAssociation" schema="tpdm"/>
   </Aggregate>
   <Aggregate root="TeacherCandidateProfessionalDevelopmentEventAttendance">
     <Entity table="TeacherCandidateProfessionalDevelopmentEventAttendance" schema="tpdm"/>

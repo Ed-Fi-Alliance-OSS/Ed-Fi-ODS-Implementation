@@ -1,0 +1,21 @@
+Domain Entity AnonymizedStudentCourseTranscript
+  documentation "The date for which the data element is relevant"
+  domain entity AnonymizedStudentAcademicRecord
+    documentation "Link to the anonymized student's academic record for a semester/school year."
+    is part of identity
+  domain entity EdFi.Course
+    documentation "The course recorded in the course transcript entry."
+    is part of identity
+    merge Course.EducationOrganization with AnonymizedStudentAcademicRecord.EducationOrganization
+  shared string EdFi.GradeEarned named FinalLetterGradeEarned
+    documentation "The final indicator of student performance in a class as submitted by the instructor."
+    is optional
+  shared decimal EdFi.NumericGrade named FinalNumericGradeEarned
+    documentation "The final indicator of student performance in a class as submitted by the instructor."
+    is optional
+  descriptor EdFi.CourseRepeatCode
+    documentation "Indicates that an academic course has been repeated by a student and how that repeat is to be computed in the student's academic grade average."
+    is optional
+  shared string EdFi.CourseTitle
+    documentation "The descriptive name given to a course of study offered in a school or other institution or organization."
+    is required

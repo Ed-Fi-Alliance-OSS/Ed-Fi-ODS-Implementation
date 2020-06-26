@@ -1,0 +1,6 @@
+Association StaffApplicantAssociation
+  documentation "Associated applicant(s) represented by this staff member."
+  domain entity EdFi.Staff
+    documentation "Reference to staff."
+  domain entity Applicant
+    documentation "Associated applicant(s) represented by this staff member."

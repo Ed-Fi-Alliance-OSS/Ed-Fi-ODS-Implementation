@@ -1,0 +1,2 @@
+Descriptor GoalType
+    documentation "The type of the goal (e.g., management, instruction)."

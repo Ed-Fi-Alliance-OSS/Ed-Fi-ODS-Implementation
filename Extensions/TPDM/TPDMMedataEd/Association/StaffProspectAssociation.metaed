@@ -1,0 +1,6 @@
+Association StaffProspectAssociation
+  documentation "Associated previously identified prospect."
+  domain entity EdFi.Staff
+    documentation "Reference to staff."
+  domain entity Prospect
+    documentation "Associated previously identified prospect."

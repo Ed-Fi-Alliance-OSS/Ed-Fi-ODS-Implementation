@@ -1,0 +1,6 @@
+Association SurveySectionResponseTeacherCandidateTargetAssociation
+  documentation "This association provides information about the survey section and the teacher candidate the survey section is about."
+  domain entity EdFi.SurveySectionResponse
+    documentation "Reference to the survey section response."
+  domain entity TeacherCandidate
+    documentation "Reference to the teacher candidate."

@@ -1,0 +1,12 @@
+Association AnonymizedStudentEducationOrganizationAssociation
+  documentation "Information about the association between an anonymized student and the Education Organziation they are enrolled in"
+  domain entity AnonymizedStudent
+    documentation "The Anonymized Student reference for the association."
+  domain entity EdFi.EducationOrganization
+    documentation "The Education Organization reference for the association."
+  date BeginDate
+    documentation "Begin date for the association"
+    is part of identity
+  date EndDate
+    documentation "The end date for the association."
+    is optional

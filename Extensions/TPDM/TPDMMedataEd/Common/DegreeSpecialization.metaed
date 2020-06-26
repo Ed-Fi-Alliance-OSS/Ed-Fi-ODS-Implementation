@@ -1,0 +1,14 @@
+Common DegreeSpecialization
+    documentation "Information around the area(s) of specialization for an individual."
+    shared string Specialization named MajorSpecialization
+      documentation "The major area for a degree or area of specialization for a certificate."
+      is part of identity
+    shared string Specialization named MinorSpecialization
+      documentation "The major area for a degree or area of specialization for a certificate."
+      is optional
+    date BeginDate
+      documentation "The month, day, and year on which the Teacher Candidate first declared specialization."
+      is part of identity
+    date EndDate
+      documentation "The month, day, and year on which the Teacher Candidate exited the declared specialization."
+      is optional
