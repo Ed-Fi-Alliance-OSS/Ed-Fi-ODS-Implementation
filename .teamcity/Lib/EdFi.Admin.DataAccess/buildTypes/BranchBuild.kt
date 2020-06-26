@@ -11,7 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 
 object BranchBuild : BuildType ({
     name = "Branch Build, Package, and Publish"
-    id = RelativeId("BranchBuild")
+    id = RelativeId("EdFiAdminDataAccess_BranchBuild")
 
     templates(lib.templates.BuildAndPackageSharedLibrary)
 })

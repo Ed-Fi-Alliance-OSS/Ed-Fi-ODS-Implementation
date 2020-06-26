@@ -11,7 +11,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.*
 
 object PullRequestBuild : BuildType ({
     name = "Pull Request Build and Test"
-    id = RelativeId("PullRequestBuild")
+    id = RelativeId("EdFiAdminDataAccess_PullRequestBuild")
 
     templates(lib.templates.BuildSharedLibraryPullRequest)
 })
