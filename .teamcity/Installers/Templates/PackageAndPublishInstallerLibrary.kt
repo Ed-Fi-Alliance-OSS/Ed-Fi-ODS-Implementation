@@ -24,6 +24,14 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
             param("version.preReleaseLabel", "pre")
             param("project.name", "%system.teamcity.buildConfName%")
             param("project.shouldPublishPreRelease", "true")
+            param("project.directory", "Ed-Fi-ODS-Implementation/scripts/NuGet/%project.name%")
+            // Ignore ODS repo
+            param("vcs.checkout.rules.ods", "-:.")
+            // Only checkout the installer project directory
+            param("vcs.checkout.rules.implementation", """
+                +:scripts/NuGet => scripts/NuGet
+                %vcs.checkout.rules.implementation.additional%
+            """)
         }
 
         steps {
