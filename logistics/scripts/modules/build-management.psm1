@@ -186,9 +186,7 @@ function New-OctopusChannel {
                         "Deploy Databases",
                         "Install API NuGet package",
                         "Install Admin NuGet Package",
-                        "Install Swagger NuGet package",
-                        "Deploy UploadCommit (On-Prem)",
-                        "Deploy BulkLoad (On-Prem)"
+                        "Install Swagger NuGet package"                       
                     )
                     VersionRange = "($versionRangeStartMajorVersion.$versionRangeStartMinorVersion.$versionRangeStartPatchVersion,$majorVersion.$minorVersion.$patchVersion]"
                 }
