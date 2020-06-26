@@ -62,7 +62,6 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
             powerShell {
                 name = "Test - PS"
                 id = "BuildSharedLibrary_Test_PS"
-                workingDir = "%project.directory$"
                 formatStderrAsError = true
                 scriptMode = script {
                     content = """
@@ -73,7 +72,9 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                         )
                         &dotnet @parameters
 
-                        return ${"$"}LASTEXITCODE
+                        if (${"$"}LASTEXITCODE -ne 0) {
+                            Write-Host "##teamcity[buildProblem description='Test failures occurred, review log for details']"
+                        }
                     """.trimIndent()
                 }
             }
