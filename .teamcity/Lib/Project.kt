@@ -14,7 +14,12 @@ object SharedLibrariesProject : Project({
     id = RelativeId("SharedLibraries")
     description = "Build configurations for shared libraries"
 
+    params {
+        param("api.semantic.version", "4.0.0")
+    }
+
     subProject(lib.edFiCommon.EdFiCommonProject)
+    subProject(lib.edFiAdminDataAccess.EdFiAdminDataAccessProject)
 
     template(lib.templates.BuildSharedLibraryPullRequest)
     template(lib.templates.BuildAndPackageSharedLibrary)

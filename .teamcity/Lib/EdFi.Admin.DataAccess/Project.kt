@@ -12,21 +12,21 @@
  * See the LICENSE and NOTICES files in the project root for more information.
  */
 
-package lib.edFiCommon
+package lib.edFiAdminDataAccess
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
 import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 
-object EdFiCommonProject : Project({
-    name = "EdFi.Common"
-    id = RelativeId("EdFiCommon")
+object EdFiAdminDataAccessProject : Project({
+    name = "EdFi.Admin.DataAccess"
+    id = RelativeId("EdFiAdminDataAccess")
     description = "Build configurations for the EdFi.Common shared library"
 
-    buildType(lib.edFiCommon.buildTypes.PullRequestBuild)
-    buildType(lib.edFiCommon.buildTypes.BranchBuild)
+    buildType(lib.edFiAdminDataAccess.buildTypes.PullRequestBuild)
+    buildType(lib.edFiAdminDataAccess.buildTypes.BranchBuild)
 
     params {
-        param("project.name", "EdFi.Common")
+        param("project.name", "EdFi.Admin.DataAccess")
         param("version.core", "%api.semantic.version%")
     }
 })
