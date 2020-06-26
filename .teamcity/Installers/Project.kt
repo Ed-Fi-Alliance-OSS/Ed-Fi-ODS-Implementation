@@ -14,12 +14,9 @@ object InstallersProject : Project({
     id = RelativeId("Installers")
     description = "Build configurations for PowerShell installer packages"
 
-    params {
-        param("api.semantic.version", "4.0.0")
-    }
-
     buildType(installers.buildTypes.SandboxAdmin)
     buildType(installers.buildTypes.SwaggerUI)
+    buildType(installers.buildTypes.WebApi)
 
     template(installers.templates.PackageAndPublishInstallerLibrary)
 })
