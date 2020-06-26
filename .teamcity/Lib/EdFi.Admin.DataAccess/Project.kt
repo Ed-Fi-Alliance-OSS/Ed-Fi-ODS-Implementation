@@ -20,7 +20,7 @@ import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 object EdFiAdminDataAccessProject : Project({
     name = "EdFi.Admin.DataAccess"
     id = RelativeId("EdFiAdminDataAccess")
-    description = "Build configurations for the EdFi.Common shared library"
+    description = "Build configurations for the EdFi.Admin.DataAccess shared library"
 
     buildType(lib.edFiAdminDataAccess.buildTypes.PullRequestBuild)
     buildType(lib.edFiAdminDataAccess.buildTypes.BranchBuild)
@@ -28,5 +28,8 @@ object EdFiAdminDataAccessProject : Project({
     params {
         param("project.name", "EdFi.Admin.DataAccess")
         param("version.core", "%api.semantic.version%")
+
+        // This project has a direct dependency on EdFi.Common
+        param("vcs.checkout.rules.ods.additional", "+:Application/EdFi.Common=>Ed-Fi-ODS/Application/EdFi.Common")
     }
 })
