@@ -61,7 +61,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
             // }
             powerShell {
                 name = "Test - PS"
-                Id = "BuildSharedLibrary_Test_PS"
+                id = "BuildSharedLibrary_Test_PS"
                 workingDir = "%project.directory$"
                 formatStderrAsError = true
                 scriptMode = script {
@@ -73,7 +73,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                         )
                         &dotnet test @parameters
                     """.trimIndent()
-
+                }
             }
         }
     }
