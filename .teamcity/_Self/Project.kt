@@ -23,6 +23,7 @@ object EdFiOdsImplementation : Project({
     }
 
     subProject(lib.SharedLibrariesProject)
+    subProject(installers.InstallersProject)
 
     vcsRoot(_self.vcsRoots.EdFiOds)
 })
