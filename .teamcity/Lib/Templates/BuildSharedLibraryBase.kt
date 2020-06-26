@@ -59,29 +59,6 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 skipBuild = true
                 param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
             }
-            // NB: the `dotnetTest` build step was not causing the build to fail, even
-            // with the base template class having a "fail on metrics" condition set.
-            // Therefore running through PowerShell and writing a failure message
-            // out to TeamCity
-            // powerShell {
-            //     name = "Test - PS"
-            //     id = "BuildSharedLibrary_Test_PS"
-            //     formatStderrAsError = true
-            //     scriptMode = script {
-            //         content = """
-            //             ${"$"}parameters = @(
-            //                 "test", "%project.file.sln%",
-            //                 "-c", "%msbuild.configuration%",
-            //                 "--no-build"
-            //             )
-            //             &dotnet @parameters
-
-            //             if (${"$"}LASTEXITCODE -ne 0) {
-            //                 Write-Host "##teamcity[buildProblem description='Test failures occurred, review log for details']"
-            //             }
-            //         """.trimIndent()
-            //     }
-            // }
         }
     }
 }
