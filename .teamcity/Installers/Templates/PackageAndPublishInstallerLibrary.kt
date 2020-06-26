@@ -29,13 +29,8 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
             param("vcs.checkout.rules.ods", "-:.")
             // Only checkout the installer project directory
             param("vcs.checkout.rules.implementation", """
-                +:. => Ed-Fi-ODS-Implementation
-                -:Application/
-                -:Database/
-                -:DatabaseTemplate/
-                -:Extensions/
-                -:LandingPage/
-                %vcs.checkout.rules.implementation.additional%
+                +:scripts/NuGet/Shared => Ed-Fi-ODS-Implementation/scripts/NuGet/Shared
+                +:scripts/NuGet/%project.name% => Ed-Fi-ODS-Implementation/scripts/NuGet/%project.name%
             """)
             param("vcs.checkout.rules.implementation.additional", "")
         }
