@@ -77,26 +77,5 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
                 branchFilter = "+:<default>"
             }
         }
-
-        features {
-            replaceContent {
-                id = "Replace_AssemblyVersion"
-                fileRules = "**/Directory.Build.props"
-                pattern = """(<(AssemblyVersion)\s*>).*(<\/\s*\2\s*>)"""
-                replacement = "${'$'}1%version.core%.%build.counter%${'$'}3"
-            }
-            replaceContent {
-                id = "Replace_FileVersion"
-                fileRules = "**/Directory.Build.props"
-                pattern = """(<(FileVersion)\s*>).*(<\/\s*\2\s*>)"""
-                replacement = "${'$'}1%version.core%.%build.counter%${'$'}3"
-            }
-            replaceContent {
-                id = "Replace_InformationalVersion"
-                fileRules = "**/Directory.Build.props"
-                pattern = """(<(InformationalVersion)\s*>).*(<\/\s*\2\s*>)"""
-                replacement = "${'$'}1%version.informational%${'$'}3"
-            }
-        }
     }
 }
