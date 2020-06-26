@@ -28,6 +28,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
         steps {
             powerShell {
                 name ="Created Four-Digit Build Number"
+                executionMode = BuildStep.ExecutionMode.RUN_ON_SUCCESS
                 id = "BuildAndPackageSharedLibrary_Padded_BuildNumber"
                 formatStderrAsError = true
                 scriptMode = script {
@@ -39,6 +40,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
             }
             dotnetPack {
                 name = "Pack Pre-Release"
+                executionMode = BuildStep.ExecutionMode.RUN_ON_SUCCESS
                 id = "BuildAndPackageSharedLibrary_Pack_PreRelease"
                 projects = "%project.file.csproj%"
                 configuration = "%msbuild.configuration%"
@@ -49,6 +51,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
             }
             dotnetPack {
                 name = "Pack Release"
+                executionMode = BuildStep.ExecutionMode.RUN_ON_SUCCESS
                 id = "BuildAndPackageSharedLibrary_Pack_Release"
                 projects = "%project.file.csproj%"
                 configuration = "%msbuild.configuration%"
@@ -59,6 +62,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
             }
             dotnetNugetPush {
                 name = "Publish Pre-Release"
+                executionMode = BuildStep.ExecutionMode.RUN_ON_SUCCESS
                 id = "BuildAndPackageSharedLibrary_Publish_PreRelease"
                 packages = "%project.name%.%version.core%-%version.prerelease%.nupkg"
                 serverUrl = "%myget.feed%"
