@@ -18,10 +18,10 @@ object EdFiInstallerSandboxAdmin : BuildType({
 
     params {
         param("version", "1.0.0")
-        // param("vcs.checkout.rules.implementation.additional", """
-        //     -:Scripts/NuGet/EdFi.Installer.SwaggerUI
-        //     -:Scripts/NuGet/EdFi.Installer.WebApi
-        //     -:Scripts/NuGet/EdFi.RestApi.Databases
-        // """.trimIndent())
+        param("vcs.checkout.rules.implementation.additional", """
+            -:Scripts/NuGet/EdFi.Installer.SwaggerUI
+            -:Scripts/NuGet/EdFi.Installer.WebApi
+            -:Scripts/NuGet/EdFi.RestApi.Databases
+        """.trimIndent())
     }
 })

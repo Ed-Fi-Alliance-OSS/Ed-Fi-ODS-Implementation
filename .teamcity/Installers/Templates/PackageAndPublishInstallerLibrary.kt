@@ -30,6 +30,7 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
             // Only checkout the installer project directory
             param("vcs.checkout.rules.implementation", """
                 +:scripts/NuGet => Ed-Fi-ODS-Implementation/scripts/NuGet
+                +:logistics/scripts => Ed-Fi-ODS-Implementation/logistics/scripts
                 %vcs.checkout.rules.implementation.additional%
             """)
             param("vcs.checkout.rules.implementation.additional", "")
