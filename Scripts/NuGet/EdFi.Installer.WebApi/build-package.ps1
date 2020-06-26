@@ -27,7 +27,7 @@ param (
 )
 $ErrorActionPreference = "Stop"
 
-Invoke-Expression "$PSScriptRoot/../prep-installer-package.ps1 $PSScriptRoot"
+Invoke-Expression "$PSScriptRoot/../shared/prep-installer-package.ps1 $PSScriptRoot"
 
 $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
