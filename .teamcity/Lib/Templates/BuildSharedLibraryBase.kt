@@ -51,13 +51,29 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 configuration = "%msbuild.configuration%"
                 param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
             }
-            dotnetTest {
-                name = "Test"
-                id = "BuildSharedLibrary_Test"
-                projects = "%project.file.sln%"
-                configuration = "%msbuild.configuration%"
-                skipBuild = true
-                param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
+            // dotnetTest {
+            //     name = "Test"
+            //     id = "BuildSharedLibrary_Test"
+            //     projects = "%project.file.sln%"
+            //     configuration = "%msbuild.configuration%"
+            //     skipBuild = true
+            //     param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
+            // }
+            powerShell {
+                name = "Test - PS"
+                Id = "BuildSharedLibrary_Test_PS"
+                workingDir = "%project.directory$"
+                formatStderrAsError = true
+                scriptMode = script {
+                    content = """
+                        ${"$"}parameters = @(
+                            "test", "%project.file.sln%",
+                            "-c", "%msbuild.configuration%",
+                            "--no-build"
+                        )
+                        &dotnet test @parameters
+                    """.trimIndent()
+
             }
         }
     }
