@@ -31,6 +31,7 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
             param("vcs.checkout.rules.implementation", """
                 +:scripts/NuGet/Shared => Ed-Fi-ODS-Implementation/scripts/NuGet/Shared
                 +:scripts/NuGet/%project.name% => Ed-Fi-ODS-Implementation/scripts/NuGet/%project.name%
+                +:logistics/scripts => Ed-Fi-ODS-Implementation/logistics/scripts
             """)
             param("vcs.checkout.rules.implementation.additional", "")
         }
