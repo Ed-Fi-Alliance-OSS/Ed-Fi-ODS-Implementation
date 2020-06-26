@@ -51,9 +51,7 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
         triggers {
             vcs {
                 id = "vcsTrigger"
-                triggerRules = """
-                    +:%project.directory%/**
-                """.trimIndent()
+                branchFilter = "+:<default>"
             }
         }
     }
