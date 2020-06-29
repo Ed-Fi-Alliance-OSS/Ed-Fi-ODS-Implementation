@@ -8,7 +8,6 @@
 package lib.edFiSecurityDataAccess
 
 import jetbrains.buildServer.configs.kotlin.v2019_2.*
-import jetbrains.buildServer.configs.kotlin.v2019_2.Project
 
 object EdFiSecurityDataAccessProject : Project({
     name = "EdFi.Security.DataAccess"
