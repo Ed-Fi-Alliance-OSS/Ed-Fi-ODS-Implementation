@@ -1,7 +1,7 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
+ALTER TABLE tpdm.AccreditationStatusDescriptor ADD CONSTRAINT FK_69de81_Descriptor FOREIGN KEY (AccreditationStatusDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE tpdm.AidTypeDescriptor ADD CONSTRAINT FK_d6106a_Descriptor FOREIGN KEY (AidTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -326,13 +326,6 @@ ON UPDATE CASCADE
 CREATE INDEX FK_562e9d_Section
 ON tpdm.AnonymizedStudentSectionAssociation (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
 
-ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_AcademicSubjectDescriptor FOREIGN KEY (HighlyQualifiedAcademicSubjectDescriptorId)
-REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
-;
-
-CREATE INDEX FK_0a1ce1_AcademicSubjectDescriptor
-ON tpdm.Applicant (HighlyQualifiedAcademicSubjectDescriptorId ASC);
-
 ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_CitizenshipStatusDescriptor FOREIGN KEY (CitizenshipStatusDescriptorId)
 REFERENCES edfi.CitizenshipStatusDescriptor (CitizenshipStatusDescriptorId)
 ;
@@ -340,26 +333,12 @@ REFERENCES edfi.CitizenshipStatusDescriptor (CitizenshipStatusDescriptorId)
 CREATE INDEX FK_0a1ce1_CitizenshipStatusDescriptor
 ON tpdm.Applicant (CitizenshipStatusDescriptorId ASC);
 
-ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_EducationOrganization FOREIGN KEY (EducationOrganizationId)
-REFERENCES edfi.EducationOrganization (EducationOrganizationId)
-;
-
-CREATE INDEX FK_0a1ce1_EducationOrganization
-ON tpdm.Applicant (EducationOrganizationId ASC);
-
 ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_GenderDescriptor FOREIGN KEY (GenderDescriptorId)
 REFERENCES tpdm.GenderDescriptor (GenderDescriptorId)
 ;
 
 CREATE INDEX FK_0a1ce1_GenderDescriptor
 ON tpdm.Applicant (GenderDescriptorId ASC);
-
-ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
-REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
-;
-
-CREATE INDEX FK_0a1ce1_LevelOfEducationDescriptor
-ON tpdm.Applicant (HighestCompletedLevelOfEducationDescriptorId ASC);
 
 ALTER TABLE tpdm.Applicant ADD CONSTRAINT FK_0a1ce1_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
@@ -389,13 +368,13 @@ REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
 CREATE INDEX FK_dc1bbc_AddressTypeDescriptor
 ON tpdm.ApplicantAddress (AddressTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantAddress ADD CONSTRAINT FK_dc1bbc_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantAddress ADD CONSTRAINT FK_dc1bbc_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_dc1bbc_Applicant
-ON tpdm.ApplicantAddress (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantAddress (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantAddress ADD CONSTRAINT FK_dc1bbc_LocaleDescriptor FOREIGN KEY (LocaleDescriptorId)
 REFERENCES edfi.LocaleDescriptor (LocaleDescriptorId)
@@ -411,13 +390,13 @@ REFERENCES edfi.StateAbbreviationDescriptor (StateAbbreviationDescriptorId)
 CREATE INDEX FK_dc1bbc_StateAbbreviationDescriptor
 ON tpdm.ApplicantAddress (StateAbbreviationDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantAddressPeriod ADD CONSTRAINT FK_3a403c_ApplicantAddress FOREIGN KEY (AddressTypeDescriptorId, ApplicantIdentifier, City, EducationOrganizationId, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
-REFERENCES tpdm.ApplicantAddress (AddressTypeDescriptorId, ApplicantIdentifier, City, EducationOrganizationId, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+ALTER TABLE tpdm.ApplicantAddressPeriod ADD CONSTRAINT FK_3a403c_ApplicantAddress FOREIGN KEY (AddressTypeDescriptorId, ApplicantIdentifier, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
+REFERENCES tpdm.ApplicantAddress (AddressTypeDescriptorId, ApplicantIdentifier, City, PostalCode, StateAbbreviationDescriptorId, StreetNumberName)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_3a403c_ApplicantAddress
-ON tpdm.ApplicantAddressPeriod (AddressTypeDescriptorId ASC, ApplicantIdentifier ASC, City ASC, EducationOrganizationId ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
+ON tpdm.ApplicantAddressPeriod (AddressTypeDescriptorId ASC, ApplicantIdentifier ASC, City ASC, PostalCode ASC, StateAbbreviationDescriptorId ASC, StreetNumberName ASC);
 
 ALTER TABLE tpdm.ApplicantAid ADD CONSTRAINT FK_664f50_AidTypeDescriptor FOREIGN KEY (AidTypeDescriptorId)
 REFERENCES tpdm.AidTypeDescriptor (AidTypeDescriptorId)
@@ -426,21 +405,21 @@ REFERENCES tpdm.AidTypeDescriptor (AidTypeDescriptorId)
 CREATE INDEX FK_664f50_AidTypeDescriptor
 ON tpdm.ApplicantAid (AidTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantAid ADD CONSTRAINT FK_664f50_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantAid ADD CONSTRAINT FK_664f50_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_664f50_Applicant
-ON tpdm.ApplicantAid (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantAid (ApplicantIdentifier ASC);
 
-ALTER TABLE tpdm.ApplicantBackgroundCheck ADD CONSTRAINT FK_ca0f8c_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantBackgroundCheck ADD CONSTRAINT FK_ca0f8c_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_ca0f8c_Applicant
-ON tpdm.ApplicantBackgroundCheck (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantBackgroundCheck (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantBackgroundCheck ADD CONSTRAINT FK_ca0f8c_BackgroundCheckStatusDescriptor FOREIGN KEY (BackgroundCheckStatusDescriptorId)
 REFERENCES tpdm.BackgroundCheckStatusDescriptor (BackgroundCheckStatusDescriptorId)
@@ -456,13 +435,13 @@ REFERENCES tpdm.BackgroundCheckTypeDescriptor (BackgroundCheckTypeDescriptorId)
 CREATE INDEX FK_ca0f8c_BackgroundCheckTypeDescriptor
 ON tpdm.ApplicantBackgroundCheck (BackgroundCheckTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantCharacteristic ADD CONSTRAINT FK_12b3e2_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantCharacteristic ADD CONSTRAINT FK_12b3e2_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_12b3e2_Applicant
-ON tpdm.ApplicantCharacteristic (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantCharacteristic (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantCharacteristic ADD CONSTRAINT FK_12b3e2_StudentCharacteristicDescriptor FOREIGN KEY (StudentCharacteristicDescriptorId)
 REFERENCES edfi.StudentCharacteristicDescriptor (StudentCharacteristicDescriptorId)
@@ -471,28 +450,13 @@ REFERENCES edfi.StudentCharacteristicDescriptor (StudentCharacteristicDescriptor
 CREATE INDEX FK_12b3e2_StudentCharacteristicDescriptor
 ON tpdm.ApplicantCharacteristic (StudentCharacteristicDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantCredential ADD CONSTRAINT FK_66a543_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_66a543_Applicant
-ON tpdm.ApplicantCredential (ApplicantIdentifier ASC, EducationOrganizationId ASC);
-
-ALTER TABLE tpdm.ApplicantCredential ADD CONSTRAINT FK_66a543_Credential FOREIGN KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-REFERENCES edfi.Credential (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-;
-
-CREATE INDEX FK_66a543_Credential
-ON tpdm.ApplicantCredential (CredentialIdentifier ASC, StateOfIssueStateAbbreviationDescriptorId ASC);
-
-ALTER TABLE tpdm.ApplicantDisability ADD CONSTRAINT FK_3ccfc3_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantDisability ADD CONSTRAINT FK_3ccfc3_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_3ccfc3_Applicant
-ON tpdm.ApplicantDisability (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantDisability (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantDisability ADD CONSTRAINT FK_3ccfc3_DisabilityDescriptor FOREIGN KEY (DisabilityDescriptorId)
 REFERENCES edfi.DisabilityDescriptor (DisabilityDescriptorId)
@@ -508,13 +472,13 @@ REFERENCES edfi.DisabilityDeterminationSourceTypeDescriptor (DisabilityDetermina
 CREATE INDEX FK_3ccfc3_DisabilityDeterminationSourceTypeDescriptor
 ON tpdm.ApplicantDisability (DisabilityDeterminationSourceTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantDisabilityDesignation ADD CONSTRAINT FK_76fa33_ApplicantDisability FOREIGN KEY (ApplicantIdentifier, DisabilityDescriptorId, EducationOrganizationId)
-REFERENCES tpdm.ApplicantDisability (ApplicantIdentifier, DisabilityDescriptorId, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantDisabilityDesignation ADD CONSTRAINT FK_76fa33_ApplicantDisability FOREIGN KEY (ApplicantIdentifier, DisabilityDescriptorId)
+REFERENCES tpdm.ApplicantDisability (ApplicantIdentifier, DisabilityDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_76fa33_ApplicantDisability
-ON tpdm.ApplicantDisabilityDesignation (ApplicantIdentifier ASC, DisabilityDescriptorId ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantDisabilityDesignation (ApplicantIdentifier ASC, DisabilityDescriptorId ASC);
 
 ALTER TABLE tpdm.ApplicantDisabilityDesignation ADD CONSTRAINT FK_76fa33_DisabilityDesignationDescriptor FOREIGN KEY (DisabilityDesignationDescriptorId)
 REFERENCES edfi.DisabilityDesignationDescriptor (DisabilityDesignationDescriptorId)
@@ -523,13 +487,13 @@ REFERENCES edfi.DisabilityDesignationDescriptor (DisabilityDesignationDescriptor
 CREATE INDEX FK_76fa33_DisabilityDesignationDescriptor
 ON tpdm.ApplicantDisabilityDesignation (DisabilityDesignationDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantElectronicMail ADD CONSTRAINT FK_2e402a_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantElectronicMail ADD CONSTRAINT FK_2e402a_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_2e402a_Applicant
-ON tpdm.ApplicantElectronicMail (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantElectronicMail (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantElectronicMail ADD CONSTRAINT FK_2e402a_ElectronicMailTypeDescriptor FOREIGN KEY (ElectronicMailTypeDescriptorId)
 REFERENCES edfi.ElectronicMailTypeDescriptor (ElectronicMailTypeDescriptorId)
@@ -538,28 +502,13 @@ REFERENCES edfi.ElectronicMailTypeDescriptor (ElectronicMailTypeDescriptorId)
 CREATE INDEX FK_2e402a_ElectronicMailTypeDescriptor
 ON tpdm.ApplicantElectronicMail (ElectronicMailTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantGradePointAverage ADD CONSTRAINT FK_a9774a_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_a9774a_Applicant
-ON tpdm.ApplicantGradePointAverage (ApplicantIdentifier ASC, EducationOrganizationId ASC);
-
-ALTER TABLE tpdm.ApplicantGradePointAverage ADD CONSTRAINT FK_a9774a_GradePointAverageTypeDescriptor FOREIGN KEY (GradePointAverageTypeDescriptorId)
-REFERENCES edfi.GradePointAverageTypeDescriptor (GradePointAverageTypeDescriptorId)
-;
-
-CREATE INDEX FK_a9774a_GradePointAverageTypeDescriptor
-ON tpdm.ApplicantGradePointAverage (GradePointAverageTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.ApplicantIdentificationDocument ADD CONSTRAINT FK_e89a68_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantIdentificationDocument ADD CONSTRAINT FK_e89a68_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_e89a68_Applicant
-ON tpdm.ApplicantIdentificationDocument (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantIdentificationDocument (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantIdentificationDocument ADD CONSTRAINT FK_e89a68_CountryDescriptor FOREIGN KEY (IssuerCountryDescriptorId)
 REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
@@ -589,13 +538,13 @@ REFERENCES edfi.AddressTypeDescriptor (AddressTypeDescriptorId)
 CREATE INDEX FK_764520_AddressTypeDescriptor
 ON tpdm.ApplicantInternationalAddress (AddressTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantInternationalAddress ADD CONSTRAINT FK_764520_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantInternationalAddress ADD CONSTRAINT FK_764520_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_764520_Applicant
-ON tpdm.ApplicantInternationalAddress (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantInternationalAddress (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantInternationalAddress ADD CONSTRAINT FK_764520_CountryDescriptor FOREIGN KEY (CountryDescriptorId)
 REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
@@ -604,13 +553,13 @@ REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
 CREATE INDEX FK_764520_CountryDescriptor
 ON tpdm.ApplicantInternationalAddress (CountryDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantLanguage ADD CONSTRAINT FK_23ffbd_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantLanguage ADD CONSTRAINT FK_23ffbd_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_23ffbd_Applicant
-ON tpdm.ApplicantLanguage (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantLanguage (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantLanguage ADD CONSTRAINT FK_23ffbd_LanguageDescriptor FOREIGN KEY (LanguageDescriptorId)
 REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)
@@ -619,13 +568,13 @@ REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)
 CREATE INDEX FK_23ffbd_LanguageDescriptor
 ON tpdm.ApplicantLanguage (LanguageDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantLanguageUse ADD CONSTRAINT FK_527711_ApplicantLanguage FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId, LanguageDescriptorId)
-REFERENCES tpdm.ApplicantLanguage (ApplicantIdentifier, EducationOrganizationId, LanguageDescriptorId)
+ALTER TABLE tpdm.ApplicantLanguageUse ADD CONSTRAINT FK_527711_ApplicantLanguage FOREIGN KEY (ApplicantIdentifier, LanguageDescriptorId)
+REFERENCES tpdm.ApplicantLanguage (ApplicantIdentifier, LanguageDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_527711_ApplicantLanguage
-ON tpdm.ApplicantLanguageUse (ApplicantIdentifier ASC, EducationOrganizationId ASC, LanguageDescriptorId ASC);
+ON tpdm.ApplicantLanguageUse (ApplicantIdentifier ASC, LanguageDescriptorId ASC);
 
 ALTER TABLE tpdm.ApplicantLanguageUse ADD CONSTRAINT FK_527711_LanguageUseDescriptor FOREIGN KEY (LanguageUseDescriptorId)
 REFERENCES edfi.LanguageUseDescriptor (LanguageUseDescriptorId)
@@ -634,13 +583,13 @@ REFERENCES edfi.LanguageUseDescriptor (LanguageUseDescriptorId)
 CREATE INDEX FK_527711_LanguageUseDescriptor
 ON tpdm.ApplicantLanguageUse (LanguageUseDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantPersonalIdentificationDocument ADD CONSTRAINT FK_4c9a54_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantPersonalIdentificationDocument ADD CONSTRAINT FK_4c9a54_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_4c9a54_Applicant
-ON tpdm.ApplicantPersonalIdentificationDocument (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantPersonalIdentificationDocument (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantPersonalIdentificationDocument ADD CONSTRAINT FK_4c9a54_CountryDescriptor FOREIGN KEY (IssuerCountryDescriptorId)
 REFERENCES edfi.CountryDescriptor (CountryDescriptorId)
@@ -663,12 +612,12 @@ REFERENCES edfi.PersonalInformationVerificationDescriptor (PersonalInformationVe
 CREATE INDEX FK_4c9a54_PersonalInformationVerificationDescriptor
 ON tpdm.ApplicantPersonalIdentificationDocument (PersonalInformationVerificationDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantProspectAssociation ADD CONSTRAINT FK_57cdba_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantProspectAssociation ADD CONSTRAINT FK_57cdba_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ;
 
 CREATE INDEX FK_57cdba_Applicant
-ON tpdm.ApplicantProspectAssociation (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantProspectAssociation (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantProspectAssociation ADD CONSTRAINT FK_57cdba_Prospect FOREIGN KEY (EducationOrganizationId, ProspectIdentifier)
 REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
@@ -677,13 +626,13 @@ REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
 CREATE INDEX FK_57cdba_Prospect
 ON tpdm.ApplicantProspectAssociation (EducationOrganizationId ASC, ProspectIdentifier ASC);
 
-ALTER TABLE tpdm.ApplicantRace ADD CONSTRAINT FK_991ae6_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantRace ADD CONSTRAINT FK_991ae6_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_991ae6_Applicant
-ON tpdm.ApplicantRace (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantRace (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantRace ADD CONSTRAINT FK_991ae6_RaceDescriptor FOREIGN KEY (RaceDescriptorId)
 REFERENCES edfi.RaceDescriptor (RaceDescriptorId)
@@ -692,35 +641,13 @@ REFERENCES edfi.RaceDescriptor (RaceDescriptorId)
 CREATE INDEX FK_991ae6_RaceDescriptor
 ON tpdm.ApplicantRace (RaceDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantScoreResult ADD CONSTRAINT FK_402e43_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_402e43_Applicant
-ON tpdm.ApplicantScoreResult (ApplicantIdentifier ASC, EducationOrganizationId ASC);
-
-ALTER TABLE tpdm.ApplicantScoreResult ADD CONSTRAINT FK_402e43_AssessmentReportingMethodDescriptor FOREIGN KEY (AssessmentReportingMethodDescriptorId)
-REFERENCES edfi.AssessmentReportingMethodDescriptor (AssessmentReportingMethodDescriptorId)
-;
-
-CREATE INDEX FK_402e43_AssessmentReportingMethodDescriptor
-ON tpdm.ApplicantScoreResult (AssessmentReportingMethodDescriptorId ASC);
-
-ALTER TABLE tpdm.ApplicantScoreResult ADD CONSTRAINT FK_402e43_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
-REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
-;
-
-CREATE INDEX FK_402e43_ResultDatatypeTypeDescriptor
-ON tpdm.ApplicantScoreResult (ResultDatatypeTypeDescriptorId ASC);
-
-ALTER TABLE tpdm.ApplicantStaffIdentificationCode ADD CONSTRAINT FK_e02fd4_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantStaffIdentificationCode ADD CONSTRAINT FK_e02fd4_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_e02fd4_Applicant
-ON tpdm.ApplicantStaffIdentificationCode (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantStaffIdentificationCode (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantStaffIdentificationCode ADD CONSTRAINT FK_e02fd4_StaffIdentificationSystemDescriptor FOREIGN KEY (StaffIdentificationSystemDescriptorId)
 REFERENCES edfi.StaffIdentificationSystemDescriptor (StaffIdentificationSystemDescriptorId)
@@ -729,13 +656,13 @@ REFERENCES edfi.StaffIdentificationSystemDescriptor (StaffIdentificationSystemDe
 CREATE INDEX FK_e02fd4_StaffIdentificationSystemDescriptor
 ON tpdm.ApplicantStaffIdentificationCode (StaffIdentificationSystemDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantTeacherPreparationProgram ADD CONSTRAINT FK_468674_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantTeacherPreparationProgram ADD CONSTRAINT FK_468674_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_468674_Applicant
-ON tpdm.ApplicantTeacherPreparationProgram (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantTeacherPreparationProgram (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantTeacherPreparationProgram ADD CONSTRAINT FK_468674_LevelOfDegreeAwardedDescriptor FOREIGN KEY (LevelOfDegreeAwardedDescriptorId)
 REFERENCES tpdm.LevelOfDegreeAwardedDescriptor (LevelOfDegreeAwardedDescriptorId)
@@ -751,13 +678,13 @@ REFERENCES tpdm.TeacherPreparationProgramTypeDescriptor (TeacherPreparationProgr
 CREATE INDEX FK_468674_TeacherPreparationProgramTypeDescriptor
 ON tpdm.ApplicantTeacherPreparationProgram (TeacherPreparationProgramTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantTelephone ADD CONSTRAINT FK_06c96d_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantTelephone ADD CONSTRAINT FK_06c96d_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_06c96d_Applicant
-ON tpdm.ApplicantTelephone (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantTelephone (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantTelephone ADD CONSTRAINT FK_06c96d_TelephoneNumberTypeDescriptor FOREIGN KEY (TelephoneNumberTypeDescriptorId)
 REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
@@ -766,13 +693,13 @@ REFERENCES edfi.TelephoneNumberTypeDescriptor (TelephoneNumberTypeDescriptorId)
 CREATE INDEX FK_06c96d_TelephoneNumberTypeDescriptor
 ON tpdm.ApplicantTelephone (TelephoneNumberTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.ApplicantVisa ADD CONSTRAINT FK_6b737c_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.ApplicantVisa ADD CONSTRAINT FK_6b737c_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_6b737c_Applicant
-ON tpdm.ApplicantVisa (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.ApplicantVisa (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.ApplicantVisa ADD CONSTRAINT FK_6b737c_VisaDescriptor FOREIGN KEY (VisaDescriptorId)
 REFERENCES edfi.VisaDescriptor (VisaDescriptorId)
@@ -795,12 +722,19 @@ REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
 CREATE INDEX FK_e7ad52_AcademicSubjectDescriptor1
 ON tpdm.Application (HighNeedsAcademicSubjectDescriptorId ASC);
 
-ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_AcademicSubjectDescriptor2 FOREIGN KEY (HighlyQualifiedAcademicSubjectDescriptorId)
+REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
+;
+
+CREATE INDEX FK_e7ad52_AcademicSubjectDescriptor2
+ON tpdm.Application (HighlyQualifiedAcademicSubjectDescriptorId ASC);
+
+ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ;
 
 CREATE INDEX FK_e7ad52_Applicant
-ON tpdm.Application (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.Application (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_ApplicationSourceDescriptor FOREIGN KEY (ApplicationSourceDescriptorId)
 REFERENCES tpdm.ApplicationSourceDescriptor (ApplicationSourceDescriptorId)
@@ -836,6 +770,13 @@ REFERENCES tpdm.HiringSourceDescriptor (HiringSourceDescriptorId)
 
 CREATE INDEX FK_e7ad52_HiringSourceDescriptor
 ON tpdm.Application (HiringSourceDescriptorId ASC);
+
+ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_LevelOfEducationDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationDescriptorId)
+REFERENCES edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorId)
+;
+
+CREATE INDEX FK_e7ad52_LevelOfEducationDescriptor
+ON tpdm.Application (HighestCompletedLevelOfEducationDescriptorId ASC);
 
 ALTER TABLE tpdm.Application ADD CONSTRAINT FK_e7ad52_WithdrawReasonDescriptor FOREIGN KEY (WithdrawReasonDescriptorId)
 REFERENCES tpdm.WithdrawReasonDescriptor (WithdrawReasonDescriptorId)
@@ -889,6 +830,21 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE tpdm.ApplicationGradePointAverage ADD CONSTRAINT FK_178330_Application FOREIGN KEY (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
+REFERENCES tpdm.Application (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_178330_Application
+ON tpdm.ApplicationGradePointAverage (ApplicantIdentifier ASC, ApplicationIdentifier ASC, EducationOrganizationId ASC);
+
+ALTER TABLE tpdm.ApplicationGradePointAverage ADD CONSTRAINT FK_178330_GradePointAverageTypeDescriptor FOREIGN KEY (GradePointAverageTypeDescriptorId)
+REFERENCES edfi.GradePointAverageTypeDescriptor (GradePointAverageTypeDescriptorId)
+;
+
+CREATE INDEX FK_178330_GradePointAverageTypeDescriptor
+ON tpdm.ApplicationGradePointAverage (GradePointAverageTypeDescriptorId ASC);
+
 ALTER TABLE tpdm.ApplicationOpenStaffPosition ADD CONSTRAINT FK_078448_Application FOREIGN KEY (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
 REFERENCES tpdm.Application (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
 ON DELETE CASCADE
@@ -903,6 +859,28 @@ REFERENCES edfi.OpenStaffPosition (EducationOrganizationId, RequisitionNumber)
 
 CREATE INDEX FK_078448_OpenStaffPosition
 ON tpdm.ApplicationOpenStaffPosition (EducationOrganizationId ASC, RequisitionNumber ASC);
+
+ALTER TABLE tpdm.ApplicationScoreResult ADD CONSTRAINT FK_876029_Application FOREIGN KEY (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
+REFERENCES tpdm.Application (ApplicantIdentifier, ApplicationIdentifier, EducationOrganizationId)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_876029_Application
+ON tpdm.ApplicationScoreResult (ApplicantIdentifier ASC, ApplicationIdentifier ASC, EducationOrganizationId ASC);
+
+ALTER TABLE tpdm.ApplicationScoreResult ADD CONSTRAINT FK_876029_AssessmentReportingMethodDescriptor FOREIGN KEY (AssessmentReportingMethodDescriptorId)
+REFERENCES edfi.AssessmentReportingMethodDescriptor (AssessmentReportingMethodDescriptorId)
+;
+
+CREATE INDEX FK_876029_AssessmentReportingMethodDescriptor
+ON tpdm.ApplicationScoreResult (AssessmentReportingMethodDescriptorId ASC);
+
+ALTER TABLE tpdm.ApplicationScoreResult ADD CONSTRAINT FK_876029_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
+REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
+;
+
+CREATE INDEX FK_876029_ResultDatatypeTypeDescriptor
+ON tpdm.ApplicationScoreResult (ResultDatatypeTypeDescriptorId ASC);
 
 ALTER TABLE tpdm.ApplicationSourceDescriptor ADD CONSTRAINT FK_bbb2ec_Descriptor FOREIGN KEY (ApplicationSourceDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -1007,20 +985,20 @@ REFERENCES edfi.PopulationServedDescriptor (PopulationServedDescriptorId)
 CREATE INDEX FK_86846f_PopulationServedDescriptor
 ON tpdm.Certification (PopulationServedDescriptorId ASC);
 
-ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
-REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
+ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+REFERENCES tpdm.Certification (CertificationIdentifier, Namespace)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_947c8f_Certification
-ON tpdm.CertificationCertificationExam (CertificationIdentifier ASC, IssuerNamespace ASC);
+ON tpdm.CertificationCertificationExam (CertificationIdentifier ASC, Namespace ASC);
 
-ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_CertificationExam FOREIGN KEY (CertificationExamIdentifier, Namespace)
-REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, Namespace)
+ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_CertificationExam FOREIGN KEY (CertificationExamIdentifier, ExamNamespace)
+REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, ExamNamespace)
 ;
 
 CREATE INDEX FK_947c8f_CertificationExam
-ON tpdm.CertificationCertificationExam (CertificationExamIdentifier ASC, Namespace ASC);
+ON tpdm.CertificationCertificationExam (CertificationExamIdentifier ASC, ExamNamespace ASC);
 
 ALTER TABLE tpdm.CertificationExam ADD CONSTRAINT FK_cb139c_CertificationExamTypeDescriptor FOREIGN KEY (CertificationExamTypeDescriptorId)
 REFERENCES tpdm.CertificationExamTypeDescriptor (CertificationExamTypeDescriptorId)
@@ -1036,12 +1014,12 @@ REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 CREATE INDEX FK_cb139c_EducationOrganization
 ON tpdm.CertificationExam (EducationOrganizationId ASC);
 
-ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExam FOREIGN KEY (CertificationExamIdentifier, Namespace)
-REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, Namespace)
+ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExam FOREIGN KEY (CertificationExamIdentifier, ExamNamespace)
+REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, ExamNamespace)
 ;
 
 CREATE INDEX FK_aed83e_CertificationExam
-ON tpdm.CertificationExamResult (CertificationExamIdentifier ASC, Namespace ASC);
+ON tpdm.CertificationExamResult (CertificationExamIdentifier ASC, ExamNamespace ASC);
 
 ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExamStatusDescriptor FOREIGN KEY (CertificationExamStatusDescriptorId)
 REFERENCES tpdm.CertificationExamStatusDescriptor (CertificationExamStatusDescriptorId)
@@ -1072,13 +1050,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.CertificationGradeLevel ADD CONSTRAINT FK_809d74_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
-REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
+ALTER TABLE tpdm.CertificationGradeLevel ADD CONSTRAINT FK_809d74_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+REFERENCES tpdm.Certification (CertificationIdentifier, Namespace)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_809d74_Certification
-ON tpdm.CertificationGradeLevel (CertificationIdentifier ASC, IssuerNamespace ASC);
+ON tpdm.CertificationGradeLevel (CertificationIdentifier ASC, Namespace ASC);
 
 ALTER TABLE tpdm.CertificationGradeLevel ADD CONSTRAINT FK_809d74_GradeLevelDescriptor FOREIGN KEY (GradeLevelDescriptorId)
 REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
@@ -1092,13 +1070,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.CertificationRoute ADD CONSTRAINT FK_62187e_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
-REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
+ALTER TABLE tpdm.CertificationRoute ADD CONSTRAINT FK_62187e_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+REFERENCES tpdm.Certification (CertificationIdentifier, Namespace)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_62187e_Certification
-ON tpdm.CertificationRoute (CertificationIdentifier ASC, IssuerNamespace ASC);
+ON tpdm.CertificationRoute (CertificationIdentifier ASC, Namespace ASC);
 
 ALTER TABLE tpdm.CertificationRoute ADD CONSTRAINT FK_62187e_CertificationRouteDescriptor FOREIGN KEY (CertificationRouteDescriptorId)
 REFERENCES tpdm.CertificationRouteDescriptor (CertificationRouteDescriptorId)
@@ -1155,12 +1133,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.CredentialExtension ADD CONSTRAINT FK_6fae52_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
-REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
+ALTER TABLE tpdm.CredentialExtension ADD CONSTRAINT FK_6fae52_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+REFERENCES tpdm.Certification (CertificationIdentifier, Namespace)
 ;
 
 CREATE INDEX FK_6fae52_Certification
-ON tpdm.CredentialExtension (CertificationIdentifier ASC, IssuerNamespace ASC);
+ON tpdm.CredentialExtension (CertificationIdentifier ASC, Namespace ASC);
 
 ALTER TABLE tpdm.CredentialExtension ADD CONSTRAINT FK_6fae52_CertificationRouteDescriptor FOREIGN KEY (CertificationRouteDescriptorId)
 REFERENCES tpdm.CertificationRouteDescriptor (CertificationRouteDescriptorId)
@@ -1287,19 +1265,19 @@ REFERENCES tpdm.EvaluationTypeDescriptor (EvaluationTypeDescriptorId)
 CREATE INDEX FK_163e44_EvaluationTypeDescriptor
 ON tpdm.Evaluation (EvaluationTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.Evaluation ADD CONSTRAINT FK_163e44_PerformanceEvaluation FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluation (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.Evaluation ADD CONSTRAINT FK_163e44_PerformanceEvaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_163e44_PerformanceEvaluation
-ON tpdm.Evaluation (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.Evaluation (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationElement ADD CONSTRAINT FK_e53186_EvaluationObjective FOREIGN KEY (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationObjective (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationElement ADD CONSTRAINT FK_e53186_EvaluationObjective FOREIGN KEY (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationObjective (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_e53186_EvaluationObjective
-ON tpdm.EvaluationElement (EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationElement (EducationOrganizationId ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationElement ADD CONSTRAINT FK_e53186_EvaluationTypeDescriptor FOREIGN KEY (EvaluationTypeDescriptorId)
 REFERENCES tpdm.EvaluationTypeDescriptor (EvaluationTypeDescriptorId)
@@ -1308,12 +1286,12 @@ REFERENCES tpdm.EvaluationTypeDescriptor (EvaluationTypeDescriptorId)
 CREATE INDEX FK_e53186_EvaluationTypeDescriptor
 ON tpdm.EvaluationElement (EvaluationTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationElementRating ADD CONSTRAINT FK_4479ea_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationElementRating ADD CONSTRAINT FK_4479ea_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_4479ea_EvaluationElement
-ON tpdm.EvaluationElementRating (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationElementRating (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationElementRating ADD CONSTRAINT FK_4479ea_EvaluationElementRatingLevelDescriptor FOREIGN KEY (EvaluationElementRatingLevelDescriptorId)
 REFERENCES tpdm.EvaluationElementRatingLevelDescriptor (EvaluationElementRatingLevelDescriptorId)
@@ -1322,20 +1300,20 @@ REFERENCES tpdm.EvaluationElementRatingLevelDescriptor (EvaluationElementRatingL
 CREATE INDEX FK_4479ea_EvaluationElementRatingLevelDescriptor
 ON tpdm.EvaluationElementRating (EvaluationElementRatingLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationElementRating ADD CONSTRAINT FK_4479ea_EvaluationObjectiveRating FOREIGN KEY (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationObjectiveRating (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationElementRating ADD CONSTRAINT FK_4479ea_EvaluationObjectiveRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationObjectiveRating (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
 
 CREATE INDEX FK_4479ea_EvaluationObjectiveRating
-ON tpdm.EvaluationElementRating (EvaluationDate ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationElementRating (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationElementRatingLevel ADD CONSTRAINT FK_afbeb2_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationElementRatingLevel ADD CONSTRAINT FK_afbeb2_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_afbeb2_EvaluationElement
-ON tpdm.EvaluationElementRatingLevel (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationElementRatingLevel (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationElementRatingLevel ADD CONSTRAINT FK_afbeb2_EvaluationRatingLevelDescriptor FOREIGN KEY (EvaluationRatingLevelDescriptorId)
 REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptorId)
@@ -1349,13 +1327,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.EvaluationElementRatingResult ADD CONSTRAINT FK_c5877a_EvaluationElementRating FOREIGN KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElementRating (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationElementRatingResult ADD CONSTRAINT FK_c5877a_EvaluationElementRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationElementRating (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_c5877a_EvaluationElementRating
-ON tpdm.EvaluationElementRatingResult (EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationElementRatingResult (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationElementRatingResult ADD CONSTRAINT FK_c5877a_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
 REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
@@ -1364,12 +1342,12 @@ REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
 CREATE INDEX FK_c5877a_ResultDatatypeTypeDescriptor
 ON tpdm.EvaluationElementRatingResult (ResultDatatypeTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationObjective ADD CONSTRAINT FK_d4565d_Evaluation FOREIGN KEY (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.Evaluation (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationObjective ADD CONSTRAINT FK_d4565d_Evaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.Evaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_d4565d_Evaluation
-ON tpdm.EvaluationObjective (EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationObjective (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationObjective ADD CONSTRAINT FK_d4565d_EvaluationTypeDescriptor FOREIGN KEY (EvaluationTypeDescriptorId)
 REFERENCES tpdm.EvaluationTypeDescriptor (EvaluationTypeDescriptorId)
@@ -1378,19 +1356,19 @@ REFERENCES tpdm.EvaluationTypeDescriptor (EvaluationTypeDescriptorId)
 CREATE INDEX FK_d4565d_EvaluationTypeDescriptor
 ON tpdm.EvaluationObjective (EvaluationTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationObjectiveRating ADD CONSTRAINT FK_7ae19d_EvaluationObjective FOREIGN KEY (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationObjective (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationObjectiveRating ADD CONSTRAINT FK_7ae19d_EvaluationObjective FOREIGN KEY (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationObjective (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_7ae19d_EvaluationObjective
-ON tpdm.EvaluationObjectiveRating (EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationObjectiveRating (EducationOrganizationId ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationObjectiveRating ADD CONSTRAINT FK_7ae19d_EvaluationRating FOREIGN KEY (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationRating (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationObjectiveRating ADD CONSTRAINT FK_7ae19d_EvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationRating (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
 
 CREATE INDEX FK_7ae19d_EvaluationRating
-ON tpdm.EvaluationObjectiveRating (EvaluationDate ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationObjectiveRating (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationObjectiveRating ADD CONSTRAINT FK_7ae19d_ObjectiveRatingLevelDescriptor FOREIGN KEY (ObjectiveRatingLevelDescriptorId)
 REFERENCES tpdm.ObjectiveRatingLevelDescriptor (ObjectiveRatingLevelDescriptorId)
@@ -1399,13 +1377,13 @@ REFERENCES tpdm.ObjectiveRatingLevelDescriptor (ObjectiveRatingLevelDescriptorId
 CREATE INDEX FK_7ae19d_ObjectiveRatingLevelDescriptor
 ON tpdm.EvaluationObjectiveRating (ObjectiveRatingLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ADD CONSTRAINT FK_1d984c_EvaluationObjective FOREIGN KEY (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationObjective (EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ADD CONSTRAINT FK_1d984c_EvaluationObjective FOREIGN KEY (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationObjective (EducationOrganizationId, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_1d984c_EvaluationObjective
-ON tpdm.EvaluationObjectiveRatingLevel (EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationObjectiveRatingLevel (EducationOrganizationId ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationObjectiveRatingLevel ADD CONSTRAINT FK_1d984c_EvaluationRatingLevelDescriptor FOREIGN KEY (EvaluationRatingLevelDescriptorId)
 REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptorId)
@@ -1414,13 +1392,13 @@ REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptor
 CREATE INDEX FK_1d984c_EvaluationRatingLevelDescriptor
 ON tpdm.EvaluationObjectiveRatingLevel (EvaluationRatingLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationObjectiveRatingResult ADD CONSTRAINT FK_beeccb_EvaluationObjectiveRating FOREIGN KEY (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationObjectiveRating (EvaluationDate, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationObjectiveRatingResult ADD CONSTRAINT FK_beeccb_EvaluationObjectiveRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationObjectiveRating (EducationOrganizationId, EvaluationDate, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_beeccb_EvaluationObjectiveRating
-ON tpdm.EvaluationObjectiveRatingResult (EvaluationDate ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationObjectiveRatingResult (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationObjectiveRatingResult ADD CONSTRAINT FK_beeccb_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
 REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
@@ -1434,12 +1412,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_Evaluation FOREIGN KEY (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.Evaluation (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_Evaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.Evaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_bfaa20_Evaluation
-ON tpdm.EvaluationRating (EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationRating (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_EvaluationRatingLevelDescriptor FOREIGN KEY (EvaluationRatingLevelDescriptorId)
 REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptorId)
@@ -1448,12 +1426,12 @@ REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptor
 CREATE INDEX FK_bfaa20_EvaluationRatingLevelDescriptor
 ON tpdm.EvaluationRating (EvaluationRatingLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_PerformanceEvaluationRating FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluationRating (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_PerformanceEvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluationRating (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
 
 CREATE INDEX FK_bfaa20_PerformanceEvaluationRating
-ON tpdm.EvaluationRating (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationRating (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRating ADD CONSTRAINT FK_bfaa20_Section FOREIGN KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
 REFERENCES edfi.Section (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
@@ -1463,13 +1441,13 @@ ON UPDATE CASCADE
 CREATE INDEX FK_bfaa20_Section
 ON tpdm.EvaluationRating (LocalCourseCode ASC, SchoolId ASC, SchoolYear ASC, SectionIdentifier ASC, SessionName ASC);
 
-ALTER TABLE tpdm.EvaluationRatingLevel ADD CONSTRAINT FK_7052f8_Evaluation FOREIGN KEY (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.Evaluation (EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRatingLevel ADD CONSTRAINT FK_7052f8_Evaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.Evaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_7052f8_Evaluation
-ON tpdm.EvaluationRatingLevel (EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationRatingLevel (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRatingLevel ADD CONSTRAINT FK_7052f8_EvaluationRatingLevelDescriptor FOREIGN KEY (EvaluationRatingLevelDescriptorId)
 REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptorId)
@@ -1483,13 +1461,13 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.EvaluationRatingResult ADD CONSTRAINT FK_268283_EvaluationRating FOREIGN KEY (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationRating (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRatingResult ADD CONSTRAINT FK_268283_EvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationRating (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_268283_EvaluationRating
-ON tpdm.EvaluationRatingResult (EvaluationDate ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationRatingResult (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRatingResult ADD CONSTRAINT FK_268283_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
 REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
@@ -1498,13 +1476,13 @@ REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
 CREATE INDEX FK_268283_ResultDatatypeTypeDescriptor
 ON tpdm.EvaluationRatingResult (ResultDatatypeTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationRatingReviewer ADD CONSTRAINT FK_2d29eb_EvaluationRating FOREIGN KEY (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationRating (EvaluationDate, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRatingReviewer ADD CONSTRAINT FK_2d29eb_EvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationRating (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_2d29eb_EvaluationRating
-ON tpdm.EvaluationRatingReviewer (EvaluationDate ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.EvaluationRatingReviewer (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRatingReviewer ADD CONSTRAINT FK_2d29eb_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
@@ -1513,8 +1491,8 @@ REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
 CREATE INDEX FK_2d29eb_Person
 ON tpdm.EvaluationRatingReviewer (PersonId ASC, SourceSystemDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_608112_EvaluationRatingReviewer FOREIGN KEY (EvaluationDate, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationRatingReviewer (EvaluationDate, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_608112_EvaluationRatingReviewer FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationRatingReviewer (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
@@ -1599,12 +1577,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.Goal ADD CONSTRAINT FK_cdbf69_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.Goal ADD CONSTRAINT FK_cdbf69_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_cdbf69_EvaluationElement
-ON tpdm.Goal (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.Goal (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.Goal ADD CONSTRAINT FK_cdbf69_GoalTypeDescriptor FOREIGN KEY (GoalTypeDescriptorId)
 REFERENCES tpdm.GoalTypeDescriptor (GoalTypeDescriptorId)
@@ -1625,12 +1603,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.GraduationPlanRequiredCertification ADD CONSTRAINT FK_bd70a1_Certification FOREIGN KEY (CertificationIdentifier, IssuerNamespace)
-REFERENCES tpdm.Certification (CertificationIdentifier, IssuerNamespace)
+ALTER TABLE tpdm.GraduationPlanRequiredCertification ADD CONSTRAINT FK_bd70a1_Certification FOREIGN KEY (CertificationIdentifier, Namespace)
+REFERENCES tpdm.Certification (CertificationIdentifier, Namespace)
 ;
 
 CREATE INDEX FK_bd70a1_Certification
-ON tpdm.GraduationPlanRequiredCertification (CertificationIdentifier ASC, IssuerNamespace ASC);
+ON tpdm.GraduationPlanRequiredCertification (CertificationIdentifier ASC, Namespace ASC);
 
 ALTER TABLE tpdm.GraduationPlanRequiredCertification ADD CONSTRAINT FK_bd70a1_CertificationRouteDescriptor FOREIGN KEY (CertificationRouteDescriptorId)
 REFERENCES tpdm.CertificationRouteDescriptor (CertificationRouteDescriptorId)
@@ -1807,21 +1785,21 @@ REFERENCES edfi.GradeLevelDescriptor (GradeLevelDescriptorId)
 CREATE INDEX FK_5b9d31_GradeLevelDescriptor
 ON tpdm.PerformanceEvaluationGradeLevel (GradeLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationGradeLevel ADD CONSTRAINT FK_5b9d31_PerformanceEvaluation FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluation (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationGradeLevel ADD CONSTRAINT FK_5b9d31_PerformanceEvaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_5b9d31_PerformanceEvaluation
-ON tpdm.PerformanceEvaluationGradeLevel (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationGradeLevel (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationProgramGateway ADD CONSTRAINT FK_611be2_PerformanceEvaluation FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluation (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationProgramGateway ADD CONSTRAINT FK_611be2_PerformanceEvaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_611be2_PerformanceEvaluation
-ON tpdm.PerformanceEvaluationProgramGateway (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationProgramGateway (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationProgramGateway ADD CONSTRAINT FK_611be2_ProgramGatewayDescriptor FOREIGN KEY (ProgramGatewayDescriptorId)
 REFERENCES tpdm.ProgramGatewayDescriptor (ProgramGatewayDescriptorId)
@@ -1837,12 +1815,12 @@ REFERENCES tpdm.CoteachingStyleObservedDescriptor (CoteachingStyleObservedDescri
 CREATE INDEX FK_759abe_CoteachingStyleObservedDescriptor
 ON tpdm.PerformanceEvaluationRating (CoteachingStyleObservedDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationRating ADD CONSTRAINT FK_759abe_PerformanceEvaluation FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluation (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRating ADD CONSTRAINT FK_759abe_PerformanceEvaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_759abe_PerformanceEvaluation
-ON tpdm.PerformanceEvaluationRating (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationRating (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationRating ADD CONSTRAINT FK_759abe_PerformanceEvaluationRatingLevelDescriptor FOREIGN KEY (PerformanceEvaluationRatingLevelDescriptorId)
 REFERENCES tpdm.PerformanceEvaluationRatingLevelDescriptor (PerformanceEvaluationRatingLevelDescriptorId)
@@ -1865,26 +1843,26 @@ REFERENCES tpdm.EvaluationRatingLevelDescriptor (EvaluationRatingLevelDescriptor
 CREATE INDEX FK_90ed3d_EvaluationRatingLevelDescriptor
 ON tpdm.PerformanceEvaluationRatingLevel (EvaluationRatingLevelDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationRatingLevel ADD CONSTRAINT FK_90ed3d_PerformanceEvaluation FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluation (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRatingLevel ADD CONSTRAINT FK_90ed3d_PerformanceEvaluation FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluation (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_90ed3d_PerformanceEvaluation
-ON tpdm.PerformanceEvaluationRatingLevel (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationRatingLevel (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationRatingLevelDescriptor ADD CONSTRAINT FK_ed7e01_Descriptor FOREIGN KEY (PerformanceEvaluationRatingLevelDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.PerformanceEvaluationRatingResult ADD CONSTRAINT FK_863fa4_PerformanceEvaluationRating FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluationRating (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRatingResult ADD CONSTRAINT FK_863fa4_PerformanceEvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluationRating (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_863fa4_PerformanceEvaluationRating
-ON tpdm.PerformanceEvaluationRatingResult (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationRatingResult (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationRatingResult ADD CONSTRAINT FK_863fa4_ResultDatatypeTypeDescriptor FOREIGN KEY (ResultDatatypeTypeDescriptorId)
 REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
@@ -1893,13 +1871,13 @@ REFERENCES edfi.ResultDatatypeTypeDescriptor (ResultDatatypeTypeDescriptorId)
 CREATE INDEX FK_863fa4_ResultDatatypeTypeDescriptor
 ON tpdm.PerformanceEvaluationRatingResult (ResultDatatypeTypeDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ADD CONSTRAINT FK_477526_PerformanceEvaluationRating FOREIGN KEY (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluationRating (PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ADD CONSTRAINT FK_477526_PerformanceEvaluationRating FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluationRating (EducationOrganizationId, EvaluationPeriodDescriptorId, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
 CREATE INDEX FK_477526_PerformanceEvaluationRating
-ON tpdm.PerformanceEvaluationRatingReviewer (PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.PerformanceEvaluationRatingReviewer (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ADD CONSTRAINT FK_477526_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
@@ -1908,8 +1886,8 @@ REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
 CREATE INDEX FK_477526_Person
 ON tpdm.PerformanceEvaluationRatingReviewer (PersonId ASC, SourceSystemDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_6e6517_PerformanceEvaluationRatingReviewer FOREIGN KEY (FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.PerformanceEvaluationRatingReviewer (FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_6e6517_PerformanceEvaluationRatingReviewer FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.PerformanceEvaluationRatingReviewer (EducationOrganizationId, EvaluationPeriodDescriptorId, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ON DELETE CASCADE
 ;
 
@@ -1941,6 +1919,27 @@ REFERENCES tpdm.ProfessionalDevelopmentOfferedByDescriptor (ProfessionalDevelopm
 
 CREATE INDEX FK_8c4ca1_ProfessionalDevelopmentOfferedByDescriptor
 ON tpdm.ProfessionalDevelopmentEvent (ProfessionalDevelopmentOfferedByDescriptorId ASC);
+
+ALTER TABLE tpdm.ProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_22e412_AttendanceEventCategoryDescriptor FOREIGN KEY (AttendanceEventCategoryDescriptorId)
+REFERENCES edfi.AttendanceEventCategoryDescriptor (AttendanceEventCategoryDescriptorId)
+;
+
+CREATE INDEX FK_22e412_AttendanceEventCategoryDescriptor
+ON tpdm.ProfessionalDevelopmentEventAttendance (AttendanceEventCategoryDescriptorId ASC);
+
+ALTER TABLE tpdm.ProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_22e412_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
+;
+
+CREATE INDEX FK_22e412_Person
+ON tpdm.ProfessionalDevelopmentEventAttendance (PersonId ASC, SourceSystemDescriptorId ASC);
+
+ALTER TABLE tpdm.ProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_22e412_ProfessionalDevelopmentEvent FOREIGN KEY (Namespace, ProfessionalDevelopmentTitle)
+REFERENCES tpdm.ProfessionalDevelopmentEvent (Namespace, ProfessionalDevelopmentTitle)
+;
+
+CREATE INDEX FK_22e412_ProfessionalDevelopmentEvent
+ON tpdm.ProfessionalDevelopmentEventAttendance (Namespace ASC, ProfessionalDevelopmentTitle ASC);
 
 ALTER TABLE tpdm.ProfessionalDevelopmentOfferedByDescriptor ADD CONSTRAINT FK_b58d9b_Descriptor FOREIGN KEY (ProfessionalDevelopmentOfferedByDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -2005,21 +2004,6 @@ ALTER TABLE tpdm.ProspectAid ADD CONSTRAINT FK_f864a7_Prospect FOREIGN KEY (Educ
 REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
 ON DELETE CASCADE
 ;
-
-ALTER TABLE tpdm.ProspectCredential ADD CONSTRAINT FK_6a8d2f_Credential FOREIGN KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-REFERENCES edfi.Credential (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-;
-
-CREATE INDEX FK_6a8d2f_Credential
-ON tpdm.ProspectCredential (CredentialIdentifier ASC, StateOfIssueStateAbbreviationDescriptorId ASC);
-
-ALTER TABLE tpdm.ProspectCredential ADD CONSTRAINT FK_6a8d2f_Prospect FOREIGN KEY (EducationOrganizationId, ProspectIdentifier)
-REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_6a8d2f_Prospect
-ON tpdm.ProspectCredential (EducationOrganizationId ASC, ProspectIdentifier ASC);
 
 ALTER TABLE tpdm.ProspectCurrentPosition ADD CONSTRAINT FK_f29793_AcademicSubjectDescriptor FOREIGN KEY (AcademicSubjectDescriptorId)
 REFERENCES edfi.AcademicSubjectDescriptor (AcademicSubjectDescriptorId)
@@ -2114,27 +2098,6 @@ ON DELETE CASCADE
 CREATE INDEX FK_6b942a_Prospect
 ON tpdm.ProspectPersonalIdentificationDocument (EducationOrganizationId ASC, ProspectIdentifier ASC);
 
-ALTER TABLE tpdm.ProspectProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_dc8233_AttendanceEventCategoryDescriptor FOREIGN KEY (AttendanceEventCategoryDescriptorId)
-REFERENCES edfi.AttendanceEventCategoryDescriptor (AttendanceEventCategoryDescriptorId)
-;
-
-CREATE INDEX FK_dc8233_AttendanceEventCategoryDescriptor
-ON tpdm.ProspectProfessionalDevelopmentEventAttendance (AttendanceEventCategoryDescriptorId ASC);
-
-ALTER TABLE tpdm.ProspectProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_dc8233_ProfessionalDevelopmentEvent FOREIGN KEY (ProfessionalDevelopmentTitle)
-REFERENCES tpdm.ProfessionalDevelopmentEvent (ProfessionalDevelopmentTitle)
-;
-
-CREATE INDEX FK_dc8233_ProfessionalDevelopmentEvent
-ON tpdm.ProspectProfessionalDevelopmentEventAttendance (ProfessionalDevelopmentTitle ASC);
-
-ALTER TABLE tpdm.ProspectProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_dc8233_Prospect FOREIGN KEY (EducationOrganizationId, ProspectIdentifier)
-REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
-;
-
-CREATE INDEX FK_dc8233_Prospect
-ON tpdm.ProspectProfessionalDevelopmentEventAttendance (EducationOrganizationId ASC, ProspectIdentifier ASC);
-
 ALTER TABLE tpdm.ProspectQualifications ADD CONSTRAINT FK_c954a4_Prospect FOREIGN KEY (EducationOrganizationId, ProspectIdentifier)
 REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
 ON DELETE CASCADE
@@ -2198,12 +2161,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.QuantitativeMeasure ADD CONSTRAINT FK_8b89fe_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.QuantitativeMeasure ADD CONSTRAINT FK_8b89fe_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_8b89fe_EvaluationElement
-ON tpdm.QuantitativeMeasure (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.QuantitativeMeasure (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.QuantitativeMeasure ADD CONSTRAINT FK_8b89fe_QuantitativeMeasureDatatypeDescriptor FOREIGN KEY (QuantitativeMeasureDatatypeDescriptorId)
 REFERENCES tpdm.QuantitativeMeasureDatatypeDescriptor (QuantitativeMeasureDatatypeDescriptorId)
@@ -2224,19 +2187,19 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.QuantitativeMeasureScore ADD CONSTRAINT FK_e61067_EvaluationElementRating FOREIGN KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElementRating (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.QuantitativeMeasureScore ADD CONSTRAINT FK_e61067_EvaluationElementRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationElementRating (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
 
 CREATE INDEX FK_e61067_EvaluationElementRating
-ON tpdm.QuantitativeMeasureScore (EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.QuantitativeMeasureScore (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.QuantitativeMeasureScore ADD CONSTRAINT FK_e61067_QuantitativeMeasure FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId)
-REFERENCES tpdm.QuantitativeMeasure (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, TermDescriptorId)
+ALTER TABLE tpdm.QuantitativeMeasureScore ADD CONSTRAINT FK_e61067_QuantitativeMeasure FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.QuantitativeMeasure (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, QuantitativeMeasureIdentifier, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_e61067_QuantitativeMeasure
-ON tpdm.QuantitativeMeasureScore (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, QuantitativeMeasureIdentifier ASC, TermDescriptorId ASC);
+ON tpdm.QuantitativeMeasureScore (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, QuantitativeMeasureIdentifier ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.QuantitativeMeasureTypeDescriptor ADD CONSTRAINT FK_9f49f2_Descriptor FOREIGN KEY (QuantitativeMeasureTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -2255,12 +2218,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.RubricDimension ADD CONSTRAINT FK_643c81_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.RubricDimension ADD CONSTRAINT FK_643c81_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_643c81_EvaluationElement
-ON tpdm.RubricDimension (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.RubricDimension (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.RubricDimension ADD CONSTRAINT FK_643c81_RubricRatingLevelDescriptor FOREIGN KEY (RubricRatingLevelDescriptorId)
 REFERENCES tpdm.RubricRatingLevelDescriptor (RubricRatingLevelDescriptorId)
@@ -2303,12 +2266,12 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE tpdm.StaffApplicantAssociation ADD CONSTRAINT FK_11e466_Applicant FOREIGN KEY (ApplicantIdentifier, EducationOrganizationId)
-REFERENCES tpdm.Applicant (ApplicantIdentifier, EducationOrganizationId)
+ALTER TABLE tpdm.StaffApplicantAssociation ADD CONSTRAINT FK_11e466_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
 ;
 
 CREATE INDEX FK_11e466_Applicant
-ON tpdm.StaffApplicantAssociation (ApplicantIdentifier ASC, EducationOrganizationId ASC);
+ON tpdm.StaffApplicantAssociation (ApplicantIdentifier ASC);
 
 ALTER TABLE tpdm.StaffApplicantAssociation ADD CONSTRAINT FK_11e466_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)
@@ -2370,27 +2333,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_37449d_Staff
 ON tpdm.StaffHighlyQualifiedAcademicSubject (StaffUSI ASC);
-
-ALTER TABLE tpdm.StaffProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_b4a1e0_AttendanceEventCategoryDescriptor FOREIGN KEY (AttendanceEventCategoryDescriptorId)
-REFERENCES edfi.AttendanceEventCategoryDescriptor (AttendanceEventCategoryDescriptorId)
-;
-
-CREATE INDEX FK_b4a1e0_AttendanceEventCategoryDescriptor
-ON tpdm.StaffProfessionalDevelopmentEventAttendance (AttendanceEventCategoryDescriptorId ASC);
-
-ALTER TABLE tpdm.StaffProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_b4a1e0_ProfessionalDevelopmentEvent FOREIGN KEY (ProfessionalDevelopmentTitle)
-REFERENCES tpdm.ProfessionalDevelopmentEvent (ProfessionalDevelopmentTitle)
-;
-
-CREATE INDEX FK_b4a1e0_ProfessionalDevelopmentEvent
-ON tpdm.StaffProfessionalDevelopmentEventAttendance (ProfessionalDevelopmentTitle ASC);
-
-ALTER TABLE tpdm.StaffProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_b4a1e0_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
-;
-
-CREATE INDEX FK_b4a1e0_Staff
-ON tpdm.StaffProfessionalDevelopmentEventAttendance (StaffUSI ASC);
 
 ALTER TABLE tpdm.StaffProspectAssociation ADD CONSTRAINT FK_990b71_Prospect FOREIGN KEY (EducationOrganizationId, ProspectIdentifier)
 REFERENCES tpdm.Prospect (EducationOrganizationId, ProspectIdentifier)
@@ -2656,6 +2598,25 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE tpdm.SurveyResponseExtension ADD CONSTRAINT FK_fa906d_Applicant FOREIGN KEY (ApplicantIdentifier)
+REFERENCES tpdm.Applicant (ApplicantIdentifier)
+;
+
+CREATE INDEX FK_fa906d_Applicant
+ON tpdm.SurveyResponseExtension (ApplicantIdentifier ASC);
+
+ALTER TABLE tpdm.SurveyResponseExtension ADD CONSTRAINT FK_fa906d_SurveyResponse FOREIGN KEY (Namespace, SurveyIdentifier, SurveyResponseIdentifier)
+REFERENCES edfi.SurveyResponse (Namespace, SurveyIdentifier, SurveyResponseIdentifier)
+ON DELETE CASCADE
+;
+
+ALTER TABLE tpdm.SurveyResponseExtension ADD CONSTRAINT FK_fa906d_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
+REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
+;
+
+CREATE INDEX FK_fa906d_TeacherCandidate
+ON tpdm.SurveyResponseExtension (TeacherCandidateIdentifier ASC);
+
 ALTER TABLE tpdm.SurveyResponseTeacherCandidateTargetAssociation ADD CONSTRAINT FK_049bd0_SurveyResponse FOREIGN KEY (Namespace, SurveyIdentifier, SurveyResponseIdentifier)
 REFERENCES edfi.SurveyResponse (Namespace, SurveyIdentifier, SurveyResponseIdentifier)
 ;
@@ -2670,12 +2631,12 @@ REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
 CREATE INDEX FK_049bd0_TeacherCandidate
 ON tpdm.SurveyResponseTeacherCandidateTargetAssociation (TeacherCandidateIdentifier ASC);
 
-ALTER TABLE tpdm.SurveySectionAggregateResponse ADD CONSTRAINT FK_f37ae9_EvaluationElementRating FOREIGN KEY (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElementRating (EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SourceSystemDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.SurveySectionAggregateResponse ADD CONSTRAINT FK_f37ae9_EvaluationElementRating FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
+REFERENCES tpdm.EvaluationElementRating (EducationOrganizationId, EvaluationDate, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ;
 
 CREATE INDEX FK_f37ae9_EvaluationElementRating
-ON tpdm.SurveySectionAggregateResponse (EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.SurveySectionAggregateResponse (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.SurveySectionAggregateResponse ADD CONSTRAINT FK_f37ae9_SurveySection FOREIGN KEY (Namespace, SurveyIdentifier, SurveySectionTitle)
 REFERENCES edfi.SurveySection (Namespace, SurveyIdentifier, SurveySectionTitle)
@@ -2684,12 +2645,12 @@ REFERENCES edfi.SurveySection (Namespace, SurveyIdentifier, SurveySectionTitle)
 CREATE INDEX FK_f37ae9_SurveySection
 ON tpdm.SurveySectionAggregateResponse (Namespace ASC, SurveyIdentifier ASC, SurveySectionTitle ASC);
 
-ALTER TABLE tpdm.SurveySectionExtension ADD CONSTRAINT FK_a1b07d_EvaluationElement FOREIGN KEY (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
-REFERENCES tpdm.EvaluationElement (EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, TermDescriptorId)
+ALTER TABLE tpdm.SurveySectionExtension ADD CONSTRAINT FK_a1b07d_EvaluationElement FOREIGN KEY (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
+REFERENCES tpdm.EvaluationElement (EducationOrganizationId, EvaluationElementTitle, EvaluationObjectiveTitle, EvaluationPeriodDescriptorId, EvaluationTitle, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, SchoolYear, TermDescriptorId)
 ;
 
 CREATE INDEX FK_a1b07d_EvaluationElement
-ON tpdm.SurveySectionExtension (EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, TermDescriptorId ASC);
+ON tpdm.SurveySectionExtension (EducationOrganizationId ASC, EvaluationElementTitle ASC, EvaluationObjectiveTitle ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, SchoolYear ASC, TermDescriptorId ASC);
 
 ALTER TABLE tpdm.SurveySectionExtension ADD CONSTRAINT FK_a1b07d_SurveySection FOREIGN KEY (Namespace, SurveyIdentifier, SurveySectionTitle)
 REFERENCES edfi.SurveySection (Namespace, SurveyIdentifier, SurveySectionTitle)
@@ -3148,21 +3109,6 @@ ON DELETE CASCADE
 CREATE INDEX FK_ae1084_TeacherCandidateCourseTranscript
 ON tpdm.TeacherCandidateCourseTranscriptEarnedAdditionalCredits (CourseAttemptResultDescriptorId ASC, CourseCode ASC, CourseEducationOrganizationId ASC, EducationOrganizationId ASC, SchoolYear ASC, TeacherCandidateIdentifier ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.TeacherCandidateCredential ADD CONSTRAINT FK_5e2af2_Credential FOREIGN KEY (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-REFERENCES edfi.Credential (CredentialIdentifier, StateOfIssueStateAbbreviationDescriptorId)
-;
-
-CREATE INDEX FK_5e2af2_Credential
-ON tpdm.TeacherCandidateCredential (CredentialIdentifier ASC, StateOfIssueStateAbbreviationDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateCredential ADD CONSTRAINT FK_5e2af2_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
-ON DELETE CASCADE
-;
-
-CREATE INDEX FK_5e2af2_TeacherCandidate
-ON tpdm.TeacherCandidateCredential (TeacherCandidateIdentifier ASC);
-
 ALTER TABLE tpdm.TeacherCandidateDegreeSpecialization ADD CONSTRAINT FK_8b2999_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
 REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
 ON DELETE CASCADE
@@ -3370,27 +3316,6 @@ ON DELETE CASCADE
 
 CREATE INDEX FK_9f2892_TeacherCandidate
 ON tpdm.TeacherCandidatePersonalIdentificationDocument (TeacherCandidateIdentifier ASC);
-
-ALTER TABLE tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_8c39c1_AttendanceEventCategoryDescriptor FOREIGN KEY (AttendanceEventCategoryDescriptorId)
-REFERENCES edfi.AttendanceEventCategoryDescriptor (AttendanceEventCategoryDescriptorId)
-;
-
-CREATE INDEX FK_8c39c1_AttendanceEventCategoryDescriptor
-ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance (AttendanceEventCategoryDescriptorId ASC);
-
-ALTER TABLE tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_8c39c1_ProfessionalDevelopmentEvent FOREIGN KEY (ProfessionalDevelopmentTitle)
-REFERENCES tpdm.ProfessionalDevelopmentEvent (ProfessionalDevelopmentTitle)
-;
-
-CREATE INDEX FK_8c39c1_ProfessionalDevelopmentEvent
-ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance (ProfessionalDevelopmentTitle ASC);
-
-ALTER TABLE tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance ADD CONSTRAINT FK_8c39c1_TeacherCandidate FOREIGN KEY (TeacherCandidateIdentifier)
-REFERENCES tpdm.TeacherCandidate (TeacherCandidateIdentifier)
-;
-
-CREATE INDEX FK_8c39c1_TeacherCandidate
-ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance (TeacherCandidateIdentifier ASC);
 
 ALTER TABLE tpdm.TeacherCandidateRace ADD CONSTRAINT FK_9c1586_RaceDescriptor FOREIGN KEY (RaceDescriptorId)
 REFERENCES edfi.RaceDescriptor (RaceDescriptorId)
@@ -3655,6 +3580,13 @@ ALTER TABLE tpdm.TeacherPreparationProgramTypeDescriptor ADD CONSTRAINT FK_18e97
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_AccreditationStatusDescriptor FOREIGN KEY (AccreditationStatusDescriptorId)
+REFERENCES tpdm.AccreditationStatusDescriptor (AccreditationStatusDescriptorId)
+;
+
+CREATE INDEX FK_ea8f5b_AccreditationStatusDescriptor
+ON tpdm.TeacherPreparationProvider (AccreditationStatusDescriptorId ASC);
 
 ALTER TABLE tpdm.TeacherPreparationProvider ADD CONSTRAINT FK_ea8f5b_EducationOrganization FOREIGN KEY (TeacherPreparationProviderId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)

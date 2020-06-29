@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 CREATE INDEX IF NOT EXISTS UX_91a31b_ChangeVersion ON tpdm.AnonymizedStudent(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_a5aeb2_ChangeVersion ON tpdm.AnonymizedStudentAcademicRecord(ChangeVersion);
@@ -69,9 +64,9 @@ CREATE INDEX IF NOT EXISTS UX_759abe_ChangeVersion ON tpdm.PerformanceEvaluation
 
 CREATE INDEX IF NOT EXISTS UX_8c4ca1_ChangeVersion ON tpdm.ProfessionalDevelopmentEvent(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_f84f61_ChangeVersion ON tpdm.Prospect(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_22e412_ChangeVersion ON tpdm.ProfessionalDevelopmentEventAttendance(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_dc8233_ChangeVersion ON tpdm.ProspectProfessionalDevelopmentEventAttendance(ChangeVersion);
+CREATE INDEX IF NOT EXISTS UX_f84f61_ChangeVersion ON tpdm.Prospect(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_8b89fe_ChangeVersion ON tpdm.QuantitativeMeasure(ChangeVersion);
 
@@ -82,8 +77,6 @@ CREATE INDEX IF NOT EXISTS UX_6232e8_ChangeVersion ON tpdm.RecruitmentEvent(Chan
 CREATE INDEX IF NOT EXISTS UX_643c81_ChangeVersion ON tpdm.RubricDimension(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_11e466_ChangeVersion ON tpdm.StaffApplicantAssociation(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_b4a1e0_ChangeVersion ON tpdm.StaffProfessionalDevelopmentEventAttendance(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_990b71_ChangeVersion ON tpdm.StaffProspectAssociation(ChangeVersion);
 
@@ -110,8 +103,6 @@ CREATE INDEX IF NOT EXISTS UX_835b49_ChangeVersion ON tpdm.TeacherCandidate(Chan
 CREATE INDEX IF NOT EXISTS UX_163dde_ChangeVersion ON tpdm.TeacherCandidateAcademicRecord(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_87fd83_ChangeVersion ON tpdm.TeacherCandidateCourseTranscript(ChangeVersion);
-
-CREATE INDEX IF NOT EXISTS UX_8c39c1_ChangeVersion ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_3395e5_ChangeVersion ON tpdm.TeacherCandidateStaffAssociation(ChangeVersion);
 

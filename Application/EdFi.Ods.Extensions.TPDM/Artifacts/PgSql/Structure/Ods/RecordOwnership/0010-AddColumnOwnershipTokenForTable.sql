@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 ALTER TABLE tpdm.AnonymizedStudentAssessmentCourseAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.AnonymizedStudentAssessmentSectionAssociation ADD CreatedByOwnershipTokenId SMALLINT NULL;
@@ -99,9 +94,9 @@ ALTER TABLE tpdm.PerformanceEvaluationRating ADD CreatedByOwnershipTokenId SMALL
 
 ALTER TABLE tpdm.ProfessionalDevelopmentEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
-ALTER TABLE tpdm.Prospect ADD CreatedByOwnershipTokenId SMALLINT NULL;
+ALTER TABLE tpdm.ProfessionalDevelopmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
-ALTER TABLE tpdm.ProspectProfessionalDevelopmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
+ALTER TABLE tpdm.Prospect ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.QuantitativeMeasure ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -110,8 +105,6 @@ ALTER TABLE tpdm.QuantitativeMeasureScore ADD CreatedByOwnershipTokenId SMALLINT
 ALTER TABLE tpdm.RecruitmentEvent ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.RubricDimension ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
-ALTER TABLE tpdm.StaffProfessionalDevelopmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.StaffStudentGrowthMeasure ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
@@ -122,8 +115,6 @@ ALTER TABLE tpdm.TeacherCandidate ADD CreatedByOwnershipTokenId SMALLINT NULL;
 ALTER TABLE tpdm.TeacherCandidateAcademicRecord ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateCourseTranscript ADD CreatedByOwnershipTokenId SMALLINT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateStudentGrowthMeasure ADD CreatedByOwnershipTokenId SMALLINT NULL;
 

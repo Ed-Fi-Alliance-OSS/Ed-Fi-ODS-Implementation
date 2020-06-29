@@ -1,8 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.AnonymizedStudent') AND name = N'UX_AnonymizedStudent_ChangeVersion')
     CREATE INDEX [UX_AnonymizedStudent_ChangeVersion] ON [tpdm].[AnonymizedStudent] ([ChangeVersion] ASC)
@@ -202,14 +197,14 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Prospect') AND name = N'UX_Prospect_ChangeVersion')
-    CREATE INDEX [UX_Prospect_ChangeVersion] ON [tpdm].[Prospect] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.ProfessionalDevelopmentEventAttendance') AND name = N'UX_ProfessionalDevelopmentEventAttendance_ChangeVersion')
+    CREATE INDEX [UX_ProfessionalDevelopmentEventAttendance_ChangeVersion] ON [tpdm].[ProfessionalDevelopmentEventAttendance] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.ProspectProfessionalDevelopmentEventAttendance') AND name = N'UX_ProspectProfessionalDevelopmentEventAttendance_ChangeVersion')
-    CREATE INDEX [UX_ProspectProfessionalDevelopmentEventAttendance_ChangeVersion] ON [tpdm].[ProspectProfessionalDevelopmentEventAttendance] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.Prospect') AND name = N'UX_Prospect_ChangeVersion')
+    CREATE INDEX [UX_Prospect_ChangeVersion] ON [tpdm].[Prospect] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -240,12 +235,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffApplicantAssociation') AND name = N'UX_StaffApplicantAssociation_ChangeVersion')
     CREATE INDEX [UX_StaffApplicantAssociation_ChangeVersion] ON [tpdm].[StaffApplicantAssociation] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.StaffProfessionalDevelopmentEventAttendance') AND name = N'UX_StaffProfessionalDevelopmentEventAttendance_ChangeVersion')
-    CREATE INDEX [UX_StaffProfessionalDevelopmentEventAttendance_ChangeVersion] ON [tpdm].[StaffProfessionalDevelopmentEventAttendance] ([ChangeVersion] ASC)
     GO
 COMMIT
 
@@ -324,12 +313,6 @@ COMMIT
 BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateCourseTranscript') AND name = N'UX_TeacherCandidateCourseTranscript_ChangeVersion')
     CREATE INDEX [UX_TeacherCandidateCourseTranscript_ChangeVersion] ON [tpdm].[TeacherCandidateCourseTranscript] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance') AND name = N'UX_TeacherCandidateProfessionalDevelopmentEventAttendance_ChangeVersion')
-    CREATE INDEX [UX_TeacherCandidateProfessionalDevelopmentEventAttendance_ChangeVersion] ON [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] ([ChangeVersion] ASC)
     GO
 COMMIT
 

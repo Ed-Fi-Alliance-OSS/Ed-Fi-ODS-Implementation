@@ -129,6 +129,7 @@
     <Element name="EmploymentStatusDescriptor" />
     <Element name="TPPProgramPathwayDescriptor" />
     <Element name="TeacherPreparationProgramTypeDescriptor" />
+    <Element name="AccreditationStatusDescriptor" />
     <Element name="PostSecondaryInstitutionLevelDescriptor" />
     <Element name="MediumOfInstructionDescriptor" />
     <Element name="LicenseTypeDescriptor" />
@@ -201,6 +202,7 @@
     <Element name="CredentialFieldDescriptor" />
     <Element name="ApplicationEventResultDescriptor" />
     <Element name="ApplicationEventTypeDescriptor" />
+    <Element name="LevelOfEducationDescriptor" />
     <Element name="WithdrawReasonDescriptor" />
     <Element name="HiringSourceDescriptor" />
     <Element name="HireStatusDescriptor" />
@@ -208,7 +210,6 @@
     <Element name="ApplicationStatusDescriptor" />
     <Element name="VisaDescriptor" />
     <Element name="CitizenshipStatusDescriptor" />
-    <Element name="LevelOfEducationDescriptor" />
     <Element name="AttendanceEventCategoryDescriptor" />
     <Element name="ProfessionalDevelopmentOfferedByDescriptor" />
     <Element name="StudentGrowthTypeDescriptor" />
@@ -324,17 +325,17 @@
   <Interchange name="TeacherCandidate" order="70">
     <Element name="Person" />
     <Element name="Student" />
+    <Element name="TeacherCandidate" />
     <Element name="StudentEducationOrganizationResponsibilityAssociation" />
     <Element name="StudentEducationOrganizationAssociation" />
+    <Element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" />
     <Element name="CertificationExam" />
     <Element name="CertificationExamResult" />
     <Element name="Certification" />
     <Element name="Credential" />
-    <Element name="CredentialEvent" />
-    <Element name="TeacherCandidate" />
-    <Element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" />
     <Element name="TeacherCandidateStaffAssociation" />
     <Element name="CompleterAsStaffAssociation" />
+    <Element name="CredentialEvent" />
     <Element name="FieldworkExperience" />
     <Element name="StudentSchoolAssociation" />
     <Element name="TeacherCandidateTeacherPreparationProviderAssociation" />
@@ -342,51 +343,23 @@
     <Element name="TeacherCandidateCourseTranscript" />
     <Element name="FieldworkExperienceSectionAssociation" />
   </Interchange>
-  <Interchange name="PerformanceEvaluation" order="80">
-    <Element name="PerformanceEvaluation" />
-    <Element name="PerformanceEvaluationRating" />
-    <Element name="Evaluation" />
-    <Element name="EvaluationObjective" />
-    <Element name="EvaluationElement" />
-    <Element name="SurveySection" />
-    <Element name="RubricDimension" />
-    <Element name="QuantitativeMeasure" />
-    <Element name="Goal" />
-    <Element name="EvaluationRating" />
-    <Element name="EvaluationObjectiveRating" />
-    <Element name="EvaluationElementRating" />
-    <Element name="SurveySectionAggregateResponse" />
-    <Element name="QuantitativeMeasureScore" />
+  <Interchange name="RecruitmentAndStaffing" order="80">
+    <Element name="Person" />
+    <Element name="RecruitmentEvent" />
+    <Element name="Applicant" />
+    <Element name="Credential" />
+    <Element name="StaffApplicantAssociation" />
+    <Element name="Prospect" />
+    <Element name="StaffProspectAssociation" />
+    <Element name="ApplicantProspectAssociation" />
+    <Element name="Application" />
+    <Element name="ApplicationEvent" />
   </Interchange>
   <Interchange name="StudentTranscript" order="80">
     <Element name="StudentAcademicRecord" />
     <Element name="CourseTranscript" />
   </Interchange>
-  <Interchange name="RecruitmentAndStaffing" order="90">
-    <Element name="Person" />
-    <Element name="RecruitmentEvent" />
-    <Element name="Credential" />
-    <Element name="Prospect" />
-    <Element name="StaffProspectAssociation" />
-    <Element name="Applicant" />
-    <Element name="StaffApplicantAssociation" />
-    <Element name="ApplicantProspectAssociation" />
-    <Element name="Application" />
-    <Element name="ApplicationEvent" />
-  </Interchange>
-  <Interchange name="StudentProgram" order="90">
-    <Element name="StudentSchoolFoodServiceProgramAssociation" />
-    <Element name="StudentNeglectedOrDelinquentProgramAssociation" />
-    <Element name="StudentHomelessProgramAssociation" />
-    <Element name="StudentLanguageInstructionProgramAssociation" />
-    <Element name="StudentMigrantEducationProgramAssociation" />
-    <Element name="StudentTitleIPartAProgramAssociation" />
-    <Element name="StudentCTEProgramAssociation" />
-    <Element name="RestraintEvent" />
-    <Element name="StudentSpecialEducationProgramAssociation" />
-    <Element name="StudentProgramAssociation" />
-  </Interchange>
-  <Interchange name="StaffAssociation" order="100">
+  <Interchange name="StaffAssociation" order="90">
     <Element name="Person" />
     <Element name="CertificationExam" />
     <Element name="CertificationExamResult" />
@@ -411,10 +384,19 @@
     <Element name="StaffSectionAssociation" />
     <Element name="FieldworkExperienceSectionAssociation" />
   </Interchange>
-  <Interchange name="PostSecondaryEvent" order="100">
-    <Element name="PostSecondaryEvent" />
+  <Interchange name="StudentProgram" order="90">
+    <Element name="StudentSchoolFoodServiceProgramAssociation" />
+    <Element name="StudentNeglectedOrDelinquentProgramAssociation" />
+    <Element name="StudentHomelessProgramAssociation" />
+    <Element name="StudentLanguageInstructionProgramAssociation" />
+    <Element name="StudentMigrantEducationProgramAssociation" />
+    <Element name="StudentTitleIPartAProgramAssociation" />
+    <Element name="StudentCTEProgramAssociation" />
+    <Element name="RestraintEvent" />
+    <Element name="StudentSpecialEducationProgramAssociation" />
+    <Element name="StudentProgramAssociation" />
   </Interchange>
-  <Interchange name="PK12StudentData" order="110">
+  <Interchange name="PK12StudentData" order="100">
     <Element name="TeacherCandidateStudentGrowthMeasure" />
     <Element name="TeacherCandidateStudentGrowthMeasureEducationOrganizationAssociation" />
     <Element name="TeacherCandidateStudentGrowthMeasureCourseAssociation" />
@@ -431,16 +413,33 @@
     <Element name="StaffStudentGrowthMeasureSectionAssociation" />
     <Element name="AnonymizedStudentSectionAssociation" />
   </Interchange>
+  <Interchange name="PostSecondaryEvent" order="100">
+    <Element name="PostSecondaryEvent" />
+  </Interchange>
+  <Interchange name="ProfessionalDevelopment" order="110">
+    <Element name="ProfessionalDevelopmentEvent" />
+    <Element name="ProfessionalDevelopmentEventAttendance" />
+  </Interchange>
   <Interchange name="MasterSchedule" order="110">
     <Element name="BellSchedule" />
     <Element name="CourseOffering" />
     <Element name="Section" />
   </Interchange>
-  <Interchange name="ProfessionalDevelopment" order="120">
-    <Element name="ProfessionalDevelopmentEvent" />
-    <Element name="StaffProfessionalDevelopmentEventAttendance" />
-    <Element name="TeacherCandidateProfessionalDevelopmentEventAttendance" />
-    <Element name="ProspectProfessionalDevelopmentEventAttendance" />
+  <Interchange name="PerformanceEvaluation" order="120">
+    <Element name="PerformanceEvaluation" />
+    <Element name="PerformanceEvaluationRating" />
+    <Element name="Evaluation" />
+    <Element name="EvaluationObjective" />
+    <Element name="EvaluationElement" />
+    <Element name="SurveySection" />
+    <Element name="RubricDimension" />
+    <Element name="QuantitativeMeasure" />
+    <Element name="Goal" />
+    <Element name="EvaluationRating" />
+    <Element name="EvaluationObjectiveRating" />
+    <Element name="EvaluationElementRating" />
+    <Element name="SurveySectionAggregateResponse" />
+    <Element name="QuantitativeMeasureScore" />
   </Interchange>
   <Interchange name="StudentDiscipline" order="160">
     <Element name="DisciplineIncident" />

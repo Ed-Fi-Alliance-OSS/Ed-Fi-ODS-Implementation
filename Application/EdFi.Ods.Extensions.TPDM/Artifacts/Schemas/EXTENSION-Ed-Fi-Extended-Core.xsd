@@ -330,11 +330,6 @@
               <xs:documentation>Identifier assigned to a person making formal application for an open staff position.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>The education organization, typically a LocalEducationAgency, associated with the applicant.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="StaffIdentificationCode" type="StaffIdentificationCode" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>A unique number or alphanumeric code assigned to an applicant by a school, school system, a state, or other agency or entity.</xs:documentation>
@@ -401,50 +396,14 @@
               <xs:documentation>The language(s) the individual uses to communicate.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="HighestCompletedLevelOfEducation" type="LevelOfEducationDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>LevelOfEducationDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="YearsOfPriorProfessionalExperience" type="NumberOfYears" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The total number of years that an individual has previously held a similar professional position in one or more education institutions.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="YearsOfPriorTeachingExperience" type="NumberOfYears" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The total number of years that an individual has previously held a teaching position in one or more education institutions.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="LoginId" type="IdentificationCode" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The login ID for the user; used for security access control interface.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CredentialReference" type="CredentialReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The legal document or authorization giving authorization to perform teaching assignment services.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HighlyQualifiedTeacher" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="BackgroundCheck" type="EXTENSION-BackgroundCheck" minOccurs="0" maxOccurs="unbounded">
             <xs:annotation>
               <xs:documentation>Applicant background check history and disposition.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="HighlyQualifiedAcademicSubject" type="AcademicSubjectDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The academic subject(s) in which the staff is deemed to be "highly qualified".</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
-              </xs:appinfo>
             </xs:annotation>
           </xs:element>
           <xs:element name="TeacherPreparationProgram" type="EXTENSION-TeacherPreparationProgram" minOccurs="0" maxOccurs="unbounded">
@@ -470,11 +429,6 @@
               <xs:documentation>This entity represents the financial aid a person is awarded.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ScoreResult" type="ScoreResult" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="EconomicDisadvantaged" type="xs:boolean" minOccurs="0">
             <xs:annotation>
               <xs:documentation>An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy.</xs:documentation>
@@ -489,11 +443,6 @@
             <xs:annotation>
               <xs:documentation>Reflects important characteristics of the applicant's home situation:
                     Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="GradePointAverage" type="GradePointAverage" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>Data that provides information on a measure of average performance in a group of courses taken by an individual.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType" minOccurs="0">
@@ -527,7 +476,7 @@
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
             <xs:annotation>
-              <xs:documentation>The education organization, typically a LocalEducationAgency, associated with the application.</xs:documentation>
+              <xs:documentation>The Education Organization to which the applicant is submitting their application. </xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ApplicationDate" type="xs:date">
@@ -617,6 +566,47 @@
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-WithdrawReasonDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HighestCompletedLevelOfEducation" type="LevelOfEducationDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LevelOfEducationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="YearsOfPriorProfessionalExperience" type="NumberOfYears" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of years that an individual has previously held a similar professional position in one or more education institutions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="YearsOfPriorTeachingExperience" type="NumberOfYears" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of years that an individual has previously held a teaching position in one or more education institutions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HighlyQualifiedTeacher" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HighlyQualifiedAcademicSubject" type="AcademicSubjectDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The academic subject(s) in which the staff is deemed to be "highly qualified".</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AcademicSubjectDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ScoreResult" type="ScoreResult" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GradePointAverage" type="GradePointAverage" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Data that provides information on a measure of average performance in a group of courses taken by an individual.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ApplicantReference" type="EXTENSION-ApplicantReferenceType">
@@ -738,7 +728,7 @@
               <xs:documentation>Identifier or serial number assigned to the Certification.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="IssuerNamespace" type="URI">
+          <xs:element name="Namespace" type="URI">
             <xs:annotation>
               <xs:documentation>Namespace for the Certification, typically associated with the issuing authority.</xs:documentation>
             </xs:annotation>
@@ -859,7 +849,7 @@
               <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Namespace" type="URI">
+          <xs:element name="ExamNamespace" type="URI">
             <xs:annotation>
               <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
             </xs:annotation>
@@ -1947,6 +1937,11 @@
               <xs:documentation>The title or name for a professional development.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Namespace" type="URI">
+            <xs:annotation>
+              <xs:documentation>Namespace for the event, typically associated with the issuing authority.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="ProfessionalDevelopmentOfferedBy" type="EXTENSION-ProfessionalDevelopmentOfferedByDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>A code describing an organization that is offering a specific professional development.</xs:documentation>
@@ -1973,6 +1968,52 @@
           <xs:element name="ProfessionalDevelopmentReason" type="EXTENSION-ProfessionalDevelopmentReason" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The reported reason for a teacher candidate's professional development.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ProfessionalDevelopmentEventAttendance">
+    <xs:annotation>
+      <xs:documentation>This event entity represents the recording of whether a staff is in attendance for professional development.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="PersonReference" type="PersonReferenceType">
+            <xs:annotation>
+              <xs:documentation>The person associated with the professional development attendance event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
+            <xs:annotation>
+              <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AttendanceDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>Date for this attendance event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AttendanceEventCategory" type="AttendanceEventCategoryDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>A code describing the attendance event, for example:
+                     Present
+                     Unexcused absence
+                     Excused absence
+                     Tardy.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AttendanceEventCategoryDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AttendanceEventReason" type="AttendanceEventReason" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The reported reason for a teacher candidate's absence.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2090,11 +2131,6 @@
               <xs:documentation>Content associated with different touchpoints with the prospect.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="CredentialReference" type="CredentialReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The legal document or authorization giving authorization to perform teaching assignment services.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="Gender" type="EXTENSION-GenderDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The gender with which a person associates.</xs:documentation>
@@ -2144,52 +2180,6 @@
           <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Relates the prospect to a generic person.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-ProspectProfessionalDevelopmentEventAttendance">
-    <xs:annotation>
-      <xs:documentation>This event entity represents the recording of whether a prospect is in attendance for professional development.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="ProspectReference" type="EXTENSION-ProspectReferenceType">
-            <xs:annotation>
-              <xs:documentation>The staff associated with the professional development attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-            <xs:annotation>
-              <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Date for this attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventCategory" type="AttendanceEventCategoryDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>A code describing the attendance event, for example:
-                     Present
-                     Unexcused absence
-                     Excused absence
-                     Tardy.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AttendanceEventCategoryDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventReason" type="AttendanceEventReason" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The reported reason for a teacher candidate's absence.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2459,52 +2449,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffProfessionalDevelopmentEventAttendance">
-    <xs:annotation>
-      <xs:documentation>This event entity represents the recording of whether a staff is in attendance for professional development.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="StaffReference" type="StaffReferenceType">
-            <xs:annotation>
-              <xs:documentation>The staff associated with the professional development attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-            <xs:annotation>
-              <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Date for this attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventCategory" type="AttendanceEventCategoryDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>A code describing the attendance event, for example:
-                     Present
-                     Unexcused absence
-                     Excused absence
-                     Tardy.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AttendanceEventCategoryDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventReason" type="AttendanceEventReason" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The reported reason for a teacher candidate's absence.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffStudentGrowthMeasure">
     <xs:annotation>
       <xs:documentation>Complex type that provides data about a group of students and their student growth as it pertains to the Teacher Candidate</xs:documentation>
@@ -2641,6 +2585,30 @@
           <xs:element name="AssignmentPassed" type="xs:boolean" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indication of whether the assignment was passed or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SurveyResponseExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="SurveyResponse">
+        <xs:sequence>
+          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The teacher candidate responding to a survey.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ApplicantReference" type="EXTENSION-ApplicantReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The applicant responding to a survey.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2849,11 +2817,6 @@
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-GenderDescriptor</ann:Descriptor>
               </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="CredentialReference" type="CredentialReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The legal document or authorization giving authorization to perform teaching assignment services.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="TuitionCost" type="Currency" minOccurs="0">
@@ -3164,52 +3127,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateProfessionalDevelopmentEventAttendance">
-    <xs:annotation>
-      <xs:documentation>This event entity represents the recording of whether a teacher candidate is in attendance for professional development.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-            <xs:annotation>
-              <xs:documentation>The teacher candidate associated with the professional development attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-            <xs:annotation>
-              <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>Date for this attendance event.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventCategory" type="AttendanceEventCategoryDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>A code describing the attendance event, for example:
-                     Present
-                     Unexcused absence
-                     Excused absence
-                     Tardy.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>AttendanceEventCategoryDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="AttendanceEventReason" type="AttendanceEventReason" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The reported reason for a teacher candidate's absence.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TeacherCandidateStudentGrowthMeasure">
     <xs:annotation>
       <xs:documentation>Complex type that provides data about a group of students and their student growth as it pertains to the Teacher Candidate</xs:documentation>
@@ -3327,6 +3244,14 @@
           <xs:element name="TeacherPreparationProviderId" type="xs:int">
             <xs:annotation>
               <xs:documentation>The unique identification code for the Teacher Preparation Provider</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AccreditationStatus" type="EXTENSION-AccreditationStatusDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-AccreditationStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
           <xs:element name="UniversityReference" type="EXTENSION-UniversityReferenceType" minOccurs="0">
@@ -3449,6 +3374,17 @@
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-AccreditationStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-AidTypeDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor defines the classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
@@ -5290,11 +5226,6 @@
           <xs:documentation>Identifier assigned to a person making formal application for an open staff position.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-        <xs:annotation>
-          <xs:documentation>The education organization, typically a LocalEducationAgency, associated with the applicant.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EXTENSION-ApplicantProspectAssociationIdentityType">
@@ -5422,7 +5353,7 @@
       </xs:element>
       <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
         <xs:annotation>
-          <xs:documentation>The education organization, typically a LocalEducationAgency, associated with the application.</xs:documentation>
+          <xs:documentation>The Education Organization to which the applicant is submitting their application. </xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="ApplicantReference" type="EXTENSION-ApplicantReferenceType">
@@ -5464,7 +5395,7 @@
           <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="Namespace" type="URI">
+      <xs:element name="ExamNamespace" type="URI">
         <xs:annotation>
           <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
         </xs:annotation>
@@ -5547,7 +5478,7 @@
           <xs:documentation>Identifier or serial number assigned to the Certification.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="IssuerNamespace" type="URI">
+      <xs:element name="Namespace" type="URI">
         <xs:annotation>
           <xs:documentation>Namespace for the Certification, typically associated with the issuing authority.</xs:documentation>
         </xs:annotation>
@@ -6182,6 +6113,24 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
+      <xs:element name="SchoolYear" type="SchoolYearType">
+        <xs:annotation>
+          <xs:documentation>The identifier for the school year.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EvaluationPeriod" type="EXTENSION-EvaluationPeriodDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The period for the evaluation (e.g., BOY, MOY, EOY, Summer).</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-EvaluationPeriodDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>Provides user information to lookup and link to an existing educational organization record.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
     </xs:sequence>
   </xs:complexType>
   <xs:complexType name="EXTENSION-PerformanceEvaluationRatingIdentityType">
@@ -6242,6 +6191,50 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-ProfessionalDevelopmentEventAttendanceIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a ProfessionalDevelopmentEventAttendance.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="PersonReference" type="PersonReferenceType">
+        <xs:annotation>
+          <xs:documentation>The person associated with the professional development attendance event.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
+        <xs:annotation>
+          <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AttendanceDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>Date for this attendance event.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ProfessionalDevelopmentEventAttendanceReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a ProfessionalDevelopmentEventAttendance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="ProfessionalDevelopmentEventAttendanceIdentity" type="EXTENSION-ProfessionalDevelopmentEventAttendanceIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a ProfessionalDevelopmentEventAttendance.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-ProfessionalDevelopmentEventIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a ProfessionalDevelopmentEvent.</xs:documentation>
@@ -6253,6 +6246,11 @@
       <xs:element name="ProfessionalDevelopmentTitle" type="EXTENSION-ProfessionalDevelopmentTitle">
         <xs:annotation>
           <xs:documentation>The title or name for a professional development.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Namespace" type="URI">
+        <xs:annotation>
+          <xs:documentation>Namespace for the event, typically associated with the issuing authority.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -6295,50 +6293,6 @@
         </xs:annotation>
       </xs:element>
     </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-ProspectProfessionalDevelopmentEventAttendanceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a ProspectProfessionalDevelopmentEventAttendance.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="ProspectReference" type="EXTENSION-ProspectReferenceType">
-        <xs:annotation>
-          <xs:documentation>The staff associated with the professional development attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-        <xs:annotation>
-          <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AttendanceDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>Date for this attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-ProspectProfessionalDevelopmentEventAttendanceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a ProspectProfessionalDevelopmentEventAttendance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="ProspectProfessionalDevelopmentEventAttendanceIdentity" type="EXTENSION-ProspectProfessionalDevelopmentEventAttendanceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a ProspectProfessionalDevelopmentEventAttendance.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="EXTENSION-ProspectReferenceType">
     <xs:annotation>
@@ -6548,50 +6502,6 @@
           <xs:element name="StaffApplicantAssociationIdentity" type="EXTENSION-StaffApplicantAssociationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a StaffApplicantAssociation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffProfessionalDevelopmentEventAttendanceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a StaffProfessionalDevelopmentEventAttendance.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="StaffReference" type="StaffReferenceType">
-        <xs:annotation>
-          <xs:documentation>The staff associated with the professional development attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-        <xs:annotation>
-          <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AttendanceDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>Date for this attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffProfessionalDevelopmentEventAttendanceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a StaffProfessionalDevelopmentEventAttendance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="StaffProfessionalDevelopmentEventAttendanceIdentity" type="EXTENSION-StaffProfessionalDevelopmentEventAttendanceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a StaffProfessionalDevelopmentEventAttendance.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -7116,50 +7026,6 @@
       </xs:element>
     </xs:sequence>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateProfessionalDevelopmentEventAttendanceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a TeacherCandidateProfessionalDevelopmentEventAttendance.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="TeacherCandidateReference" type="EXTENSION-TeacherCandidateReferenceType">
-        <xs:annotation>
-          <xs:documentation>The teacher candidate associated with the professional development attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="ProfessionalDevelopmentEventReference" type="EXTENSION-ProfessionalDevelopmentEventReferenceType">
-        <xs:annotation>
-          <xs:documentation>The professional development event the attendance event is associated to.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="AttendanceDate" type="xs:date">
-        <xs:annotation>
-          <xs:documentation>Date for this attendance event.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-TeacherCandidateProfessionalDevelopmentEventAttendanceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a TeacherCandidateProfessionalDevelopmentEventAttendance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="TeacherCandidateProfessionalDevelopmentEventAttendanceIdentity" type="EXTENSION-TeacherCandidateProfessionalDevelopmentEventAttendanceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a TeacherCandidateProfessionalDevelopmentEventAttendance.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TeacherCandidateReferenceType">
     <xs:annotation>
       <xs:documentation>Provides alternative references for a TeacherCandidate. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
@@ -7595,6 +7461,15 @@
   <xs:annotation>
     <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
   </xs:annotation>
+  <xs:simpleType name="EXTENSION-AccreditationStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Accreditation Status for a Teacher Preparation Provider.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-AidTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor defines the classification of financial aid awarded to a person for the academic term/year.</xs:documentation>
