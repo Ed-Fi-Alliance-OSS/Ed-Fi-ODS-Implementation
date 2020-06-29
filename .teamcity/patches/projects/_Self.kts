@@ -14,5 +14,8 @@ changeProject(DslContext.projectId) {
         add {
             param("myget.apiKey", "%myget.apiKey.protected%")
         }
+        add {
+            param("myget.apiKey.protected", "123456")
+        }
     }
 }
