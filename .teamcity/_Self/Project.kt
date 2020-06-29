@@ -19,6 +19,7 @@ object EdFiOdsImplementation : Project({
             refs/heads/(*)
             refs/(pull/*)/head
         """.trimIndent())
+        param("version.prerelease.prefix", "pre")
     }
 
     subProject(lib.SharedLibrariesProject)

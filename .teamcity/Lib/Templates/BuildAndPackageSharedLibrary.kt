@@ -21,7 +21,7 @@ object BuildAndPackageSharedLibrary : BuildSharedLibraryBase() {
 
         steps {
             powerShell {
-                name ="Created Four-Digit Build Number"
+                name ="Create Four-Digit Build Number"
                 executionMode = BuildStep.ExecutionMode.RUN_ON_SUCCESS
                 id = "BuildAndPackageSharedLibrary_Padded_BuildNumber"
                 formatStderrAsError = true

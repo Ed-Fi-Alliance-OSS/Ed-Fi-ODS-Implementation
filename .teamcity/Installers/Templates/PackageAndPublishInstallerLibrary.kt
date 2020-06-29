@@ -20,7 +20,6 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
         option("shouldFailBuildOnAnyErrorMessage", "true")
 
         params {
-            param("version.preReleaseLabel", "pre")
             param("project.name", "%system.teamcity.buildConfName%")
             param("project.shouldPublishPreRelease", "true")
             param("project.directory", "Ed-Fi-ODS-Implementation/scripts/NuGet/%project.name%")
@@ -46,7 +45,7 @@ object PackageAndPublishInstallerLibrary : _self.templates.BuildAndTestBaseClass
                         ${"$"}parameters = @{
                             SemanticVersion = "%version%"
                             BuildCounter = "%build.counter%"
-                            PreReleaseLabel = "%version.preReleaseLabel%"
+                            PreReleaseLabel = "%version.prerelease.prefix%"
                             Publish = [System.Convert]::ToBoolean("%project.shouldPublishPreRelease%")
                             NuGetFeed = "%myget.feed%"
                             NuGetApiKey = "%myget.apiKey%"
