@@ -12,10 +12,13 @@ accordingly, and delete the patch script.
 changeProject(DslContext.projectId) {
     params {
         add {
-            param("myget.apiKey", "%myget.apiKey.protected%")
+            param("myget.feed", "https://www.myget.org/F/ed-fi/api/v3/index.json")
         }
         add {
             param("myget.apiKey.protected", "123456")
+        }
+        add {
+            param("myget.apiKey", "%myget.apiKey.protected%")
         }
     }
 }
