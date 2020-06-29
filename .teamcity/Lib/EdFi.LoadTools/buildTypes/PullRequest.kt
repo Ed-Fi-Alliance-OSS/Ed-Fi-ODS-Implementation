@@ -12,11 +12,4 @@ object PullRequestBuild : BuildType ({
     id = RelativeId("EdFiLoadTools_PullRequestBuild")
 
     templates(lib.templates.BuildSharedLibraryPullRequest)
-
-    vcs {
-        root(lib.edFiLoadTools.vcsRoots.EdFiStandard, """
-            +:Schemas/Bulk => Ed-Fi-Standard/Schemas/Bulk
-            +:Samples/Sample XML => Ed-Fi-Standard/Samples/Sample XML
-        """.trimIndent())
-    }
 })
