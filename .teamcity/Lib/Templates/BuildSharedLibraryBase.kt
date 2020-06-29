@@ -33,6 +33,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 +:Application/NuGetArtifacts => Ed-Fi-ODS/Application/NuGetArtifacts
                 %vcs.checkout.rules.ods.additional%
             """.trimIndent())
+
         }
 
         steps {
@@ -49,6 +50,7 @@ open class BuildSharedLibraryBase : _self.templates.BuildAndTestBaseClass() {
                 id = "BuildSharedLibrary_Test"
                 projects = "%project.file.sln%"
                 configuration = "%msbuild.configuration%"
+                args = "%dotnet.test.args%"
                 skipBuild = true
                 param("dotNetCoverage.dotCover.home.path", "%teamcity.tool.JetBrains.dotCover.CommandLineTools.DEFAULT%")
             }

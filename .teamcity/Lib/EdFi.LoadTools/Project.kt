@@ -25,12 +25,14 @@ object EdFiLoadToolsProject : Project({
 
         // Need all new rules, default are not helpful here
         param("vcs.checkout.rules.ods.additional", "")
-            param("vcs.checkout.rules.ods", """
-                +:Utilities/DataLoading => Ed-Fi-ODS/Utilities/DataLoading
-                +:Application/EdFi.Ods.Standard/Schemas
-                +:Application/EdFi.Ods.Standard/Artifacts/Metadata => Ed-Fi-ODS/Application/EdFi.Ods.Standard/Artifacts/Metadata
-                +:Application/NuGetArtifacts => Ed-Fi-ODS/Application/NuGetArtifacts
-            """.trimIndent())
+        param("vcs.checkout.rules.ods", """
+            +:Utilities/DataLoading => Ed-Fi-ODS/Utilities/DataLoading
+            +:Application/EdFi.Ods.Standard/Schemas
+            +:Application/EdFi.Ods.Standard/Artifacts/Metadata => Ed-Fi-ODS/Application/EdFi.Ods.Standard/Artifacts/Metadata
+            +:Application/NuGetArtifacts => Ed-Fi-ODS/Application/NuGetArtifacts
+        """.trimIndent())
+
+        param("dotnet.test.args", "--filter TestCategory!~\"Run Manually\")
     }
 
     vcsRoot(lib.edFiLoadTools.vcsRoots.EdFiStandard)
