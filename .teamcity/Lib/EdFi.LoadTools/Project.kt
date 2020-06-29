@@ -32,6 +32,6 @@ object EdFiLoadToolsProject : Project({
             +:Application/NuGetArtifacts => Ed-Fi-ODS/Application/NuGetArtifacts
         """.trimIndent())
 
-        param("dotnet.test.args", "--filter TestCategory!~\"Run Manually\"")
+        param("dotnet.test.args", "--filter TestCategory!~'Run Manually'")
     }
 })
