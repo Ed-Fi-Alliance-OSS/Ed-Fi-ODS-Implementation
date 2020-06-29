@@ -66,9 +66,9 @@ function Install-EdFiOdsSandboxAdmin {
     #>
     [CmdletBinding()]
     param (
-        # NuGet package name. Default: EdFi.Ods.SandboxAdmin.Web.EFA.
+        # NuGet package name. Default: EdFi.Ods.SandboxAdmin.Web.Suite3.
         [string]
-        $PackageName = "EdFi.Ods.SandboxAdmin.Web.EFA",
+        $PackageName = "EdFi.Ods.SandboxAdmin.Web.Suite3",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
