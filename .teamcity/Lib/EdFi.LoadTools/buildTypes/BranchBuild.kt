@@ -12,4 +12,11 @@ object BranchBuild : BuildType ({
     id = RelativeId("EdFiLoadTools_BranchBuild")
 
     templates(lib.templates.BuildAndPackageSharedLibrary)
+
+    vcs {
+        root(lib.edFiLoadTools.vcsRoots.EdFiStandard, """
+            +:Schemas/Bulk => Ed-Fi-Standard/Schemas/Bulk
+            +:Samples/Sample XML => Ed-Fi-Standard/Samples/Sample XML
+        """.trimIndent())
+    }
 })
