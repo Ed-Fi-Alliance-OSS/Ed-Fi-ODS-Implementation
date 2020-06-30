@@ -257,6 +257,9 @@ VALUES ('courseCourseTranscriptFacts', 'courseCourseTranscriptFacts', 'http://ed
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', @educationOrganizationsResourceClaimId, @ApplicationId);
 
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('professionalDevelopmentEventAttendance', 'professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance', @relationshipBasedDataResourceClaimId, @ApplicationId);
+
 --- Descriptors ---
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -406,6 +409,9 @@ VALUES ('coteachingStyleObservedDescriptor', 'coteachingStyleObservedDescriptor'
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('certificationExamStatusDescriptor', 'certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
 
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('accreditationStatusDescriptor', 'accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
+
 SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
 
 --- These Resources need explicit metadata ---
@@ -467,4 +473,5 @@ WHERE ResourceName IN ('anonymizedStudent'
 , 'teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation'
 , 'teacherCandidateStudentGrowthMeasureSectionAssociation'
 , 'teacherPreparationProviderProgram'
+, 'professionalDevelopmentEventAttendance'
 );

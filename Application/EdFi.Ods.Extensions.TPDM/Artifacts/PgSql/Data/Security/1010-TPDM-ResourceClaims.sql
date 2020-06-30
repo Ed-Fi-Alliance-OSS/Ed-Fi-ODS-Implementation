@@ -253,6 +253,9 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('courseCourseTranscriptFacts', 'courseCourseTranscriptFacts', 'http://ed-fi.org/ods/identity/claims/tpdm/courseCourseTranscriptFacts', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+values ('professionalDevelopmentEventAttendance', 'professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance', relationshipBasedDataResourceClaimId, appId);
+
+insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', educationOrganizationsResourceClaimId, appId);
 
 --- Descriptors ---
@@ -521,6 +524,9 @@ values ('surveySectionResponseTeacherCandidateTargetAssociation', 'surveySection
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('performanceEvaluationRatingLevelDescriptor', 'performanceEvaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor', systenDescriptorsResourceClaimId, appId);
 
+INSERT INTO dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('accreditationStatusDescriptor', 'accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor', systenDescriptorsResourceClaimId, appId);
+
 select AuthorizationStrategyId into authStrategyId from dbo.AuthorizationStrategies where AuthorizationStrategyName = 'NoFurtherAuthorizationRequired';
 
 --- These Resources need explicit metadata ---
@@ -604,6 +610,7 @@ where ResourceName in ('anonymizedStudent'
 , 'rubric'
 , 'performanceMeasureFacts'
 , 'teacherCandidateStudentGrowthMeasureCourseAssociation'
-, 'application');
+, 'application'
+, 'professionalDevelopmentEventAttendance');
 
 end $$
