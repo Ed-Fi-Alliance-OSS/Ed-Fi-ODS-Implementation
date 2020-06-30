@@ -5,7 +5,7 @@
 
 $params = @{
     packageName = "EdFi.Ods.Populated.Template.PostgreSQL.Suite3"
-    packageVersion = "4.0.0-b10174"
+    packageVersion = "4.0.0-b10175"
     packageSource = "https://www.myget.org/F/ed-fi/"
 }
 
