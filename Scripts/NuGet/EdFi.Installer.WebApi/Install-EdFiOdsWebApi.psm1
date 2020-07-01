@@ -152,9 +152,9 @@ function Install-EdFiOdsWebApi {
     #>
     [CmdletBinding()]
     param (
-        # NuGet package name. Default: EdFi.Ods.WebApi.EFA.
+        # NuGet package name. Default: EdFi.Ods.WebApi.Suite3.
         [string]
-        $PackageName = "EdFi.Ods.WebApi.EFA",
+        $PackageName = "EdFi.Ods.WebApi.Suite3",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
@@ -188,7 +188,7 @@ function Install-EdFiOdsWebApi {
         [string]
         $WebApplicationName = "WebApi",
 
-        # TLS certificiate thumbprint, optional. When not set, a self-signed certificate will be created.
+        # TLS certificate thumbprint, optional. When not set, a self-signed certificate will be created.
         [string]
         $CertThumbprint,
 
@@ -414,7 +414,7 @@ function Invoke-TransformWebConfigAppSettings {
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $appSettings = @{
-            "apiStartup:type" = $Config.InstallType           
+            "apiStartup:type" = $Config.InstallType
         }
 
         if ($Config.WebApiFeatures) {
