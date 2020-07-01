@@ -94,9 +94,6 @@ Domain Entity TeacherCandidate
     documentation "The gender with which a person associates."
     is optional
     is queryable field
-  domain entity EdFi.Credential
-    documentation "The legal document or authorization giving authorization to perform teaching assignment services."
-    is optional collection
   currency TuitionCost
     documentation "The tuition for a person's participation in a program, service. or course."
     is optional
@@ -127,9 +124,6 @@ Domain Entity TeacherCandidate
   domain entity EdFi.Student
     documentation "The student associated."
     is required
-  //domain entity Staff
-  //  documentation "The staff associated."
-  //  is optional
   domain entity EdFi.Person
       documentation "Relates the teacher candidate to a generic person."
       is optional

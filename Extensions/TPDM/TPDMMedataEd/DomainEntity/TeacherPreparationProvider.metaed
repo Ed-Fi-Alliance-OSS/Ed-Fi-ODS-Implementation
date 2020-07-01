@@ -11,6 +11,9 @@ Domain Entity TeacherPreparationProvider based on EdFi.EducationOrganization
       documentation "The unique identification code for the Teacher Preparation Provider"
       renames identity property EducationOrganizationId
       is queryable field
+    descriptor AccreditationStatus
+      documentation "Accreditation Status for a Teacher Preparation Provider."
+      is optional
     domain entity University
       documentation "The post secondary institution of which the teacher preparation provider is a component of."
       is optional

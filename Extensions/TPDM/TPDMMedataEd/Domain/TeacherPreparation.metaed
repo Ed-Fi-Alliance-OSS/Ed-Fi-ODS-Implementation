@@ -19,16 +19,14 @@ Domain TeacherPreparation
     domain entity OpenStaffPosition
     domain entity ProfessionalDevelopmentEvent
     domain entity Prospect
-    domain entity ProspectProfessionalDevelopmentEventAttendance
     domain entity RecruitmentEvent
     domain entity School
     domain entity Staff
-    domain entity StaffProfessionalDevelopmentEventAttendance
+    domain entity ProfessionalDevelopmentEventAttendance
     domain entity StaffStudentGrowthMeasure
     domain entity StudentGradebookEntry
     domain entity TeacherCandidate
     domain entity TeacherCandidateAcademicRecord
-    domain entity TeacherCandidateProfessionalDevelopmentEventAttendance
     domain entity TeacherCandidateStudentGrowthMeasure
     domain entity TeacherPreparationProvider
     domain entity TeacherPreparationProviderProgram

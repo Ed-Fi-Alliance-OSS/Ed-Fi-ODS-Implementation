@@ -6,6 +6,7 @@ Domain Entity CertificationExam
     shared string EdFi.URI named Namespace
         documentation "Namespace for the CertificationExam."
         is part of identity
+        role name Exam
     shared string CertificationExamTitle
         documentation "The title of the Certification Exam."
         is required

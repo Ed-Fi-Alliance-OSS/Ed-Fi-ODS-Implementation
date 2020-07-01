@@ -1,0 +1,7 @@
+Domain Entity EdFi.SurveyResponse additions
+    domain entity TeacherCandidate
+        documentation "The teacher candidate responding to a survey."
+        is optional
+    domain entity Applicant
+        documentation "The applicant responding to a survey."
+        is optional

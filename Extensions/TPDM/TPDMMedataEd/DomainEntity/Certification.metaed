@@ -3,7 +3,7 @@ Domain Entity Certification
     shared string EdFi.IdentificationCode named CertificationIdentifier
         documentation "Identifier or serial number assigned to the Certification."
         is part of identity
-    shared string EdFi.URI named IssuerNamespace
+    shared string EdFi.URI named Namespace
         documentation "Namespace for the Certification, typically associated with the issuing authority."
         is part of identity
     shared string CertificationTitle

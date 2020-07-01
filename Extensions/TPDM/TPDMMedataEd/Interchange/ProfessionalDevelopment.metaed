@@ -3,6 +3,4 @@ Interchange ProfessionalDevelopment
     documentation "?"
 
     domain entity ProfessionalDevelopmentEvent
-    domain entity ProspectProfessionalDevelopmentEventAttendance
-    domain entity StaffProfessionalDevelopmentEventAttendance
-    domain entity TeacherCandidateProfessionalDevelopmentEventAttendance
+    domain entity ProfessionalDevelopmentEventAttendance
