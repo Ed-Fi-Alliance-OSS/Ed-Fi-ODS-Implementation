@@ -3,7 +3,5 @@
 //  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 //  See the LICENSE and NOTICES files in the project root for more information.
 
-Shared String EvaluationElementTitle
-    documentation "The name or title of the evaluation element."
-    min length 1
-    max length 255
+Descriptor AccreditationStatus
+  documentation "Accreditation Status for a Teacher Preparation Provider."

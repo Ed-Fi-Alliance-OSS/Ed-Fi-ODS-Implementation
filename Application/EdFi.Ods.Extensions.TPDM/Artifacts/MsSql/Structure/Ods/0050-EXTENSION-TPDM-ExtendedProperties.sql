@@ -3,6 +3,12 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+-- Extended Properties [tpdm].[AccreditationStatusDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Accreditation Status for a Teacher Preparation Provider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'AccreditationStatusDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'AccreditationStatusDescriptor', @level2type=N'COLUMN', @level2name=N'AccreditationStatusDescriptorId'
+GO
+
 -- Extended Properties [tpdm].[AidTypeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the classification of financial aid awarded to a person for the academic term/year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'AidTypeDescriptor'
 GO
@@ -342,8 +348,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A person who m
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A prefix used to denote the title, degree, position, or seniority of the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'PersonalTitlePrefix'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'FirstName'
@@ -364,17 +368,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of whether or not the person is a U.S. citizen.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'CitizenshipStatusDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of years that an individual has previously held a similar professional position in one or more education institutions.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'YearsOfPriorProfessionalExperience'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of years that an individual has previously held a teaching position in one or more education institutions.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'YearsOfPriorTeachingExperience'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The login ID for the user; used for security access control interface.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'LoginId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'HighlyQualifiedTeacher'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The academic subject(s) in which the staff is deemed to be "highly qualified".', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'HighlyQualifiedAcademicSubjectDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The gender with which a person associates.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Applicant', @level2type=N'COLUMN', @level2name=N'GenderDescriptorId'
 GO
@@ -397,8 +391,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddress', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddress', @level2type=N'COLUMN', @level2name=N'City'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddress', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddress', @level2type=N'COLUMN', @level2name=N'PostalCode'
 GO
@@ -437,8 +429,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The month, day
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the city in which an address is located.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddressPeriod', @level2type=N'COLUMN', @level2name=N'City'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddressPeriod', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The five or nine digit zip code or overseas postal code portion of an address.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddressPeriod', @level2type=N'COLUMN', @level2name=N'PostalCode'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the state (within the United States) or outlying area in which an address is located.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAddressPeriod', @level2type=N'COLUMN', @level2name=N'StateAbbreviationDescriptorId'
@@ -457,8 +447,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier ass
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the award was designated.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAid', @level2type=N'COLUMN', @level2name=N'BeginDate'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAid', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the award was removed.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAid', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the condition (e.g., placement in a high need school) under which the aid was given.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantAid', @level2type=N'COLUMN', @level2name=N'AidConditionDescription'
@@ -475,8 +463,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier ass
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of background check (e.g., online, criminal, employment).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantBackgroundCheck', @level2type=N'COLUMN', @level2name=N'BackgroundCheckTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantBackgroundCheck', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the background check was requested.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantBackgroundCheck', @level2type=N'COLUMN', @level2name=N'BackgroundCheckRequestedDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The status of the background check (e.g., pending, under investigation, offense(s) found, etc.).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantBackgroundCheck', @level2type=N'COLUMN', @level2name=N'BackgroundCheckStatusDescriptorId'
@@ -492,8 +478,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reflects impor
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCharacteristic', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCharacteristic', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The characteristic designated for the Student.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCharacteristic', @level2type=N'COLUMN', @level2name=N'StudentCharacteristicDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the characteristic was designated.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCharacteristic', @level2type=N'COLUMN', @level2name=N'BeginDate'
@@ -503,26 +487,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person, organization, or department that designated the characteristic.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCharacteristic', @level2type=N'COLUMN', @level2name=N'DesignatedBy'
 GO
 
--- Extended Properties [tpdm].[ApplicantCredential] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The legal document or authorization giving authorization to perform teaching assignment services.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCredential'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCredential', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the credential.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCredential', @level2type=N'COLUMN', @level2name=N'CredentialIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCredential', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantCredential', @level2type=N'COLUMN', @level2name=N'StateOfIssueStateAbbreviationDescriptorId'
-GO
-
 -- Extended Properties [tpdm].[ApplicantDisability] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The disability condition(s) that best describes an individual''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisability'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisability', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability category that describes a child''s impairment.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisability', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of the disability diagnosis.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisability', @level2type=N'COLUMN', @level2name=N'DisabilityDiagnosis'
 GO
@@ -540,15 +510,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A disability c
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Whether the disability is IDEA, Section 504, or other disability designation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'DisabilityDesignationDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantDisabilityDesignation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 
 -- Extended Properties [tpdm].[ApplicantElectronicMail] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantElectronicMail'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantElectronicMail', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantElectronicMail', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The electronic mail (e-mail) address listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantElectronicMail', @level2type=N'COLUMN', @level2name=N'ElectronicMailAddress'
 GO
@@ -559,28 +525,10 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the electronic email address should not be published.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantElectronicMail', @level2type=N'COLUMN', @level2name=N'DoNotPublishIndicator'
 GO
 
--- Extended Properties [tpdm].[ApplicantGradePointAverage] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data that provides information on a measure of average performance in a group of courses taken by an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The system used for calculating the grade point average for an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'GradePointAverageTypeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether or not the Grade Point Average value is cumulative.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'IsCumulative'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the grade points earned divided by the number of credits attempted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'GradePointAverageValue'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum value for the grade point average.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantGradePointAverage', @level2type=N'COLUMN', @level2name=N'MaxGradePointAverageValue'
-GO
-
 -- Extended Properties [tpdm].[ApplicantIdentificationDocument] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Describe the documentation of citizenship.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantIdentificationDocument'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantIdentificationDocument', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantIdentificationDocument', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary function of the document used for establishing identity.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IdentificationDocumentUseDescriptorId'
 GO
@@ -603,8 +551,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of address listed for an individual or organization. For example:  Physical Address, Mailing Address, Home Address, etc.)', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantInternationalAddress', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantInternationalAddress', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first line of the address.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantInternationalAddress', @level2type=N'COLUMN', @level2name=N'AddressLine1'
 GO
@@ -630,8 +576,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language(s
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguage', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguage', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguage', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
 GO
 
@@ -639,8 +583,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of how the language is used (e.g. Home Language, Native Language, Spoken Language).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguageUse'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguageUse', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguageUse', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A specification of which written or spoken communication is being used.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantLanguageUse', @level2type=N'COLUMN', @level2name=N'LanguageDescriptorId'
 GO
@@ -651,8 +593,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The documents presented as evident to verify one''s personal identity; for example: drivers license, passport, birth certificate, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantPersonalIdentificationDocument'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary function of the document used for establishing identity.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IdentificationDocumentUseDescriptorId'
 GO
@@ -684,31 +624,13 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The general ra
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantRace', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantRace', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The general racial category which most clearly reflects the individual''s recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantRace', @level2type=N'COLUMN', @level2name=N'RaceDescriptorId'
-GO
-
--- Extended Properties [tpdm].[ApplicantScoreResult] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult', @level2type=N'COLUMN', @level2name=N'AssessmentReportingMethodDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of a meaningful raw score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult', @level2type=N'COLUMN', @level2name=N'Result'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantScoreResult', @level2type=N'COLUMN', @level2name=N'ResultDatatypeTypeDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[ApplicantStaffIdentificationCode] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique number or alphanumeric code assigned to an applicant by a school, school system, a state, or other agency or entity.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantStaffIdentificationCode'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantStaffIdentificationCode', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantStaffIdentificationCode', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a staff member.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantStaffIdentificationCode', @level2type=N'COLUMN', @level2name=N'StaffIdentificationSystemDescriptorId'
 GO
@@ -721,8 +643,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Teacher Preparation Program(s) completed by the teacher.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTeacherPreparationProgram'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTeacherPreparationProgram', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTeacherPreparationProgram', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the Teacher Preparation Program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTeacherPreparationProgram', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProgramName'
 GO
@@ -744,8 +664,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The 10-digit t
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTelephone', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTelephone', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The telephone number including the area code, and extension, if applicable.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumber'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of communication number listed for an individual or organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantTelephone', @level2type=N'COLUMN', @level2name=N'TelephoneNumberTypeDescriptorId'
@@ -761,8 +679,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of a non-US citizen''s Visa type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantVisa'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantVisa', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantVisa', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indicator of a non-US citizen''s Visa type.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicantVisa', @level2type=N'COLUMN', @level2name=N'VisaDescriptorId'
 GO
@@ -799,6 +715,16 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the application was withdrawn by the applicant.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'WithdrawDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Reason applicant withdrew application.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'WithdrawReasonDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of years that an individual has previously held a similar professional position in one or more education institutions.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'YearsOfPriorProfessionalExperience'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of years that an individual has previously held a teaching position in one or more education institutions.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'YearsOfPriorTeachingExperience'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'HighlyQualifiedTeacher'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The academic subject(s) in which the staff is deemed to be "highly qualified".', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Application', @level2type=N'COLUMN', @level2name=N'HighlyQualifiedAcademicSubjectDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[ApplicationEvent] --
@@ -839,6 +765,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationEventTypeDescriptor', @level2type=N'COLUMN', @level2name=N'ApplicationEventTypeDescriptorId'
 GO
 
+-- Extended Properties [tpdm].[ApplicationGradePointAverage] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Data that provides information on a measure of average performance in a group of courses taken by an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to the application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'ApplicationIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The system used for calculating the grade point average for an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'GradePointAverageTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator of whether or not the Grade Point Average value is cumulative.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'IsCumulative'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of the grade points earned divided by the number of credits attempted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'GradePointAverageValue'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The maximum value for the grade point average.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationGradePointAverage', @level2type=N'COLUMN', @level2name=N'MaxGradePointAverageValue'
+GO
+
 -- Extended Properties [tpdm].[ApplicationOpenStaffPosition] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The open staff position(s) associated with the application.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationOpenStaffPosition'
 GO
@@ -849,6 +793,22 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationOpenStaffPosition', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number or identifier assigned to an open staff position, typically a requisition number assigned by Human Resources.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationOpenStaffPosition', @level2type=N'COLUMN', @level2name=N'RequisitionNumber'
+GO
+
+-- Extended Properties [tpdm].[ApplicationScoreResult] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to the application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'ApplicationIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The method that the administrator of the assessment uses to report the performance and achievement of all students. It may be a qualitative method such as performance level descriptors or a quantitative method such as a numerical grade or cut score. More than one type of reporting method may be used.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'AssessmentReportingMethodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of a meaningful raw score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'Result'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The datatype of the result. The results can be expressed as a number, percentile, range, level, etc.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ApplicationScoreResult', @level2type=N'COLUMN', @level2name=N'ResultDatatypeTypeDescriptorId'
 GO
 
 -- Extended Properties [tpdm].[ApplicationSourceDescriptor] --
@@ -902,7 +862,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An offering by
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Certification', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Certification', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Certification', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Certification', @level2type=N'COLUMN', @level2name=N'CertificationTitle'
 GO
@@ -934,9 +894,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 
 -- Extended Properties [tpdm].[CertificationExam] --
@@ -944,7 +904,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An examination
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the Certification Exam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamTitle'
 GO
@@ -964,7 +924,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year, mont
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'CertificationExamIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'Namespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
@@ -1004,7 +964,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade level(s) certified for teaching.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationGradeLevel', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationGradeLevel', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 
 -- Extended Properties [tpdm].[CertificationLevelDescriptor] --
@@ -1020,7 +980,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The process, program ,or pathway used to obtain certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationRoute', @level2type=N'COLUMN', @level2name=N'CertificationRouteDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationRoute', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationRoute', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 
 -- Extended Properties [tpdm].[CertificationRouteDescriptor] --
@@ -1084,7 +1044,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of t
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The process, program, or pathway used to obtain certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CredentialExtension', @level2type=N'COLUMN', @level2name=N'CertificationRouteDescriptorId'
 GO
@@ -1194,11 +1154,17 @@ GO
 -- Extended Properties [tpdm].[Evaluation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An evaluation instrument appled to evaluate an educator.  The evaluation could be internally developed, or could be an industry recognized instrument such as TTESS or Marzano.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Evaluation', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1214,15 +1180,21 @@ GO
 -- Extended Properties [tpdm].[EvaluationElement] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The lowest-level Elements or criterion of performance being evaluated by rubric, quantitative measure, or aggregate survey response.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElement', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1238,11 +1210,15 @@ GO
 -- Extended Properties [tpdm].[EvaluationElementRating] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The lowest-level rating for an Evaluation Element for an individual educator.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1251,6 +1227,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRating', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1270,9 +1248,13 @@ GO
 -- Extended Properties [tpdm].[EvaluationElementRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationRatingLevelDescriptorId'
 GO
@@ -1281,6 +1263,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingLevel', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1298,11 +1282,15 @@ GO
 -- Extended Properties [tpdm].[EvaluationElementRatingResult] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1316,6 +1304,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of Rating Result.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'RatingResultTitle'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationElementRatingResult', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
@@ -1326,13 +1316,19 @@ GO
 -- Extended Properties [tpdm].[EvaluationObjective] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A subcomponent of an Evaluation, a specific educator Objective or domain of performance that is being evaluated.  ', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjective', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1348,9 +1344,13 @@ GO
 -- Extended Properties [tpdm].[EvaluationObjectiveRating] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating for the component Evaluation Objective for an individual educator.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1359,6 +1359,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRating', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1372,7 +1374,11 @@ GO
 -- Extended Properties [tpdm].[EvaluationObjectiveRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationRatingLevelDescriptorId'
 GO
@@ -1381,6 +1387,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingLevel', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1392,9 +1400,13 @@ GO
 -- Extended Properties [tpdm].[EvaluationObjectiveRatingResult] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1407,6 +1419,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'Rating'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of Rating Result.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'RatingResultTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationObjectiveRatingResult', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1424,7 +1438,11 @@ GO
 -- Extended Properties [tpdm].[EvaluationRating] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The summary weighting for the Evaluation instrument for an individual educator.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1433,6 +1451,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1446,13 +1466,15 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local code
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SessionName'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolYear'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolId'
 GO
 
 -- Extended Properties [tpdm].[EvaluationRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationRatingLevelDescriptorId'
 GO
@@ -1461,6 +1483,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1478,7 +1502,11 @@ GO
 -- Extended Properties [tpdm].[EvaluationRatingResult] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1492,6 +1520,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of Rating Result.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'RatingResultTitle'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
@@ -1502,7 +1532,11 @@ GO
 -- Extended Properties [tpdm].[EvaluationRatingReviewer] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person(s) that conducted the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1516,6 +1550,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g.
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
@@ -1524,7 +1560,11 @@ GO
 -- Extended Properties [tpdm].[EvaluationRatingReviewerReceivedTraining] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -1537,6 +1577,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'EvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1658,6 +1700,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for t
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'Goal', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
@@ -1696,7 +1744,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school yea
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GraduationPlanRequiredCertification', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GraduationPlanRequiredCertification', @level2type=N'COLUMN', @level2name=N'IssuerNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GraduationPlanRequiredCertification', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The process, program ,or pathway used to obtain certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'GraduationPlanRequiredCertification', @level2type=N'COLUMN', @level2name=N'CertificationRouteDescriptorId'
 GO
@@ -1810,17 +1858,17 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A performance evaluation of an educator, typically regularly scheduled and uniformly applied, comporsed of one or more Evaluations.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluation', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
 GO
@@ -1828,11 +1876,17 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationGradeLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels involved with the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The grade levels involved with the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'GradeLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationGradeLevel', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1840,11 +1894,17 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationProgramGateway] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the program gateway that may be associated for continuation in the program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifies the program gateway that may be associated for continuation in the program.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'ProgramGatewayDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationProgramGateway', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1852,11 +1912,17 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationRating] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The summary rating for a Performance Evaluation across all Evaluation instruments for an individual educator.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRating', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1882,11 +1948,17 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingLevel] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The descriptive level(s) of ratings (cut scores) for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title for a level of rating or evaluation band (e.g., Excellent, Acceptable, Needs Improvement, Unacceptable).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'EvaluationRatingLevelDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingLevel', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -1904,6 +1976,10 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingResult] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
@@ -1913,6 +1989,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The numerical summary rating or score for the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'Rating'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of Rating Result.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'RatingResultTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingResult', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1924,6 +2002,10 @@ GO
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingReviewer] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The person(s) that conducted the performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'FirstName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name borne in common by members of a family.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'LastSurname'
@@ -1934,6 +2016,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g.
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewer', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
@@ -1941,6 +2025,10 @@ GO
 
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A name given to an individual at birth, baptism, or during another naming ceremony, or through legal change.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'FirstName'
 GO
@@ -1951,6 +2039,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'PerformanceEvaluationRatingReviewerReceivedTraining', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -1984,6 +2074,8 @@ GO
 -- Extended Properties [tpdm].[ProfessionalDevelopmentEvent] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information about a professional development event.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the event, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title or name for a professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing an organization that is offering a specific professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentOfferedByDescriptorId'
@@ -1995,6 +2087,28 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An indication of whether or not a professional development event is comprised of multiple sessions or not.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent', @level2type=N'COLUMN', @level2name=N'MultipleSession'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reported reason for a teacher candidate''s professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEvent', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentReason'
+GO
+
+-- Extended Properties [tpdm].[ProfessionalDevelopmentEventAttendance] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This event entity represents the recording of whether a staff is in attendance for professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this attendance event.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the event, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title or name for a professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing the attendance event, for example:
+       Present
+       Unexcused absence
+       Excused absence
+       Tardy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reported reason for a teacher candidate''s absence.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventReason'
 GO
 
 -- Extended Properties [tpdm].[ProfessionalDevelopmentOfferedByDescriptor] --
@@ -2085,18 +2199,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates a person who receives Pell Grant aid.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectAid', @level2type=N'COLUMN', @level2name=N'PellGrantRecipient'
 GO
 
--- Extended Properties [tpdm].[ProspectCredential] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The legal document or authorization giving authorization to perform teaching assignment services.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCredential'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the credential.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCredential', @level2type=N'COLUMN', @level2name=N'CredentialIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCredential', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the prospect.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCredential', @level2type=N'COLUMN', @level2name=N'ProspectIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCredential', @level2type=N'COLUMN', @level2name=N'StateOfIssueStateAbbreviationDescriptorId'
-GO
-
 -- Extended Properties [tpdm].[ProspectCurrentPosition] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The current position of the prospect.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectCurrentPosition'
 GO
@@ -2171,26 +2273,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of the entity or institution that issued the document.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectPersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerCountryDescriptorId'
-GO
-
--- Extended Properties [tpdm].[ProspectProfessionalDevelopmentEventAttendance] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This event entity represents the recording of whether a prospect is in attendance for professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this attendance event.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title or name for a professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the prospect.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'ProspectIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing the attendance event, for example:
-       Present
-       Unexcused absence
-       Excused absence
-       Tardy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reported reason for a teacher candidate''s absence.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'ProspectProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventReason'
 GO
 
 -- Extended Properties [tpdm].[ProspectQualifications] --
@@ -2270,9 +2352,13 @@ GO
 -- Extended Properties [tpdm].[QuantitativeMeasure] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A quantitative measure of educator performance associated with an Evaluation Element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -2281,6 +2367,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the quantitative measure.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'QuantitativeMeasureIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasure', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -2298,11 +2386,15 @@ GO
 -- Extended Properties [tpdm].[QuantitativeMeasureScore] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The score or value for a Quantitative Measure achieved by an individual educator.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -2313,6 +2405,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An assigned unique identifier for the quantitative measure.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'QuantitativeMeasureIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'QuantitativeMeasureScore', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -2352,9 +2446,13 @@ GO
 -- Extended Properties [tpdm].[RubricDimension] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The cells of a rubric, consisting of a qualitative decription, definition, or exemplar with the associated rubric rating and rating level.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -2363,6 +2461,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The rating achieved for the rubric dimension.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'RubricRating'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'RubricDimension', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
@@ -2407,8 +2507,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Associated applicant(s) represented by this staff member.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffApplicantAssociation'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffApplicantAssociation', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffApplicantAssociation', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffApplicantAssociation', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO
@@ -2463,24 +2561,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The academic subject(s) in which the staff is deemed to be "highly qualified".', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffHighlyQualifiedAcademicSubject', @level2type=N'COLUMN', @level2name=N'AcademicSubjectDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffHighlyQualifiedAcademicSubject', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-
--- Extended Properties [tpdm].[StaffProfessionalDevelopmentEventAttendance] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This event entity represents the recording of whether a staff is in attendance for professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this attendance event.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title or name for a professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'StaffUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing the attendance event, for example:
-       Present
-       Unexcused absence
-       Excused absence
-       Tardy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reported reason for a teacher candidate''s absence.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StaffProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventReason'
 GO
 
 -- Extended Properties [tpdm].[StaffProspectAssociation] --
@@ -2759,6 +2839,20 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'StudentGrowthTypeDescriptor', @level2type=N'COLUMN', @level2name=N'StudentGrowthTypeDescriptorId'
 GO
 
+-- Extended Properties [tpdm].[SurveyResponseExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Survey.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'Namespace'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique survey identifier from the survey tool.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'SurveyIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier of the survey typically from the survey application.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'SurveyResponseIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier assigned to a person making formal application for an open staff position.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseExtension', @level2type=N'COLUMN', @level2name=N'ApplicantIdentifier'
+GO
+
 -- Extended Properties [tpdm].[SurveyResponseTeacherCandidateTargetAssociation] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The association provides information about the survey being taken and who the survey is about.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveyResponseTeacherCandidateTargetAssociation'
 GO
@@ -2774,11 +2868,15 @@ GO
 -- Extended Properties [tpdm].[SurveySectionAggregateResponse] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The aggregate or average score across the surveying population for a survey section being used for performance evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date for the person''s evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EvaluationDate'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation element.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EvaluationElementTitle'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation Objective.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EvaluationObjectiveTitle'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -2789,6 +2887,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'PersonId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor defines the originating record source system for the person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionAggregateResponse', @level2type=N'COLUMN', @level2name=N'SourceSystemDescriptorId'
 GO
@@ -2815,6 +2915,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The term for the session during the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'TermDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type (e.g., walkthrough, summative) of performance evaluation conducted.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'PerformanceEvaluationTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier for the school year.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The period for the evaluation (e.g., BOY, MOY, EOY, Summer).', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'EvaluationPeriodDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name or title of the evaluation.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'SurveySectionExtension', @level2type=N'COLUMN', @level2name=N'EvaluationTitle'
 GO
@@ -3327,16 +3433,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The value of credits or units of value awarded for the completion of a course', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateCourseTranscriptEarnedAdditionalCredits', @level2type=N'COLUMN', @level2name=N'Credits'
 GO
 
--- Extended Properties [tpdm].[TeacherCandidateCredential] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The legal document or authorization giving authorization to perform teaching assignment services.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateCredential'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the credential.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateCredential', @level2type=N'COLUMN', @level2name=N'CredentialIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The abbreviation for the name of the state (within the United States) or extra-state jurisdiction in which a license/credential was issued.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateCredential', @level2type=N'COLUMN', @level2name=N'StateOfIssueStateAbbreviationDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateCredential', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-
 -- Extended Properties [tpdm].[TeacherCandidateDegreeSpecialization] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Information around the area(s) of specialization for an individual.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateDegreeSpecialization'
 GO
@@ -3519,24 +3615,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of the entity or institution that issued the document.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidatePersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerName'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Country of origin of the document. It is strongly recommended that entries use only ISO 3166 2-letter country codes.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidatePersonalIdentificationDocument', @level2type=N'COLUMN', @level2name=N'IssuerCountryDescriptorId'
-GO
-
--- Extended Properties [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This event entity represents the recording of whether a teacher candidate is in attendance for professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Date for this attendance event.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceDate'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title or name for a professional development.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'ProfessionalDevelopmentTitle'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a teacher candidate.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'TeacherCandidateIdentifier'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A code describing the attendance event, for example:
-       Present
-       Unexcused absence
-       Excused absence
-       Tardy.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventCategoryDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The reported reason for a teacher candidate''s absence.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherCandidateProfessionalDevelopmentEventAttendance', @level2type=N'COLUMN', @level2name=N'AttendanceEventReason'
 GO
 
 -- Extended Properties [tpdm].[TeacherCandidateRace] --
@@ -3763,6 +3841,8 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code for the Teacher Preparation Provider', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'TeacherPreparationProviderId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The federal locale code associated with an education organization.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'FederalLocaleCodeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Accreditation Status for a Teacher Preparation Provider.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'AccreditationStatusDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identification code of the University', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'TeacherPreparationProvider', @level2type=N'COLUMN', @level2name=N'UniversityId'
 GO

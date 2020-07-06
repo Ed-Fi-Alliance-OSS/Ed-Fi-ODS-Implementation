@@ -102,10 +102,10 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.PerformanceEvaluationRa
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ProfessionalDevelopmentEvent
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Prospect
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ProfessionalDevelopmentEventAttendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.ProspectProfessionalDevelopmentEventAttendance
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.Prospect
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.QuantitativeMeasure
@@ -121,9 +121,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.RubricDimension
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffApplicantAssociation
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffProfessionalDevelopmentEventAttendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.StaffProspectAssociation
@@ -163,9 +160,6 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateAcademi
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateCourseTranscript
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON tpdm.TeacherCandidateStaffAssociation

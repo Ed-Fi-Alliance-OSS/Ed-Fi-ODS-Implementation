@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity CertificationExam
     documentation "An examination required by one or more Certifications."
     shared string EdFi.IdentificationCode named CertificationExamIdentifier
@@ -6,6 +11,7 @@ Domain Entity CertificationExam
     shared string EdFi.URI named Namespace
         documentation "Namespace for the CertificationExam."
         is part of identity
+        role name Exam
     shared string CertificationExamTitle
         documentation "The title of the Certification Exam."
         is required

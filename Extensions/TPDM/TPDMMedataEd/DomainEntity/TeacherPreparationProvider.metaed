@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity TeacherPreparationProvider based on EdFi.EducationOrganization
 
     documentation "This entity represents an educational organization that includes staff and students who participate in classes and educational activity groups."
@@ -11,6 +16,9 @@ Domain Entity TeacherPreparationProvider based on EdFi.EducationOrganization
       documentation "The unique identification code for the Teacher Preparation Provider"
       renames identity property EducationOrganizationId
       is queryable field
+    descriptor AccreditationStatus
+      documentation "Accreditation Status for a Teacher Preparation Provider."
+      is optional
     domain entity University
       documentation "The post secondary institution of which the teacher preparation provider is a component of."
       is optional

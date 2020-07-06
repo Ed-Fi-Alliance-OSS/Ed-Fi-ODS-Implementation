@@ -333,22 +333,22 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_ProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[ProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[ProfessionalDevelopmentEventAttendance]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[ProfessionalDevelopmentEventAttendance] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_Prospect_TR_UpdateChangeVersion] ON [tpdm].[Prospect] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [tpdm].[Prospect]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[Prospect] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_ProspectProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[ProspectProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[ProspectProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[ProspectProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -399,16 +399,6 @@ BEGIN
     UPDATE [tpdm].[StaffApplicantAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[StaffApplicantAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[StaffProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -539,16 +529,6 @@ BEGIN
     UPDATE [tpdm].[TeacherCandidateCourseTranscript]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[TeacherCandidateCourseTranscript] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

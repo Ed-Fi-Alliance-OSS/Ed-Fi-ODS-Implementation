@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Association TeacherCandidateStaffAssociation
   documentation "This describes a relationship between a (current) teacher candidate and a staff person, typically at a K12 partnering district in the role of a mentor teacher, coordinating teacher, supervising principal, etc.  It could also describe the relationship between a (current) teacher candidate and a university staff member, i.e., field placement supervisor, advisor, etc.  This is a relationship between two different people."
   domain entity TeacherCandidate

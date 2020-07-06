@@ -69,9 +69,9 @@ ALTER TABLE [tpdm].[PerformanceEvaluationRating] ADD [ChangeVersion] [BIGINT] DE
 
 ALTER TABLE [tpdm].[ProfessionalDevelopmentEvent] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
-ALTER TABLE [tpdm].[Prospect] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+ALTER TABLE [tpdm].[ProfessionalDevelopmentEventAttendance] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
-ALTER TABLE [tpdm].[ProspectProfessionalDevelopmentEventAttendance] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
+ALTER TABLE [tpdm].[Prospect] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [tpdm].[QuantitativeMeasure] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
@@ -82,8 +82,6 @@ ALTER TABLE [tpdm].[RecruitmentEvent] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT
 ALTER TABLE [tpdm].[RubricDimension] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [tpdm].[StaffApplicantAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-ALTER TABLE [tpdm].[StaffProfessionalDevelopmentEventAttendance] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [tpdm].[StaffProspectAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
@@ -110,8 +108,6 @@ ALTER TABLE [tpdm].[TeacherCandidate] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT
 ALTER TABLE [tpdm].[TeacherCandidateAcademicRecord] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [tpdm].[TeacherCandidateCourseTranscript] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
-
-ALTER TABLE [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 
 ALTER TABLE [tpdm].[TeacherCandidateStaffAssociation] ADD [ChangeVersion] [BIGINT] DEFAULT (NEXT VALUE FOR [changes].[ChangeVersionSequence]) NOT NULL;
 

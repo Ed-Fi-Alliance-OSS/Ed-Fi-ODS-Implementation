@@ -1,9 +1,14 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity Certification
     documentation "An offering by an official granting authority of a certification or license that qualifies persons to perform specific job functions, such as full fill a teaching assignment."
     shared string EdFi.IdentificationCode named CertificationIdentifier
         documentation "Identifier or serial number assigned to the Certification."
         is part of identity
-    shared string EdFi.URI named IssuerNamespace
+    shared string EdFi.URI named Namespace
         documentation "Namespace for the Certification, typically associated with the issuing authority."
         is part of identity
     shared string CertificationTitle

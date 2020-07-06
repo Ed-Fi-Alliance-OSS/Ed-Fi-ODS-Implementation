@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity TeacherCandidate
   documentation "This entity represents an individual for whom instruction and/or services in a Teacher Preparation Program are provided under the jurisdiction of a Teacher Preparation Provider.  A teacher candidate is a person who has been enrolled in a teacher preparation program."
   shared string TeacherCandidateIdentifier
@@ -94,9 +99,6 @@ Domain Entity TeacherCandidate
     documentation "The gender with which a person associates."
     is optional
     is queryable field
-  domain entity EdFi.Credential
-    documentation "The legal document or authorization giving authorization to perform teaching assignment services."
-    is optional collection
   currency TuitionCost
     documentation "The tuition for a person's participation in a program, service. or course."
     is optional
@@ -127,9 +129,6 @@ Domain Entity TeacherCandidate
   domain entity EdFi.Student
     documentation "The student associated."
     is required
-  //domain entity Staff
-  //  documentation "The staff associated."
-  //  is optional
   domain entity EdFi.Person
       documentation "Relates the teacher candidate to a generic person."
       is optional

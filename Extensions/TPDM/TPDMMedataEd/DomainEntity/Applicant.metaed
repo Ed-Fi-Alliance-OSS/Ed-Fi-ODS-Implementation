@@ -1,14 +1,14 @@
-Domain Entity Applicant
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
 
-    // TNTP
+Domain Entity Applicant
     documentation "A person who makes a formal application for an OpenStaffPosition."
     shared string ApplicantIdentifier
         documentation "Identifier assigned to a person making formal application for an open staff position."
         is part of identity
         is queryable field
-    domain entity EdFi.EducationOrganization
-        documentation "The education organization, typically a LocalEducationAgency, associated with the applicant."
-        is part of identity
     common EdFi.StaffIdentificationCode
         documentation "A unique number or alphanumeric code assigned to an applicant by a school, school system, a state, or other agency or entity."
         is optional collection
@@ -53,40 +53,15 @@ Domain Entity Applicant
     common EdFi.Language
         documentation "The language(s) the individual uses to communicate."
         is optional collection
-    descriptor EdFi.LevelOfEducation
-        documentation "The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received)."
-        is optional
-        role name HighestCompleted
-    shared decimal EdFi.NumberOfYears named YearsOfPriorProfessionalExperience
-        documentation "The total number of years that an individual has previously held a similar professional position in one or more education institutions."
-        is optional
-     shared decimal EdFi.NumberOfYears named YearsOfPriorTeachingExperience
-        documentation "The total number of years that an individual has previously held a teaching position in one or more education institutions."
-        is optional
     shared string EdFi.IdentificationCode named LoginId
         documentation "The login ID for the user; used for security access control interface."
-        is optional
-    domain entity EdFi.Credential
-        documentation "The legal document or authorization giving authorization to perform teaching assignment services."
-        is optional collection
-    bool HighlyQualifiedTeacher
-        documentation "An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught."
         is optional
     common BackgroundCheck
         documentation "Applicant background check history and disposition."
         is optional collection
-    descriptor EdFi.AcademicSubject
-        documentation "The academic subject(s) in which the staff is deemed to be ""highly qualified""."
-        is optional
-        role name HighlyQualified
     common TeacherPreparationProgram
         documentation "The Teacher Preparation Program(s) completed by the teacher."
         is optional collection
-//	domain entity Prospect
-//        documentation "Reference to previously identified prospect."
-//        is optional
-
-    // TPDP Extensions
     descriptor Gender
       documentation "The gender with which a person associates."
       is optional
@@ -95,9 +70,6 @@ Domain Entity Applicant
       is optional collection
     common Aid
       documentation "This entity represents the financial aid a person is awarded."
-      is optional collection
-    common EdFi.ScoreResult
-      documentation "A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc."
       is optional collection
     bool EconomicDisadvantaged
       documentation "An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy."
@@ -108,9 +80,6 @@ Domain Entity Applicant
     common ApplicantCharacteristic
       documentation "Reflects important characteristics of the applicant's home situation:
       Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth."
-      is optional collection
-    common EdFi.GradePointAverage
-      documentation "Data that provides information on a measure of average performance in a group of courses taken by an individual."
       is optional collection
     domain entity TeacherCandidate
       documentation "Reference to the teacher candidate associated."

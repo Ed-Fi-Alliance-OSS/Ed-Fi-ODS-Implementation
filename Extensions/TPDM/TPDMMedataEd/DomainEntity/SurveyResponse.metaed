@@ -3,7 +3,10 @@
 //  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 //  See the LICENSE and NOTICES files in the project root for more information.
 
-Domain Entity EdFi.SurveySection additions
-    domain entity EvaluationElement
-        documentation "The Evaluation Element associated with the quantitative measure."
+Domain Entity EdFi.SurveyResponse additions
+    domain entity TeacherCandidate
+        documentation "The teacher candidate responding to a survey."
+        is optional
+    domain entity Applicant
+        documentation "The applicant responding to a survey."
         is optional

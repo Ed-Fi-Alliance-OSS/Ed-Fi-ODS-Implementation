@@ -99,9 +99,9 @@ ALTER TABLE [tpdm].[PerformanceEvaluationRating] ADD [CreatedByOwnershipTokenId]
 
 ALTER TABLE [tpdm].[ProfessionalDevelopmentEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [tpdm].[Prospect] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [tpdm].[ProfessionalDevelopmentEventAttendance] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
-ALTER TABLE [tpdm].[ProspectProfessionalDevelopmentEventAttendance] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+ALTER TABLE [tpdm].[Prospect] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[QuantitativeMeasure] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -110,8 +110,6 @@ ALTER TABLE [tpdm].[QuantitativeMeasureScore] ADD [CreatedByOwnershipTokenId] SM
 ALTER TABLE [tpdm].[RecruitmentEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[RubricDimension] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [tpdm].[StaffProfessionalDevelopmentEventAttendance] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[StaffStudentGrowthMeasure] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
@@ -122,8 +120,6 @@ ALTER TABLE [tpdm].[TeacherCandidate] ADD [CreatedByOwnershipTokenId] SMALLINT N
 ALTER TABLE [tpdm].[TeacherCandidateAcademicRecord] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[TeacherCandidateCourseTranscript] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
-
-ALTER TABLE [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
 ALTER TABLE [tpdm].[TeacherCandidateStudentGrowthMeasure] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

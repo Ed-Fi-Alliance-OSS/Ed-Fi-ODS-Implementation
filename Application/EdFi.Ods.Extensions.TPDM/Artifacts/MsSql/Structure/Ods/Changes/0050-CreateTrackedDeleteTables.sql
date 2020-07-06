@@ -3,6 +3,14 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+CREATE TABLE [tracked_deletes_tpdm].[AccreditationStatusDescriptor]
+(
+       AccreditationStatusDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_AccreditationStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
 CREATE TABLE [tracked_deletes_tpdm].[AidTypeDescriptor]
 (
        AidTypeDescriptorId [INT] NOT NULL,
@@ -136,7 +144,6 @@ CREATE TABLE [tracked_deletes_tpdm].[AnonymizedStudentSectionAssociation]
 CREATE TABLE [tracked_deletes_tpdm].[Applicant]
 (
        ApplicantIdentifier [NVARCHAR](32) NOT NULL,
-       EducationOrganizationId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_Applicant PRIMARY KEY CLUSTERED (ChangeVersion)
@@ -226,7 +233,7 @@ CREATE TABLE [tracked_deletes_tpdm].[BackgroundCheckTypeDescriptor]
 CREATE TABLE [tracked_deletes_tpdm].[Certification]
 (
        CertificationIdentifier [NVARCHAR](60) NOT NULL,
-       IssuerNamespace [NVARCHAR](255) NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_Certification PRIMARY KEY CLUSTERED (ChangeVersion)
@@ -235,7 +242,7 @@ CREATE TABLE [tracked_deletes_tpdm].[Certification]
 CREATE TABLE [tracked_deletes_tpdm].[CertificationExam]
 (
        CertificationExamIdentifier [NVARCHAR](60) NOT NULL,
-       Namespace [NVARCHAR](255) NOT NULL,
+       ExamNamespace [NVARCHAR](255) NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_CertificationExam PRIMARY KEY CLUSTERED (ChangeVersion)
@@ -245,7 +252,7 @@ CREATE TABLE [tracked_deletes_tpdm].[CertificationExamResult]
 (
        CertificationExamDate [DATE] NOT NULL,
        CertificationExamIdentifier [NVARCHAR](60) NOT NULL,
-       Namespace [NVARCHAR](255) NOT NULL,
+       ExamNamespace [NVARCHAR](255) NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -415,9 +422,12 @@ CREATE TABLE [tracked_deletes_tpdm].[EnglishLanguageExamDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[Evaluation]
 (
+       EducationOrganizationId [INT] NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -426,11 +436,14 @@ CREATE TABLE [tracked_deletes_tpdm].[Evaluation]
 
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationElement]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -439,13 +452,16 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationElement]
 
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationElementRating]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationDate [DATE] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -463,10 +479,13 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationElementRatingLevelDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationObjective]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -475,12 +494,15 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationObjective]
 
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationObjectiveRating]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationDate [DATE] NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -498,11 +520,14 @@ CREATE TABLE [tracked_deletes_tpdm].[EvaluationPeriodDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[EvaluationRating]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationDate [DATE] NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -687,8 +712,11 @@ CREATE TABLE [tracked_deletes_tpdm].[OpenStaffPositionReasonDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[PerformanceEvaluation]
 (
+       EducationOrganizationId [INT] NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -697,9 +725,12 @@ CREATE TABLE [tracked_deletes_tpdm].[PerformanceEvaluation]
 
 CREATE TABLE [tracked_deletes_tpdm].[PerformanceEvaluationRating]
 (
+       EducationOrganizationId [INT] NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -733,10 +764,23 @@ CREATE TABLE [tracked_deletes_tpdm].[PreviousCareerDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[ProfessionalDevelopmentEvent]
 (
+       Namespace [NVARCHAR](255) NOT NULL,
        ProfessionalDevelopmentTitle [NVARCHAR](60) NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_ProfessionalDevelopmentEvent PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+
+CREATE TABLE [tracked_deletes_tpdm].[ProfessionalDevelopmentEventAttendance]
+(
+       AttendanceDate [DATE] NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
+       PersonId [NVARCHAR](32) NOT NULL,
+       ProfessionalDevelopmentTitle [NVARCHAR](60) NOT NULL,
+       SourceSystemDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ProfessionalDevelopmentEventAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[ProfessionalDevelopmentOfferedByDescriptor]
@@ -764,17 +808,6 @@ CREATE TABLE [tracked_deletes_tpdm].[Prospect]
        CONSTRAINT PK_Prospect PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
-CREATE TABLE [tracked_deletes_tpdm].[ProspectProfessionalDevelopmentEventAttendance]
-(
-       AttendanceDate [DATE] NOT NULL,
-       EducationOrganizationId [INT] NOT NULL,
-       ProfessionalDevelopmentTitle [NVARCHAR](60) NOT NULL,
-       ProspectIdentifier [NVARCHAR](32) NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_ProspectProfessionalDevelopmentEventAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
 CREATE TABLE [tracked_deletes_tpdm].[ProspectTypeDescriptor]
 (
        ProspectTypeDescriptorId [INT] NOT NULL,
@@ -785,12 +818,15 @@ CREATE TABLE [tracked_deletes_tpdm].[ProspectTypeDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[QuantitativeMeasure]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        QuantitativeMeasureIdentifier [NVARCHAR](64) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -807,14 +843,17 @@ CREATE TABLE [tracked_deletes_tpdm].[QuantitativeMeasureDatatypeDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[QuantitativeMeasureScore]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationDate [DATE] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
        QuantitativeMeasureIdentifier [NVARCHAR](64) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
@@ -849,12 +888,15 @@ CREATE TABLE [tracked_deletes_tpdm].[RecruitmentEventTypeDescriptor]
 
 CREATE TABLE [tracked_deletes_tpdm].[RubricDimension]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        RubricRating [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        TermDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -888,21 +930,10 @@ CREATE TABLE [tracked_deletes_tpdm].[SchoolStatusDescriptor]
 CREATE TABLE [tracked_deletes_tpdm].[StaffApplicantAssociation]
 (
        ApplicantIdentifier [NVARCHAR](32) NOT NULL,
-       EducationOrganizationId [INT] NOT NULL,
        StaffUSI [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StaffApplicantAssociation PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[StaffProfessionalDevelopmentEventAttendance]
-(
-       AttendanceDate [DATE] NOT NULL,
-       ProfessionalDevelopmentTitle [NVARCHAR](60) NOT NULL,
-       StaffUSI [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffProfessionalDevelopmentEventAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[StaffProspectAssociation]
@@ -1007,14 +1038,17 @@ CREATE TABLE [tracked_deletes_tpdm].[SurveyResponseTeacherCandidateTargetAssocia
 
 CREATE TABLE [tracked_deletes_tpdm].[SurveySectionAggregateResponse]
 (
+       EducationOrganizationId [INT] NOT NULL,
        EvaluationDate [DATE] NOT NULL,
        EvaluationElementTitle [NVARCHAR](255) NOT NULL,
        EvaluationObjectiveTitle [NVARCHAR](50) NOT NULL,
+       EvaluationPeriodDescriptorId [INT] NOT NULL,
        EvaluationTitle [NVARCHAR](50) NOT NULL,
        Namespace [NVARCHAR](255) NOT NULL,
        PerformanceEvaluationTitle [NVARCHAR](50) NOT NULL,
        PerformanceEvaluationTypeDescriptorId [INT] NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        SurveyIdentifier [NVARCHAR](60) NOT NULL,
        SurveySectionTitle [NVARCHAR](255) NOT NULL,
@@ -1091,16 +1125,6 @@ CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateCourseTranscript]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TeacherCandidateCourseTranscript PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-
-CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance]
-(
-       AttendanceDate [DATE] NOT NULL,
-       ProfessionalDevelopmentTitle [NVARCHAR](60) NOT NULL,
-       TeacherCandidateIdentifier [NVARCHAR](32) NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TeacherCandidateProfessionalDevelopmentEventAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 
 CREATE TABLE [tracked_deletes_tpdm].[TeacherCandidateStaffAssociation]

@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity PerformanceEvaluation
     documentation "A performance evaluation of an educator, typically regularly scheduled and uniformly applied, comporsed of one or more Evaluations."
     shared string EvaluationTitle
@@ -16,13 +21,13 @@ Domain Entity PerformanceEvaluation
         role name PerformanceEvaluation
     enumeration EdFi.SchoolYear
         documentation "The identifier for the school year."
-        is required
+        is part of identity
     descriptor EvaluationPeriod
         documentation "The period for the evaluation (e.g., BOY, MOY, EOY, Summer)."
-        is required
+        is part of identity
     domain entity EdFi.EducationOrganization
         documentation "Provides user information to lookup and link to an existing educational organization record."
-        is required
+        is part of identity
     descriptor EdFi.AcademicSubject
         documentation "The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a performance evaluation."
         is optional

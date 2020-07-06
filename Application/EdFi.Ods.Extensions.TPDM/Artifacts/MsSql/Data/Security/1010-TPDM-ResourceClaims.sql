@@ -81,9 +81,6 @@ INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, Parent
 VALUES ('teacherCandidateStudentGrowthMeasure', 'teacherCandidateStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-VALUES ('teacherCandidateProfessionalDevelopmentEventAttendance', 'teacherCandidateProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateProfessionalDevelopmentEventAttendance', @relationshipBasedDataResourceClaimId, @ApplicationId);
-
-INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('teacherCandidateCourseTranscript', 'teacherCandidateCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -114,9 +111,6 @@ INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, Parent
 VALUES ('staffProspectAssociation', 'staffProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-VALUES ('staffProfessionalDevelopmentEventAttendance', 'staffProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProfessionalDevelopmentEventAttendance', @relationshipBasedDataResourceClaimId, @ApplicationId);
-
-INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('fieldworkExperienceSectionAssociation', 'fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -142,9 +136,6 @@ VALUES ('staffApplicantAssociation', 'staffApplicantAssociation', 'http://ed-fi.
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('recruitmentEvent', 'recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent', @relationshipBasedDataResourceClaimId, @ApplicationId);
-
-INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-VALUES ('prospectProfessionalDevelopmentEventAttendance', 'prospectProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/prospectProfessionalDevelopmentEventAttendance', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('openStaffPositionEvent', 'openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent', @relationshipBasedDataResourceClaimId, @ApplicationId);
@@ -256,6 +247,9 @@ VALUES ('courseCourseTranscriptFacts', 'courseCourseTranscriptFacts', 'http://ed
 
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', @educationOrganizationsResourceClaimId, @ApplicationId);
+
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('professionalDevelopmentEventAttendance', 'professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance', @relationshipBasedDataResourceClaimId, @ApplicationId);
 
 --- Descriptors ---
 
@@ -406,6 +400,9 @@ VALUES ('coteachingStyleObservedDescriptor', 'coteachingStyleObservedDescriptor'
 INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 VALUES ('certificationExamStatusDescriptor', 'certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
 
+INSERT INTO [dbo].[ResourceClaims] (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+VALUES ('accreditationStatusDescriptor', 'accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor', @systenDescriptorsResourceClaimId, @ApplicationId);
+
 SELECT @AuthorizationStrategyId  = (SELECT AuthorizationStrategyId FROM [dbo].[AuthorizationStrategies] WHERE AuthorizationStrategyName = 'NoFurtherAuthorizationRequired');
 
 --- These Resources need explicit metadata ---
@@ -430,7 +427,6 @@ WHERE ResourceName IN ('anonymizedStudent'
 , 'anonymizedStudentAssessment'
 , 'talentManagementGoal'
 , 'teacherCandidate'
-, 'teacherCandidateProfessionalDevelopmentEventAttendance'
 , 'teacherCandidateStudentGrowthMeasure'
 , 'teacherCandidateTeacherPreparationProviderAssociation'
 , 'anonymizedStudentAcademicRecord'
@@ -449,10 +445,8 @@ WHERE ResourceName IN ('anonymizedStudent'
 , 'employmentSeparationEvent'
 , 'openStaffPositionEvent'
 , 'prospect'
-, 'prospectProfessionalDevelopmentEventAttendance'
 , 'staffApplicantAssociation'
 , 'fieldworkExperienceSectionAssociation'
-, 'staffProfessionalDevelopmentEventAttendance'
 , 'staffProspectAssociation'
 , 'staffStudentGrowthMeasure'
 , 'staffStudentGrowthMeasureCourseAssociation'
@@ -467,4 +461,5 @@ WHERE ResourceName IN ('anonymizedStudent'
 , 'teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation'
 , 'teacherCandidateStudentGrowthMeasureSectionAssociation'
 , 'teacherPreparationProviderProgram'
+, 'professionalDevelopmentEventAttendance'
 );

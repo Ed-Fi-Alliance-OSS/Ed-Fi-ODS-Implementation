@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity Application
   documentation "An application for employment or contract."
   shared string ApplicationIdentifier
@@ -5,7 +10,7 @@ Domain Entity Application
     is part of identity
     is queryable field
   domain entity EdFi.EducationOrganization
-    documentation "The education organization, typically a LocalEducationAgency, associated with the application."
+    documentation "The Education Organization to which the applicant is submitting their application. "
     is part of identity
     is queryable field
   date ApplicationDate
@@ -54,6 +59,29 @@ Domain Entity Application
   descriptor WithdrawReason
     documentation "Reason applicant withdrew application."
     is optional
+  descriptor EdFi.LevelOfEducation
+      documentation "The extent of formal instruction an individual has received (e.g., the highest grade in school completed or its equivalent or the highest degree received)."
+      is optional
+      role name HighestCompleted
+  shared decimal EdFi.NumberOfYears named YearsOfPriorProfessionalExperience
+      documentation "The total number of years that an individual has previously held a similar professional position in one or more education institutions."
+      is optional
+ shared decimal EdFi.NumberOfYears named YearsOfPriorTeachingExperience
+    documentation "The total number of years that an individual has previously held a teaching position in one or more education institutions."
+    is optional
+  bool HighlyQualifiedTeacher
+      documentation "An indication of whether a teacher is classified as highly qualified for his/her assignment according to state definition. This attribute indicates the teacher is highly qualified for ALL Sections being taught."
+      is optional
+  descriptor EdFi.AcademicSubject
+      documentation "The academic subject(s) in which the staff is deemed to be ""highly qualified""."
+      is optional
+      role name HighlyQualified
+  common EdFi.ScoreResult
+    documentation "A meaningful score or statistical expression of the performance of an individual. The results can be expressed as a number, percentile, range, level, etc."
+    is optional collection
+  common EdFi.GradePointAverage
+    documentation "Data that provides information on a measure of average performance in a group of courses taken by an individual."
+    is optional collection
   domain entity Applicant
     documentation "The applicant submitting the application."
     is part of identity

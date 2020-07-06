@@ -1,3 +1,8 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
 Domain Entity EvaluationRating
     documentation "The summary weighting for the Evaluation instrument for an individual educator."
     domain entity PerformanceEvaluationRating
@@ -23,3 +28,4 @@ Domain Entity EvaluationRating
     domain entity EdFi.Section
         documentation "The section associated with a classroom evaluation."
         is optional
+        merge Section.CourseOffering.Session.SchoolYear with Evaluation.PerformanceEvaluation.SchoolYear

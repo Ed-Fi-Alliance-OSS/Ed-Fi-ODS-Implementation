@@ -1,6 +1,9 @@
-Domain Entity Prospect
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
 
-    // TNTP
+Domain Entity Prospect
     documentation "A prospect for employment or contract that has not yet made formal application, often obtained from job fairs or university recruiting visits."
     shared string ProspectIdentifier
         documentation "The identifier for the prospect."
@@ -67,11 +70,6 @@ Domain Entity Prospect
     common Touchpoint
         documentation "Content associated with different touchpoints with the prospect."
         is optional collection
-
-    // TPDP Extensions
-    domain entity EdFi.Credential
-      documentation "The legal document or authorization giving authorization to perform teaching assignment services."
-      is optional collection
     descriptor Gender
       documentation "The gender with which a person associates."
       is optional
@@ -93,9 +91,6 @@ Domain Entity Prospect
     descriptor ProspectType
       documentation "Reflects the type of prospect, such as TPP Applicant, Hire, or Mentor Teacher."
       is optional
-    //domain entity Staff
-    //  documentation "Reference to the staff associated."
-    //  is optional
     domain entity TeacherCandidate
       documentation "Reference to the teacher candidate associated."
       is optional
