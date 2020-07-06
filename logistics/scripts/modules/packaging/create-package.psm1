@@ -104,7 +104,7 @@ function Invoke-CreatePackage {
         $packageId = $Matches.1
 
         $parameters = @{
-            PackageFile = "$OutputDirectory/$packageId.$Version-$Suffix.nupkg"
+            PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
             Source = $Source
             ApiKey = $ApiKey
             NuGet = $nuget
