@@ -79,9 +79,6 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('teacherCandidateStudentGrowthMeasure', 'teacherCandidateStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('teacherCandidateProfessionalDevelopmentEventAttendance', 'teacherCandidateProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateProfessionalDevelopmentEventAttendance', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('teacherCandidateCourseTranscript', 'teacherCandidateCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -112,9 +109,6 @@ insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentReso
 values ('staffProspectAssociation', 'staffProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('staffProfessionalDevelopmentEventAttendance', 'staffProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProfessionalDevelopmentEventAttendance', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('fieldworkExperienceSectionAssociation', 'fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
@@ -140,9 +134,6 @@ values ('staffApplicantAssociation', 'staffApplicantAssociation', 'http://ed-fi.
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('recruitmentEvent', 'recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent', relationshipBasedDataResourceClaimId, appId);
-
-insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-values ('prospectProfessionalDevelopmentEventAttendance', 'prospectProfessionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/prospectProfessionalDevelopmentEventAttendance', relationshipBasedDataResourceClaimId, appId);
 
 insert into dbo.ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
 values ('openStaffPositionEvent', 'openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent', relationshipBasedDataResourceClaimId, appId);
@@ -551,7 +542,6 @@ where ResourceName in ('anonymizedStudent'
 , 'anonymizedStudentAssessment'
 , 'talentManagementGoal'
 , 'teacherCandidate'
-, 'teacherCandidateProfessionalDevelopmentEventAttendance'
 , 'teacherCandidateStudentGrowthMeasure'
 , 'teacherCandidateTeacherPreparationProviderAssociation'
 , 'anonymizedStudentSectionAssociation'
@@ -573,7 +563,6 @@ where ResourceName in ('anonymizedStudent'
 , 'staffEvaluationComponent'
 , 'staffEvaluationComponentRating'
 , 'staffApplicantAssociation'
-, 'prospectProfessionalDevelopmentEventAttendance'
 , 'openStaffPositionEvent'
 , 'employmentSeparationEvent'
 , 'employmentEvent'
@@ -594,7 +583,6 @@ where ResourceName in ('anonymizedStudent'
 , 'staffStudentGrowthMeasureCourseAssociation'
 , 'staffStudentGrowthMeasure'
 , 'staffProspectAssociation'
-, 'staffProfessionalDevelopmentEventAttendance'
 , 'fieldworkExperienceSectionAssociation'
 , 'staffEvaluationRating'
 , 'staffEvaluationElementRating'
