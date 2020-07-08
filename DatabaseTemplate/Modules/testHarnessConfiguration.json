@@ -25,10 +25,7 @@
           ]
         }
       ],
-      "NamespacePrefixes": [
-        "uri://ed-fi.org",
-        "uri://gbisd.edu"
-      ]
+      "NamespacePrefixes": ["uri://ed-fi.org", "uri://gbisd.edu"]
     }
   ]
 }
