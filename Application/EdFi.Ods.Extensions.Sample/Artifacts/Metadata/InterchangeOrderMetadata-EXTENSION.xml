@@ -109,6 +109,9 @@
     <Element name="InternetAccessDescriptor" />
     <Element name="InteractivityStyleDescriptor" />
     <Element name="InstitutionTelephoneNumberTypeDescriptor" />
+    <Element name="IndicatorLevelDescriptor" />
+    <Element name="IndicatorGroupDescriptor" />
+    <Element name="IndicatorDescriptor" />
     <Element name="IncidentLocationDescriptor" />
     <Element name="IdentificationDocumentUseDescriptor" />
     <Element name="HomelessProgramServiceDescriptor" />
