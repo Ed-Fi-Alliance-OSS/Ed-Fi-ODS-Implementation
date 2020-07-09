@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 $params = @{
-    packageName    = "EdFi.Ods.Populated.Template"
-    packageVersion = "4.0.0-b10152"
+    packageName    = "EdFi.Ods.Populated.Template.Suite3"
+    packageVersion = "4.0.0-b10196"
     packageSource  = "https://www.myget.org/F/ed-fi/"
 }
 

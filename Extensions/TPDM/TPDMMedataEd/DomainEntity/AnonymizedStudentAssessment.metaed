@@ -1,0 +1,47 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity AnonymizedStudentAssessment
+  documentation "This entity represents the analysis or scoring of a Student's response on an assessment. The analysis results in a value that represents a Student's performance on a set of items on a test."
+  domain entity AnonymizedStudent
+    documentation "The AnonymizedStudent the assessment record is associated with"
+    is part of identity
+  enumeration EdFi.SchoolYear
+    documentation "The school year the assessment was taken"
+    is part of identity
+    role name Taken
+  date AdministrationDate
+    documentation "Date the assessment was administered"
+    is part of identity
+  descriptor EdFi.Term
+    documentation "The term in which the assessment was administered"
+    is optional
+  shared string AssessmentIdentifier
+    documentation "An identifier that uniquely identifies the assessment to which the student results are associated."
+    is part of identity
+  shared string EdFi.AssessmentTitle
+    documentation "The title if any specific assessment given to a group"
+    is optional
+  descriptor EdFi.AssessmentCategory
+    documentation "The category of an assessment based on format and content. For example: Achievement test Advanced placement test Alternate assessment/grade-level standards Attitudinal test Cognitive and perceptual skills test ..."
+    is optional
+  descriptor EdFi.AcademicSubject
+    documentation "The academic subject associated with a student assessment"
+    is optional
+  descriptor EdFi.GradeLevel
+    documentation "Grade level for which effectiveness is measured."
+    is optional
+  common EdFi.ScoreResult
+    documentation "A specification of which performance level value describes the student proficiency."
+    is optional
+  common EdFi.PerformanceLevel
+    documentation "The performance level(s) achieved for the StudentAssessment."
+    is optional
+//  domain entity Course
+//    documentation "The course associated with aggregated student data"
+//    is optional
+//  domain entity Section
+//    documentation "The section associated with aggregated student data"
+//    is optional

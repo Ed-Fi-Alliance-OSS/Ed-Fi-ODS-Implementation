@@ -12,9 +12,7 @@
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
         <xs:element name="ProfessionalDevelopmentEvent" type="EXTENSION-ProfessionalDevelopmentEvent" />
-        <xs:element name="ProspectProfessionalDevelopmentEventAttendance" type="EXTENSION-ProspectProfessionalDevelopmentEventAttendance" />
-        <xs:element name="StaffProfessionalDevelopmentEventAttendance" type="EXTENSION-StaffProfessionalDevelopmentEventAttendance" />
-        <xs:element name="TeacherCandidateProfessionalDevelopmentEventAttendance" type="EXTENSION-TeacherCandidateProfessionalDevelopmentEventAttendance" />
+        <xs:element name="ProfessionalDevelopmentEventAttendance" type="EXTENSION-ProfessionalDevelopmentEventAttendance" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

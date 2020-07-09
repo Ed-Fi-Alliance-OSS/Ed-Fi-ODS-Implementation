@@ -1,0 +1,89 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Applicant
+    documentation "A person who makes a formal application for an OpenStaffPosition."
+    shared string ApplicantIdentifier
+        documentation "Identifier assigned to a person making formal application for an open staff position."
+        is part of identity
+        is queryable field
+    common EdFi.StaffIdentificationCode
+        documentation "A unique number or alphanumeric code assigned to an applicant by a school, school system, a state, or other agency or entity."
+        is optional collection
+        is queryable field
+    inline common EdFi.Name
+        documentation "Full legal name of the person."
+        is required
+        is queryable field
+    descriptor EdFi.Sex
+        documentation "A person's gender."
+        is optional
+        is queryable field
+    date BirthDate
+        documentation "The month, day, and year on which an individual was born."
+        is optional
+        is queryable field
+    common EdFi.Address
+        documentation "The set of elements that describes an address, including the street address, city, state, and ZIP code."
+        is optional collection
+    common EdFi.InternationalAddress
+        documentation "The set of elements that describes an international address."
+        is optional collection
+    common EdFi.Telephone
+        documentation "The 10-digit telephone number, including the area code, for the person."
+        is optional collection
+        is queryable field
+    common EdFi.ElectronicMail
+        documentation "The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs."
+        is optional collection
+        is queryable field
+    bool HispanicLatinoEthnicity
+        documentation "An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, ""Spanish origin,"" can be used in addition to ""Hispanic or Latino""."
+        is optional
+        is queryable field
+    descriptor EdFi.Race
+        documentation "The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races."
+        is optional collection
+        is queryable field
+    inline common EdFi.Citizenship
+        documentation "Contains information relative to citizenship status and its associated probationary documentation."
+        is optional
+    common EdFi.Language
+        documentation "The language(s) the individual uses to communicate."
+        is optional collection
+    shared string EdFi.IdentificationCode named LoginId
+        documentation "The login ID for the user; used for security access control interface."
+        is optional
+    common BackgroundCheck
+        documentation "Applicant background check history and disposition."
+        is optional collection
+    common TeacherPreparationProgram
+        documentation "The Teacher Preparation Program(s) completed by the teacher."
+        is optional collection
+    descriptor Gender
+      documentation "The gender with which a person associates."
+      is optional
+    common EdFi.Disability
+      documentation "The disability condition(s) that best describes an individual's impairment."
+      is optional collection
+    common Aid
+      documentation "This entity represents the financial aid a person is awarded."
+      is optional collection
+    bool EconomicDisadvantaged
+      documentation "An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy."
+      is optional
+    bool FirstGenerationStudent
+      documentation "Indicator of whether individual is a first generation college student."
+      is optional
+    common ApplicantCharacteristic
+      documentation "Reflects important characteristics of the applicant's home situation:
+      Displaced Homemaker, Immigrant, Migratory, Military Parent, Pregnant Teen, Single Parent, and Unaccompanied Youth."
+      is optional collection
+    domain entity TeacherCandidate
+      documentation "Reference to the teacher candidate associated."
+      is optional
+  domain entity EdFi.Person
+      documentation "Relates the applicant to a generic person."
+      is optional

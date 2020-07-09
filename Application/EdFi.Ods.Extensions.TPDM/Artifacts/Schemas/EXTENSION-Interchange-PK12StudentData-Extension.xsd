@@ -15,7 +15,6 @@
         <xs:element name="AnonymizedStudentAcademicRecord" type="EXTENSION-AnonymizedStudentAcademicRecord" />
         <xs:element name="AnonymizedStudentAssessment" type="EXTENSION-AnonymizedStudentAssessment" />
         <xs:element name="AnonymizedStudentCourseTranscript" type="EXTENSION-AnonymizedStudentCourseTranscript" />
-        <xs:element name="EducationOrganizationStudentFacts" type="EXTENSION-EducationOrganizationStudentFacts" />
         <xs:element name="StaffStudentGrowthMeasure" type="EXTENSION-StaffStudentGrowthMeasure" />
         <xs:element name="TeacherCandidateStudentGrowthMeasure" type="EXTENSION-TeacherCandidateStudentGrowthMeasure" />
         <xs:element name="AnonymizedStudentCourseAssociation" type="EXTENSION-AnonymizedStudentCourseAssociation" />

@@ -43,9 +43,9 @@ function Install-EdFiOdsSwaggerUI {
     #>
     [CmdletBinding()]
     param (
-        # NuGet package name. Default: EdFi.Ods.SwaggerUI.EFA.
+        # NuGet package name. Default: EdFi.Ods.SwaggerUI.Suite3.
         [string]
-        $PackageName = "EdFi.Ods.SwaggerUI.EFA",
+        $PackageName = "EdFi.Ods.SwaggerUI.Suite3",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]

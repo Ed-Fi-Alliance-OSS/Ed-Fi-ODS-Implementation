@@ -16,15 +16,14 @@
         <xs:element name="TeacherCandidate" type="EXTENSION-TeacherCandidate" />
         <xs:element name="TeacherCandidateAcademicRecord" type="EXTENSION-TeacherCandidateAcademicRecord" />
         <xs:element name="TeacherCandidateCourseTranscript" type="EXTENSION-TeacherCandidateCourseTranscript" />
-        <xs:element name="TeacherCandidateFieldworkAbsenceEvent" type="EXTENSION-TeacherCandidateFieldworkAbsenceEvent" />
-        <xs:element name="TeacherCandidateFieldworkExperience" type="EXTENSION-TeacherCandidateFieldworkExperience" />
+        <xs:element name="FieldworkExperience" type="EXTENSION-FieldworkExperience" />
         <xs:element name="Certification" type="EXTENSION-Certification" />
         <xs:element name="CertificationExam" type="EXTENSION-CertificationExam" />
         <xs:element name="CertificationExamResult" type="EXTENSION-CertificationExamResult" />
         <xs:element name="CredentialEvent" type="EXTENSION-CredentialEvent" />
         <xs:element name="Person" type="Person" />
         <xs:element name="CompleterAsStaffAssociation" type="EXTENSION-CompleterAsStaffAssociation" />
-        <xs:element name="TeacherCandidateFieldworkExperienceSectionAssociation" type="EXTENSION-TeacherCandidateFieldworkExperienceSectionAssociation" />
+        <xs:element name="FieldworkExperienceSectionAssociation" type="EXTENSION-FieldworkExperienceSectionAssociation" />
         <xs:element name="TeacherCandidateStaffAssociation" type="EXTENSION-TeacherCandidateStaffAssociation" />
         <xs:element name="TeacherCandidateTeacherPreparationProviderAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderAssociation" />
         <xs:element name="TeacherCandidateTeacherPreparationProviderProgramAssociation" type="EXTENSION-TeacherCandidateTeacherPreparationProviderProgramAssociation" />

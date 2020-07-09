@@ -1,0 +1,18 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity SurveySectionAggregateResponse
+    documentation "The aggregate or average score across the surveying population for a survey section being used for performance evaluation."
+    domain entity EvaluationElementRating
+        documentation "Reference to the person's Evalution Element Rating."
+        is part of identity
+        // Should have an explicit merge defined. Due to MetaEd bug, merge is implicit. See MetaEd-1132.
+        // merge EvaluationElementRating.EvaluationElement.EvaluationElementTitle with SurveySection.EvaluationElement.EvaluationElementTitle
+    domain entity EdFi.SurveySection
+        documentation "Reference to the associated SurveySection."
+        is part of identity
+    shared decimal ScoreValue
+        documentation "The score value for the aggregate survey section response."
+        is required

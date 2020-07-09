@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 $params = @{
-    packageName = "EdFi.Ods.Populated.Template.PostgreSQL"
-    packageVersion = "4.0.0-b10149"
+    packageName = "EdFi.Ods.Populated.Template.PostgreSQL.Suite3"
+    packageVersion = "4.0.0-b10184"
     packageSource = "https://www.myget.org/F/ed-fi/"
 }
 

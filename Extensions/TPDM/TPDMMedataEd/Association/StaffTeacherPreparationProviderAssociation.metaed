@@ -1,0 +1,23 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association StaffTeacherPreparationProviderAssociation
+  documentation "Information about the association between the Staff and the TeacherPreparationProvider"
+  domain entity EdFi.Staff
+    documentation "Staff reference for the association"
+  domain entity TeacherPreparationProvider
+    documentation "The TeacherPreparationProvider for the association"
+  enumeration EdFi.SchoolYear
+    documentation "Identifier for a school year."
+    is required
+  descriptor EdFi.ProgramAssignment
+    documentation "Program Assignment for the association"
+    is required
+  descriptor EdFi.GradeLevel
+    documentation "The grade levels for the association."
+    is optional collection
+  descriptor EdFi.AcademicSubject
+    documentation "The description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language) of a degree."
+    is optional collection

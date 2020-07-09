@@ -1,0 +1,12 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association AnonymizedStudentAssessmentSectionAssociation
+  documentation "The course associated with aggregated student data."
+  domain entity AnonymizedStudentAssessment
+    documentation "Reference to assessment."
+  domain entity EdFi.Section
+    documentation "The section associated with aggregated student data."
+    merge Section.CourseOffering.Session.SchoolYear with AnonymizedStudentAssessment.AnonymizedStudent.SchoolYear
