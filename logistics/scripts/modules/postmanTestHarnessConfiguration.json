@@ -32,7 +32,7 @@
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org", "uri://other.org"]
+      "NamespacePrefixes": ["uri://other.org"]
     },
     {
       "Email": "test3@austin.org",
