@@ -14,7 +14,7 @@
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
         <xs:element name="StateEducationAgency" type="EXTENSION-StateEducationAgencyExtension" />
-        <xs:element name="EducationServiceCenter" type="EXTENSION-EducationServiceCenterExtension" />
+        <xs:element name="EducationServiceCenter" type="EducationServiceCenter" />
         <xs:element name="FeederSchoolAssociation" type="FeederSchoolAssociation" />
         <xs:element name="LocalEducationAgency" type="EXTENSION-LocalEducationAgencyExtension" />
         <xs:element name="School" type="EXTENSION-SchoolExtension" />
@@ -24,13 +24,12 @@
         <xs:element name="Program" type="Program" />
         <xs:element name="AccountabilityRating" type="AccountabilityRating" />
         <xs:element name="EducationOrganizationPeerAssociation" type="EducationOrganizationPeerAssociation" />
-        <xs:element name="EducationOrganizationNetwork" type="EXTENSION-EducationOrganizationNetworkExtension" />
+        <xs:element name="EducationOrganizationNetwork" type="EducationOrganizationNetwork" />
         <xs:element name="EducationOrganizationNetworkAssociation" type="EducationOrganizationNetworkAssociation" />
-        <xs:element name="CommunityOrganization" type="EXTENSION-CommunityOrganizationExtension" />
-        <xs:element name="CommunityProvider" type="EXTENSION-CommunityProviderExtension" />
+        <xs:element name="CommunityOrganization" type="CommunityOrganization" />
+        <xs:element name="CommunityProvider" type="CommunityProvider" />
         <xs:element name="CommunityProviderLicense" type="CommunityProviderLicense" />
         <xs:element name="PostSecondaryInstitution" type="EXTENSION-PostSecondaryInstitutionExtension" />
-        <xs:element name="EducationOrganizationFacts" type="EXTENSION-EducationOrganizationFacts" />
         <xs:element name="TeacherPreparationProvider" type="EXTENSION-TeacherPreparationProvider" />
         <xs:element name="TeacherPreparationProviderProgram" type="EXTENSION-TeacherPreparationProviderProgram" />
         <xs:element name="University" type="EXTENSION-University" />

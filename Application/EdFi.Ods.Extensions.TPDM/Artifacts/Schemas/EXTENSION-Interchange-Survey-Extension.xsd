@@ -14,7 +14,7 @@
         <xs:element name="Survey" type="Survey" />
         <xs:element name="SurveyQuestion" type="SurveyQuestion" />
         <xs:element name="SurveyQuestionResponse" type="SurveyQuestionResponse" />
-        <xs:element name="SurveyResponse" type="SurveyResponse" />
+        <xs:element name="SurveyResponse" type="EXTENSION-SurveyResponseExtension" />
         <xs:element name="SurveySection" type="EXTENSION-SurveySectionExtension" />
         <xs:element name="SurveySectionResponse" type="SurveySectionResponse" />
         <xs:element name="SurveyCourseAssociation" type="SurveyCourseAssociation" />

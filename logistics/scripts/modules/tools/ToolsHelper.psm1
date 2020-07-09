@@ -120,7 +120,7 @@ function Install-ToolDbDeploy {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
             Path = $toolsPath
-            Name = 'edfi.db.deploy'
+            Name = 'edfi.db.deploy.suite3'
             Version = $toolVersion
         }
 
@@ -147,7 +147,7 @@ function Install-ToolCodeGenUtility {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
             Path = $toolsPath
-            Name = 'edfi.ods.codegen'
+            Name = 'edfi.ods.codegen.suite3'
             Version = $toolVersion
         }
 

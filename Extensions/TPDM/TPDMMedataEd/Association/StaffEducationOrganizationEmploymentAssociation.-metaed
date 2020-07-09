@@ -1,0 +1,15 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association EdFi.StaffEducationOrganizationEmploymentAssociation additions
+    domain entity EmploymentEvent
+        documentation "The associated Employment event upon hiring."
+        is optional
+    domain entity EmploymentSeparationEvent
+        documentation "The associated separation event upon termination."
+        is optional
+    enumeration EdFi.SchoolYear
+        documentation "The school year for the employment association."
+        is optional

@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Choice PersonBeingReviewedChoice
+  documentation "Reference to either a prospect, staff or teacher candidate."
+	domain entity Prospect
+      documentation "The reference to the prospect."
+      is required
+	domain entity EdFi.Staff
+      documentation "The staff associated with the performance measure."
+      is required
+	domain entity TeacherCandidate
+      documentation "The teacher candidate associated with the performance measure."
+      is required

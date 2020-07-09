@@ -1,0 +1,51 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity TeacherCandidateStudentGrowthMeasure
+  documentation "Complex type that provides data about a group of students and their student growth as it pertains to the Teacher Candidate"
+  string TeacherCandidateStudentGrowthMeasureIdentifier
+    documentation "Assigned unique identifier for the student growth measure."
+    is part of identity
+    min length 1
+    max length 64
+  domain entity TeacherCandidate
+    documentation "The teacher candidate associated with aggregated student growth data"
+    is part of identity
+  enumeration EdFi.SchoolYear
+    documentation "The school year for which the data is associated"
+    is part of identity
+  date FactAsOfDate
+    documentation "The date for which the data element is relevant"
+    is part of identity
+  date StudentGrowthMeasureDate
+    documentation "The date for which the student growth is measured"
+    is optional
+  descriptor EdFi.AcademicSubject
+    documentation "This descriptor holds the description of the content or subject area (e.g., arts, mathematics, reading, stenography, or a foreign language)."
+    is optional collection
+  descriptor EdFi.GradeLevel
+    documentation "This descriptor defines the set of grade levels."
+    is optional collection
+  descriptor EdFi.ResultDatatypeType
+    documentation "The datatype of the result. The results can be expressed as a number, percentile, range, level, etc."
+    is optional
+  descriptor StudentGrowthType
+    documentation "Identification of the type of score that was used to determine student growth"
+    is optional
+  integer StudentGrowthTargetScore
+    documentation "The target score that has been set for the group of students as it pertains to their student growth."
+    is optional
+  integer StudentGrowthActualScore
+    documentation "The actual score a group of students receives on their student growth assessment"
+    is required
+  bool StudentGrowthMet
+    documentation "Identifies if the student growth target score is achieved."
+    is required
+  integer StudentGrowthNCount
+    documentation "The number of students included in the average score result."
+    is optional
+  percent StandardError
+    documentation "Standard error for growth score measurement."
+    is optional

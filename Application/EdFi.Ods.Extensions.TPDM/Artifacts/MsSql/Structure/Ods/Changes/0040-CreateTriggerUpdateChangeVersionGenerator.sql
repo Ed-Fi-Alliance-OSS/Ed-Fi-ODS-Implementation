@@ -183,26 +183,6 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationFacts_TR_UpdateChangeVersion] ON [tpdm].[EducationOrganizationFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[EducationOrganizationFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[EducationOrganizationFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_EducationOrganizationStudentFacts_TR_UpdateChangeVersion] ON [tpdm].[EducationOrganizationStudentFacts] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[EducationOrganizationStudentFacts]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[EducationOrganizationStudentFacts] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 CREATE TRIGGER [tpdm].[tpdm_EmploymentEvent_TR_UpdateChangeVersion] ON [tpdm].[EmploymentEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -283,6 +263,26 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_FieldworkExperience_TR_UpdateChangeVersion] ON [tpdm].[FieldworkExperience] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[FieldworkExperience]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[FieldworkExperience] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [tpdm].[tpdm_FieldworkExperienceSectionAssociation_TR_UpdateChangeVersion] ON [tpdm].[FieldworkExperienceSectionAssociation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[FieldworkExperienceSectionAssociation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[FieldworkExperienceSectionAssociation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_Goal_TR_UpdateChangeVersion] ON [tpdm].[Goal] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -333,22 +333,22 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [tpdm].[tpdm_ProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[ProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [tpdm].[ProfessionalDevelopmentEventAttendance]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [tpdm].[ProfessionalDevelopmentEventAttendance] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [tpdm].[tpdm_Prospect_TR_UpdateChangeVersion] ON [tpdm].[Prospect] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
     UPDATE [tpdm].[Prospect]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[Prospect] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_ProspectProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[ProspectProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[ProspectProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[ProspectProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -399,46 +399,6 @@ BEGIN
     UPDATE [tpdm].[StaffApplicantAssociation]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[StaffApplicantAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkAbsenceEvent_TR_UpdateChangeVersion] ON [tpdm].[StaffFieldworkAbsenceEvent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffFieldworkAbsenceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffFieldworkAbsenceEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkExperience_TR_UpdateChangeVersion] ON [tpdm].[StaffFieldworkExperience] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffFieldworkExperience]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffFieldworkExperience] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffFieldworkExperienceSectionAssociation_TR_UpdateChangeVersion] ON [tpdm].[StaffFieldworkExperienceSectionAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffFieldworkExperienceSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffFieldworkExperienceSectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_StaffProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[StaffProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[StaffProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[StaffProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
@@ -569,46 +529,6 @@ BEGIN
     UPDATE [tpdm].[TeacherCandidateCourseTranscript]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [tpdm].[TeacherCandidateCourseTranscript] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkAbsenceEvent_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateFieldworkAbsenceEvent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateFieldworkAbsenceEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateFieldworkAbsenceEvent] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkExperience_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateFieldworkExperience] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateFieldworkExperience]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateFieldworkExperience] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateFieldworkExperienceSectionAssociation_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateFieldworkExperienceSectionAssociation] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [tpdm].[tpdm_TeacherCandidateProfessionalDevelopmentEventAttendance_TR_UpdateChangeVersion] ON [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [tpdm].[TeacherCandidateProfessionalDevelopmentEventAttendance] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

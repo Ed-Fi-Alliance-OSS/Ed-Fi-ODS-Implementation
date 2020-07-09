@@ -1,0 +1,29 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Interchange TeacherCandidate
+
+  documentation "This interchange defines teacher candidates and contains all their identifying information."
+
+  domain entity EdFi.Credential
+  domain entity EdFi.Student
+  domain entity TeacherCandidate
+  domain entity TeacherCandidateAcademicRecord
+  domain entity TeacherCandidateCourseTranscript
+  domain entity FieldworkExperience
+  domain entity Certification
+  domain entity CertificationExam
+  domain entity CertificationExamResult
+  domain entity CredentialEvent
+  domain entity EdFi.Person
+
+  association CompleterAsStaffAssociation
+  association FieldworkExperienceSectionAssociation
+  association TeacherCandidateStaffAssociation
+  association TeacherCandidateTeacherPreparationProviderAssociation
+  association TeacherCandidateTeacherPreparationProviderProgramAssociation
+  association EdFi.StudentSchoolAssociation
+  association EdFi.StudentEducationOrganizationAssociation
+  association EdFi.StudentEducationOrganizationResponsibilityAssociation

@@ -1,0 +1,39 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity EdFi.OpenStaffPosition additions
+    enumeration EdFi.SchoolYear
+        documentation "The identifier for the school year for which the OpenStaffPosition is seeking to fill."
+        is optional
+    shared decimal EdFi.FullTimeEquivalency
+        documentation "The ratio between the hours of work expected in a position and the hours of work normally expected in a full-time position in the same setting."
+        is optional
+    descriptor OpenStaffPositionReason
+        documentation "The reason for the open staff position (e.g., new position, replacement, etc.)."
+        is optional
+    bool IsActive
+        documentation "Indicator of whether the OpenStaffPosition is currently Active."
+        is optional
+    shared decimal CompensationPackageAmount named MaxSalary
+        documentation "The maximum salary or wage a person is paid before deductions (excluding differentials) but including annuities."
+        is optional
+    shared decimal CompensationPackageAmount named MinSalary
+        documentation "The minimum salary or wage a person is paid before deductions (excluding differentials) but including annuities."
+        is optional
+    descriptor FundingSource
+        documentation "The funding source for open staff position."
+        is optional
+    bool HighNeedAcademicSubject
+        documentation "Indicator as to whether the OpenStaffPosition is filling a high-need subject area designated as a teacher shortage that may be eligible for special grants, aid or compensation."
+        is optional
+    shared string PositionControlNumber
+        documentation "Identifier assigned to the position to be filled."
+        is optional
+    descriptor EdFi.Term
+        documentation "The first term for the Session during the school year for which the OpenStaffPosition is seeking to fill."
+        is optional
+    shared decimal CompensationPackageAmount named TotalBudgeted
+        documentation "Including salary, the fully loaded cost budgeted for this teacher."
+        is optional

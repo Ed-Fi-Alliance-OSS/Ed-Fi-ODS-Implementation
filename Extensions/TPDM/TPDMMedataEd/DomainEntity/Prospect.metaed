@@ -1,0 +1,99 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Prospect
+    documentation "A prospect for employment or contract that has not yet made formal application, often obtained from job fairs or university recruiting visits."
+    shared string ProspectIdentifier
+        documentation "The identifier for the prospect."
+        is part of identity
+        is queryable field
+	domain entity EdFi.EducationOrganization
+        documentation "The education organization, typically a LocalEducationAgency, associated with the prospect."
+        is part of identity
+        is queryable field
+    inline common EdFi.Name
+        documentation "Full legal name of the person."
+        is required
+        is queryable field
+    shared string EdFi.ElectronicMailAddress
+        documentation "The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs."
+        is required
+        is queryable field
+    bool Applied
+        documentation "Indicator of whether the prospect applied for a position."
+        is optional
+    common CurrentPosition
+        documentation "The current position of the prospect."
+        is optional
+    bool HispanicLatinoEthnicity
+        documentation "An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race. The term, ""Spanish origin,"" can be used in addition to ""Hispanic or Latino""."
+        is optional
+        is queryable field
+    bool Met
+        documentation "Indicator whether the person was met by a representative of the education organization."
+        is optional
+    shared string Notes
+        documentation "Additional notes about the prospect."
+        is optional
+    integer PreScreeningRating
+        documentation "The rating initially assigned to the prospect prior to an official screening."
+        is optional
+    descriptor EdFi.Race
+        documentation "The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies. The way this data element is listed, it must allow for multiple entries so that each individual can specify all appropriate races."
+        is optional collection
+        is queryable field
+	domain entity RecruitmentEvent
+        documentation "Reference(s) to events associated with the recruitment process."
+        is optional collection
+    bool Referral
+        documentation "Indicator of whether the prospect was a referral."
+        is optional
+    shared string ReferredBy
+        documentation "The person making the referral."
+        is optional
+    descriptor EdFi.Sex
+        documentation "A person's gender."
+        is optional
+        is queryable field
+    shared string SocialMediaUserName
+        documentation "The user name of the person on social media."
+        is optional
+    shared string SocialMediaNetworkName
+        documentation "The social media network name (e.g., LinkedIn, Twitter, etc.) associated with the SocialMediaUserName."
+        is optional
+    common EdFi.Telephone
+        documentation "The 10-digit telephone number, including the area code, for the person."
+        is optional collection
+        is queryable field
+    common Touchpoint
+        documentation "Content associated with different touchpoints with the prospect."
+        is optional collection
+    descriptor Gender
+      documentation "The gender with which a person associates."
+      is optional
+    common EdFi.Disability
+      documentation "The disability condition(s) that best describes an individual's impairment."
+      is optional collection
+    common ProspectQualifications
+      documentation "The qualifications of a prospective mentor teacher."
+      is optional
+    bool EconomicDisadvantaged
+      documentation "An indication of inadequate financial condition of an individual's family, as determined by family income, number of family members/dependents, participation in public assistance programs, and/or other characteristics considered relevant by federal, state, and local policy."
+      is optional
+    common Aid
+      documentation "This entity represents the financial aid a person is awarded."
+      is optional
+    bool FirstGenerationStudent
+      documentation "Indicator of whether individual is a first generation college student."
+      is optional
+    descriptor ProspectType
+      documentation "Reflects the type of prospect, such as TPP Applicant, Hire, or Mentor Teacher."
+      is optional
+    domain entity TeacherCandidate
+      documentation "Reference to the teacher candidate associated."
+      is optional
+  domain entity EdFi.Person
+      documentation "Relates the prospect to a generic person."
+      is optional

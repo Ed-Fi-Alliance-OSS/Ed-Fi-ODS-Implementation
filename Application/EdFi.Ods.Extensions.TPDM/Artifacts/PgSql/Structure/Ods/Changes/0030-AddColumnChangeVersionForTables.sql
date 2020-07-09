@@ -57,12 +57,6 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE tpdm.CredentialEvent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE tpdm.EducationOrganizationFacts
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.EducationOrganizationStudentFacts
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
 ALTER TABLE tpdm.EmploymentEvent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -87,6 +81,12 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE tpdm.EvaluationRating
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
+ALTER TABLE tpdm.FieldworkExperience
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
+ALTER TABLE tpdm.FieldworkExperienceSectionAssociation
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
 ALTER TABLE tpdm.Goal
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -102,10 +102,10 @@ ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NU
 ALTER TABLE tpdm.ProfessionalDevelopmentEvent
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE tpdm.Prospect
+ALTER TABLE tpdm.ProfessionalDevelopmentEventAttendance
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE tpdm.ProspectProfessionalDevelopmentEventAttendance
+ALTER TABLE tpdm.Prospect
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.QuantitativeMeasure
@@ -121,18 +121,6 @@ ALTER TABLE tpdm.RubricDimension
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.StaffApplicantAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.StaffFieldworkAbsenceEvent
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.StaffFieldworkExperience
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.StaffFieldworkExperienceSectionAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.StaffProfessionalDevelopmentEventAttendance
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.StaffProspectAssociation
@@ -172,18 +160,6 @@ ALTER TABLE tpdm.TeacherCandidateAcademicRecord
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateCourseTranscript
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkAbsenceEvent
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperience
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateFieldworkExperienceSectionAssociation
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
-ALTER TABLE tpdm.TeacherCandidateProfessionalDevelopmentEventAttendance
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE tpdm.TeacherCandidateStaffAssociation
