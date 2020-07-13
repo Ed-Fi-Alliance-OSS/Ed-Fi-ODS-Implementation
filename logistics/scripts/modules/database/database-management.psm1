@@ -10,7 +10,7 @@ function Test-SqlServerModuleInstalled { $null -ne (Get-InstalledModule | where 
 
 function Test-SqlServerModuleImported { $null -ne (Get-Module SqlServer) }
 
-function Install-SqlServerModule {
+function Use-SqlServerModule {
     if (Test-SqlServerModuleImported) { return }
 
     if (Test-SqlServerModuleInstalled) {
@@ -223,7 +223,7 @@ Function Backup-Database {
         $backupActionType = "Database"
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     # TODO: Not sure why this is a trap... research in git history to figure out why & refactor using try/catch. ODS-4053
     trap [Exception] {
@@ -365,7 +365,7 @@ Function Get-Server {
         [System.Data.Common.DbConnectionStringBuilder] $csb
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -eq "csb") {
         $csb = Convert-CommonDbCSBtoSqlCSB $csb
@@ -591,7 +591,7 @@ Function Clear-DatabaseUsers {
         [switch] [Alias("safe")] $forceOffline
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     # DEV NOTES:
     # In the past, this was a very simple function that looked (something) like this:
@@ -708,7 +708,7 @@ Function Remove-Database {
         [switch] $safe
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -match "legacy") {
         $csb = New-DbConnectionStringBuilder -username $username -password $password -property @{
@@ -768,7 +768,7 @@ Function New-Database {
         [string] $recoveryModel = "Simple"
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     # Instantiate the database object and create database
     $db = New-Object ('Microsoft.SqlServer.Management.Smo.Database') ($sqlServer, $databaseName)
@@ -804,7 +804,7 @@ function Get-SmoFileLocation {
         [Parameter(mandatory = $true)] [ValidateSet("Data", "Log")] [string] $fileType
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     $SmoProps = @{
         Data = @{
@@ -899,7 +899,7 @@ Function Restore-Database {
         $restoreActionType = "Database"
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     trap [Exception] {
         Write-Error $("ERROR: " + $_.Exception.ToString());
@@ -999,7 +999,7 @@ Function Test-DatabaseExists {
         [Parameter(Position = 1, Mandatory = $true, ParameterSetName = "legacy")] [string] $databaseName
     )
 
-    Install-SqlServerModule
+    Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -match "csb") {
         # Convert to SQL CSB here to ensure the Initial Catalog property will always return the DB name
