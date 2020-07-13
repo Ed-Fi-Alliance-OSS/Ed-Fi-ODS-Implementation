@@ -24,12 +24,9 @@ namespace EdFi.Ods.SandboxAdmin.Web.Filters
                 {
                     _logger.Error(actionExecutedContext.Exception);
 
-
                     actionExecutedContext.Response =
                         actionExecutedContext.Request.CreateErrorResponse(
                             HttpStatusCode.InternalServerError,
-
-
                             new HttpError(actionExecutedContext.Exception, false));
                 },
                 cancellationToken);
