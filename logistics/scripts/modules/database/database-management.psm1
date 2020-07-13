@@ -506,6 +506,8 @@ Function Invoke-SqlScript {
         [switch]$returnDataSet
     )
 
+    Use-SqlServerModule
+
     if ($PsCmdlet.ParameterSetName -eq "legacy") {
         #We don't have the variables in context here, ignore metadata.
         $newSqlScript = New-SqlScript -scriptSql $sql -ignoreMetadata
