@@ -94,8 +94,7 @@ function Initialize-DevelopmentEnvironment {
     }
 
     if ([string]::IsNullOrWhiteSpace($InstallType)) {
-        if ($Engine -eq 'SQLServer') { $InstallType = 'Sandbox' }
-        if ($Engine -eq 'PostgreSQL') { $InstallType = 'SharedInstance' }
+        $InstallType = 'Sandbox'
     }
 
     Clear-Error
