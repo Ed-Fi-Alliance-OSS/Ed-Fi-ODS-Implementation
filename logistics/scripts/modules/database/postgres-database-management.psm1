@@ -35,8 +35,7 @@ function Get-PGRestorePath { return (Resolve-path (Join-Path (Get-PostgreSQLBina
 
 function Install-PostgreSQLBinaries {
     # Ensure we have Tls12 support
-    if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12))
-    {
+    if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
         [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
     }
 
@@ -45,8 +44,8 @@ function Install-PostgreSQLBinaries {
         Install-PackageProvider -Force -Name $script:providerName | Out-Null
     }
     if (-not (Get-PackageSource | Where-Object {
-        $_.Location -eq $script:packageSource -and $_.ProviderName -eq $script:providerName
-    })) {
+                $_.Location -eq $script:packageSource -and $_.ProviderName -eq $script:providerName
+            })) {
         Write-Host "Registering nuget package source: $script:packageSource"
         Register-PackageSource -Name $script:packageSource -Location $script:packageSource -Provider $script:providerName | Out-Null
     }
@@ -54,11 +53,11 @@ function Install-PostgreSQLBinaries {
     if (-not (Test-Path $script:toolsPath)) { New-Item -Path $script:toolsPath -ItemType 'Directory' | Out-Null }
 
     $savePackageArgs = @{
-        ProviderName = $script:providerName
-        Source = $script:packageSource
-        Name = $script:packageName
+        ProviderName    = $script:providerName
+        Source          = $script:packageSource
+        Name            = $script:packageName
         RequiredVersion = $script:packageVersion
-        Path = $script:toolsPath
+        Path            = $script:toolsPath
     }
 
     Write-Host "Installing $script:packageName version $script:packageVersion to $script:toolsPath"
@@ -72,7 +71,7 @@ function Install-PostgreSQLBinaries {
         return
     }
 
-    if ($binariesInstalled) { Remove-Item -Force -Recurse "$script:toolsPath/$script:packageName"}
+    if ($binariesInstalled) { Remove-Item -Force -Recurse "$script:toolsPath/$script:packageName" }
 
     if (-not (Get-InstalledModule | Where-Object -Property Name -eq '7Zip4Powershell')) {
         Install-Module -Force -Scope CurrentUser -Name '7Zip4Powershell'
@@ -82,7 +81,7 @@ function Install-PostgreSQLBinaries {
 
     $params = @{
         ArchiveFileName = "$script:toolsPath\$script:packageName.$script:packageVersion.nupkg"
-        TargetPath = "$script:toolsPath\$script:packageName"
+        TargetPath      = "$script:toolsPath\$script:packageName"
     }
     Expand-7Zip @params
 
@@ -180,7 +179,7 @@ function Install-PostgreSQLTemplate {
     $parameters = @{
         serverName = $serverName
         portNumber = $portNumber
-        userName = $userName
+        userName   = $userName
     }
 
     Write-Host "Creating database $databaseName..."
@@ -194,6 +193,69 @@ function Install-PostgreSQLTemplate {
     Write-Host "Done loading the $databaseName database."
 }
 
+function Set-PostgresSQLDatabaseAsTemplate {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseName
+    )
+
+    if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
+
+    $parameters = @{
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
+        databaseName = 'postgres'
+        commands     = @(
+            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
+            "SET client_min_messages TO ERROR;"
+            "UPDATE pg_database SET datistemplate='true', datallowconn='false' WHERE datname in ('$databaseName');"
+        )
+    }
+
+    ## for the templates we want to set the databases as readonly, and as a template database.
+    Write-Host "Setting template flag on database $databaseName...";
+    Invoke-PsqlCommand @parameters
+    Test-Error
+}
+
+
+function Remove-PostgresSQLDatabaseAsTemplate {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseName
+    )
+
+    if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
+
+    $parameters = @{
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
+        databaseName = 'postgres'
+        commands     = @(
+            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
+            "SET client_min_messages TO ERROR;"
+            "UPDATE pg_database SET datistemplate='false', datallowconn='true' WHERE datname in ('$databaseName');"
+        )
+    }
+
+    ## for the templates we want to set the databases as readonly, and as a template database.
+    Write-Host "Remove template flag on database if $databaseName already exists..."
+    Invoke-PsqlCommand @parameters
+    Test-Error
+}
+
 function Remove-PostgreSQLDatabase {
     Param (
         [string] [Parameter(Mandatory = $true)] $serverName,
@@ -202,29 +264,29 @@ function Remove-PostgreSQLDatabase {
 
         [string] $userName,
 
-        [string] [Parameter(Mandatory = $true)] $databaseToRemove
+        [string] [Parameter(Mandatory = $true)] $databaseName
     )
 
     if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
 
     $parameters = @{
-        serverName = $serverName
-        portNumber = $portNumber
-        userName = $userName
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
         databaseName = 'postgres'
-        commands = @(
-            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseToRemove';"
+        commands     = @(
+            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
             # Since log_destination defaults to stderr we are limmiting messages to errors only.
             # This suppresses any non-error messages from outputting through stderr and causing TeamCity build failures
             # while still allowing any errors to fail the build.
             "SET client_min_messages TO ERROR;"
             # note: the backslash is required for passing quotation mark into psql command line, and
             # the backtick is required for escaping the quotation mark in PowerShell.
-            "DROP DATABASE IF EXISTS \`"$databaseToRemove\`";"
+            "DROP DATABASE IF EXISTS \`"$databaseName\`";"
         )
     }
 
-    Write-Host "Drop database $databaseToRemove if it already exists..."
+    Write-Host "Drop database $databaseName if it already exists..."
 
     Invoke-PsqlCommand @parameters
     Test-Error
@@ -275,11 +337,11 @@ function Test-PostgreSQLDatabaseExists {
     if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
 
     $parameters = @{
-        serverName = $serverName
-        portNumber = $portNumber
-        userName = $userName
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
         databaseName = 'postgres'
-        commands = "SELECT EXISTS( SELECT datname FROM pg_catalog.pg_database WHERE datname='$databaseName' );"
+        commands     = "SELECT EXISTS( SELECT datname FROM pg_catalog.pg_database WHERE datname='$databaseName' );"
     }
 
     Write-Host "Checking if database $databaseName already exists..."
@@ -293,11 +355,13 @@ function Test-PostgreSQLDatabaseExists {
 
 Export-ModuleMember -Function `
     Install-PostgreSQLBinaries,
-    Get-PsqlPath,
-    Get-PGDumpPath,
-    Get-PGRestorePath,
-    Remove-PostgreSQLDatabase,
-    Install-PostgreSQLTemplate,
-    Invoke-PsqlCommand,
-    Backup-PostgreSQLDatabase,
-    Test-PostgreSQLDatabaseExists
+Get-PsqlPath,
+Get-PGDumpPath,
+Get-PGRestorePath,
+Remove-PostgreSQLDatabase,
+Install-PostgreSQLTemplate,
+Invoke-PsqlCommand,
+Backup-PostgreSQLDatabase,
+Test-PostgreSQLDatabaseExists,
+Set-PostgresSQLDatabaseAsTemplate,
+Remove-PostgresSQLDatabaseAsTemplate

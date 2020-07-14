@@ -1,4 +1,4 @@
-﻿# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
@@ -141,45 +141,48 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
     Write-InvocationInfo $MyInvocation
 
+    $scriptParams = @{
+        serverName   = $csb.host
+        portNumber   = $csb.port
+        userName     = $csb.username
+        databaseName = $csb.database
+    }
+
+
     if ($engine -eq 'PostgreSQL') {
+        Remove-PostgresSQLDatabaseAsTemplate @scriptParams
+
         if ($dropDatabase) {
-            $params = @{
-                serverName = $csb.host
-                portNumber = $csb.port
-                userName = $csb.username
-                databaseToRemove = $csb.Database
-            }
-            Remove-PostgreSQLDatabase @params
+            Remove-PostgreSQLDatabase @scriptParams
         }
 
-        $params = @{
-            serverName = $csb.host
-            portNumber = $csb.port
-            userName = $csb.username
-            database = $csb.Database
-        }
-        $databaseExists = (Test-PostgreSQLDatabaseExists @params)
+        $databaseExists = (Test-PostgreSQLDatabaseExists @scriptParams)
 
         if (-not ($databaseExists) -and $createByRestoringBackup) {
             $params = @{
-                serverName = $csb.host
-                portNumber = $csb.port
-                userName = $csb.username
+                serverName   = $csb.host
+                portNumber   = $csb.port
+                userName     = $csb.username
                 databaseName = $csb.database
-                backupFile = $createByRestoringBackup
+                backupFile   = $createByRestoringBackup
             }
             Install-PostgreSQLTemplate @params
         }
 
         $params = @{
-            Verb = "Deploy"
-            Engine = $Engine
-            Database = $database
+            Verb             = "Deploy"
+            Engine           = $Engine
+            Database         = $database
             ConnectionString = $csb
-            FilePaths = $filePaths
-            Features = $subTypeNames
+            FilePaths        = $filePaths
+            Features         = $subTypeNames
         }
         Invoke-DbDeploy @params
+
+        if ($csb.Database -match "Template$") {
+            Write-Host $scriptParams
+            Set-PostgresSQLDatabaseAsTemplate @scriptParams
+        }
 
         return;
     }
@@ -225,12 +228,12 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     }
 
     $params = @{
-        Verb = "Deploy"
-        Engine = $Engine
-        Database = $database
+        Verb             = "Deploy"
+        Engine           = $Engine
+        Database         = $database
         ConnectionString = $csb
-        FilePaths = $filePaths
-        Features = $subTypeNames
+        FilePaths        = $filePaths
+        Features         = $subTypeNames
     }
     Invoke-DbDeploy @params
 }
