@@ -849,7 +849,7 @@
               <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ExamNamespace" type="URI">
+          <xs:element name="Namespace" type="URI">
             <xs:annotation>
               <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
             </xs:annotation>
@@ -5395,7 +5395,7 @@
           <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ExamNamespace" type="URI">
+      <xs:element name="Namespace" type="URI">
         <xs:annotation>
           <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
         </xs:annotation>

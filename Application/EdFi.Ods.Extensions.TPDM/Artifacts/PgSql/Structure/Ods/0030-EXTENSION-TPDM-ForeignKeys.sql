@@ -998,12 +998,12 @@ ON DELETE CASCADE
 CREATE INDEX FK_947c8f_Certification
 ON tpdm.CertificationCertificationExam (CertificationIdentifier ASC, Namespace ASC);
 
-ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_CertificationExam FOREIGN KEY (CertificationExamIdentifier, ExamNamespace)
-REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, ExamNamespace)
+ALTER TABLE tpdm.CertificationCertificationExam ADD CONSTRAINT FK_947c8f_CertificationExam FOREIGN KEY (CertificationExamIdentifier, CertificationExamNamespace)
+REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, Namespace)
 ;
 
 CREATE INDEX FK_947c8f_CertificationExam
-ON tpdm.CertificationCertificationExam (CertificationExamIdentifier ASC, ExamNamespace ASC);
+ON tpdm.CertificationCertificationExam (CertificationExamIdentifier ASC, CertificationExamNamespace ASC);
 
 ALTER TABLE tpdm.CertificationExam ADD CONSTRAINT FK_cb139c_CertificationExamTypeDescriptor FOREIGN KEY (CertificationExamTypeDescriptorId)
 REFERENCES tpdm.CertificationExamTypeDescriptor (CertificationExamTypeDescriptorId)
@@ -1019,12 +1019,12 @@ REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 CREATE INDEX FK_cb139c_EducationOrganization
 ON tpdm.CertificationExam (EducationOrganizationId ASC);
 
-ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExam FOREIGN KEY (CertificationExamIdentifier, ExamNamespace)
-REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, ExamNamespace)
+ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExam FOREIGN KEY (CertificationExamIdentifier, Namespace)
+REFERENCES tpdm.CertificationExam (CertificationExamIdentifier, Namespace)
 ;
 
 CREATE INDEX FK_aed83e_CertificationExam
-ON tpdm.CertificationExamResult (CertificationExamIdentifier ASC, ExamNamespace ASC);
+ON tpdm.CertificationExamResult (CertificationExamIdentifier ASC, Namespace ASC);
 
 ALTER TABLE tpdm.CertificationExamResult ADD CONSTRAINT FK_aed83e_CertificationExamStatusDescriptor FOREIGN KEY (CertificationExamStatusDescriptorId)
 REFERENCES tpdm.CertificationExamStatusDescriptor (CertificationExamStatusDescriptorId)

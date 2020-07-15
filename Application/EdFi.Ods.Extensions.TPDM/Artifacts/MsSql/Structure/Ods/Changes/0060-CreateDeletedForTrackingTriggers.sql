@@ -375,8 +375,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CertificationExamResult](CertificationExamDate, CertificationExamIdentifier, ExamNamespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
-    SELECT  CertificationExamDate, CertificationExamIdentifier, ExamNamespace, PersonId, SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CertificationExamResult](CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    SELECT  CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
@@ -428,8 +428,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_tpdm].[CertificationExam](CertificationExamIdentifier, ExamNamespace, Id, ChangeVersion)
-    SELECT  CertificationExamIdentifier, ExamNamespace, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_tpdm].[CertificationExam](CertificationExamIdentifier, Namespace, Id, ChangeVersion)
+    SELECT  CertificationExamIdentifier, Namespace, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO

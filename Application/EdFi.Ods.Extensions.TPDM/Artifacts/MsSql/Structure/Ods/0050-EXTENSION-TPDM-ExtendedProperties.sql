@@ -892,9 +892,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Certificat
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamNamespace'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the Certification.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationIdentifier'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the Certification, typically associated with the issuing authority.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationCertificationExam', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
@@ -904,7 +904,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'An examination
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The title of the Certification Exam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExam', @level2type=N'COLUMN', @level2name=N'CertificationExamTitle'
 GO
@@ -924,7 +924,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year, mont
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identifier or serial number assigned to the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'CertificationExamIdentifier'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'ExamNamespace'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Namespace for the CertificationExam.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'Namespace'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a person.', @level0type=N'SCHEMA', @level0name=N'tpdm', @level1type=N'TABLE', @level1name=N'CertificationExamResult', @level2type=N'COLUMN', @level2name=N'PersonId'
 GO
