@@ -242,7 +242,7 @@ CREATE TABLE [tracked_deletes_tpdm].[Certification]
 CREATE TABLE [tracked_deletes_tpdm].[CertificationExam]
 (
        CertificationExamIdentifier [NVARCHAR](60) NOT NULL,
-       ExamNamespace [NVARCHAR](255) NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_CertificationExam PRIMARY KEY CLUSTERED (ChangeVersion)
@@ -252,7 +252,7 @@ CREATE TABLE [tracked_deletes_tpdm].[CertificationExamResult]
 (
        CertificationExamDate [DATE] NOT NULL,
        CertificationExamIdentifier [NVARCHAR](60) NOT NULL,
-       ExamNamespace [NVARCHAR](255) NOT NULL,
+       Namespace [NVARCHAR](255) NOT NULL,
        PersonId [NVARCHAR](32) NOT NULL,
        SourceSystemDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,

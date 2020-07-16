@@ -48,6 +48,7 @@ Domain Entity Certification
     domain entity CertificationExam
         documentation "The Certification Eams required for the Certification."
         is optional collection
+        role name CertificationExam
     date EffectiveDate
         documentation "The year, month and day on which the Certification is offered."
         is optional

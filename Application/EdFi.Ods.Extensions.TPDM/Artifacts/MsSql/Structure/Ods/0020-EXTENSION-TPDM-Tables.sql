@@ -1120,14 +1120,14 @@ GO
 -- Table [tpdm].[CertificationCertificationExam] --
 CREATE TABLE [tpdm].[CertificationCertificationExam] (
     [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
+    [CertificationExamNamespace] [NVARCHAR](255) NOT NULL,
     [CertificationIdentifier] [NVARCHAR](60) NOT NULL,
-    [ExamNamespace] [NVARCHAR](255) NOT NULL,
     [Namespace] [NVARCHAR](255) NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [CertificationCertificationExam_PK] PRIMARY KEY CLUSTERED (
         [CertificationExamIdentifier] ASC,
+        [CertificationExamNamespace] ASC,
         [CertificationIdentifier] ASC,
-        [ExamNamespace] ASC,
         [Namespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -1138,7 +1138,7 @@ GO
 -- Table [tpdm].[CertificationExam] --
 CREATE TABLE [tpdm].[CertificationExam] (
     [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
-    [ExamNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [CertificationExamTitle] [NVARCHAR](60) NOT NULL,
     [EducationOrganizationId] [INT] NULL,
     [CertificationExamTypeDescriptorId] [INT] NULL,
@@ -1150,7 +1150,7 @@ CREATE TABLE [tpdm].[CertificationExam] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [CertificationExam_PK] PRIMARY KEY CLUSTERED (
         [CertificationExamIdentifier] ASC,
-        [ExamNamespace] ASC
+        [Namespace] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -1165,7 +1165,7 @@ GO
 CREATE TABLE [tpdm].[CertificationExamResult] (
     [CertificationExamDate] [DATE] NOT NULL,
     [CertificationExamIdentifier] [NVARCHAR](60) NOT NULL,
-    [ExamNamespace] [NVARCHAR](255) NOT NULL,
+    [Namespace] [NVARCHAR](255) NOT NULL,
     [PersonId] [NVARCHAR](32) NOT NULL,
     [SourceSystemDescriptorId] [INT] NOT NULL,
     [AttemptNumber] [INT] NULL,
@@ -1179,7 +1179,7 @@ CREATE TABLE [tpdm].[CertificationExamResult] (
     CONSTRAINT [CertificationExamResult_PK] PRIMARY KEY CLUSTERED (
         [CertificationExamDate] ASC,
         [CertificationExamIdentifier] ASC,
-        [ExamNamespace] ASC,
+        [Namespace] ASC,
         [PersonId] ASC,
         [SourceSystemDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]

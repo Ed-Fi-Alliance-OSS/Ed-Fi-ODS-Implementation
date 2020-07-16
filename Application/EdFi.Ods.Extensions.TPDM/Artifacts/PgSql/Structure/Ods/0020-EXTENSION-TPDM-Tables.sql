@@ -758,18 +758,18 @@ ALTER TABLE tpdm.Certification ALTER COLUMN LastModifiedDate SET DEFAULT current
 -- Table tpdm.CertificationCertificationExam --
 CREATE TABLE tpdm.CertificationCertificationExam (
     CertificationExamIdentifier VARCHAR(60) NOT NULL,
+    CertificationExamNamespace VARCHAR(255) NOT NULL,
     CertificationIdentifier VARCHAR(60) NOT NULL,
-    ExamNamespace VARCHAR(255) NOT NULL,
     Namespace VARCHAR(255) NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT CertificationCertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, CertificationIdentifier, ExamNamespace, Namespace)
+    CONSTRAINT CertificationCertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, CertificationExamNamespace, CertificationIdentifier, Namespace)
 ); 
 ALTER TABLE tpdm.CertificationCertificationExam ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table tpdm.CertificationExam --
 CREATE TABLE tpdm.CertificationExam (
     CertificationExamIdentifier VARCHAR(60) NOT NULL,
-    ExamNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     CertificationExamTitle VARCHAR(60) NOT NULL,
     EducationOrganizationId INT NULL,
     CertificationExamTypeDescriptorId INT NULL,
@@ -779,7 +779,7 @@ CREATE TABLE tpdm.CertificationExam (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT CertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, ExamNamespace)
+    CONSTRAINT CertificationExam_PK PRIMARY KEY (CertificationExamIdentifier, Namespace)
 ); 
 ALTER TABLE tpdm.CertificationExam ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE tpdm.CertificationExam ALTER COLUMN Id SET DEFAULT gen_random_uuid();
@@ -789,7 +789,7 @@ ALTER TABLE tpdm.CertificationExam ALTER COLUMN LastModifiedDate SET DEFAULT cur
 CREATE TABLE tpdm.CertificationExamResult (
     CertificationExamDate DATE NOT NULL,
     CertificationExamIdentifier VARCHAR(60) NOT NULL,
-    ExamNamespace VARCHAR(255) NOT NULL,
+    Namespace VARCHAR(255) NOT NULL,
     PersonId VARCHAR(32) NOT NULL,
     SourceSystemDescriptorId INT NOT NULL,
     AttemptNumber INT NULL,
@@ -800,7 +800,7 @@ CREATE TABLE tpdm.CertificationExamResult (
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT CertificationExamResult_PK PRIMARY KEY (CertificationExamDate, CertificationExamIdentifier, ExamNamespace, PersonId, SourceSystemDescriptorId)
+    CONSTRAINT CertificationExamResult_PK PRIMARY KEY (CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId)
 ); 
 ALTER TABLE tpdm.CertificationExamResult ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE tpdm.CertificationExamResult ALTER COLUMN Id SET DEFAULT gen_random_uuid();
