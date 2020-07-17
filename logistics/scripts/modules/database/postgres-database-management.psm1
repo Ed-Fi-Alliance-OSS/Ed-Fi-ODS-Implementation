@@ -214,7 +214,7 @@ function Set-PostgresSQLDatabaseAsTemplate {
         commands     = @(
             "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
             "SET client_min_messages TO ERROR;"
-            "UPDATE pg_database SET datistemplate='true', datallowconn='false' WHERE datname in ('$databaseName');"
+            "UPDATE pg_database SET datistemplate='true', datallowconn='true' WHERE datname in ('$databaseName');"
         )
     }
 
