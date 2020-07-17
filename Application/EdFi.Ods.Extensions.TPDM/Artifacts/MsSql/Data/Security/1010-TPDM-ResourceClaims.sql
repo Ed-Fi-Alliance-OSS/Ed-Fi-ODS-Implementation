@@ -5,7 +5,7 @@
 
 BEGIN
     DECLARE 
-        @applicationId,
+        @applicationId AS INT,
         @claimId AS INT,
         @claimName AS nvarchar(max),
         @parentResourceClaimId AS INT,
