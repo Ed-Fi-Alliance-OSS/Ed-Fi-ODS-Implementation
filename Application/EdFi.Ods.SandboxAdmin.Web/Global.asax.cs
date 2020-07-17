@@ -2,7 +2,8 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
+using System;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -15,9 +16,11 @@ using EdFi.Ods.Admin.Infrastructure;
 using EdFi.Ods.Admin.Initialization;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Admin.Services;
+using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Http.InversionOfControl;
 using EdFi.Ods.Common.InversionOfControl;
 using Hangfire;
+using Hangfire.PostgreSql;
 using Hangfire.Windsor;
 using log4net.Config;
 using WebMatrix.WebData;
@@ -25,37 +28,15 @@ using GlobalConfiguration = System.Web.Http.GlobalConfiguration;
 
 namespace EdFi.Ods.SandboxAdmin.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
+    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
     // visit http://go.microsoft.com/?LinkId=9394801
 
     public class MvcApplication : HttpApplication
     {
-        private static IWindsorContainer container;
-        private BackgroundJobServer _backgroundJobServer;
-
-        private static void BootstrapContainer()
-        {
-            container = new WindsorContainerEx();
-            container.AddFacility<TypedFactoryFacility>();
-            container.Install(FromAssembly.This());
-
-            // MVC Dependency Resolution 
-            var controllerFactory = new CastleControllerFactory(container.Kernel);
-            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
-
-            // WebApi Dependency Resolution
-            var dependencyResolver = new WindsorDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver;
-
-            // Hangfire background processing Resolution
-            Hangfire.GlobalConfiguration.Configuration.UseActivator(new WindsorJobActivator(container.Kernel));
-        }
+        private IWindsorContainer _container;
 
         protected void Application_Start()
         {
-            Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage("EdFi_Admin");
-            Hangfire.GlobalConfiguration.Configuration.UseLog4NetLogProvider();
-
             XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
 
@@ -67,17 +48,23 @@ namespace EdFi.Ods.SandboxAdmin.Web
 
             AuthConfig.RegisterAuth();
 
-            GlobalFilters.Filters.Add(new SetCurrentUserInfoAttribute(() => container.Resolve<ISecurityService>()));
-            InitializeWebSecurity();
-
-            //Do this last to make sure we aren't trying to use the container during Application_Start.  We can't use the container during Application_Start
-            //because we are registering some dependencies with a PerWebRequest lifecycle.  Castle cannot resolve those dependencies outside of the request
-            //lifecycle.
             BootstrapContainer();
 
-            _backgroundJobServer = new BackgroundJobServer();
-            BackgroundJobsConfig.Configure(container.Resolve<InitializationEngine>(), container.Resolve<InitializationModel>());
+            GlobalFilters.Filters.Add(new SetCurrentUserInfoAttribute(() => _container.Resolve<ISecurityService>()));
+
+            _databaseEngine = _container.Resolve<IApiConfigurationProvider>().DatabaseEngine;
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                InitializeWebSecurity();
+            }
+
+            BootstrapHangfire();
         }
+
+        private BackgroundJobServer _backgroundJobServer;
+
+        private DatabaseEngine _databaseEngine;
 
         protected void Application_PreSendRequestHeaders()
         {
@@ -89,6 +76,48 @@ namespace EdFi.Ods.SandboxAdmin.Web
         protected void Application_End(object sender, SiteMapResolveEventArgs e)
         {
             _backgroundJobServer.Dispose();
+            _container.Dispose();
+        }
+
+        private void BootstrapContainer()
+        {
+            _container = new WindsorContainer();
+            _container.AddFacility<TypedFactoryFacility>();
+            _container.Install(FromAssembly.This());
+
+            // MVC Dependency Resolution
+            var controllerFactory = new CastleControllerFactory(_container.Kernel);
+            ControllerBuilder.Current.SetControllerFactory(controllerFactory);
+
+            // WebApi Dependency Resolution
+            var dependencyResolver = new WindsorDependencyResolver(_container);
+            GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver;
+        }
+
+        private void BootstrapHangfire()
+        {
+            // Hangfire background processing Resolution
+            Hangfire.GlobalConfiguration.Configuration
+                .UseActivator(new WindsorJobActivator(_container.Kernel))
+                .UseLog4NetLogProvider()
+                .UseRecommendedSerializerSettings()
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170);
+
+            // postgres provider does not find the connection string correctly using the name
+            var connectionString = _container.Resolve<IConfigConnectionStringsProvider>().GetConnectionString("EdFi_Admin");
+
+            if (_databaseEngine == DatabaseEngine.SqlServer)
+            {
+                Hangfire.GlobalConfiguration.Configuration.UseSqlServerStorage(connectionString);
+            }
+            else
+            {
+                Hangfire.GlobalConfiguration.Configuration.UsePostgreSqlStorage(connectionString);
+            }
+
+            _backgroundJobServer = new BackgroundJobServer();
+
+            _container.Resolve<BackgroundJobsConfig>().Configure();
         }
 
         private static void InitializeWebSecurity()
@@ -99,6 +128,11 @@ namespace EdFi.Ods.SandboxAdmin.Web
                 UsersContext.UserIdColumn,
                 UsersContext.UserNameColumn,
                 autoCreateTables: true);
+        }
+
+        public class PostgresSimpleRoleProvider : SimpleRoleProvider
+        {
+
         }
     }
 }
