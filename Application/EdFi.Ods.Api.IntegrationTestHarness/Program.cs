@@ -242,8 +242,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 .For<IConfigValueProvider>()
                                 .ImplementedBy<AppConfigValueProvider>(),
                             Component
-                                .For<IDatabaseTemplateLeaQuery>()
-                                .ImplementedBy<DatabaseTemplateLeaQuery>(),
+                                .For<ITemplateDatabaseLeaQuery>()
+                                .ImplementedBy<SqlServerTemplateDatabaseLeaQuery>(),
                             Component
                                 .For<IDatabaseEngineProvider>()
                                 .ImplementedBy<DatabaseEngineProvider>(),
@@ -272,7 +272,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Component
                                 .For<InitializationEngine>(),
                             Component
-                                .For<ISandboxProvisioner, SqlSandboxProvisioner>());
+                                .For<ISandboxProvisioner, SqlServerSandboxProvisioner>());
                     }
                 }
             }
