@@ -3,6 +3,7 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
+
 BEGIN
     DECLARE 
         @applicationId AS INT,
@@ -1929,6 +1930,79 @@ BEGIN
             END
         END
   
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    ----------------------------------------------------------------------------------------------------------------------------
+    SET @claimSetName = 'Bootstrap Descriptors and EdOrgs'
+    SET @claimSetId = NULL
+
+    SELECT @claimSetId = ClaimSetId
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = @claimSetName
+
+    IF @claimSetId IS NULL
+    BEGIN
+        PRINT 'Creating new claim set: ' + @claimSetName
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (@claimSetName, @applicationId)
+
+        SET @claimSetId = SCOPE_IDENTITY()
+    END
+  
+    PRINT 'Deleting existing actions for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ') on resource claim ''' + @claimName + '''.'
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = @claimSetId AND ResourceClaim_ResourceClaimId = @claimId
+    
+
+    -- Claim set-specific Create authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Create'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @CreateActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @CreateActionId, @authorizationStrategyId) -- Create
+
+    -- Claim set-specific Read authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Read'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @ReadActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @ReadActionId, @authorizationStrategyId) -- Read
+
+    -- Claim set-specific Update authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Update'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @UpdateActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @UpdateActionId, @authorizationStrategyId) -- Update
+
+    -- Claim set-specific Delete authorization
+    SET @authorizationStrategyId = NULL
+    
+
+    IF @authorizationStrategyId IS NULL
+        PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ').'
+    ELSE
+        PRINT 'Creating ''Delete'' action for claim set ''' + @claimSetName + ''' (claimSetId=' + CONVERT(nvarchar, @claimSetId) + ', actionId = ' + CONVERT(nvarchar, @DeleteActionId) + ', authorizationStrategyId = ' + CONVERT(nvarchar, @authorizationStrategyId) + ').'
+        
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (@claimId, @claimSetId, @DeleteActionId, @authorizationStrategyId) -- Delete
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation'
     ----------------------------------------------------------------------------------------------------------------------------
