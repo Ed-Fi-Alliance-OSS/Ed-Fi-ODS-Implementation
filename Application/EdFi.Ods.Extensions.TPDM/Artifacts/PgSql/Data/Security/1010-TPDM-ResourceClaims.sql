@@ -1,9 +1,3 @@
--- SPDX-License-Identifier: Apache-2.0
--- Licensed to the Ed-Fi Alliance under one or more agreements.
--- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
--- See the LICENSE and NOTICES files in the project root for more information.
-
-
 
 DO $$
 DECLARE
@@ -1696,45 +1690,6 @@ BEGIN
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
     VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
-
-    -- Claim set-specific Read authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _ReadActionId, _authorizationStrategyId); -- Read
-
-    -- Claim set-specific Update authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _UpdateActionId, _authorizationStrategyId); -- Update
-
-    -- Claim set-specific Delete authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _DeleteActionId, _authorizationStrategyId); -- Delete
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation'
     ----------------------------------------------------------------------------------------------------------------------------
