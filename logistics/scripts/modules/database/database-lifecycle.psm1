@@ -141,15 +141,14 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
     Write-InvocationInfo $MyInvocation
 
-    $scriptParams = @{
-        serverName   = $csb.host
-        portNumber   = $csb.port
-        userName     = $csb.username
-        databaseName = $csb.database
-    }
-
-
     if ($engine -eq 'PostgreSQL') {
+        $scriptParams = @{
+            serverName   = $csb.host
+            portNumber   = $csb.port
+            userName     = $csb.username
+            databaseName = $csb.database
+        }
+    
         Remove-PostgresSQLDatabaseAsTemplate @scriptParams
 
         if ($dropDatabase) {
