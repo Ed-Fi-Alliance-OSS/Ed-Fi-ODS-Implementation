@@ -95,52 +95,52 @@ BEGIN
     
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, _CreateActionId, authorization_strategy_id); -- Create
+    VALUES (claim_id, claim_set_id, Create_action_id, authorization_strategy_id); -- Create
 
     -- Claim set-specific Read authorization
     authorization_strategy_id := NULL;
     
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _ReadActionId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Read_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, _ReadActionId, authorization_strategy_id); -- Read
+    VALUES (claim_id, claim_set_id, Read_action_id, authorization_strategy_id); -- Read
 
     -- Claim set-specific Update authorization
     authorization_strategy_id := NULL;
     
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _UpdateActionId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Update_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, _UpdateActionId, authorization_strategy_id); -- Update
+    VALUES (claim_id, claim_set_id, Update_action_id, authorization_strategy_id); -- Update
 
     -- Claim set-specific Delete authorization
     authorization_strategy_id := NULL;
     
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _DeleteActionId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Delete_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, _DeleteActionId, authorization_strategy_id); -- Delete
+    VALUES (claim_id, claim_set_id, Delete_action_id, authorization_strategy_id); -- Delete
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
 
@@ -191,7 +191,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -205,7 +205,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -219,7 +219,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -233,7 +233,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -604,7 +604,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -618,7 +618,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -632,7 +632,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -646,7 +646,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -698,7 +698,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -712,7 +712,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -726,7 +726,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -740,7 +740,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -879,7 +879,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -893,7 +893,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -907,7 +907,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -921,7 +921,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -973,7 +973,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -987,7 +987,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -1001,7 +1001,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -1015,7 +1015,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -1129,7 +1129,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -1143,7 +1143,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -1157,7 +1157,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -1171,7 +1171,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -1310,7 +1310,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -1324,7 +1324,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -1338,7 +1338,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -1352,7 +1352,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
 
     -- Pop the stack
@@ -1404,7 +1404,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -1418,7 +1418,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -1432,7 +1432,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -1446,7 +1446,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
@@ -2652,7 +2652,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -2666,7 +2666,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -2680,7 +2680,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -2694,7 +2694,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram
     ----------------------------------------------------------------------------------------------------------------------------
@@ -2727,13 +2727,13 @@ BEGIN
     
 
     IF authorization_strategy_id IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || Create_action_id || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (claim_id, claim_set_id, _CreateActionId, authorization_strategy_id); -- Create
+    VALUES (claim_id, claim_set_id, Create_action_id, authorization_strategy_id); -- Create
 
     -- Pop the stack
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
@@ -4726,7 +4726,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+    VALUES (claim_id, Create_action_id, authorization_strategy_id);
 
     -- Default Read authorization
     authorization_strategy_id := NULL;
@@ -4740,7 +4740,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+    VALUES (claim_id, Read_action_id, authorization_strategy_id);
 
     -- Default Update authorization
     authorization_strategy_id := NULL;
@@ -4754,7 +4754,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+    VALUES (claim_id, Update_action_id, authorization_strategy_id);
 
     -- Default Delete authorization
     authorization_strategy_id := NULL;
@@ -4768,7 +4768,7 @@ BEGIN
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+    VALUES (claim_id, Delete_action_id, authorization_strategy_id);
 
     -- Push claimId to the stack
     claim_id_stack := array_append(claim_id_stack, claim_id);
