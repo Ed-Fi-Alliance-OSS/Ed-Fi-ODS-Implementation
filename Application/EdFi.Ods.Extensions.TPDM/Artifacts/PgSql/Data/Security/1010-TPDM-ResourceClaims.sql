@@ -1,55 +1,66 @@
 
 DO $$
 DECLARE
-    _applicationId INTEGER;
-    _claimId INTEGER;
-    _claimName VARCHAR(2048);
-    _parentResourceClaimId INTEGER;
-    _existingParentResourceClaimId INTEGER;
-    _claimSetId INTEGER;
-    _claimSetName VARCHAR(255);
-    _authorizationStrategyId INTEGER;
-    -- Well-known values
-    _createActionId INTEGER := 1;
-    _readActionId INTEGER := 2;
-    _updateActionId INTEGER := 3;
-    _deleteActionId INTEGER := 4;
-    _claimIdStack INTEGER ARRAY;
+    application_id INTEGER;
+    claim_id INTEGER;
+    claim_name VARCHAR(2048);
+    parent_resource_claim_id INTEGER;
+    existing_parent_resource_claim_id INTEGER;
+    claim_set_id INTEGER;
+    claim_set_name VARCHAR(255);
+    authorization_strategy_id INTEGER;
+    create_action_id INTEGER;
+    read_action_id INTEGER;
+    update_action_id INTEGER;
+    delete_action_id INTEGER;
+    claim_id_stack INTEGER ARRAY;
 BEGIN
-    SELECT applicationid INTO _applicationId
+    SELECT applicationid INTO application_id
     FROM dbo.applications WHERE ApplicationName = 'Ed-Fi ODS API';
+
+    SELECT actionid INTO create_action_id
+    FROM dbo.actions WHERE ActionName = 'Create';
+
+    SELECT actionid INTO read_action_id
+    FROM dbo.actions WHERE ActionName = 'Read';
+
+    SELECT actionid INTO update_action_id
+    FROM dbo.actions WHERE ActionName = 'Update';
+
+    SELECT actionid INTO delete_action_id
+    FROM dbo.actions WHERE ActionName = 'Delete';
 
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('tpdm', 'tpdm', 'http://ed-fi.org/ods/identity/claims/domains/tpdm', _parentResourceClaimId, _applicationId)
+        VALUES ('tpdm', 'tpdm', 'http://ed-fi.org/ods/identity/claims/domains/tpdm', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
@@ -57,5198 +68,4999 @@ BEGIN
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimSetName := 'Ed-Fi Sandbox';
-    _claimSetId := NULL;
+    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_id := NULL;
 
-    SELECT ClaimSetId INTO _claimSetId
+    SELECT ClaimSetId INTO claim_set_id
     FROM dbo.ClaimSets
-    WHERE ClaimSetName = _claimSetName;
+    WHERE ClaimSetName = claim_set_name;
 
-    IF _claimSetId IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', _claimSetName;
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
 
         INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (_claimSetName, _applicationId)
+        VALUES (claim_set_name, application_id)
         RETURNING ClaimSetId
-        INTO _claimSetId;
+        INTO claim_set_id;
     END IF;
 
   
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ') on resource claim ''' || _claimName || '''.';
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
     DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = _claimSetId AND ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
     
 
     -- Claim set-specific Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
     
 
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ').';
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
+    VALUES (claim_id, claim_set_id, _CreateActionId, authorization_strategy_id); -- Create
 
     -- Claim set-specific Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
     
 
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ').';
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _ReadActionId || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _ReadActionId, _authorizationStrategyId); -- Read
+    VALUES (claim_id, claim_set_id, _ReadActionId, authorization_strategy_id); -- Read
 
     -- Claim set-specific Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
     
 
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ').';
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _UpdateActionId || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _UpdateActionId, _authorizationStrategyId); -- Update
+    VALUES (claim_id, claim_set_id, _UpdateActionId, authorization_strategy_id); -- Update
 
     -- Claim set-specific Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
     
 
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ').';
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _DeleteActionId || ').';
     ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
+        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
     END IF;
 
     INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _DeleteActionId, _authorizationStrategyId); -- Delete
+    VALUES (claim_id, claim_set_id, _DeleteActionId, authorization_strategy_id); -- Delete
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('performanceEvaluation', 'performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation', _parentResourceClaimId, _applicationId)
+        VALUES ('performanceEvaluation', 'performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/performanceEvaluation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('performanceEvaluation', 'performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation', _parentResourceClaimId, _applicationId)
+        VALUES ('performanceEvaluation', 'performanceEvaluation', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluation', 'evaluation', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluation', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluation', 'evaluation', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationObjective', 'evaluationObjective', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationObjective', 'evaluationObjective', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjective', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationElement', 'evaluationElement', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationElement', 'evaluationElement', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElement', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('rubricDimension', 'rubricDimension', 'http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension', _parentResourceClaimId, _applicationId)
+        VALUES ('rubricDimension', 'rubricDimension', 'http://ed-fi.org/ods/identity/claims/tpdm/rubricDimension', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('quantitativeMeasure', 'quantitativeMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure', _parentResourceClaimId, _applicationId)
+        VALUES ('quantitativeMeasure', 'quantitativeMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasure', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationRating', 'evaluationRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationRating', 'evaluationRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRating', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationObjectiveRating', 'evaluationObjectiveRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationObjectiveRating', 'evaluationObjectiveRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationObjectiveRating', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationElementRating', 'evaluationElementRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationElementRating', 'evaluationElementRating', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRating', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('quantitativeMeasureScore', 'quantitativeMeasureScore', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore', _parentResourceClaimId, _applicationId)
+        VALUES ('quantitativeMeasureScore', 'quantitativeMeasureScore', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureScore', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('performanceEvaluationRating', 'performanceEvaluationRating', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating', _parentResourceClaimId, _applicationId)
+        VALUES ('performanceEvaluationRating', 'performanceEvaluationRating', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRating', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/goal'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/goal';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/goal';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('goal', 'goal', 'http://ed-fi.org/ods/identity/claims/tpdm/goal', _parentResourceClaimId, _applicationId)
+        VALUES ('goal', 'goal', 'http://ed-fi.org/ods/identity/claims/tpdm/goal', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('credentials', 'credentials', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials', _parentResourceClaimId, _applicationId)
+        VALUES ('credentials', 'credentials', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Namespace Based';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Namespace Based''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Namespace Based';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Namespace Based''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Namespace Based';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Namespace Based''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Namespace Based';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Namespace Based''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/credentials
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certification'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certification';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certification';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certification', 'certification', 'http://ed-fi.org/ods/identity/claims/tpdm/certification', _parentResourceClaimId, _applicationId)
+        VALUES ('certification', 'certification', 'http://ed-fi.org/ods/identity/claims/tpdm/certification', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExam'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExam';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExam';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationExam', 'certificationExam', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExam', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationExam', 'certificationExam', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExam', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationExamResult', 'certificationExamResult', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationExamResult', 'certificationExamResult', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamResult', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('credentialEvent', 'credentialEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('credentialEvent', 'credentialEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('professionalDevelopment', 'professionalDevelopment', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment', _parentResourceClaimId, _applicationId)
+        VALUES ('professionalDevelopment', 'professionalDevelopment', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/professionalDevelopment
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('professionalDevelopmentEvent', 'professionalDevelopmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('professionalDevelopmentEvent', 'professionalDevelopmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('professionalDevelopmentEventAttendance', 'professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance', _parentResourceClaimId, _applicationId)
+        VALUES ('professionalDevelopmentEventAttendance', 'professionalDevelopmentEventAttendance', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentEventAttendance', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('recruiting', 'recruiting', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting', _parentResourceClaimId, _applicationId)
+        VALUES ('recruiting', 'recruiting', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'Relationships with Education Organizations only';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/recruiting
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/application'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/application';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/application';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('application', 'application', 'http://ed-fi.org/ods/identity/claims/tpdm/application', _parentResourceClaimId, _applicationId)
+        VALUES ('application', 'application', 'http://ed-fi.org/ods/identity/claims/tpdm/application', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicationEvent', 'applicationEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('applicationEvent', 'applicationEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('openStaffPositionEvent', 'openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('openStaffPositionEvent', 'openStaffPositionEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('recruitmentEvent', 'recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('recruitmentEvent', 'recruitmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('noFurtherAuthorizationRequiredData', 'noFurtherAuthorizationRequiredData', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData', _parentResourceClaimId, _applicationId)
+        VALUES ('noFurtherAuthorizationRequiredData', 'noFurtherAuthorizationRequiredData', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/noFurtherAuthorizationRequiredData
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('personRoleAssociations', 'personRoleAssociations', 'http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations', _parentResourceClaimId, _applicationId)
+        VALUES ('personRoleAssociations', 'personRoleAssociations', 'http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/personRoleAssociations
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicantProspectAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicantProspectAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicantProspectAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicantProspectAssociation', 'applicantProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/applicantProspectAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('applicantProspectAssociation', 'applicantProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/applicantProspectAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/completerAsStaffAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/completerAsStaffAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/completerAsStaffAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('completerAsStaffAssociation', 'completerAsStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/completerAsStaffAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('completerAsStaffAssociation', 'completerAsStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/completerAsStaffAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffApplicantAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffApplicantAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffApplicantAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffApplicantAssociation', 'staffApplicantAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffApplicantAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffApplicantAssociation', 'staffApplicantAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffApplicantAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffProspectAssociation', 'staffProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffProspectAssociation', 'staffProspectAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffProspectAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateStaffAssociation', 'teacherCandidateStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateStaffAssociation', 'teacherCandidateStaffAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStaffAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram';
-    _claimId := NULL;
-
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
-    FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
-
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
-
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
-
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', _parentResourceClaimId, _applicationId)
-        RETURNING ResourceClaimId
-        INTO _claimId;
-    ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
-        END IF;
-    END IF;
-  
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimSetName := 'Bootstrap Descriptors and EdOrgs';
-    _claimSetId := NULL;
-
-    SELECT ClaimSetId INTO _claimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = _claimSetName;
-
-    IF _claimSetId IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', _claimSetName;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (_claimSetName, _applicationId)
-        RETURNING ClaimSetId
-        INTO _claimSetId;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ') on resource claim ''' || _claimName || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = _claimSetId AND ResourceClaim_ResourceClaimId = _claimId;
-    
-
-    -- Claim set-specific Create authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffPreparation', 'staffPreparation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffPreparation', 'staffPreparation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/staffPreparation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasure'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasure';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasure';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffStudentGrowthMeasure', 'staffStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasure', _parentResourceClaimId, _applicationId)
+        VALUES ('staffStudentGrowthMeasure', 'staffStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasure', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureCourseAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureCourseAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureCourseAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffStudentGrowthMeasureCourseAssociation', 'staffStudentGrowthMeasureCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureCourseAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffStudentGrowthMeasureCourseAssociation', 'staffStudentGrowthMeasureCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureCourseAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureEducationOrganizationAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureEducationOrganizationAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureEducationOrganizationAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffStudentGrowthMeasureEducationOrganizationAssociation', 'staffStudentGrowthMeasureEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureEducationOrganizationAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffStudentGrowthMeasureEducationOrganizationAssociation', 'staffStudentGrowthMeasureEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureEducationOrganizationAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureSectionAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureSectionAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffStudentGrowthMeasureSectionAssociation', 'staffStudentGrowthMeasureSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureSectionAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffStudentGrowthMeasureSectionAssociation', 'staffStudentGrowthMeasureSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffStudentGrowthMeasureSectionAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffTeacherPreparationProviderAssociation', 'staffTeacherPreparationProviderAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffTeacherPreparationProviderAssociation', 'staffTeacherPreparationProviderAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderProgramAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderProgramAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderProgramAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('staffTeacherPreparationProviderProgramAssociation', 'staffTeacherPreparationProviderProgramAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderProgramAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('staffTeacherPreparationProviderProgramAssociation', 'staffTeacherPreparationProviderProgramAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/staffTeacherPreparationProviderProgramAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidatePreparation', 'teacherCandidatePreparation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidatePreparation', 'teacherCandidatePreparation', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/teacherCandidatePreparation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateAcademicRecord'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateAcademicRecord';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateAcademicRecord';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateAcademicRecord', 'teacherCandidateAcademicRecord', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateAcademicRecord', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateAcademicRecord', 'teacherCandidateAcademicRecord', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateAcademicRecord', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateCourseTranscript', 'teacherCandidateCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateCourseTranscript', 'teacherCandidateCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCourseTranscript', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateStudentGrowthMeasure', 'teacherCandidateStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateStudentGrowthMeasure', 'teacherCandidateStudentGrowthMeasure', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasure', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureCourseAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureCourseAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureCourseAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateStudentGrowthMeasureCourseAssociation', 'teacherCandidateStudentGrowthMeasureCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureCourseAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateStudentGrowthMeasureCourseAssociation', 'teacherCandidateStudentGrowthMeasureCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureCourseAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', 'teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', 'teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureEducationOrganizationAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureSectionAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureSectionAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateStudentGrowthMeasureSectionAssociation', 'teacherCandidateStudentGrowthMeasureSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureSectionAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateStudentGrowthMeasureSectionAssociation', 'teacherCandidateStudentGrowthMeasureSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateStudentGrowthMeasureSectionAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateTeacherPreparationProviderAssociation', 'teacherCandidateTeacherPreparationProviderAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateTeacherPreparationProviderAssociation', 'teacherCandidateTeacherPreparationProviderAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateTeacherPreparationProviderProgramAssociation', 'teacherCandidateTeacherPreparationProviderProgramAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateTeacherPreparationProviderProgramAssociation', 'teacherCandidateTeacherPreparationProviderProgramAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateTeacherPreparationProviderProgramAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/students'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/students';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/students';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('students', 'students', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/students', _parentResourceClaimId, _applicationId)
+        VALUES ('students', 'students', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/students', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/students
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', _parentResourceClaimId, _applicationId)
+        VALUES ('fieldworkExperience', 'fieldworkExperience', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperience', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('fieldworkExperienceSectionAssociation', 'fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('fieldworkExperienceSectionAssociation', 'fieldworkExperienceSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkExperienceSectionAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/employment'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/employment';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/employment';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employment', 'employment', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/employment', _parentResourceClaimId, _applicationId)
+        VALUES ('employment', 'employment', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/employment', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/employment
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employmentEvent', 'employmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('employmentEvent', 'employmentEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationEvent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationEvent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationEvent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employmentSeparationEvent', 'employmentSeparationEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationEvent', _parentResourceClaimId, _applicationId)
+        VALUES ('employmentSeparationEvent', 'employmentSeparationEvent', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationEvent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentAcademics', 'anonymizedStudentAcademics', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentAcademics', 'anonymizedStudentAcademics', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/anonymizedStudentAcademics
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudent', 'anonymizedStudent', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudent', 'anonymizedStudent', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudent', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAcademicRecord'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAcademicRecord';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAcademicRecord';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentAcademicRecord', 'anonymizedStudentAcademicRecord', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAcademicRecord', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentAcademicRecord', 'anonymizedStudentAcademicRecord', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAcademicRecord', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessment'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessment';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessment';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentAssessment', 'anonymizedStudentAssessment', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessment', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentAssessment', 'anonymizedStudentAssessment', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessment', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentCourseAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentCourseAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentCourseAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentAssessmentCourseAssociation', 'anonymizedStudentAssessmentCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentCourseAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentAssessmentCourseAssociation', 'anonymizedStudentAssessmentCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentCourseAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentSectionAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentSectionAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentAssessmentSectionAssociation', 'anonymizedStudentAssessmentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentSectionAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentAssessmentSectionAssociation', 'anonymizedStudentAssessmentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentAssessmentSectionAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentCourseAssociation', 'anonymizedStudentCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentCourseAssociation', 'anonymizedStudentCourseAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseTranscript'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseTranscript';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseTranscript';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentCourseTranscript', 'anonymizedStudentCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseTranscript', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentCourseTranscript', 'anonymizedStudentCourseTranscript', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentCourseTranscript', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentEducationOrganizationAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentEducationOrganizationAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentEducationOrganizationAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentEducationOrganizationAssociation', 'anonymizedStudentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentEducationOrganizationAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentEducationOrganizationAssociation', 'anonymizedStudentEducationOrganizationAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentEducationOrganizationAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentSectionAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentSectionAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('anonymizedStudentSectionAssociation', 'anonymizedStudentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentSectionAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('anonymizedStudentSectionAssociation', 'anonymizedStudentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/anonymizedStudentSectionAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram';
+    claim_id := NULL;
+
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
+    FROM dbo.ResourceClaims
+    WHERE ClaimName = claim_name;
+
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
+
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
+
+        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
+        VALUES ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', parent_resource_claim_id, application_id)
+        RETURNING ResourceClaimId
+        INTO claim_id;
+    ELSE
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
+
+            UPDATE dbo.ResourceClaims
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
+        END IF;
+    END IF;
+  
+    -- Setting default authorization metadata
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
+    DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
+    
+    -- Default Create authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.DisplayName = 'Relationships with Education Organizations only';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
+
+    -- Default Read authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.DisplayName = 'Relationships with Education Organizations only';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
+
+    -- Default Update authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.DisplayName = 'Relationships with Education Organizations only';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
+
+    -- Default Delete authorization
+    authorization_strategy_id := NULL;
+
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
+    FROM    dbo.AuthorizationStrategies a
+    WHERE   a.DisplayName = 'Relationships with Education Organizations only';
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''Relationships with Education Organizations only''';
+    END IF;
+
+    INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
+
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram
+    ----------------------------------------------------------------------------------------------------------------------------
+    -- Claim set: 'Bootstrap Descriptors and EdOrgs'
+    ----------------------------------------------------------------------------------------------------------------------------
+    claim_set_name := 'Bootstrap Descriptors and EdOrgs';
+    claim_set_id := NULL;
+
+    SELECT ClaimSetId INTO claim_set_id
+    FROM dbo.ClaimSets
+    WHERE ClaimSetName = claim_set_name;
+
+    IF claim_set_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim set: %', claim_set_name;
+
+        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
+        VALUES (claim_set_name, application_id)
+        RETURNING ClaimSetId
+        INTO claim_set_id;
+    END IF;
+
+  
+    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ') on resource claim ''' || claim_name || '''.';
+    DELETE FROM dbo.ClaimSetResourceClaims
+    WHERE ClaimSet_ClaimSetId = claim_set_id AND ResourceClaim_ResourceClaimId = claim_id;
+    
+
+    -- Claim set-specific Create authorization
+    authorization_strategy_id := NULL;
+    
+
+    IF authorization_strategy_id IS NULL THEN
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ').';
+    ELSE
+        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || claim_set_name || ''' (claimSetId=' || claim_set_id || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || authorization_strategy_id || ').';
+    END IF;
+
+    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
+    VALUES (claim_id, claim_set_id, _CreateActionId, authorization_strategy_id); -- Create
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', _parentResourceClaimId, _applicationId)
+        VALUES ('systemDescriptors', 'systemDescriptors', 'http://ed-fi.org/ods/identity/claims/domains/systemDescriptors', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/systemDescriptors
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('descriptors', 'descriptors', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors', _parentResourceClaimId, _applicationId)
+        VALUES ('descriptors', 'descriptors', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimSetName := 'Ed-Fi Sandbox';
-    _claimSetId := NULL;
-
-    SELECT ClaimSetId INTO _claimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = _claimSetName;
-
-    IF _claimSetId IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', _claimSetName;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (_claimSetName, _applicationId)
-        RETURNING ClaimSetId
-        INTO _claimSetId;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ') on resource claim ''' || _claimName || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = _claimSetId AND ResourceClaim_ResourceClaimId = _claimId;
-    
-
-    -- Claim set-specific Create authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
-
-    -- Claim set-specific Read authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _ReadActionId, _authorizationStrategyId); -- Read
-
-    -- Claim set-specific Update authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _UpdateActionId, _authorizationStrategyId); -- Update
-
-    -- Claim set-specific Delete authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _DeleteActionId, _authorizationStrategyId); -- Delete
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/descriptors
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('accreditationStatusDescriptor', 'accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('accreditationStatusDescriptor', 'accreditationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/accreditationStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/aidTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/aidTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/aidTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('aidTypeDescriptor', 'aidTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/aidTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('aidTypeDescriptor', 'aidTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/aidTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicationEventResultDescriptor', 'applicationEventResultDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('applicationEventResultDescriptor', 'applicationEventResultDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventResultDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicationEventTypeDescriptor', 'applicationEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('applicationEventTypeDescriptor', 'applicationEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationEventTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicationSourceDescriptor', 'applicationSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('applicationSourceDescriptor', 'applicationSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationSourceDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicationStatusDescriptor', 'applicationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('applicationStatusDescriptor', 'applicationStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/applicationStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('backgroundCheckStatusDescriptor', 'backgroundCheckStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('backgroundCheckStatusDescriptor', 'backgroundCheckStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('backgroundCheckTypeDescriptor', 'backgroundCheckTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('backgroundCheckTypeDescriptor', 'backgroundCheckTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/backgroundCheckTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationExamStatusDescriptor', 'certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationExamStatusDescriptor', 'certificationExamStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationExamTypeDescriptor', 'certificationExamTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationExamTypeDescriptor', 'certificationExamTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationExamTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationFieldDescriptor', 'certificationFieldDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationFieldDescriptor', 'certificationFieldDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationFieldDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationLevelDescriptor', 'certificationLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationLevelDescriptor', 'certificationLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationRouteDescriptor', 'certificationRouteDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationRouteDescriptor', 'certificationRouteDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationRouteDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('certificationStandardDescriptor', 'certificationStandardDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('certificationStandardDescriptor', 'certificationStandardDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/certificationStandardDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/coteachingStyleObservedDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/coteachingStyleObservedDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/coteachingStyleObservedDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('coteachingStyleObservedDescriptor', 'coteachingStyleObservedDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/coteachingStyleObservedDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('coteachingStyleObservedDescriptor', 'coteachingStyleObservedDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/coteachingStyleObservedDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('credentialEventTypeDescriptor', 'credentialEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('credentialEventTypeDescriptor', 'credentialEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialEventTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/credentialStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/credentialStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('credentialStatusDescriptor', 'credentialStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('credentialStatusDescriptor', 'credentialStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/credentialStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('degreeDescriptor', 'degreeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('degreeDescriptor', 'degreeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/degreeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/educatorRoleDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/educatorRoleDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/educatorRoleDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educatorRoleDescriptor', 'educatorRoleDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/educatorRoleDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('educatorRoleDescriptor', 'educatorRoleDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/educatorRoleDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEventTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEventTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employmentEventTypeDescriptor', 'employmentEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEventTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('employmentEventTypeDescriptor', 'employmentEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentEventTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationReasonDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationReasonDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationReasonDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employmentSeparationReasonDescriptor', 'employmentSeparationReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationReasonDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('employmentSeparationReasonDescriptor', 'employmentSeparationReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationReasonDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('employmentSeparationTypeDescriptor', 'employmentSeparationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('employmentSeparationTypeDescriptor', 'employmentSeparationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/employmentSeparationTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/englishLanguageExamDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/englishLanguageExamDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/englishLanguageExamDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('englishLanguageExamDescriptor', 'englishLanguageExamDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/englishLanguageExamDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('englishLanguageExamDescriptor', 'englishLanguageExamDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/englishLanguageExamDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRatingLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRatingLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRatingLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationElementRatingLevelDescriptor', 'evaluationElementRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRatingLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationElementRatingLevelDescriptor', 'evaluationElementRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationElementRatingLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationPeriodDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationPeriodDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationPeriodDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationPeriodDescriptor', 'evaluationPeriodDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationPeriodDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationPeriodDescriptor', 'evaluationPeriodDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationPeriodDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationRatingLevelDescriptor', 'evaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationRatingLevelDescriptor', 'evaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationRatingLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('evaluationTypeDescriptor', 'evaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('evaluationTypeDescriptor', 'evaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/evaluationTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('federalLocaleCodeDescriptor', 'federalLocaleCodeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('federalLocaleCodeDescriptor', 'federalLocaleCodeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/federalLocaleCodeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('fieldworkTypeDescriptor', 'fieldworkTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('fieldworkTypeDescriptor', 'fieldworkTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/fieldworkTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('fundingSourceDescriptor', 'fundingSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('fundingSourceDescriptor', 'fundingSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/fundingSourceDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/genderDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/genderDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/genderDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('genderDescriptor', 'genderDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/genderDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('genderDescriptor', 'genderDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/genderDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('goalTypeDescriptor', 'goalTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('goalTypeDescriptor', 'goalTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/goalTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('hireStatusDescriptor', 'hireStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('hireStatusDescriptor', 'hireStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/hireStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('hiringSourceDescriptor', 'hiringSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('hiringSourceDescriptor', 'hiringSourceDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/hiringSourceDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('instructionalSettingDescriptor', 'instructionalSettingDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('instructionalSettingDescriptor', 'instructionalSettingDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/instructionalSettingDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/internalExternalHireDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/internalExternalHireDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/internalExternalHireDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('internalExternalHireDescriptor', 'internalExternalHireDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/internalExternalHireDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('internalExternalHireDescriptor', 'internalExternalHireDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/internalExternalHireDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/levelOfDegreeAwardedDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/levelOfDegreeAwardedDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/levelOfDegreeAwardedDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('levelOfDegreeAwardedDescriptor', 'levelOfDegreeAwardedDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/levelOfDegreeAwardedDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('levelOfDegreeAwardedDescriptor', 'levelOfDegreeAwardedDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/levelOfDegreeAwardedDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/objectiveRatingLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/objectiveRatingLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/objectiveRatingLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('objectiveRatingLevelDescriptor', 'objectiveRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/objectiveRatingLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('objectiveRatingLevelDescriptor', 'objectiveRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/objectiveRatingLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('openStaffPositionEventStatusDescriptor', 'openStaffPositionEventStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('openStaffPositionEventStatusDescriptor', 'openStaffPositionEventStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('openStaffPositionEventTypeDescriptor', 'openStaffPositionEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('openStaffPositionEventTypeDescriptor', 'openStaffPositionEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionEventTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('openStaffPositionReasonDescriptor', 'openStaffPositionReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('openStaffPositionReasonDescriptor', 'openStaffPositionReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/openStaffPositionReasonDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('performanceEvaluationRatingLevelDescriptor', 'performanceEvaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('performanceEvaluationRatingLevelDescriptor', 'performanceEvaluationRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationRatingLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('performanceEvaluationTypeDescriptor', 'performanceEvaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('performanceEvaluationTypeDescriptor', 'performanceEvaluationTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/performanceEvaluationTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('previousCareerDescriptor', 'previousCareerDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('previousCareerDescriptor', 'previousCareerDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/previousCareerDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('professionalDevelopmentOfferedByDescriptor', 'professionalDevelopmentOfferedByDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('professionalDevelopmentOfferedByDescriptor', 'professionalDevelopmentOfferedByDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/professionalDevelopmentOfferedByDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('programGatewayDescriptor', 'programGatewayDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('programGatewayDescriptor', 'programGatewayDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/programGatewayDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/prospectTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/prospectTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/prospectTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('prospectTypeDescriptor', 'prospectTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/prospectTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('prospectTypeDescriptor', 'prospectTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/prospectTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('quantitativeMeasureDatatypeDescriptor', 'quantitativeMeasureDatatypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('quantitativeMeasureDatatypeDescriptor', 'quantitativeMeasureDatatypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureDatatypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('quantitativeMeasureTypeDescriptor', 'quantitativeMeasureTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('quantitativeMeasureTypeDescriptor', 'quantitativeMeasureTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/quantitativeMeasureTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('recruitmentEventTypeDescriptor', 'recruitmentEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('recruitmentEventTypeDescriptor', 'recruitmentEventTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/recruitmentEventTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/rubricRatingLevelDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/rubricRatingLevelDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/rubricRatingLevelDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('rubricRatingLevelDescriptor', 'rubricRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/rubricRatingLevelDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('rubricRatingLevelDescriptor', 'rubricRatingLevelDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/rubricRatingLevelDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('salaryTypeDescriptor', 'salaryTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('salaryTypeDescriptor', 'salaryTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/salaryTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/schoolStatusDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/schoolStatusDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/schoolStatusDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('schoolStatusDescriptor', 'schoolStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/schoolStatusDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('schoolStatusDescriptor', 'schoolStatusDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/schoolStatusDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/studentGrowthTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/studentGrowthTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/studentGrowthTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('studentGrowthTypeDescriptor', 'studentGrowthTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/studentGrowthTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('studentGrowthTypeDescriptor', 'studentGrowthTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/studentGrowthTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCharacteristicDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCharacteristicDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCharacteristicDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidateCharacteristicDescriptor', 'teacherCandidateCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCharacteristicDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidateCharacteristicDescriptor', 'teacherCandidateCharacteristicDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidateCharacteristicDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProgramTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProgramTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProgramTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherPreparationProgramTypeDescriptor', 'teacherPreparationProgramTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProgramTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherPreparationProgramTypeDescriptor', 'teacherPreparationProgramTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProgramTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/tPPDegreeTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/tPPDegreeTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/tPPDegreeTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('tPPDegreeTypeDescriptor', 'tPPDegreeTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/tPPDegreeTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('tPPDegreeTypeDescriptor', 'tPPDegreeTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/tPPDegreeTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/tPPProgramPathwayDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/tPPProgramPathwayDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/tPPProgramPathwayDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('tPPProgramPathwayDescriptor', 'tPPProgramPathwayDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/tPPProgramPathwayDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('tPPProgramPathwayDescriptor', 'tPPProgramPathwayDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/tPPProgramPathwayDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/valueTypeDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/valueTypeDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/valueTypeDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('valueTypeDescriptor', 'valueTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/valueTypeDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('valueTypeDescriptor', 'valueTypeDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/valueTypeDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('withdrawReasonDescriptor', 'withdrawReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor', _parentResourceClaimId, _applicationId)
+        VALUES ('withdrawReasonDescriptor', 'withdrawReasonDescriptor', 'http://ed-fi.org/ods/identity/claims/tpdm/withdrawReasonDescriptor', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', _parentResourceClaimId, _applicationId)
+        VALUES ('educationOrganizations', 'educationOrganizations', 'http://ed-fi.org/ods/identity/claims/domains/educationOrganizations', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/educationOrganizations
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProvider'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProvider';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProvider';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherPreparationProvider', 'teacherPreparationProvider', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProvider', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherPreparationProvider', 'teacherPreparationProvider', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProvider', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/university'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/university';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/university';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('university', 'university', 'http://ed-fi.org/ods/identity/claims/tpdm/university', _parentResourceClaimId, _applicationId)
+        VALUES ('university', 'university', 'http://ed-fi.org/ods/identity/claims/tpdm/university', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/people'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/people';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/people';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', _parentResourceClaimId, _applicationId)
+        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/people', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/tpdm/people'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/people';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/tpdm/people';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/people', _parentResourceClaimId, _applicationId)
+        VALUES ('people', 'people', 'http://ed-fi.org/ods/identity/claims/domains/tpdm/people', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Setting default authorization metadata
-    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || _claimName || ''' (claimId=' || _claimId || ').';
+    RAISE NOTICE USING MESSAGE = 'Deleting default action authorizations for resource claim ''' || claim_name || ''' (claimId=' || claim_id || ').';
     DELETE FROM dbo.ResourceClaimAuthorizationMetadatas
-    WHERE ResourceClaim_ResourceClaimId = _claimId;
+    WHERE ResourceClaim_ResourceClaimId = claim_id;
     
     -- Default Create authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _CreateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _CreateActionId, authorization_strategy_id);
 
     -- Default Read authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _ReadActionId, _authorizationStrategyId);
+    VALUES (claim_id, _ReadActionId, authorization_strategy_id);
 
     -- Default Update authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _UpdateActionId, _authorizationStrategyId);
+    VALUES (claim_id, _UpdateActionId, authorization_strategy_id);
 
     -- Default Delete authorization
-    _authorizationStrategyId := NULL;
+    authorization_strategy_id := NULL;
 
-    SELECT a.AuthorizationStrategyId INTO _authorizationStrategyId
+    SELECT a.AuthorizationStrategyId INTO authorization_strategy_id
     FROM    dbo.AuthorizationStrategies a
     WHERE   a.DisplayName = 'No Further Authorization Required';
 
-    IF _authorizationStrategyId IS NULL THEN
+    IF authorization_strategy_id IS NULL THEN
         RAISE EXCEPTION USING MESSAGE = 'AuthorizationStrategy does not exist: ''No Further Authorization Required''';
     END IF;
 
     INSERT INTO dbo.ResourceClaimAuthorizationMetadatas(ResourceClaim_ResourceClaimId, Action_ActionId, AuthorizationStrategy_AuthorizationStrategyId)
-    VALUES (_claimId, _DeleteActionId, _authorizationStrategyId);
+    VALUES (claim_id, _DeleteActionId, authorization_strategy_id);
 
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/tpdm/people
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidate'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidate';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidate';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherCandidate', 'teacherCandidate', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidate', _parentResourceClaimId, _applicationId)
+        VALUES ('teacherCandidate', 'teacherCandidate', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherCandidate', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/applicant'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/applicant';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/applicant';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('applicant', 'applicant', 'http://ed-fi.org/ods/identity/claims/tpdm/applicant', _parentResourceClaimId, _applicationId)
+        VALUES ('applicant', 'applicant', 'http://ed-fi.org/ods/identity/claims/tpdm/applicant', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/prospect'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/prospect';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/prospect';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('prospect', 'prospect', 'http://ed-fi.org/ods/identity/claims/tpdm/prospect', _parentResourceClaimId, _applicationId)
+        VALUES ('prospect', 'prospect', 'http://ed-fi.org/ods/identity/claims/tpdm/prospect', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', _parentResourceClaimId, _applicationId)
+        VALUES ('surveyDomain', 'surveyDomain', 'http://ed-fi.org/ods/identity/claims/domains/surveyDomain', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/domains/surveyDomain
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimSetName := 'Ed-Fi Sandbox';
-    _claimSetId := NULL;
-
-    SELECT ClaimSetId INTO _claimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = _claimSetName;
-
-    IF _claimSetId IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', _claimSetName;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (_claimSetName, _applicationId)
-        RETURNING ClaimSetId
-        INTO _claimSetId;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ') on resource claim ''' || _claimName || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = _claimSetId AND ResourceClaim_ResourceClaimId = _claimId;
-    
-
-    -- Claim set-specific Create authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
-
-    -- Claim set-specific Read authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _ReadActionId, _authorizationStrategyId); -- Read
-
-    -- Claim set-specific Update authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _UpdateActionId, _authorizationStrategyId); -- Update
-
-    -- Claim set-specific Delete authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _DeleteActionId, _authorizationStrategyId); -- Delete
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/surveyDomain
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'https://ed-fi.org/ods/identity/claims/domains/tpdm/survey'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'https://ed-fi.org/ods/identity/claims/domains/tpdm/survey';
-    _claimId := NULL;
+    claim_name := 'https://ed-fi.org/ods/identity/claims/domains/tpdm/survey';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('survey', 'survey', 'https://ed-fi.org/ods/identity/claims/domains/tpdm/survey', _parentResourceClaimId, _applicationId)
+        VALUES ('survey', 'survey', 'https://ed-fi.org/ods/identity/claims/domains/tpdm/survey', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     -- Push claimId to the stack
-    _claimIdStack := array_append(_claimIdStack, _claimId);
+    claim_id_stack := array_append(claim_id_stack, claim_id);
 
     -- Processing children of https://ed-fi.org/ods/identity/claims/domains/tpdm/survey
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveySectionAggregateResponse', 'surveySectionAggregateResponse', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse', _parentResourceClaimId, _applicationId)
+        VALUES ('surveySectionAggregateResponse', 'surveySectionAggregateResponse', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionAggregateResponse', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/surveyResponseTeacherCandidateTargetAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/surveyResponseTeacherCandidateTargetAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/surveyResponseTeacherCandidateTargetAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveyResponseTeacherCandidateTargetAssociation', 'surveyResponseTeacherCandidateTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveyResponseTeacherCandidateTargetAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('surveyResponseTeacherCandidateTargetAssociation', 'surveyResponseTeacherCandidateTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveyResponseTeacherCandidateTargetAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('surveySectionResponseTeacherCandidateTargetAssociation', 'surveySectionResponseTeacherCandidateTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation', _parentResourceClaimId, _applicationId)
+        VALUES ('surveySectionResponseTeacherCandidateTargetAssociation', 'surveySectionResponseTeacherCandidateTargetAssociation', 'http://ed-fi.org/ods/identity/claims/tpdm/surveySectionResponseTeacherCandidateTargetAssociation', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/graduationPlan'
     ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/graduationPlan';
-    _claimId := NULL;
+    claim_name := 'http://ed-fi.org/ods/identity/claims/graduationPlan';
+    claim_id := NULL;
 
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
+    SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
     FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
+    WHERE ClaimName = claim_name;
 
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
+    parent_resource_claim_id := claim_id_stack[array_upper(claim_id_stack, 1)];
 
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
+    IF claim_id IS NULL THEN
+        RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('graduationPlan', 'graduationPlan', 'http://ed-fi.org/ods/identity/claims/graduationPlan', _parentResourceClaimId, _applicationId)
+        VALUES ('graduationPlan', 'graduationPlan', 'http://ed-fi.org/ods/identity/claims/graduationPlan', parent_resource_claim_id, application_id)
         RETURNING ResourceClaimId
-        INTO _claimId;
+        INTO claim_id;
     ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
+        IF parent_resource_claim_id != existing_parent_resource_claim_id THEN
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (ResourceClaimId=' || parent_resource_claim_id || ')';
 
             UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
-        END IF;
-    END IF;
-  
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/graduationPlan
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimSetName := 'Ed-Fi Sandbox';
-    _claimSetId := NULL;
-
-    SELECT ClaimSetId INTO _claimSetId
-    FROM dbo.ClaimSets
-    WHERE ClaimSetName = _claimSetName;
-
-    IF _claimSetId IS NULL THEN
-        RAISE NOTICE 'Creating new claim set: %', _claimSetName;
-
-        INSERT INTO dbo.ClaimSets(ClaimSetName, Application_ApplicationId)
-        VALUES (_claimSetName, _applicationId)
-        RETURNING ClaimSetId
-        INTO _claimSetId;
-    END IF;
-
-  
-    RAISE NOTICE USING MESSAGE = 'Deleting existing actions for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ') on resource claim ''' || _claimName || '''.';
-    DELETE FROM dbo.ClaimSetResourceClaims
-    WHERE ClaimSet_ClaimSetId = _claimSetId AND ResourceClaim_ResourceClaimId = _claimId;
-    
-
-    -- Claim set-specific Create authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Create'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _CreateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _CreateActionId, _authorizationStrategyId); -- Create
-
-    -- Claim set-specific Read authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Read'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _ReadActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _ReadActionId, _authorizationStrategyId); -- Read
-
-    -- Claim set-specific Update authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Update'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _UpdateActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _UpdateActionId, _authorizationStrategyId); -- Update
-
-    -- Claim set-specific Delete authorization
-    _authorizationStrategyId := NULL;
-    
-
-    IF _authorizationStrategyId IS NULL THEN
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ').';
-    ELSE
-        RAISE NOTICE USING MESSAGE = 'Creating ''Delete'' action for claim set ''' || _claimSetName || ''' (claimSetId=' || _claimSetId || ', actionId = ' || _DeleteActionId || ', authorizationStrategyId = ' || _authorizationStrategyId || ').';
-    END IF;
-
-    INSERT INTO dbo.ClaimSetResourceClaims(ResourceClaim_ResourceClaimId, ClaimSet_ClaimSetId, Action_ActionId, AuthorizationStrategyOverride_AuthorizationStrategyId)
-    VALUES (_claimId, _claimSetId, _DeleteActionId, _authorizationStrategyId); -- Delete
-    ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram'
-    ----------------------------------------------------------------------------------------------------------------------------
-    _claimName := 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram';
-    _claimId := NULL;
-
-    SELECT ResourceClaimId, ParentResourceClaimId INTO _claimId, _existingParentResourceClaimId
-    FROM dbo.ResourceClaims
-    WHERE ClaimName = _claimName;
-
-    _parentResourceClaimId := _claimIdStack[array_upper(_claimIdStack, 1)];
-
-    IF _claimId IS NULL THEN
-        RAISE NOTICE 'Creating new claim: %', _claimName;
-
-        INSERT INTO dbo.ResourceClaims(DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId)
-        VALUES ('teacherPreparationProviderProgram', 'teacherPreparationProviderProgram', 'http://ed-fi.org/ods/identity/claims/tpdm/teacherPreparationProviderProgram', _parentResourceClaimId, _applicationId)
-        RETURNING ResourceClaimId
-        INTO _claimId;
-    ELSE
-        IF _parentResourceClaimId != _existingParentResourceClaimId THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || _claimName || ''' (ResourceClaimId=' || _claimId || ') to new parent (ResourceClaimId=' || _parentResourceClaimId || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = _parentResourceClaimId
-            WHERE ResourceClaimId = _claimId;
+            SET ParentResourceClaimId = parent_resource_claim_id
+            WHERE ResourceClaimId = claim_id;
         END IF;
     END IF;
   
 
     -- Pop the stack
-    _claimIdStack := (select _claimIdStack[1:array_upper(_claimIdStack, 1) - 1]);
+    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
 END $$;
