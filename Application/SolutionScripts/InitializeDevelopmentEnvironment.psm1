@@ -158,6 +158,19 @@ function Invoke-ConfigTransform {
 
         Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles  -destinationFile $destinationFile
     }
+
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $baseConfig = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Base.config'
+        $npgsqlTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Npgsql.config'
+        $debugTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Debug.config'
+        $destinationFile = ($baseConfig -replace "base.", "")
+
+        $transformFiles = @()
+        if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
+        $transformFiles += $debugTransform
+
+        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles  -destinationFile $destinationFile
+    }
 }
 
 function Get-RandomString {
