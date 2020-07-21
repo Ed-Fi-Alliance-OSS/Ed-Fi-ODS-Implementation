@@ -2,7 +2,7 @@
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
- 
+
 using System.Collections.Generic;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
@@ -19,6 +19,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public string VendorName { get; set; }
 
         public List<Application> Applications { get; set; }
+
+        public List<string> NamespacePrefixes { get; set; }
     }
 
     public class Application

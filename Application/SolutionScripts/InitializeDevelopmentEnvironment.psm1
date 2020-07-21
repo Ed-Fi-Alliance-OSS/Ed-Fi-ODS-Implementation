@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.0.0-b10015"
-    codeGen = "5.0.0-b10270"
+    codeGen = "5.0.0-b10307"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -197,6 +197,10 @@ function Add-SandboxCredentials {
 <initialization enabled="true">
     <users>
         <add name="$adminName" email="$adminEmail" password="$adminPassword" admin="true">
+            <namespacePrefixes>
+                <namespacePrefix name="uri://ed-fi.org" />
+                <namespacePrefix name="uri://gbisd.edu" />
+            </namespacePrefixes>
             <sandboxes>
                 <sandbox name="Populated Demonstration Sandbox" key="$populatedKey" secret="$populatedSecret" type="Sample" refresh="true" />
                 <sandbox name="Minimal Demonstration Sandbox" key="$minimalKey" secret="$minimalSecret" type="Minimal" refresh="true" />
