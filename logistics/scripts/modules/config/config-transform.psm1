@@ -9,7 +9,7 @@ function Install-ToolConfigTransformerCore {
     Param(
         [string] $path = (Get-ToolsPath),
 
-        [string] $version = '1.0.0'
+        [string] $version = '2.0.0'
     )
 
     $params = @{

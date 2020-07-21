@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "4.0.0",
+  "odsApiVersion": "5.0.0",
   "schemaDefinition": {
     "logicalName": "TPDM",
     "physicalName": "tpdm",
@@ -6859,8 +6859,8 @@
           "identifierName": "CertificationCertificationExam_PK",
           "identifyingPropertyNames": [
             "CertificationExamIdentifier",
+            "CertificationExamNamespace",
             "CertificationIdentifier",
-            "ExamNamespace",
             "Namespace"
           ],
           "isPrimary": true,
@@ -6968,23 +6968,6 @@
           }
         },
         {
-          "propertyName": "ExamNamespace",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Namespace for the CertificationExam.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ExamNamespace",
-            "postgreSql": "ExamNamespace"
-          }
-        },
-        {
           "propertyName": "Id",
           "propertyType": {
             "dbType": "Guid",
@@ -7017,6 +7000,23 @@
             "sqlServer": "LastModifiedDate",
             "postgreSql": "LastModifiedDate"
           }
+        },
+        {
+          "propertyName": "Namespace",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Namespace for the CertificationExam.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Namespace",
+            "postgreSql": "Namespace"
+          }
         }
       ],
       "identifiers": [
@@ -7024,7 +7024,7 @@
           "identifierName": "CertificationExam_PK",
           "identifyingPropertyNames": [
             "CertificationExamIdentifier",
-            "ExamNamespace"
+            "Namespace"
           ],
           "isPrimary": true,
           "isUpdatable": false,
@@ -7183,7 +7183,7 @@
           "identifyingPropertyNames": [
             "CertificationExamDate",
             "CertificationExamIdentifier",
-            "ExamNamespace",
+            "Namespace",
             "PersonId",
             "SourceSystemDescriptorId"
           ],
@@ -33872,7 +33872,7 @@
           }
         },
         {
-          "propertyName": "ExamNamespace",
+          "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
             "maxLength": 255,
@@ -33884,8 +33884,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExamNamespace",
-            "postgreSql": "ExamNamespace"
+            "sqlServer": "Namespace",
+            "postgreSql": "Namespace"
           }
         }
       ],
@@ -33912,7 +33912,7 @@
           }
         },
         {
-          "propertyName": "ExamNamespace",
+          "propertyName": "CertificationExamNamespace",
           "propertyType": {
             "dbType": "String",
             "maxLength": 255,
@@ -33924,8 +33924,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExamNamespace",
-            "postgreSql": "ExamNamespace"
+            "sqlServer": "CertificationExamNamespace",
+            "postgreSql": "CertificationExamNamespace"
           }
         }
       ],
@@ -34083,7 +34083,7 @@
           }
         },
         {
-          "propertyName": "ExamNamespace",
+          "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
             "maxLength": 255,
@@ -34095,8 +34095,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExamNamespace",
-            "postgreSql": "ExamNamespace"
+            "sqlServer": "Namespace",
+            "postgreSql": "Namespace"
           }
         }
       ],
@@ -34123,7 +34123,7 @@
           }
         },
         {
-          "propertyName": "ExamNamespace",
+          "propertyName": "Namespace",
           "propertyType": {
             "dbType": "String",
             "maxLength": 255,
@@ -34135,8 +34135,8 @@
           "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "ExamNamespace",
-            "postgreSql": "ExamNamespace"
+            "sqlServer": "Namespace",
+            "postgreSql": "Namespace"
           }
         }
       ],

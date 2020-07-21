@@ -197,6 +197,10 @@ function Add-SandboxCredentials {
 <initialization enabled="true">
     <users>
         <add name="$adminName" email="$adminEmail" password="$adminPassword" admin="true">
+            <namespacePrefixes>
+                <namespacePrefix name="uri://ed-fi.org" />
+                <namespacePrefix name="uri://gbisd.edu" />
+            </namespacePrefixes>
             <sandboxes>
                 <sandbox name="Populated Demonstration Sandbox" key="$populatedKey" secret="$populatedSecret" type="Sample" refresh="true" />
                 <sandbox name="Minimal Demonstration Sandbox" key="$minimalKey" secret="$minimalSecret" type="Minimal" refresh="true" />

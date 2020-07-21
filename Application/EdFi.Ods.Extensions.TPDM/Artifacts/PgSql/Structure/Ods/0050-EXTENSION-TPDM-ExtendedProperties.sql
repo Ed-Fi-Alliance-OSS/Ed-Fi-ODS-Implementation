@@ -504,14 +504,14 @@ COMMENT ON COLUMN tpdm.Certification.EndDate IS 'The month, day, and year on whi
 -- Extended Properties [tpdm].[CertificationCertificationExam] --
 COMMENT ON TABLE tpdm.CertificationCertificationExam IS 'The Certification Eams required for the Certification.';
 COMMENT ON COLUMN tpdm.CertificationCertificationExam.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationCertificationExam.CertificationExamNamespace IS 'Namespace for the CertificationExam.';
 COMMENT ON COLUMN tpdm.CertificationCertificationExam.CertificationIdentifier IS 'Identifier or serial number assigned to the Certification.';
-COMMENT ON COLUMN tpdm.CertificationCertificationExam.ExamNamespace IS 'Namespace for the CertificationExam.';
 COMMENT ON COLUMN tpdm.CertificationCertificationExam.Namespace IS 'Namespace for the Certification, typically associated with the issuing authority.';
 
 -- Extended Properties [tpdm].[CertificationExam] --
 COMMENT ON TABLE tpdm.CertificationExam IS 'An examination required by one or more Certifications.';
 COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
-COMMENT ON COLUMN tpdm.CertificationExam.ExamNamespace IS 'Namespace for the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExam.Namespace IS 'Namespace for the CertificationExam.';
 COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamTitle IS 'The title of the Certification Exam.';
 COMMENT ON COLUMN tpdm.CertificationExam.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN tpdm.CertificationExam.CertificationExamTypeDescriptorId IS 'The type or category of Certification Exam.';
@@ -522,7 +522,7 @@ COMMENT ON COLUMN tpdm.CertificationExam.EndDate IS 'The month, day, and year on
 COMMENT ON TABLE tpdm.CertificationExamResult IS 'The person''s result from taking a Certification Exam.';
 COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamDate IS 'The year, month and day on which the CertificationExam is taken.';
 COMMENT ON COLUMN tpdm.CertificationExamResult.CertificationExamIdentifier IS 'Identifier or serial number assigned to the CertificationExam.';
-COMMENT ON COLUMN tpdm.CertificationExamResult.ExamNamespace IS 'Namespace for the CertificationExam.';
+COMMENT ON COLUMN tpdm.CertificationExamResult.Namespace IS 'Namespace for the CertificationExam.';
 COMMENT ON COLUMN tpdm.CertificationExamResult.PersonId IS 'A unique alphanumeric code assigned to a person.';
 COMMENT ON COLUMN tpdm.CertificationExamResult.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN tpdm.CertificationExamResult.AttemptNumber IS 'The number of the person''s attempt for the Certification Exam.';

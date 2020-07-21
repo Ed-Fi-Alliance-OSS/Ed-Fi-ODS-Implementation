@@ -3,24 +3,30 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-#choco Install Unofficial.Microsoft.SQLServer.SMO -source https://www.nuget.org/api/v2/
-#Trying Add-Type $env:chocolatyInstall\lib\Unofficial.Microsoft.SQLServer.SMO.11.0.3000.0\lib
-$assembliesToLoad = @("Microsoft.SqlServer.SMO", "Microsoft.SqlServer.SmoExtended", "Microsoft.SqlServer.ConnectionInfo", "Microsoft.SqlServer.SqlEnum")
-foreach ($assembly in $assembliesToLoad) {
-    $dllPath = "$env:ChocolateyInstall\lib\Unofficial.Microsoft.SQLServer.SMO.11.0.3000.0\lib\$assembly.dll"
-    if (Test-Path $dllPath) {
-        #Use the file if it is there
-        Add-Type -Path $dllPath | Out-Null
-        Write-Verbose "Loaded $assembly from $dllPath"
-    }
-    else {
-        #Otherwise use the assembly from the GAC (Can't use add type here without specifying the full assembly version).
-        [System.Reflection.Assembly]::LoadWithPartialName($assembly) | Out-Null
-    }
-}
-
 & "$PSScriptRoot\..\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-utility.psm1')
+
+function Test-SqlServerModuleInstalled { $null -ne (Get-InstalledModule | where -Property Name -eq SqlServer) }
+
+function Test-SqlServerModuleImported { $null -ne (Get-Module SqlServer) }
+
+function Use-SqlServerModule {
+    if (Test-SqlServerModuleImported) { return }
+
+    if (Test-SqlServerModuleInstalled) {
+        Import-Module -Force -Scope Global SqlServer
+    }
+    else {
+        # Ensure we have Tls12 support
+        if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
+            [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
+        }
+
+        Write-Host "Installing SqlServer Module"
+        Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
+        Import-Module -Force -Scope Global SqlServer
+    }
+}
 
 <#
 .description
@@ -182,7 +188,7 @@ A folder that the SQL Server user has access to where the bak file can be saved.
 NOTE: This must be a path local to the SQL server, not (necessarily) to the machine this function is called on
 .parameter overwriteExisting
 If passed, run the backup WITH INIT and WITH FORMAT, which will overwrite any existing "backup set" on the "media". In other words, if the backup file already exists, passing this option will overwrite any existing data in that backup file. Without this option, on the other hand, we attempt to append a new backup set, leaving any existing data in the backup file alone.
-Useful in a circumstance whjere a backup has been taken with compression disabled, and then this function (which enables compression) attempts to write a backup to the same location. If this option is not passed, the backup will fail.
+Useful in a circumstance where a backup has been taken with compression disabled, and then this function (which enables compression) attempts to write a backup to the same location. If this option is not passed, the backup will fail.
 .outputs
 Return the file path of the newly created backup file
 #>
@@ -217,6 +223,8 @@ Function Backup-Database {
         $backupActionType = "Database"
     )
 
+    Use-SqlServerModule
+
     # TODO: Not sure why this is a trap... research in git history to figure out why & refactor using try/catch. ODS-4053
     trap [Exception] {
         Write-Error $("ERROR: " + $_.Exception.ToString());
@@ -246,7 +254,7 @@ Function Backup-Database {
         }
         $bakFilePath = [System.IO.Path]::GetFullPath("$bakFilePath")
 
-        #Run setup/clean up if the sql server isthe machine runing the script, or if it is a remote path.
+        #Run setup/clean up if the sql server is the machine runing the script, or if it is a remote path.
         if ($local -contains $csb.DataSource -or ($backupDirectory.StartsWith("\\") -and (Test-Path "$([Io.Path]::GetPathRoot($backupDirectory))"))) {
             # Make sure the backup folder exists
             [IO.Directory]::CreateDirectory($backupDirectory) | Out-Null
@@ -356,6 +364,8 @@ Function Get-Server {
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = 'csb')]
         [System.Data.Common.DbConnectionStringBuilder] $csb
     )
+
+    Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -eq "csb") {
         $csb = Convert-CommonDbCSBtoSqlCSB $csb
@@ -496,6 +506,8 @@ Function Invoke-SqlScript {
         [switch]$returnDataSet
     )
 
+    Use-SqlServerModule
+
     if ($PsCmdlet.ParameterSetName -eq "legacy") {
         #We don't have the variables in context here, ignore metadata.
         $newSqlScript = New-SqlScript -scriptSql $sql -ignoreMetadata
@@ -580,6 +592,8 @@ Function Clear-DatabaseUsers {
         [Parameter(Mandatory = $true)] [System.Data.Common.DbConnectionStringBuilder] $csb,
         [switch] [Alias("safe")] $forceOffline
     )
+
+    Use-SqlServerModule
 
     # DEV NOTES:
     # In the past, this was a very simple function that looked (something) like this:
@@ -695,6 +709,9 @@ Function Remove-Database {
         [Parameter(Position = 4, ParameterSetName = "legacy")]
         [switch] $safe
     )
+
+    Use-SqlServerModule
+
     if ($PsCmdlet.ParameterSetName -match "legacy") {
         $csb = New-DbConnectionStringBuilder -username $username -password $password -property @{
             'Data Source' = $sqlServer
@@ -752,6 +769,9 @@ Function New-Database {
         [parameter(mandatory = $false)]
         [string] $recoveryModel = "Simple"
     )
+
+    Use-SqlServerModule
+
     # Instantiate the database object and create database
     $db = New-Object ('Microsoft.SqlServer.Management.Smo.Database') ($sqlServer, $databaseName)
 
@@ -785,6 +805,9 @@ function Get-SmoFileLocation {
         [Parameter(mandatory = $true)] [Microsoft.SqlServer.Management.Smo.Server] $server,
         [Parameter(mandatory = $true)] [ValidateSet("Data", "Log")] [string] $fileType
     )
+
+    Use-SqlServerModule
+
     $SmoProps = @{
         Data = @{
             Default = "DefaultFile"
@@ -877,6 +900,8 @@ Function Restore-Database {
         [Microsoft.SqlServer.Management.Smo.RestoreActionType]
         $restoreActionType = "Database"
     )
+
+    Use-SqlServerModule
 
     trap [Exception] {
         Write-Error $("ERROR: " + $_.Exception.ToString());
@@ -975,6 +1000,9 @@ Function Test-DatabaseExists {
         [Parameter(Position = 0, Mandatory = $true, ParameterSetName = "legacy")] [Microsoft.SqlServer.Management.Smo.Server] $server,
         [Parameter(Position = 1, Mandatory = $true, ParameterSetName = "legacy")] [string] $databaseName
     )
+
+    Use-SqlServerModule
+
     if ($PsCmdlet.ParameterSetName -match "csb") {
         # Convert to SQL CSB here to ensure the Initial Catalog property will always return the DB name
         $csb = Convert-CommonDbCSBtoSqlCSB -dbCSB $csb

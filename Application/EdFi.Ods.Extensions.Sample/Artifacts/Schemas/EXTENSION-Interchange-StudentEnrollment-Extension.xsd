@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="EXTENSION-Ed-Fi-Extended-Core.xsd" />
   <xs:annotation>
@@ -16,6 +15,7 @@
         <xs:element name="GraduationPlan" type="GraduationPlan" />
         <xs:element name="StudentEducationOrganizationResponsibilityAssociation" type="StudentEducationOrganizationResponsibilityAssociation" />
         <xs:element name="StudentEducationOrganizationAssociation" type="EXTENSION-StudentEducationOrganizationAssociationExtension" />
+        <xs:element name="SectionReference" type="SectionReferenceType" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

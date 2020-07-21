@@ -376,7 +376,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60199</DevelopmentServerPort>
+          <DevelopmentServerPort>54746</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:54746/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

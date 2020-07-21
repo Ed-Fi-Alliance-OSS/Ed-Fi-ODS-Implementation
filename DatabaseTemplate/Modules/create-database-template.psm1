@@ -347,7 +347,7 @@ function Invoke-LoadSampleData {
         bulkLoadForceReloadMetadata = $true
         bulkLoadMaxRequests         = $config.bulkLoadMaxRequests
         BulkLoadNoXmlValidation     = $config.noValidation
-        bulkLoadRetries             = 0
+        bulkLoadRetries             = 1
         bulkLoadTaskCapacity        = 50
     }
 

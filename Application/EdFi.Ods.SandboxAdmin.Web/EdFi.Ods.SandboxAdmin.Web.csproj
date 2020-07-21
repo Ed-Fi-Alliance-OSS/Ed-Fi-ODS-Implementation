@@ -202,6 +202,7 @@
     <Compile Include="App_Start\SandboxAdminApiConfigurationProvider.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\AdminInstaller.cs" />
+    <Compile Include="Filters\ExceptionHandlingFilter.cs" />
     <Compile Include="Filters\ExceptionLoggingFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

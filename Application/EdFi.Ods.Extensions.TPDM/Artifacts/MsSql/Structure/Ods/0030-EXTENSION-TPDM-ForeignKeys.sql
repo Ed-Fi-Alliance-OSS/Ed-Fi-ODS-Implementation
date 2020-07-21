@@ -1128,12 +1128,12 @@ CREATE NONCLUSTERED INDEX [FK_CertificationCertificationExam_Certification]
 ON [tpdm].[CertificationCertificationExam] ([CertificationIdentifier] ASC, [Namespace] ASC)
 GO
 
-ALTER TABLE [tpdm].[CertificationCertificationExam] WITH CHECK ADD CONSTRAINT [FK_CertificationCertificationExam_CertificationExam] FOREIGN KEY ([CertificationExamIdentifier], [ExamNamespace])
-REFERENCES [tpdm].[CertificationExam] ([CertificationExamIdentifier], [ExamNamespace])
+ALTER TABLE [tpdm].[CertificationCertificationExam] WITH CHECK ADD CONSTRAINT [FK_CertificationCertificationExam_CertificationExam] FOREIGN KEY ([CertificationExamIdentifier], [CertificationExamNamespace])
+REFERENCES [tpdm].[CertificationExam] ([CertificationExamIdentifier], [Namespace])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_CertificationCertificationExam_CertificationExam]
-ON [tpdm].[CertificationCertificationExam] ([CertificationExamIdentifier] ASC, [ExamNamespace] ASC)
+ON [tpdm].[CertificationCertificationExam] ([CertificationExamIdentifier] ASC, [CertificationExamNamespace] ASC)
 GO
 
 ALTER TABLE [tpdm].[CertificationExam] WITH CHECK ADD CONSTRAINT [FK_CertificationExam_CertificationExamTypeDescriptor] FOREIGN KEY ([CertificationExamTypeDescriptorId])
@@ -1152,12 +1152,12 @@ CREATE NONCLUSTERED INDEX [FK_CertificationExam_EducationOrganization]
 ON [tpdm].[CertificationExam] ([EducationOrganizationId] ASC)
 GO
 
-ALTER TABLE [tpdm].[CertificationExamResult] WITH CHECK ADD CONSTRAINT [FK_CertificationExamResult_CertificationExam] FOREIGN KEY ([CertificationExamIdentifier], [ExamNamespace])
-REFERENCES [tpdm].[CertificationExam] ([CertificationExamIdentifier], [ExamNamespace])
+ALTER TABLE [tpdm].[CertificationExamResult] WITH CHECK ADD CONSTRAINT [FK_CertificationExamResult_CertificationExam] FOREIGN KEY ([CertificationExamIdentifier], [Namespace])
+REFERENCES [tpdm].[CertificationExam] ([CertificationExamIdentifier], [Namespace])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_CertificationExamResult_CertificationExam]
-ON [tpdm].[CertificationExamResult] ([CertificationExamIdentifier] ASC, [ExamNamespace] ASC)
+ON [tpdm].[CertificationExamResult] ([CertificationExamIdentifier] ASC, [Namespace] ASC)
 GO
 
 ALTER TABLE [tpdm].[CertificationExamResult] WITH CHECK ADD CONSTRAINT [FK_CertificationExamResult_CertificationExamStatusDescriptor] FOREIGN KEY ([CertificationExamStatusDescriptorId])

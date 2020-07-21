@@ -10,11 +10,12 @@
           "ApiClients": [
             {
               "ApiClientName": "255901",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "test2@other.org",
@@ -26,11 +27,12 @@
           "ApiClients": [
             {
               "ApiClientName": "Other_Namespace",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://other.org"]
     },
     {
       "Email": "test3@austin.org",
@@ -42,36 +44,36 @@
           "ApiClients": [
             {
               "ApiClientName": "255901001",
-              "LocalEducationOrganizations": [ 255901001 ]
+              "LocalEducationOrganizations": [255901001]
             },
             {
               "ApiClientName": "255901044",
-              "LocalEducationOrganizations": [ 255901044 ]
+              "LocalEducationOrganizations": [255901044]
             },
             {
               "ApiClientName": "2001",
-              "LocalEducationOrganizations": [ 2001 ]
+              "LocalEducationOrganizations": [2001]
             },
             {
               "ApiClientName": "2002",
-              "LocalEducationOrganizations": [ 2002 ]
+              "LocalEducationOrganizations": [2002]
             },
             {
               "ApiClientName": "1",
-              "LocalEducationOrganizations": [ 1 ]
+              "LocalEducationOrganizations": [1]
             },
             {
               "ApiClientName": "2001_2002_2003",
-              "LocalEducationOrganizations": [ 2001, 2002, 2003 ]
+              "LocalEducationOrganizations": [2001, 2002, 2003]
             },
             {
               "ApiClientName": "2001_2002",
-              "LocalEducationOrganizations": [ 2001, 2002 ]
+              "LocalEducationOrganizations": [2001, 2002]
             }
-
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org", "uri://austin.org"]
     },
     {
       "Email": "SingleProfile1@ed-fi-org",
@@ -80,16 +82,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-IncludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "100001",
-              "LocalEducationOrganizations": [ 100001 ]
+              "LocalEducationOrganizations": [100001]
             }
           ]
         }
-      ]
-
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile2@ed-fi-org",
@@ -98,16 +100,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-ExcludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-ExcludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "100002",
-              "LocalEducationOrganizations": [ 100002 ]
+              "LocalEducationOrganizations": [100002]
             }
           ]
         }
-      ]
-
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile3@ed-fi-org",
@@ -116,16 +118,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-References-IncludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-References-IncludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "100003",
-              "LocalEducationOrganizations": [ 100003 ]
+              "LocalEducationOrganizations": [100003]
             }
           ]
         }
-      ]
-
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile4@ed-fi-org",
@@ -134,15 +136,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-References-ExcludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-References-ExcludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "100004",
-              "LocalEducationOrganizations": [ 100004 ]
+              "LocalEducationOrganizations": [100004]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile5@ed-fi-org",
@@ -151,15 +154,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeAll" ],
+          "Profiles": ["Test-Profile-Resource-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "100005",
-              "LocalEducationOrganizations": [ 100005 ]
+              "LocalEducationOrganizations": [100005]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile6@ed-fi-org",
@@ -168,15 +172,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "Profiles": ["Test-Profile-StaffOnly-Resource-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "100006",
-              "LocalEducationOrganizations": [ 100006 ]
+              "LocalEducationOrganizations": [100006]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile7@ed-fi-org",
@@ -185,15 +190,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-WriteOnly" ],
+          "Profiles": ["Test-Profile-Resource-WriteOnly"],
           "ApiClients": [
             {
               "ApiClientName": "100007",
-              "LocalEducationOrganizations": [ 100007 ]
+              "LocalEducationOrganizations": [100007]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile8@ed-fi-org",
@@ -202,15 +208,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-Child-Collection-IncludeAll" ],
+          "Profiles": ["Test-Profile-Resource-Child-Collection-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "100008",
-              "LocalEducationOrganizations": [ 100008 ]
+              "LocalEducationOrganizations": [100008]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile9@ed-fi-org",
@@ -219,15 +226,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly" ],
+          "Profiles": [
+            "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "100009",
-              "LocalEducationOrganizations": [ 100009 ]
+              "LocalEducationOrganizations": [100009]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile10@ed-fi-org",
@@ -236,15 +246,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2" ],
+          "Profiles": [
+            "Test-Profile-Resource-BaseClass-Child-Collection-ExcludeOnly-2"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "100010",
-              "LocalEducationOrganizations": [ 100010 ]
+              "LocalEducationOrganizations": [100010]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile11@ed-fi-org",
@@ -253,15 +266,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-For-Composites-With-Multiple-Resources" ],
+          "Profiles": ["Test-Profile-For-Composites-With-Multiple-Resources"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_CompositesWithMultipleResources",
-              "LocalEducationOrganizations": [ 100011 ]
+              "LocalEducationOrganizations": [100011]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile112@ed-fi-org",
@@ -273,11 +287,12 @@
           "ApiClients": [
             {
               "ApiClientName": "100011",
-              "LocalEducationOrganizations": [ 100011 ]
+              "LocalEducationOrganizations": [100011]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile12@ed-fi-org",
@@ -286,15 +301,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical" ],
+          "Profiles": [
+            "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ExcludeAllAddrsExceptPhysical",
-              "LocalEducationOrganizations": [ 100012 ]
+              "LocalEducationOrganizations": [100012]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "SingleProfile122@ed-fi-org",
@@ -306,11 +324,12 @@
           "ApiClients": [
             {
               "ApiClientName": "100012",
-              "LocalEducationOrganizations": [ 100012 ]
+              "LocalEducationOrganizations": [100012]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile1@ed-fi-org",
@@ -319,15 +338,19 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeOnly", "Test-Profile-Resource-ExcludeOnly" ],
+          "Profiles": [
+            "Test-Profile-Resource-IncludeOnly",
+            "Test-Profile-Resource-ExcludeOnly"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "200001",
-              "LocalEducationOrganizations": [ 200001 ]
+              "LocalEducationOrganizations": [200001]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile2@ed-fi-org",
@@ -336,15 +359,19 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly", "Test-Profile-Resource-ExcludeOnly" ],
+          "Profiles": [
+            "Test-Profile-Resource-BaseClass-Child-Collection-IncludeOnly",
+            "Test-Profile-Resource-ExcludeOnly"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "200002",
-              "LocalEducationOrganizations": [ 200002 ]
+              "LocalEducationOrganizations": [200002]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile3@ed-fi-org",
@@ -356,11 +383,12 @@
           "ApiClients": [
             {
               "ApiClientName": "200003",
-              "LocalEducationOrganizations": [ 200003 ]
+              "LocalEducationOrganizations": [200003]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile32@ed-fi-org",
@@ -369,15 +397,19 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Student-Readable-Restricted", "Test-Profile-For-Composites-With-Multiple-Resources" ],
+          "Profiles": [
+            "Student-Readable-Restricted",
+            "Test-Profile-For-Composites-With-Multiple-Resources"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_StudentRestrictedMultipleResources",
-              "LocalEducationOrganizations": [ 200003 ]
+              "LocalEducationOrganizations": [200003]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile4@ed-fi-org",
@@ -389,11 +421,12 @@
           "ApiClients": [
             {
               "ApiClientName": "200004",
-              "LocalEducationOrganizations": [ 200004 ]
+              "LocalEducationOrganizations": [200004]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "MultipleProfile42@ed-fi-org",
@@ -402,15 +435,19 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-For-Composites-With-Multiple-Resources", "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical" ],
+          "Profiles": [
+            "Test-Profile-For-Composites-With-Multiple-Resources",
+            "Test-StudentEducationOrganizationAssociation-Exclude-All-Addrs-Except-Physical"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_MultipleResourcesExceptPhysical",
-              "LocalEducationOrganizations": [ 200004 ]
+              "LocalEducationOrganizations": [200004]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest1@ed-fi.org",
@@ -419,15 +456,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Assessment-Readable-Includes-Embedded-Object" ],
+          "Profiles": ["Assessment-Readable-Includes-Embedded-Object"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_EmbeddedObject",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest2@ed-fi.org",
@@ -436,15 +474,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-ReadOnly" ],
+          "Profiles": ["Test-Profile-Resource-ReadOnly"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ResourceReadOnly",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest3@ed-fi.org",
@@ -453,15 +492,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-Child-Collection-Filtered-To-IncludeOnly-Specific-Descriptors" ],
+          "Profiles": [
+            "Test-Profile-Resource-Child-Collection-Filtered-To-IncludeOnly-Specific-Descriptors"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_SpecificDescriptors",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest4@ed-fi.org",
@@ -470,15 +512,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors" ],
+          "Profiles": [
+            "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-IncludeOnly-Specific-Types-and-Descriptors"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_SpecificTypesDescriptors",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest5@ed-fi.org",
@@ -487,15 +532,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeAll" ],
+          "Profiles": ["Test-Profile-Resource-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_IncludeAll",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest6@ed-fi.org",
@@ -504,15 +550,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-IncludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_IncludeOnly",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest7@ed-fi.org",
@@ -521,15 +568,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-References-IncludeOnly" ],
+          "Profiles": ["Test-Profile-Resource-References-IncludeOnly"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ReferencesIncludeOnly",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest8@ed-fi.org",
@@ -538,15 +586,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly" ],
+          "Profiles": [
+            "Test-Profile-EdOrgs-Resources-Child-Collection-IncludeOnly"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ChildCollectionIncludeOnly",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest9@ed-fi.org",
@@ -555,15 +606,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Academic-Week-Readable-Excludes-Optional-References" ],
+          "Profiles": ["Academic-Week-Readable-Excludes-Optional-References"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_AcademicWeekReferences",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest10@ed-fi.org",
@@ -572,15 +624,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "Profiles": ["Test-Profile-StaffOnly-Resource-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_StaffOnlyIncludeAll",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest11@ed-fi.org",
@@ -589,15 +642,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Non-Existing" ],
+          "Profiles": ["Non-Existing"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_NonExisting",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest12@ed-fi.org",
@@ -606,15 +660,19 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeAll", "Test-Profile-StaffOnly-Resource-IncludeAll" ],
+          "Profiles": [
+            "Test-Profile-Resource-IncludeAll",
+            "Test-Profile-StaffOnly-Resource-IncludeAll"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_IncludeAll_StaffOnlyIncludeAll",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest13@ed-fi.org",
@@ -623,15 +681,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Assessment-Readable-Excludes-Embedded-Object" ],
+          "Profiles": ["Assessment-Readable-Excludes-Embedded-Object"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_Excludes_EmbeddedObject",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest14@ed-fi.org",
@@ -640,15 +699,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Assessment-Writable-Includes-Embedded-Object" ],
+          "Profiles": ["Assessment-Writable-Includes-Embedded-Object"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_WritableIncludes_EmbeddedObject",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest15@ed-fi.org",
@@ -657,15 +717,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Assessment-Writable-Excludes-Embedded-Object" ],
+          "Profiles": ["Assessment-Writable-Excludes-Embedded-Object"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_WritableExcludes_EmbeddedObject",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest16@ed-fi.org",
@@ -674,15 +735,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-WriteOnly" ],
+          "Profiles": ["Test-Profile-Resource-WriteOnly"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ResourceWriteOnly",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest17@ed-fi.org",
@@ -691,15 +753,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors" ],
+          "Profiles": [
+            "Test-Profile-Resource-Child-Collection-Filtered-To-ExcludeOnly-Specific-Descriptors"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ExcludeOnlySpecificDescriptors",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest18@ed-fi.org",
@@ -708,15 +773,18 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors" ],
+          "Profiles": [
+            "Test-Profile-Resource-Nested-Child-Collection-Filtered-To-ExcludeOnly-Specific-Types-and-Descriptors"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_ExcludeOnlySpecificTypesDescriptors",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest19@ed-fi.org",
@@ -725,15 +793,16 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-StudentOnly-Resource-IncludeAll" ],
+          "Profiles": ["Test-Profile-StudentOnly-Resource-IncludeAll"],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_StudentOnlyResourceIncludeAll",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "ProfileTest20@ed-fi.org",
@@ -742,15 +811,20 @@
         {
           "ApplicationName": "ODS/API",
           "ClaimSetName": "Ed-Fi Sandbox",
-          "Profiles": [ "Test-Profile-Resource-IncludeAll", "Test-Profile-StaffOnly-Resource-IncludeAll", "Test-Profile-StudentOnly-Resource-IncludeAll" ],
+          "Profiles": [
+            "Test-Profile-Resource-IncludeAll",
+            "Test-Profile-StaffOnly-Resource-IncludeAll",
+            "Test-Profile-StudentOnly-Resource-IncludeAll"
+          ],
           "ApiClients": [
             {
               "ApiClientName": "ProfileTest_StaffOnlyStudentOnlyIncludeAll",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [255901]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
       "Email": "multipleEdorg@ed-fi.org",
@@ -762,45 +836,46 @@
           "ApiClients": [
             {
               "ApiClientName": "MultipleEdorg_255901001_5001",
-              "LocalEducationOrganizations": [ 255901001, 5001 ]
+              "LocalEducationOrganizations": [255901001, 5001]
             }
           ]
         }
-      ]
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
-        "Email": "multipleEdorg2@ed-fi.org",
-        "VendorName": "multipleEdorg2",
-        "Applications": [
+      "Email": "multipleEdorg2@ed-fi.org",
+      "VendorName": "multipleEdorg2",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "SIS Vendor",
+          "ApiClients": [
             {
-                "ApplicationName": "ODS/API",
-                "ClaimSetName": "SIS Vendor",
-                "ApiClients": [
-                    {
-                        "ApiClientName": "MultipleEdorg_5001_51",
-                        "LocalEducationOrganizations": [ 51, 5001 ]
-                    }
-                ]
+              "ApiClientName": "MultipleEdorg_5001_51",
+              "LocalEducationOrganizations": [51, 5001]
             }
-        ]
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     },
     {
-        "Email": "multipleEdorg3@ed-fi.org",
-        "VendorName": "multipleEdorg3",
-        "Applications": [
+      "Email": "multipleEdorg3@ed-fi.org",
+      "VendorName": "multipleEdorg3",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "SIS Vendor",
+          "ApiClients": [
             {
-                "ApplicationName": "ODS/API",
-                "ClaimSetName": "SIS Vendor",
-                "ApiClients": [
-                    {
-                        "ApiClientName": "MultipleEdorg_255901999_5001_51",
-                        "LocalEducationOrganizations": [ 255901999, 51, 5001 ]
-                    }
-                ]
+              "ApiClientName": "MultipleEdorg_255901999_5001_51",
+              "LocalEducationOrganizations": [255901999, 51, 5001]
             }
-        ]
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     }
-
   ]
 }
-

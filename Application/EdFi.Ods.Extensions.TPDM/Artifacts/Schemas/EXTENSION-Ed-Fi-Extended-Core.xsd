@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- (c)2020 Ed-Fi Alliance, LLC. All Rights Reserved. -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.2.0-c" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.2.0-c" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
@@ -849,7 +848,7 @@
               <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ExamNamespace" type="URI">
+          <xs:element name="Namespace" type="URI">
             <xs:annotation>
               <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
             </xs:annotation>
@@ -5395,7 +5394,7 @@
           <xs:documentation>Identifier or serial number assigned to the CertificationExam.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="ExamNamespace" type="URI">
+      <xs:element name="Namespace" type="URI">
         <xs:annotation>
           <xs:documentation>Namespace for the CertificationExam.</xs:documentation>
         </xs:annotation>
