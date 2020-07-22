@@ -85,7 +85,7 @@ function Invoke-SmokeTestClient {
     if ($testSetDependsOnSdk -and -not (Test-Path $smokeTestSdkDll)) { throw [System.IO.FileNotFoundException]  "$smokeTestSdkDll not found." }
 
     foreach ($testSet in $config.testSets) {
-        $parms = @(
+        $params = @(
             '-o', '"{0}"' -f $config.apiUrlOAuth
             '-m', '"{0}"' -f $config.apiUrlMetadata
             '-a', '"{0}"' -f $config.apiUrlData
@@ -95,13 +95,11 @@ function Invoke-SmokeTestClient {
             '-t', '"{0}"' -f $testSet
         )
 
-        if ($config.apiYear) { $parms += ('-y', '"{0}"' -f $config.apiYear) }
-        if ($testSetDependsOnSdk) { $parms += ('-l', '"{0}"' -f $smokeTestSdkDll) }
+        if ($config.apiYear) { $params += ('-y', '"{0}"' -f $config.apiYear) }
+        if ($testSetDependsOnSdk) { $params += ('-l', '"{0}"' -f $smokeTestSdkDll) }
 
-        $cmd = $smokeTestExecutable + $parms
-        Write-Host -ForegroundColor Magenta $cmd
-
-        $exitCode = (Start-Process -FilePath $smokeTestExecutable -ArgumentList $parms -NoNewWindow -PassThru -Wait).ExitCode
+        Write-Host -ForegroundColor Magenta $smokeTestExecutable $params
+        $exitCode = (Start-Process -FilePath $smokeTestExecutable -ArgumentList $params -NoNewWindow -PassThru -Wait).ExitCode
 
         Test-Error
         if ($exitCode -gt 0) { throw "$testSet exited with an error" }
@@ -153,10 +151,12 @@ function Invoke-BulkLoadClient {
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadTaskCapacity)) { $params += "-t", $bulkLoadTaskCapacity }
 
     $executable = (Get-ChildItem -Recurse $config.bulkLoadClientExecutable).FullName
-    Write-Host -ForegroundColor Magenta $executable $params
-    Start-Process -FilePath $executable -ArgumentList $params -NoNewWindow -Wait
 
-    return $totalRecordCount
+    Write-Host -ForegroundColor Magenta $executable $params
+    $exitCode = (Start-Process -FilePath $executable -ArgumentList $params -NoNewWindow -PassThru -Wait).ExitCode
+
+    Test-Error
+    if ($exitCode -gt 0) { throw "BulkLoadClient exited with non-zero exit code" }
 }
 
 function Get-RandomString {
