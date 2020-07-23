@@ -250,6 +250,7 @@ function Get-SQLServerDatabaseRecordCount {
         EXEC sp_msforeachtable 'INSERT #tempcount SELECT ''?'', COUNT(*) FROM ? WITH (nolock)'
         SELECT SUM(record_count)
         FROM #tempcount
+        WHERE tablename NOT LIKE '\[dbo\]%' ESCAPE '\'
         DROP TABLE #tempcount
         "
         returnDataSet = $true
@@ -268,18 +269,43 @@ function Get-PostgreSQLDatabaseRecordCount {
         userName = $config.databaseConnectionString.username
         databaseName = $config.databaseConnectionString.database
         commands = "
-        SELECT SUM(x.reltuples)
-        FROM (
-            SELECT nspname AS schemaname,relname,reltuples
-            FROM pg_class C
-            LEFT JOIN pg_namespace N ON (N.oid = C.relnamespace)
-            WHERE nspname NOT IN ('pg_catalog', 'information_schema')
-            AND relkind='r'
-            ORDER BY reltuples DESC) x;
+        create or replace
+        function count_rows(schema text, tablename text) returns integer
+        as
+        `$body`$
+        declare
+            result integer;
+            query varchar;
+
+        begin
+            query := 'SELECT count(1) FROM ' || schema || '.' || tablename;
+            execute query into result;
+            return result;
+        end;
+
+        `$body`$
+        language plpgsql;
+
+        select
+            sum(x.count_rows)
+        from
+            (
+            select
+                table_name,
+                count_rows(table_schema, table_name)
+            from
+                information_schema.tables
+            where
+                table_schema not in ('pg_catalog', 'information_schema', 'public')
+                and table_type = 'BASE TABLE'
+            order by
+                2) x;
         "
     }
     $dataSet = Invoke-PsqlCommand @params
-    return $dataSet[1]
+    Write-Host "result: `"$($dataSet -join '", "')`""
+
+    return $dataSet[0].Trim()
 }
 
 function Get-DatabaseRecordCount {
@@ -320,9 +346,13 @@ function Invoke-LoadBootstrapData {
 
     Invoke-BulkLoadClient $params
 
-    $recordCount = ((Get-DatabaseRecordCount) - $initialRecordCount)
-    Write-Host "$recordCount records were loaded."
-    Write-TeamCityBuildStatus "Records: $recordCount"
+    $totalRecordCount = (Get-DatabaseRecordCount)
+    $recordCount = ($totalRecordCount - $initialRecordCount)
+
+    Write-Host "$initialRecordCount initial records."
+    Write-Host "$recordCount loaded records."
+    Write-Host "$totalRecordCount total records."
+    Write-TeamCityBuildStatus "Records: $totalRecordCount"
 }
 
 function Invoke-LoadSampleData {
@@ -358,7 +388,9 @@ function Invoke-LoadSampleData {
     $totalRecordCount = (Get-DatabaseRecordCount)
     $recordCount = ($totalRecordCount - $initialRecordCount)
 
-    Write-Host "$recordCount records were loaded."
+    Write-Host "$initialRecordCount initial records."
+    Write-Host "$recordCount loaded records."
+    Write-Host "$totalRecordCount total records."
     Write-TeamCityBuildStatus "Records: $totalRecordCount"
 }
 
