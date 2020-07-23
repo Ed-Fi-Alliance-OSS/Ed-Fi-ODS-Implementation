@@ -38,13 +38,14 @@ namespace EdFi.Ods.SandboxAdmin.Web
             if (_apiConfigurationProvider.DatabaseEngine == DatabaseEngine.SqlServer)
             {
                 // initial creation of roles, users, and sandboxes at server startup for sql server only
-                var id1 = BackgroundJob.Enqueue(() => _engine.CreateRoles());
-                BackgroundJob.ContinueJobWith(id1, () => _engine.CreateUsers());
+                var id1 = BackgroundJob.Enqueue(() => _engine.CreateIdentityRoles());
+                BackgroundJob.ContinueJobWith(id1, () => _engine.CreateIdentityUsers());
             }
 
             // add vendors and sandboxes
             var id2 = BackgroundJob.Enqueue(() => _engine.CreateVendors());
-            BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());
+            var id3 = BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());
+            BackgroundJob.ContinueJobWith(id3, () => _engine.UpdateClientWithLEAIdsFromPopulatedSandbox());
 
             // refresh existing sandboxes periodically
             if (_initializationModel.Users.Any(u => u.Sandboxes.Any(s => s.Refresh)))
