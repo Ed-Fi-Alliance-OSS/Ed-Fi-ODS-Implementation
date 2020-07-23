@@ -1319,6 +1319,8 @@ CREATE TABLE tpdm.EvaluationRatingReviewer (
     SchoolYear SMALLINT NOT NULL,
     SourceSystemDescriptorId INT NOT NULL,
     TermDescriptorId INT NOT NULL,
+    ReviewerPersonId VARCHAR(32) NULL,
+    ReviewerSourceSystemDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT EvaluationRatingReviewer_PK PRIMARY KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ); 
@@ -1715,6 +1717,8 @@ CREATE TABLE tpdm.PerformanceEvaluationRatingReviewer (
     SchoolYear SMALLINT NOT NULL,
     SourceSystemDescriptorId INT NOT NULL,
     TermDescriptorId INT NOT NULL,
+    ReviewerPersonId VARCHAR(32) NULL,
+    ReviewerSourceSystemDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT PerformanceEvaluationRatingReviewer_PK PRIMARY KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 ); 

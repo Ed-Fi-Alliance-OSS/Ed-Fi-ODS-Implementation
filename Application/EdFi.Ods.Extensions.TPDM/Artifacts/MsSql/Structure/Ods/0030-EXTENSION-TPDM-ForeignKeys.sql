@@ -1674,12 +1674,12 @@ CREATE NONCLUSTERED INDEX [FK_EvaluationRatingReviewer_EvaluationRating]
 ON [tpdm].[EvaluationRatingReviewer] ([EducationOrganizationId] ASC, [EvaluationDate] ASC, [EvaluationPeriodDescriptorId] ASC, [EvaluationTitle] ASC, [PerformanceEvaluationTitle] ASC, [PerformanceEvaluationTypeDescriptorId] ASC, [PersonId] ASC, [SchoolYear] ASC, [SourceSystemDescriptorId] ASC, [TermDescriptorId] ASC)
 GO
 
-ALTER TABLE [tpdm].[EvaluationRatingReviewer] WITH CHECK ADD CONSTRAINT [FK_EvaluationRatingReviewer_Person] FOREIGN KEY ([PersonId], [SourceSystemDescriptorId])
+ALTER TABLE [tpdm].[EvaluationRatingReviewer] WITH CHECK ADD CONSTRAINT [FK_EvaluationRatingReviewer_Person] FOREIGN KEY ([ReviewerPersonId], [ReviewerSourceSystemDescriptorId])
 REFERENCES [edfi].[Person] ([PersonId], [SourceSystemDescriptorId])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_EvaluationRatingReviewer_Person]
-ON [tpdm].[EvaluationRatingReviewer] ([PersonId] ASC, [SourceSystemDescriptorId] ASC)
+ON [tpdm].[EvaluationRatingReviewer] ([ReviewerPersonId] ASC, [ReviewerSourceSystemDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[EvaluationRatingReviewerReceivedTraining] WITH CHECK ADD CONSTRAINT [FK_EvaluationRatingReviewerReceivedTraining_EvaluationRatingReviewer] FOREIGN KEY ([EducationOrganizationId], [EvaluationDate], [EvaluationPeriodDescriptorId], [EvaluationTitle], [FirstName], [LastSurname], [PerformanceEvaluationTitle], [PerformanceEvaluationTypeDescriptorId], [PersonId], [SchoolYear], [SourceSystemDescriptorId], [TermDescriptorId])
@@ -2110,12 +2110,12 @@ CREATE NONCLUSTERED INDEX [FK_PerformanceEvaluationRatingReviewer_PerformanceEva
 ON [tpdm].[PerformanceEvaluationRatingReviewer] ([EducationOrganizationId] ASC, [EvaluationPeriodDescriptorId] ASC, [PerformanceEvaluationTitle] ASC, [PerformanceEvaluationTypeDescriptorId] ASC, [PersonId] ASC, [SchoolYear] ASC, [SourceSystemDescriptorId] ASC, [TermDescriptorId] ASC)
 GO
 
-ALTER TABLE [tpdm].[PerformanceEvaluationRatingReviewer] WITH CHECK ADD CONSTRAINT [FK_PerformanceEvaluationRatingReviewer_Person] FOREIGN KEY ([PersonId], [SourceSystemDescriptorId])
+ALTER TABLE [tpdm].[PerformanceEvaluationRatingReviewer] WITH CHECK ADD CONSTRAINT [FK_PerformanceEvaluationRatingReviewer_Person] FOREIGN KEY ([ReviewerPersonId], [ReviewerSourceSystemDescriptorId])
 REFERENCES [edfi].[Person] ([PersonId], [SourceSystemDescriptorId])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_PerformanceEvaluationRatingReviewer_Person]
-ON [tpdm].[PerformanceEvaluationRatingReviewer] ([PersonId] ASC, [SourceSystemDescriptorId] ASC)
+ON [tpdm].[PerformanceEvaluationRatingReviewer] ([ReviewerPersonId] ASC, [ReviewerSourceSystemDescriptorId] ASC)
 GO
 
 ALTER TABLE [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] WITH CHECK ADD CONSTRAINT [FK_PerformanceEvaluationRatingReviewerReceivedTraining_PerformanceEvaluationRatingReviewer] FOREIGN KEY ([EducationOrganizationId], [EvaluationPeriodDescriptorId], [FirstName], [LastSurname], [PerformanceEvaluationTitle], [PerformanceEvaluationTypeDescriptorId], [PersonId], [SchoolYear], [SourceSystemDescriptorId], [TermDescriptorId])

@@ -1,5 +1,5 @@
 {
-  "odsApiVersion": "5.0.0",
+  "odsApiVersion": "3.4.0",
   "schemaDefinition": {
     "logicalName": "TPDM",
     "physicalName": "tpdm",
@@ -43126,7 +43126,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -43143,7 +43143,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -43157,42 +43157,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "PersonId",
+          "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PersonId",
-            "postgreSql": "PersonId"
+            "sqlServer": "ReviewerPersonId",
+            "postgreSql": "ReviewerPersonId"
           }
         },
         {
-          "propertyName": "SourceSystemDescriptorId",
+          "propertyName": "ReviewerSourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "SourceSystemDescriptorId",
-            "postgreSql": "SourceSystemDescriptorId"
+            "sqlServer": "ReviewerSourceSystemDescriptorId",
+            "postgreSql": "ReviewerSourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": true,
-      "isRequired": true,
+      "isIdentifying": false,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_EvaluationRatingReviewer_Person",
         "postgreSql": "FK_2d29eb_Person"
@@ -49139,7 +49139,7 @@
             "isNullable": false
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "PersonId",
@@ -49156,7 +49156,7 @@
             "isNullable": false
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "SourceSystemDescriptorId",
@@ -49170,42 +49170,42 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "PersonId",
+          "propertyName": "ReviewerPersonId",
           "propertyType": {
             "dbType": "String",
             "maxLength": 32,
             "precision": 0,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "A unique alphanumeric code assigned to a person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "PersonId",
-            "postgreSql": "PersonId"
+            "sqlServer": "ReviewerPersonId",
+            "postgreSql": "ReviewerPersonId"
           }
         },
         {
-          "propertyName": "SourceSystemDescriptorId",
+          "propertyName": "ReviewerSourceSystemDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "This descriptor defines the originating record source system for the person.",
-          "isIdentifying": true,
+          "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "SourceSystemDescriptorId",
-            "postgreSql": "SourceSystemDescriptorId"
+            "sqlServer": "ReviewerSourceSystemDescriptorId",
+            "postgreSql": "ReviewerSourceSystemDescriptorId"
           }
         }
       ],
-      "isIdentifying": true,
-      "isRequired": true,
+      "isIdentifying": false,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_PerformanceEvaluationRatingReviewer_Person",
         "postgreSql": "FK_477526_Person"

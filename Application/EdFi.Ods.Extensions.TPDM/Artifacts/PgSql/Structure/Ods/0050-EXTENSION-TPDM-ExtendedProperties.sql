@@ -877,6 +877,8 @@ COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.PersonId IS 'A unique alphanumer
 COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.ReviewerPersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.EvaluationRatingReviewer.ReviewerSourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[EvaluationRatingReviewerReceivedTraining] --
 COMMENT ON TABLE tpdm.EvaluationRatingReviewerReceivedTraining IS 'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.';
@@ -1143,6 +1145,8 @@ COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.PersonId IS 'A unique
 COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.SchoolYear IS 'The identifier for the school year.';
 COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.SourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.TermDescriptorId IS 'The term for the session during the school year.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.ReviewerPersonId IS 'A unique alphanumeric code assigned to a person.';
+COMMENT ON COLUMN tpdm.PerformanceEvaluationRatingReviewer.ReviewerSourceSystemDescriptorId IS 'This descriptor defines the originating record source system for the person.';
 
 -- Extended Properties [tpdm].[PerformanceEvaluationRatingReviewerReceivedTraining] --
 COMMENT ON TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining IS 'An indication that the person administering the performance evauation has or has not received training on conducting performance measures.';

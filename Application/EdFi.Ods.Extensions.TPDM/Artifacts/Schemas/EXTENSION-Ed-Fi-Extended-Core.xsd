@@ -8461,7 +8461,7 @@
           <xs:documentation>An indication that the person administering the performance evauation has or has not received training on conducting performance measures.</xs:documentation>
         </xs:annotation>
       </xs:element>
-      <xs:element name="PersonReference" type="PersonReferenceType" minOccurs="0">
+      <xs:element name="ReviewerPersonReference" type="PersonReferenceType" minOccurs="0">
         <xs:annotation>
           <xs:documentation>The person associated with the performance measure.</xs:documentation>
         </xs:annotation>
