@@ -152,9 +152,9 @@ function Install-EdFiOdsWebApi {
     #>
     [CmdletBinding()]
     param (
-        # NuGet package name. Default: EdFi.Ods.WebApi.Suite3.
+        # NuGet package name. Default: EdFi.Suite3.Ods.WebApi.
         [string]
-        $PackageName = "EdFi.Ods.WebApi.Suite3",
+        $PackageName = "EdFi.Suite3.Ods.WebApi",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
