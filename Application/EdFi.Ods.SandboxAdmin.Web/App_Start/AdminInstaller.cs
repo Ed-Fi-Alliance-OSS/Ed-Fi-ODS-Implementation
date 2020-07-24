@@ -10,10 +10,12 @@ using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
 using EdFi.Ods.Admin;
 using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.SandboxAdmin.Web
 {
@@ -66,10 +68,6 @@ namespace EdFi.Ods.SandboxAdmin.Web
                     .ImplementedBy<DefaultApplicationCreator>());
 
             container.Register(
-                Component.For<IEducationOrganizationsInitializer>()
-                    .ImplementedBy<EducationOrganizationsInitializer>());
-
-            container.Register(
                 Component.For<IRouteService>()
                     .ImplementedBy<RouteService>());
 
@@ -111,6 +109,13 @@ namespace EdFi.Ods.SandboxAdmin.Web
                     Component.For<ISandboxProvisioner>()
                         .ImplementedBy<PostgresSandboxProvisioner>());
             }
+
+            container.Register(
+                Component.For<IDatabaseNameBuilder>().ImplementedBy<DatabaseNameBuilder>());
+
+            container.Register(
+                Component.For<IDbConnectionStringBuilderAdapterFactory>()
+                    .ImplementedBy<DbConnectionStringBuilderAdapterFactory>());
 
             // register controllers in this assembly
             // These are mvc controllers so they need to be transient to fit the mvc model of create dispose
