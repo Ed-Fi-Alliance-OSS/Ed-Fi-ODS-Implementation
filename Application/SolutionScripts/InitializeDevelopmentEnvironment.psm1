@@ -12,6 +12,7 @@ $toolVersion = @{
     codeGen = "5.0.0-b10343"
 }
 
+
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 $implementationRepo = Get-Item "$PSScriptRoot\..\.." | Select-Object -Expand Name
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
