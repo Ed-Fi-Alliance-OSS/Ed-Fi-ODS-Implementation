@@ -303,6 +303,10 @@ function Get-PostgreSQLDatabaseRecordCount {
         "
     }
     $dataSet = Invoke-PsqlCommand @params
+
+    $params.commands = "drop function count_rows(text, text);"
+    Invoke-PsqlCommand @params
+
     Write-Host "result: `"$($dataSet -join '", "')`""
 
     return $dataSet[0].Trim()
