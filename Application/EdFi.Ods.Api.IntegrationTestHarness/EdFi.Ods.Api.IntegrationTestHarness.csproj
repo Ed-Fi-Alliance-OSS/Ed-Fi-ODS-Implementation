@@ -46,7 +46,6 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Admin\EdFi.Ods.Admin.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.ChangeQueries\EdFi.Ods.ChangeQueries.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
