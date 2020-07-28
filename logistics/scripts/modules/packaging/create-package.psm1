@@ -93,17 +93,11 @@ function Invoke-CreatePackage {
     # Publish pre-release
     if ($Publish) {
 
-        # Extract package ID from the csproj or nuspec file name
-        $pattern = "(.*)(.csproj|.nuspec)"
-        $fileNameWithoutPath = $PackageDefinitionFile.Split('\')[-1]
-        $match = $fileNameWithoutPath -match $pattern
-        if (-not $match) {
-            throw "Package definition file '$fileNameWithoutPath' should be *.csproj or *.nuspec"
-        }
+     # Extract package ID from the  nuspec file name
 
-        $packageId = $Matches.1        
-        $packageId= $packageId -replace "EdFi.", "EdFi.Suite3."
-        $parameters = @{
+    [ xml ] $fileContents = Get-Content -Path $PackageDefinitionFile
+    $packageId= $fileContents.package.metadata.id
+    $parameters = @{
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
             Source = $Source
             ApiKey = $ApiKey
