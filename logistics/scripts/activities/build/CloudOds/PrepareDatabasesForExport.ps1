@@ -46,7 +46,12 @@ Clear-Error
 
 Write-InvocationInfo $MyInvocation
 
-$sqlServerConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.config')
+$baseConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config')
+$transformFile = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.AzureCloudODS.config') 
+$destinationFile = ($baseConfig -replace "base.", "")
+Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFile  -destinationFile $destinationFile
+    
+$sqlServerConfig = $destinationFile
 $postgreSQLConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Npgsql.config')
 
 Write-Host "sqlServerConfig $sqlServerConfig"
