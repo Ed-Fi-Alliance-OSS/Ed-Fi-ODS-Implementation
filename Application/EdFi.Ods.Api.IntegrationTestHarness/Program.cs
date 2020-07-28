@@ -15,6 +15,8 @@ using CommandLine;
 using EdFi.Ods.Admin.Initialization;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Admin.Models;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Security.DataAccess.Contexts;
@@ -133,7 +135,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                        {
                                            FullName = vendor.VendorName,
                                            Email = vendor.Email,
-                                           Vendor = clientAppRepo.CreateOrGetVendor(vendor.Email, vendor.VendorName, vendor.NamespacePrefixes)
+                                           Vendor = clientAppRepo.CreateOrGetVendor(
+                                               vendor.Email, vendor.VendorName, vendor.NamespacePrefixes)
                                        });
 
                         foreach (var app in vendor.Applications)
@@ -146,7 +149,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
                             foreach (var client in app.ApiClients)
                             {
-
                                 var key = !string.IsNullOrEmpty(client.Key)
                                     ? client.Key
                                     : GetGuid();
@@ -157,30 +159,33 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
                                 var apiClient = clientAppRepo.CreateApiClient(user.UserId, client.ApiClientName, key, secret);
 
-                                postmanEnvironment.Values.Add(new ValueItem
-                                {
-                                    Enabled = true,
-                                    Value = key,
-                                    Key = "ApiKey_" + client.ApiClientName
-                                });
+                                postmanEnvironment.Values.Add(
+                                    new ValueItem
+                                    {
+                                        Enabled = true,
+                                        Value = key,
+                                        Key = "ApiKey_" + client.ApiClientName
+                                    });
 
-                                postmanEnvironment.Values.Add(new ValueItem
-                                {
-                                    Enabled = true,
-                                    Value = secret,
-                                    Key = "ApiSecret_" + client.ApiClientName
-                                });
+                                postmanEnvironment.Values.Add(
+                                    new ValueItem
+                                    {
+                                        Enabled = true,
+                                        Value = secret,
+                                        Key = "ApiSecret_" + client.ApiClientName
+                                    });
 
                                 clientAppRepo.AddLeaIdsToApiClient(
                                     user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
                                     application.ApplicationId);
 
-                                postmanEnvironment.Values.Add(new ValueItem
-                                {
-                                    Enabled = true,
-                                    Value = client.LocalEducationOrganizations,
-                                    Key = client.ApiClientName + "LeaId"
-                                });
+                                postmanEnvironment.Values.Add(
+                                    new ValueItem
+                                    {
+                                        Enabled = true,
+                                        Value = client.LocalEducationOrganizations,
+                                        Key = client.ApiClientName + "LeaId"
+                                    });
                             }
 
                             if (app.Profiles != null)
@@ -194,32 +199,37 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
                     void CreateEnvironmentFile()
                     {
-                        if (!string.IsNullOrEmpty(options.EnvironmentFilePath) && new DirectoryInfo(options.EnvironmentFilePath).Exists)
+                        if (!string.IsNullOrEmpty(options.EnvironmentFilePath) &&
+                            new DirectoryInfo(options.EnvironmentFilePath).Exists)
                         {
-                            postmanEnvironment.Values.Add(new ValueItem
-                            {
-                                Enabled = true,
-                                Value = ConfigurationManager.AppSettings["selfHost:baseAddress"] ?? "http://localhost:8765/",
-                                Key = "ApiBaseUrl"
-                            });
+                            postmanEnvironment.Values.Add(
+                                new ValueItem
+                                {
+                                    Enabled = true,
+                                    Value = ConfigurationManager.AppSettings["selfHost:baseAddress"] ?? "http://localhost:8765/",
+                                    Key = "ApiBaseUrl"
+                                });
 
-                            postmanEnvironment.Values.Add(new ValueItem
-                            {
-                                Enabled = true,
-                                Value = ConfigurationManager.AppSettings["composites:featureIsEnabled"],
-                                Key = "CompositesFeatureIsEnabled"
-                            });
+                            postmanEnvironment.Values.Add(
+                                new ValueItem
+                                {
+                                    Enabled = true,
+                                    Value = ConfigurationManager.AppSettings["composites:featureIsEnabled"],
+                                    Key = "CompositesFeatureIsEnabled"
+                                });
 
-                            postmanEnvironment.Values.Add(new ValueItem
-                            {
-                                Enabled = true,
-                                Value = ConfigurationManager.AppSettings["profiles:featureIsEnabled"],
-                                Key = "ProfilesFeatureIsEnabled"
-                            });
+                            postmanEnvironment.Values.Add(
+                                new ValueItem
+                                {
+                                    Enabled = true,
+                                    Value = ConfigurationManager.AppSettings["profiles:featureIsEnabled"],
+                                    Key = "ProfilesFeatureIsEnabled"
+                                });
 
-                            var jsonString = JsonConvert.SerializeObject(postmanEnvironment,
+                            var jsonString = JsonConvert.SerializeObject(
+                                postmanEnvironment,
                                 Formatting.Indented,
-                                new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                                new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
 
                             var fileName = Path.Combine(options.EnvironmentFilePath, "environment.json");
 
@@ -241,9 +251,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Component
                                 .For<IConfigValueProvider>()
                                 .ImplementedBy<AppConfigValueProvider>(),
-                            Component
-                                .For<ITemplateDatabaseLeaQuery>()
-                                .ImplementedBy<SqlServerTemplateDatabaseLeaQuery>(),
                             Component
                                 .For<IDatabaseEngineProvider>()
                                 .ImplementedBy<DatabaseEngineProvider>(),
@@ -272,7 +279,24 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Component
                                 .For<InitializationEngine>(),
                             Component
-                                .For<ISandboxProvisioner, SqlServerSandboxProvisioner>());
+                                .For<ISandboxProvisioner, SqlServerSandboxProvisioner>(),
+                            Component.For<IDatabaseNameBuilder>()
+                                .ImplementedBy<DatabaseNameBuilder>());
+
+                        var apiConfigurationProvider  = container.Resolve<IApiConfigurationProvider>();
+
+                        if (apiConfigurationProvider.DatabaseEngine == DatabaseEngine.SqlServer)
+                        {
+                            container.Register(
+                                Component.For<ITemplateDatabaseLeaQuery>()
+                                    .ImplementedBy<SqlServerTemplateDatabaseLeaQuery>());
+                        }
+                        else
+                        {
+                            container.Register(
+                                Component.For<ITemplateDatabaseLeaQuery>()
+                                    .ImplementedBy<PostgresTemplateDatabaseLeaQuery>());
+                        }
                     }
                 }
             }
