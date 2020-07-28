@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             if (result != ReturnStatus.Success)
             {
-                return (int)result;
+                return (int) result;
             }
 
             if (!string.IsNullOrEmpty(options.ConfigurationFilePath))
@@ -86,21 +86,21 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 var apiClient = new ApiClient
                 {
                     ApiClientName = "Api",
-                    LocalEducationOrganizations = new List<int> { 255901 }
+                    LocalEducationOrganizations = new List<int> {255901}
                 };
 
                 var applicaton = new Application
                 {
                     ApplicationName = "Default Application",
                     ClaimSetName = "Ed-Fi Sandbox",
-                    ApiClients = new List<ApiClient> { apiClient }
+                    ApiClients = new List<ApiClient> {apiClient}
                 };
 
                 var vendor = new Vendor
                 {
                     Email = "test@ed-fi.org",
                     VendorName = "Test Admin",
-                    Applications = new List<Application> { applicaton },
+                    Applications = new List<Application> {applicaton},
                     NamespacePrefixes = new List<string>
                     {
                         "uri://ed-fi.org",
@@ -109,7 +109,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     }
                 };
 
-                return new List<Vendor> { vendor };
+                return new List<Vendor> {vendor};
             }
 
             void UpdateAdminDatabase()
@@ -260,7 +260,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 }
             }
 
-            return (int)ReturnStatus.Success;
+            return (int) ReturnStatus.Success;
         }
 
         private enum ReturnStatus
