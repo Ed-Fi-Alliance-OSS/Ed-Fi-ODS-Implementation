@@ -232,30 +232,30 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     void RegisterComponents()
                     {
                         container.Register(
-                   Component
-                       .For<IConfigConnectionStringsProvider>()
-                       .ImplementedBy<AppConfigConnectionStringsProvider>(),
-                   Component
-                       .For<IConfigValueProvider>()
-                       .ImplementedBy<AppConfigValueProvider>(),
-                   Component
-                       .For<IDatabaseEngineProvider>()
-                       .ImplementedBy<DatabaseEngineProvider>(),
-                   Component
-                       .For<IApiConfigurationProvider>()
-                       .ImplementedBy<ApiConfigurationProvider>(),
-                   Component
-                       .For<IUsersContextFactory>()
-                       .ImplementedBy<UsersContextFactory>(),
-                   Component.For<IClientAppRepo>()
-                       .ImplementedBy<ClientAppRepo>(),
-                   Component
-                       .For<ISecurityContextFactory>()
-                       .ImplementedBy<SecurityContextFactory>(),
-                   Component.For<ISecurityRepository>()
-                       .ImplementedBy<SecurityRepository>(),
-                   Component
-                       .For<ISandboxProvisioner, SqlSandboxProvisioner>());
+                            Component
+                                .For<IConfigConnectionStringsProvider>()
+                                .ImplementedBy<AppConfigConnectionStringsProvider>(),
+                            Component
+                                .For<IConfigValueProvider>()
+                                .ImplementedBy<AppConfigValueProvider>(),
+                            Component
+                                .For<IDatabaseEngineProvider>()
+                                .ImplementedBy<DatabaseEngineProvider>(),
+                            Component
+                                .For<IApiConfigurationProvider>()
+                                .ImplementedBy<ApiConfigurationProvider>(),
+                            Component
+                                .For<IUsersContextFactory>()
+                                .ImplementedBy<UsersContextFactory>(),
+                            Component.For<IClientAppRepo>()
+                                .ImplementedBy<ClientAppRepo>(),
+                            Component
+                                .For<ISecurityContextFactory>()
+                                .ImplementedBy<SecurityContextFactory>(),
+                            Component.For<ISecurityRepository>()
+                                .ImplementedBy<SecurityRepository>(),
+                            Component
+                                .For<ISandboxProvisioner, SqlSandboxProvisioner>());
                     }
                 }
             }
