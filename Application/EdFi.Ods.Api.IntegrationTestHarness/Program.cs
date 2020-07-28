@@ -12,10 +12,8 @@ using System.Threading;
 using Castle.MicroKernel.Registration;
 using Castle.Windsor;
 using CommandLine;
-using EdFi.Ods.Admin.Initialization;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
-using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
@@ -119,7 +117,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 using (var container = new WindsorContainer())
                 {
                     RegisterComponents();
-                    var applicationCreator = container.Resolve<IDefaultApplicationCreator>();
                     var clientAppRepo = container.Resolve<IClientAppRepo>();
                     var postmanEnvironment = new PostmanEnvironment();
 
@@ -142,7 +139,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 user.Vendor.VendorId, app.ApplicationName, app.ClaimSetName);
 
                             var leaIds = app.ApiClients.SelectMany(s => s.LocalEducationOrganizations).Distinct().ToList();
-                            applicationCreator.AddLeaIdsToApplication(leaIds, application.ApplicationId);
+                            clientAppRepo.AddLeaIdsToApplication(leaIds, application.ApplicationId);
 
                             foreach (var client in app.ApiClients)
                             {
@@ -242,9 +239,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 .For<IConfigValueProvider>()
                                 .ImplementedBy<AppConfigValueProvider>(),
                             Component
-                                .For<IDatabaseTemplateLeaQuery>()
-                                .ImplementedBy<DatabaseTemplateLeaQuery>(),
-                            Component
                                 .For<IDatabaseEngineProvider>()
                                 .ImplementedBy<DatabaseEngineProvider>(),
                             Component
@@ -260,17 +254,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 .ImplementedBy<SecurityContextFactory>(),
                             Component.For<ISecurityRepository>()
                                 .ImplementedBy<SecurityRepository>(),
-                            Component.For<IClientCreator>()
-                                .ImplementedBy<ClientCreator>(),
-                            Component.For<IDefaultApplicationCreator>()
-                                .ImplementedBy<DefaultApplicationCreator>(),
-                            Component
-                                .For<IInitializationSettingsFactory, InitializationSettingsFactory>(),
-                            Component
-                                .For<InitializationModel>()
-                                .UsingFactoryMethod(k => k.Resolve<IInitializationSettingsFactory>().GetInitializationModel()),
-                            Component
-                                .For<InitializationEngine>(),
                             Component
                                 .For<ISandboxProvisioner, SqlSandboxProvisioner>());
                     }
