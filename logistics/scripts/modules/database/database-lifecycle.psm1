@@ -267,17 +267,17 @@ function Remove-EdFiSandboxDatabases {
     if (-not $templateInitialCatalog) {
         throw "The template CSB does not define an initial catalog"
     }
-    $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
-    if (-not ($templateBaseName.Length -gt $templateInitialCatalog.Length)) {
-        throw "Template base name '$templateBaseName' ($($templateBaseName.Length) characters) was not longer than the template initial catalog '$templateInitialCatalog' ($($templateInitialCatalog.Length) characters); does the template initial catalog contain a format string token of '{0}' ?"
-    }
 
-    $smo = Get-Server -csb $masterCSB
-    foreach ($db in $smo.Databases) {
-        if ($db.Name.StartsWith("$templateBaseName")) {
-            Write-Verbose "Removing sandbox database: $($db.Name)"
-            $sandboxCSB = New-DbConnectionStringBuilder -existingCSB $masterCSB -property @{Database = $db.Name }
-            Remove-Database -csb $sandboxCSB
+    $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
+    
+    if ($templateInitialCatalog -like '*{0}*') {
+        $smo = Get-Server -csb $masterCSB
+        foreach ($db in $smo.Databases) {
+            if ($db.Name.StartsWith("$templateBaseName")) {
+                Write-Verbose "Removing sandbox database: $($db.Name)"
+                $sandboxCSB = New-DbConnectionStringBuilder -existingCSB $masterCSB -property @{Database = $db.Name }
+                Remove-Database -csb $sandboxCSB
+            }
         }
     }
 }

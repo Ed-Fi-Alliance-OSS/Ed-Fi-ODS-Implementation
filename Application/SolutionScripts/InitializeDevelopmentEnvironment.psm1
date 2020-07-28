@@ -66,7 +66,7 @@ function Initialize-DevelopmentEnvironment {
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
-        [string] $InstallType,
+        [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
         [string] $OdsTokens,
@@ -91,10 +91,6 @@ function Initialize-DevelopmentEnvironment {
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
         throw "The OdsTokens (legacy parameter name OdsYears) parameter can only be used with the 'YearSpecific' or 'DistrictSpecific' InstallType."
-    }
-
-    if ([string]::IsNullOrWhiteSpace($InstallType)) {
-        $InstallType = 'Sandbox'
     }
 
     Clear-Error
