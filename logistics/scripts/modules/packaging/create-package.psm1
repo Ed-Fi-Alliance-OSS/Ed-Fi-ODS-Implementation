@@ -102,7 +102,11 @@ function Invoke-CreatePackage {
         }
 
         $packageId = $Matches.1
-
+        Write-Host "muthusamy before packageId" $packageId -ForegroundColor Green
+        $packageId= $packageId -replace "EdFi.", "EdFi.Suite3."
+        Write-Host "muthusamy packageId" $packageId -ForegroundColor Green
+        Write-Host "muthusamy Version" $Version -ForegroundColor Green
+        Write-Host "muthusamy Suffix" $Suffix -ForegroundColor Green
         $parameters = @{
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
             Source = $Source
