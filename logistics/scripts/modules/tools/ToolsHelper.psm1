@@ -258,9 +258,11 @@ function Invoke-DbDeploy {
 
     if (-not [string]::IsNullOrWhiteSpace($ToolsPath) -and (Test-Path -Path $ToolsPath)) {
         $tool = Join-Path $ToolsPath "EdFi.Db.Deploy"
+         Write-Host "semalai" $tool -ForegroundColor Green
     }
     else {        
         $tool = (Join-Path (Get-RepositoryResolvedPath "tools/") 'EdFi.Db.Deploy')   
+        Write-Host "muthu" $tool -ForegroundColor Green
     }
 
     $hasFeatures = ($Features.count -gt 0)
