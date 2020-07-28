@@ -257,12 +257,12 @@ function Invoke-DbDeploy {
     $databaseType = $databaseIdLookup[$Database]
 
     if (-not [string]::IsNullOrWhiteSpace($ToolsPath) -and (Test-Path -Path $ToolsPath)) {
-        $tool = Join-Path $ToolsPath "EdFi.Db.Deploy"       
+        $tool = Join-Path $ToolsPath "EdFi.Db.Deploy" 
     }
-    else {                
-        $tool = (Join-Path $env:toolsPath 'EdFi.Db.Deploy')        
+    else {       
+        $tool = (Join-Path $env:toolsPath 'EdFi.Db.Deploy')
     }
-    
+
     $hasFeatures = ($Features.count -gt 0)
     if ($hasFeatures) {
         & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -f $Features -p $FilePaths | Write-Host
@@ -270,7 +270,7 @@ function Invoke-DbDeploy {
     else {
         & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -p $FilePaths | Write-Host
     }
-   
+
     <#
     EdFi.Db.Deploy returns 0 when "deploy" is successful; 0 or 1 when "whatif" is successful (1 meaning that an
     upgrade is required, 0 that no upgrade is required); and any other exit code denotes a failure condition.
