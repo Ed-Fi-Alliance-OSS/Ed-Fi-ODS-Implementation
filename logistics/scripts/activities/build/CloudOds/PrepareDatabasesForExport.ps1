@@ -36,7 +36,7 @@ $ErrorActionPreference = 'Stop'
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-Tools\Application\EdFi.Ods.AdminApp.Web')
 & "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1" $repositoryNames
  Write-Host "muthu new code added" -ForegroundColor Green
-$implementationRepo = Get-Item "$PSScriptRoot\..\.." | Select-Object -Expand Name
+$implementationRepo = Get-Item "$PSScriptRoot\..\..\..\..\.." | Select-Object -Expand Name
 Write-Host "muthu implementationRepo"  $implementationRepo -ForegroundColor Green
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 Write-Host "muthu env:toolsPath"  $env:toolsPath -ForegroundColor Green
