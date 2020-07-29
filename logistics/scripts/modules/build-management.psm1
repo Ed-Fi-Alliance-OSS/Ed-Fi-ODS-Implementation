@@ -101,7 +101,7 @@ function Remove-EdFiPostgreSQLDatabases {
             serverName = $connectionString.host
             portNumber = $connectionString.port
             userName = $connectionString.username
-            databaseToRemove = $connectionString.Database
+            databaseName = $connectionString.Database
         }
         Remove-PostgreSQLDatabase @params
     }

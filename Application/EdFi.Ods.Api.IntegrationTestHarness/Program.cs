@@ -19,6 +19,7 @@ using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Admin.Models;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Repositories;
 using Microsoft.Owin.Hosting;
@@ -26,6 +27,7 @@ using Newtonsoft.Json;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Sandbox.Provisioners;
 using Newtonsoft.Json.Serialization;
+using NHibernate.Type;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -281,7 +283,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Component
                                 .For<ISandboxProvisioner, SqlServerSandboxProvisioner>(),
                             Component.For<IDatabaseNameBuilder>()
-                                .ImplementedBy<DatabaseNameBuilder>());
+                                .ImplementedBy<DatabaseNameBuilder>(),
+                            Component.For<IDbConnectionStringBuilderAdapterFactory>()
+                                .ImplementedBy<DbConnectionStringBuilderAdapterFactory>());
 
                         var apiConfigurationProvider  = container.Resolve<IApiConfigurationProvider>();
 
