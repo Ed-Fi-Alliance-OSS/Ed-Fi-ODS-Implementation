@@ -344,7 +344,7 @@ Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $config = Get-DeployConfig
-        $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen.exe')
+        $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
         & $tool -r $repositoryRoot -e $config.engine | Write-Host

@@ -34,7 +34,9 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-Tools\Application\EdFi.Ods.AdminApp.Web')
-& "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1" $repositoryNames
+& "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1" $repositoryNames 
+$implementationRepo = Get-Item "$PSScriptRoot\..\..\..\..\.." | Select-Object -Expand Name
+$env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-database-bacpac.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-database-template.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
