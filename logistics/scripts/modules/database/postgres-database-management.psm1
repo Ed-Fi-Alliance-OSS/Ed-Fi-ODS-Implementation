@@ -311,6 +311,15 @@ function Backup-PostgreSQLDatabase {
 
     if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
 
+    $parameters = @{
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
+        databaseName = $databaseName
+    }
+
+    Remove-PostgresSQLDatabaseAsTemplate @parameters
+
     $params = @(
         "--no-password",
         "--encoding", "utf-8"
@@ -325,6 +334,8 @@ function Backup-PostgreSQLDatabase {
     Write-Host -ForegroundColor Magenta "& $pg_dump $params"
     & $pg_dump $params
     Test-Error
+
+    Set-PostgresSQLDatabaseAsTemplate @parameters
 }
 
 function Test-PostgreSQLDatabaseExists {

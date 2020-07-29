@@ -71,13 +71,12 @@ function Remove-EdFiPostgreSQLDatabases {
     $params = @{
         serverName = $connectionString.host
         portNumber = $connectionString.port
-        userName = $connectionString.username
-        database = 'postgres'
-        command = "
-            SELECT datname FROM pg_database
-            WHERE datistemplate = false
-            AND datname SIMILAR TO '$databaseTemplate';
-        "
+        userName   = $connectionString.username
+        database   = 'postgres'
+        commands   = @(
+            "UPDATE pg_database SET datistemplate='false', datallowconn='true' WHERE datname SIMILAR TO '$databaseTemplate';"
+            "SELECT datname FROM pg_database WHERE datname SIMILAR TO '$databaseTemplate';"
+        )
     }
     $edfiDatabases = (Invoke-PsqlCommand @params | Where-Object { -not [string]::IsNullOrWhiteSpace($_) } | Sort-Object)
 
@@ -98,9 +97,9 @@ function Remove-EdFiPostgreSQLDatabases {
         $connectionString = New-DbConnectionStringBuilder -existingCSB $connectionString -property @{ 'Database' = $database.Trim() }
 
         $params = @{
-            serverName = $connectionString.host
-            portNumber = $connectionString.port
-            userName = $connectionString.username
+            serverName   = $connectionString.host
+            portNumber   = $connectionString.port
+            userName     = $connectionString.username
             databaseName = $connectionString.Database
         }
         Remove-PostgreSQLDatabase @params
@@ -180,9 +179,9 @@ function New-OctopusChannel {
     else {
         $newChannelObject = @{
             IsDefault = $false
-            Rules = @(
+            Rules     = @(
                 @{
-                    Actions = @(
+                    Actions      = @(
                         "Deploy Databases",
                         "Install API NuGet package",
                         "Install Admin NuGet Package",
@@ -191,7 +190,7 @@ function New-OctopusChannel {
                     VersionRange = "($versionRangeStartMajorVersion.$versionRangeStartMinorVersion.$versionRangeStartPatchVersion,$majorVersion.$minorVersion.$patchVersion]"
                 }
             )
-            Name = $channelName
+            Name      = $channelName
             ProjectId = $octopusProjectId
         }
 
