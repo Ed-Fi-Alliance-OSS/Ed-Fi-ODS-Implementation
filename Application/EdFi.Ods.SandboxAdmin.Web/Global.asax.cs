@@ -129,10 +129,5 @@ namespace EdFi.Ods.SandboxAdmin.Web
                 UsersContext.UserNameColumn,
                 autoCreateTables: true);
         }
-
-        public class PostgresSimpleRoleProvider : SimpleRoleProvider
-        {
-
-        }
     }
 }

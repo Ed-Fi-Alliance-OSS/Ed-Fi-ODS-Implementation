@@ -204,24 +204,26 @@ function Set-PostgresSQLDatabaseAsTemplate {
         [string] [Parameter(Mandatory = $true)] $databaseName
     )
 
-    if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
+    if ($databaseName -match "Template$") {
+        if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
 
-    $parameters = @{
-        serverName   = $serverName
-        portNumber   = $portNumber
-        userName     = $userName
-        databaseName = 'postgres'
-        commands     = @(
-            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
-            "SET client_min_messages TO ERROR;"
-            "UPDATE pg_database SET datistemplate='true', datallowconn='false' WHERE datname in ('$databaseName');"
-        )
+        $parameters = @{
+            serverName   = $serverName
+            portNumber   = $portNumber
+            userName     = $userName
+            databaseName = 'postgres'
+            commands     = @(
+                "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
+                "SET client_min_messages TO ERROR;"
+                "UPDATE pg_database SET datistemplate='true', datallowconn='false' WHERE datname in ('$databaseName');"
+            )
+        }
+
+        ## for the templates we want to set the databases as readonly, and as a template database.
+        Write-Host "Setting template flag on database $databaseName...";
+        Invoke-PsqlCommand @parameters
+        Test-Error
     }
-
-    ## for the templates we want to set the databases as readonly, and as a template database.
-    Write-Host "Setting template flag on database $databaseName...";
-    Invoke-PsqlCommand @parameters
-    Test-Error
 }
 
 
@@ -236,24 +238,26 @@ function Remove-PostgresSQLDatabaseAsTemplate {
         [string] [Parameter(Mandatory = $true)] $databaseName
     )
 
-    if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
+    if ($databaseName -match "Template$") {
+        if (-not (Test-PostgreSQLBinariesInstalled)) { Install-PostgreSQLBinaries }
 
-    $parameters = @{
-        serverName   = $serverName
-        portNumber   = $portNumber
-        userName     = $userName
-        databaseName = 'postgres'
-        commands     = @(
-            "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
-            "SET client_min_messages TO ERROR;"
-            "UPDATE pg_database SET datistemplate='false', datallowconn='true' WHERE datname in ('$databaseName');"
-        )
+        $parameters = @{
+            serverName   = $serverName
+            portNumber   = $portNumber
+            userName     = $userName
+            databaseName = 'postgres'
+            commands     = @(
+                "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
+                "SET client_min_messages TO ERROR;"
+                "UPDATE pg_database SET datistemplate='false', datallowconn='true' WHERE datname in ('$databaseName');"
+            )
+        }
+
+        ## for the templates we want to set the databases as readonly, and as a template database.
+        Write-Host "Remove template flag on database if $databaseName already exists..."
+        Invoke-PsqlCommand @parameters
+        Test-Error
     }
-
-    ## for the templates we want to set the databases as readonly, and as a template database.
-    Write-Host "Remove template flag on database if $databaseName already exists..."
-    Invoke-PsqlCommand @parameters
-    Test-Error
 }
 
 function Remove-PostgreSQLDatabase {

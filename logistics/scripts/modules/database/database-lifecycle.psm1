@@ -178,11 +178,8 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         }
         Invoke-DbDeploy @params
 
-        if ($csb.Database -match "Template$") {
-            Write-Host $scriptParams
-            Set-PostgresSQLDatabaseAsTemplate @scriptParams
-        }
-
+        Write-Host $scriptParams
+        Set-PostgresSQLDatabaseAsTemplate @scriptParams
         return;
     }
 
