@@ -66,7 +66,7 @@ function Initialize-DevelopmentEnvironment {
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
-        [string] $InstallType,
+        [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
         [string] $OdsTokens,
@@ -91,11 +91,6 @@ function Initialize-DevelopmentEnvironment {
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
         throw "The OdsTokens (legacy parameter name OdsYears) parameter can only be used with the 'YearSpecific' or 'DistrictSpecific' InstallType."
-    }
-
-    if ([string]::IsNullOrWhiteSpace($InstallType)) {
-        if ($Engine -eq 'SQLServer') { $InstallType = 'Sandbox' }
-        if ($Engine -eq 'PostgreSQL') { $InstallType = 'SharedInstance' }
     }
 
     Clear-Error
@@ -151,6 +146,19 @@ function Invoke-ConfigTransform {
         $baseConfig = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config'
         $npgsqlTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Npgsql.config'
         $debugTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Debug.config'
+        $destinationFile = ($baseConfig -replace "base.", "")
+
+        $transformFiles = @()
+        if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
+        $transformFiles += $debugTransform
+
+        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles  -destinationFile $destinationFile
+    }
+
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $baseConfig = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Base.config'
+        $npgsqlTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Npgsql.config'
+        $debugTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Debug.config'
         $destinationFile = ($baseConfig -replace "base.", "")
 
         $transformFiles = @()
