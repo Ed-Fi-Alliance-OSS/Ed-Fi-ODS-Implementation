@@ -13,7 +13,7 @@ $script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
 $script:packageSource = "https://www.myget.org/F/ed-fi/"
 $script:packageName = "PostgreSQL.Binaries"
-$script:packageVersion = "13.0.0"
+$script:packageVersion = "12.2.0"
 
 function Test-PostgreSQLBinariesInstalled {
     $packagePath = "$script:toolsPath/$script:packageName"
