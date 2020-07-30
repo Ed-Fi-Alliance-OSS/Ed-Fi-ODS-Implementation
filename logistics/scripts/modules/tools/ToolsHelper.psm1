@@ -256,12 +256,7 @@ function Invoke-DbDeploy {
     }
     $databaseType = $databaseIdLookup[$Database]
 
-    if (-not [string]::IsNullOrWhiteSpace($ToolsPath) -and (Test-Path -Path $ToolsPath)) {
-        $tool = Join-Path $ToolsPath "EdFi.Db.Deploy"
-    }
-    else {
-        $tool = (Join-Path $env:toolsPath 'EdFi.Db.Deploy')
-    }
+    $tool = (Join-Path (Get-ToolsPath) 'EdFi.Db.Deploy')
 
     $hasFeatures = ($Features.count -gt 0)
     if ($hasFeatures) {
