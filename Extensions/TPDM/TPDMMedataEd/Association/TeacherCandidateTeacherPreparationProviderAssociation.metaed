@@ -1,0 +1,30 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association TeacherCandidateTeacherPreparationProviderAssociation
+  documentation "Information about the association between the Teacher Candidate and the TeacherPreparationProviderProgram"
+  domain entity TeacherCandidate
+    documentation "Teacher Candidate for the association"
+  domain entity TeacherPreparationProvider
+    documentation "Teacher Preparation Provider for the association"
+  enumeration EdFi.SchoolYear
+    documentation "School Year for the association"
+    is optional
+  date EntryDate
+    documentation "Entry date for the association"
+    is part of identity
+  descriptor EdFi.EntryType
+    documentation "Entry Type for the association"
+    is optional
+  date ExitWithdrawDate
+    documentation "Exit date for the association"
+    is optional
+  descriptor EdFi.ExitWithdrawType
+    documentation "Exit type for the association"
+    is optional
+  enumeration EdFi.SchoolYear
+    documentation "School Year cohort for the association"
+    is optional
+    role name ClassOf

@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Profiles>
+
+  <Profile name="Staff-Entity-Extension-IncludeOnly">
+    <Resource name="Staff" logicalSchema='Ed-Fi'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='Sample' memberSelection='IncludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-Entity-Extension-ExcludeOnly">
+    <Resource name="Staff" logicalSchema='Ed-Fi'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='Sample' memberSelection='ExcludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+
+  <Profile name="Staff-Include-All">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedInclude">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name="BusRouteNumber" />
+        <!-- property -->
+        <Property name="BusRouteDirection" />
+        <!-- Descriptor property -->
+        <Property name="OperatingCost" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="BusRoute-MixedInclude">
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll">
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedExclude">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeOnly">
+        <Extension name='Sample' memberSelection='IncludeOnly'> <!-- logicalSchema='Sample'> -->
+          <Property name='PetName' />
+        </Extension>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="ExcludeOnly">
+        <Property name="BusRouteNumber" />
+        <!-- property -->
+        <Property name="BusRouteDirection" />
+        <!-- Descriptor property -->
+        <Property name="OperatingCost" />
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Staff-and-Prospect-MixedExclude2">
+    <Resource name="Staff">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="ExcludeOnly">
+        <Property name="BusRouteNumber" />
+        <!-- property -->
+        <Property name="BusRouteDirection" />
+        <!-- Descriptor property -->
+        <Property name="OperatingCost" />
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="BusRoute-MixedInclude2">
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='IncludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll">
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
+        </Collection>
+      </WriteContentType>
+    </Resource>
+  </Profile>
+
+  <Profile name="BusRoute-MixedInclude1">
+    <Resource name="BusRoute" logicalSchema='Sample'>
+      <ReadContentType memberSelection="IncludeOnly">
+        <Property name='BusRouteNumber' />
+        <Collection name='BusRoutePrograms' memberSelection='ExcludeOnly'>
+          <Property name='ProgramTypeDescriptor' />
+        </Collection>
+      </ReadContentType>
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+  <Profile name="Student-Include-All">
+    <Resource name="Student">
+      <ReadContentType memberSelection="IncludeAll" />
+      <WriteContentType memberSelection="IncludeAll" />
+    </Resource>
+  </Profile>
+
+</Profiles>

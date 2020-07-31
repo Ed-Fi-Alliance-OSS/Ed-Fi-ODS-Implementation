@@ -1,0 +1,1 @@
+This file is here because git removes empty folders, and the concept of PostLoad should be more discoverable (rather than just buried in a Powershell script).

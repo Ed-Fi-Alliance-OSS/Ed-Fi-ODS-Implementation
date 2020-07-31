@@ -1,0 +1,19 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Common Salary
+  documentation "Information regarding the salary of a staff member."
+  integer SalaryMinRange
+    documentation "The minimum salary range for a staff."
+    is optional
+  integer SalaryMaxRange
+    documentation "The maximum salary range for a staff."
+    is optional
+  descriptor SalaryType
+    documentation "The type of salary that a staff member is receiving."
+    is optional
+  currency SalaryAmount
+    documentation "The salary of a staff member."
+    is optional

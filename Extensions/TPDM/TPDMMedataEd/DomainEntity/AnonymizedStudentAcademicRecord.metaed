@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity AnonymizedStudentAcademicRecord
+  documentation "The academic record for an anonymized student"
+  domain entity AnonymizedStudent
+    documentation "The education organization associated with aggregated student data"
+    is part of identity
+    merge AnonymizedStudent.SchoolYear with SchoolYear
+  domain entity EdFi.EducationOrganization
+    documentation "The education organization associated with aggregated student data"
+    is part of identity
+  enumeration EdFi.SchoolYear
+    documentation "The school year for which the data is associated"
+    is part of identity
+  descriptor EdFi.Term
+    documentation "The term for the session during the school year."
+    is part of identity
+  date FactAsOfDate
+    documentation "The date for which the data element is relevant"
+    is part of identity
+  shared decimal EdFi.GPA named SessionGradePointAverage
+    documentation "The number of grade points an individual earned for this session."
+    is optional
+  shared decimal EdFi.GPA named CumulativeGradePointAverage
+    documentation "The average cumulative grade point average for a student"
+    is optional
+  shared decimal EdFi.GPA named GPAMax
+    documentation "The maximum grade point average that can be achieved by a student"
+    is optional

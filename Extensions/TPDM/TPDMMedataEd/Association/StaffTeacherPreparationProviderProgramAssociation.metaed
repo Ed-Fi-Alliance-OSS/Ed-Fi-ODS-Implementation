@@ -1,0 +1,20 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association StaffTeacherPreparationProviderProgramAssociation
+  documentation "This association indicates the Staff associated with a teacher preparation provider program."
+  domain entity EdFi.Staff
+    documentation "The Staff associated with the Program."
+  domain entity TeacherPreparationProviderProgram
+    documentation "The Program associated to the Staff."
+  date BeginDate
+    documentation "Start date for the association of staff to this program."
+    is required
+  date EndDate
+    documentation "End date for the association of staff to this program."
+    is optional
+  bool StudentRecordAccess
+    documentation "Indicator of whether the staff has access to the student records of the program per district interpretation of FERPA and other privacy laws, regulations, and policies."
+    is optional

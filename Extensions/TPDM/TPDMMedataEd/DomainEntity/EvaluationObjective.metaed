@@ -1,0 +1,31 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity EvaluationObjective
+    documentation "A subcomponent of an Evaluation, a specific educator Objective or domain of performance that is being evaluated.  "
+    domain entity Evaluation
+        documentation "The Evaluation applied for the person."
+        is part of identity
+    shared string EvaluationObjectiveTitle
+        documentation "The name or title of the evaluation Objective."
+        is part of identity
+    integer SortOrder
+        documentation "The sort order of this Evaluation Objective."
+        is optional
+    shared decimal Rating
+        documentation "The minimum summary numerical rating or score for the evaluation Objective. If omitted, assumed to be 0.0."
+        is optional
+        role name Min
+    shared decimal Rating
+        documentation "The maximum summary numerical rating or score for the evaluation Objective."
+        is optional
+        role name Max
+    descriptor EvaluationType
+        documentation "The type of the evaluation Objective (e.g., observation, principal, peer, student survey, student growth)."
+        is optional
+    common RatingLevel
+        documentation "The descriptive level(s) of ratings (cut scores) for evaluation Objective."
+        is optional collection
+        role name Objective

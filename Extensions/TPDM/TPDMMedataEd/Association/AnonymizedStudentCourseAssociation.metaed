@@ -1,0 +1,17 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Association AnonymizedStudentCourseAssociation
+  documentation "Information about the association between an anonymized student and the course they are enrolled in"
+  domain entity AnonymizedStudent
+    documentation "The Anonymized Student reference for the association."
+  domain entity EdFi.Course
+    documentation "The Course reference for the association."
+  date BeginDate
+    documentation "Begin date for the association"
+    is part of identity
+  date EndDate
+    documentation "The end date for the association"
+    is optional

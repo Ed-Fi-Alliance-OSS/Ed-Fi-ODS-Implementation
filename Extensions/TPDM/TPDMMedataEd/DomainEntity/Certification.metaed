@@ -1,0 +1,57 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Domain Entity Certification
+    documentation "An offering by an official granting authority of a certification or license that qualifies persons to perform specific job functions, such as full fill a teaching assignment."
+    shared string EdFi.IdentificationCode named CertificationIdentifier
+        documentation "Identifier or serial number assigned to the Certification."
+        is part of identity
+    shared string EdFi.URI named Namespace
+        documentation "Namespace for the Certification, typically associated with the issuing authority."
+        is part of identity
+    shared string CertificationTitle
+        documentation "The title of the Certification."
+        is required
+    domain entity EdFi.EducationOrganization
+        documentation "The Education Organization that authorizes the Certification, often a StateEducationAgency."
+        is optional
+    descriptor CertificationLevel
+        documentation "The level (e.g., Elementary, Secondary) or category (administrative, specialist) of the Certification."
+        is optional
+    descriptor CertificationField
+        documentation "The field of certification (e.g., Mathematics, Music)."
+        is optional
+    descriptor EdFi.GradeLevel
+        documentation "The grade level(s) certified for teaching."
+        is optional collection
+    descriptor CertificationRoute // DIFF - renamed to match CertificationRoute (dropped 'Options' from name)
+        documentation "The process, program ,or pathway used to obtain certification."
+        is optional collection
+    descriptor CertificationStandard
+        documentation "The standard, law or policy defining the certification."
+        is optional
+    descriptor Degree
+        documentation "The minimum level of degree, if any, required for Certification."
+        is optional
+        role name Minimum
+    descriptor EducatorRole
+        documentation "The role authorized by the Certification (e.g., Principal, Reading Specialist), typically associated with service and administrative certifications."
+        is optional
+    descriptor EdFi.PopulationServed
+        documentation "The type of students the Section is offered and tailored to; for example: Bilingual students, Remedial education students, Gifted and talented students, Career and Technical Education students, Special education students."
+        is optional
+    descriptor InstructionalSetting
+        documentation "The setting authorized by the Certification in which a child receives education and related services; for example: Classroom, Virtual, Vocational."
+        is optional
+    domain entity CertificationExam
+        documentation "The Certification Eams required for the Certification."
+        is optional collection
+        role name CertificationExam
+    date EffectiveDate
+        documentation "The year, month and day on which the Certification is offered."
+        is optional
+    date EndDate
+        documentation "The month, day, and year on which the Certification offering is expected to end."
+        is optional

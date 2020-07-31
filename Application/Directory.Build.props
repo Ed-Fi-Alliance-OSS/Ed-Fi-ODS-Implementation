@@ -1,0 +1,3 @@
+<Project>
+  <Import Project="../../Ed-Fi-ODS/Application/Directory.Build.props" />
+</Project>

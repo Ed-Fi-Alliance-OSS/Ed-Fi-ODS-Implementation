@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>EdFi.Installer.SandboxAdmin</id>
+    <version>1.0.0</version>
+    <title>Ed-Fi SwaggerUI Installer Scripts</title>
+    <authors>Ed-Fi Alliance</authors>
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
+    <copyright>Copyright © 2020, Ed-Fi Alliance, LLC and contributors.</copyright>
+    <summary>Application installer modules for the Ed-Fi ODS/API Sandbox Admin application</summary>
+    <description>Application installer modules for the Ed-Fi ODS/API Sandbox Admin application</description>
+    <license type="file">LICENSE.txt</license>
+  </metadata>
+  <files>
+    <file src="Install-EdFiOdsSandboxAdmin.psm1" />
+    <file src="initialization.config" />
+    <file src="Ed-Fi-Common/**" />
+    <file src="Ed-Fi-ODS/**" />
+    <file src="Ed-Fi-ODS-Implementation/**" />
+    <file src="../../../LICENSE.txt" />
+  </files>
+</package>

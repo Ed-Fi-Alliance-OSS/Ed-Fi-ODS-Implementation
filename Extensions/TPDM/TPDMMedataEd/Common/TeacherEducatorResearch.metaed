@@ -1,0 +1,16 @@
+// SPDX-License-Identifier: Apache-2.0
+//  Licensed to the Ed-Fi Alliance under one or more agreements.
+//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+//  See the LICENSE and NOTICES files in the project root for more information.
+
+Common TeacherEducatorResearch
+  documentation "Teacher preparation provider faculty that instruct teacher candidates in content area or pedagogy."
+  date ResearchExperienceDate
+    documentation "Month, day, and year of the start or effective date of a staff member's teacher educator position for an Education Organization."
+    is required
+  shared string ResearchExperienceTitle
+    documentation "The title of the research experience."
+    is optional
+  shared string EdFi.Description named ResearchExperienceDescription
+    documentation "The description of the research experience."
+    is optional
