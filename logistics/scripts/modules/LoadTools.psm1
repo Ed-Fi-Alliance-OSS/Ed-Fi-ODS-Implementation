@@ -221,23 +221,23 @@ function Invoke-SetTestHarnessConfig {
     $testHarnessAppConfig = (Get-ChildItem -Recurse $config.testHarnessAppConfig).FullName
     Write-Host "Editing $testHarnessAppConfig"
 
-    $xml = [xml](Get-Content $testHarnessAppConfig)
+    $jsonFromFile = (Get-Content $testHarnessAppConfig | ConvertFrom-JSON)
 
     if ($config.noExtensions) {
         Write-Host "Disabling Extensions..."
-        if (($key = $xml.SelectSingleNode("//appSettings/add[@key = 'extensions:featureIsEnabled']"))) {
-            $key.SetAttribute("value", "false")
+        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.extensions)) {
+			$jsonFromFile.extensions = "false"
         }
     }
 
     if ($config.noChanges) {
         Write-Host "Disabling Change Queries..."
-        if (($key = $xml.SelectSingleNode("//appSettings/add[@key = 'changeQueries:featureIsEnabled']"))) {
-            $key.SetAttribute("value", "false")
+        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.changeQueries)) {
+			$jsonFromFile.changeQueries = "false"
         }
     }
-
-    $xml.Save($testHarnessAppConfig)
+	
+	$jsonFromFile | ConvertTo-Json | set-content $testHarnessAppConfig
 }
 
 Export-ModuleMember -function Add-RandomKeySecret,

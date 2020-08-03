@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "EdFi.Ods.Api.IntegrationTestHarness": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

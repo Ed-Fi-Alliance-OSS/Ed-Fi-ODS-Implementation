@@ -26,7 +26,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\script
 
 $testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
 $testHarnessName = (Get-Item $testHarnessFolder).Name
-$testHarnessConfigurationFilter = "$(Get-RepositoryResolvedPath "\Application\$testHarnessName")\bin\**\$testHarnessName.exe.config"
+$testHarnessConfigurationFilter = "$(Get-RepositoryResolvedPath "\Application\$testHarnessName")\bin\**\appsettings.json"
 $testHarnessConfiguration = (Get-ChildItem -Recurse $testHarnessConfigurationFilter).FullName
 
 Set-DeployConfigFile ($testHarnessConfiguration)
