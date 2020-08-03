@@ -122,6 +122,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ProjectInformation", "_Pro
 		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.SwaggerUI.NetCore", "EdFi.Ods.SwaggerUI.NetCore\EdFi.Ods.SwaggerUI.NetCore.csproj", "{C5D74231-9058-4655-B14A-8D3C0B1EC318}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -351,6 +353,12 @@ Global
 		{B6D495AA-C463-46E8-AB60-5857A0FF0708}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
 		{B6D495AA-C463-46E8-AB60-5857A0FF0708}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6D495AA-C463-46E8-AB60-5857A0FF0708}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Npgsql|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -393,6 +401,7 @@ Global
 		{D67B54A7-0275-484C-8F6C-28808383A0F6} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
 		{5D29E54C-0788-42D3-AC34-F7E144975458} = {14352B5E-2434-4117-A063-2BBD4D87464D}
 		{B6D495AA-C463-46E8-AB60-5857A0FF0708} = {F25ED154-FB97-4F39-933B-808D1B3B6D3E}
+		{C5D74231-9058-4655-B14A-8D3C0B1EC318} = {26FBA24F-2F1E-47EA-BDE2-EF57AE81D65D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}

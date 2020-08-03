@@ -192,7 +192,7 @@ function Add-SandboxCredentials {
         [string] $minimalKey = (Get-RandomString),
         [string] $minimalSecret = (Get-RandomString),
         [string] $adminCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config'),
-        [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI\SwaggerCredential.config'),
+        [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI.NetCore\appsettings.development.json'),
         [switch] $force
     )
 
@@ -224,14 +224,15 @@ function Add-SandboxCredentials {
         $adminCredentialContent | Out-File $adminCredentialConfigPath -Encoding utf8
         Write-Host "Created config: $adminCredentialConfigPath"
 
-        $swaggerCredentialContent =
-        @"
-<appSettings>
-    <add key="swagger.prepopulatedKey" value="$populatedKey" />
-    <add key="swagger.prepopulatedSecret" value="$populatedSecret" />
-</appSettings>
-"@
-        $swaggerCredentialContent | Out-File $swaggerCredentialConfigPath -Encoding utf8
+        $swaggerAppSettings = @{
+            SwaggerUIOptions = @{
+                OAuthConfigObject = @{
+                    ClientId = $populatedKey
+                    ClientSecret = $populatedSecret
+                }
+            }
+        }
+        $swaggerAppSettings | ConvertTo-Json -depth 10 | Out-File $swaggerCredentialConfigPath -Encoding utf8
         Write-Host "Created config: $swaggerCredentialConfigPath"
     }
 }
