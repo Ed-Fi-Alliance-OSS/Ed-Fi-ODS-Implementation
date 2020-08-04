@@ -4,21 +4,13 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
-using EdFi.Ods.Api.Common.Container;
 using EdFi.Ods.Api.Common.ExternalTasks;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
 {
-    public class UpdateAdminDatabaseModule : ConditionalModule
+    public class UpdateAdminDatabaseModule : Module
     {
-        public UpdateAdminDatabaseModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(UpdateAdminDatabaseModule)) { }
-
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.UpdateAdminDatabase);
-
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void Load(ContainerBuilder builder)
         {
             builder.RegisterType<UpdateAdminDatabase>()
                 .As<IExternalTask>()

@@ -22,13 +22,17 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
     {
         public static async Task Main(string[] args)
         {
+            var _logger = LogManager.GetLogger(typeof(Program));
+            _logger.Debug("Loading configuration files");
+
             ConfigureLogging();
+
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(
                     (hostBuilderContext, configbuilder) =>
                     {
                         configbuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                             .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", optional: true)
                             .AddEnvironmentVariables()
                             .AddCommandLine(args);

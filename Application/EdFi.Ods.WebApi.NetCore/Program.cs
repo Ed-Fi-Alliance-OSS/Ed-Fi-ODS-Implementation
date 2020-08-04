@@ -19,7 +19,11 @@ namespace EdFi.Ods.WebApi.NetCore
     {
         public static async Task Main(string[] args)
         {
+            var _logger = LogManager.GetLogger(typeof(Program));
+            _logger.Debug("Loading configuration files");
+
             ConfigureLogging();
+
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(
                     (hostBuilderContext, configbuilder) =>

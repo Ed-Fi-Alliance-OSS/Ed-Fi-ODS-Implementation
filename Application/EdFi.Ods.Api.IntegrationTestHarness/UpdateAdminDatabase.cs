@@ -1,6 +1,7 @@
 ﻿using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Api.Common.ExternalTasks;
 using EdFi.Ods.Sandbox.Repositories;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -19,11 +20,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly string _environmentFilePath;
         private static TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
 
-        public UpdateAdminDatabase(IClientAppRepo clientAppRepo, string configurationFilePath, string environmentFilePath)
+        public UpdateAdminDatabase(IClientAppRepo clientAppRepo, IConfigurationRoot configuration)
         {
             _clientAppRepo = clientAppRepo;
-            _configurationFilePath = configurationFilePath;
-            _environmentFilePath = environmentFilePath;
+            _configurationFilePath = configuration.GetValue<string>("configurationFilePath");
+            _environmentFilePath = configuration.GetValue<string>("environmentFilePath");
         }
 
         public void Execute()
