@@ -16,6 +16,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
     public class UpdateAdminDatabase : IExternalTask
     {
         private readonly IClientAppRepo _clientAppRepo;
+        private readonly IConfigurationRoot _configuration;
         private readonly string _configurationFilePath;
         private readonly string _environmentFilePath;
         private static TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
@@ -23,6 +24,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public UpdateAdminDatabase(IClientAppRepo clientAppRepo, IConfigurationRoot configuration)
         {
             _clientAppRepo = clientAppRepo;
+            _configuration = configuration;
             _configurationFilePath = configuration.GetValue<string>("configurationFilePath");
             _environmentFilePath = configuration.GetValue<string>("environmentFilePath");
         }
@@ -157,7 +159,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = ConfigurationManager.AppSettings["selfHost:baseAddress"] ?? "http://localhost:8765/",
+                            Value = _configuration["selfHost:baseAddress"] ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 
@@ -165,7 +167,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = ConfigurationManager.AppSettings["composites:featureIsEnabled"],
+                            Value = _configuration["composites:featureIsEnabled"],
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -173,7 +175,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = ConfigurationManager.AppSettings["profiles:featureIsEnabled"],
+                            Value = _configuration["profiles:featureIsEnabled"],
                             Key = "ProfilesFeatureIsEnabled"
                         });
 
