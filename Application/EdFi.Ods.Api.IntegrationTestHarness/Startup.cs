@@ -9,6 +9,8 @@ using EdFi.Ods.ChangeQueries;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Composites.Test;
 using EdFi.Ods.Features;
+using EdFi.Ods.Extensions.Sample;
+using EdFi.Ods.Extensions.TPDM;
 using EdFi.Ods.Profiles.Test;
 using EdFi.Ods.Security;
 using EdFi.Ods.Standard;
@@ -28,6 +30,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Security>();
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Standard>();
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Api>();
+            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Extensions_Sample>();
+            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Extensions_TPDM>();
             AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Features>();
         }
     }

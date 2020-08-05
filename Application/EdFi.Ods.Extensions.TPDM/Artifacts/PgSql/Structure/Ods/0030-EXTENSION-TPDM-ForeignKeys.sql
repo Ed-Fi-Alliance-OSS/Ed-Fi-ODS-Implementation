@@ -1489,12 +1489,12 @@ ON DELETE CASCADE
 CREATE INDEX FK_2d29eb_EvaluationRating
 ON tpdm.EvaluationRatingReviewer (EducationOrganizationId ASC, EvaluationDate ASC, EvaluationPeriodDescriptorId ASC, EvaluationTitle ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.EvaluationRatingReviewer ADD CONSTRAINT FK_2d29eb_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+ALTER TABLE tpdm.EvaluationRatingReviewer ADD CONSTRAINT FK_2d29eb_Person FOREIGN KEY (ReviewerPersonId, ReviewerSourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
 ;
 
 CREATE INDEX FK_2d29eb_Person
-ON tpdm.EvaluationRatingReviewer (PersonId ASC, SourceSystemDescriptorId ASC);
+ON tpdm.EvaluationRatingReviewer (ReviewerPersonId ASC, ReviewerSourceSystemDescriptorId ASC);
 
 ALTER TABLE tpdm.EvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_608112_EvaluationRatingReviewer FOREIGN KEY (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 REFERENCES tpdm.EvaluationRatingReviewer (EducationOrganizationId, EvaluationDate, EvaluationPeriodDescriptorId, EvaluationTitle, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
@@ -1884,12 +1884,12 @@ ON DELETE CASCADE
 CREATE INDEX FK_477526_PerformanceEvaluationRating
 ON tpdm.PerformanceEvaluationRatingReviewer (EducationOrganizationId ASC, EvaluationPeriodDescriptorId ASC, PerformanceEvaluationTitle ASC, PerformanceEvaluationTypeDescriptorId ASC, PersonId ASC, SchoolYear ASC, SourceSystemDescriptorId ASC, TermDescriptorId ASC);
 
-ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ADD CONSTRAINT FK_477526_Person FOREIGN KEY (PersonId, SourceSystemDescriptorId)
+ALTER TABLE tpdm.PerformanceEvaluationRatingReviewer ADD CONSTRAINT FK_477526_Person FOREIGN KEY (ReviewerPersonId, ReviewerSourceSystemDescriptorId)
 REFERENCES edfi.Person (PersonId, SourceSystemDescriptorId)
 ;
 
 CREATE INDEX FK_477526_Person
-ON tpdm.PerformanceEvaluationRatingReviewer (PersonId ASC, SourceSystemDescriptorId ASC);
+ON tpdm.PerformanceEvaluationRatingReviewer (ReviewerPersonId ASC, ReviewerSourceSystemDescriptorId ASC);
 
 ALTER TABLE tpdm.PerformanceEvaluationRatingReviewerReceivedTraining ADD CONSTRAINT FK_6e6517_PerformanceEvaluationRatingReviewer FOREIGN KEY (EducationOrganizationId, EvaluationPeriodDescriptorId, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)
 REFERENCES tpdm.PerformanceEvaluationRatingReviewer (EducationOrganizationId, EvaluationPeriodDescriptorId, FirstName, LastSurname, PerformanceEvaluationTitle, PerformanceEvaluationTypeDescriptorId, PersonId, SchoolYear, SourceSystemDescriptorId, TermDescriptorId)

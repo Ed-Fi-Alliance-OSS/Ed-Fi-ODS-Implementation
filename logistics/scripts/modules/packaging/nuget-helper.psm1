@@ -71,8 +71,8 @@ function Get-NuGetPackage {
         The NuGet package source. Defaults to "https://www.myget.org/F/ed-fi/api/v3/index.json".
     .EXAMPLE
         $parameters = @{
-            packageName = "EdFi.Ods.WebApi.Suite3"
-            packageVersion = "3.4.0-b10468"
+            packageName = "EdFi.Suite3.Ods.WebApi"
+            packageVersion = "5.0.0-b11661"
             toolsPath = ".\tools"
         }
         Get-NuGetPackage @parameters

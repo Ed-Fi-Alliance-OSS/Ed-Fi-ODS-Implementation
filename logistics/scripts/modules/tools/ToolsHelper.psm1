@@ -120,7 +120,7 @@ function Install-ToolDbDeploy {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
             Path = $toolsPath
-            Name = 'edfi.db.deploy.suite3'
+            Name = 'EdFi.Suite3.Db.Deploy'
             Version = $toolVersion
         }
 
@@ -147,7 +147,7 @@ function Install-ToolCodeGenUtility {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
             Path = $toolsPath
-            Name = 'edfi.ods.codegen.suite3'
+            Name = 'EdFi.Suite3.Ods.CodeGen'
             Version = $toolVersion
         }
 
@@ -256,12 +256,7 @@ function Invoke-DbDeploy {
     }
     $databaseType = $databaseIdLookup[$Database]
 
-    if (-not [string]::IsNullOrWhiteSpace($ToolsPath) -and (Test-Path -Path $ToolsPath)) {
-        $tool = Join-Path $ToolsPath "EdFi.Db.Deploy.exe"
-    }
-    else {
-        $tool = Get-RepositoryResolvedPath (Join-Path "tools" "EdFi.Db.Deploy.exe")
-    }
+    $tool = (Join-Path (Get-ToolsPath) 'EdFi.Db.Deploy')
 
     $hasFeatures = ($Features.count -gt 0)
     if ($hasFeatures) {

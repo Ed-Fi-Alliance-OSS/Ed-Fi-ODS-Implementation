@@ -34,7 +34,9 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-Tools\Application\EdFi.Ods.AdminApp.Web')
-& "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1" $repositoryNames
+& "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1" $repositoryNames 
+$implementationRepo = Get-Item "$PSScriptRoot\..\..\..\..\.." | Select-Object -Expand Name
+$env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-database-bacpac.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-database-template.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
@@ -46,7 +48,12 @@ Clear-Error
 
 Write-InvocationInfo $MyInvocation
 
-$sqlServerConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config')
+$baseConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config')
+$transformFile = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.AzureCloudODS.config') 
+$destinationFile = ($baseConfig -replace "base.", "")
+Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFile  -destinationFile $destinationFile
+    
+$sqlServerConfig = $destinationFile
 $postgreSQLConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Npgsql.config')
 
 Write-Host "sqlServerConfig $sqlServerConfig"
@@ -56,13 +63,9 @@ $script:sqlServerConnectionStrings = Get-DbConnectionStringBuilderFromConfig $sq
 $script:postgreSQLConnectionStrings = Get-DbConnectionStringBuilderFromConfig $postgreSQLConfig
 $script:databaseIds = Get-DatabaseIds
 
-# This enables the Change Queries feature for Cloud ODS databases
-# See Get-AvailableFeatures in Ed-Fi-ODS-Implementation\logistics\scripts\modules\config\config-management.psm1
-$FeatureSubTypeNames = @("changes")
-
-$sqlServerFilePaths = (Get-Configuration).filePaths
-# postgres doesn't support extensions yet
-$postgreSQLFilePaths = Get-RepositoryArtifactPaths
+$config = Get-Configuration $sqlServerConfig
+$FeatureSubTypeNames = $config.SubTypes
+$databaseScriptFilePaths = $config.filePaths
 
 $deploymentTasks = @(
     @{
@@ -72,7 +75,7 @@ $deploymentTasks = @(
                 engine         = 'SQLServer'
                 csb            = $script:sqlServerConnectionStrings[$databaseIds.admin.connectionStringKey]
                 database       = $databaseIds.admin.database
-                filePaths      = $sqlServerFilepaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -86,7 +89,7 @@ $deploymentTasks = @(
                 engine         = 'SQLServer'
                 csb            = $script:sqlServerConnectionStrings[$databaseIds.security.connectionStringKey]
                 database       = $databaseIds.security.database
-                filePaths      = $sqlServerFilepaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -100,7 +103,7 @@ $deploymentTasks = @(
                 engine         = 'SQLServer'
                 csb            = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:sqlServerConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Empty_Template"
                 database       = $databaseIds.ods.database
-                filePaths      = $sqlServerFilepaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -115,7 +118,7 @@ $deploymentTasks = @(
                 engine                  = 'SQLServer'
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:sqlServerConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Minimal_Template"
                 database                = $databaseIds.ods.database
-                filePaths               = $sqlServerFilepaths
+                filePaths               = $databaseScriptFilePaths
                 subTypeNames            = $FeatureSubTypeNames
                 createByRestoringBackup = $backupPath
                 transient               = $true
@@ -131,7 +134,7 @@ $deploymentTasks = @(
                 engine                  = 'SQLServer'
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:sqlServerConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Populated_Template"
                 database                = $databaseIds.ods.database
-                filePaths               = $sqlServerFilepaths
+                filePaths               = $databaseScriptFilePaths
                 subTypeNames            = $FeatureSubTypeNames
                 createByRestoringBackup = $backupPath
                 transient               = $true
@@ -146,7 +149,7 @@ $deploymentTasks = @(
                 engine         = 'PostgreSQL'
                 csb            = $script:postgreSQLConnectionStrings[$databaseIds.admin.connectionStringKey]
                 database       = $databaseIds.admin.database
-                filePaths      = $postgreSQLFilePaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -160,7 +163,7 @@ $deploymentTasks = @(
                 engine         = 'PostgreSQL'
                 csb            = $script:postgreSQLConnectionStrings[$databaseIds.security.connectionStringKey]
                 database       = $databaseIds.security.database
-                filePaths      = $postgreSQLFilePaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -174,7 +177,7 @@ $deploymentTasks = @(
                 engine         = 'PostgreSQL'
                 csb            = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:postgreSQLConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Empty_Template"
                 database       = $databaseIds.ods.database
-                filePaths      = $postgreSQLFilePaths
+                filePaths      = $databaseScriptFilePaths
                 subTypeNames   = $FeatureSubTypeNames
                 transient      = $true
             }
@@ -189,7 +192,7 @@ $deploymentTasks = @(
                 engine                  = 'PostgreSQL'
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:postgreSQLConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Minimal_Template"
                 database                = $databaseIds.ods.database
-                filePaths               = $postgreSQLFilePaths
+                filePaths               = $databaseScriptFilePaths
                 subTypeNames            = $FeatureSubTypeNames
                 createByRestoringBackup = $backupPath
                 transient               = $true
@@ -205,7 +208,7 @@ $deploymentTasks = @(
                 engine                  = 'PostgreSQL'
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:postgreSQLConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Populated_Template"
                 database                = $databaseIds.ods.database
-                filePaths               = $postgreSQLFilePaths
+                filePaths               = $databaseScriptFilePaths
                 subTypeNames            = $FeatureSubTypeNames
                 createByRestoringBackup = $backupPath
                 transient               = $true
