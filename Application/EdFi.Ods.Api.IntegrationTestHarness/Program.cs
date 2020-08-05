@@ -15,7 +15,6 @@ using CommandLine;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Ods.Admin.Models;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
 using EdFi.Security.DataAccess.Contexts;
@@ -25,7 +24,6 @@ using Newtonsoft.Json;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Sandbox.Provisioners;
 using Newtonsoft.Json.Serialization;
-using NHibernate.Type;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -272,21 +270,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 .ImplementedBy<DatabaseNameBuilder>(),
                             Component.For<IDbConnectionStringBuilderAdapterFactory>()
                                 .ImplementedBy<DbConnectionStringBuilderAdapterFactory>());
-
-                        var apiConfigurationProvider  = container.Resolve<IApiConfigurationProvider>();
-
-                        if (apiConfigurationProvider.DatabaseEngine == DatabaseEngine.SqlServer)
-                        {
-                            container.Register(
-                                Component.For<ITemplateDatabaseLeaQuery>()
-                                    .ImplementedBy<SqlServerTemplateDatabaseLeaQuery>());
-                        }
-                        else
-                        {
-                            container.Register(
-                                Component.For<ITemplateDatabaseLeaQuery>()
-                                    .ImplementedBy<PostgresTemplateDatabaseLeaQuery>());
-                        }
                     }
                 }
             }
