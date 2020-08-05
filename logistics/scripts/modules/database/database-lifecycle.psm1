@@ -1,4 +1,4 @@
-﻿# SPDX-License-Identifier: Apache-2.0
+# SPDX-License-Identifier: Apache-2.0
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
@@ -142,45 +142,44 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     Write-InvocationInfo $MyInvocation
 
     if ($engine -eq 'PostgreSQL') {
+        $scriptParams = @{
+            serverName   = $csb.host
+            portNumber   = $csb.port
+            userName     = $csb.username
+            databaseName = $csb.database
+        }
+    
+        Remove-PostgresSQLDatabaseAsTemplate @scriptParams
+
         if ($dropDatabase) {
-            $params = @{
-                serverName = $csb.host
-                portNumber = $csb.port
-                userName = $csb.username
-                databaseToRemove = $csb.Database
-            }
-            Remove-PostgreSQLDatabase @params
+            Remove-PostgreSQLDatabase @scriptParams
         }
 
-        $params = @{
-            serverName = $csb.host
-            portNumber = $csb.port
-            userName = $csb.username
-            database = $csb.Database
-        }
-        $databaseExists = (Test-PostgreSQLDatabaseExists @params)
+        $databaseExists = (Test-PostgreSQLDatabaseExists @scriptParams)
 
         if (-not ($databaseExists) -and $createByRestoringBackup) {
             $params = @{
-                serverName = $csb.host
-                portNumber = $csb.port
-                userName = $csb.username
+                serverName   = $csb.host
+                portNumber   = $csb.port
+                userName     = $csb.username
                 databaseName = $csb.database
-                backupFile = $createByRestoringBackup
+                backupFile   = $createByRestoringBackup
             }
             Install-PostgreSQLTemplate @params
         }
 
         $params = @{
-            Verb = "Deploy"
-            Engine = $Engine
-            Database = $database
+            Verb             = "Deploy"
+            Engine           = $Engine
+            Database         = $database
             ConnectionString = $csb
-            FilePaths = $filePaths
-            Features = $subTypeNames
+            FilePaths        = $filePaths
+            Features         = $subTypeNames
         }
         Invoke-DbDeploy @params
 
+        Write-Host $scriptParams
+        Set-PostgresSQLDatabaseAsTemplate @scriptParams
         return;
     }
 
@@ -225,12 +224,12 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     }
 
     $params = @{
-        Verb = "Deploy"
-        Engine = $Engine
-        Database = $database
+        Verb             = "Deploy"
+        Engine           = $Engine
+        Database         = $database
         ConnectionString = $csb
-        FilePaths = $filePaths
-        Features = $subTypeNames
+        FilePaths        = $filePaths
+        Features         = $subTypeNames
     }
     Invoke-DbDeploy @params
 }
@@ -265,17 +264,17 @@ function Remove-EdFiSandboxDatabases {
     if (-not $templateInitialCatalog) {
         throw "The template CSB does not define an initial catalog"
     }
-    $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
-    if (-not ($templateBaseName.Length -gt $templateInitialCatalog.Length)) {
-        throw "Template base name '$templateBaseName' ($($templateBaseName.Length) characters) was not longer than the template initial catalog '$templateInitialCatalog' ($($templateInitialCatalog.Length) characters); does the template initial catalog contain a format string token of '{0}' ?"
-    }
 
-    $smo = Get-Server -csb $masterCSB
-    foreach ($db in $smo.Databases) {
-        if ($db.Name.StartsWith("$templateBaseName")) {
-            Write-Verbose "Removing sandbox database: $($db.Name)"
-            $sandboxCSB = New-DbConnectionStringBuilder -existingCSB $masterCSB -property @{Database = $db.Name }
-            Remove-Database -csb $sandboxCSB
+    $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
+    
+    if ($templateInitialCatalog -like '*{0}*') {
+        $smo = Get-Server -csb $masterCSB
+        foreach ($db in $smo.Databases) {
+            if ($db.Name.StartsWith("$templateBaseName")) {
+                Write-Verbose "Removing sandbox database: $($db.Name)"
+                $sandboxCSB = New-DbConnectionStringBuilder -existingCSB $masterCSB -property @{Database = $db.Name }
+                Remove-Database -csb $sandboxCSB
+            }
         }
     }
 }

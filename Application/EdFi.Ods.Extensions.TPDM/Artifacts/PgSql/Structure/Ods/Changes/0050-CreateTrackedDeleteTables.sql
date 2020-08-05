@@ -242,7 +242,7 @@ CREATE TABLE tracked_deletes_tpdm.Certification
 CREATE TABLE tracked_deletes_tpdm.CertificationExam
 (
        CertificationExamIdentifier VARCHAR(60) NOT NULL,
-       ExamNamespace VARCHAR(255) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT CertificationExam_PK PRIMARY KEY (ChangeVersion)
@@ -252,7 +252,7 @@ CREATE TABLE tracked_deletes_tpdm.CertificationExamResult
 (
        CertificationExamDate DATE NOT NULL,
        CertificationExamIdentifier VARCHAR(60) NOT NULL,
-       ExamNamespace VARCHAR(255) NOT NULL,
+       Namespace VARCHAR(255) NOT NULL,
        PersonId VARCHAR(32) NOT NULL,
        SourceSystemDescriptorId INT NOT NULL,
        Id UUID NOT NULL,

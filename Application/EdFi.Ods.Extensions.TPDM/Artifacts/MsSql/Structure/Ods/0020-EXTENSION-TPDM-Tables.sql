@@ -1988,6 +1988,8 @@ CREATE TABLE [tpdm].[EvaluationRatingReviewer] (
     [SchoolYear] [SMALLINT] NOT NULL,
     [SourceSystemDescriptorId] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
+    [ReviewerPersonId] [NVARCHAR](32) NULL,
+    [ReviewerSourceSystemDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [EvaluationRatingReviewer_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -2597,6 +2599,8 @@ CREATE TABLE [tpdm].[PerformanceEvaluationRatingReviewer] (
     [SchoolYear] [SMALLINT] NOT NULL,
     [SourceSystemDescriptorId] [INT] NOT NULL,
     [TermDescriptorId] [INT] NOT NULL,
+    [ReviewerPersonId] [NVARCHAR](32) NULL,
+    [ReviewerSourceSystemDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [PerformanceEvaluationRatingReviewer_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,

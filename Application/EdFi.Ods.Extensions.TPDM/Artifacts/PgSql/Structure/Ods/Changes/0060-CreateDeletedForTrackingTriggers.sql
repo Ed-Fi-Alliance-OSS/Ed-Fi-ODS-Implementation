@@ -288,8 +288,8 @@ CREATE FUNCTION tracked_deletes_tpdm.CertificationExamResult_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CertificationExamResult(CertificationExamDate, CertificationExamIdentifier, ExamNamespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.CertificationExamDate, OLD.CertificationExamIdentifier, OLD.ExamNamespace, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.CertificationExamResult(CertificationExamDate, CertificationExamIdentifier, Namespace, PersonId, SourceSystemDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.CertificationExamDate, OLD.CertificationExamIdentifier, OLD.Namespace, OLD.PersonId, OLD.SourceSystemDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -329,8 +329,8 @@ CREATE FUNCTION tracked_deletes_tpdm.CertificationExam_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_tpdm.CertificationExam(CertificationExamIdentifier, ExamNamespace, Id, ChangeVersion)
-    VALUES (OLD.CertificationExamIdentifier, OLD.ExamNamespace, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_tpdm.CertificationExam(CertificationExamIdentifier, Namespace, Id, ChangeVersion)
+    VALUES (OLD.CertificationExamIdentifier, OLD.Namespace, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
