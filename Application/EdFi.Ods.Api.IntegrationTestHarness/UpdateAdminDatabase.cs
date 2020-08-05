@@ -6,10 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Text;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -159,7 +157,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["selfHost:baseAddress"] ?? "http://localhost:8765/",
+                            Value = _configuration["ApiSettings:SelfHostBaseAddress"] ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 
@@ -167,7 +165,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["composites:featureIsEnabled"],
+                            Value = _configuration["ApiSettings:Features[2]:IsEnabled"],
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -175,7 +173,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["profiles:featureIsEnabled"],
+                            Value = _configuration["ApiSettings:Features[3]:IsEnabled"],
                             Key = "ProfilesFeatureIsEnabled"
                         });
 
