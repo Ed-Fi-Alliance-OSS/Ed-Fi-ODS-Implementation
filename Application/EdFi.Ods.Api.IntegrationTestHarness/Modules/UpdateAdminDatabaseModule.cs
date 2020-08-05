@@ -4,7 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
+using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Api.Common.ExternalTasks;
+using EdFi.Ods.Sandbox.Provisioners;
+using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Security.DataAccess.Contexts;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
 {
@@ -12,6 +17,26 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<UsersContextFactory>()
+                .As<IUsersContextFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<ClientAppRepo>()
+                .As<IClientAppRepo>()
+                .SingleInstance();
+
+            builder.RegisterType<SecurityContextFactory>()
+                .As<ISecurityContextFactory>()
+                .SingleInstance();
+
+            builder.RegisterType<SecurityRepository>()
+                .As<ISecurityRepository>()
+                .SingleInstance();
+
+            builder.RegisterType<SqlSandboxProvisioner>()
+                .As<ISandboxProvisioner>()
+                .SingleInstance();
+
             builder.RegisterType<UpdateAdminDatabase>()
                 .As<IExternalTask>()
                 .SingleInstance();
