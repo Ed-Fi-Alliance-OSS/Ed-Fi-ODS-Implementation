@@ -34,7 +34,7 @@ function Start-TestHarness {
             if (-not [string]::IsNullOrEmpty($environmentFilePath)) { $params += @('--environmentFilePath', $environmentFilePath) }
 
             Write-Host "$testHarnessExecutable $params" -ForegroundColor Magenta
-            Start-Process $testHarnessExecutable -ArgumentList ($params -join " ") -NoNewWindow
+            Start-Process $testHarnessExecutable -ArgumentList ($params -join "=") -NoNewWindow
         }
         else {
             throw "Configuration file '$configurationFilePath' does not exist."

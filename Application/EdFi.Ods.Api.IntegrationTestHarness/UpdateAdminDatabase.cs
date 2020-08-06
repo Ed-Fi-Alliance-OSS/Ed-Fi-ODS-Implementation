@@ -157,7 +157,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["ApiSettings:SelfHostBaseAddress"] ?? "http://localhost:8765/",
+                            Value = _configuration["SelfHostBaseAddress"] ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 

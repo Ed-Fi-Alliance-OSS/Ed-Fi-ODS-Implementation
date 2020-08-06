@@ -225,15 +225,15 @@ function Invoke-SetTestHarnessConfig {
 
     if ($config.noExtensions) {
         Write-Host "Disabling Extensions..."
-        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.extensions.featureIsEnabled)) {
-			$jsonFromFile.extensions.featureIsEnabled = "false"
+        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.ApiSettings.Features[5].IsEnabled)) {
+			$jsonFromFile.ApiSettings.Features[5].IsEnabled = "false"
         }
     }
 
     if ($config.noChanges) {
         Write-Host "Disabling Change Queries..."
-        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.changeQueries.featureIsEnabled)) {
-			$jsonFromFile.changeQueries.featureIsEnabled = "false"
+        if (-not [string]::IsNullOrWhiteSpace($jsonFromFile.ApiSettings.Features[0].IsEnabled)) {
+			$jsonFromFile.ApiSettings.Features[0].IsEnabled = "false"
         }
     }
 	

@@ -28,15 +28,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configbuilder) =>
-                    {
-                        configbuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
-                            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", optional: true)
-                            .AddEnvironmentVariables()
-                            .AddCommandLine(args);
-                    })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
 
