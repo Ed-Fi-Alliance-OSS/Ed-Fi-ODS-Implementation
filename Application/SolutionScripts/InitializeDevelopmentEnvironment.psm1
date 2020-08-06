@@ -86,7 +86,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunPostman,
 
-        [switch] $RunSmokeTest
+        [switch] $RunSmokeTest,
+
+        [switch] $UsePlugins
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -95,7 +97,7 @@ function Initialize-DevelopmentEnvironment {
 
     Clear-Error
 
-    Set-DeployConfigOverride -Engine $Engine
+    Set-DeployConfigOverride -Engine $Engine -UsePlugins:$UsePlugins
 
     $script:result = @()
 

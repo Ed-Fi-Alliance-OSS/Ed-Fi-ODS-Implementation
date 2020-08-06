@@ -91,7 +91,7 @@ function Get-TemplateBackupPath {
     return (Get-ChildItem $backupFolder -File -Filter "*.bak" | Select-Object -First 1 -Expand FullName)
 }
 
-function  Get-TemplateSourceFromConfig {
+function Get-TemplateSourceFromConfig {
     [CmdletBinding()] param(
         [parameter(ValueFromPipeline, Mandatory)]
         [string]$configFileName,

@@ -98,7 +98,7 @@ function Get-NuGetPackage {
         $PackageSource = "https://www.myget.org/F/ed-fi/api/v3/index.json"
     )
 
-    Install-NuGetCli  $ToolsPath
+    Install-NuGetCli $ToolsPath
 
     if (-not $PackageVersion) {
         # Lookup current "latest" version

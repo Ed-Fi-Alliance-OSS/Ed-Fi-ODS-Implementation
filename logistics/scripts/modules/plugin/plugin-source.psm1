@@ -1,0 +1,84 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+#requires -modules "path-resolver"
+
+$script:pluginFolderConfigKey = 'plugin:folder'
+$script:pluginScriptConfigKey = 'plugin:script'
+$script:defaultConfig = 'Application\EdFi.Ods.WebApi\Web.Base.config'
+
+function Get-PluginFolderFromConfig {
+    param(
+        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
+    )
+
+    $configDoc = New-Object System.Xml.XmlDocument
+    $configDoc.Load($configFile)
+    $folder = ($configDoc.SelectSingleNode("/configuration/appSettings/add[@key=`"$script:pluginFolderConfigKey`"]/@value")).Value
+
+    if ($null -eq $folder) { return [string]::Empty }
+
+    if (-not (Test-Path $folder)) { $folder = Join-Path $configFile $folder }
+
+    return Resolve-Path $folder
+}
+
+function Get-PluginScriptsFromConfig {
+    param(
+        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
+    )
+
+    $configDoc = New-Object System.Xml.XmlDocument
+    $configDoc.Load($configFile)
+    $scripts = ($configDoc.SelectSingleNode("/configuration/appSettings/add[@key=`"$script:pluginScriptConfigKey`"]/@value")).Value
+
+    if ($null -eq $scripts) { return [string]::Empty }
+    return $scripts.Split(',')
+}
+
+function Get-PluginScript {
+    param(
+        [parameter(Mandatory)] $pluginFolder,
+        [parameter(ValueFromPipeline, Mandatory)] $scriptName
+    )
+
+    $scriptPath = Get-ChildItem $pluginFolder -File -Filter "$scriptName.ps1"
+    return $scriptPath | Select-Object -First 1 -ExpandProperty FullName
+}
+
+function Invoke-PluginScript {
+    param(
+        [parameter(ValueFromPipeline, Mandatory)] $scriptPath
+    )
+
+    if (($null -eq $scriptPath) -or (-not (Test-Path $scriptPath))) { return }
+    & $scriptPath
+}
+
+function Get-Plugins {
+    param(
+        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
+    )
+
+    $pluginFolder = (Get-PluginFolderFromConfig $configFile)
+
+    return Get-PluginScriptsFromConfig $configFile |
+        Get-PluginScript $pluginFolder |
+        Invoke-PluginScript
+}
+
+function Get-PluginScriptsForPackaging {
+    param(
+        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
+    )
+
+    $result = @()
+
+    $pluginFolder = (Get-PluginFolderFromConfig $configFile)
+
+    $result += Get-ChildItem $pluginFolder -File | Where-Object { $_.extension -in ".ps1", ".psm1" }
+
+    return $result
+}
