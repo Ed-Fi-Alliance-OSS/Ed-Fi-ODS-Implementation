@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using log4net;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -17,6 +18,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly IConfigurationRoot _configuration;
         private readonly string _configurationFilePath;
         private readonly string _environmentFilePath;
+        private ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabase));
+
         private static TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
 
         public UpdateAdminDatabase(IClientAppRepo clientAppRepo, IConfigurationRoot configuration)
@@ -35,6 +38,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             if (!string.IsNullOrEmpty(_configurationFilePath))
             {
+                _logger.Debug($"configurationPath = {_configurationFilePath}");
+
                 if (!File.Exists(_configurationFilePath))
                 {
                     throw new Exception($"Configuration file {_configurationFilePath} does not exists.");
@@ -56,7 +61,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     LocalEducationOrganizations = new List<int> { 255901 }
                 };
 
-                var applicaton = new Application
+                var application = new Application
                 {
                     ApplicationName = "Default Application",
                     ClaimSetName = "Ed-Fi Sandbox",
@@ -67,7 +72,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 {
                     Email = "test@ed-fi.org",
                     VendorName = "Test Admin",
-                    Applications = new List<Application> { applicaton },
+                    Applications = new List<Application> { application },
                     NamespacePrefixes = new List<string>
                     {
                         "uri://ed-fi.org",

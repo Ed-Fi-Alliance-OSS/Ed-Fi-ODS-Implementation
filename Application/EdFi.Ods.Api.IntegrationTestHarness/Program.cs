@@ -6,6 +6,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Reflection;
@@ -28,8 +29,23 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(
+                    (hostBuilderContext, configBuilder) =>
+                    {
+                        string appSettingsPath = Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location),"appsettings.json");
+
+                        _logger.Debug($"Content RootPath = {hostBuilderContext.HostingEnvironment.ContentRootPath}");
+                        _logger.Debug($"App Settings Path = {appSettingsPath}");
+
+                        configBuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
+                            .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
+                            .AddEnvironmentVariables();
+                    })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder
+                    .ConfigureKestrel(
+                        (hostBuilderContext, options) => options.Listen(IPAddress.Loopback, hostBuilderContext.Configuration.GetValue<int>("port")))
+                    .UseStartup<Startup>(); }).Build();
 
             await host.RunAsync();
 
