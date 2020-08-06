@@ -52,6 +52,7 @@
     <ProjectReference Include="..\EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Sample\EdFi.Ods.Profiles.Sample.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
   </ItemGroup>

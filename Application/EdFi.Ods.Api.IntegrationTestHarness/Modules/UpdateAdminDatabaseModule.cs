@@ -33,10 +33,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
                 .As<ISecurityRepository>()
                 .SingleInstance();
 
-            builder.RegisterType<SqlSandboxProvisioner>()
-                .As<ISandboxProvisioner>()
-                .SingleInstance();
-
             builder.RegisterType<UpdateAdminDatabase>()
                 .As<IExternalTask>()
                 .SingleInstance();
