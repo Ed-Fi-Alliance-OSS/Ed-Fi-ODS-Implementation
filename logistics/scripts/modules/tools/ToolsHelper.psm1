@@ -243,7 +243,7 @@ function Invoke-DbDeploy {
         [AllowEmptyCollection()]
         $Features = @(),
 
-        [string] $ToolsPath = @{ "Invoke-Command:ScriptBlock"={{Get-ToolsPath}} }
+        [string] $ToolsPath = (Get-ToolsPath)
     )
 
     $databaseIdLookup = @{
