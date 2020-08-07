@@ -8,30 +8,44 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Api.Common.Configuration;
+using EdFi.Ods.Api.Common.Constants;
+using EdFi.Ods.Common.Configuration;
 using log4net;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
-    public class UpdateAdminDatabase : IExternalTask
+    public class UpdateAdminDatabaseTask : IExternalTask
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabaseTask));
         private readonly IClientAppRepo _clientAppRepo;
-        private readonly IConfigurationRoot _configuration;
-        private readonly string _configurationFilePath;
-        private readonly string _environmentFilePath;
-        private ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabase));
+        private readonly IDefaultApplicationCreator _defaultApplicationCreator;
+        private readonly IConfigValueProvider _configValueProvider;
+        private readonly ApiSettings _apiSettings;
+        private readonly IConfigurationRoot _configurationRoot;
 
-        private static TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
+        private TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
 
-        public UpdateAdminDatabase(IClientAppRepo clientAppRepo, IConfigurationRoot configuration)
+        public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
+            IDefaultApplicationCreator defaultApplicationCreator,
+            IConfigValueProvider configValueProvider,
+            ApiSettings apiSettings,
+            IConfigurationRoot configurationRoot)
         {
             _clientAppRepo = clientAppRepo;
-            _configuration = configuration;
-            _configurationFilePath = configuration.GetValue<string>("configurationFilePath");
-            _environmentFilePath = configuration.GetValue<string>("environmentFilePath");
+            _defaultApplicationCreator = defaultApplicationCreator;
+            _configValueProvider = configValueProvider;
+            _apiSettings = apiSettings;
+            _configurationRoot = configurationRoot;
         }
 
         public void Execute()
         {
+            // we are pulling command line arguments therefore we are going directly to the configuration object
+            var _configurationFilePath = _configurationRoot.GetValue<string>("configurationFilePath");
+            var _environmentFilePath = _configurationRoot.GetValue<string>("environmentFilePath");
+
             var postmanEnvironment = new PostmanEnvironment();
 
             _clientAppRepo.Reset();
@@ -58,21 +72,21 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 var apiClient = new ApiClient
                 {
                     ApiClientName = "Api",
-                    LocalEducationOrganizations = new List<int> { 255901 }
+                    LocalEducationOrganizations = new List<int> {255901}
                 };
 
                 var application = new Application
                 {
                     ApplicationName = "Default Application",
                     ClaimSetName = "Ed-Fi Sandbox",
-                    ApiClients = new List<ApiClient> { apiClient }
+                    ApiClients = new List<ApiClient> {apiClient}
                 };
 
                 var vendor = new Vendor
                 {
                     Email = "test@ed-fi.org",
                     VendorName = "Test Admin",
-                    Applications = new List<Application> { application },
+                    Applications = new List<Application> {application},
                     NamespacePrefixes = new List<string>
                     {
                         "uri://ed-fi.org",
@@ -81,19 +95,15 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     }
                 };
 
-                return new List<Vendor> { vendor };
+                return new List<Vendor> {vendor};
             }
 
             foreach (var vendor in _testHarnessConfiguration.Vendors)
             {
+                var v = _clientAppRepo.CreateOrGetVendor(vendor.Email, vendor.VendorName, vendor.NamespacePrefixes);
+
                 var user = _clientAppRepo.GetUser(vendor.Email) ??
-                           _clientAppRepo.CreateUser(
-                               new User
-                               {
-                                   FullName = vendor.VendorName,
-                                   Email = vendor.Email,
-                                   Vendor = _clientAppRepo.CreateOrGetVendor(vendor.Email, vendor.VendorName, vendor.NamespacePrefixes)
-                               });
+                           _clientAppRepo.CreateUser(User.Create(vendor.Email, vendor.VendorName, v));
 
                 foreach (var app in vendor.Applications)
                 {
@@ -101,11 +111,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         user.Vendor.VendorId, app.ApplicationName, app.ClaimSetName);
 
                     var leaIds = app.ApiClients.SelectMany(s => s.LocalEducationOrganizations).Distinct().ToList();
-                    _clientAppRepo.AddLeaIdsToApplication(leaIds, application.ApplicationId);
+
+                    _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, application.ApplicationId);
 
                     foreach (var client in app.ApiClients)
                     {
-
                         var key = !string.IsNullOrEmpty(client.Key)
                             ? client.Key
                             : GetGuid();
@@ -133,8 +143,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             });
 
                         _clientAppRepo.AddLeaIdsToApiClient(
-                            user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
-                            application.ApplicationId);
+                            user.UserId, apiClient.ApiClientId, leaIds, application.ApplicationId);
 
                         postmanEnvironment.Values.Add(
                             new ValueItem
@@ -145,10 +154,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             });
                     }
 
-                    if (app.Profiles != null)
-                    {
-                        _clientAppRepo.AddProfilesToApplication(app.Profiles, application.ApplicationId);
-                    }
+                    // TODO fix when profiles are enabled. ODS-4295
+                    // if (app.Profiles != null)
+                    // {
+                    //     _clientAppRepo.AddProfilesToApplication(app.Profiles, application.ApplicationId);
+                    // }
                 }
             }
 
@@ -162,7 +172,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["SelfHostBaseAddress"] ?? "http://localhost:8765/",
+                            Value = _configValueProvider.GetValue("SelfHostBaseAddress") ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 
@@ -170,7 +180,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["ApiSettings:Features[2]:IsEnabled"],
+                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -178,14 +188,14 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configuration["ApiSettings:Features[3]:IsEnabled"],
+                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.ToString()),
                             Key = "ProfilesFeatureIsEnabled"
                         });
 
                     var jsonString = JsonConvert.SerializeObject(
                         postmanEnvironment,
                         Formatting.Indented,
-                        new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+                        new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
 
                     var fileName = Path.Combine(_environmentFilePath, "environment.json");
 

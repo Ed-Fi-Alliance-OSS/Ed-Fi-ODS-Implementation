@@ -26,34 +26,33 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var _logger = LogManager.GetLogger(typeof(Program));
             _logger.Debug("Loading configuration files");
 
-            ConfigureLogging();
+            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(Program).Assembly.Location);
+
+            ConfigureLogging(executableAbsoluteDirectory);
 
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(
                     (hostBuilderContext, configBuilder) =>
                     {
-                        string appSettingsPath = Path.Combine(Path.GetDirectoryName(typeof(Program).Assembly.Location),"appsettings.json");
+                        string appSettingsPath = Path.Combine(executableAbsoluteDirectory,"appsettings.json");
 
                         _logger.Debug($"Content RootPath = {hostBuilderContext.HostingEnvironment.ContentRootPath}");
                         _logger.Debug($"App Settings Path = {appSettingsPath}");
 
-                        configBuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
+                        configBuilder.SetBasePath(executableAbsoluteDirectory)
                             .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
                             .AddEnvironmentVariables();
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder
-                    .ConfigureKestrel(
-                        (hostBuilderContext, options) => options.Listen(IPAddress.Loopback, hostBuilderContext.Configuration.GetValue<int>("port")))
-                    .UseStartup<Startup>(); }).Build();
+                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
 
             await host.RunAsync();
 
-            static void ConfigureLogging()
+            static void ConfigureLogging(string executableAbsoluteDirectory)
             {
                 var assembly = typeof(Program).GetTypeInfo().Assembly;
 
-                string configPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "log4net.config");
+                string configPath = Path.Combine(executableAbsoluteDirectory, "log4net.config");
 
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
             }
