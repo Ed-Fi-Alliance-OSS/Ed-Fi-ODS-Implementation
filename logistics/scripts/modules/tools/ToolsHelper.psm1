@@ -243,7 +243,7 @@ function Invoke-DbDeploy {
         [AllowEmptyCollection()]
         $Features = @(),
 
-        [string] $ToolsPath
+        [string] $ToolsPath = @{ "Invoke-Command:ScriptBlock"={{Get-ToolsPath}} }
     )
 
     $databaseIdLookup = @{
@@ -256,11 +256,7 @@ function Invoke-DbDeploy {
     }
     $databaseType = $databaseIdLookup[$Database]
 
-    $toolsPath = $ToolsPath
-
-    if([string]::IsNullOrEmpty($ToolsPath)){ $toolsPath = Get-ToolsPath }
-
-    $tool = (Join-Path $toolsPath 'EdFi.Db.Deploy')
+    $tool = (Join-Path $ToolsPath 'EdFi.Db.Deploy')
 
     $hasFeatures = ($Features.count -gt 0)
     if ($hasFeatures) {
