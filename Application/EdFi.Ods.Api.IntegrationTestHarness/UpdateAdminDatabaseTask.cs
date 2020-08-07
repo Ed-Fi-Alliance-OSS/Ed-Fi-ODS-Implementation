@@ -67,43 +67,17 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 _testHarnessConfiguration.Vendors = CreateDefaultVendor();
             }
 
-            List<Vendor> CreateDefaultVendor()
-            {
-                var apiClient = new ApiClient
-                {
-                    ApiClientName = "Api",
-                    LocalEducationOrganizations = new List<int> {255901}
-                };
-
-                var application = new Application
-                {
-                    ApplicationName = "Default Application",
-                    ClaimSetName = "Ed-Fi Sandbox",
-                    ApiClients = new List<ApiClient> {apiClient}
-                };
-
-                var vendor = new Vendor
-                {
-                    Email = "test@ed-fi.org",
-                    VendorName = "Test Admin",
-                    Applications = new List<Application> {application},
-                    NamespacePrefixes = new List<string>
-                    {
-                        "uri://ed-fi.org",
-                        "uri://gbisd.edu",
-                        "uri://tpdm.ed-fi.org"
-                    }
-                };
-
-                return new List<Vendor> {vendor};
-            }
-
             foreach (var vendor in _testHarnessConfiguration.Vendors)
             {
-                var v = _clientAppRepo.CreateOrGetVendor(vendor.Email, vendor.VendorName, vendor.NamespacePrefixes);
-
                 var user = _clientAppRepo.GetUser(vendor.Email) ??
-                           _clientAppRepo.CreateUser(User.Create(vendor.Email, vendor.VendorName, v));
+                           _clientAppRepo.CreateUser(
+                               new User
+                               {
+                                   FullName = vendor.VendorName,
+                                   Email = vendor.Email,
+                                   Vendor = _clientAppRepo.CreateOrGetVendor(
+                                       vendor.Email, vendor.VendorName, vendor.NamespacePrefixes)
+                               });
 
                 foreach (var app in vendor.Applications)
                 {
@@ -143,7 +117,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             });
 
                         _clientAppRepo.AddLeaIdsToApiClient(
-                            user.UserId, apiClient.ApiClientId, leaIds, application.ApplicationId);
+                            user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
+                            application.ApplicationId);
 
                         postmanEnvironment.Values.Add(
                             new ValueItem
@@ -154,11 +129,10 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             });
                     }
 
-                    // TODO fix when profiles are enabled. ODS-4295
-                    // if (app.Profiles != null)
-                    // {
-                    //     _clientAppRepo.AddProfilesToApplication(app.Profiles, application.ApplicationId);
-                    // }
+                    if (app.Profiles != null)
+                    {
+                        _clientAppRepo.AddProfilesToApplication(app.Profiles, application.ApplicationId);
+                    }
                 }
             }
 
@@ -172,7 +146,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configValueProvider.GetValue("SelfHostBaseAddress") ?? "http://localhost:8765/",
+                            Value = _configValueProvider.GetValue("Urls") ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 
@@ -203,9 +177,40 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 }
             }
 
+            List<Vendor> CreateDefaultVendor()
+            {
+                var apiClient = new ApiClient
+                {
+                    ApiClientName = "Api",
+                    LocalEducationOrganizations = new List<int> {255901}
+                };
+
+                var application = new Application
+                {
+                    ApplicationName = "Default Application",
+                    ClaimSetName = "Ed-Fi Sandbox",
+                    ApiClients = new List<ApiClient> {apiClient}
+                };
+
+                var vendor = new Vendor
+                {
+                    Email = "test@ed-fi.org",
+                    VendorName = "Test Admin",
+                    Applications = new List<Application> {application},
+                    NamespacePrefixes = new List<string>
+                    {
+                        "uri://ed-fi.org",
+                        "uri://gbisd.edu",
+                        "uri://tpdm.ed-fi.org"
+                    }
+                };
+
+                return new List<Vendor> {vendor};
+            }
+
             string GetGuid()
             {
-                return Guid.NewGuid().ToString().Replace("-", "").Substring(0, 20);
+                return Guid.NewGuid().ToString("N").Substring(0, 20);
             }
         }
     }
