@@ -152,6 +152,8 @@ function Set-DeployConfigOverride {
     By default databases are not dropped and will be backup before being migrated when needed.
     .PARAMETER OdsDatabaseTemplateName
     Template to use when deploying ods database. Allowed values: minimal, populated. Defaults to minimal.
+    .parameter UsePlugins
+    Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [hashtable] $databaseIds,
