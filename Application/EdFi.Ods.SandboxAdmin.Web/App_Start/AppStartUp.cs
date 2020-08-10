@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Web;
+using System.Threading;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -13,28 +13,35 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using EdFi.Ods.Admin.Filters;
 using EdFi.Ods.Admin.Infrastructure;
-using EdFi.Ods.Admin.Initialization;
-using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Ods.Admin.Services;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.SandboxAdmin.Web;
 using Hangfire;
 using Hangfire.PostgreSql;
 using Hangfire.Windsor;
+using log4net;
 using log4net.Config;
-using WebMatrix.WebData;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin.BuilderProperties;
+using Microsoft.Owin.Security.Cookies;
+using Owin;
 using GlobalConfiguration = System.Web.Http.GlobalConfiguration;
 
+[assembly: OwinStartup("Startup", typeof(AppStartUp))]
 namespace EdFi.Ods.SandboxAdmin.Web
 {
-    // Note: For instructions on enabling IIS6 or IIS7 classic mode,
-    // visit http://go.microsoft.com/?LinkId=9394801
-
-    public class MvcApplication : HttpApplication
+    public class AppStartUp : IDisposable
     {
-        private IWindsorContainer _container;
+        protected IWindsorContainer _container;
+        protected ILog Logger = LogManager.GetLogger(typeof(AppStartUp));
 
-        protected void Application_Start()
+        public void Dispose()
+        {
+            _container?.Dispose();
+        }
+
+        public void Configuration(IAppBuilder appBuilder)
         {
             XmlConfigurator.Configure();
             AreaRegistration.RegisterAllAreas();
@@ -45,39 +52,37 @@ namespace EdFi.Ods.SandboxAdmin.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            AuthConfig.RegisterAuth();
-
             BootstrapContainer();
 
             GlobalFilters.Filters.Add(new SetCurrentUserInfoAttribute(() => _container.Resolve<ISecurityService>()));
 
             _databaseEngine = _container.Resolve<IApiConfigurationProvider>().DatabaseEngine;
 
-            if (_databaseEngine == DatabaseEngine.SqlServer)
-            {
-                InitializeWebSecurity();
-            }
-
             BootstrapHangfire();
+
+            appBuilder.UseCookieAuthentication(new CookieAuthenticationOptions
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+                LoginPath = new PathString("/Account/Login")
+            });
+
+
+            var properties = new AppProperties(appBuilder.Properties);
+            var token = properties.OnAppDisposing;
+
+            if (token != CancellationToken.None)
+            {
+                token.Register(() =>
+                {
+                    _backgroundJobServer.Dispose();
+                    _container.Dispose();
+                });
+            }
         }
 
         private BackgroundJobServer _backgroundJobServer;
 
         private DatabaseEngine _databaseEngine;
-
-        protected void Application_PreSendRequestHeaders()
-        {
-            Response.Headers.Remove("server");
-            Response.Headers.Remove("x-aspnetmvc-version");
-            Response.Headers.Remove("x-aspnet-version");
-        }
-
-        protected void Application_End(object sender, SiteMapResolveEventArgs e)
-        {
-            _backgroundJobServer.Dispose();
-            _container.Dispose();
-        }
-
         private void BootstrapContainer()
         {
             _container = new WindsorContainer();
@@ -117,16 +122,6 @@ namespace EdFi.Ods.SandboxAdmin.Web
             _backgroundJobServer = new BackgroundJobServer();
 
             _container.Resolve<BackgroundJobsConfig>().Configure();
-        }
-
-        private static void InitializeWebSecurity()
-        {
-            WebSecurity.InitializeDatabaseConnection(
-                "EdFi_Admin",
-                UsersContext.UserTableName,
-                UsersContext.UserIdColumn,
-                UsersContext.UserNameColumn,
-                autoCreateTables: true);
         }
     }
 }

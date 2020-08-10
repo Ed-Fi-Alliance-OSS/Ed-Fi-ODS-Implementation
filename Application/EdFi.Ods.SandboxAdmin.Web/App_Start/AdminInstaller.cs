@@ -12,6 +12,7 @@ using EdFi.Admin.DataAccess;
 using EdFi.Ods.Admin;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Admin.Security;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.Admin.Services;
@@ -87,6 +88,10 @@ namespace EdFi.Ods.SandboxAdmin.Web
             container.Register(
                 Component.For<ISecurityService>()
                     .ImplementedBy<SecurityService>());
+
+            container.Register(
+                Component.For<IIdentityProvider>()
+                    .ImplementedBy<IdentityProvider>());
 
             var apiConfigurationProvider = container.Resolve<IApiConfigurationProvider>();
 

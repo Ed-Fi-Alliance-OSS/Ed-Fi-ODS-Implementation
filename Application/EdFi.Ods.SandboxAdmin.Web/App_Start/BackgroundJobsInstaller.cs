@@ -7,6 +7,7 @@ using System.Web.UI;
 using Castle.MicroKernel.Registration;
 using Castle.MicroKernel.SubSystems.Configuration;
 using Castle.Windsor;
+using EdFi.Ods.Admin.Contexts;
 using EdFi.Ods.Admin.Initialization;
 
 namespace EdFi.Ods.SandboxAdmin.Web
@@ -26,6 +27,7 @@ namespace EdFi.Ods.SandboxAdmin.Web
             container.Register(Component.For<InitializationEngine>());
 
             container.Register(Component.For<BackgroundJobsConfig>());
+            container.Register(Component.For<AdminIdentityDbContext>().LifestyleTransient());
         }
     }
 }
