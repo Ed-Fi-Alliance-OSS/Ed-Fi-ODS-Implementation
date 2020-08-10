@@ -109,3 +109,4 @@ environment.json
 
 # NetCore Webapi
 /**/WebApiLog*
+/**/TestHarnessLog*

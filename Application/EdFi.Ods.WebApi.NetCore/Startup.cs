@@ -5,12 +5,13 @@
 
 using EdFi.Ods.Api.NetCore.Startup;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.WebApi.NetCore
 {
     public class Startup : OdsStartupBase
     {
-        public Startup(IWebHostEnvironment env) : base(env)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration) : base(env, configuration)
         {
 
         }
