@@ -13,6 +13,7 @@ param(
     [string] $Transient = $OctopusParameters["TransientDatabases"],
     [string] $ExcludedExtensionSources = $OctopusParameters["ExcludedExtensionSources"],
     [string] $EnabledFeatureNames = $OctopusParameters["EnabledFeatureNames"],
+    [string] $UsePlugins = $OctopusParameters["UsePlugins"],
     [switch] $WhatIf
 )
 
@@ -36,5 +37,6 @@ $deploymentParams = @{
     Transient = [Boolean]::Parse("$Transient")
     ExcludedExtensionSources = $ExcludedExtensionSources
     EnabledFeatureNames = $EnabledFeatureNames
+    UsePlugins = [Boolean]::Parse("$UsePlugins")
 }
 Initialize-DeploymentEnvironment @deploymentParams

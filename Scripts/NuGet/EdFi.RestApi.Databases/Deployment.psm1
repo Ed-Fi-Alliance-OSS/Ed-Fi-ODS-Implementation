@@ -52,7 +52,8 @@ function Initialize-DeploymentEnvironment {
         [string] [ValidateSet("minimal", "populated")] $OdsDatabaseTemplateName = "minimal",
         [Alias('Transient')]
         [switch] $DropDatabases,
-        [switch] $NoDuration
+        [switch] $NoDuration,
+        [switch] $UsePlugins
     )
 
     # if path-resolver is not present assume that the script is being ran in a deployment scenario
@@ -151,6 +152,8 @@ function Set-DeployConfigOverride {
     By default databases are not dropped and will be backup before being migrated when needed.
     .PARAMETER OdsDatabaseTemplateName
     Template to use when deploying ods database. Allowed values: minimal, populated. Defaults to minimal.
+    .parameter UsePlugins
+    Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [hashtable] $databaseIds,
@@ -165,7 +168,8 @@ function Set-DeployConfigOverride {
         [string] $EmptyTemplateSuffix = 'Ods_Empty_Template',
         [string] $MinimalTemplateSuffix = 'Ods_Minimal_Template',
         [string] $PopulatedTemplateSuffix = 'Ods_Populated_Template',
-        [string] $OdsDatabaseTemplateName
+        [string] $OdsDatabaseTemplateName,
+        [switch] $UsePlugins
     )
 
     $config = $script:configurationOverride
@@ -186,6 +190,7 @@ function Set-DeployConfigOverride {
     if ($PSBoundParameters.ContainsKey('Engine')) { $config.engine = $Engine }
     if ($PSBoundParameters.ContainsKey('DropDatabases')) { $config.dropDatabase = $DropDatabases }
     if ($PSBoundParameters.ContainsKey('OdsDatabaseTemplateName')) { $config.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
+    if ($PSBoundParameters.ContainsKey('UsePlugins')) { $config.usePlugins = $UsePlugins }
 
     $config.emptyTemplateSuffix = $EmptyTemplateSuffix
     $config.minimalTemplateSuffix = $MinimalTemplateSuffix
@@ -221,9 +226,9 @@ function Get-DeployConfig {
     Gets merged configuration values taking both the fresh values from the configuration file set by the Set-DeployConfigFile function
     and overrides those values with any values set through the Set-DeployConfigOverride. Any parameters passed set through the override
     take precedence over values pulled from configuration files. This function should be called for every task that needs fresh values
-    from a configuration file otherwise any configuartion file changes will be ignored until the scripts are re-imported.
+    from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
-    $configuration = Get-Configuration $script:configurationFile
+    $configuration = Get-Configuration $script:configurationFile -usePlugins:$script:configurationOverride.usePlugins
 
     $config = @{
         configFile = $script:configurationFile

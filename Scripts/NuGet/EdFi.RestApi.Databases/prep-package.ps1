@@ -35,6 +35,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\packaging.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
 function Select-ExtensionAssemblyMetadataJson
 {
@@ -65,6 +66,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
+    Get-PluginScriptsForPackaging
 
     # DbScripts in Artifacts
     Select-CumulativeRepositoryResolvedItems -recurse "Artifacts"

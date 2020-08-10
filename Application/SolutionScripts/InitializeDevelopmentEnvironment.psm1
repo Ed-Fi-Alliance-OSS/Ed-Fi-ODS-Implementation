@@ -63,6 +63,8 @@ function Initialize-DevelopmentEnvironment {
     Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
     .parameter RunSmokeTest
     Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
+    .parameter UsePlugins
+    Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -86,7 +88,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunPostman,
 
-        [switch] $RunSmokeTest
+        [switch] $RunSmokeTest,
+
+        [switch] $UsePlugins
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -95,7 +99,7 @@ function Initialize-DevelopmentEnvironment {
 
     Clear-Error
 
-    Set-DeployConfigOverride -Engine $Engine
+    Set-DeployConfigOverride -Engine $Engine -UsePlugins:$UsePlugins
 
     $script:result = @()
 
