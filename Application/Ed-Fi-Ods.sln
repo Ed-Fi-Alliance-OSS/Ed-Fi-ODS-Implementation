@@ -92,8 +92,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.TestObjects", "..\..\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.WebApi.NetCore", "EdFi.Ods.WebApi.NetCore\EdFi.Ods.WebApi.NetCore.csproj", "{DDEE72C1-0AC6-43D9-8398-31E78746A4C4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Api.NetCore", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api.NetCore\EdFi.Ods.Api.NetCore.csproj", "{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Api.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj", "{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj", "{1ACF010B-2092-4377-844E-FD710B6404BD}"
@@ -292,18 +290,6 @@ Global
 		{DDEE72C1-0AC6-43D9-8398-31E78746A4C4}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
 		{DDEE72C1-0AC6-43D9-8398-31E78746A4C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDEE72C1-0AC6-43D9-8398-31E78746A4C4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Npgsql|Any CPU.ActiveCfg = Debug|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CEE78BF2-3C0F-4233-ABBA-0AA86A946C98}.Release|Any CPU.Build.0 = Release|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Npgsql|Any CPU.ActiveCfg = Release|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Npgsql|Any CPU.Build.0 = Release|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AA2B558C-DBAE-433D-91D1-9EDD15AF04D7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1ACF010B-2092-4377-844E-FD710B6404BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1ACF010B-2092-4377-844E-FD710B6404BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1ACF010B-2092-4377-844E-FD710B6404BD}.Npgsql|Any CPU.ActiveCfg = Debug|Any CPU
@@ -364,6 +350,12 @@ Global
 		{658A15C4-A69B-4825-BE4B-9B3F37FA7FA2}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
 		{658A15C4-A69B-4825-BE4B-9B3F37FA7FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{658A15C4-A69B-4825-BE4B-9B3F37FA7FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Npgsql|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8DF24F4-05E0-4465-94AF-BFE9B8652E18}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

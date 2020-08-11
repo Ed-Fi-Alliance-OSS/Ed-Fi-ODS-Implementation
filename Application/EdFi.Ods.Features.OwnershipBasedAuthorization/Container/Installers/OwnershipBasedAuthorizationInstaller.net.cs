@@ -5,7 +5,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Castle.Windsor;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.InversionOfControl;
 using EdFi.Ods.Common.Repositories;

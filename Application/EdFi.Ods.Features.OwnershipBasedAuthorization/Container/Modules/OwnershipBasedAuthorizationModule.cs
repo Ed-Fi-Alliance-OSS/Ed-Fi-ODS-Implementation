@@ -1,7 +1,6 @@
 #if NETCOREAPP
 using Autofac;
 using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Constants;
 using EdFi.Ods.Api.Common.Container;
 using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Repositories;
