@@ -90,13 +90,9 @@ namespace EdFi.Ods.SandboxAdmin.Web
                 Component.For<ISecurityService>()
                     .ImplementedBy<SecurityService>());
 
-            //container.Register(Component.For<AdminIdentityDbContext>().LifestyleTransient());
-
-            //container.Register(
-            //    Component.For<IIdentityProvider>()
-            //        .ImplementedBy<IdentityProvider>().LifestyleTransient());
-
-            container.Register(Component.For<AdminIdentityDbContext>());
+            container.Register(
+                Component.For<IIdentityContextFactory>()
+                    .ImplementedBy<IdentityContextFactory>());
 
             container.Register(
                 Component.For<IIdentityProvider>()
