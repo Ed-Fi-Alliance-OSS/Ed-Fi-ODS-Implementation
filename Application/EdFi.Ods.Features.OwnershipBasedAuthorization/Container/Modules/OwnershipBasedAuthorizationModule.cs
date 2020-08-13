@@ -1,8 +1,9 @@
 #if NETCOREAPP
 using Autofac;
-using EdFi.Ods.Api.Common.Configuration;
-using EdFi.Ods.Api.Common.Container;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Constants;
+using EdFi.Ods.Common.Container;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.Security;
