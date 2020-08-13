@@ -301,10 +301,6 @@
     <Compile Include="Startup\AzureCloudOdsStartup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api.Common\EdFi.Ods.Api.Common.csproj">
-      <Project>{aa2b558c-dbae-433d-91d1-9edd15af04d7}</Project>
-      <Name>EdFi.Ods.Api.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj">
       <Project>{8ef5be5d-b40b-469e-bee2-2d0dde097975}</Project>
       <Name>EdFi.Common</Name>

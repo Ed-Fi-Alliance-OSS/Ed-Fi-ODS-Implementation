@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.Api.NetCore.Startup;
+using EdFi.Ods.Api.Startup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
@@ -11,9 +11,7 @@ namespace EdFi.Ods.WebApi.NetCore
 {
     public class Startup : OdsStartupBase
     {
-        public Startup(IWebHostEnvironment env, IConfiguration configuration) : base(env, configuration)
-        {
-
-        }
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
+            : base(env, configuration) { }
     }
 }

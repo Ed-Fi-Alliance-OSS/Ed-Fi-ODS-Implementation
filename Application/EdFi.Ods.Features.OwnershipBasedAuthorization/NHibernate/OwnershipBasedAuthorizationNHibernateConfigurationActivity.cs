@@ -4,9 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Linq;
-using EdFi.Ods.Api.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common;
 using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.SqlServer;
 using log4net;
 using NHibernate.Cfg;
