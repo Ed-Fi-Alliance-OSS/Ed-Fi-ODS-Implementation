@@ -90,8 +90,6 @@ function Initialize-DeploymentEnvironment {
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
 
-        $script:result += Reset-EmptyTemplateDatabase
-
         if ($InstallType -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
         }
@@ -165,7 +163,6 @@ function Set-DeployConfigOverride {
         [string] $Engine,
         [Alias('Transient')]
         [switch] $DropDatabases,
-        [string] $EmptyTemplateSuffix = 'Ods_Empty_Template',
         [string] $MinimalTemplateSuffix = 'Ods_Minimal_Template',
         [string] $PopulatedTemplateSuffix = 'Ods_Populated_Template',
         [string] $OdsDatabaseTemplateName,
@@ -192,7 +189,6 @@ function Set-DeployConfigOverride {
     if ($PSBoundParameters.ContainsKey('OdsDatabaseTemplateName')) { $config.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($PSBoundParameters.ContainsKey('UsePlugins')) { $config.usePlugins = $UsePlugins }
 
-    $config.emptyTemplateSuffix = $EmptyTemplateSuffix
     $config.minimalTemplateSuffix = $MinimalTemplateSuffix
     $config.populatedTemplateSuffix = $PopulatedTemplateSuffix
 
@@ -249,13 +245,11 @@ function Get-DeployConfig {
 
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-SecurityDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
-function Reset-EmptyTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-OdsDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Remove-SandboxDatabases { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-MinimalTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-PopulatedTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 
-Set-Alias -Scope Global Reset-EmptyDatabase Reset-EmptyTemplateDatabase
 Set-Alias -Scope Global Reset-PopulatedTemplate Reset-PopulatedTemplateDatabase
 Set-Alias -Scope Global Remove-Sandboxes Remove-SandboxDatabases
 Set-Alias -Scope Global Reset-YearSpecificDatabase Reset-OdsDatabase
@@ -284,20 +278,6 @@ $deploymentTasks = @{
             filePaths = $config.FilePaths
             subTypeNames = $config.featureSubTypeNames
             dropDatabase = $config.dropDatabase
-        }
-        Initialize-EdFiDatabaseWithDbDeploy @params
-    }
-    'Reset-EmptyTemplateDatabase' = {
-        $config = Get-DeployConfig
-        $ods = $config.databaseIds.ods
-        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens $config.emptyTemplateSuffix
-        $params = @{
-            engine = $config.engine
-            csb = $connectionString
-            database = $ods.database
-            filePaths = $config.FilePaths
-            subTypeNames = @()
-            dropDatabase = $true
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
