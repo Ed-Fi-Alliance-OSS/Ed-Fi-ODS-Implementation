@@ -28,7 +28,6 @@ namespace EdFi.Ods.SandboxAdmin.Web
             container.Register(Component.For<InitializationEngine>());
 
             container.Register(Component.For<BackgroundJobsConfig>());
-
         }
     }
 }
