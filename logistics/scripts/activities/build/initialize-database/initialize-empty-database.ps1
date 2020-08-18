@@ -12,7 +12,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application\Solu
 
 Invoke-ConfigTransform
 Install-DbDeploy
-Reset-EmptyTemplateDatabase
+Reset-EmptySandboxDatabase
 Install-CodeGenUtility
 Invoke-CodeGen
 Test-Error
