@@ -121,6 +121,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_ProjectInformation", "_Pro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common.UnitTests", "..\..\Ed-Fi-ODS\tests\EdFi.Common.UnitTests\EdFi.Common.UnitTests.csproj", "{37CB77F7-1C51-480C-B536-CDBF5DE26E10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestProject1", "..\..\Ed-Fi-ODS\tests\NUnitTestProject1\NUnitTestProject1.csproj", "{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -356,6 +358,12 @@ Global
 		{37CB77F7-1C51-480C-B536-CDBF5DE26E10}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
 		{37CB77F7-1C51-480C-B536-CDBF5DE26E10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37CB77F7-1C51-480C-B536-CDBF5DE26E10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Npgsql|Any CPU.ActiveCfg = Debug|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Npgsql|Any CPU.Build.0 = Debug|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -400,6 +408,7 @@ Global
 		{81FE570F-FDA0-4184-8F26-D925423FDE57} = {DE7A9EA6-C3EE-4F6F-BEFB-3101E0D7DF5E}
 		{658A15C4-A69B-4825-BE4B-9B3F37FA7FA2} = {F25ED154-FB97-4F39-933B-808D1B3B6D3E}
 		{37CB77F7-1C51-480C-B536-CDBF5DE26E10} = {14352B5E-2434-4117-A063-2BBD4D87464D}
+		{933E829D-3A2F-40CD-A96D-658DEA3AD5CF} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}
