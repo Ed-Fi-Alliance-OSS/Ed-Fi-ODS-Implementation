@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.0.0"
-    codeGen = "5.1.0-b10439"
+    codeGen = "5.1.0-b10568"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -287,7 +287,7 @@ Function Invoke-RebuildSolution {
         }
     }
 }
-function Reset-EmptySandboxDatabase { 
+function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
         $config = Get-DeployConfig
         $ods = $config.databaseIds.ods
