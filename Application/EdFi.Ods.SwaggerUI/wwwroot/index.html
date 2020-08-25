@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+<html lang="en">
+
+<head>
+    <title>Ed-Fi ODS / API Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
+    <link rel="stylesheet" href="/index.css" />
+    <!-- IE11 Support for fetch https://caniuse.com/#search=fetch-->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js" rel="preload"></script>
+    <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0.0/dist/fetch.umd.min.js" rel="preload"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div id="pageTitle" class="section center-align">
+            <h4 class="valign-wrapper" style="justify-content: center; width: 100%">
+                <img class="" src="EdFi-logo-Powered-60.png" alt="Ed-Fi Logo" />
+                <span class="">ODS / API Documentation&nbsp;</span>
+                <span id="version" class="hide"></span>
+            </h4>
+            <h6 id="progressDescription" class="center-align grey-text text-darken-1">
+                Loading please wait...
+            </h6>
+            <h6 id="pageDescription" class="center-align grey-text text-darken-1 hide">
+                The Ed-Fi ODS / API is divided into several areas by function.
+            </h6>
+            <div id="errorDescription" class="center-align red-text hide"></div>
+        </div>
+    </div>
+
+    <div id="progress">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div>
+                <div class="gap-patch">
+                    <div class="circle"></div>
+                </div>
+                <div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <template id="sectionTemplate">
+        <div class="section row">
+            <div class="col s10 offset-s1">
+                <h5 id="sectionName" class="{{sectionColor}}">{{sectionName}}</h5>
+                <hr />
+                <div class="col s8">
+                    {{sectionDescription}}
+                </div>
+                <div class="col s4 left-align">
+                    <ul id="resources">{{sectionLink}}</ul>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="/index.js" rel="preload"></script>
+</body>
+
+</html>

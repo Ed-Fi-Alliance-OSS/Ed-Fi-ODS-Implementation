@@ -1,0 +1,25 @@
+﻿/* add custom logo */
+.topbar-wrapper img {
+    content: url('EdFi-logo-Powered-60.png');
+    height: 60px;
+}
+
+/* customize topbar */
+.swagger-ui .topbar {
+    background-color: #ecf0f1;
+}
+
+/* hide section label */
+.swagger-ui .topbar .download-url-wrapper .select-label span {
+    flex: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+/* add custom section label */
+.swagger-ui .topbar .download-url-wrapper .select-label:before {
+    font-size: 16px;
+    color: #3b4151;
+    visibility: visible;
+    content: "API Section:";
+}

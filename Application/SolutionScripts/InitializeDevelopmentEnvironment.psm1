@@ -192,7 +192,7 @@ function Add-SandboxCredentials {
         [string] $minimalKey = (Get-RandomString),
         [string] $minimalSecret = (Get-RandomString),
         [string] $adminCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config'),
-        [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI.NetCore\appsettings.development.json'),
+        [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI\appsettings.development.json'),
         [switch] $force
     )
 
