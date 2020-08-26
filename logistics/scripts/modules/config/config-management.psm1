@@ -5,6 +5,7 @@
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
 function Get-DatabaseIds {
     return @{
@@ -71,7 +72,7 @@ function Get-ExtensionScriptFiles {
 }
 
 function Get-ExcludedExtensionSourcesFromConfig {
-    [CmdletBinding()] param(
+    param(
         [Parameter(Mandatory = $true)] $configFile
     )
     $configDoc = New-Object System.Xml.XmlDocument
@@ -80,40 +81,6 @@ function Get-ExcludedExtensionSourcesFromConfig {
 
     if ($null -eq $excludedExtensionSourcesValue) { return "" }
     return $excludedExtensionSourcesValue.Split(',')
-}
-
-function Get-Configuration {
-    param(
-        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi\Web.Base.config')
-    )
-
-    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile
-
-    $features = Get-FeaturesFromConfig $configFile
-
-    if ($features -contains "extensions") {
-        $excludedExtensionSources = Get-ExcludedExtensionSourcesFromConfig $configFile
-        $artifactSources = Select-SupportingArtifactResolvedSources |
-            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
-    }
-
-    $subtypes = @()
-    Get-AvailableFeatures |
-        Where-Object { ($null -ne $_.subTypeName) -and ($features -contains $_.featureName) } |
-        ForEach-Object { $subtypes += $_.subTypeName }
-
-    $filePaths = Get-RepositoryArtifactPaths
-    # Add paths to enabled extension directories
-    $filePaths += Get-ExtensionScriptFiles $artifactSources
-
-    return @{
-        databaseIds     = Get-DatabaseIds
-        csbs            = $csbs
-        ArtifactSources = $artifactSources
-        Features        = $features
-        SubTypes        = $subTypes
-        FilePaths       = $filePaths
-    }
 }
 
 function Get-FeaturesFromConfig {
@@ -175,6 +142,47 @@ function Get-DbConnectionStringBuilderFromTemplate {
     }
 }
 
+function Get-Configuration {
+    param(
+        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi\Web.Base.config'),
+        [switch] $usePlugins
+    )
+
+    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile
+
+    $features = Get-FeaturesFromConfig $configFile
+
+    if ($features -contains "extensions") {
+        $excludedExtensionSources = Get-ExcludedExtensionSourcesFromConfig $configFile
+        $artifactSources = Select-SupportingArtifactResolvedSources |
+            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
+    }
+
+    $subtypes = @()
+    Get-AvailableFeatures |
+        Where-Object { ($null -ne $_.subTypeName) -and ($features -contains $_.featureName) } |
+        ForEach-Object { $subtypes += $_.subTypeName }
+
+    $filePaths = Get-RepositoryArtifactPaths
+    # Add paths to enabled extension directories
+
+    if ($usePlugins) {
+        $filePaths += Get-Plugins $configFile
+    } else {
+        $filePaths += Get-ExtensionScriptFiles $artifactSources
+    }
+
+
+    return @{
+        databaseIds     = Get-DatabaseIds
+        csbs            = $csbs
+        ArtifactSources = $artifactSources
+        Features        = $features
+        SubTypes        = $subTypes
+        FilePaths       = $filePaths
+    }
+}
+
 Export-ModuleMember -Function `
     Get-DatabaseIds,
     Get-AvailableFeatures,
@@ -182,6 +190,6 @@ Export-ModuleMember -Function `
     Get-RepositoryArtifactPaths,
     Get-ExtensionScriptFiles,
     Get-ExcludedExtensionSourcesFromConfig,
-    Get-Configuration,
     Get-FeaturesFromConfig,
-    Get-DbConnectionStringBuilderFromTemplate
+    Get-DbConnectionStringBuilderFromTemplate,
+    Get-Configuration

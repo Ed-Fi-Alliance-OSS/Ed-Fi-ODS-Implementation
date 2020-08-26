@@ -233,23 +233,23 @@ const getConfigs = () => {
       displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
     },
     {
-      initialVersion: newVersion(3, 4, 0, 0, null),
+      initialVersion: newVersion(3, 5, 0, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
+      apiUrlTemplate: `${apiUrlBase}/v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
+    },
+    {
+      initialVersion: newVersion(3, 5, 0, 0, null),
       docsUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/docs/`,
       apiUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/api/`,
       displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Shared Instance`
     },
     {
-      initialVersion: newVersion(3, 4, 0, 0, null),
+      initialVersion: newVersion(3, 5, 0, 0, null),
       docsUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/docs/`,
       apiUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/api/`,
       displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Year Specific`
-    },
-    {
-      initialVersion: newVersion(3, 4, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/suite{{suite}}/v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
-    },
+    }
   ]
 
   return configs

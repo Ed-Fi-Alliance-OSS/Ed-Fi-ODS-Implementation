@@ -96,6 +96,10 @@ DatabaseTemplate/*
 !DatabaseTemplate/Scripts/
 !DatabaseTemplate/Modules/
 
+# Plugin
+Plugin/*
+!Plugin/*.ps1
+
 # .Net Tools
 tools/*
 Ed-Fi-Db-Deploy.log
