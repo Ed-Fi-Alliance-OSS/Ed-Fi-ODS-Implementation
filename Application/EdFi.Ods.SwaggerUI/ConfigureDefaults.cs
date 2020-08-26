@@ -30,7 +30,10 @@ namespace EdFi.Ods.SwaggerUI
             options.ShowExtensions();
             options.EnableValidator();
 
-            options.InjectStylesheet("/swagger.css");
+            options.InjectStylesheet(
+                string.IsNullOrWhiteSpace(options.RoutePrefix)
+                    ? "./swagger.css"
+                    : "../swagger.css");
         }
     }
 }

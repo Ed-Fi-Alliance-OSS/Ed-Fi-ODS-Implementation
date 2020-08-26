@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -49,7 +51,11 @@ namespace EdFi.Ods.SwaggerUI
 
                         await context.Response.WriteAsync(
                             JsonSerializer.Serialize(
-                                new { WebApiVersionUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty) }));
+                                new
+                                {
+                                    WebApiVersionUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty),
+                                    RoutePrefix = Configuration.GetValue("RoutePrefix", "swagger"),
+                                }));
                     });
             }
 

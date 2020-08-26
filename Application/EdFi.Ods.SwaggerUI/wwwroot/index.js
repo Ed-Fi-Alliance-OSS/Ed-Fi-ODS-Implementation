@@ -76,7 +76,8 @@ function createSectionLinks(sectionName) {
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
   return section.links
     .map(function (link) {
-      return '<li><a class="" href="/swagger/index.html?urls.primaryName=' + prefix + link.name + '">' + link.name + '</a ></li>'
+      routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
+      return `<li><a class="" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}">${link.name}</a ></li>`
     })
     .join('')
 }
@@ -121,7 +122,16 @@ const logJSON = (json) => {
 
 const getJSON = (response) => response.json()
 
-const fetchAppSettings = (route = '/appSettings.json') => fetch(route).then(getJSON).then(logJSON)
+let appSettings = {}
+
+const fetchAppSettings = (route = 'appSettings.json') =>
+  fetch(route)
+    .then(getJSON)
+    .then(logJSON)
+    .then((json) => {
+      appSettings = json
+      return json
+    })
 
 const fetchWebApiVersionUrl = (appSettings) => {
   const { WebApiVersionUrl } = appSettings
