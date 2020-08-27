@@ -225,6 +225,8 @@ function Add-SandboxCredentials {
         Write-Host "Created config: $adminCredentialConfigPath"
 
         $swaggerAppSettings = @{
+            Urls = 'http://localhost:56641'
+            WebApiVersionUrl = 'http://localhost:54746'
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId = $populatedKey
