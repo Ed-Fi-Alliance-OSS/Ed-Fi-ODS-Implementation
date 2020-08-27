@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "EdFi.Ods.SwaggerUI": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:56641",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
