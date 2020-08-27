@@ -4,14 +4,12 @@
     <AssemblyName>EdFi.Ods.SwaggerUI</AssemblyName>
     <AssemblyVersion>0.0.0</AssemblyVersion>
     <FileVersion>0.0.0</FileVersion>
-    <Authors>Ed-Fi Alliance</Authors>
-    <Company>Ed-Fi Alliance</Company>
-    <Description>EdFi.Ods.SwaggerUI</Description>
-    <PackageId>EdFi.Ods.SwaggerUI</PackageId>
-    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
-    <RequireLicenseAcceptance>false</RequireLicenseAcceptance>
     <RestorePackages>true</RestorePackages>
+    <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="EdFi.Ods.SwaggerUI.nuspec" CopyToPublishDirectory="Always" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />

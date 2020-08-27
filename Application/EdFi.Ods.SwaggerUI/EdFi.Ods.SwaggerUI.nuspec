@@ -12,7 +12,7 @@
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
-    <file src="../../LICENSE.txt" />
+    <file src="../../../LICENSE.txt" />
     <file src="**" />
   </files>
 </package>
