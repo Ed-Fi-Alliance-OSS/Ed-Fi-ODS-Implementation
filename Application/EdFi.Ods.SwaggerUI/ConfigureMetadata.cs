@@ -74,8 +74,8 @@ namespace EdFi.Ods.SwaggerUI
                         x =>
                         {
                             options.SwaggerEndpoint(
-                                x.GetProperty("EndpointUri").GetString(),
-                                x.GetProperty("Name").GetString());
+                                x.GetProperty("endpointUri").GetString(),
+                                x.GetProperty("name").GetString());
                         });
             }
             catch (Exception ex)
