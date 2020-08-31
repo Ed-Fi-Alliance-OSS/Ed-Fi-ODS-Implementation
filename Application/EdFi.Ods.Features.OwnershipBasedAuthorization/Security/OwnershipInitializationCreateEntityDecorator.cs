@@ -5,8 +5,8 @@
 
 using System.Threading;
 using System.Threading.Tasks;
-using EdFi.Ods.Api.NHibernate.Architecture;
 using EdFi.Ods.Common;
+using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;

@@ -101,14 +101,14 @@ function Get-SmokeTestConfiguration {
     $config.apiYear = $schoolYear
     $config.smokeTestExecutable = $smokeTestExe
     $config.smokeTestDll = $smokeTestDll
-    $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\EdFi.Ods.Api.IntegrationTestHarness.exe.config"
+    $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\appsettings.json"
     $config.noExtensions = $false
 
     $config.testSets = $testSets
 
     $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities\DataLoading\LoadTools.sln")
 
-    $config.testHarnessAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\EdFi.Ods.Api.IntegrationTestHarness.exe.config"
+    $config.testHarnessAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\appsettings.json"
     $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
     $config.testHarnessJsonConfigLEAs = @()
 
