@@ -72,15 +72,14 @@ function Get-ExtensionScriptFiles {
 }
 
 function Get-ExcludedExtensionSourcesFromConfig {
-    param(
+    [CmdletBinding()] param(
         [Parameter(Mandatory = $true)] $configFile
     )
-    $configDoc = New-Object System.Xml.XmlDocument
-    $configDoc.Load($configFile)
-    $excludedExtensionSourcesValue = ($configDoc.SelectSingleNode('/configuration/appSettings/add[@key="ExcludedExtensionSources"]/@value')).Value
+    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
+    $jsonExcludedExtensions =$jsonFromFile.ApiSettings.ExcludedExtensions
 
-    if ($null -eq $excludedExtensionSourcesValue) { return "" }
-    return $excludedExtensionSourcesValue.Split(',')
+    if ($jsonExcludedExtensions.Length -eq 0) { return "" }
+    return $jsonExcludedExtensions
 }
 
 function Get-FeaturesFromConfig {
@@ -89,19 +88,20 @@ function Get-FeaturesFromConfig {
     )
 
     $enabledFeatures = @()
-    $configDoc = [xml] (Get-Content $configFile)
+    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
+ 
     foreach ($feature in (Get-AvailableFeatures).featureName) {
-        $featureEnabledValue = $configDoc.SelectNodes('/configuration/appSettings/add') |
-            Where-Object { $_.key -contains "$($feature):featureIsEnabled" }
-        $featureEnabledBooleanValue = $null
-        if ($null -eq $featureEnabledValue -Or -not [bool]::TryParse($featureEnabledValue.Value, [ref]$featureEnabledBooleanValue)) {
-            # Default to false if parameter not available or unparseable
+        if ($jsonFromFile.ApiSettings.Features -match $feature){
+           $featureEnabledBooleanValue= ($jsonFromFile.ApiSettings.Features |?{ $_.Name -eq $feature}).IsEnabled
+        }
+        else {
             $featureEnabledBooleanValue = $false
         }
         if ($featureEnabledBooleanValue) {
             $enabledFeatures += $feature
         }
     }
+
     return $enabledFeatures
 }
 
@@ -144,11 +144,10 @@ function Get-DbConnectionStringBuilderFromTemplate {
 
 function Get-Configuration {
     param(
-        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi\Web.Base.config'),
-        [switch] $usePlugins
+        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi.NetCore\appsettings.json')
     )
 
-    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile
+    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile 
 
     $features = Get-FeaturesFromConfig $configFile
 
@@ -165,13 +164,7 @@ function Get-Configuration {
 
     $filePaths = Get-RepositoryArtifactPaths
     # Add paths to enabled extension directories
-
-    if ($usePlugins) {
-        $filePaths += Get-Plugins $configFile
-    } else {
-        $filePaths += Get-ExtensionScriptFiles $artifactSources
-    }
-
+    $filePaths += Get-ExtensionScriptFiles $artifactSources
 
     return @{
         databaseIds     = Get-DatabaseIds
