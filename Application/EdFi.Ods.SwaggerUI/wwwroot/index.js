@@ -62,10 +62,10 @@ function showError(message) {
 // maps the json data from the metadata url to the sections variable
 function mapSections(json) {
   json.forEach(function (data) {
-    var prefix = data.prefix === '' ? 'Resources' : data.prefix
+    var prefix = data.Prefix === '' ? 'Resources' : data.Prefix
     if (sections[prefix] == null) sections[prefix] = { color: '', description: '', links: [] }
 
-    var link = { name: data.name, uri: data.endpointUri }
+    var link = { name: data.Name, uri: data.EndpointUri }
     sections[prefix].links.push(link)
   })
   console.log('sections', sections)
