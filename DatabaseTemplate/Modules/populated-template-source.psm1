@@ -10,18 +10,27 @@ $global:populatedTemplateScriptFolder = "$global:populatedTemplateFolder\Scripts
 $global:populatedTemplateModulesFolder = "$global:populatedTemplateFolder\Modules"
 $global:populatedTemplateDatabaseFolder = "$global:populatedTemplateFolder\Database"
 $script:populatedTemplateDefaultScript = "$global:populatedTemplateModulesFolder\get-populated-from-nuget.ps1"
-$script:populatedTemplateScriptConfigKey = "PopulatedTemplateScript"
+$script:populatedTemplateScriptConfigKey = "populated"
 
 function Get-PopulatedTemplateScriptNameFromConfig {
     [CmdletBinding()] param(
         [parameter(ValueFromPipeline, Mandatory)]
         [string]$configName
     )
+    $scriptName = ""
     $jsonFromFile = (Get-Content $configName -Raw -Encoding UTF8 | ConvertFrom-JSON)
-    $sandboxtemplate=$jsonFromFile.ApiSettings.SandboxTemplate
+    $sandboxtemplate=$jsonFromFile.sandboxTemplates
+   
+    foreach($object_properties in $sandboxtemplate.PsObject.Properties)
+    {
+        if($object_properties.Name -eq $script:populatedTemplateScriptConfigKey)
+        {
+            $scriptName = $object_properties.Value
+            break 
+        }
+    }
    
     Write-Warning "This script is deprecated, and will be removed in the near future. Use the script database-template-source.psm1 instead." | Out-Host
-    $scriptName = $sandboxtemplate.Where({$_.Key -eq $script:populatedTemplateScriptConfigKey}).Value
     if ([string]::IsNullOrWhiteSpace($scriptName)) { return "" }
     return $scriptName
 }

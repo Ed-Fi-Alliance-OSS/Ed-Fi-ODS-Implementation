@@ -155,6 +155,7 @@ function Get-DbConnectionStringBuilderFromConfig {
 
     $connStrEntries.PSObject.Properties | ForEach-Object {
         $csb = New-Object System.Data.Common.DbConnectionStringBuilder
+        # using set_ConnectionString correctly uses the underlying C# setter functionality resulting in a dictionary of connection string properties
         $csb.set_ConnectionString($_.Value)
         $csbs[$_.Name] = $csb
     }

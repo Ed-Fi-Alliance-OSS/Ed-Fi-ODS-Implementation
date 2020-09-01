@@ -10,7 +10,7 @@ $databaseTemplateScriptFolder = "$databaseTemplateFolder\Scripts"
 $databaseTemplateModulesFolder = "$databaseTemplateFolder\Modules"
 $databaseTemplateDatabaseFolder = "$databaseTemplateFolder\Database"
 $databasePopulatedTemplateScriptConfigKey = "PopulatedTemplateScript"
-$databaseMinimalTemplateScriptConfigKey = "GrandBend"
+$databaseMinimalTemplateScriptConfigKey = "MinimalTemplateScript"
 
 # required for get-populated-from-nuget.ps1 and for get-populated-from-web.ps1
 $global:templateDatabaseFolder = $databaseTemplateDatabaseFolder
@@ -23,10 +23,19 @@ function Get-TemplateScriptNameFromConfig {
         [parameter(Mandatory)]
         [string]$configKey
     )
-
+    $scriptName = ""
     $jsonFromFile = (Get-Content $configFileName -Raw -Encoding UTF8 | ConvertFrom-JSON)
-    $databasetemplate=$jsonFromFile.ApiSettings.DatabaseTemplate
-    $scriptName = $databasetemplate.Where({$_.Key -eq $configKey}).Value
+    $databasetemplate=$jsonFromFile.databaseTemplate
+   
+    foreach($object_properties in $databasetemplate.PsObject.Properties)
+    {
+        if($object_properties.Name -eq $configKey)
+        {
+            $scriptName = $object_properties.Value
+            break 
+        }
+    }
+
     if ([string]::IsNullOrWhiteSpace($scriptName)) { return "" }
     return $scriptName
 }
