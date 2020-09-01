@@ -242,7 +242,7 @@ function Invoke-SetTestHarnessConfig {
 		}
 	}
 	
-	$jsonFromFile | ConvertTo-Json | Set-Content $testHarnessAppConfig -Encoding UTF8
+	$jsonFromFile | ConvertTo-Json -Depth 10 | Set-Content $testHarnessAppConfig -Encoding UTF8
 }
 
 Export-ModuleMember -function Add-RandomKeySecret,

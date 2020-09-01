@@ -101,7 +101,6 @@ function Get-FeaturesFromConfig {
             $enabledFeatures += $feature
         }
     }
-
     return $enabledFeatures
 }
 

@@ -21,7 +21,7 @@ function Remove-EdFiSQLServerDatabases {
     #>
     param([switch] $Force)
 
-    $webConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config')
+    $webConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore\appsettings.json')
     $connectionStrings = Get-DbConnectionStringBuilderFromConfig $webConfig
     $edfiDatabaseIdTable = Get-DatabaseIds
 

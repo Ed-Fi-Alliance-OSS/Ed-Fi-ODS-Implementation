@@ -30,7 +30,7 @@ function Get-DefaultTemplateConfiguration {
 
     Merge-Configurations $config (Get-EnvironmentConfiguration)
 
-    $config.configFile = "$($config.outputFolder)\EdFi.Ods.Api.IntegrationTestHarness.exe.config"
+    $config.configFile = "$($config.outputFolder)\appsettings.json"
     Merge-Configurations $config (Get-Configuration -configFile $config.configFile)
 
     $config.apiUrlBase = "http://localhost:8765"
