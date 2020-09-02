@@ -148,16 +148,16 @@ function Get-DbConnectionStringBuilderFromConfig {
         [String[]] $connectionStringName
     )
 
-    [System.Xml.XmlDocument]$configXml = Get-Content $configFile
-
     $csbs = @{ }
 
-    foreach ($connStrEntry in $configXml.configuration.connectionStrings.add) {
+    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
+    $connStrEntries=$jsonFromFile.connectionStrings
+
+    $connStrEntries.PSObject.Properties | ForEach-Object {
         $csb = New-Object System.Data.Common.DbConnectionStringBuilder
         # using set_ConnectionString correctly uses the underlying C# setter functionality resulting in a dictionary of connection string properties
-        $csb.set_ConnectionString($connStrEntry.connectionString)
-
-        $csbs[$connStrEntry.Name] = $csb
+        $csb.set_ConnectionString($_.Value)
+        $csbs[$_.Name] = $csb
     }
 
     if ($connectionStringName) {

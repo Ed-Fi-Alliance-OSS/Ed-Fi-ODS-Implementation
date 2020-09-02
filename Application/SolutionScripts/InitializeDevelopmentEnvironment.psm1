@@ -34,7 +34,7 @@ Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedT
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
 # Sets the config to use by the deployment script
-Set-DeployConfigFile (Join-Path (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi') 'Web.config')
+Set-DeployConfigFile (Join-Path (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore') 'appsettings.json')
 # Tells the deployment script to always drop databases before initializing
 Set-DeployConfigOverride -DropDatabases
 
