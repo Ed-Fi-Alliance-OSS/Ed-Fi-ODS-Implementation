@@ -32,8 +32,8 @@ function Find-BlockedFiles {
                     "Properties dialog to allow the contents of the contained scripts to execute properly."
                 }
             }
+        }
     }
-}
 }
 
 function Install-RequiredPackageProvider {
@@ -50,11 +50,18 @@ function Install-RequiredPackageProvider {
 }
 
 function Install-RequiredModules {
-    $installedModules = Get-InstalledModule | ? -Property Name -eq "Invoke-MsBuild"
+    $msbuild = Get-InstalledModule | ? -Property Name -eq "Invoke-MsBuild"
 
-    if ($installedModules -eq $null) {
-        Write-Host "Installing required modules"
+    if ($null -eq $msbuild) {
+        Write-Host "Installing Invoke-MsBuild"
         Install-Module -Name Invoke-MsBuild -Scope CurrentUser -MinimumVersion 2.6.0 -Force | Out-Null
+    }
+
+    $pester = Get-InstalledModule | ? -Property Name -eq "Pester"
+
+    if ($null -eq $pester) {
+        Write-Host "Installing Pester"
+        Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
     }
 }
 
