@@ -1,3 +1,8 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
 function ConvertTo-Hashtable {
     param(
         [Parameter(ValueFromPipeline = $true)]
@@ -69,7 +74,7 @@ function Merge-Hashtables {
     $result = $Hashtables[0]
 
     for ($i = 0; $i -lt @($Hashtables).Count; $i++) {
-        $result = Merge-HashtablesDeepRight $result $Hashtables[$i+1]
+        $result = Merge-HashtablesDeepRight $result $Hashtables[$i + 1]
     }
 
     return $result

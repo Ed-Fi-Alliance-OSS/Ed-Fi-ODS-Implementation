@@ -30,9 +30,10 @@ namespace EdFi.Ods.WebApi.NetCore
                     {
                         var env = hostingContext.HostingEnvironment;
 
-                        config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                        config
+                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                             .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile("appsettings.local.json", optional: true, reloadOnChange: true);
+                            .AddJsonFile("appsettings.user.json", optional: true, reloadOnChange: true);
 
                         if (env.IsDevelopment() && !string.IsNullOrEmpty(env.ApplicationName))
                         {

@@ -46,6 +46,10 @@ packages/
 /*.XML
 *.nupkg
 
+# AppSettings
+appsettings.development.json
+appsettings.user.json
+
 # nDevConfig
 .workspaceInitialized
 nDevConfig/
