@@ -20,7 +20,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabaseTask));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
-        private readonly IConfigValueProvider _configValueProvider;
+        private readonly IConfiguration _configuration;
         private readonly ApiSettings _apiSettings;
         private readonly IConfigurationRoot _configurationRoot;
 
@@ -28,13 +28,13 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
-            IConfigValueProvider configValueProvider,
+            IConfiguration configuration,
             ApiSettings apiSettings,
             IConfigurationRoot configurationRoot)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
-            _configValueProvider = configValueProvider;
+            _configuration = configuration;
             _apiSettings = apiSettings;
             _configurationRoot = configurationRoot;
         }
@@ -145,7 +145,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _configValueProvider.GetValue("Urls") ?? "http://localhost:8765/",
+                            Value = _configuration.GetValue<string>("Urls") ?? "http://localhost:8765/",
                             Key = "ApiBaseUrl"
                         });
 
