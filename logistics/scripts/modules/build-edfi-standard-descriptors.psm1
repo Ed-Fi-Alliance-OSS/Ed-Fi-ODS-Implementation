@@ -17,7 +17,7 @@ function New-EdFiStandardDescriptorsPackage {
         # NOTE: the target folder version is the api version the migration utility is migrating to NOT the data standard version
         [hashtable[]]
         $PackageFiles = @(
-            @{ src = (Get-RepositoryResolvedPath "../Ed-Fi-Standard/Descriptors/"); target = (Join-Path $OutputPath "any/netcoreapp3.1/Descriptors/3.1") }
+            @{ src = (Get-RepositoryResolvedPath "../Ed-Fi-Standard/v3.1/Descriptors/"); target = (Join-Path $OutputPath "any/netcoreapp3.1/Descriptors/3.1") }
         )
     )
 
@@ -125,7 +125,7 @@ function New-PackageNuspec([hashtable] $config) {
 
         $files = $xml.CreateElement('files')
 
-        $files.SetAttribute('include', 'any/netcoreapp2.2/**/*')
+        $files.SetAttribute('include', 'any/netcoreapp3.1/**/*')
         $files.SetAttribute('buildAction', 'None')
         $files.SetAttribute('copyToOutput', 'true')
 
