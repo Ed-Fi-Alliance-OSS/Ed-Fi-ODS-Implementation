@@ -76,7 +76,7 @@ function Get-ExcludedExtensionSourcesFromConfig {
         [Parameter(Mandatory = $true)] $configFile
     )
     $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
-    $jsonExcludedExtensions =$jsonFromFile.ApiSettings.ExcludedExtensions
+    $jsonExcludedExtensions = $jsonFromFile.ApiSettings.ExcludedExtensions
 
     if ($jsonExcludedExtensions.Length -eq 0) { return "" }
     return $jsonExcludedExtensions
@@ -89,7 +89,7 @@ function Get-FeaturesFromConfig {
 
     $enabledFeatures = @()
     $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
- 
+
     foreach ($feature in (Get-AvailableFeatures).featureName) {
         if ($jsonFromFile.ApiSettings.Features -match $feature){
            $featureEnabledBooleanValue= ($jsonFromFile.ApiSettings.Features |?{ $_.Name -eq $feature}).IsEnabled
@@ -146,7 +146,7 @@ function Get-Configuration {
         [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi.NetCore\appsettings.json')
     )
 
-    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile 
+    $csbs = Get-DbConnectionStringBuilderFromConfig $configFile
 
     $features = Get-FeaturesFromConfig $configFile
 

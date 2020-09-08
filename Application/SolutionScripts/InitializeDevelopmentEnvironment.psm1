@@ -16,27 +16,28 @@ $toolVersion = @{
 $implementationRepo = Get-Item "$PSScriptRoot\..\.." | Select-Object -Expand Name
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-minimal-template.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-populated-template.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\config\config-transform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\postgres-database-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\config\config-transform.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
 
 Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
 # Sets the config to use by the deployment script
-Set-DeployConfigFile (Join-Path (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore') 'appsettings.json')
+Set-DeploySettingFolders @((Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore'))
 # Tells the deployment script to always drop databases before initializing
-Set-DeployConfigOverride -DropDatabases
+Set-DeployConfigOverride @{ DropDatabases = $true }
 
 Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
@@ -71,7 +72,7 @@ function Initialize-DevelopmentEnvironment {
         [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
-        [string] $OdsTokens,
+        [string] $OdsTokens = @(),
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer',
@@ -104,9 +105,7 @@ function Initialize-DevelopmentEnvironment {
     $script:result = @()
 
     $elapsed = Use-StopWatch {
-
-        $script:result += Invoke-ConfigTransform -Engine $Engine
-        Write-HashtableInfo (Get-DeployConfig)
+        $script:result += Invoke-NewDevelopmentAppSettings @{ InstallType = $InstallType; OdsTokens = $OdsTokens; Engine = $Engine }
 
         $script:result += Install-DbDeploy
 
@@ -173,6 +172,34 @@ function Invoke-ConfigTransform {
     }
 }
 
+function Invoke-NewDevelopmentAppSettings {
+    Param(
+        [hashtable] $Parameters = @{ }
+    )
+
+    Invoke-Task -name 'New-DevelopmentAppSettings' -task {
+        $settings = @{
+            'EdFi.Ods.WebApi.NetCore' = @{
+                ApiSettings = @{
+                    Engine    = $Parameters.Engine
+                    Mode      = $Parameters.InstallType
+                    OdsTokens = $Parameters.OdsTokens
+                }
+            }
+        }
+        $newSettingsFiles = New-DevelopmentAppSettings $Parameters.Engine $settings
+
+        Write-Host 'created settings files:'
+        $newSettingsFiles | Write-Host
+        $newSettingsFiles | Test-AppSettings
+        Write-Host 'files are valid json.'
+
+        Write-Host
+        Write-Host 'settings:'
+        Write-HashtableInfo (Get-DeployConfig)
+    }
+}
+
 function Get-RandomString {
     Param(
         [int] $length = 20
@@ -225,11 +252,11 @@ function Add-SandboxCredentials {
         Write-Host "Created config: $adminCredentialConfigPath"
 
         $swaggerAppSettings = @{
-            Urls = 'http://localhost:56641'
+            Urls             = 'http://localhost:56641'
             WebApiVersionUrl = 'http://localhost:54746'
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
-                    ClientId = $populatedKey
+                    ClientId     = $populatedKey
                     ClientSecret = $populatedSecret
                 }
             }
@@ -271,10 +298,10 @@ Function Invoke-RebuildSolution {
         }
 
         $params = @{
-            Path = $solutionPath
-            MsBuildParameters = ($msBuildParameters -join ' ')
+            Path                           = $solutionPath
+            MsBuildParameters              = ($msBuildParameters -join ' ')
             ShowBuildOutputInCurrentWindow = $true
-            LogVerbosityLevel = $verbosity
+            LogVerbosityLevel              = $verbosity
         }
 
         if (-not [string]::IsNullOrWhiteSpace($msBuildFilePath)) { $params.MsBuildFilePath = $msBuildFilePath }
@@ -312,10 +339,10 @@ function Reset-TestAdminDatabase {
         $ods = $config.databaseIds.ods
         $admin = $config.databaseIds.admin
         $params = @{
-            engine = $config.engine
-            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Admin_Test'
-            database = $admin.database
-            filePaths = $config.FilePaths
+            engine       = $config.engine
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Admin_Test'
+            database     = $admin.database
+            filePaths    = $config.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -333,10 +360,10 @@ function Reset-TestSecurityDatabase {
         $ods = $config.databaseIds.ods
         $security = $config.databaseIds.security
         $params = @{
-            engine = $config.engine
-            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Security_Test'
-            database = $security.database
-            filePaths = $config.FilePaths
+            engine       = $config.engine
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Security_Test'
+            database     = $security.database
+            filePaths    = $config.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -357,12 +384,12 @@ function Reset-TestPopulatedTemplateDatabase {
         # always use Grand Bend data for the test database
         $backupPath = Get-PopulatedTemplateBackupPath $config.configFile
         $params = @{
-            engine = $config.engine
-            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens "$($config.populatedTemplateSuffix)_Test"
-            database = $ods.database
-            filePaths = $config.FilePaths
-            subTypeNames = Get-DefaultSubtypes
-            dropDatabase = $true
+            engine                  = $config.engine
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens "$($config.populatedTemplateSuffix)_Test"
+            database                = $ods.database
+            filePaths               = $config.FilePaths
+            subTypeNames            = Get-DefaultSubtypes
+            dropDatabase            = $true
             createByRestoringBackup = $backupPath
         }
 

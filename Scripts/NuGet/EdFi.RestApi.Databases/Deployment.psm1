@@ -7,9 +7,8 @@
 
 $ErrorActionPreference = 'Stop'
 
-# set the default configuration file and overrides to use. typically these are overridden by initdev after import
-$script:configurationFile = (Join-Path $PSScriptRoot 'Databases.config')
-$script:configurationOverride = @{ }
+$script:settingsFolders = @($PSScriptRoot)
+$script:parameterOverrides = @{ }
 
 function Initialize-DeploymentEnvironment {
     <#
@@ -41,18 +40,28 @@ function Initialize-DeploymentEnvironment {
     #>
     param(
         [string] $PathResolverRepositoryOverride,
+
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
         [string] $InstallType = 'Sandbox',
+
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer',
+
         [string] $ExcludedExtensionSources,
+
         [string] $EnabledFeatureNames,
+
         [Alias('OdsYears')]
         [string] $OdsTokens,
-        [string] [ValidateSet("minimal", "populated")] $OdsDatabaseTemplateName = "minimal",
+
+        [ValidateSet("minimal", "populated")]
+        [string] $OdsDatabaseTemplateName = "minimal",
+
         [Alias('Transient')]
         [switch] $DropDatabases,
+
         [switch] $NoDuration,
+
         [switch] $UsePlugins
     )
 
@@ -82,7 +91,7 @@ function Initialize-DeploymentEnvironment {
     Clear-Error
 
     # any parameters passed in will be used to override the default parameters whenever Get-DeployConfig is called
-    Set-DeployConfigOverride @PSBoundParameters
+    Set-DeployConfigOverride $PSBoundParameters
 
     $script:result = @()
 
@@ -111,21 +120,25 @@ function Initialize-DeploymentEnvironment {
     return $script:result
 }
 
-function Set-DeployConfigFile {
+function Set-DeploySettingFolders {
     <#
     .description
-    Sets the configuration file to use
+    Sets the settings folder to where the appsettings files can be found
+    by default it uses the following files: appsettings.json, appsettings.development.json, appsettings.user.json
     .parameter configFile
-    The full path to the configuration file
-    This is usually the Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\Web.Base.config for development
-    and Ed-Fi-ODS-Implementation\Scripts\NuGet\EdFi.RestApi.Databases\Databases.config when deploying from the nuget package.
+    The full path to the settings folder
+    This is usually the Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\ for development
+    and Ed-Fi-ODS-Implementation\Scripts\NuGet\EdFi.RestApi.Databases\ when deploying from the nuget package.
     #>
     param(
-        [string] $configFile
+        [string[]] $settingsFolders
     )
 
-    Write-Host "Using config file: $configFile"
-    $script:configurationFile = $configFile
+    Write-Host "Using setting from:"
+    foreach ($folder in $settingsFolders) {
+        (Get-ChildItem "$folder\appsettings*.json") | Write-Host
+    }
+    $script:settingsFolders = $settingsFolders
 }
 
 function Set-DeployConfigOverride {
@@ -154,20 +167,12 @@ function Set-DeployConfigOverride {
     Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
-        [hashtable] $databaseIds,
-        [hashtable] $connectionStrings,
-        [string[]] $ExcludedExtensionSources,
-        [string[]] $EnabledFeatureNames,
-        [Alias('OdsYears')]
-        [string] $OdsTokens,
-        [string] $Engine,
-        [Alias('Transient')]
-        [switch] $DropDatabases,
-        [string] $MinimalTemplateSuffix = 'Ods_Minimal_Template',
-        [string] $PopulatedTemplateSuffix = 'Ods_Populated_Template',
-        [string] $OdsDatabaseTemplateName,
-        [switch] $UsePlugins
+        [hashtable] $Settings = @{ }
     )
+
+    $deploySettings = @{
+
+    }
 
     $config = $script:configurationOverride
 
@@ -195,25 +200,6 @@ function Set-DeployConfigOverride {
     $script:configurationOverride = $config
 }
 
-function Merge-WithDeployConfig {
-    <#
-    .description
-    Merges the configuration file values with the override values set through the Set-DeployConfigOverride.
-    .parameter configFile
-    The full path to the configuration file.
-    This is usually the Ed-Fi-ODS-Implementation\Application\EdFi.Ods.WebApi\Web.Base.config for development
-    and Ed-Fi-ODS-Implementation\Scripts\NuGet\EdFi.RestApi.Databases\Databases.config when deploying from the nuget package.
-    #>
-    param(
-        [hashtable] $config
-    )
-
-    $script:configurationOverride.GetEnumerator() |
-        ForEach-Object { $config[$_.key] = $script:configurationOverride[$_.key] }
-
-    return $config
-}
-
 function Get-DeployConfig {
     <#
     .synopsis
@@ -224,23 +210,18 @@ function Get-DeployConfig {
     take precedence over values pulled from configuration files. This function should be called for every task that needs fresh values
     from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
-    $configuration = Get-Configuration $script:configurationFile -usePlugins:$script:configurationOverride.usePlugins
 
-    $config = @{
-        configFile = $script:configurationFile
-        databaseIds = $configuration.databaseIds
-        connectionStrings = $configuration.csbs
-        filePaths = $configuration.FilePaths
-        featureSubTypeNames = $configuration.SubTypes
-        odsTokens = $null
-        engine = 'SQLServer'
-        dropDatabase = $false
-        OdsDatabaseTemplateName = "minimal"
+    $mergedSettings = @{ }
+
+    foreach ($settingsFolder in $script:settingsFolders) {
+        $mergedSettings = Merge-Hashtables $mergedSettings, (Get-MergedAppSettings $settingsFolder)
     }
 
-    if ($script:configurationOverride.Count -ne 0) { $config = Merge-WithDeployConfig $config }
+    $mergedSettings = Merge-Hashtables $mergedSettings, $script:parameterOverrides
 
-    return $config
+    $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
+
+    return $mergedSettings
 }
 
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }

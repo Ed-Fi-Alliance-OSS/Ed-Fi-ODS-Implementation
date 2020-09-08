@@ -71,7 +71,7 @@ function Merge-Hashtables {
         [Hashtable[]] $Hashtables
     )
 
-    $result = $Hashtables[0]
+    $result = $Hashtables[0] | Get-HashtableDeepClone
 
     for ($i = 0; $i -lt @($Hashtables).Count; $i++) {
         $result = Merge-HashtablesDeepRight $result $Hashtables[$i + 1]

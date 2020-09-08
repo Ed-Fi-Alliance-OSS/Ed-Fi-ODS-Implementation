@@ -5,12 +5,15 @@
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
 
 function Get-DevelopmentSettingsByProject {
     return @{
         "EdFi.Ods.WebApi.NetCore"             = @{
             Urls              = "http://localhost:54746"
-            Engine            = ""
+            ApiSettings       = @{
+                Engine = ""
+            }
             ConnectionStrings = @{ }
             Plugin            = @{
                 Scripts = @("development")
@@ -20,9 +23,15 @@ function Get-DevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
+            Deployment        = @{
+
+            }
         }
         "EdFi.Ods.Api.IntegrationTestHarness" = @{
-
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
         }
         "EdFi.Ods.SandboxAdmin.Web"           = @{
             Urls              = "http://localhost:38928"
@@ -44,28 +53,10 @@ function Get-DevelopmentSettingsByProject {
             }
         }
         "EdFi.RestApi.Databases"              = @{
-            Engine            = ""
+            ApiSettings       = @{
+                Engine = ""
+            }
             ConnectionStrings = @{ }
-        }
-    }
-}
-
-function Get-ConnectionStringsByEngine {
-    return  @{
-        SQLServer  = @{
-            ConnectionStrings = @{
-                EdFi_Ods      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
-                EdFi_Admin    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                EdFi_Security = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
-                EdFi_Master   = "Server=(local); Trusted_Connection=True; Database=master;"
-            }
-        }
-        PostgreSQL = @{
-            ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
-                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
-                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
-            }
         }
     }
 }
@@ -117,6 +108,33 @@ function Get-CredentialSettingsByProject {
     }
 }
 
+function Get-ConnectionStringsByEngine {
+    return  @{
+        SQLServer  = @{
+            ConnectionStrings = @{
+                EdFi_Ods      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
+                EdFi_Admin    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
+                EdFi_Security = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
+                EdFi_Master   = "Server=(local); Trusted_Connection=True; Database=master;"
+            }
+        }
+        PostgreSQL = @{
+            ConnectionStrings = @{
+                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
+                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
+                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
+            }
+        }
+    }
+}
+
+function Get-SubtypesByFeature {
+    return @{
+        changeQueries               = 'changes'
+        ownershipBasedAuthorization = 'RecordOwnership'
+    }
+}
+
 function Test-AppSettings {
     param(
         [Parameter(ValueFromPipeline = $true)]
@@ -134,26 +152,21 @@ function Test-AppSettings {
     }
 }
 
-function Get-MergedSettings {
+function Get-MergedAppSettings {
     param(
-        [ValidateSet('SQLServer', 'PostgreSQL')]
-        [string] $Engine,
+        [string] $ProjectPath,
 
-        [string] $Project,
+        [hashtable] $Settings = @{ },
 
-        [hashtable] $Settings = @{ }
+        [string[]] $AppSettingsFileNames = @("appsettings.json", "appsettings.development.json", "appsettings.user.json")
     )
 
-    $projectPath = Get-ProjectPath $Project
-
-    if (-not (Test-Path $projectPath)) { return $Settings }
-
-    $appSettingsFileNames = "appsettings.json", "appsettings.development.json", "appsettings.user.json"
+    if (-not (Test-Path $ProjectPath)) { return $Settings }
 
     $mergedSettings = @{ }
 
-    foreach ($settingsFileName in $appSettingsFileNames) {
-        $settingsPath = Join-Path $projectPath $settingsFileName
+    foreach ($settingsFileName in $AppSettingsFileNames) {
+        $settingsPath = Join-Path $ProjectPath $settingsFileName
 
         if (-not (Test-Path $settingsPath)) { continue }
 
@@ -176,17 +189,18 @@ function Add-EngineSpecificSettings {
     foreach ($project in $Settings.Keys) {
 
         $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Engine]
-        $newConnectionStrings = Get-HashtableDeepClone $connectionStringsForEngine
+        $newConnectionStrings = Merge-Hashtables @{ }, $connectionStringsForEngine
 
         foreach ($key in $connectionStringsForEngine.ConnectionStrings.Keys) {
             if (-not ($connectionStringsForEngine.ConnectionStrings[$key] -like '*Application Name*')) {
                 $newConnectionStrings.ConnectionStrings[$key] += " Application Name=$project;"
             }
+
         }
 
         $newSettings[$project] = Merge-Hashtables $Settings[$project], $newConnectionStrings
 
-        if ($newSettings[$project].ContainsKey("Engine")) { $newSettings[$project].Engine = $Engine }
+        if ($newSettings[$project].ContainsKey('ApiSettings')) { $newSettings.ApiSettings[$project].Engine = $Engine }
     }
 
     return $newSettings
@@ -230,8 +244,8 @@ function New-JsonFile {
         [switch] $Force
     )
 
-    if (-not $force -and (Test-Path $FilePath)) { return }
-    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8 -Force:$Force
+    if (-not $Force -and (Test-Path $FilePath)) { return }
+    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function New-DevelopmentAppSettings {
@@ -259,6 +273,64 @@ function New-DevelopmentAppSettings {
         $newSettingsFiles += $newUserSettingsPath
     }
 
-    $newSettingsFiles | Test-AppSettings
     return $newSettingsFiles
+}
+
+function Get-ConnectionStringsFromSettings([hashtable] $Settings = @{ }) {
+    $connectionStrings = @{ }
+
+    foreach ($key in $Settings.ApiSettings.ConnectionStrings.Keys) {
+        $csb = New-Object System.Data.Common.DbConnectionStringBuilder
+        # using set_ConnectionString correctly uses the underlying C# setter functionality
+        # resulting in a dictionary of connection string properties instead of a string
+        $csb.set_ConnectionString($Settings.ApiSettings.ConnectionStrings[$key])
+        $connectionStrings[$key] = $csb
+    }
+
+    return $connectionStrings
+}
+
+function Get-EnabledFeaturesFromSettings([hashtable] $Settings = @{ }) {
+    return ($Settings.ApiSettings.Features | Where-Object { $_.IsEnabled -eq $true })
+}
+
+function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
+    $enabledFeatureSubTypes = @()
+
+    foreach ($feature in (Get-SubtypesByFeature).Keys) {
+        $enabledFeatureSubTypes += ((Get-EnabledFeaturesFromSettings $Settings) | Where-Object { $_.Name -eq $feature })
+    }
+
+    $enabledSubTypes = $enabledFeatureSubTypes | ForEach-Object { (Get-SubtypesByFeature)[$_.Name] }
+
+    return $enabledSubTypes
+}
+
+function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
+    $folders = @()
+
+    if ((Get-EnabledFeaturesFromSettings $Settings) -contains "Extensions") {
+        $excludedExtensionSources = $Settings.ApiSettings.ExcludedExtensionSources
+        $artifactSources = Select-SupportingArtifactResolvedSources |
+            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
+
+
+    }
+    $folders = Get-RepositoryArtifactPaths
+    $folders += Get-ExtensionScriptFiles $artifactSources
+
+    return $folders
+}
+
+function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
+    $deploymentSettings = @{
+        Deployment = @{
+            databaseIds     = Get-DatabaseIds
+            csbs            = Get-ConnectionStringsFromSettings $Settings
+            SubTypes        = Get-FeatureSubTypesFromSettings $Settings
+            FilePaths       = Get-DatabaseScriptFoldersFromSettings $Settings
+        }
+    }
+
+    return (Merge-Hashtables $Settings, $deploymentSettings)
 }
