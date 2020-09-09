@@ -126,8 +126,8 @@ function Get-ConnectionStringsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)['Master'])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
-            DatabaseTemplate = @{
-                MinimalTemplateScript = 'EdFiMinimalTemplate'
+            DatabaseTemplate  = @{
+                MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
             }
         }
@@ -137,8 +137,8 @@ function Get-ConnectionStringsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
             }
-            DatabaseTemplate = @{
-                MinimalTemplateScript = 'PostgreSQLMinimalTemplate'
+            DatabaseTemplate  = @{
+                MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
         }
@@ -181,7 +181,7 @@ function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(G
                 Get-Content $file | ConvertFrom-Json
             }
             catch {
-                $result += @{ file = $file; success = $false; exception = $_}
+                $result += @{ file = $file; success = $false; exception = $_ }
             }
         }
     }
@@ -278,7 +278,7 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
     if ((Get-EnabledFeaturesFromSettings $Settings) -contains "Extensions") {
         $excludedExtensionSources = $Settings.ApiSettings.ExcludedExtensionSources
         $artifactSources = Select-SupportingArtifactResolvedSources |
-        Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
+            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
     }
 
     $folders = @()
@@ -301,4 +301,30 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
     }
 
     return (Merge-Hashtables $Settings, $newDeploymentSettings)
+}
+
+
+function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
+    $newSettingsFiles = @()
+    $developmentSettingsByProject = Get-DevelopmentSettingsByProject
+
+    foreach ($project in $developmentSettingsByProject.Keys) {
+        $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
+        $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
+
+        $newDevelopmentSettings = Merge-HashTables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
+
+        $projectPath = Get-ProjectPath $project
+
+        $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
+        New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
+        $newSettingsFiles += $newDevelopmentSettingsPath
+
+        $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
+        $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
+        New-JsonFile $newUserSettingsPath $credentialSettings
+        $newSettingsFiles += $newUserSettingsPath
+    }
+
+    return $newSettingsFiles
 }

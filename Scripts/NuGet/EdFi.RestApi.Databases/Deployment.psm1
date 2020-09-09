@@ -152,6 +152,15 @@ function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
     return $script:deploymentSettingsFiles
 }
 
+function Get-DeploymentSettingsFiles {
+    <#
+    .description
+    .parameter configFile
+    #>
+
+    return $script:deploymentSettingsFiles
+}
+
 function Set-DeploymentSettings([hashtable] $Settings = @{ }) {
     $script:deploymentSettingsOverrides = Merge-Hashtables $script:deploymentSettingsOverrides, $Settings
     return $script:deploymentSettingsOverrides
@@ -168,7 +177,7 @@ function Get-DeploymentSettings {
     from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = Merge-Hashtables @{ }, (Get-MergedAppSettings $script:deploymentSettingsFiles), $script:deploymentSettingsOverrides
+    $mergedSettings = Merge-Hashtables (Get-MergedAppSettings $script:deploymentSettingsFiles), $script:deploymentSettingsOverrides
 
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 

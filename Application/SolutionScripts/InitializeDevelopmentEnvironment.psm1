@@ -122,7 +122,6 @@ function Initialize-DevelopmentEnvironment {
             }
         }
         $script:result += Invoke-NewDevelopmentAppSettings $settings
-        $script:result += Invoke-ValidateAppSettings
 
         $script:result += Install-DbDeploy
 
@@ -200,43 +199,14 @@ function Invoke-ConfigTransform {
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
 
-        $newSettingsFiles = @()
-        $developmentSettingsByProject = Get-DevelopmentSettingsByProject
-
-        foreach ($project in $developmentSettingsByProject.Keys) {
-            $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
-            $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
-
-            $newDevelopmentSettings = Merge-HashTables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
-
-            $projectPath = Get-ProjectPath $project
-
-            $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
-            New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
-            $newSettingsFiles += $newDevelopmentSettingsPath
-
-            $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
-            $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
-            New-JsonFile $newUserSettingsPath $credentialSettings
-            $newSettingsFiles += $newUserSettingsPath
-        }
+        $newSettingsFiles = New-DevelopmentAppSettings $Settings
 
         Write-Host 'created settings files:' -ForegroundColor Green
         $newSettingsFiles | Write-Host
 
         Write-Host
         Write-Host 'initdev is now using the following settings files:' -ForegroundColor Green
-
-
-        Write-Host
-        Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
-        Write-HashtableInfo (Get-DeploymentSettings)
-    }
-}
-
-function Invoke-ValidateAppSettings {
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $results = Assert-ValidAppSettings
+        $results = Assert-ValidAppSettings (Get-DeploymentSettingsFiles)
         foreach ($result in $results) {
             if ($result.success) {
                 Write-Host $result.file -NoNewline
@@ -248,6 +218,10 @@ function Invoke-ValidateAppSettings {
             }
         }
         if ($results | where { $null -ne $_.exception }) { throw "invalid appsettings found" }
+
+        Write-Host
+        Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
+        Write-HashtableInfo (Get-DeploymentSettings)
     }
 }
 
