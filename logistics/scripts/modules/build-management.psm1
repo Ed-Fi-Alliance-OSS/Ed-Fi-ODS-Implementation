@@ -8,6 +8,7 @@ $ErrorActionPreference = "Stop"
 
 & "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\config\config-management.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\database\database-management.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\database\postgres-database-management.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
@@ -21,12 +22,11 @@ function Remove-EdFiSQLServerDatabases {
     #>
     param([switch] $Force)
 
-    $webConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore\appsettings.json')
-    $connectionStrings = Get-DbConnectionStringBuilderFromConfig $webConfig
-    $edfiDatabaseIdTable = Get-DatabaseIds
+    $connectionStrings = (Get-ConnectionStringsFromSettings (Get-ConnectionStringsByEngine)['SqlServer'])
 
-    $master = $edfiDatabaseIdTable.master.connectionStringKey
-    $ods = $edfiDatabaseIdTable.ods.connectionStringKey
+    $master = (Get-ConnectionStringKeyByDatabaseTypes)['Master']
+    $ods = (Get-ConnectionStringKeyByDatabaseTypes)['Ods']
+
     $sqlServer = Get-Server $connectionStrings[$master]
     $connectionString = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $connectionStrings[$ods] -replacementTokens "*")
 
@@ -60,11 +60,11 @@ function Remove-EdFiPostgreSQLDatabases {
         No action will be taken unless this parameter is passed
     #>
     param([switch] $Force)
-    $webConfig = (Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Npgsql.config')
-    $connectionStrings = Get-DbConnectionStringBuilderFromConfig $webConfig
-    $edfiDatabaseIdTable = Get-DatabaseIds
 
-    $ods = $edfiDatabaseIdTable.ods.connectionStringKey
+    $connectionStrings = (Get-ConnectionStringsFromSettings (Get-ConnectionStringsByEngine)['PostgreSQL'])
+
+    $ods = (Get-ConnectionStringKeyByDatabaseTypes)['Ods']
+
     $connectionString = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $connectionStrings[$ods] -replacementTokens "*")
 
     $databaseTemplate = $connectionString["Database"]
@@ -185,7 +185,7 @@ function New-OctopusChannel {
                         "Deploy Databases",
                         "Install API NuGet package",
                         "Install Admin NuGet Package",
-                        "Install Swagger NuGet package"                       
+                        "Install Swagger NuGet package"
                     )
                     VersionRange = "($versionRangeStartMajorVersion.$versionRangeStartMinorVersion.$versionRangeStartPatchVersion,$majorVersion.$minorVersion.$patchVersion]"
                 }
