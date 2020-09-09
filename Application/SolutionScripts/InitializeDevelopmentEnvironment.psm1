@@ -34,10 +34,11 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\Ed
 Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
-# Sets the config to use by the deployment script
-Set-DeploySettingFolders @((Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore'))
-# Tells the deployment script to always drop databases before initializing
-Set-DeployConfigOverride @{ DropDatabases = $true }
+Set-DeploymentSettingsFiles @(
+    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.json",
+    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.development.json",
+    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.user.json"
+)
 
 Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
@@ -85,6 +86,7 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $NoDeploy,
 
+        [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
         [switch] $NoCredentials,
 
         [switch] $RunPostman,
@@ -100,12 +102,27 @@ function Initialize-DevelopmentEnvironment {
 
     Clear-Error
 
-    Set-DeployConfigOverride -Engine $Engine -UsePlugins:$UsePlugins
-
     $script:result = @()
 
     $elapsed = Use-StopWatch {
-        $script:result += Invoke-NewDevelopmentAppSettings @{ InstallType = $InstallType; OdsTokens = $OdsTokens; Engine = $Engine }
+
+        $settings = @{
+            ApiSettings = @{
+                Mode      = $InstallType
+                OdsTokens = $OdsTokens
+                Engine    = $Engine
+            }
+            DeploymentSettings = @{
+                InstallType = $InstallType
+                OdsTokens = $OdsTokens
+                Engine = $Engine
+                UsePlugins = $UsePlugins
+                MinimalTemplateSuffix = 'Ods_Minimal_Template'
+                PopulatedTemplateSuffix = 'Ods_Populated_Template'
+            }
+        }
+        $script:result += Invoke-NewDevelopmentAppSettings $settings
+        $script:result += Invoke-ValidateAppSettings
 
         $script:result += Install-DbDeploy
 
@@ -119,14 +136,21 @@ function Initialize-DevelopmentEnvironment {
             $script:result += Invoke-RebuildSolution
         }
 
-        if (-not $NoCredentials) { $script:result += Add-SandboxCredentials }
-
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
 
         if (-not ($NoDeploy)) {
             $script:result += Reset-TestPopulatedTemplateDatabase
-            $script:result += Initialize-DeploymentEnvironment -Engine $Engine -InstallType $InstallType -OdsTokens $OdsTokens -NoDuration
+
+            $params = @{
+                InstallType   = $InstallType
+                Engine        = $Engine
+                OdsTokens     = $OdsTokens
+                DropDatabases = $true
+                NoDuration    = $true
+                UsePlugins    = $UsePlugins
+            }
+            $script:result += Initialize-DeploymentEnvironment @params
         }
 
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
@@ -141,6 +165,7 @@ function Initialize-DevelopmentEnvironment {
 }
 
 function Invoke-ConfigTransform {
+    [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer'
@@ -172,31 +197,57 @@ function Invoke-ConfigTransform {
     }
 }
 
-function Invoke-NewDevelopmentAppSettings {
-    Param(
-        [hashtable] $Parameters = @{ }
-    )
+function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
 
-    Invoke-Task -name 'New-DevelopmentAppSettings' -task {
-        $settings = @{
-            'EdFi.Ods.WebApi.NetCore' = @{
-                ApiSettings = @{
-                    Engine    = $Parameters.Engine
-                    Mode      = $Parameters.InstallType
-                    OdsTokens = $Parameters.OdsTokens
-                }
-            }
+        $newSettingsFiles = @()
+        $developmentSettingsByProject = Get-DevelopmentSettingsByProject
+
+        foreach ($project in $developmentSettingsByProject.Keys) {
+            $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
+            $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
+
+            $newDevelopmentSettings = Merge-HashTables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
+
+            $projectPath = Get-ProjectPath $project
+
+            $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
+            New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
+            $newSettingsFiles += $newDevelopmentSettingsPath
+
+            $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
+            $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
+            New-JsonFile $newUserSettingsPath $credentialSettings
+            $newSettingsFiles += $newUserSettingsPath
         }
-        $newSettingsFiles = New-DevelopmentAppSettings $Parameters.Engine $settings
 
-        Write-Host 'created settings files:'
+        Write-Host 'created settings files:' -ForegroundColor Green
         $newSettingsFiles | Write-Host
-        $newSettingsFiles | Test-AppSettings
-        Write-Host 'files are valid json.'
 
         Write-Host
-        Write-Host 'settings:'
-        Write-HashtableInfo (Get-DeployConfig)
+        Write-Host 'initdev is now using the following settings files:' -ForegroundColor Green
+
+
+        Write-Host
+        Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
+        Write-HashtableInfo (Get-DeploymentSettings)
+    }
+}
+
+function Invoke-ValidateAppSettings {
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $results = Assert-ValidAppSettings
+        foreach ($result in $results) {
+            if ($result.success) {
+                Write-Host $result.file -NoNewline
+                Write-Host " ok" -ForegroundColor Green
+            }
+            elseif (-not $result.success) {
+                Write-Host $result.file -ForegroundColor Red
+                Write-Host $result.exception -ForegroundColor Red
+            }
+        }
+        if ($results | where { $null -ne $_.exception }) { throw "invalid appsettings found" }
     }
 }
 
@@ -279,7 +330,7 @@ Function Invoke-RebuildSolution {
         [string] $msBuildFilePath = $env:msbuild_exe
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        if ((Get-DeployConfig).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
+        if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $msBuildParameters = @(
@@ -319,14 +370,14 @@ Function Invoke-RebuildSolution {
 }
 function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
-        $config = Get-DeployConfig
-        $ods = $config.databaseIds.ods
-        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
+        $settings = Get-DeploymentSettings
+        $ods = $settings.DeploymentSettings.databaseIds.Ods
+        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Ods_Sandbox_Empty'
         $params = @{
-            engine       = $config.engine
+            engine       = $settings.ApiSettings.engine
             csb          = $connectionString
-            database     = $ods.database
-            filePaths    = $config.FilePaths
+            database     = 'Ods'
+            filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -335,18 +386,17 @@ function Reset-EmptySandboxDatabase {
 }
 function Reset-TestAdminDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $config = Get-DeployConfig
-        $ods = $config.databaseIds.ods
-        $admin = $config.databaseIds.admin
+        $settings = Get-DeploymentSettings
+        $ods = $settings.DeploymentSettings.databaseIds.ods
         $params = @{
-            engine       = $config.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Admin_Test'
-            database     = $admin.database
-            filePaths    = $config.FilePaths
+            engine       = $settings.ApiSettings.engine
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Admin_Test'
+            database     = 'Admin'
+            filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
-        if ($config.Engine -eq 'SQLServer') {
+        if ($settings.Engine -eq 'SQLServer') {
             # turn on all available features for the test database to ensure all the schema components are available
             $params.subTypeNames = Get-DefaultSubtypes
         }
@@ -356,18 +406,17 @@ function Reset-TestAdminDatabase {
 
 function Reset-TestSecurityDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $config = Get-DeployConfig
-        $ods = $config.databaseIds.ods
-        $security = $config.databaseIds.security
+        $settings = Get-DeploymentSettings
+        $ods = $settings.DeploymentSettings.databaseIds.ods
         $params = @{
-            engine       = $config.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens 'Security_Test'
-            database     = $security.database
-            filePaths    = $config.FilePaths
+            engine       = $settings.ApiSettings.engine
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Security_Test'
+            database     = 'Security'
+            filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
-        if ($config.Engine -eq 'SQLServer') {
+        if ($settings.Engine -eq 'SQLServer') {
             # turn on all available features for the test database to ensure all the schema components are available
             $params.subTypeNames = Get-DefaultSubtypes
         }
@@ -379,15 +428,15 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $config = Get-DeployConfig
-        $ods = $config.databaseIds.ods
+        $settings = Get-DeploymentSettings
+        $ods = $settings.DeploymentSettings.databaseIds['Ods']
         # always use Grand Bend data for the test database
-        $backupPath = Get-PopulatedTemplateBackupPath $config.configFile
+        $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
-            engine                  = $config.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $config.connectionStrings[$ods.connectionStringKey] -replacementTokens "$($config.populatedTemplateSuffix)_Test"
-            database                = $ods.database
-            filePaths               = $config.FilePaths
+            engine                  = $settings.ApiSettings.engine
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens "$($settings.DeploymentSettings.populatedTemplateSuffix)_Test"
+            database                = 'Ods'
+            filePaths               = $settings.DeploymentSettings.FilePaths
             subTypeNames            = Get-DefaultSubtypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath
@@ -400,11 +449,11 @@ function Reset-TestPopulatedTemplateDatabase {
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $config = Get-DeployConfig
+        $settings = Get-DeploymentSettings
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        & $tool -r $repositoryRoot -e $config.engine | Write-Host
+        & $tool -r $repositoryRoot -e $settings.engine | Write-Host
     }
 }
 

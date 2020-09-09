@@ -71,13 +71,15 @@ Describe 'Get-FeatureSubTypesFromSettings' {
                 Features = @(
                     @{ Name = 'Unknown'; IsEnabled = $true; }
                     @{ Name = 'ChangeQueries'; IsEnabled = $true; }
+                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled = $true; }
                 )
             }
         }
 
-        @($subtypes).Length | Should -Be 1
+        @($subtypes).Length | Should -Be 2
         $subtypes | Should -Not -BeNullOrEmpty
         $subtypes | Should -Contain 'changes'
+        $subtypes | Should -Contain 'RecordOwnership'
     }
 
     It "returns only enabled subtypes" {

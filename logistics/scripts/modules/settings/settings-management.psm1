@@ -108,21 +108,38 @@ function Get-CredentialSettingsByProject {
     }
 }
 
+function Get-ConnectionStringKeyByDatabaseTypes {
+    return @{
+        Ods      = 'EdFi_Ods'
+        Admin    = 'EdFi_Admin'
+        Security = 'EdFi_Security'
+        Master   = 'EdFi_Master'
+    }
+}
+
 function Get-ConnectionStringsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
-                EdFi_Admin    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                EdFi_Security = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
-                EdFi_Master   = "Server=(local); Trusted_Connection=True; Database=master;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Master'])   = "Server=(local); Trusted_Connection=True; Database=master;"
+            }
+            DatabaseTemplate = @{
+                MinimalTemplateScript = 'EdFiMinimalTemplate'
+                PopulatedTemplateScript = 'GrandBend'
             }
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
-                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
-                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
+            }
+            DatabaseTemplate = @{
+                MinimalTemplateScript = 'PostgreSQLMinimalTemplate'
+                PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
         }
     }
@@ -152,73 +169,36 @@ function Test-AppSettings {
     }
 }
 
-function Get-MergedAppSettings {
-    param(
-        [string] $ProjectPath,
+function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(Get-RepositoryRoot 'Ed-Fi-ODS-Implementation')\**\appsettings*.json" -Recurse)) {
+    $result = @()
 
-        [hashtable] $Settings = @{ },
-
-        [string[]] $AppSettingsFileNames = @("appsettings.json", "appsettings.development.json", "appsettings.user.json")
-    )
-
-    if (-not (Test-Path $ProjectPath)) { return $Settings }
-
-    $mergedSettings = @{ }
-
-    foreach ($settingsFileName in $AppSettingsFileNames) {
-        $settingsPath = Join-Path $ProjectPath $settingsFileName
-
-        if (-not (Test-Path $settingsPath)) { continue }
-
-        $settings = Get-Content $settingsPath | ConvertFrom-Json | ConvertTo-Hashtable
-        $mergedSettings = Merge-Hashtables $mergedSettings, $settings
-    }
-
-    return $mergedSettings
-}
-
-function Add-EngineSpecificSettings {
-    param(
-        [string] $Engine,
-
-        [hashtable] $Settings = @{ }
-    )
-
-    $newSettings = @{ }
-
-    foreach ($project in $Settings.Keys) {
-
-        $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Engine]
-        $newConnectionStrings = Merge-Hashtables @{ }, $connectionStringsForEngine
-
-        foreach ($key in $connectionStringsForEngine.ConnectionStrings.Keys) {
-            if (-not ($connectionStringsForEngine.ConnectionStrings[$key] -like '*Application Name*')) {
-                $newConnectionStrings.ConnectionStrings[$key] += " Application Name=$project;"
-            }
-
+    foreach ($file in $SettingsFiles) {
+        if (Test-AppSettings $file) {
+            $result += @{ file = $file; success = $true }
         }
-
-        $newSettings[$project] = Merge-Hashtables $Settings[$project], $newConnectionStrings
-
-        if ($newSettings[$project].ContainsKey('ApiSettings')) { $newSettings.ApiSettings[$project].Engine = $Engine }
+        else {
+            try {
+                Get-Content $file | ConvertFrom-Json
+            }
+            catch {
+                $result += @{ file = $file; success = $false; exception = $_}
+            }
+        }
     }
 
-    return $newSettings
+    return $result
 }
 
-function New-DevelopmentSettings {
-    param(
-        [ValidateSet('SQLServer', 'PostgreSQL')]
-        [string] $Engine = 'SQLServer',
+function Add-ApplicationNameToConnectionStrings([hashtable] $ConnectionStrings = @{ }, [string] $ApplicationName) {
+    $newConnectionStrings = Merge-Hashtables @{ }, $ConnectionStrings
 
-        [hashtable] $Settings = @{ }
-    )
+    foreach ($key in $ConnectionStrings.ConnectionStrings.Keys) {
+        if (-not ($ConnectionStrings.ConnectionStrings[$key] -like '*Application Name*')) {
+            $newConnectionStrings.ConnectionStrings[$key] += " Application Name=$ApplicationName;"
+        }
+    }
 
-    $newDevelopmentSettings = (Add-EngineSpecificSettings $Engine (Get-DevelopmentSettingsByProject))
-
-    $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $Settings
-
-    return $newDevelopmentSettings
+    return $newConnectionStrings
 }
 
 function Get-ProjectPath {
@@ -241,49 +221,37 @@ function New-JsonFile {
 
         [hashtable] $Hashtable,
 
-        [switch] $Force
+        [switch] $Overwrite
     )
 
-    if (-not $Force -and (Test-Path $FilePath)) { return }
+    if (-not $Overwrite -and (Test-Path $FilePath)) { return }
+
     $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
-function New-DevelopmentAppSettings {
-    param(
-        [ValidateSet('SQLServer', 'PostgreSQL')]
-        [string] $Engine = 'SQLServer',
+function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
 
-        [hashtable] $Settings = @{ }
-    )
+    $mergedSettings = @{ }
 
-    $newSettingsFiles = @()
+    foreach ($settingsFile in $SettingsFiles) {
+        if (-not (Test-Path $settingsFile)) { continue }
 
-    $newDevelopmentSettings = New-DevelopmentSettings $Engine $Settings
-
-    foreach ($project in $newDevelopmentSettings.Keys) {
-        $projectPath = Get-ProjectPath $project
-
-        $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
-        New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings[$project] -Force
-        $newSettingsFiles += $newDevelopmentSettingsPath
-
-        $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
-        $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
-        New-JsonFile $newUserSettingsPath $credentialSettings
-        $newSettingsFiles += $newUserSettingsPath
+        $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+        $mergedSettings = Merge-Hashtables $mergedSettings, $settings
     }
 
-    return $newSettingsFiles
+    return $mergedSettings
 }
+
 
 function Get-ConnectionStringsFromSettings([hashtable] $Settings = @{ }) {
     $connectionStrings = @{ }
 
-    foreach ($key in $Settings.ApiSettings.ConnectionStrings.Keys) {
+    foreach ($key in $Settings.ConnectionStrings.Keys) {
         $csb = New-Object System.Data.Common.DbConnectionStringBuilder
         # using set_ConnectionString correctly uses the underlying C# setter functionality
         # resulting in a dictionary of connection string properties instead of a string
-        $csb.set_ConnectionString($Settings.ApiSettings.ConnectionStrings[$key])
+        $csb.set_ConnectionString($Settings.ConnectionStrings[$key])
         $connectionStrings[$key] = $csb
     }
 
@@ -307,30 +275,30 @@ function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
 }
 
 function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
-    $folders = @()
-
     if ((Get-EnabledFeaturesFromSettings $Settings) -contains "Extensions") {
         $excludedExtensionSources = $Settings.ApiSettings.ExcludedExtensionSources
         $artifactSources = Select-SupportingArtifactResolvedSources |
-            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
-
-
+        Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
     }
+
+    $folders = @()
+
     $folders = Get-RepositoryArtifactPaths
+
     $folders += Get-ExtensionScriptFiles $artifactSources
 
     return $folders
 }
 
 function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
-    $deploymentSettings = @{
-        Deployment = @{
-            databaseIds     = Get-DatabaseIds
-            csbs            = Get-ConnectionStringsFromSettings $Settings
-            SubTypes        = Get-FeatureSubTypesFromSettings $Settings
-            FilePaths       = Get-DatabaseScriptFoldersFromSettings $Settings
+    $newDeploymentSettings = @{
+        DeploymentSettings = @{
+            databaseIds = Get-ConnectionStringKeyByDatabaseTypes
+            csbs        = Get-ConnectionStringsFromSettings $Settings
+            SubTypes    = Get-FeatureSubTypesFromSettings $Settings
+            FilePaths   = Get-DatabaseScriptFoldersFromSettings $Settings
         }
     }
 
-    return (Merge-Hashtables $Settings, $deploymentSettings)
+    return (Merge-Hashtables $Settings, $newDeploymentSettings)
 }
