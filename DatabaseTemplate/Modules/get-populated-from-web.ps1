@@ -27,7 +27,7 @@ if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell
     Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
 }
 
-& "$PSScriptRoot\..\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
