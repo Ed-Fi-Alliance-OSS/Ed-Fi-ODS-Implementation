@@ -5,11 +5,56 @@
 
 & "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 
-$testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
-$testHarnessName = (Get-Item $testHarnessFolder).Name
+$script:testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
+$script:testHarnessName = (Get-Item $script:testHarnessFolder).Name
+
+function Add-RandomKeySecret {
+    param(
+        [hashtable] $config
+    )
+
+    $content = (Get-Content (Get-ChildItem $config.testHarnessJsonConfig).FullName -Raw -Encoding UTF8 | ConvertFrom-Json)
+    foreach ($vendor in $content.vendors) {
+        foreach ($application in $vendor.applications) {
+            foreach ($apiClient in $application.apiClients) {
+                if (-not @($config.apiClientNameBootstrap, $config.apiClientNameSandbox) -contains $apiClient.ApiClientName) { continue; }
+
+                if ([string]::IsNullOrWhiteSpace($config.apiKey)) { $randomKey = Get-RandomString }
+                else { $randomKey = $config.apiKey }
+
+                if ([string]::IsNullOrWhiteSpace($config.apiSecret)) { $randomSecret = Get-RandomString }
+                else { $randomSecret = $config.apiSecret }
+
+                $apiClient | Add-Member -MemberType NoteProperty -Name 'Key' -Value $randomKey
+                $apiClient | Add-Member -MemberType NoteProperty -Name 'Secret' -Value $randomSecret
+
+                $apiClient | Format-List | Out-Host
+
+                if ($apiClient.ApiClientName -eq $config.apiClientNameBootstrap) {
+                    $config.apiBootstrapKey = $randomKey
+                    $config.apiBootstrapSecret = $randomSecret
+                }
+                if ($apiClient.ApiClientName -eq $config.apiClientNameSandbox) {
+                    $config.apiSandboxKey = $randomKey
+                    $config.apiSandboxSecret = $randomSecret
+                }
+
+                $testHarnessJsonConfigLEAs = $config.testHarnessJsonConfigLEAs
+                if (-not ($null -eq $testHarnessJsonConfigLEAs) -and ($testHarnessJsonConfigLEAs.Length -gt 0)) {
+                    $apiClient.LocalEducationOrganizations = $testHarnessJsonConfigLEAs
+                }
+            }
+        }
+    }
+
+    $bulkLoadTempJsonConfig = $config.bulkLoadTempJsonConfig
+    $content | ConvertTo-Json -Depth 10 | Set-Content $bulkLoadTempJsonConfig -Encoding UTF8
+
+    Write-Host "Created Temp Config: $bulkLoadTempJsonConfig"
+}
 
 function Get-TestHarnessExecutable {
-    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$testHarnessName")\bin\**\$testHarnessName.exe"
+    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$script:testHarnessName")\bin\**\$script:testHarnessName.exe"
     $testHarnessExecutable = (Get-ChildItem -Recurse -Path $testHarnessExecutableFilter).FullName
 
     return $testHarnessExecutable
@@ -21,7 +66,6 @@ function Start-TestHarness {
         [string] $configurationFilePath,
         [string] $environmentFilePath,
         [string] $testHarnessExecutable
-
     )
 
     Stop-TestHarness
@@ -32,6 +76,7 @@ function Start-TestHarness {
         if (Test-Path $configurationFilePath) {
             $params = @("--configurationFilePath=$configurationFilePath")
             if (-not [string]::IsNullOrEmpty($environmentFilePath)) { $params += @("--environmentFilePath=$environmentFilePath") }
+            $params += "--environment=Development"
 
             Write-Host "$testHarnessExecutable $params" -ForegroundColor Magenta
             Start-Process $testHarnessExecutable -ArgumentList ($params -join " ") -NoNewWindow
@@ -64,26 +109,12 @@ function Start-TestHarness {
 }
 
 function Stop-TestHarness {
-    Get-Process -name $testHarnessName -ErrorAction SilentlyContinue |
+    Get-Process -name $script:testHarnessName -ErrorAction SilentlyContinue |
     ForEach-Object {
         $_ | Sort-Object -Property Name | Format-Table -AutoSize -Wrap | Out-Host
         Stop-Process -Id $_.Id
     }
 }
 
-function Invoke-StartTestHarness {
-    param(
-        [hashtable] $config = (Get-TemplateConfiguration)
-    )
-
-    $config = Get-TemplateConfiguration
-    $params = @{
-        apiUrl                = $config.apiUrlBase
-        configurationFilePath = $config.bulkLoadTempJsonConfig
-    }
-    Start-TestHarness @params
-}
-
-Export-ModuleMember -function Invoke-StartTestHarness,
-Start-TestHarness,
+Export-ModuleMember -function Add-RandomKeySecret, Start-TestHarness,
 Stop-TestHarness -Alias *

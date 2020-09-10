@@ -17,19 +17,11 @@ param(
     [string] $configurationFile = (Resolve-Path "$PSScriptRoot\modules\postmanTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
     [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot\modules")
-
 )
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global  (Get-RepositoryResolvedPath "Initialize-PowershellForDevelopment.ps1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
-
-$testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
-$testHarnessName = (Get-Item $testHarnessFolder).Name
-$testHarnessConfigurationFilter = "$(Get-RepositoryResolvedPath "\Application\$testHarnessName")\bin\**\appsettings.json"
-$testHarnessConfiguration = (Get-ChildItem -Recurse $testHarnessConfigurationFilter).FullName
-
-Set-DeployConfigFile ($testHarnessConfiguration)
 
 $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")

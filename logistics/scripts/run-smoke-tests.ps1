@@ -57,7 +57,7 @@ param(
     [string] $namespaceUri = "http://edfi.org",
     [string] $schoolYear = $null,
     [string[]] $testSets = @("NonDestructiveApi"),
-    [string] $smokeTestExe =  ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
+    [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
     [switch] $noRebuild
 )
@@ -67,15 +67,15 @@ $ErrorActionPreference = 'Stop'
 $error.Clear()
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\LoadTools.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 
 if ([string]::IsNullOrWhiteSpace($key)) { $key = Get-RandomString }
 if ([string]::IsNullOrWhiteSpace($secret)) { $secret = Get-RandomString }
 
-if ([string]::IsNullOrWhiteSpace($smokeTestExe) -or -not(Test-Path $smokeTestExe)) {
+if ([string]::IsNullOrWhiteSpace($smokeTestExe) -or -not (Test-Path $smokeTestExe)) {
     $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities\DataLoading\EdFi.SmokeTest.Console")\bin\**\EdFi.SmokeTest.Console.exe"
 }
 else { $noRebuild = $true }
@@ -86,9 +86,6 @@ if ([string]::IsNullOrWhiteSpace($smokeTestDll) -or -not(Test-Path $smokeTestDll
 
 function Get-SmokeTestConfiguration {
     $config = @{ }
-
-    Merge-Configurations $config (Get-Configuration)
-    Merge-Configurations $config (Get-EnvironmentConfiguration)
 
     $config.apiUrlBase = $apiUrl
     $config.apiUrlOAuth = $config.apiUrlBase
@@ -114,42 +111,45 @@ function Get-SmokeTestConfiguration {
 
     $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
 
+    $config.buildConfiguration = "Debug"
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_exe)) { $config.msbuild_exe = $env:msbuild_exe }
+
     return $config
 }
 
-$script:tasks = @()
-$script:result = @()
 $errorCode = 0;
 
 try {
     Clear-Error
 
-    Set-TemplateConfigurationScript { Get-SmokeTestConfiguration }
-    (Get-TemplateConfiguration).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+    $config = Get-SmokeTestConfiguration
+    $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+
 
     if (-not $noRebuild) {
-        $tasks += @(
-            'Invoke-RestoreLoadToolsPackages'
-            'Invoke-BuildLoadTools'
-            'Invoke-SetTestHarnessConfig')
+        $script:result += Invoke-Task "Invoke-RestoreLoadToolsPackages" { Invoke-RestoreLoadToolsPackages $config }
+        $script:result += Invoke-Task "Invoke-BuildLoadTools" { Invoke-BuildLoadTools $config }
     }
 
-    $tasks += @(
-        'Add-RandomKeySecret'
-        'Invoke-StartTestHarness'
-        'Invoke-SmokeTestClient')
+    $script:result += Invoke-Task "Add-RandomKeySecret" { Add-RandomKeySecret $config }
 
-    $elapsed = Use-StopWatch {
-        foreach ($task in $tasks) {
-            $script:result += Invoke-Task -name $task -task { & $task }
+    $script:result += Invoke-Task "Start-TestHarness" {
+        $params = @{
+            apiUrl                = $config.apiUrlBase
+            configurationFilePath = $config.bulkLoadTempJsonConfig
         }
+        Start-TestHarness @params
     }
+
+    $script:result += Invoke-Task "Invoke-SmokeTestClient" { Invoke-SmokeTestClient $config }
 
     Test-Error
 
     $script:result += New-TaskResult -name '-' -duration '-'
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
-    $script:result | Format-Table
+
+    return $script:result | Format-Table
 }
 catch {
     Write-Host $_

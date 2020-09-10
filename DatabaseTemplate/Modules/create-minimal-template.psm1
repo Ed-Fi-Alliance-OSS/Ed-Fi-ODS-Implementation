@@ -87,28 +87,26 @@ function Initialize-MinimalTemplate {
         engine = $engine
     }
 
-    Merge-Configurations $global:templateConfiguration $paramConfig
-
-    Set-TemplateConfigurationScript { Get-MinimalConfiguration }
-    (Get-TemplateConfiguration).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+    $config = Merge-HashTables $global:templateConfiguration, $paramConfig
+    ($config).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
 
     $script:tasks = @(
-        'Invoke-SampleXmlValidation'
-        'New-TempDirectory'
-        'Copy-BootstrapInterchangeFiles'
+        $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }
+        $script:result += Invoke-Task 'New-TempDirectory' { New-TempDirectory $config }
+        $script:result += Invoke-Task 'Copy-BootstrapInterchangeFiles' { Copy-BootstrapInterchangeFiles $config }
 
-        'Invoke-SetTestHarnessConfig'
-        'Add-RandomKeySecret'
-        'Invoke-RestoreLoadToolsPackages'
-        'Invoke-BuildLoadTools'
-        'New-DatabaseTemplate'
-        'Assert-DisallowedSchemas'
-        'Invoke-StartTestHarness'
-        'Invoke-LoadBootstrapData'
+        $script:result += Invoke-Task 'Invoke-SetTestHarnessConfig' { Invoke-SetTestHarnessConfig $config }
+        $script:result += Invoke-Task 'Add-RandomKeySecret' { Add-RandomKeySecret $config }
+        $script:result += Invoke-Task 'Invoke-RestoreLoadToolsPackages' { Invoke-RestoreLoadToolsPackages $config }
+        $script:result += Invoke-Task 'Invoke-BuildLoadTools' { Invoke-BuildLoadTools $config }
+        $script:result += Invoke-Task 'New-DatabaseTemplate' { New-DatabaseTemplate $config }
+        $script:result += Invoke-Task 'Assert-DisallowedSchemas' { Assert-DisallowedSchemas $config }
+        $script:result += Invoke-Task 'Invoke-StartTestHarness' { Invoke-StartTestHarness $config }
+        $script:result += Invoke-Task 'Invoke-LoadBootstrapData' { Invoke-LoadBootstrapData $config }
 
-        'Stop-TestHarness'
-        'Backup-DatabaseTemplate'
-        'New-DatabaseTemplateNuspec'
+        $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
+        $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
+        $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
     )
 
     $script:result = @()

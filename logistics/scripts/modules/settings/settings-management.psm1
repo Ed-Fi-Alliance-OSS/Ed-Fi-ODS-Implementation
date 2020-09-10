@@ -23,11 +23,9 @@ function Get-DevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
-            Deployment        = @{
-
-            }
         }
         "EdFi.Ods.Api.IntegrationTestHarness" = @{
+            Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
             }
@@ -304,6 +302,32 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 }
 
 
+function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne 'EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
+
+    $databaseName = @{
+        ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "EdFi_Ods_Populated_Template_Test"
+        ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "EdFi_Admin_Test"
+        ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "EdFi_Security_Test"
+    }
+
+    $newSettings = @{
+        ConnectionStrings = @{ }
+        ApiSettings       = @{
+            Mode = "SharedInstance"
+        }
+    }
+
+    $csbs = Get-ConnectionStringsFromSettings $Settings
+    foreach ($key in $databaseName.Keys) {
+        $csbs[$key].database = $databaseName[$key]
+        $newSettings.ConnectionStrings[$key] = $csbs[$key].ToString()
+    }
+    $newSettings = (Merge-HashTables $Settings, $newSettings)
+
+    return $newSettings
+}
+
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DevelopmentSettingsByProject
@@ -313,6 +337,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
 
         $newDevelopmentSettings = Merge-HashTables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
+
+        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $projectPath = Get-ProjectPath $project
 

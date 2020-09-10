@@ -19,19 +19,20 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\TestHarness.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\xml-validation.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
-
-$global:templateConfiguration = @{ }
-$global:templateConfigurationScript = { }
 
 function Get-DefaultTemplateConfiguration {
     $config = @{ }
 
-    Merge-Configurations $config (Get-EnvironmentConfiguration)
-
-    $config.configFile = "$($config.outputFolder)\appsettings.json"
-    Merge-Configurations $config (Get-Configuration -configFile $config.configFile)
+    $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration)
+    $config.appSettingsFiles = @(
+        (Join-Path $config.outputFolder "appsettings.json"),
+        (Join-Path $config.outputFolder "appsettings.development.json"),
+        (Join-Path $config.outputFolder "appsettings.user.json")
+    )
+    $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles
 
     $config.apiUrlBase = "http://localhost:8765"
     $config.apiUrlOAuth = "$($config.apiUrlBase)/oauth"
@@ -43,7 +44,7 @@ function Get-DefaultTemplateConfiguration {
     $config.apiYear = (Get-Date).Year
 
     $config.testHarnessExecutable = "$($config.outputFolder)\EdFi.Ods.Api.IntegrationTestHarness.exe"
-    $config.testHarnessAppConfig = $config.configFile
+    $config.testHarnessAppConfig = $config.appSettings
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.json"
     $config.testHarnessJsonConfigLEAs = @(255901)
 
@@ -59,9 +60,12 @@ function Get-DefaultTemplateConfiguration {
     $config.bulkLoadTempJsonConfig = Join-Path $config.bulkLoadTempDirectory "config.json"
     $config.bulkLoadMaxRequests = 500
 
-    $config.database = $config.databaseIds.ods.database
-    $config.databaseConnectionString = $config.csbs[$config.databaseIds.ods.connectionStringKey]
+    $config.database = 'Ods'
+    $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
+    $config.databaseConnectionString = (Get-ConnectionStringsFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
+    # $config.databaseConnectionString = $config.appSettings.ConnectionStrings[$config.databaseConnectionStringKey]
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util')
+    $config.engine = $appSettings.ApiSettings.Engine
     $config.noChanges = $true
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
@@ -85,32 +89,9 @@ function Get-EnvironmentConfiguration {
     return $config
 }
 
-function Merge-Configurations {
-    param(
-        [hashtable] $target,
-        [hashtable] $source
-    )
-
-    $source.GetEnumerator() | ForEach-Object { $target[$_.key] = $source[$_.key] }
-}
-
-function Set-TemplateConfigurationScript {
-    param(
-        [scriptblock] $templateConfigurationScript
-    )
-
-    $global:templateConfigurationScript = $templateConfigurationScript
-}
-
-function Get-TemplateConfiguration {
-    Merge-Configurations $global:templateConfiguration (& $global:templateConfigurationScript)
-
-    return $global:templateConfiguration
-}
-
 function Invoke-SampleXmlValidation {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     if ($config.noValidation) { Write-Host "Validation skipped."; return }
@@ -124,10 +105,10 @@ function Invoke-SampleXmlValidation {
 
 function New-DatabaseTemplate {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
-    $filePaths = $config.filePaths
+    $filePaths = (Get-DatabaseScriptFoldersFromSettings $config.appSettings)
     if ($config.noExtensions) {
         Write-Host "Skipping extensions sources."
         $filePaths = Get-RepositoryArtifactPaths
@@ -147,7 +128,7 @@ function New-DatabaseTemplate {
 
 function New-TempDirectory {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     if ([string]::IsNullOrWhiteSpace($config.bulkLoadTempDirectory)) {
         Write-Host "No 'bulkLoadTempDirectory' parameter defined in config."
@@ -166,7 +147,7 @@ function New-TempDirectory {
 
 function Copy-SchemaFiles {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $directory = New-Item -Force $config.bulkLoadTempDirectorySchema -ItemType Directory
@@ -206,7 +187,7 @@ function Copy-InterchangeFiles {
 
 function Copy-BootstrapInterchangeFiles {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     if ([string]::IsNullOrWhiteSpace($config.bulkLoadTempDirectoryBootstrap)) {
         Write-Host "No 'bulkLoadTempDirectoryBootstrap' parameter defined in config."
@@ -224,7 +205,7 @@ function Copy-BootstrapInterchangeFiles {
 
 function Copy-SampleInterchangeFiles {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     if ([string]::IsNullOrWhiteSpace($config.bulkLoadTempDirectorySample)) {
         throw "No 'bulkLoadTempDirectorySample' parameter defined in config."
@@ -241,7 +222,7 @@ function Copy-SampleInterchangeFiles {
 
 function Get-SQLServerDatabaseRecordCount {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     $params = @{
         connectionString = $config.databaseConnectionString
@@ -261,7 +242,7 @@ function Get-SQLServerDatabaseRecordCount {
 
 function Get-PostgreSQLDatabaseRecordCount {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     $params = @{
         serverName = $config.databaseConnectionString.host
@@ -314,7 +295,7 @@ function Get-PostgreSQLDatabaseRecordCount {
 
 function Get-DatabaseRecordCount {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     if ($config.engine -eq 'SQLServer') { return Get-SQLServerDatabaseRecordCount }
     if ($config.engine -eq 'PostgreSQL') { return Get-PostgreSQLDatabaseRecordCount }
@@ -322,7 +303,7 @@ function Get-DatabaseRecordCount {
 
 function Invoke-LoadBootstrapData {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $params = @{
@@ -361,7 +342,7 @@ function Invoke-LoadBootstrapData {
 
 function Invoke-LoadSampleData {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $params = @{
@@ -400,7 +381,7 @@ function Invoke-LoadSampleData {
 
 function Get-SQLServerDisallowedSchemas {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $sqlServerSchemas = @('dbo')
@@ -428,7 +409,7 @@ function Get-SQLServerDisallowedSchemas {
 
 function Get-PostgreSQLDisallowedSchemas {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $postgresSchemas = @('information_schema', 'public')
@@ -456,15 +437,15 @@ function Get-PostgreSQLDisallowedSchemas {
 
 function Assert-DisallowedSchemas {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     if (-not $config.noExtensions) { return }
 
     $disallowedSchemas = @()
 
-    if ($config.engine -eq 'SQLServer') { $disallowedSchemas = Get-SQLServerDisallowedSchemas }
-    if ($config.engine -eq 'PostgreSQL') { $disallowedSchemas = Get-PostgreSQLDisallowedSchemas }
+    if ($config.engine -eq 'SQLServer') { $disallowedSchemas = Get-SQLServerDisallowedSchemas $config }
+    if ($config.engine -eq 'PostgreSQL') { $disallowedSchemas = Get-PostgreSQLDisallowedSchemas $config }
 
     if ($disallowedSchemas.Count -eq 0) { return }
 
@@ -472,9 +453,21 @@ function Assert-DisallowedSchemas {
     throw "Found the following disallowed schemas: $disallowedSchemas."
 }
 
+function Invoke-StartTestHarness {
+    param(
+        [hashtable] $config
+    )
+
+    $params = @{
+        apiUrl                = $config.apiUrlBase
+        configurationFilePath = $config.bulkLoadTempJsonConfig
+    }
+    Start-TestHarness @params
+}
+
 function Backup-DatabaseTemplate {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
 
     $csb = $config.databaseConnectionString
@@ -525,7 +518,7 @@ function Backup-DatabaseTemplate {
 
 function New-DatabaseTemplateNuspec {
     param(
-        [hashtable] $config = (Get-TemplateConfiguration)
+        [hashtable] $config
     )
     $packageNuspecName = $config.packageNuspecName
     if ($config.engine -eq 'PostgreSQL') { $packageNuspecName += ".PostgreSQL" }

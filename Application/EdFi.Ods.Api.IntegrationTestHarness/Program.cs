@@ -4,10 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Net;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Reflection;
 using log4net.Config;
@@ -26,33 +23,48 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var _logger = LogManager.GetLogger(typeof(Program));
             _logger.Debug("Loading configuration files");
 
-            var executableAbsoluteDirectory = Path.GetDirectoryName(typeof(Program).Assembly.Location);
-
-            ConfigureLogging(executableAbsoluteDirectory);
+            ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)
                 .ConfigureAppConfiguration(
-                    (hostBuilderContext, configBuilder) =>
+                    (hostingContext, config) =>
                     {
-                        string appSettingsPath = Path.Combine(executableAbsoluteDirectory,"appsettings.json");
+                        var env = hostingContext.HostingEnvironment;
 
-                        _logger.Debug($"Content RootPath = {hostBuilderContext.HostingEnvironment.ContentRootPath}");
-                        _logger.Debug($"App Settings Path = {appSettingsPath}");
+                        config
+                            .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
+                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile("appsettings.user.json", optional: true, reloadOnChange: true);
 
-                        configBuilder.SetBasePath(executableAbsoluteDirectory)
-                            .AddJsonFile(appSettingsPath, optional: true, reloadOnChange: true)
-                            .AddEnvironmentVariables();
+
+                        if (env.IsDevelopment() && !string.IsNullOrEmpty(env.ApplicationName))
+                        {
+                            var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
+                            if (appAssembly != null)
+                            {
+                                config.AddUserSecrets(appAssembly, optional: true);
+                            }
+                        }
+
+                        config.AddEnvironmentVariables();
+
+                        if (args != null)
+                        {
+                            config.AddCommandLine(args);
+                        }
+
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
 
             await host.RunAsync();
 
-            static void ConfigureLogging(string executableAbsoluteDirectory)
+            static void ConfigureLogging()
             {
                 var assembly = typeof(Program).GetTypeInfo().Assembly;
 
-                string configPath = Path.Combine(executableAbsoluteDirectory, "log4net.config");
+                string configPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "log4net.config");
 
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
             }
