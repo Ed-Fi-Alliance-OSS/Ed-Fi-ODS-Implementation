@@ -45,6 +45,7 @@ Describe 'Get-FeatureSubTypesFromSettings' {
         }
 
         $subtypes | Should -Not -BeNullOrEmpty
+        $subtypes | Should -Not -BeNullOrEmpty
         @($subtypes).Length | Should -Be 1
         $subtypes | Should -Be 'changes'
     }
@@ -98,9 +99,49 @@ Describe 'Get-FeatureSubTypesFromSettings' {
     }
 
     It "returns $null if setting are not present" {
-        $subtypes = Get-FeatureSubTypesFromSettings @{ }
+        $subtypes = Get-FeatureSubTypesFromSettings $null
 
         $subtypes | Should -BeNullOrEmpty
+    }
+}
+
+Describe 'Get-EnabledFeaturesFromSettings' {
+    It "returns all enabled features" {
+        $features = Get-EnabledFeaturesFromSettings @{
+            ApiSettings = @{
+                Features = @(
+                    @{ Name = 'Extensions'; IsEnabled = $true; }
+                    @{ Name = 'Profiles'; IsEnabled = $false; }
+                    @{ Name = 'OpenApiMetadata'; IsEnabled = $true; }
+                )
+            }
+        }
+
+        $features | Should -Not -BeNullOrEmpty
+        @($features).Length | Should -Be 2
+        $features | Should -contain 'Extensions'
+        $features | Should -contain 'OpenApiMetadata'
+    }
+
+    It "returns no features if non are enabled" {
+        $features = Get-EnabledFeaturesFromSettings @{
+            ApiSettings = @{
+                Features = @(
+                    @{ Name = 'Extensions'; IsEnabled = $false; }
+                    @{ Name = 'Profiles'; IsEnabled = $false; }
+                    @{ Name = 'OpenApiMetadata'; IsEnabled = $false; }
+                )
+            }
+        }
+
+        $features | Should -BeNullOrEmpty
+        @($features).Length | Should -Be 0
+    }
+
+    It "returns $null if setting are not present" {
+        $features = Get-EnabledFeaturesFromSettings $null
+
+        $features | Should -BeNullOrEmpty
     }
 }
 

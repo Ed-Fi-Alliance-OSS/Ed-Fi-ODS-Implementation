@@ -179,7 +179,9 @@ function Get-DeploymentSettings {
     from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = Merge-Hashtables (Get-MergedAppSettings $script:deploymentSettingsFiles), $script:deploymentSettingsOverrides
+    $mergedSettings = (Get-MergedAppSettings $script:deploymentSettingsFiles)
+
+    $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 

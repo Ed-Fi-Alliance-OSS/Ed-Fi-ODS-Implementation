@@ -257,17 +257,18 @@ function Get-ConnectionStringsFromSettings([hashtable] $Settings = @{ }) {
 }
 
 function Get-EnabledFeaturesFromSettings([hashtable] $Settings = @{ }) {
-    return ($Settings.ApiSettings.Features | Where-Object { $_.IsEnabled -eq $true })
+    return ($Settings.ApiSettings.Features | Where-Object { $_.IsEnabled -eq $true } | ForEach-Object { $_.Name })
 }
 
 function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
     $enabledFeatureSubTypes = @()
 
+    $enabledFeatures = (Get-EnabledFeaturesFromSettings $Settings)
     foreach ($feature in (Get-SubtypesByFeature).Keys) {
-        $enabledFeatureSubTypes += ((Get-EnabledFeaturesFromSettings $Settings) | Where-Object { $_.Name -eq $feature })
+        $enabledFeatureSubTypes += ($enabledFeatures | Where-Object { $_ -eq $feature })
     }
 
-    $enabledSubTypes = $enabledFeatureSubTypes | ForEach-Object { (Get-SubtypesByFeature)[$_.Name] }
+    $enabledSubTypes = $enabledFeatureSubTypes | ForEach-Object { (Get-SubtypesByFeature)[$_] }
 
     return $enabledSubTypes
 }
@@ -300,7 +301,6 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 
     return (Merge-Hashtables $Settings, $newDeploymentSettings)
 }
-
 
 function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if ($ProjectName -ne 'EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
