@@ -40,6 +40,8 @@ Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.user.json"
 )
 
+Set-DeploymentSettings @{ DeploymentSettings = @{ DropDatabases = $true } }
+
 Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
     <#
