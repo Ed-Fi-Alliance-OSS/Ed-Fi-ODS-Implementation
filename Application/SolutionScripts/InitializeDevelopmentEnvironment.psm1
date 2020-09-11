@@ -109,17 +109,17 @@ function Initialize-DevelopmentEnvironment {
     $elapsed = Use-StopWatch {
 
         $settings = @{
-            ApiSettings = @{
+            ApiSettings        = @{
                 Mode      = $InstallType
                 OdsTokens = $OdsTokens
                 Engine    = $Engine
             }
             DeploymentSettings = @{
-                InstallType = $InstallType
-                OdsTokens = $OdsTokens
-                Engine = $Engine
-                UsePlugins = $UsePlugins.IsPresent
-                MinimalTemplateSuffix = 'Ods_Minimal_Template'
+                InstallType             = $InstallType
+                OdsTokens               = $OdsTokens
+                Engine                  = $Engine
+                UsePlugins              = $UsePlugins.IsPresent
+                MinimalTemplateSuffix   = 'Ods_Minimal_Template'
                 PopulatedTemplateSuffix = 'Ods_Populated_Template'
             }
         }
@@ -200,7 +200,6 @@ function Invoke-ConfigTransform {
 
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-
         $newSettingsFiles = New-DevelopmentAppSettings $Settings
 
         Write-Host 'created settings files:' -ForegroundColor Green
@@ -429,7 +428,7 @@ function Invoke-CodeGen {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        & $tool -r $repositoryRoot -e $settings.engine | Write-Host
+        & $tool -r $repositoryRoot -e $settings.ApiSettings.engine | Write-Host
     }
 }
 
