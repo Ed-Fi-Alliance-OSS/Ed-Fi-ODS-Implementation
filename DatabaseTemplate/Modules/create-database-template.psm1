@@ -26,6 +26,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\Ed
 function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
+    $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
         (Join-Path $config.outputFolder "appsettings.development.json"),
@@ -72,13 +73,9 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
 function Get-EnvironmentConfiguration([hashtable] $config = @{ }) {
     $config.buildConfiguration = "Debug"
-    if ($config.ContainsKey('engine') -and $config.engine -eq 'PostgreSQL') { $config.buildConfiguration = "Npgsql" }
 
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_exe)) { $config.msbuild_exe = $env:msbuild_exe }
-
-    $projectPath = Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness"
-    $config.outputFolder = (Get-ChildItem "$projectPath\bin\$($config.buildConfiguration)\*\").FullName
 
     return $config
 }
