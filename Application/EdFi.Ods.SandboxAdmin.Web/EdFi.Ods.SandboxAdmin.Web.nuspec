@@ -13,6 +13,7 @@
   </metadata>
   <files>
     <file src="../../LICENSE.txt" />
+		<file src="../../NOTICES.md" />
     <file src="**" />
   </files>
 </package>
