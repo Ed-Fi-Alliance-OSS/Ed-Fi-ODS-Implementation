@@ -43,7 +43,7 @@ function Invoke-BuildLoadTools {
         ShowBuildOutputInCurrentWindow = $true
     }
 
-    if (-not [string]::IsNullOrWhiteSpace($msBuildFilePath)) { $params.MsBuildFilePath = $msBuildFilePath }
+    if (-not [string]::IsNullOrWhiteSpace($config.msbuild_exe)) { $params.MsBuildFilePath = $config.msbuild_exe }
 
     ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
     $buildResult = Invoke-MsBuild @params
