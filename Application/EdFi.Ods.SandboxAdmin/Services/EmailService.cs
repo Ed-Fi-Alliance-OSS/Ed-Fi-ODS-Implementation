@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Configuration;
 using System.IO;
@@ -15,10 +16,12 @@ namespace EdFi.Ods.SandboxAdmin.Services
     public class EmailService : IEmailService
     {
         private readonly IRouteService _routeService;
+        private readonly IConfiguration _configuration;
 
-        public EmailService(IRouteService routeService)
+        public EmailService(IRouteService routeService, IConfiguration configuration)
         {
             _routeService = routeService;
+            _configuration = configuration;
         }
 
         public void SendConfirmationEmail(string emailAddress, string secret)
@@ -70,11 +73,11 @@ namespace EdFi.Ods.SandboxAdmin.Services
                .Send(message);
         }
 
-        private static SmtpClient GetSmtpClientWithEnvironmentVariableExpansion()
+        private SmtpClient GetSmtpClientWithEnvironmentVariableExpansion()
         {
             var smtpClient = new SmtpClient();
-            var smtpUsername = ConfigurationManager.AppSettings.Get("smtp:Username");
-            var smtpPassword = ConfigurationManager.AppSettings.Get("smtp:Password");
+            var smtpUsername = _configuration.GetSection("smtp:Username").Value;
+            var smtpPassword = _configuration.GetSection("smtp:Password").Value;
 
             if (smtpUsername != null && smtpPassword != null)
             {
