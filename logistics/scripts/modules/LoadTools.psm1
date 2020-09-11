@@ -167,7 +167,7 @@ function Invoke-SetTestHarnessConfig {
 
     if ((-not $config.noExtensions) -and (-not $config.noChanges)) { return }
 
-    $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.development.json')
+    $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
     $settings = Get-MergedAppSettings $developmentSettingsFile
 
     Write-Host "Editing $developmentSettingsFile"
