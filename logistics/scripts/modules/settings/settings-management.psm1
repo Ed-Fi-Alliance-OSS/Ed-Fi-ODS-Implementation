@@ -323,7 +323,7 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
         $csbs[$key].database = $databaseName[$key]
         $newSettings.ConnectionStrings[$key] = $csbs[$key].ToString()
     }
-    $newSettings = (Merge-HashTables $Settings, $newSettings)
+    $newSettings = (Merge-Hashtables $Settings, $newSettings)
 
     return $newSettings
 }
@@ -336,7 +336,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
 
-        $newDevelopmentSettings = Merge-HashTables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
+        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 

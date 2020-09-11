@@ -23,10 +23,9 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\xml-validation.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
 
-function Get-DefaultTemplateConfiguration {
-    $config = @{ }
+function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
-    $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration)
+    $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
         (Join-Path $config.outputFolder "appsettings.development.json"),
@@ -63,9 +62,7 @@ function Get-DefaultTemplateConfiguration {
     $config.database = 'Ods'
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
     $config.databaseConnectionString = (Get-ConnectionStringsFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
-    # $config.databaseConnectionString = $config.appSettings.ConnectionStrings[$config.databaseConnectionStringKey]
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util')
-    $config.engine = $appSettings.ApiSettings.Engine
     $config.noChanges = $true
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
@@ -73,13 +70,10 @@ function Get-DefaultTemplateConfiguration {
     return $config
 }
 
-function Get-EnvironmentConfiguration {
-    $config = @{ }
-
+function Get-EnvironmentConfiguration([hashtable] $config = @{ }) {
     $config.buildConfiguration = "Debug"
-    if ($global:templateConfiguration.ContainsKey('engine') -and $global:templateConfiguration.engine -eq 'PostgreSQL') {
-        $config.buildConfiguration = "Npgsql"
-    }
+    if ($config.ContainsKey('engine') -and $config.engine -eq 'PostgreSQL') { $config.buildConfiguration = "Npgsql" }
+
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_exe)) { $config.msbuild_exe = $env:msbuild_exe }
 
@@ -115,12 +109,12 @@ function New-DatabaseTemplate {
     }
 
     $params = @{
-        csb             = $config.databaseConnectionString
-        engine          = $config.engine
-        database        = $config.database
-        filePaths       = $filePaths
-        subTypeNames    = @()
-        transient       = $true
+        csb          = $config.databaseConnectionString
+        engine       = $config.engine
+        database     = $config.database
+        filePaths    = $filePaths
+        subTypeNames = @()
+        transient    = $true
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
     Initialize-EdFiDatabaseWithDbDeploy @params
@@ -226,7 +220,7 @@ function Get-SQLServerDatabaseRecordCount {
     )
     $params = @{
         connectionString = $config.databaseConnectionString
-        sql = "
+        sql              = "
         CREATE TABLE #tempcount (tablename NVARCHAR(128), record_count BIGINT)
         EXEC sp_msforeachtable 'INSERT #tempcount SELECT ''?'', COUNT(*) FROM ? WITH (nolock)'
         SELECT SUM(record_count)
@@ -234,7 +228,7 @@ function Get-SQLServerDatabaseRecordCount {
         WHERE tablename NOT LIKE '\[dbo\]%' ESCAPE '\'
         DROP TABLE #tempcount
         "
-        returnDataSet = $true
+        returnDataSet    = $true
     }
     $dataSet = Invoke-SqlScript @params
     return $dataSet.Tables[0].Rows[0][0]
@@ -245,11 +239,11 @@ function Get-PostgreSQLDatabaseRecordCount {
         [hashtable] $config
     )
     $params = @{
-        serverName = $config.databaseConnectionString.host
-        portNumber = $config.databaseConnectionString.port
-        userName = $config.databaseConnectionString.username
+        serverName   = $config.databaseConnectionString.host
+        portNumber   = $config.databaseConnectionString.port
+        userName     = $config.databaseConnectionString.username
         databaseName = $config.databaseConnectionString.database
-        commands = "
+        commands     = "
         create or replace
         function count_rows(schema text, tablename text) returns integer
         as
@@ -390,7 +384,7 @@ function Get-SQLServerDisallowedSchemas {
 
     $params = @{
         connectionString = $config.databaseConnectionString
-        sql = "
+        sql              = "
         SELECT SCHEMA_NAME
         FROM INFORMATION_SCHEMA.SCHEMATA
         WHERE SCHEMA_OWNER = 'dbo'
@@ -404,7 +398,7 @@ function Get-SQLServerDisallowedSchemas {
     $result = @()
     foreach ($item in $disallowedSchemas.Values[0]) { $result += $item }
 
-    return ,$result
+    return , $result
 }
 
 function Get-PostgreSQLDisallowedSchemas {
@@ -417,11 +411,11 @@ function Get-PostgreSQLDisallowedSchemas {
     $allowedSchemas = "'$($allowedSchemas -join "', '")'"
 
     $params = @{
-        serverName = $config.databaseConnectionString.host
-        portNumber = $config.databaseConnectionString.port
-        userName = $config.databaseConnectionString.username
+        serverName   = $config.databaseConnectionString.host
+        portNumber   = $config.databaseConnectionString.port
+        userName     = $config.databaseConnectionString.username
         databaseName = $config.databaseConnectionString.database
-        commands = "
+        commands     = "
         SELECT schema_name
         FROM information_schema.schemata
         WHERE schema_name NOT IN ($allowedSchemas)
@@ -505,7 +499,7 @@ function Backup-DatabaseTemplate {
             portNumber   = $csb.port
             userName     = $csb.username
             databaseName = $csb.database
-            filePath     =  (Join-Path (Resolve-Path $backupDirectory) $databaseBackupName)
+            filePath     = (Join-Path (Resolve-Path $backupDirectory) $databaseBackupName)
         }
         Backup-PostgreSQLDatabase @params | Out-Null
     }

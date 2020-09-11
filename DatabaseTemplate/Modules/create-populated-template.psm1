@@ -68,14 +68,12 @@ function Initialize-PopulatedTemplate {
         noValidation = $noValidation
         engine       = $engine
     }
-    write-host test
 
-    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $paramConfig
-    write-host test1
+    $config = (Get-DefaultTemplateConfiguration $paramConfig)
     $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-    write-host test2
 
     $script:result = @()
+
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }

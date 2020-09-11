@@ -97,6 +97,7 @@ function Initialize-TPDMTemplate {
     if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-PopulatedTemplateBackupPath $config.configFile) }
 
     $script:result = @()
+
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }

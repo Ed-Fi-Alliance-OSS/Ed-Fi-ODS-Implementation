@@ -145,28 +145,27 @@ Describe 'Get-EnabledFeaturesFromSettings' {
     }
 }
 
-# Describe 'Get-MergedSettings' {
-#     It "returns settings as a hashtable" {
-#         $config = Get-MergedAppSettings -Engine 'SQLServer' -Project 'EdFi.Ods.SwaggerUI'
-#         # ($config | ConvertTo-Json -Depth 10) | Out-Host
-#         $config | Should -Not -BeNullOrEmpty
-#     }
-# }
+Describe 'Get-MergedSettings' {
+    It "returns merged settings from multiple files as a hashtable" {
+        $appSettings = "TestDrive:\appSettings.json"
+        Set-Content $appSettings -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }'
 
-# Describe 'New-DevelopmentAppSettings' {
-#     It "returns settings as a hashtable" {
-#         $config = New-DevelopmentAppSettings
-#         # ($config | ConvertTo-Json -Depth 10) | Out-Host
-#         # $config | Should -Not -BeNullOrEmpty
-#     }
-# }
+        $developmentAppSettings =  "TestDrive:\appSettings.development.json"
+        Set-Content $developmentAppSettings -value '{ "object": { "array": [ 0 ], "newProperty": "value" }, "property": "newValue" }'
 
-# Describe 'New-DevelopmentSettings' {
-#     It "returns settings as a hashtable" {
-#         $config = New-DevelopmentSettings
-#         # ($config | ConvertTo-Json -Depth 10) | Out-Host
-#         # $config | Should -Not -BeNullOrEmpty
-#     }
-# }
+        $userAppSettings =  "TestDrive:\appSettings.user.json"
+        Set-Content $userAppSettings -value '{ "object": { "newObject": { "newObjectProperty": "value" } } }'
 
+        $settings = Get-MergedAppSettings $appSettings, $developmentAppSettings, $userAppSettings
 
+        $settings | Should -Not -BeNullOrEmpty
+        $settings.object | Should -Not -BeNullOrEmpty
+        $settings.object.array | Should -Not -BeNullOrEmpty
+        $settings.object.array.Length | Should -Be 1
+        $settings.property | Should -Not -BeNullOrEmpty
+        $settings.property | Should -be 'newValue'
+        $settings.object.newProperty | Should -Not -BeNullOrEmpty
+        $settings.object.newObject | Should -Not -BeNullOrEmpty
+        $settings.object.newObject.newObjectProperty | Should -Not -BeNullOrEmpty
+    }
+}
