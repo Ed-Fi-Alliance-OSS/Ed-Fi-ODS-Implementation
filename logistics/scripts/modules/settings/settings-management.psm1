@@ -50,12 +50,6 @@ function Get-DevelopmentSettingsByProject {
                 }
             }
         }
-        "EdFi.RestApi.Databases"              = @{
-            ApiSettings       = @{
-                Engine = ""
-            }
-            ConnectionStrings = @{ }
-        }
     }
 }
 
@@ -71,26 +65,27 @@ function Get-CredentialSettingsByProject {
     return @{
         "EdFi.Ods.SandboxAdmin.Web" = @{
             User = @{
-                Name              = "Test Admin"
-                Email             = "test@ed-fi.org"
-                Password          = Get-RandomString
-                Admin             = "true"
-                NamespacePrefixes = @(
-                    "uri://ed-fi.org"
-                    "uri://gbisd.org"
-                )
-                Sandboxes         = @{
-                    "Populated Demonstration Sandbox" = @{
-                        Key     = $populatedKey
-                        Secret  = $populatedSecret
-                        Type    = "Sample"
-                        Refresh = "true"
-                    }
-                    "Minimal Demonstration Sandbox"   = @{
-                        Key     = Get-RandomString
-                        Secret  = Get-RandomString
-                        Type    = "Minimal"
-                        Refresh = "true"
+                "Test Admin" = @{
+                    Email             = "test@ed-fi.org"
+                    Password          = Get-RandomString
+                    Admin             = "true"
+                    NamespacePrefixes = @(
+                        "uri://ed-fi.org"
+                        "uri://gbisd.org"
+                    )
+                    Sandboxes         = @{
+                        "Populated Demonstration Sandbox" = @{
+                            Key     = $populatedKey
+                            Secret  = $populatedSecret
+                            Type    = "Sample"
+                            Refresh = "true"
+                        }
+                        "Minimal Demonstration Sandbox"   = @{
+                            Key     = Get-RandomString
+                            Secret  = Get-RandomString
+                            Type    = "Minimal"
+                            Refresh = "true"
+                        }
                     }
                 }
             }
