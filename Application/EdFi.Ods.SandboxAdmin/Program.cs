@@ -25,7 +25,7 @@ namespace EdFi.Ods.SandboxAdmin
                     {
                         configbuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", optional: true)
+                            .AddJsonFile("Initialization.json", optional: true)
                             .AddEnvironmentVariables();
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())

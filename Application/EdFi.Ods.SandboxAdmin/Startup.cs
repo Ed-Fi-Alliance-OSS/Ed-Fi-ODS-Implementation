@@ -4,14 +4,24 @@ using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
 using Autofac.Core;
+using EdFi.Admin.DataAccess.Contexts;
+using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.InversionOfControl;
+using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.SandboxAdmin.Contexts;
+using EdFi.Ods.SandboxAdmin.Filters;
 using EdFi.Ods.SandboxAdmin.Helpers;
+using EdFi.Ods.SandboxAdmin.Initialization;
+using EdFi.Ods.SandboxAdmin.Security;
+using EdFi.Ods.SandboxAdmin.Services;
 using log4net;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,11 +59,22 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddSingleton(Configuration);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
 
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.Configure<InitializationOptions>(Configuration.GetSection("initialization"));
 
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters.Add(typeof(SetCurrentUserInfoAttribute));
+            });
 
             services.AddHttpContextAccessor();
+
+            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+            });
         }
 
         // ConfigureContainer is where you can register things directly
