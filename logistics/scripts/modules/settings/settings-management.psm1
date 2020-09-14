@@ -154,37 +154,16 @@ function Get-SubtypesByFeature {
     }
 }
 
-function Test-AppSettings {
-    param(
-        [Parameter(ValueFromPipeline = $true)]
-        [string] $Path
-    )
-
-    if (-not (Test-Path $Path)) { return $false }
-
-    try {
-        Get-Content $Path | ConvertFrom-Json | Out-Null
-        return $true
-    }
-    catch {
-        return $false
-    }
-}
-
 function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(Get-RepositoryRoot 'Ed-Fi-ODS-Implementation')\**\appsettings*.json" -Recurse)) {
     $result = @()
 
     foreach ($file in $SettingsFiles) {
-        if (Test-AppSettings $file) {
+        try {
+            Get-Content $file -ErrorAction Stop | ConvertFrom-Json | Out-Null
             $result += @{ file = $file; success = $true }
         }
-        else {
-            try {
-                Get-Content $file | ConvertFrom-Json
-            }
-            catch {
-                $result += @{ file = $file; success = $false; exception = $_ }
-            }
+        catch {
+            $result += @{ file = $file; success = $false; exception = $_ }
         }
     }
 

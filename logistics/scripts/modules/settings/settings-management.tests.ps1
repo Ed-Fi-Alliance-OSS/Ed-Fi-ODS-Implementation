@@ -7,30 +7,44 @@
 
 BeforeAll { Import-Module -Force ($PSCommandPath.Replace('.tests.ps1', '.psm1')) }
 
-Describe 'Test-AppSettings' {
-    It "returns $true when settings are valid" {
+Describe 'Assert-ValidAppSettings' {
+    It "returns successful when settings are valid" {
         $file = "TestDrive:\test.json"
         Set-Content $file -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }'
-        $result = $file | Test-AppSettings
+        $result = Assert-ValidAppSettings $file
 
         $result | Should -Not -BeNullOrEmpty
-        $result | Should -Be $true
+        $result.success | Should -Be $true
     }
 
-    It "returns $false when settings are invalid" {
+    It "returns unsuccessfully with exception when settings are invalid" {
         $file = "TestDrive:\test.json"
         Set-Content $file -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }X'
-        $result = $file | Test-AppSettings
+        $result = Assert-ValidAppSettings $file
 
         $result | Should -Not -BeNullOrEmpty
-        $result | Should -Be $false
+        $result.success | Should -Be $false
+        $result.exception | Should -Not -BeNullOrEmpty
     }
 
-    It "returns $false when file is not found" {
-        $result = "notFound.json" | Test-AppSettings
+    It "returns unsuccessfully with exception when file is not found" {
+        $result = Assert-ValidAppSettings "notFound.json"
 
-        $result | Should -Not -BeNullOrEmpty
-        $result | Should -Be $false
+        $result.success | Should -Be $false
+        $result.exception | Should -Not -BeNullOrEmpty
+    }
+
+    It "returns results for multiple files" {
+        $files = ("TestDrive:\test0.json", "TestDrive:\test1.json", "TestDrive:\test2.json")
+        Set-Content $files[0] -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }'
+        Set-Content $files[1] -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }X'
+        Set-Content $files[2] -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }'
+        $result = Assert-ValidAppSettings $files
+
+        $result[0].success | Should -Be $true
+        $result[1].success | Should -Be $false
+        $result[1].exception | Should -Not -BeNullOrEmpty
+        $result[2].success | Should -Be $true
     }
 }
 
