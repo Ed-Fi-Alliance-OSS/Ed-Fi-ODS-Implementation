@@ -47,10 +47,8 @@ function Initialize-DeploymentEnvironment {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer',
 
-        [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use ExcludedExtensions property in appsettings.json instead")]
         [string] $ExcludedExtensionSources,
 
-        [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the Features property in appsettings.json instead")]
         [string] $EnabledFeatureNames,
 
         [Alias('OdsYears')]
