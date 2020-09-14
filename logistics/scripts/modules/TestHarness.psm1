@@ -54,7 +54,7 @@ function Add-RandomKeySecret {
 }
 
 function Get-TestHarnessExecutable {
-    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$script:testHarnessName")\bin\**\$script:testHarnessName.exe"
+    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$($script:testHarnessName)")\bin\**\$($script:testHarnessName).exe"
     $testHarnessExecutable = (Get-ChildItem -Recurse -Path $testHarnessExecutableFilter).FullName
 
     return $testHarnessExecutable
