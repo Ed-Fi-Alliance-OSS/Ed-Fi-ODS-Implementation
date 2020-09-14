@@ -373,7 +373,7 @@ function Reset-TestAdminDatabase {
             subTypeNames = @()
             dropDatabase = $true
         }
-        if ($settings.Engine -eq 'SQLServer') {
+        if ($settings.ApiSettings.Engine -eq 'SQLServer') {
             # turn on all available features for the test database to ensure all the schema components are available
             $params.subTypeNames = Get-DefaultSubtypes
         }
@@ -393,7 +393,7 @@ function Reset-TestSecurityDatabase {
             subTypeNames = @()
             dropDatabase = $true
         }
-        if ($settings.Engine -eq 'SQLServer') {
+        if ($settings.ApiSettings.Engine -eq 'SQLServer') {
             # turn on all available features for the test database to ensure all the schema components are available
             $params.subTypeNames = Get-DefaultSubtypes
         }
