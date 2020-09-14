@@ -10,8 +10,8 @@ namespace EdFi.Ods.SandboxAdmin.Services
 {
     public interface IClientCreator
     {
-        ApiClient CreateNewSandboxClient(SandboxInitializationModel createModel, User user);
+        ApiClient CreateNewSandboxClient(SandboxOptions createModel, User user);
 
-        ApiClient ResetSandboxClient(SandboxInitializationModel createModel, User user);
+        ApiClient ResetSandboxClient(SandboxOptions createModel, User user);
     }
 }

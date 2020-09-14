@@ -52,7 +52,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 : MaximumSandboxesPerUserDefault;
         }
 
-        public ApiClient CreateNewSandboxClient(SandboxInitializationModel createModel, User user)
+        public ApiClient CreateNewSandboxClient(SandboxOptions createModel, User user)
         {
             if (user.ApiClients.Count >= _maximumSandboxesPerUser)
             {
@@ -69,7 +69,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
             return client;
         }
 
-        public ApiClient ResetSandboxClient(SandboxInitializationModel createModel, User user)
+        public ApiClient ResetSandboxClient(SandboxOptions createModel, User user)
         {
             var client = SetupDefaultSandboxClient(createModel, user);
 
@@ -78,14 +78,14 @@ namespace EdFi.Ods.SandboxAdmin.Services
             return client;
         }
 
-        private ApiClient SetupDefaultSandboxClient(SandboxInitializationModel createModel, User user)
+        private ApiClient SetupDefaultSandboxClient(SandboxOptions createModel, User user)
         {
             var defaultApplication = _defaultApplicationCreator
-                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, createModel.SandboxType);
+                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, createModel.Type);
 
             return _clientAppRepo.SetupDefaultSandboxClient(
                 createModel.Name,
-                createModel.SandboxType,
+                createModel.Type,
                 createModel.Key,
                 createModel.Secret,
                 user.UserId,

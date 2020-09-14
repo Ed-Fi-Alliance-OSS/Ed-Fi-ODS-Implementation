@@ -23,10 +23,10 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         private readonly IDefaultApplicationCreator _applicationCreator;
         private readonly IIdentityProvider _identityProvider;
 
-        private readonly InitializationModel _settings;
+        private readonly InitializationOptions _settings;
 
         public InitializationEngine(
-            InitializationModel initializationModel,
+            InitializationOptions initializationModel,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
@@ -72,11 +72,18 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
 
                     _log.Debug($"Adding user: {user} to asp net security.");
 
-                    if (await _identityProvider.CreateUser(user.UserName, user.Email, user.Password, confirm: true))
+                    if (await _identityProvider.CreateUser(user.Name, user.Email, user.Password, confirm: true))
                     {
                         identityUser = await _identityProvider.FindUser(user.Name);
-                        _log.Debug($"Adding user: {user} to roles:  {string.Join(",", user.Roles)} in asp net security.");
-                        await _identityProvider.AddToRoles(identityUser.Id, user.Roles);
+                        var roles = new string[] { };
+
+                        if (user.Admin)
+                        {
+                            roles = new string[] { "Administrator" };
+                        }
+
+                        _log.Debug($"Adding user: {user} to roles:  {string.Join(",", roles)} in asp net security.");
+                        await _identityProvider.AddToRoles(identityUser.Id, roles);
                     }
                 }
             }
@@ -92,10 +99,10 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
             {
                 foreach (var user in _settings.Users)
                 {
-                    var namespacePrefixes = user.NamespacePrefixes.Select(nsp => nsp.NamespacePrefix).ToList();
+                    var namespacePrefixes = user.NamespacePrefixes.ToList();
 
                     _log.Info($"Creating vendor {user} with namespace prefixes {string.Join(",", namespacePrefixes)}");
-                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.UserName, namespacePrefixes);
+                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.Name, namespacePrefixes);
                 }
             }
             catch (Exception ex)
@@ -119,7 +126,7 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
                             continue;
                         }
 
-                        _log.Info($"Creating sandbox {sandbox.Key} for user {user.UserName}");
+                        _log.Info($"Creating sandbox {sandbox.Key} for user {user.Name}");
                         _clientCreator.CreateNewSandboxClient(sandbox, clientProfile);
                     }
                 }
