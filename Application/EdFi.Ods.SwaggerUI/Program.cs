@@ -18,6 +18,16 @@ namespace EdFi.Ods.SwaggerUI
 
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); });
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.ConfigureKestrel(
+                            serverOptions =>
+                            {
+                                serverOptions.AddServerHeader = false;
+                            });
+
+                        webBuilder.UseStartup<Startup>();
+                    });
     }
 }
