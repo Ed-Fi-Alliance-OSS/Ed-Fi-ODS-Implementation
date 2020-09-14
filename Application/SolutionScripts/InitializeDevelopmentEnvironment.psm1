@@ -178,7 +178,7 @@ function Invoke-ConfigTransform {
         if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
         $transformFiles += $debugTransform
 
-        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles  -destinationFile $destinationFile
+        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles -destinationFile $destinationFile
     }
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
@@ -191,39 +191,12 @@ function Invoke-ConfigTransform {
         if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
         $transformFiles += $debugTransform
 
-        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles  -destinationFile $destinationFile
-    }
-}
-
-function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $newSettingsFiles = New-DevelopmentAppSettings $Settings
-
-        Write-Host 'created settings files:' -ForegroundColor Green
-        $newSettingsFiles | Write-Host
-
-        Write-Host
-        Write-Host 'initdev is now using the following settings files:' -ForegroundColor Green
-        $results = Assert-ValidAppSettings (Get-DeploymentSettingsFiles)
-        foreach ($result in $results) {
-            if ($result.success) {
-                Write-Host $result.file -NoNewline
-                Write-Host " ok" -ForegroundColor Green
-            }
-            elseif (-not $result.success) {
-                Write-Host $result.file -ForegroundColor Red
-                Write-Host $result.exception -ForegroundColor Red
-            }
-        }
-        if ($results | where { $null -ne $_.exception }) { throw "invalid appsettings found" }
-
-        Write-Host
-        Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
-        (Get-DeploymentSettings) | ConvertTo-Json | Out-Host
+        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles -destinationFile $destinationFile
     }
 }
 
 function Get-RandomString {
+    [Obsolete("This function is deprecated, and will be removed in the near future.")]
     Param(
         [int] $length = 20
     )
@@ -232,6 +205,7 @@ function Get-RandomString {
 }
 
 function Add-SandboxCredentials {
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use Get-CredentialSettingsByProject property in settings-management.psm1 instead")]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Scope = 'Function', Justification = 'development use only')]
     Param(
         [string] $adminName = 'Test Admin',
@@ -286,6 +260,37 @@ function Add-SandboxCredentials {
         }
         $swaggerAppSettings | ConvertTo-Json -depth 10 | Out-File $swaggerCredentialConfigPath -Encoding utf8
         Write-Host "Created config: $swaggerCredentialConfigPath"
+    }
+}
+
+function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
+    <#
+    .description
+    #>
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $newSettingsFiles = New-DevelopmentAppSettings $Settings
+
+        Write-Host 'created settings files:' -ForegroundColor Green
+        $newSettingsFiles | Write-Host
+
+        Write-Host
+        Write-Host 'initdev is now using the following settings files:' -ForegroundColor Green
+        $results = Assert-ValidAppSettings (Get-DeploymentSettingsFiles)
+        foreach ($result in $results) {
+            if ($result.success) {
+                Write-Host $result.file -NoNewline
+                Write-Host " ok" -ForegroundColor Green
+            }
+            elseif (-not $result.success) {
+                Write-Host $result.file -ForegroundColor Red
+                Write-Host $result.exception -ForegroundColor Red
+            }
+        }
+        if ($results | where { $null -ne $_.exception }) { throw "invalid appsettings found" }
+
+        Write-Host
+        Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
+        (Get-DeploymentSettings) | ConvertTo-Json | Out-Host
     }
 }
 
