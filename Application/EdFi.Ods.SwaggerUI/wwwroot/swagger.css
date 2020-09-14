@@ -9,14 +9,14 @@
     background-color: #ecf0f1;
 }
 
- hide section label 
+/* hide section label  */
 .swagger-ui .topbar .download-url-wrapper .select-label span {
     flex: 0;
     width: 0;
     visibility: hidden;
 }
 
-add custom section label
+/* add custom section label */
 .swagger-ui .topbar .download-url-wrapper .select-label:before {
     font-size: 16px;
     color: #3b4151;
