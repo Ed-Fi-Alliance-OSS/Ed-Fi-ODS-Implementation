@@ -27,6 +27,7 @@ namespace EdFi.Ods.SwaggerUI
             _hostingEnv = hostingEnv;
             _loggerFactory = loggerFactory;
             _options = options.Value;
+            _options.IndexStream = () => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
         }
 
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)

@@ -71,20 +71,53 @@ function mapSections(json) {
   console.log('sections', sections)
 }
 
-function createSectionLinks(sectionName) {
+function onChangeSchoolYear() {
+    var yearSelected = $("#schoolYearSelect option:selected").text();
+
+    $(".url-link").each(function() {
+        var oldUrl = $(this).attr("href");
+        var newUrl = oldUrl.replace(/20\d{2}/g, yearSelected);
+        $(this).attr("href", newUrl);
+    });
+}
+
+function createSectionLinks(sectionName, hasYear) {
   var section = sections[sectionName]
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
   return section.links
     .map(function (link) {
-      routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
-      return `<li><a class="" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}">${link.name}</a ></li>`
+        routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
+
+        if (hasYear) {
+            var year = $("#schoolYearSelect option:selected").text();
+            return `<li><a class="url-link" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}&year=${year}">${link.name}</a ></li>`
+        } else {
+            return `<li><a class="url-link" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}">${link.name}</a ></li>`
+        }
     })
     .join('')
 }
 
+function addYearOptions(){
+    var year = new Date().getFullYear()
+    for (let i = year - 1; i <= year + 1; i++) {
+        $('#schoolYearSelect').append(new Option(i, i))
+    }
+
+    $("#schoolYearSelect option[value='" + year + "']").attr("selected", "selected");
+}
+
 // dynamically creates the api sections using the #sectionTemplate
 function createSections() {
-  Object.keys(sections).forEach(function (sectionName) {
+    var uri = sections['Resources'].links[0].uri;
+    var hasYear = /\/(20)\d{2}/.test(uri);
+
+    if (hasYear) {
+        addYearOptions();
+        $("#schoolYear").show();
+    }
+
+    Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
     if (section.links <= 0) return
 
@@ -101,7 +134,11 @@ function createSections() {
           })
           .join('')
       )
-      .replace(/{{sectionLink}}/g, createSectionLinks(sectionName))
+        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasYear))
+
+    section.links.forEach(function(link) {
+        console.log("Found: " + link.uri);
+    });
 
     var element = document.createElement('div')
     element.setAttribute('class', 'hide')
@@ -112,7 +149,7 @@ function createSections() {
 
     element.classList.remove('hide')
     element.className = element.className.replace('hide', '') // IE11 support
-  })
+    })
 }
 
 const logJSON = (json) => {

@@ -8,7 +8,13 @@
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Swashbuckle_index.html" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="EdFi.Ods.SwaggerUI.nuspec" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swashbuckle_index.html" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
