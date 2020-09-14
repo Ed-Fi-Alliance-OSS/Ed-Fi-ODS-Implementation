@@ -63,7 +63,6 @@ New-Nuspec @nuspecArgs
 
 # Add all of the in-repository files which have a relative path that should be preserved in the target
 $repoNuspecFiles = @(
-   
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
@@ -83,6 +82,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems "tools\EdFi.Db.Deploy.exe"
     ((Select-CumulativeRepositoryResolvedItems -recurse "tools\.store\EdFi.Suite3.Db.Deploy" ) | Where-Object { -not $_.Name.EndsWith(".nupkg") })
 
+     # Add the Add License and Notices files
     "$PSScriptRoot\..\..\..\LICENSE.txt"
     "$PSScriptRoot\..\..\..\NOTICES.md"
 )
