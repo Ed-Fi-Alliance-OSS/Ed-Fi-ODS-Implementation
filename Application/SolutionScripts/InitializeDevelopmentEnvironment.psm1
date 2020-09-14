@@ -115,9 +115,6 @@ function Initialize-DevelopmentEnvironment {
                 Engine    = $Engine
             }
             DeploymentSettings = @{
-                InstallType             = $InstallType
-                OdsTokens               = $OdsTokens
-                Engine                  = $Engine
                 UsePlugins              = $UsePlugins.IsPresent
                 MinimalTemplateSuffix   = 'Ods_Minimal_Template'
                 PopulatedTemplateSuffix = 'Ods_Populated_Template'
