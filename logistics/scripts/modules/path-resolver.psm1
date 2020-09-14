@@ -216,15 +216,6 @@ function Get-RepositoryResolvedPath ([string]$pathSuffix) {
     throw ($errorMsg)
 }
 
-function Find-RepositoryResolvedPath ([string]$pathSuffix) {
-    foreach ($repositoryName in $invertedRepositoryNames) {
-        $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-        If (Test-Path "$repositoryPath\$pathSuffix") {
-            return Resolve-Path "$repositoryPath\$pathSuffix"
-        }
-    }
-}
-
 <#
 .Synopsis
 Return the most next most general repository path with the specified path suffix.

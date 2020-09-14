@@ -9,7 +9,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
-        "EdFi.Ods.WebApi.NetCore"             = @{
+        "Application/EdFi.Ods.WebApi.NetCore"             = @{
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
                 Engine = ""
@@ -24,14 +24,14 @@ function Get-DefaultDevelopmentSettingsByProject {
                 }
             }
         }
-        "EdFi.Ods.Api.IntegrationTestHarness" = @{
+        "Application/EdFi.Ods.Api.IntegrationTestHarness" = @{
             Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
             }
             ConnectionStrings = @{ }
         }
-        "EdFi.Ods.SandboxAdmin.Web"           = @{
+        "Application/EdFi.Ods.SandboxAdmin.Web"           = @{
             Urls              = "http://localhost:38928"
             Engine            = ""
             ConnectionStrings = @{ }
@@ -41,7 +41,7 @@ function Get-DefaultDevelopmentSettingsByProject {
                 }
             }
         }
-        "EdFi.Ods.SwaggerUI"                  = @{
+        "Application/EdFi.Ods.SwaggerUI"                  = @{
             Urls             = "http://localhost:56641"
             WebApiVersionUrl = "http://localhost:54746"
             Logging          = @{
@@ -63,7 +63,7 @@ function Get-CredentialSettingsByProject {
     $populatedSecret = Get-RandomString
 
     return @{
-        "EdFi.Ods.SandboxAdmin.Web" = @{
+        "Application/EdFi.Ods.SandboxAdmin.Web" = @{
             User = @{
                 "Test Admin" = @{
                     Email             = "test@ed-fi.org"
@@ -90,7 +90,7 @@ function Get-CredentialSettingsByProject {
                 }
             }
         }
-        "EdFi.Ods.SwaggerUI"        = @{
+        "Application/EdFi.Ods.SwaggerUI"        = @{
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId     = $populatedKey
@@ -180,20 +180,6 @@ function Add-ApplicationNameToConnectionStrings([hashtable] $ConnectionStrings =
     }
 
     return $newConnectionStrings
-}
-
-function Get-ProjectPath {
-    param(
-        [string] $Project
-    )
-
-    if (-not $Project) { return }
-
-    $path = Find-RepositoryResolvedPath "Application/$Project"
-
-    if (-not $path) { $path = Find-RepositoryResolvedPath "Scripts/NuGet/$Project" }
-
-    return $path
 }
 
 function New-JsonFile {
@@ -287,7 +273,7 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 }
 
 function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne 'EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
+    if ($ProjectName -ne 'Application/EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
 
     $databaseName = @{
         ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "EdFi_Ods_Populated_Template_Test"
@@ -324,7 +310,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
-        $projectPath = Get-ProjectPath $project
+        $projectPath = Get-RepositoryResolvedPath $Project
 
         $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
