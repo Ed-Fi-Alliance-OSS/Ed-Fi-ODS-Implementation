@@ -170,16 +170,17 @@ function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(G
     return $result
 }
 
-function Add-ApplicationNameToConnectionStrings([hashtable] $ConnectionStrings = @{ }, [string] $ApplicationName) {
-    $newConnectionStrings = Merge-Hashtables @{ }, $ConnectionStrings
+function Add-ApplicationNameToConnectionStrings([hashtable] $Settings = @{ }, [string] $ApplicationName) {
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
+    $newConnectionStrings = @{ }
 
-    foreach ($key in $ConnectionStrings.ConnectionStrings.Keys) {
-        if (-not ($ConnectionStrings.ConnectionStrings[$key] -like '*Application Name*')) {
-            $newConnectionStrings.ConnectionStrings[$key] += " Application Name=$ApplicationName;"
-        }
+    foreach ($key in $csbs.Keys) {
+        if (-not [string]::IsNullOrEmpty($csbs[$key]['Application Name'])) { continue }
+        $csbs[$key]['Application Name'] = (Split-Path -Leaf $ApplicationName).ToString()
+        $newConnectionStrings[$key] = $csbs[$key].ToString()
     }
 
-    return $newConnectionStrings
+    return @{ ConnectionStrings = $newConnectionStrings }
 }
 
 function New-JsonFile {
@@ -303,10 +304,10 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
 
     foreach ($project in $developmentSettingsByProject.Keys) {
-        $connectionStringsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
-        $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
+        $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
+        $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
 
-        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
+        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine, $Settings
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
