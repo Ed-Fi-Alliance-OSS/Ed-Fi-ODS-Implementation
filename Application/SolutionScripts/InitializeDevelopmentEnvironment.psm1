@@ -219,7 +219,7 @@ function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         Write-Host
         Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
-        Write-HashtableInfo (Get-DeploymentSettings)
+        (Get-DeploymentSettings) | ConvertTo-Json | Out-Host
     }
 }
 
