@@ -205,7 +205,7 @@ function Get-RandomString {
 }
 
 function Add-SandboxCredentials {
-    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use Get-CredentialSettingsByProject property in settings-management.psm1 instead")]
+    [Obsolete("This function is deprecated, and will be removed in the near future. Please use Get-CredentialSettingsByProject property in settings-management.psm1 instead.")]
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Scope = 'Function', Justification = 'development use only')]
     Param(
         [string] $adminName = 'Test Admin',
@@ -345,15 +345,17 @@ Function Invoke-RebuildSolution {
         }
     }
 }
+
 function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.Ods
-        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Ods_Sandbox_Empty'
+        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
         $params = @{
             engine       = $settings.ApiSettings.engine
             csb          = $connectionString
-            database     = 'Ods'
+            database     = $odsDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
@@ -361,14 +363,15 @@ function Reset-EmptySandboxDatabase {
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
 }
+
 function Reset-TestAdminDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Admin_Test'
-            database     = 'Admin'
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Admin_Test'
+            database     = $settings.DeploymentSettings.DatabaseTypes.Admin
             filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
@@ -384,11 +387,11 @@ function Reset-TestAdminDatabase {
 function Reset-TestSecurityDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens 'Security_Test'
-            database     = 'Security'
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Security_Test'
+            database     = $settings.DeploymentSettings.DatabaseTypes.Security
             filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
@@ -406,13 +409,14 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds['Ods']
+        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         # always use Grand Bend data for the test database
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
             engine                  = $settings.ApiSettings.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens "$($settings.DeploymentSettings.populatedTemplateSuffix)_Test"
-            database                = 'Ods'
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens "$($settings.DeploymentSettings.populatedTemplateSuffix)_Test"
+            database                = $odsDatabaseType
             filePaths               = $settings.DeploymentSettings.FilePaths
             subTypeNames            = Get-DefaultSubtypes
             dropDatabase            = $true

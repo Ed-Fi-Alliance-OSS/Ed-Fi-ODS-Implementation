@@ -101,12 +101,21 @@ function Get-CredentialSettingsByProject {
     }
 }
 
+function Get-DatabaseTypes {
+    return @{
+        Ods      = 'Ods'
+        Admin    = 'Admin'
+        Security = 'Security'
+        Master   = 'Master'
+    }
+}
+
 function Get-ConnectionStringKeyByDatabaseTypes {
     return @{
-        Ods      = 'EdFi_Ods'
-        Admin    = 'EdFi_Admin'
-        Security = 'EdFi_Security'
-        Master   = 'EdFi_Master'
+        (Get-DatabaseTypes).Ods      = 'EdFi_Ods'
+        (Get-DatabaseTypes).Admin    = 'EdFi_Admin'
+        (Get-DatabaseTypes).Security = 'EdFi_Security'
+        (Get-DatabaseTypes).Master   = 'EdFi_Master'
     }
 }
 
@@ -114,10 +123,10 @@ function Get-ConnectionStringsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Master'])   = "Server=(local); Trusted_Connection=True; Database=master;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
             DatabaseTemplate  = @{
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
@@ -126,9 +135,9 @@ function Get-ConnectionStringsByEngine {
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
             }
             DatabaseTemplate  = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
@@ -237,7 +246,7 @@ function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
 }
 
 
-function Get-ConnectionStringsFromSettings([hashtable] $Settings = @{ }) {
+function Get-ConnectionStringBuildersFromSettings([hashtable] $Settings = @{ }) {
     $connectionStrings = @{ }
 
     foreach ($key in $Settings.ConnectionStrings.Keys) {
@@ -287,10 +296,11 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
     $newDeploymentSettings = @{
         DeploymentSettings = @{
-            databaseIds = Get-ConnectionStringKeyByDatabaseTypes
-            csbs        = Get-ConnectionStringsFromSettings $Settings
-            SubTypes    = Get-FeatureSubTypesFromSettings $Settings
-            FilePaths   = Get-DatabaseScriptFoldersFromSettings $Settings
+            DatabaseTypes        = Get-DatabaseTypes
+            ConnectionStringKeys = Get-ConnectionStringKeyByDatabaseTypes
+            Csbs                 = Get-ConnectionStringBuildersFromSettings $Settings
+            SubTypes             = Get-FeatureSubTypesFromSettings $Settings
+            FilePaths            = Get-DatabaseScriptFoldersFromSettings $Settings
         }
     }
 
@@ -301,9 +311,9 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
     if ($ProjectName -ne 'EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
 
     $databaseName = @{
-        ((Get-ConnectionStringKeyByDatabaseTypes)['Ods'])      = "EdFi_Ods_Populated_Template_Test"
-        ((Get-ConnectionStringKeyByDatabaseTypes)['Admin'])    = "EdFi_Admin_Test"
-        ((Get-ConnectionStringKeyByDatabaseTypes)['Security']) = "EdFi_Security_Test"
+        ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "EdFi_Ods_Populated_Template_Test"
+        ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "EdFi_Admin_Test"
+        ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "EdFi_Security_Test"
     }
 
     $newSettings = @{
@@ -313,7 +323,7 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
         }
     }
 
-    $csbs = Get-ConnectionStringsFromSettings $Settings
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
     foreach ($key in $databaseName.Keys) {
         $csbs[$key].database = $databaseName[$key]
         $newSettings.ConnectionStrings[$key] = $csbs[$key].ToString()

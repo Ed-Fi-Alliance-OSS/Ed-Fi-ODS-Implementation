@@ -24,8 +24,8 @@ function Remove-EdFiSQLServerDatabases {
 
     $connectionStrings = (Get-ConnectionStringsFromSettings (Get-ConnectionStringsByEngine)['SqlServer'])
 
-    $master = (Get-ConnectionStringKeyByDatabaseTypes)['Master']
-    $ods = (Get-ConnectionStringKeyByDatabaseTypes)['Ods']
+    $master = (Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master]
+    $ods = (Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods]
 
     $sqlServer = Get-Server $connectionStrings[$master]
     $connectionString = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $connectionStrings[$ods] -replacementTokens "*")
@@ -63,7 +63,7 @@ function Remove-EdFiPostgreSQLDatabases {
 
     $connectionStrings = (Get-ConnectionStringsFromSettings (Get-ConnectionStringsByEngine)['PostgreSQL'])
 
-    $ods = (Get-ConnectionStringKeyByDatabaseTypes)['Ods']
+    $ods = (Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods]
 
     $connectionString = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $connectionStrings[$ods] -replacementTokens "*")
 

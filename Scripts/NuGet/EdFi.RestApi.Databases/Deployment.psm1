@@ -202,11 +202,12 @@ Set-Alias -Scope Global Reset-YearSpecificDatabase Reset-OdsDatabase
 $deploymentTasks = @{
     'Reset-AdminDatabase' = {
         $settings = Get-DeploymentSettings
-        $admin = $settings.DeploymentSettings.databaseIds.admin
+        $adminDatbaseType = $settings.DeploymentSettings.DatabaseTypes.Admin
+        $adminConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$adminDatbaseType]
         $params = @{
             engine = $settings.ApiSettings.engine
-            csb = $settings.DeploymentSettings.csbs[$admin]
-            database = 'Admin'
+            csb = $settings.DeploymentSettings.csbs[$adminConnectionStringKey]
+            database = $adminDatbaseType
             filePaths = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $settings.DeploymentSettings.DropDatabases
@@ -215,11 +216,12 @@ $deploymentTasks = @{
     }
     'Reset-SecurityDatabase' = {
         $settings = Get-DeploymentSettings
-        $security = $settings.DeploymentSettings.databaseIds.security
+        $securityDatbaseType = $settings.DeploymentSettings.DatabaseTypes.Security
+        $securityConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$securityDatbaseType]
         $params = @{
             engine = $settings.ApiSettings.engine
-            csb = $settings.DeploymentSettings.csbs[$security]
-            database = 'Security'
+            csb = $settings.DeploymentSettings.csbs[$securityConnectionStringKey]
+            database = $securityDatbaseType
             filePaths = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $settings.DeploymentSettings.DropDatabases
@@ -228,8 +230,9 @@ $deploymentTasks = @{
     }
     'Reset-OdsDatabase' = {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.ods
-        $databaseName = 'Ods'
+        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $databaseName = $odsDatabaseType
         $replacementTokens = @($databaseName)
         if ($settings.OdsDatabaseTemplateName -eq 'populated')
         {
@@ -239,14 +242,13 @@ $deploymentTasks = @{
         {
             $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         }
-
         if ($settings.odsTokens) { $replacementTokens = $settings.odsTokens -split ';' | ForEach-Object { "${databaseName}_$($_)" } }
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens $replacementTokens
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) {
             $params = @{
                 engine = $settings.ApiSettings.engine
                 csb = $csb
-                database = 'Ods'
+                database = $odsDatabaseType
                 filePaths = $settings.DeploymentSettings.FilePaths
                 subTypeNames = $settings.DeploymentSettings.SubTypes
                 dropDatabase = $settings.DeploymentSettings.DropDatabases
@@ -258,18 +260,22 @@ $deploymentTasks = @{
     'Remove-SandboxDatabases' = {
         $settings = Get-DeploymentSettings
         if ($settings.ApiSettings.engine -ne 'SQLServer') { return; }
-        $masterCSB = $settings.DeploymentSettings.csbs[$settings.DeploymentSettings.databaseIds.master]
-        $templateCSB = $settings.DeploymentSettings.csbs[$settings.DeploymentSettings.databaseIds.ods]
+        $masterConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Master]
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
+
+        $masterCSB = $settings.DeploymentSettings.csbs[$masterConnectionStringKey]
+        $templateCSB = $settings.DeploymentSettings.csbs[$odsConnectionStringKey]
         Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB
     }
     'Reset-MinimalTemplateDatabase' = {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.ods
+        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         $params = @{
             engine = $settings.ApiSettings.engine
-            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens $settings.DeploymentSettings.minimalTemplateSuffix
-            database = 'Ods'
+            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.minimalTemplateSuffix
+            database = $odsDatabaseType
             filePaths = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $true
@@ -279,12 +285,13 @@ $deploymentTasks = @{
     }
     'Reset-PopulatedTemplateDatabase' = {
         $settings = Get-DeploymentSettings
-        $ods = $settings.DeploymentSettings.databaseIds.ods
+        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
             engine = $settings.ApiSettings.engine
-            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$ods] -replacementTokens $settings.DeploymentSettings.populatedTemplateSuffix
-            database = 'Ods'
+            csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.populatedTemplateSuffix
+            database = $odsDatabaseType
             filePaths = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $true
