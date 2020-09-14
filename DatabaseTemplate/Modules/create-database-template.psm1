@@ -60,9 +60,9 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.bulkLoadTempJsonConfig = Join-Path $config.bulkLoadTempDirectory "config.json"
     $config.bulkLoadMaxRequests = 500
 
-    $config.database = 'Ods'
+    $config.database = (Get-DatabaseTypes).Ods
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
-    $config.databaseConnectionString = (Get-ConnectionStringsFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
+    $config.databaseConnectionString = (Get-ConnectionStringBuildersFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util')
     $config.noChanges = $true
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
