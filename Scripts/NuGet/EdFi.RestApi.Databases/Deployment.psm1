@@ -224,12 +224,12 @@ $deploymentTasks = @{
     }
     'Reset-SecurityDatabase'          = {
         $settings = Get-DeploymentSettings
-        $securityDatbaseType = $settings.DeploymentSettings.DatabaseTypes.Security
-        $securityConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$securityDatbaseType]
+        $securityDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Security
+        $securityConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$securityDatabaseType]
         $params = @{
             engine       = $settings.ApiSettings.engine
             csb          = $settings.DeploymentSettings.csbs[$securityConnectionStringKey]
-            database     = $securityDatbaseType
+            database     = $securityDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $settings.DeploymentSettings.DropDatabases
