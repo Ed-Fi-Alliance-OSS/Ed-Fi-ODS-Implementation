@@ -46,29 +46,31 @@ Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
     <#
     .description
-    Builds the ODS/API solution and deploys the necessary databases
+        Builds the ODS/API solution and deploys the necessary databases
     .parameter InstallType
-    The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'
+        The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'
     .parameter OdsTokens
     A semicolon-separated string of tokens to use when creating Ods database instances.
     For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
-    For a district specific deployment a valid value could be '255901;255902'.
+        For a district specific deployment a valid value could be '255901;255902'.
     .parameter Engine
-    The database engine provider, either "SQLServer" or "PostgreSQL"
+        The database engine provider, either "SQLServer" or "PostgreSQL"
     .parameter NoRebuild
-    Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln
+        Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln
     .parameter NoCodeGen
-    Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
+        Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
     .parameter NoDeploy
-    Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
+        Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
     .parameter NoCredentials
-    Skip the Add-SandboxCredentials task which is used to generate random credentials for the SandboxAdmin website.
+        Skip the Add-SandboxCredentials task which is used to generate random credentials for the SandboxAdmin website.
     .parameter RunPostman
-    Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
+        Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
+    .parameter RunPostman
+        Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
     .parameter RunSmokeTest
-    Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
+        Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
     .parameter UsePlugins
-    Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
+        Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -90,6 +92,8 @@ function Initialize-DevelopmentEnvironment {
 
         [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
         [switch] $NoCredentials,
+
+        [switch] $RunPester,
 
         [switch] $RunPostman,
 
@@ -150,6 +154,8 @@ function Initialize-DevelopmentEnvironment {
             }
             $script:result += Initialize-DeploymentEnvironment @params
         }
+
+        if ($RunPester) { $script:result += Invoke-PesterTests }
 
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
@@ -451,6 +457,22 @@ function Install-DbDeploy {
 
 function Install-CodeGenUtility {
     Install-ToolCodeGenUtility -toolsPath $toolsPath -toolVersion $toolVersion.CodeGen
+}
+
+function Invoke-PesterTests {
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+
+        $pester = Get-InstalledModule | ? -Property Name -eq "Pester"
+
+        if ($null -eq $pester) {
+            Write-Host "Installing Pester"
+            Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
+        }
+
+        $params = @{ Output = 'Detailed' }
+        if (Test-TeamCityVersion) { $params.CI = $true }
+        Invoke-Pester @params
+    }
 }
 
 function Invoke-PostmanIntegrationTests {

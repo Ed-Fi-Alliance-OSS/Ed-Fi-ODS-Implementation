@@ -56,13 +56,6 @@ function Install-RequiredModules {
         Write-Host "Installing Invoke-MsBuild"
         Install-Module -Name Invoke-MsBuild -Scope CurrentUser -MinimumVersion 2.6.0 -Force | Out-Null
     }
-
-    $pester = Get-InstalledModule | ? -Property Name -eq "Pester"
-
-    if ($null -eq $pester) {
-        Write-Host "Installing Pester"
-        Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
-    }
 }
 
 function global:Update-SolutionScripts {
