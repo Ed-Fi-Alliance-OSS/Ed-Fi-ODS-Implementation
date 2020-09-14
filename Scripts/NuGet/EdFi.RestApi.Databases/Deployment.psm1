@@ -212,12 +212,12 @@ Set-Alias -Scope Global Reset-YearSpecificDatabase Reset-OdsDatabase
 $deploymentTasks = @{
     'Reset-AdminDatabase'             = {
         $settings = Get-DeploymentSettings
-        $adminDatbaseType = $settings.DeploymentSettings.DatabaseTypes.Admin
-        $adminConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$adminDatbaseType]
+        $adminDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Admin
+        $adminConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$adminDatabaseType]
         $params = @{
             engine       = $settings.ApiSettings.engine
             csb          = $settings.DeploymentSettings.csbs[$adminConnectionStringKey]
-            database     = $adminDatbaseType
+            database     = $adminDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
             subTypeNames = $settings.DeploymentSettings.SubTypes
             dropDatabase = $settings.DeploymentSettings.DropDatabases
@@ -244,15 +244,13 @@ $deploymentTasks = @{
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $databaseName = $odsDatabaseType
         $replacementTokens = @($databaseName)
-        if ($settings.OdsDatabaseTemplateName -eq 'populated')
-        {
+        if ($settings.OdsDatabaseTemplateName -eq 'populated') {
             $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         }
-        else
-        {
+        else {
             $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         }
-        if ($settings.odsTokens) { $replacementTokens = $settings.odsTokens -split ';' | ForEach-Object { "${databaseName}_$($_)" } }
+        if ($settings.ApiSettings.OdsTokens) { $replacementTokens = $settings.ApiSettings.OdsTokens -split ';' | ForEach-Object { "${databaseName}_$($_)" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) {
             $params = @{
