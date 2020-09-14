@@ -180,7 +180,7 @@ function Add-ApplicationNameToConnectionStrings([hashtable] $Settings = @{ }, [s
         $newConnectionStrings[$key] = $csbs[$key].ToString()
     }
 
-    $newSettings = Merge-Hashtables $Settings @{ ConnectionStrings = $newConnectionStrings }
+    $newSettings = Merge-Hashtables $Settings, @{ ConnectionStrings = $newConnectionStrings }
 
     return $newSettings
 }
