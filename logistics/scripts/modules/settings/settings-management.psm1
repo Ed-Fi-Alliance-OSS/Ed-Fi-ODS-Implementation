@@ -7,7 +7,7 @@
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
 
-function Get-DevelopmentSettingsByProject {
+function Get-DefaultDevelopmentSettingsByProject {
     return @{
         "EdFi.Ods.WebApi.NetCore"             = @{
             Urls              = "http://localhost:54746"
@@ -78,13 +78,13 @@ function Get-CredentialSettingsByProject {
                             Key     = $populatedKey
                             Secret  = $populatedSecret
                             Type    = "Sample"
-                            Refresh = "true"
+                            Refresh = "false"
                         }
                         "Minimal Demonstration Sandbox"   = @{
                             Key     = Get-RandomString
                             Secret  = Get-RandomString
                             Type    = "Minimal"
-                            Refresh = "true"
+                            Refresh = "false"
                         }
                     }
                 }
@@ -119,7 +119,7 @@ function Get-ConnectionStringKeyByDatabaseTypes {
     }
 }
 
-function Get-ConnectionStringsByEngine {
+function Get-DefaultDevelopmentSettingsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
@@ -335,10 +335,10 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
 
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
-    $developmentSettingsByProject = Get-DevelopmentSettingsByProject
+    $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
 
     foreach ($project in $developmentSettingsByProject.Keys) {
-        $connectionStringsForEngine = (Get-ConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
+        $connectionStringsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
         $connectionStringsForEngine = Add-ApplicationNameToConnectionStrings $connectionStringsForEngine $project
 
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $connectionStringsForEngine, $Settings
