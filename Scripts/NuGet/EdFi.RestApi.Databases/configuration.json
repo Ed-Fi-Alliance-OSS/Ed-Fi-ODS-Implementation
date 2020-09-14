@@ -1,5 +1,4 @@
 ﻿{
-  "Engine": "",
   "ConnectionStrings": {
     "EdFi_Ods": "",
     "EdFi_Security": "",
@@ -7,12 +6,12 @@
     "EdFi_Master": ""
   },
   "databaseTemplate": {
-    "PopulatedTemplateScript": "GrandBend",
-    "MinimalTemplateScript": "EdFiMinimalTemplate"
+    "PopulatedTemplateScript": "",
+    "MinimalTemplateScript": ""
   },
   "ApiSettings": {
     "Mode": "sandbox",
-    "Engine": "SQLServer",
+    "Engine": "",
     "OdsTokens": [],
     "Features": [
       {
@@ -59,7 +58,7 @@
     "ExcludedExtensions": []
   },
   "Plugin": {
-    "Folder": "../../plugins",
+    "Folder": "",
     "Scripts": []
   }
 }
