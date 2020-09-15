@@ -64,7 +64,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             {
                 var assembly = typeof(Program).GetTypeInfo().Assembly;
 
-                string configPath = Path.Combine(Path.GetDirectoryName(assembly.Location), "log4net.config");
+                string configPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, "log4net.config");
 
                 XmlConfigurator.Configure(LogManager.GetRepository(assembly), new FileInfo(configPath));
             }
