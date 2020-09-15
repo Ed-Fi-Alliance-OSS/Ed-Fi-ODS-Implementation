@@ -1,0 +1,16 @@
+2020-09-18 23:54:20,140 [1] INFO  Hangfire.BackgroundJobServer - MESSAGE: Starting Hangfire Server using job storage: 'SQL Server: SHRAVANA\SQLDEV2017@EdFi_Admin'
+ 2020-09-18 23:54:20,167 [1] INFO  Hangfire.BackgroundJobServer - MESSAGE: Using the following options for SQL Server job storage: Queue poll interval: 00:00:15.
+ 2020-09-18 23:54:20,170 [1] INFO  Hangfire.BackgroundJobServer - MESSAGE: Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+ 2020-09-18 23:54:20,559 [BackgroundServerProcess #2] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:1babf8f1 successfully announced in 338.6996 ms
+ 2020-09-18 23:54:20,564 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:f7ab4b88 successfully announced in 639.5471 ms
+ 2020-09-18 23:54:20,619 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:f7ab4b88 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+ 2020-09-18 23:54:20,648 [BackgroundServerProcess #2] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:1babf8f1 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, Worker, DelayedJobScheduler, RecurringJobScheduler...
+ 2020-09-18 23:54:21,418 [ServerWatchdog #1] INFO  Hangfire.Server.ServerWatchdog - MESSAGE: 4 servers were removed due to timeout
+ 2020-09-18 23:54:22,033 [BackgroundServerProcess #2] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:1babf8f1 all the dispatchers started
+ 2020-09-18 23:54:22,286 [BackgroundServerProcess #1] INFO  Hangfire.Server.BackgroundServerProcess - MESSAGE: Server shravana:25928:f7ab4b88 all the dispatchers started
+ 2020-09-18 23:54:28,228 [Worker #1] INFO  EdFi.Ods.SandboxAdmin.Initialization.InitializationEngine - MESSAGE: Creating vendor EdFi.Ods.SandboxAdmin.Initialization.UserOptions with namespace prefixes uri://ed-fi.org,uri://gbisd.org
+ 
