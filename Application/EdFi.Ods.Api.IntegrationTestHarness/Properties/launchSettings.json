@@ -11,6 +11,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
+      "commandLineArgs": "--configurationFilePath=C:\\Users\\travis.meador\\AppData\\Local\\Temp\\CreateDatabaseTemplate\\config.json --environment=Development",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
@@ -18,11 +19,11 @@
     },
     "EdFi.Ods.Api.IntegrationTestHarness": {
       "commandName": "Project",
+      "commandLineArgs": "--configurationFilePath=C:\\edfi\\Ed-Fi-ODS-Implementation\\logistics\\scripts\\modules\\postmanTestHarnessConfiguration.json --environmentFilePath=C:\\edfi\\Ed-Fi-ODS-Implementation\\logistics\\scripts\\modules --environment=Development",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "commandLineArgs": "--configurationFilePath c:/Temp/smokeTestconfig.json"
+      }
     }
   }
 }
