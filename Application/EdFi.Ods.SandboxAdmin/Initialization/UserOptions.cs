@@ -3,6 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
+
 namespace EdFi.Ods.SandboxAdmin.Initialization
 {
     public class UserOptions
@@ -17,6 +19,6 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
 
         public string[] NamespacePrefixes { get; set; }
 
-        public SandboxOptions[] Sandboxes { get; set; }
+        public Dictionary<string, SandboxOptions> Sandboxes { get; set; }
     }
 }

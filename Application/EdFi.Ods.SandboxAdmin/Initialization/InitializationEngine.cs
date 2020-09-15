@@ -23,10 +23,10 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         private readonly IDefaultApplicationCreator _applicationCreator;
         private readonly IIdentityProvider _identityProvider;
 
-        private readonly InitializationOptions _settings;
+        private readonly UserOptions _userOptions;
 
         public InitializationEngine(
-            InitializationOptions initializationModel,
+            UserOptions userOptions,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
@@ -34,7 +34,7 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
             IIdentityProvider identityProvider
             )
         {
-            _settings = initializationModel;
+            _userOptions = userOptions;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
             _identityProvider = identityProvider;
@@ -61,30 +61,28 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         {
             try
             {
-                foreach (var user in _settings.Users)
+                var identityUser = await _identityProvider.FindUser(_userOptions.Name);
+
+                if (identityUser != null)
                 {
-                    var identityUser = await _identityProvider.FindUser(user.Name);
+                    return;
+                }
 
-                    if (identityUser != null)
+                _log.Debug($"Adding user: {_userOptions} to asp net security.");
+
+                if (await _identityProvider.CreateUser(
+                    _userOptions.Name, _userOptions.Email, _userOptions.Password, confirm: true))
+                {
+                    identityUser = await _identityProvider.FindUser(_userOptions.Name);
+                    var roles = new string[] { };
+
+                    if (_userOptions.Admin)
                     {
-                        continue;
+                        roles = new string[] {"Administrator"};
                     }
 
-                    _log.Debug($"Adding user: {user} to asp net security.");
-
-                    if (await _identityProvider.CreateUser(user.Name, user.Email, user.Password, confirm: true))
-                    {
-                        identityUser = await _identityProvider.FindUser(user.Name);
-                        var roles = new string[] { };
-
-                        if (user.Admin)
-                        {
-                            roles = new string[] { "Administrator" };
-                        }
-
-                        _log.Debug($"Adding user: {user} to roles:  {string.Join(",", roles)} in asp net security.");
-                        await _identityProvider.AddToRoles(identityUser.Id, roles);
-                    }
+                    _log.Debug($"Adding user: {_userOptions} to roles:  {string.Join(",", roles)} in asp net security.");
+                    await _identityProvider.AddToRoles(identityUser.Id, roles);
                 }
             }
             catch (Exception ex)
@@ -97,13 +95,10 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         {
             try
             {
-                foreach (var user in _settings.Users)
-                {
-                    var namespacePrefixes = user.NamespacePrefixes.ToList();
+                var namespacePrefixes = _userOptions.NamespacePrefixes.ToList();
 
-                    _log.Info($"Creating vendor {user} with namespace prefixes {string.Join(",", namespacePrefixes)}");
-                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Email, user.Name, namespacePrefixes);
-                }
+                _log.Info($"Creating vendor {_userOptions} with namespace prefixes {string.Join(",", namespacePrefixes)}");
+                _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(_userOptions.Email, _userOptions.Name, namespacePrefixes);
             }
             catch (Exception ex)
             {
@@ -115,20 +110,20 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         {
             try
             {
-                foreach (var user in _settings.Users)
+                var clientProfile = _clientAppRepo.GetUser(_userOptions.Email);
+
+                foreach (var sandboxKeyValuePair in _userOptions.Sandboxes)
                 {
-                    var clientProfile = _clientAppRepo.GetUser(user.Email);
+                    var sandboxName = sandboxKeyValuePair.Key;
+                    var sandboxOptions = sandboxKeyValuePair.Value;
 
-                    foreach (var sandbox in user.Sandboxes)
+                    if (clientProfile.ApiClients.Any(c => c.Key == sandboxOptions.Key))
                     {
-                        if (clientProfile.ApiClients.Any(c => c.Key == sandbox.Key))
-                        {
-                            continue;
-                        }
-
-                        _log.Info($"Creating sandbox {sandbox.Key} for user {user.Name}");
-                        _clientCreator.CreateNewSandboxClient(sandbox, clientProfile);
+                        continue;
                     }
+
+                    _log.Info($"Creating sandbox {sandboxName} for user {_userOptions.Name}");
+                    _clientCreator.CreateNewSandboxClient(sandboxName, sandboxOptions, clientProfile);
                 }
             }
             catch (Exception ex)
@@ -141,15 +136,12 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         {
             try
             {
-                foreach (var user in _settings.Users)
-                {
-                    var clientProfile = _clientAppRepo.GetUser(user.Email);
+                var clientProfile = _clientAppRepo.GetUser(_userOptions.Email);
 
-                    foreach (var sandbox in user.Sandboxes.Where(x => x.Refresh))
-                    {
-                        _log.Debug($"Resetting sandbox {sandbox} for {clientProfile.Vendor.VendorName}");
-                        _clientCreator.ResetSandboxClient(sandbox, clientProfile);
-                    }
+                foreach (var sandbox in _userOptions.Sandboxes.Where(x => x.Value.Refresh))
+                {
+                    _log.Debug($"Resetting sandbox {sandbox.Key} for {clientProfile.Vendor.VendorName}");
+                    _clientCreator.ResetSandboxClient(sandbox.Key, sandbox.Value, clientProfile);
                 }
             }
             catch (Exception ex)
@@ -160,18 +152,15 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
 
         public void UpdateClientWithLEAIdsFromPopulatedSandbox()
         {
-            foreach (var user in _settings.Users)
+            var clientProfile = _clientAppRepo.GetUser(_userOptions.Email);
+
+            // look through all the sandboxes that are populated so we can get the lea ids from the created sandbox.
+            // note our current template process has the populated data with lea's installed in it.
+            foreach (var apiClient in clientProfile.ApiClients)
             {
-                var clientProfile = _clientAppRepo.GetUser(user.Email);
+                var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(apiClient.Key).ToList();
 
-                // look through all the sandboxes that are populated so we can get the lea ids from the created sandbox.
-                // note our current template process has the populated data with lea's installed in it.
-                foreach (var apiClient in clientProfile.ApiClients)
-                {
-                    var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(apiClient.Key).ToList();
-
-                    _applicationCreator.AddLeaIdsToApplication(leaIds, apiClient.Application.ApplicationId);
-                }
+                _applicationCreator.AddLeaIdsToApplication(leaIds, apiClient.Application.ApplicationId);
             }
         }
     }

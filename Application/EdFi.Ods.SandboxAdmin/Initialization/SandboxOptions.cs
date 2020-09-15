@@ -9,8 +9,6 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
 {
     public class SandboxOptions
     {
-        public string Name { get; set; }
-
         public string Key { get; set; }
 
         public string Secret { get; set; }
