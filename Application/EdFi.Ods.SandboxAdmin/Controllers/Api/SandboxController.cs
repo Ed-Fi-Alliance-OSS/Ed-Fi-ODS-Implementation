@@ -15,6 +15,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         public string Command { get; set; }
     }
 
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = SecurityRoles.Administrator)]
     public class SandboxController : ControllerBase

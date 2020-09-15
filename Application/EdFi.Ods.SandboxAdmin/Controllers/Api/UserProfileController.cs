@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
+    [Route("api/[controller]")]
     [ApiController]
     public class UserProfileController : ControllerBase
     {

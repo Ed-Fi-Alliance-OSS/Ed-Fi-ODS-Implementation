@@ -23,6 +23,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
     public class ClientController : ControllerBase
