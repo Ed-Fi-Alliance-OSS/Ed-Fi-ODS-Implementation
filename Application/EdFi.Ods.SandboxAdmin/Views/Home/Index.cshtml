@@ -18,5 +18,5 @@
 }
 @if (Model.UserIsAdmin)
 {
-    Html.RenderPartial("ResetSandbox", Model);
+    await Html.RenderPartialAsync("ResetSandbox", Model);
 }

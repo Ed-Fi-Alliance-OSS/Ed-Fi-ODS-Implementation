@@ -3,12 +3,9 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Web;
 using EdFi.Ods.SandboxAdmin.Extensions;
 using EdFi.Ods.SandboxAdmin.Services;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
@@ -23,7 +20,6 @@ namespace EdFi.Ods.SandboxAdmin.Filters
         //       us to create the filter during App_Start, but wait until the request cycle to resolve the dependencies.
         //       This allows us to use LifecyclePerWebRequest with the Castle container.  Castle can't handle resolving
         //       PerWebRequest dependencies during App_Start.
-
         public SetCurrentUserInfoAttribute(ISecurityService securityServiceLocator
             , IHttpContextAccessor httpContextAccessor)
         {
