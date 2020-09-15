@@ -10,7 +10,6 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Threading.Tasks;
-using System.Web.Http;
 using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Ods.SandboxAdmin.Models.Client;
 using EdFi.Ods.Sandbox.Repositories;
@@ -19,11 +18,14 @@ using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox;
 using EdFi.Ods.Sandbox.Provisioners;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
+    [ApiController]
     [Authorize]
-    public class ClientController : ApiController
+    public class ClientController : ControllerBase
     {
         private readonly IClientCreator _clientCreator;
         /// <summary>
@@ -84,7 +86,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ClientIndexViewModel>> GetClients()
+        public async Task<IActionResult> GetClients()
         {
             //TODO: This is an ugly patch for now. We should really do this type of thing in a top-level exception handler.
             try
@@ -95,7 +97,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 var models = clients.Select(ToClientIndexViewModel)
                                     .ToArray();
 
-                return models;
+                return Ok(models);
             }
             catch (Exception e)
             {
@@ -147,14 +149,14 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         }
 
         [HttpGet]
-        public ClientIndexViewModel GetClient(string id)
+        public IActionResult GetClient(string id)
         {
             var client = UserProfile.ApiClients.FirstOrDefault(c => c.Key == id);
-            return ToClientIndexViewModel(client);
+            return Ok(ToClientIndexViewModel(client));
         }
 
         [HttpPost]
-        public async Task<ClientIndexViewModel> PostClient(SandboxClientCreateModel sandboxClient)
+        public async Task<IActionResult> PostClient(SandboxClientCreateModel sandboxClient)
         {
             if (ModelState["client.Name"] == null)
             {
@@ -171,19 +173,19 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                         profile);
 
                     await AddClientStatusInfo(newClient);
-                    return ToClientIndexViewModel(newClient);
+                    return Ok(ToClientIndexViewModel(newClient));
                 }
                 catch (ArgumentOutOfRangeException)
                 {
-                    throw new HttpResponseException(HttpStatusCode.BadRequest);
+                    return BadRequest(ModelState);
                 }
             }
 
-            throw new HttpResponseException(HttpStatusCode.NotAcceptable);
+            return StatusCode((int)HttpStatusCode.NotAcceptable);
         }
 
         [HttpPut]
-        public async Task<ClientIndexViewModel> PutClient(ClientIndexViewModel client)
+        public async Task<IActionResult> PutClient(ClientIndexViewModel client)
         {
             var test = UserProfile.ApiClients.FirstOrDefault(c => c.Key == client.Key && c.ApiClientId == client.Id);
 
@@ -195,7 +197,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             test.GenerateSecret();
             _repository.UpdateClient(test);
             await AddClientStatusInfo(test);
-            return ToClientIndexViewModel(test);
+            return Ok(ToClientIndexViewModel(test));
         }
 
         [HttpDelete]
@@ -205,7 +207,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 
             if (client == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                throw new ArgumentException("NotFound");
             }
 
             _repository.DeleteClient(id);

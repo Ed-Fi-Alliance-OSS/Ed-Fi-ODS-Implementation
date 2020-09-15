@@ -3,9 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Web.Http;
 using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.Sandbox.Provisioners;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
@@ -14,8 +15,9 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         public string Command { get; set; }
     }
 
+    [ApiController]
     [Authorize(Roles = SecurityRoles.Administrator)]
-    public class SandboxController : ApiController
+    public class SandboxController : ControllerBase
     {
         private readonly ISandboxProvisioner _sandboxProvisioner;
 

@@ -5,13 +5,14 @@
 
 using System.Collections.Generic;
 using System.Net;
-using System.Web.Http;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
-    public class UserProfileController : ApiController
+    [ApiController]
+    public class UserProfileController : ControllerBase
     {
         private readonly IClientAppRepo _clientAppRepo;
 
@@ -21,23 +22,23 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         }
 
         // GET api/userprofile
-        public IEnumerable<User> Get()
+        public IActionResult Get()
         {
             var result = _clientAppRepo.GetUsers();
-            return result;
+            return Ok(result);
         }
 
         // GET api/userprofile/5
-        public User Get(int id)
+        public IActionResult Get(int id)
         {
             var user = _clientAppRepo.GetUser(id);
 
             if (user == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                return NotFound();
             }
 
-            return user;
+            return Ok(user);
         }
 
         //// POST api/userprofile
@@ -65,7 +66,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 
             if (user == null)
             {
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+                NotFound();
             }
 
             _clientAppRepo.DeleteUser(user);

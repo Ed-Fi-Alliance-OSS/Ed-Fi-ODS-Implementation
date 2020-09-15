@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac;
+using Autofac.Core;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Ods.Common.Configuration;
@@ -46,7 +48,7 @@ namespace EdFi.Ods.SandboxAdmin
 
         public IConfiguration Configuration { get; }
 
-        //public ILifetimeScope Container { get; private set; }
+        public ILifetimeScope Container { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -55,15 +57,15 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
-            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddSingleton<ISecurityService, SecurityService>();
-            services.AddScoped<IClientAppRepo, ClientAppRepo>();
-            services.AddScoped<IIdentityProvider, IdentityProvider>();
-            services.AddScoped<IUsersContextFactory, UsersContextFactory>();
-            services.AddSingleton<IAdminDatabaseConnectionStringProvider, AdminDatabaseConnectionStringProvider>();
-            services.AddSingleton<DatabaseEngine>(_ => new DatabaseEngine(ApiConfigurationConstants.SqlServer, "SQL Server", "MsSql"));
-            services.AddSingleton<IConfigConnectionStringsProvider, ConfigConnectionStringsProvider>();
-            //services.AddScoped<IIdentityContextFactory, IdentityContextFactory>();
+            //services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+            //services.AddSingleton<ISecurityService, SecurityService>();
+            //services.AddScoped<IClientAppRepo, ClientAppRepo>();
+            //services.AddScoped<IIdentityProvider, IdentityProvider>();
+            //services.AddScoped<IUsersContextFactory, UsersContextFactory>();
+            //services.AddSingleton<IAdminDatabaseConnectionStringProvider, AdminDatabaseConnectionStringProvider>();
+            //services.AddSingleton<DatabaseEngine>(_ => new DatabaseEngine(ApiConfigurationConstants.SqlServer, "SQL Server", "MsSql"));
+            //services.AddSingleton<IConfigConnectionStringsProvider, ConfigConnectionStringsProvider>();
+            //services.AddScoped<IUserStore<IdentityUser>, UserStore<IdentityUser>>();
 
             services.Configure<InitializationOptions>(Configuration.GetSection("initialization"));
 
@@ -90,41 +92,41 @@ namespace EdFi.Ods.SandboxAdmin
         // with Autofac. This runs after ConfigureServices so the things
         // here will override registrations made in ConfigureServices.
         // Don't build the container; that gets done for you by the factory.
-        //public void ConfigureContainer(ContainerBuilder builder)
-        //{
-        //    _logger.Debug("Building Autofac container");
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            _logger.Debug("Building Autofac container");
 
-        //    // For pipelines we need a service locator. Note this is an anti-pattern
-        //    //builder.Register(c => new AutofacServiceLocator(new Lazy<ILifetimeScope>(() => Container)))
-        //    //    .As<IServiceLocator>()
-        //    //    .SingleInstance();
+            // For pipelines we need a service locator. Note this is an anti-pattern
+            //builder.Register(c => new AutofacServiceLocator(new Lazy<ILifetimeScope>(() => Container)))
+            //    .As<IServiceLocator>()
+            //    .SingleInstance();
 
-        //    RegisterModulesDynamically();
+            RegisterModulesDynamically();
 
-        //    _logger.Debug("Container loaded.");
+            _logger.Debug("Container loaded.");
 
-        //    void RegisterModulesDynamically()
-        //    {
-        //        var assemblies = AppDomain.CurrentDomain.GetAssemblies()
-        //            .ToList();
+            void RegisterModulesDynamically()
+            {
+                var assemblies = AppDomain.CurrentDomain.GetAssemblies()
+                    .ToList();
 
-        //        _logger.Debug("Installing modules:");
+                _logger.Debug("Installing modules:");
 
-        //        foreach (var type in TypeHelper.GetTypesWithModules())
-        //        {
-        //            _logger.Debug($"Module {type.Name}");
+                foreach (var type in TypeHelper.GetTypesWithModules())
+                {
+                    _logger.Debug($"Module {type.Name}");
 
-        //            if (type.IsSubclassOf(typeof(ConditionalModule)))
-        //            {
-        //                builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
-        //            }
-        //            else
-        //            {
-        //                builder.RegisterModule((IModule)Activator.CreateInstance(type));
-        //            }
-        //        }
-        //    }
-        //}
+                    if (type.IsSubclassOf(typeof(ConditionalModule)))
+                    {
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type, ApiSettings));
+                    }
+                    else
+                    {
+                        builder.RegisterModule((IModule)Activator.CreateInstance(type));
+                    }
+                }
+            }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
