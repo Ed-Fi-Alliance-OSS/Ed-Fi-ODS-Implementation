@@ -4,16 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Provisioners;
-using log4net;
 using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.SandboxAdmin.Initialization;
+using EdFi.Ods.SandboxAdmin.Services;
+using log4net;
+using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.SandboxAdmin.Services
+namespace EdFi.Ods.Sandbox.Admin.Services
 {
     public class ClientCreator : IClientCreator
     {
@@ -25,18 +26,18 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
         private readonly int _maximumSandboxesPerUser;
 
-        private readonly IConfigValueProvider _configValueProvider;
+        private readonly IConfiguration _configuration;
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
 
         public ClientCreator(
-            IConfigValueProvider configValueProvider,
+            IConfiguration configValueProvider,
             IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             ISandboxProvisioner sandboxProvisioner)
         {
             _sandboxProvisioner = sandboxProvisioner;
-            _configValueProvider = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
+            _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
             _maximumSandboxesPerUser = GetMaximumSandboxesPerUserOrDefault();
 
             _clientAppRepo = Preconditions.ThrowIfNull(clientAppRepo, nameof(clientAppRepo));
@@ -45,14 +46,14 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
         private int GetMaximumSandboxesPerUserOrDefault()
         {
-            string configValue = _configValueProvider.GetValue(MaximumSandboxesPerUserConfigKey);
+            string configValue = _configuration.GetValue<string>(MaximumSandboxesPerUserConfigKey);
 
             return int.TryParse(configValue, out int configResult)
                 ? configResult
                 : MaximumSandboxesPerUserDefault;
         }
 
-        public ApiClient CreateNewSandboxClient(SandboxOptions createModel, User user)
+        public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
         {
             if (user.ApiClients.Count >= _maximumSandboxesPerUser)
             {
@@ -62,32 +63,32 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
-            var client = SetupDefaultSandboxClient(createModel, user);
+            var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user);
 
             ProvisionSandbox(client);
 
             return client;
         }
 
-        public ApiClient ResetSandboxClient(SandboxOptions createModel, User user)
+        public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
         {
-            var client = SetupDefaultSandboxClient(createModel, user);
+            var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user);
 
             ProvisionSandbox(client);
 
             return client;
         }
 
-        private ApiClient SetupDefaultSandboxClient(SandboxOptions createModel, User user)
+        private ApiClient SetupDefaultSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
         {
             var defaultApplication = _defaultApplicationCreator
-                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, createModel.Type);
+                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
 
             return _clientAppRepo.SetupDefaultSandboxClient(
-                createModel.Name,
-                createModel.Type,
-                createModel.Key,
-                createModel.Secret,
+                sandboxName,
+                sandboxOptions.Type,
+                sandboxOptions.Key,
+                sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
         }
