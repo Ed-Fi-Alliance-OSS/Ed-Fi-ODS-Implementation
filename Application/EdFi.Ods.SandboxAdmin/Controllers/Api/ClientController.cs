@@ -29,29 +29,20 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
     public class ClientController : ControllerBase
     {
         private readonly IClientCreator _clientCreator;
-        /// <summary>
-        ///     Set via dependency injection
-        /// </summary>
         private readonly IClientAppRepo _repository;
-
         private readonly ISandboxProvisioner _sandboxProvisioner;
-
         private readonly ISecurityService _securityService;
-
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public ClientController(
             IClientAppRepo repository,
             ISecurityService securityService,
             ISandboxProvisioner sandboxProvisioner,
-            IClientCreator clientCreator,
-            IHttpContextAccessor httpContextAccessor)
+            IClientCreator clientCreator)
         {
             _repository = repository;
             _securityService = securityService;
             _sandboxProvisioner = sandboxProvisioner;
             _clientCreator = clientCreator;
-            _httpContextAccessor = httpContextAccessor;
         }
 
 
@@ -59,7 +50,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         {
             get
             {
-                string currentUserName = _httpContextAccessor.HttpContext.User?.Identity?.Name;
+                string currentUserName = User?.Identity?.Name;
                 return _securityService.GetCurrentUser(currentUserName)
                                        .CurrentUser;
             }
@@ -166,9 +157,9 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                     var profile = _repository.GetUser(UserProfile.Email);
 
                     var newClient = _clientCreator.CreateNewSandboxClient(
+                        sandboxClient.Name,
                         new SandboxOptions
                         {
-                            Name = sandboxClient.Name,
                             Type = sandboxClient.SandboxType
                         },
                         profile);
