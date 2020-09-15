@@ -272,6 +272,12 @@ function Add-SandboxCredentials {
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     <#
     .description
+        Generates appsettings.development.json and if not already created a appsettings.user.json for the following projects:
+            EdFi.Ods.WebApi.NetCore
+            EdFi.Ods.Api.IntegrationTestHarness
+            EdFi.Ods.SandboxAdmin.Web
+            EdFi.Ods.SwaggerUI
+        See the Get-DefaultDevelopmentSettingsByProject in settings-managements.psm1 for the default settings.
     #>
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $newSettingsFiles = New-DevelopmentAppSettings $Settings
