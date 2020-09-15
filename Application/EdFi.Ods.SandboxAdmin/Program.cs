@@ -28,7 +28,7 @@ namespace EdFi.Ods.SandboxAdmin
                             .AddJsonFile("Initialization.json", optional: true)
                             .AddEnvironmentVariables();
                     })
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                //.UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
 
             await host.RunAsync();

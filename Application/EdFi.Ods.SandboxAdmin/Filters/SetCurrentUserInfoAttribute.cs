@@ -16,7 +16,7 @@ namespace EdFi.Ods.SandboxAdmin.Filters
 {
     public class SetCurrentUserInfoAttribute : ActionFilterAttribute
     {
-        private readonly Func<ISecurityService> _securityServiceLocator;
+        private readonly ISecurityService _securityServiceLocator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         //NOTE:  This uses a Func to supply the security service rather than normal constructor injection.  This allows
@@ -24,17 +24,17 @@ namespace EdFi.Ods.SandboxAdmin.Filters
         //       This allows us to use LifecyclePerWebRequest with the Castle container.  Castle can't handle resolving
         //       PerWebRequest dependencies during App_Start.
 
-        public SetCurrentUserInfoAttribute(Func<ISecurityService> securityServiceLocator
+        public SetCurrentUserInfoAttribute(ISecurityService securityServiceLocator
             , IHttpContextAccessor httpContextAccessor)
         {
             _securityServiceLocator = securityServiceLocator;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private ISecurityService SecurityService
-        {
-            get { return _securityServiceLocator(); }
-        }
+        //private ISecurityService SecurityService
+        //{
+        //    get { return _securityServiceLocator(); }
+        //}
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
@@ -44,7 +44,7 @@ namespace EdFi.Ods.SandboxAdmin.Filters
             }
 
             string currentUserName = _httpContextAccessor.HttpContext.User?.Identity?.Name;
-            var userLookup = SecurityService.GetCurrentUser(currentUserName);
+            var userLookup = _securityServiceLocator.GetCurrentUser(currentUserName);
             ((Controller)(filterContext.Controller)).ViewBag.UserLookup = userLookup;
         }
     }
