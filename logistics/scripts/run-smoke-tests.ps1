@@ -126,6 +126,7 @@ try {
     $config = Get-SmokeTestConfiguration
     $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
 
+    $script:result = @()
 
     if (-not $noRebuild) {
         $script:result += Invoke-Task "Invoke-RestoreLoadToolsPackages" { Invoke-RestoreLoadToolsPackages $config }
