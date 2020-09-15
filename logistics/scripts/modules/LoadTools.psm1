@@ -9,16 +9,11 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
-
-function Get-Configuration {
-    Merge-Configurations $global:templateConfiguration (& $global:templateConfigurationScript)
-
-    return $global:templateConfiguration
-}
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
 
 function Invoke-RestoreLoadToolsPackages {
     param(
-        [hashtable] $config = (Get-Configuration)
+        [hashtable] $config
     )
 
     $toolsPath = Join-Path (Get-RepositoryResolvedPath) 'tools'
@@ -27,8 +22,7 @@ function Invoke-RestoreLoadToolsPackages {
 
 function Invoke-BuildLoadTools {
     param(
-        [hashtable] $config = (Get-Configuration),
-        [string] $msBuildFilePath = $env:msbuild_exe
+        [hashtable] $config
     )
 
     $buildConfiguration = $config.buildConfiguration
@@ -49,7 +43,7 @@ function Invoke-BuildLoadTools {
         ShowBuildOutputInCurrentWindow = $true
     }
 
-    if (-not [string]::IsNullOrWhiteSpace($msBuildFilePath)) { $params.MsBuildFilePath = $msBuildFilePath }
+    if (-not [string]::IsNullOrWhiteSpace($config.msbuild_exe)) { $params.MsBuildFilePath = $config.msbuild_exe }
 
     ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
     $buildResult = Invoke-MsBuild @params
@@ -62,7 +56,7 @@ function Invoke-BuildLoadTools {
 
 function Invoke-SmokeTestClient {
     param(
-        [hashtable] $config = (Get-Configuration)
+        [hashtable] $config
     )
 
     Write-HashtableInfo $config
@@ -166,83 +160,37 @@ function Get-RandomString {
     return ([char[]]([char]65..[char]90) + ([char[]]([char]97..[char]122)) + 0..9 | Sort-Object { Get-Random })[0..$length] -join ""
 }
 
-function Add-RandomKeySecret {
+function Invoke-SetTestHarnessConfig {
     param(
-        [hashtable] $config = (Get-Configuration)
+        [hashtable] $config
     )
 
-    $content = (Get-Content (Get-ChildItem $config.testHarnessJsonConfig).FullName -Raw -Encoding UTF8 | ConvertFrom-Json)
-    foreach ($vendor in $content.vendors) {
-        foreach ($application in $vendor.applications) {
-            foreach ($apiClient in $application.apiClients) {
-                if (-not @($config.apiClientNameBootstrap, $config.apiClientNameSandbox) -contains $apiClient.ApiClientName) { continue; }
+    if ((-not $config.noExtensions) -and (-not $config.noChanges)) { return }
 
-                if ([string]::IsNullOrWhiteSpace($config.apiKey)) { $randomKey = Get-RandomString }
-                else { $randomKey = $config.apiKey }
+    $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
+    $settings = Get-MergedAppSettings $developmentSettingsFile
 
-                if ([string]::IsNullOrWhiteSpace($config.apiSecret)) { $randomSecret = Get-RandomString }
-                else { $randomSecret = $config.apiSecret }
-
-                $apiClient | Add-Member -MemberType NoteProperty -Name 'Key' -Value $randomKey
-                $apiClient | Add-Member -MemberType NoteProperty -Name 'Secret' -Value $randomSecret
-
-                $apiClient | Format-List | Out-Host
-
-                if ($apiClient.ApiClientName -eq $config.apiClientNameBootstrap) {
-                    $config.apiBootstrapKey = $randomKey
-                    $config.apiBootstrapSecret = $randomSecret
+    Write-Host "Editing $developmentSettingsFile"
+    foreach ($feature in $settings.ApiSettings.Features) {
+        if ($feature.Name -eq "Extensions") {
+            if ($config.noExtensions) {
+                Write-Host "Disabling Extensions..."
+                if (-not [string]::IsNullOrWhiteSpace($feature.IsEnabled)) {
+                    $feature.IsEnabled = "false"
                 }
-                if ($apiClient.ApiClientName -eq $config.apiClientNameSandbox) {
-                    $config.apiSandboxKey = $randomKey
-                    $config.apiSandboxSecret = $randomSecret
-                }
-
-                $testHarnessJsonConfigLEAs = $config.testHarnessJsonConfigLEAs
-                if (-not ($null -eq $testHarnessJsonConfigLEAs) -and ($testHarnessJsonConfigLEAs.Length -gt 0)) {
-                    $apiClient.LocalEducationOrganizations = $testHarnessJsonConfigLEAs
+            }
+        }
+        elseif ($feature.Name -eq "ChangeQueries") {
+            if ($config.noChanges) {
+                Write-Host "Disabling Change Queries..."
+                if (-not [string]::IsNullOrWhiteSpace($feature.IsEnabled)) {
+                    $feature.IsEnabled = "false"
                 }
             }
         }
     }
 
-    $bulkLoadTempJsonConfig = $config.bulkLoadTempJsonConfig
-    $content | ConvertTo-Json -Depth 10 | Set-Content $bulkLoadTempJsonConfig -Encoding UTF8
-
-    Write-Host "Created Temp Config: $bulkLoadTempJsonConfig"
-}
-
-function Invoke-SetTestHarnessConfig {
-    param(
-        [hashtable] $config = (Get-Configuration)
-    )
-
-    if ((-not $config.noExtensions) -and (-not $config.noChanges)) { return }
-
-    $testHarnessAppConfig = (Get-ChildItem -Recurse $config.testHarnessAppConfig).FullName
-    Write-Host "Editing $testHarnessAppConfig"
-
-    $jsonFromFile = (Get-Content $testHarnessAppConfig -Raw -Encoding UTF8 | ConvertFrom-JSON)
-	
-	foreach ($feature in $jsonFromFile.ApiSettings.Features) {
-		if ($feature.Name -eq "Extensions") {
-			if ($config.noExtensions) {
-				Write-Host "Disabling Extensions..."
-				if (-not [string]::IsNullOrWhiteSpace($feature.IsEnabled)) {
-					$feature.IsEnabled = "false"
-				}
-			}
-		}
-		elseif ($feature.Name -eq "ChangeQueries") {
-			if ($config.noChanges) {
-				Write-Host "Disabling Change Queries..."
-				if (-not [string]::IsNullOrWhiteSpace($feature.IsEnabled)) {
-					$feature.IsEnabled = "false"
-				}
-			}
-		}
-	}
-	
-	$jsonFromFile | ConvertTo-Json -Depth 10 | Set-Content $testHarnessAppConfig -Encoding UTF8
+    New-JsonFile $developmentSettingsFile $settings -Overwrite
 }
 
 Export-ModuleMember -function Add-RandomKeySecret,

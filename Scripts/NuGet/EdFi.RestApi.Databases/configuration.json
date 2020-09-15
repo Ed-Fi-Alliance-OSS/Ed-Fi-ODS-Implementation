@@ -1,11 +1,10 @@
-{
+﻿{
   "ConnectionStrings": {
     "EdFi_Ods": "",
-    "EdFi_Admin": "",
     "EdFi_Security": "",
-    "EdFi_master": ""
+    "EdFi_Admin": "",
+    "EdFi_Master": ""
   },
-  "AllowedHosts": "*",
   "databaseTemplate": {
     "PopulatedTemplateScript": "",
     "MinimalTemplateScript": ""
@@ -13,9 +12,6 @@
   "ApiSettings": {
     "Mode": "sandbox",
     "Engine": "",
-    "EncryptSecrets": false,
-    "DisableSecurity": false,
-    "UseReverseProxyHeaders": false,
     "OdsTokens": [],
     "Features": [
       {
@@ -62,13 +58,7 @@
     "ExcludedExtensions": []
   },
   "Plugin": {
-    "Folder": "../../plugins",
+    "Folder": "",
     "Scripts": []
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Debug",
-      "Microsoft": "Warning"
-    }
   }
 }

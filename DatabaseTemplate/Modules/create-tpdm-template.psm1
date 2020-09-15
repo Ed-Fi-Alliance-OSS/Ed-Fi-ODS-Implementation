@@ -91,44 +91,37 @@ function Initialize-TPDMTemplate {
         createByRestoringBackup = $createByRestoringBackup
     }
 
-    Merge-Configurations $global:templateConfiguration $paramConfig
-    Set-TemplateConfigurationScript { Get-TPDMConfiguration }
-    $config = (Get-TemplateConfiguration)
+    $config = Merge-Hashtables (Get-TPDMConfiguration), $paramConfig
     $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
 
     if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-PopulatedTemplateBackupPath $config.configFile) }
 
-    $script:tasks = @(
-        'Invoke-SampleXmlValidation'
-        'New-TempDirectory'
-        'Copy-BootstrapInterchangeFiles'
-        'Copy-SampleInterchangeFiles'
-        'Copy-SchemaFiles'
-        'Invoke-SetTestHarnessConfig'
-        'Add-RandomKeySecret'
-        'Invoke-RestoreLoadToolsPackages'
-        'Invoke-BuildLoadTools'
-        'New-DatabaseTemplate'
-        'Assert-DisallowedSchemas'
-        'Invoke-StartTestHarness'
-        'Invoke-LoadBootstrapData'
-        'Invoke-LoadSampleData'
-        'Stop-TestHarness'
-        'Backup-DatabaseTemplate'
-        'New-DatabaseTemplateNuspec'
-    )
-
     $script:result = @()
-    try {
-        $elapsed = Use-StopWatch {
-            foreach ($task in $tasks) {
-                $script:result += Invoke-Task -name $task -task { & $task }
-            }
+
+    $elapsed = Use-StopWatch {
+        try {
+            $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }
+            $script:result += Invoke-Task 'New-TempDirectory' { New-TempDirectory $config }
+            $script:result += Invoke-Task 'Copy-BootstrapInterchangeFiles' { Copy-BootstrapInterchangeFiles $config }
+            $script:result += Invoke-Task 'Copy-SampleInterchangeFiles' { Copy-SampleInterchangeFiles $config }
+            $script:result += Invoke-Task 'Copy-SchemaFiles' { Copy-SchemaFiles $config }
+            $script:result += Invoke-Task 'Invoke-SetTestHarnessConfig' { Invoke-SetTestHarnessConfig $config }
+            $script:result += Invoke-Task 'Add-RandomKeySecret' { Add-RandomKeySecret $config }
+            $script:result += Invoke-Task 'Invoke-RestoreLoadToolsPackages' { Invoke-RestoreLoadToolsPackages $config }
+            $script:result += Invoke-Task 'Invoke-BuildLoadTools' { Invoke-BuildLoadTools $config }
+            $script:result += Invoke-Task 'New-DatabaseTemplate' { New-DatabaseTemplate $config }
+            $script:result += Invoke-Task 'Assert-DisallowedSchemas' { Assert-DisallowedSchemas $config }
+            $script:result += Invoke-Task 'Invoke-StartTestHarness' { Invoke-StartTestHarness $config }
+            $script:result += Invoke-Task 'Invoke-LoadBootstrapData' { Invoke-LoadBootstrapData $config }
+            $script:result += Invoke-Task 'Invoke-LoadSampleData' { Invoke-LoadSampleData $config }
+            $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
+            $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
+            $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
         }
-    }
-    catch {
-        Stop-TestHarness
-        throw $_
+        catch {
+            Stop-TestHarness
+            throw $_
+        }
     }
 
     Test-Error

@@ -26,13 +26,13 @@ function Get-TemplateScriptNameFromConfig {
     $scriptName = ""
     $jsonFromFile = (Get-Content $configFileName -Raw -Encoding UTF8 | ConvertFrom-JSON)
     $databasetemplate=$jsonFromFile.databaseTemplate
-   
+
     foreach($object_properties in $databasetemplate.PsObject.Properties)
     {
         if($object_properties.Name -eq $configKey)
         {
             $scriptName = $object_properties.Value
-            break 
+            break
         }
     }
 
@@ -127,9 +127,30 @@ function Initialize-TemplateSourceFromScriptName {
     return Get-TemplateBackupPath
 }
 
+function Get-PopulatedTemplateBackupPathFromSettings {
+    [CmdletBinding()] param(
+        [parameter(ValueFromPipeline, Mandatory)]
+        [hashtable] $Settings
+    )
+
+    return Initialize-TemplateSourceFromScriptName $Settings.DatabaseTemplate.PopulatedTemplateScript
+}
+
+function Get-MinimalTemplateBackupPathFromSettings {
+    [CmdletBinding()] param(
+        [parameter(ValueFromPipeline, Mandatory)]
+        [hashtable] $Settings
+    )
+
+    return Initialize-TemplateSourceFromScriptName $Settings.DatabaseTemplate.MinimalTemplateScript
+}
+
+
 Export-ModuleMember -Function Get-MinimalTemplateBackupPath,
 Get-PopulatedTemplateBackupPath,
 Get-EdFiDefaultMinimalTemplateBackupPath,
 Get-EdFiDefaultPopulatedTemplateBackupPath,
 Get-TemplateBackupPath,
-Get-TemplateScripts -Alias *
+Get-TemplateScripts,
+Get-PopulatedTemplateBackupPathFromSettings,
+Get-MinimalTemplateBackupPathFromSettings
