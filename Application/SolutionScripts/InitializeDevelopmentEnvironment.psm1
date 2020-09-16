@@ -63,7 +63,7 @@ function Initialize-DevelopmentEnvironment {
         Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
     .parameter NoCredentials
         Skip the Add-SandboxCredentials task which is used to generate random credentials for the SandboxAdmin website.
-    .parameter RunPostman
+    .parameter RunPester
         Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
     .parameter RunPostman
         Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.

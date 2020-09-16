@@ -76,16 +76,13 @@ function Initialize-DeploymentEnvironment {
         else {
             & $pathResolver ($PathResolverRepositoryOverride.Split(';'))
         }
-
-        if ($Engine -eq 'SQLServer') { Set-DeployConfigFile (Join-Path $PSScriptRoot 'Databases.config') }
-        if ($Engine -eq 'PostgreSQL') { Set-DeployConfigFile (Join-Path $PSScriptRoot 'Databases.Npgsql.config') }
     }
 
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
+    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
+    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 
     Write-InvocationInfo $MyInvocation
@@ -187,7 +184,7 @@ function Get-DeploymentSettings {
         from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = (Get-MergedAppSettings $script:deploymentSettingsFiles)
+    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles
 
     $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
