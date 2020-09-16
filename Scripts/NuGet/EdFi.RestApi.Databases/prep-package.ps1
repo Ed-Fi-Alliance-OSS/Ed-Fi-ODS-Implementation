@@ -81,6 +81,10 @@ $repoNuspecFiles = @(
     # Add the EdFi.Db.Deploy tool files
     Select-CumulativeRepositoryResolvedItems "tools\EdFi.Db.Deploy.exe"
     ((Select-CumulativeRepositoryResolvedItems -recurse "tools\.store\EdFi.Suite3.Db.Deploy" ) | Where-Object { -not $_.Name.EndsWith(".nupkg") })
+
+     # Add the License and Notices files
+    "$PSScriptRoot\..\..\..\LICENSE.txt"
+    "$PSScriptRoot\..\..\..\NOTICES.md"
 )
 Add-RepositoryFileToNuspec -nuspecPath $nuspecPath -file $repoNuspecFiles
 

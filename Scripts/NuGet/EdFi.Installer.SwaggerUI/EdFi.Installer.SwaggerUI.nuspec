@@ -17,5 +17,6 @@
     <file src="Ed-Fi-ODS/**" />
     <file src="Ed-Fi-ODS-Implementation/**" />
     <file src="../../../LICENSE.txt" />
+    <file src="../../../NOTICES.md" />
   </files>
 </package>
