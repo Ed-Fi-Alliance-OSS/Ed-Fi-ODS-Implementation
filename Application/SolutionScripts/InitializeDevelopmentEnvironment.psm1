@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.0.0"
-    codeGen = "5.1.0-b10751"
+    codeGen  = "5.1.0-b10751"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -121,6 +121,7 @@ function Initialize-DevelopmentEnvironment {
                 Engine    = $Engine
             }
             DeploymentSettings = @{
+                Engine                  = $Engine
                 UsePlugins              = $UsePlugins.IsPresent
                 MinimalTemplateSuffix   = 'Ods_Minimal_Template'
                 PopulatedTemplateSuffix = 'Ods_Populated_Template'
@@ -371,7 +372,7 @@ function Reset-EmptySandboxDatabase {
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
         $params = @{
-            engine       = $settings.ApiSettings.engine
+            engine       = $settings.DeploymentSettings.engine
             csb          = $connectionString
             database     = $odsDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
@@ -387,7 +388,7 @@ function Reset-TestAdminDatabase {
         $settings = Get-DeploymentSettings
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
         $params = @{
-            engine       = $settings.ApiSettings.engine
+            engine       = $settings.DeploymentSettings.engine
             csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Admin_Test'
             database     = $settings.DeploymentSettings.DatabaseTypes.Admin
             filePaths    = $settings.DeploymentSettings.FilePaths
@@ -407,7 +408,7 @@ function Reset-TestSecurityDatabase {
         $settings = Get-DeploymentSettings
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
         $params = @{
-            engine       = $settings.ApiSettings.engine
+            engine       = $settings.DeploymentSettings.engine
             csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Security_Test'
             database     = $settings.DeploymentSettings.DatabaseTypes.Security
             filePaths    = $settings.DeploymentSettings.FilePaths
@@ -432,7 +433,7 @@ function Reset-TestPopulatedTemplateDatabase {
         # always use Grand Bend data for the test database
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
-            engine                  = $settings.ApiSettings.engine
+            engine                  = $settings.DeploymentSettings.engine
             csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens "$($settings.DeploymentSettings.populatedTemplateSuffix)_Test"
             database                = $odsDatabaseType
             filePaths               = $settings.DeploymentSettings.FilePaths
@@ -452,7 +453,7 @@ function Invoke-CodeGen {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        & $tool -r $repositoryRoot -e $settings.ApiSettings.engine | Write-Host
+        & $tool -r $repositoryRoot -e $settings.DeploymentSettings.engine | Write-Host
     }
 }
 

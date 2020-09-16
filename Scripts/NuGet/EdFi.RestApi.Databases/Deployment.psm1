@@ -210,7 +210,7 @@ $deploymentTasks = @{
         $adminDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Admin
         $adminConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$adminDatabaseType]
         $params = @{
-            engine       = $settings.ApiSettings.engine
+            engine       = $settings.DeploymentSettings.engine
             csb          = $settings.DeploymentSettings.csbs[$adminConnectionStringKey]
             database     = $adminDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
@@ -224,7 +224,7 @@ $deploymentTasks = @{
         $securityDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Security
         $securityConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$securityDatabaseType]
         $params = @{
-            engine       = $settings.ApiSettings.engine
+            engine       = $settings.DeploymentSettings.engine
             csb          = $settings.DeploymentSettings.csbs[$securityConnectionStringKey]
             database     = $securityDatabaseType
             filePaths    = $settings.DeploymentSettings.FilePaths
@@ -249,7 +249,7 @@ $deploymentTasks = @{
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) {
             $params = @{
-                engine                  = $settings.ApiSettings.engine
+                engine                  = $settings.DeploymentSettings.engine
                 csb                     = $csb
                 database                = $odsDatabaseType
                 filePaths               = $settings.DeploymentSettings.FilePaths
@@ -262,7 +262,7 @@ $deploymentTasks = @{
     }
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
-        if ($settings.ApiSettings.engine -ne 'SQLServer') { return; }
+        if ($settings.DeploymentSettings.engine -ne 'SQLServer') { return; }
         $masterConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Master]
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
 
@@ -276,7 +276,7 @@ $deploymentTasks = @{
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         $params = @{
-            engine                  = $settings.ApiSettings.engine
+            engine                  = $settings.DeploymentSettings.engine
             csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.minimalTemplateSuffix
             database                = $odsDatabaseType
             filePaths               = $settings.DeploymentSettings.FilePaths
@@ -292,7 +292,7 @@ $deploymentTasks = @{
         $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
-            engine                  = $settings.ApiSettings.engine
+            engine                  = $settings.DeploymentSettings.engine
             csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.populatedTemplateSuffix
             database                = $odsDatabaseType
             filePaths               = $settings.DeploymentSettings.FilePaths
