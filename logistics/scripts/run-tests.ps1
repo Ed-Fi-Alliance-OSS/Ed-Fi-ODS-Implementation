@@ -8,8 +8,7 @@ Import-Module -Force -Global "$PSScriptRoot\modules\path-resolver.psm1"
 $testAssemblies = (Get-ChildItem -recurse -File $((Get-RootBasedRepositoryPath "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
 $reports = (Get-RootBasedRepositoryPath "ed-fi-ods-implementation") + "\reports\"
 
-if (-not (Test-Path $reports))
-{
+if (-not (Test-Path $reports)) {
     New-Item -ItemType Directory -Force -Path $reports
 }
 
@@ -22,16 +21,17 @@ foreach ($assembly in $testAssemblies) {
 
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
 
-    if ($LASTEXITCODE = 1)
-    {
+    if ($LASTEXITCODE = 1) {
         $failed = $true
     }
 }
 
-if ($failed)
-{
+if ($failed) {
     $EXITCODE = 1
 }
 else {
     $EXITCODE = 0
 }
+
+Write-Host ("EXITCODE = " + $EXITCODE)
+exit $EXITCODE
