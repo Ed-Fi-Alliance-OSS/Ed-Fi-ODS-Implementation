@@ -20,8 +20,6 @@ foreach ($assembly in $testAssemblies) {
 
     $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
 
-    Write-Host ("Report Name = " + $reportName)
-
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
 
     if ($LASTEXITCODE = 1)
@@ -37,5 +35,3 @@ if ($failed)
 else {
     $EXITCODE = 0
 }
-
-Write-Host ("EXITCODE = " + $EXITCODE)
