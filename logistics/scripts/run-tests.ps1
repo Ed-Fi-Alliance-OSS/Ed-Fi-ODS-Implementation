@@ -19,5 +19,5 @@ foreach ($assembly in $testAssemblies) {
 
     $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
 
-    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName) --verbosity detailed
+    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
 }
