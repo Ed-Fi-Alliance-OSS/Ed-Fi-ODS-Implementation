@@ -45,7 +45,10 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.Configure<UserOptions>(Configuration.GetSection("Users"));
 
-            services.AddControllersWithViews(options => { options.Filters.Add(typeof(SetCurrentUserInfoAttribute)); })
+            services.AddControllersWithViews(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
+                .AddControllersAsServices();
+
+            services.AddMvc(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
                 .AddControllersAsServices();
 
             services.AddHttpContextAccessor();
@@ -84,9 +87,9 @@ namespace EdFi.Ods.SandboxAdmin
 
             app.UseRouting();
 
-            app.UseAuthentication();
+            // app.UseAuthentication();
 
-            app.UseAuthorization();
+            // app.UseAuthorization();
 
             app.UseEndpoints(
                 endpoints =>

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {
+    [Route("")]
     public class HomeController : Controller
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

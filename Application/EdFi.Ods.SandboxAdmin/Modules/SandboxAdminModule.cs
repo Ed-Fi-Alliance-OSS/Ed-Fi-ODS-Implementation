@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.SandboxAdmin.Modules
 {
@@ -34,19 +35,15 @@ namespace EdFi.Ods.SandboxAdmin.Modules
             builder.RegisterType<AdminDatabaseConnectionStringProvider>()
                 .As<IAdminDatabaseConnectionStringProvider>();
 
-            List<Parameter> lstParams = new List<Parameter>();
-            lstParams.Add(new NamedParameter("value", ApiConfigurationConstants.SqlServer));
-            lstParams.Add(new NamedParameter("displayName", "SQL Server"));
-            lstParams.Add(new NamedParameter("scriptsFolderName", "MsSql"));
-            builder.RegisterType<DatabaseEngine>().WithParameters(lstParams);
+            builder.Register(c => DatabaseEngine.TryParseEngine(c.Resolve<IConfiguration>().GetSection("Engine").Value));
 
             builder.RegisterType<ConfigConnectionStringsProvider>()
                 .As<IConfigConnectionStringsProvider>();
 
-            builder.RegisterType<IdentityContextFactory>()
-                .As<IIdentityContextFactory>();
+            // builder.RegisterType<IdentityContextFactory>()
+            //     .As<IIdentityContextFactory>();
 
-            builder.RegisterType<UserManager<IdentityUser>>();
+            // builder.RegisterType<UserManager<IdentityUser>>();
 
             //builder.RegisterType<UserStore<IdentityUser>>()
             //    .As<IUserStore<IdentityUser>>();

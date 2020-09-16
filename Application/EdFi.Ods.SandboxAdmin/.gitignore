@@ -1,2 +1,3 @@
 appsettings.development.json
 appsettings.user.json
+*.log

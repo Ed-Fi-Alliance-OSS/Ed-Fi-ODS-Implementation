@@ -32,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="bundleconfig.json">
+    <Content Update="log4net.config">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
