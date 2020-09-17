@@ -109,6 +109,7 @@ tools/*
 Ed-Fi-Db-Deploy.log
 EdFi\.CodeGen\.log
 downloads/
+reports/
 
 # Test Harness
 node_modules/
