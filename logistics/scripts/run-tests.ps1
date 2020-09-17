@@ -5,8 +5,8 @@
 
 & "$PSScriptRoot\modules\load-path-resolver.ps1"
 
-$testAssemblies = (Get-ChildItem -recurse -File $((Get-RootBasedRepositoryPath "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
-$reports = (Get-RootBasedRepositoryPath "ed-fi-ods-implementation") + "\reports\"
+$testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
+$reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
 
 if (Test-Path $reports) {
     Remove-Item -Path $reports -Force -Recurse

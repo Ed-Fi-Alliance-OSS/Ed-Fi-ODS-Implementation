@@ -651,7 +651,6 @@ $exportFunction = @(
     'Get-RepositoryRoot'
     'Get-RepositoryNames'
     'Get-RepositoryNameFromPath'
-    'Get-RootBasedRepositoryPath'
     'New-Nuspec'
     'Add-FileToNuspec'
     'Add-RepositoryFileToNuspec'

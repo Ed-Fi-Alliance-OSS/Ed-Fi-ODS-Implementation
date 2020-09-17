@@ -99,7 +99,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSmokeTest,
 
-        [switch] $UsePlugins
+        [switch] $UsePlugins,
+
+        [switch] $RunDotnetTest
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -160,6 +162,8 @@ function Initialize-DevelopmentEnvironment {
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
+
+        if ($RunDotnetTest) { $script:result += Invoke-DotnetTest }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -490,6 +494,12 @@ function Invoke-PostmanIntegrationTests {
 function Invoke-SmokeTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         & (Get-RepositoryResolvedPath "logistics\scripts\run-smoke-tests.ps1")
+    }
+}
+
+function Invoke-DotnetTest {
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        & (Get-RepositoryResolvedPath "logistics\scripts\run-tests.ps1")
     }
 }
 
