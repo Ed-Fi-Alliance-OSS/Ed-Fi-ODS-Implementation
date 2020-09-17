@@ -11,6 +11,7 @@ using EdFi.Ods.SandboxAdmin.Services;
 using EdFi.Ods.Sandbox.Repositories;
 using log4net;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.SandboxAdmin.Initialization
 {
@@ -26,18 +27,18 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
         private readonly UserOptions _userOptions;
 
         public InitializationEngine(
-            UserOptions userOptions,
+            IOptions<UserOptions> userOptions,
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
-            IDefaultApplicationCreator applicationCreator,
-            IIdentityProvider identityProvider
+            IDefaultApplicationCreator applicationCreator
+            //IIdentityProvider identityProvider
             )
         {
-            _userOptions = userOptions;
+            _userOptions = userOptions.Value;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
-            _identityProvider = identityProvider;
+            //_identityProvider = identityProvider;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }
@@ -78,7 +79,7 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
 
                     if (_userOptions.Admin)
                     {
-                        roles = new string[] {"Administrator"};
+                        roles = new string[] { "Administrator" };
                     }
 
                     _log.Debug($"Adding user: {_userOptions} to roles:  {string.Join(",", roles)} in asp net security.");

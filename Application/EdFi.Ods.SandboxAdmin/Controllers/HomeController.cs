@@ -28,24 +28,26 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
 
         public ActionResult Index()
         {
-            var user = _httpContextAccessor.HttpContext.User;
+            //var user = _httpContextAccessor.HttpContext.User;
 
-            var isLoggedIn = user.Identity.IsAuthenticated;
-            var shouldLogin = !isLoggedIn;
-            bool isAdmin = false;
+            //var isLoggedIn = user.Identity.IsAuthenticated;
+            //var shouldLogin = !isLoggedIn;
+            //bool isAdmin = false;
+            var shouldLogin = true;
+            bool isAdmin = true;
 
-            try
-            {
-                isAdmin = isLoggedIn && user.IsInRole("Administrator");
-            }
-            catch (InvalidOperationException)
-            {
-                // Ignore InvalidOperationException if the user account was deleted
-                // Could potentially catch this by also checking WebSecurity.UserExists(user.Identity.Name)
-                // as part of IsLoggedIn, but this scenario is only likely to happen (and throw) in a test environment
-                // Also set that the user should login, to render correctly and give the not found error on login
-                shouldLogin = true;
-            }
+            //try
+            //{
+            //    isAdmin = isLoggedIn && user.IsInRole("Administrator");
+            //}
+            //catch (InvalidOperationException)
+            //{
+            //    // Ignore InvalidOperationException if the user account was deleted
+            //    // Could potentially catch this by also checking WebSecurity.UserExists(user.Identity.Name)
+            //    // as part of IsLoggedIn, but this scenario is only likely to happen (and throw) in a test environment
+            //    // Also set that the user should login, to render correctly and give the not found error on login
+            //    shouldLogin = true;
+            //}
 
             var model = new IndexViewModel
             {

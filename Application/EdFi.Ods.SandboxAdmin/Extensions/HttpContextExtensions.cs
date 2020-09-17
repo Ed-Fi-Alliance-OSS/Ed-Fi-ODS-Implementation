@@ -44,7 +44,7 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
             var absolutePathBuilder = new UriBuilder
             {
                 Scheme = request.Scheme(_useProxyHeaders.Value),
-                Host = request.Host(_useProxyHeaders.Value),
+                Host = request.Host.Host,
                 Port = request.Port(_useProxyHeaders.Value),
                 Path = path,
                 Query = query,

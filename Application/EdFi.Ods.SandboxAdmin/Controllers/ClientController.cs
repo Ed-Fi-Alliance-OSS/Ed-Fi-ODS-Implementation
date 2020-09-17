@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ClientController : Controller
     {
         public ActionResult Index()

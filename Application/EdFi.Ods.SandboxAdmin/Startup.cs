@@ -5,10 +5,13 @@ using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Container;
+using EdFi.Ods.Sandbox.Admin;
+using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.SandboxAdmin.Filters;
 using EdFi.Ods.SandboxAdmin.Helpers;
 using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Ods.SandboxAdmin.Modules;
+using Hangfire;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,12 +46,26 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.AddSingleton(Configuration);
 
-            services.Configure<UserOptions>(Configuration.GetSection("Users"));
+            // Add Hangfire services.
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSqlServerStorage(Configuration.GetConnectionString("EdFi_Admin")));
 
-            services.AddControllersWithViews(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
+            // Add the processing server as IHostedService
+            services.AddHangfireServer();
+
+            services.Configure<UserOptions>(Configuration.GetSection("User"));
+
+            //services.AddControllersWithViews(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
+            //    .AddControllersAsServices();
+            services.AddControllersWithViews()
                 .AddControllersAsServices();
 
-            services.AddMvc(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
+            //services.AddMvc(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
+            //    .AddControllersAsServices();
+            services.AddMvc()
                 .AddControllersAsServices();
 
             services.AddHttpContextAccessor();
@@ -68,7 +85,7 @@ namespace EdFi.Ods.SandboxAdmin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IBackgroundJobClient backgroundJobs)
         {
             loggerFactory.AddLog4Net();
 
@@ -84,6 +101,14 @@ namespace EdFi.Ods.SandboxAdmin
             }
 
             app.UseStaticFiles();
+
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
+
+            ILifetimeScope autofacRoot = app.ApplicationServices.GetAutofacRoot();
+            var backgroundJob = autofacRoot.Resolve<IBackgroundJobService>();
+
+            backgroundJob.Configure();
 
             app.UseRouting();
 
