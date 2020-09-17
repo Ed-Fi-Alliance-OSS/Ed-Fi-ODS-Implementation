@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-Import-Module -Force -Global "$PSScriptRoot\modules\path-resolver.psm1"
+& "$PSScriptRoot\modules\load-path-resolver.ps1"
 
 $testAssemblies = (Get-ChildItem -recurse -File $((Get-RootBasedRepositoryPath "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
 $reports = (Get-RootBasedRepositoryPath "ed-fi-ods-implementation") + "\reports\"
