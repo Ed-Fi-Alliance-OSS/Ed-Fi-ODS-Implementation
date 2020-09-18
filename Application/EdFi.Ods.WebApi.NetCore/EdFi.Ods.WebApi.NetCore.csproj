@@ -12,12 +12,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="log4net.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="hibernate.cfg.xml">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="log4net.config" CopyToPublishDirectory="PreserveNewest" />
+    <None Update="hibernate.cfg.xml" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="EdFi.Ods.WebApi.NetCore.nuspec" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>
