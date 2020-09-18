@@ -309,10 +309,6 @@
       <Project>{2a1d92bc-c388-425e-aeee-0668bf472ccc}</Project>
       <Name>EdFi.Ods.Api</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.ChangeQueries\EdFi.Ods.ChangeQueries.csproj">
-      <Project>{43c46c03-b216-4f2d-8b57-7bcef0212767}</Project>
-      <Name>EdFi.Ods.ChangeQueries</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj">
       <Project>{8d7cb143-8818-47a8-89e8-702d485e8da0}</Project>
       <Name>EdFi.Ods.Common</Name>
