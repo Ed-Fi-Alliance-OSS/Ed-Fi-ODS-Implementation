@@ -155,7 +155,7 @@ function Initialize-DevelopmentEnvironment {
                 OdsTokens     = $OdsTokens
                 DropDatabases = $true
                 NoDuration    = $true
-                UsePlugins    = $UsePlugins
+                UsePlugins    = $UsePlugins.IsPresent
             }
             $script:result += Initialize-DeploymentEnvironment @params
         }

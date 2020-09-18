@@ -90,6 +90,7 @@ function Initialize-DeploymentEnvironment {
     Clear-Error
 
     $settings = @{
+        ApiSettings = @{ }
         DeploymentSettings = @{
             InstallType             = $InstallType
             Engine                  = $Engine
