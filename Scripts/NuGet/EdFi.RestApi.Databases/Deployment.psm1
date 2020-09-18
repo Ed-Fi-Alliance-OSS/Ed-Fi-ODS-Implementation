@@ -13,30 +13,30 @@ $script:deploymentSettingsOverrides = @{ }
 function Initialize-DeploymentEnvironment {
     <#
     .description
-    Deploy databases from the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
+        Deploy databases from the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
     .parameter PathResolverRepositoryOverride
-    A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-Ods-Implementation'
+        A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-Ods-Implementation'
     .parameter InstallType
-    The type of deployment to install: 'Sandbox', 'SharedInstance' or 'YearSpecific'
+        The type of deployment to install: 'Sandbox', 'SharedInstance' or 'YearSpecific'
     .parameter Engine
-    The database engine provider, either 'SQLServer' or 'PostgreSQL'
+        The database engine provider, either 'SQLServer' or 'PostgreSQL'
     .parameter ExcludedExtensionSources
-    A comma separated string of extensions sources to exclude from database deployment.
-    Any values specified will be excluded from the resolved extension sources list.
-    If no sources are passed then any resolved sources found by the artifact source resolver will be used.
+        A comma separated string of extensions sources to exclude from database deployment.
+        Any values specified will be excluded from the resolved extension sources list.
+        If no sources are passed then any resolved sources found by the artifact source resolver will be used.
     .parameter EnabledFeatureNames
-    Any subtype features specified will be enabled.
+        Any subtype features specified will be enabled.
     .parameter OdsTokens
     A semicolon-separated string of tokens to use when creating Ods database instances.
     For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
-    For a district specific deployment a valid value could be '255901;255902'.
-    .PARAMETER OdsDatabaseTemplateName
-    Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
+        For a district specific deployment a valid value could be '255901;255902'.
+    .parameter OdsDatabaseTemplateName
+        Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
     .parameter DropDatabases (Alias Transient)
-    If supplied the database will be dropped without being backed up before being recreated from scripts and/or migrations.
-    By default databases are not dropped and will be backup before being migrated when needed.
+        If supplied the database will be dropped without being backed up before being recreated from scripts and/or migrations.
+        By default databases are not dropped and will be backup before being migrated when needed.
     .parameter NoDuration
-    Turn off duration display
+        Turn off duration display
     #>
     param(
         [string] $PathResolverRepositoryOverride,
@@ -95,16 +95,16 @@ function Initialize-DeploymentEnvironment {
             Engine                  = $Engine
             OdsTokens               = $OdsTokens
             OdsDatabaseTemplateName = $OdsDatabaseTemplateName
-            DropDatabases           = $DropDatabases
-            NoDuration              = $NoDuration
-            UsePlugins              = $UsePlugins
+            DropDatabases           = $DropDatabases.IsPresent
+            NoDuration              = $NoDuration.IsPresent
+            UsePlugins              = $UsePlugins.IsPresent
             MinimalTemplateSuffix   = 'Ods_Minimal_Template'
             PopulatedTemplateSuffix = 'Ods_Populated_Template'
         }
     }
-    if ($ExcludedExtensionSources) { $settings.DeploymentSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
-    if ($EnabledFeatureNames) { $settings.DeploymentSettings.EnabledFeatureNames = $EnabledFeatureNames }
     Set-DeploymentSettings $settings
+    if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
+    if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
 
     $script:result = @()
 
