@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:54254",
+      "applicationUrl": "http://localhost:54746",
       "sslPort": 0
     }
   },
@@ -12,16 +12,12 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+      "commandLineArgs": "--environment Development"
     },
     "EdFi.Ods.WebApi.NetCore": {
       "commandName": "Project",
       "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      },
+      "commandLineArgs": "--environment Development",
       "applicationUrl": "http://localhost:54746"
     }
   }
