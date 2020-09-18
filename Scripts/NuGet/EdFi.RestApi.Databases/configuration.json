@@ -5,9 +5,9 @@
     "EdFi_Admin": "",
     "EdFi_Master": ""
   },
-  "databaseTemplate": {
-    "PopulatedTemplateScript": "",
-    "MinimalTemplateScript": ""
+  "DatabaseTemplate": {
+    "MinimalTemplateScript": "EdFiMinimalTemplate",
+    "PopulatedTemplateScript": "GrandBend"
   },
   "ApiSettings": {
     "Mode": "sandbox",
