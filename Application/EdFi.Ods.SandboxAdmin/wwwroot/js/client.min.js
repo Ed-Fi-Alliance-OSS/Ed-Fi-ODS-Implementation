@@ -314,7 +314,7 @@ function ClientsViewModel() {
     self.addApplicationClicked = function () {
         self.addApplicationDialog.show({ callback: self.doAddClient });
     };
-    debugger;
+
     // Load the original data
     self.getData();
 }

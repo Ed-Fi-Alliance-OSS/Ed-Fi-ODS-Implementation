@@ -23,16 +23,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         /// </summary>
         public void Configure()
         {
-            //if (!_initializationModel.Enabled)
-            //{
-            //    return;
-            //}
-
-            // initial creation of roles, users, and sandboxes at server startup for sql server only
-            //var id1 = BackgroundJob.Enqueue(() => _engine.CreateIdentityRoles());
-            //BackgroundJob.ContinueJobWith(id1, () => _engine.CreateIdentityUsers());
-
-
             // add vendors and sandboxes
             var id2 = BackgroundJob.Enqueue(() => _engine.CreateVendors());
             var id3 = BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());

@@ -28,17 +28,11 @@ namespace EdFi.Ods.SandboxAdmin.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            //builder.RegisterType<SecurityService>()
-            //    .As<ISecurityService>();
-
             builder.RegisterType<ConfigurationRoot>()
                 .As<IConfigurationRoot>();
 
             builder.RegisterType<ClientAppRepo>()
                 .As<IClientAppRepo>();
-
-            //builder.RegisterType<IdentityProvider>()
-            //    .As<IIdentityProvider>();
 
             builder.RegisterType<UsersContextFactory>()
                 .As<IUsersContextFactory>();
@@ -78,16 +72,6 @@ namespace EdFi.Ods.SandboxAdmin.Modules
 
             builder.RegisterType<BackgroundJobService>()
                 .As<IBackgroundJobService>();
-
-            //builder.RegisterType<SignInManager<IdentityUser>>();
-
-            //builder.RegisterType<IdentityContextFactory>()
-            //    .As<IIdentityContextFactory>();
-
-            //builder.RegisterType<UserManager<IdentityUser>>();
-
-            //builder.RegisterType<UserStore<IdentityUser>>()
-            //    .As<IUserStore<IdentityUser>>();
         }
     }
 }

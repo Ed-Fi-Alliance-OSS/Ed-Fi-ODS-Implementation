@@ -8,29 +8,30 @@ using EdFi.Ods.SandboxAdmin.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace EdFi.Ods.SandboxAdmin.Filters
 {
     public class SetCurrentUserInfoAttribute : ActionFilterAttribute
     {
-        private readonly ISecurityService _securityServiceLocator;
+        private readonly Func<ISecurityService> _securityServiceLocator;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         //NOTE:  This uses a Func to supply the security service rather than normal constructor injection.  This allows
         //       us to create the filter during App_Start, but wait until the request cycle to resolve the dependencies.
         //       This allows us to use LifecyclePerWebRequest with the Castle container.  Castle can't handle resolving
         //       PerWebRequest dependencies during App_Start.
-        public SetCurrentUserInfoAttribute(ISecurityService securityServiceLocator
+        public SetCurrentUserInfoAttribute(Func<ISecurityService> securityServiceLocator
             , IHttpContextAccessor httpContextAccessor)
         {
             _securityServiceLocator = securityServiceLocator;
             _httpContextAccessor = httpContextAccessor;
         }
 
-        //private ISecurityService SecurityService
-        //{
-        //    get { return _securityServiceLocator(); }
-        //}
+        private ISecurityService SecurityService
+        {
+            get { return _securityServiceLocator(); }
+        }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
@@ -40,7 +41,7 @@ namespace EdFi.Ods.SandboxAdmin.Filters
             }
 
             string currentUserName = _httpContextAccessor.HttpContext.User?.Identity?.Name;
-            var userLookup = _securityServiceLocator.GetCurrentUser(currentUserName);
+            var userLookup = SecurityService.GetCurrentUser(currentUserName);
             ((Controller)(filterContext.Controller)).ViewBag.UserLookup = userLookup;
         }
     }

@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Threading.Tasks;
 using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Ods.SandboxAdmin.Models.Client;
@@ -17,7 +16,6 @@ using EdFi.Ods.SandboxAdmin.Services;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.Sandbox;
 using EdFi.Ods.Sandbox.Provisioners;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
@@ -25,7 +23,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IClientCreator _clientCreator;
@@ -34,17 +32,14 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         private readonly ISecurityService _securityService;
 
         public ClientController(
-            IClientAppRepo repository)
-        //ISecurityService securityService,
-        //ISandboxProvisioner sandboxProvisioner,
-        //IClientCreator clientCreator)
+            IClientAppRepo repository,
+            ISandboxProvisioner sandboxProvisioner,
+            IClientCreator clientCreator)
         {
             _repository = repository;
-            //_securityService = securityService;
-            //_sandboxProvisioner = sandboxProvisioner;
-            //_clientCreator = clientCreator;
+            _sandboxProvisioner = sandboxProvisioner;
+            _clientCreator = clientCreator;
         }
-
 
         private User UserProfile
         {
@@ -148,7 +143,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         }
 
         [HttpPost]
-        public async Task<IActionResult> PostClient(SandboxClientCreateModel sandboxClient)
+        public async Task<IActionResult> PostClient([FromBody] SandboxClientCreateModel sandboxClient)
         {
             if (ModelState["client.Name"] == null)
             {
@@ -192,8 +187,8 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             return Ok(ToClientIndexViewModel(test));
         }
 
-        [HttpDelete]
-        public void DeleteClient(string id)
+        [HttpDelete("{id}")]
+        public void DeleteClient([FromRoute] string id)
         {
             var client = _repository.GetClient(id);
 

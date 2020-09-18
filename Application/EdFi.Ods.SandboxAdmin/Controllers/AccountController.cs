@@ -6,7 +6,6 @@
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using System.Web;
 using EdFi.Ods.SandboxAdmin.Extensions;
 using EdFi.Ods.SandboxAdmin.Models;
 using EdFi.Ods.Sandbox.Repositories;
@@ -335,8 +334,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         }
 
         [HttpPost]
-
-        //        [ValidateAntiForgeryToken]
+        //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

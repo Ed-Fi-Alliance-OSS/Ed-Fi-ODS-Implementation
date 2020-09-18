@@ -32,13 +32,11 @@ namespace EdFi.Ods.SandboxAdmin.Initialization
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             IDefaultApplicationCreator applicationCreator
-            //IIdentityProvider identityProvider
             )
         {
             _userOptions = userOptions.Value;
             _clientAppRepo = clientAppRepo;
             _clientCreator = clientCreator;
-            //_identityProvider = identityProvider;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
         }

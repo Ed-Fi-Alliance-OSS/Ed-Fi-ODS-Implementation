@@ -9,15 +9,15 @@
 @using EdFi.Ods.SandboxAdmin.Services
 <!DOCTYPE html>
 @{
-    bool isAuthenticated = true;
+    bool isAuthenticated = false;
     string userName = string.Empty;
 
-    //UserLookupResult userLookup = ViewBag.UserLookup;
-    //if (userLookup.HasCurrentUser)
-    //{
-    //    isAuthenticated = true;
-    //    userName = userLookup.CurrentUser.FullName;
-    //}
+    UserLookupResult userLookup = ViewBag.UserLookup;
+    if (userLookup != null && userLookup.HasCurrentUser)
+    {
+        isAuthenticated = true;
+        userName = userLookup.CurrentUser.FullName;
+    }
 
     var hideOnAuthenticated = isAuthenticated
         ? "hidden hideWhenAuthenticated"
@@ -25,7 +25,12 @@
     var showOnAuthenticated = isAuthenticated
         ? "showWhenAuthenticated"
         : "hidden showWhenAuthenticated";
-    var isAdmin = true; //userLookup.IsAdmin;
+
+    var isAdmin = false;
+    if (userLookup != null)
+    {
+        isAdmin = userLookup.IsAdmin;
+    }
 }
 
 <html>

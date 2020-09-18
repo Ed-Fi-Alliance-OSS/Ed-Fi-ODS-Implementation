@@ -1,21 +1,11 @@
-using System;
-using System.Linq;
 using Autofac;
-using Autofac.Core;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Common.Container;
-using EdFi.Ods.Sandbox.Admin;
 using EdFi.Ods.Sandbox.Admin.Services;
-using EdFi.Ods.SandboxAdmin.Filters;
-using EdFi.Ods.SandboxAdmin.Helpers;
-using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Ods.SandboxAdmin.Modules;
 using Hangfire;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -58,19 +48,12 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.Configure<UserOptions>(Configuration.GetSection("User"));
 
-            //services.AddControllersWithViews(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
-            //    .AddControllersAsServices();
-            services.AddControllersWithViews()
-                .AddControllersAsServices();
+            services.AddControllersWithViews().AddControllersAsServices();
 
-            //services.AddMvc(options => options.Filters.Add(typeof(SetCurrentUserInfoAttribute)))
-            //    .AddControllersAsServices();
-            services.AddMvc()
-                .AddControllersAsServices();
+            services.AddMvc().AddControllersAsServices();
 
             services.AddHttpContextAccessor();
 
-            //services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
             services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
         }
 
@@ -111,10 +94,6 @@ namespace EdFi.Ods.SandboxAdmin
             backgroundJob.Configure();
 
             app.UseRouting();
-
-            // app.UseAuthentication();
-
-            // app.UseAuthorization();
 
             app.UseEndpoints(
                 endpoints =>
