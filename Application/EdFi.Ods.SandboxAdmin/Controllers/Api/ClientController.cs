@@ -25,7 +25,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class ClientController : ControllerBase
     {
         private readonly IClientCreator _clientCreator;
@@ -34,15 +34,15 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         private readonly ISecurityService _securityService;
 
         public ClientController(
-            IClientAppRepo repository,
-            ISecurityService securityService,
-            ISandboxProvisioner sandboxProvisioner,
-            IClientCreator clientCreator)
+            IClientAppRepo repository)
+        //ISecurityService securityService,
+        //ISandboxProvisioner sandboxProvisioner,
+        //IClientCreator clientCreator)
         {
             _repository = repository;
-            _securityService = securityService;
-            _sandboxProvisioner = sandboxProvisioner;
-            _clientCreator = clientCreator;
+            //_securityService = securityService;
+            //_sandboxProvisioner = sandboxProvisioner;
+            //_clientCreator = clientCreator;
         }
 
 
@@ -140,8 +140,8 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             return viewModel;
         }
 
-        [HttpGet]
-        public IActionResult GetClient(string id)
+        [HttpGet("{id}")]
+        public IActionResult GetClient([FromRoute] string id)
         {
             var client = UserProfile.ApiClients.FirstOrDefault(c => c.Key == id);
             return Ok(ToClientIndexViewModel(client));

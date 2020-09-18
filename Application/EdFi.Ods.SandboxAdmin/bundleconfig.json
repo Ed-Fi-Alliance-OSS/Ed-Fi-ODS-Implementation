@@ -19,7 +19,7 @@
     ],
     // Optionally specify minification options
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     },
     // Optionally generate .map file
@@ -32,7 +32,7 @@
     ],
     // Optionally specify minification options
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     },
     // Optionally generate .map file
@@ -45,7 +45,7 @@
     ],
     // Optionally specify minification options
     "minify": {
-      "enabled": true,
+      "enabled": false,
       "renameLocals": true
     },
     // Optionally generate .map file

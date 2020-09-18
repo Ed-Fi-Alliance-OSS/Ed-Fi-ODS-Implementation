@@ -39,6 +39,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
 </head>
 <body data-auth="@isAuthenticated.ToString()">
+    <script src="~/js/bundles.min.js"></script>
     <div class="navbar navbar-fixed-top navbar-lite" id="masthead">
         <div class="container">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
@@ -109,7 +110,6 @@
         <!-- /container -->
     </div>
 
-    <script src="~/js/bundles.min.js"></script>
     <partial name="~/Views/Shared/JavascriptVariables.cshtml" />
     @RenderSection("scripts", required: false)
 </body>

@@ -7,7 +7,7 @@ var EdFiAdmin = EdFiAdmin || {};
 
 function setUrls() {
     var urls = EdFiAdmin.Urls = EdFiAdmin.Urls || {};
-
+    debugger;
     urls.apiBase = urls.home + '/api';
     urls.login = urls.home + '/account/login';
     urls.logout = urls.home + '/account/logout';

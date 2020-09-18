@@ -17,7 +17,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = SecurityRoles.Administrator)]
+    //[Authorize(Roles = SecurityRoles.Administrator)]
     public class SandboxController : ControllerBase
     {
         private readonly ISandboxProvisioner _sandboxProvisioner;

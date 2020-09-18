@@ -11,12 +11,12 @@ var Sandbox = function (sandboxType, dedicated) {
     this.dedicated = dedicated;
     this.value = function () {
         switch (this.sandboxType) {
-        case "minimal":
-            return 1;
-        case "sample":
-            return 2;
-        default:
-            return 0;
+            case "minimal":
+                return 1;
+            case "sample":
+                return 2;
+            default:
+                return 0;
         }
     };
 };
@@ -54,7 +54,7 @@ var ModalController = function (modalOptions) {
     this.hide = function () {
         getModal().modal('hide');
     };
-    
+
     this.onOkClicked = function () {
         if (modalOptions.closeOnOk) {
             self.hide();
@@ -76,7 +76,7 @@ var ConfirmationDialog = function () {
 
     this.message = ko.observable("");
     this.buttonText = ko.observable("");
-    
+
     this.disableOkButton = ko.computed(function () {
         return !modal.confirmChecked();
     });
@@ -91,18 +91,18 @@ var ConfirmationDialog = function () {
     };
 };
 
-var TokenDialog = function() {
-	var self = this;
+var TokenDialog = function () {
+    var self = this;
 
-	this.htmlId = "modal-token";
-	var modal = new ModalController({ htmlId: self.htmlId });
+    this.htmlId = "modal-token";
+    var modal = new ModalController({ htmlId: self.htmlId });
 
-	this.message = ko.observable("");
-	
-	this.show = function (options) {
-		self.message(options.message);
-		modal.show(options.callback);
-	};
+    this.message = ko.observable("");
+
+    this.show = function (options) {
+        self.message(options.message);
+        modal.show(options.callback);
+    };
 };
 
 var AddApplicationDialog = function () {
@@ -129,11 +129,11 @@ var ClientViewModel = function (data) {
     var self = this;
     ko.mapping.fromJS(data, {}, this);
     this.HasSampleData = ko.computed(function () {
-         return self.SandboxTypeName() == "Sample" ? 'Yes' : 'No';
+        return self.SandboxTypeName() == "Sample" ? 'Yes' : 'No';
     });
 };
 
-var IsFullyLoaded = function(data) {
+var IsFullyLoaded = function (data) {
     var retval = true;
     $.each(data, function (i, item) {
         if (item.IsLoading) {
@@ -154,7 +154,7 @@ function ClientsViewModel() {
     self.error = ko.observable();
     self.confirmationDialog = new ConfirmationDialog();
     self.addApplicationDialog = new AddApplicationDialog();
-	self.tokenDialog = new TokenDialog();
+    self.tokenDialog = new TokenDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.apiClients().length > 0;
@@ -164,12 +164,12 @@ function ClientsViewModel() {
 
     self.clientStatus = ko.computed(function () {
         switch (self.apiClients().length) {
-        case 0:
-            return "You have no sandboxes";
-        case 1:
-            return "You have 1 sandbox";
-        default:
-            return "You have " + self.apiClients().length + " sandboxes";
+            case 0:
+                return "You have no sandboxes";
+            case 1:
+                return "You have 1 sandbox";
+            default:
+                return "You have " + self.apiClients().length + " sandboxes";
         }
 
     });
@@ -218,14 +218,14 @@ function ClientsViewModel() {
             error: function (jqXHR, textStatus, errorThrown) {
                 onComplete();
                 switch (jqXHR.status) {
-                case 400:
-                    self.error("Maximum number of sandboxes reached. Please reuse or delete an existing sandbox.");
-                    break;
-                case 406:
-                    self.error("You must provide a name for your client application sandbox.");
-                    break;
-                default:
-                    self.error(textStatus);
+                    case 400:
+                        self.error("Maximum number of sandboxes reached. Please reuse or delete an existing sandbox.");
+                        break;
+                    case 406:
+                        self.error("You must provide a name for your client application sandbox.");
+                        break;
+                    default:
+                        self.error(textStatus);
                 }
                 return 0;
             }
@@ -264,22 +264,22 @@ function ClientsViewModel() {
     };
 
     self.tokenClientClicked = function (client) {
-    	var mydata = ko.mapping.toJS(client);
-    	var auth = { Client_id: mydata.Key.toString(), Response_type: "code" };
-    	$.support.cors = true;
-      
+        var mydata = ko.mapping.toJS(client);
+        var auth = { Client_id: mydata.Key.toString(), Response_type: "code" };
+        $.support.cors = true;
+
         var token = { Client_id: mydata.Key, Client_secret: mydata.Secret, Grant_type: "client_credentials" };
-    	$.post(EdFiAdmin.Urls.oauth + "token", token, function (d, e) {
-    		self.tokenDialog.show({
-    			message: (d.Access_token || d.access_token),
-    			buttonText: "OK",
-    			callback: null
-    		});
-			}, "json")
-			.error(function (s, e) {
-				alert("Unable to retrieve an access token. Please verify that your application secret is correct.");
-			});
-    	
+        $.post(EdFiAdmin.Urls.oauth + "token", token, function (d, e) {
+            self.tokenDialog.show({
+                message: (d.Access_token || d.access_token),
+                buttonText: "OK",
+                callback: null
+            });
+        }, "json")
+            .error(function (s, e) {
+                alert("Unable to retrieve an access token. Please verify that your application secret is correct.");
+            });
+
     };
 
     self.deleteClientClicked = function (client) {
@@ -312,9 +312,9 @@ function ClientsViewModel() {
         });
     };
     self.addApplicationClicked = function () {
-        self.addApplicationDialog.show({callback: self.doAddClient});
+        self.addApplicationDialog.show({ callback: self.doAddClient });
     };
-
+    debugger;
     // Load the original data
     self.getData();
 }
