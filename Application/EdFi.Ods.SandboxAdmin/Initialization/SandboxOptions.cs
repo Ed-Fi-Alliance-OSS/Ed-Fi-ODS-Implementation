@@ -5,7 +5,7 @@
 
 using EdFi.Admin.DataAccess;
 
-namespace EdFi.Ods.SandboxAdmin.Initialization
+namespace EdFi.Ods.Sandbox.Admin.Initialization
 {
     public class SandboxOptions
     {

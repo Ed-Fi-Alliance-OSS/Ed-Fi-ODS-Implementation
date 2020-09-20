@@ -5,7 +5,7 @@
 
 using System.Collections.Generic;
 
-namespace EdFi.Ods.SandboxAdmin.Initialization
+namespace EdFi.Ods.Sandbox.Admin.Initialization
 {
     public class UserOptions
     {

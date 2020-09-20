@@ -13,14 +13,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Ods.Sandbox.Admin;
 using EdFi.Ods.Sandbox.Admin.Services;
-using UserOptions = EdFi.Ods.SandboxAdmin.Initialization.UserOptions;
+using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Common.Database;
 using EdFi.Common.Database;
+using EdFi.Ods.Sandbox.Admin.Initialization;
 
 namespace EdFi.Ods.SandboxAdmin.Modules
 {
@@ -51,8 +51,6 @@ namespace EdFi.Ods.SandboxAdmin.Modules
             builder.RegisterType<ConfigConnectionStringsProvider>()
                 .As<IConfigConnectionStringsProvider>();
 
-            builder.RegisterType<UserOptions>();
-
             builder.RegisterType<ClientCreator>()
                 .As<IClientCreator>();
 
@@ -68,7 +66,9 @@ namespace EdFi.Ods.SandboxAdmin.Modules
             builder.RegisterType<SqlServerSandboxProvisioner>()
                 .As<ISandboxProvisioner>();
 
-            builder.RegisterType<InitializationEngine>();
+            builder.RegisterType<InitializationEngine>().As<IInitializationEngine>();
+
+            builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine());
 
             builder.RegisterType<BackgroundJobService>()
                 .As<IBackgroundJobService>();

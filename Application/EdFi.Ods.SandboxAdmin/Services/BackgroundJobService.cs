@@ -1,17 +1,17 @@
-﻿using EdFi.Ods.SandboxAdmin.Initialization;
-using Hangfire;
+﻿using Hangfire;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
+using EdFi.Ods.Sandbox.Admin.Initialization;
 
 namespace EdFi.Ods.Sandbox.Admin.Services
 {
     public class BackgroundJobService : IBackgroundJobService
     {
-        private readonly InitializationEngine _engine;
+        private readonly IInitializationEngine _engine;
         private readonly UserOptions _userOptions;
 
-        public BackgroundJobService(InitializationEngine engine, IOptions<UserOptions> userOptions)
+        public BackgroundJobService(IInitializationEngine engine, IOptions<UserOptions> userOptions)
         {
             _engine = engine;
             _userOptions = userOptions.Value;

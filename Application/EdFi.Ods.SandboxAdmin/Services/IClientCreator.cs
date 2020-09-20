@@ -3,8 +3,8 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Ods.SandboxAdmin.Initialization;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Ods.Sandbox.Admin.Initialization;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {

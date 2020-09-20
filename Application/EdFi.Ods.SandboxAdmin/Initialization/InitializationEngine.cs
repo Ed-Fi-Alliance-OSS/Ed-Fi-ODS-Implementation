@@ -5,17 +5,32 @@
 
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.SandboxAdmin.Services;
-using EdFi.Ods.Sandbox.Repositories;
 using log4net;
-using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
 
-namespace EdFi.Ods.SandboxAdmin.Initialization
+namespace EdFi.Ods.Sandbox.Admin.Initialization
 {
-    public class InitializationEngine
+    public interface IInitializationEngine
+    {
+        void CreateIdentityRoles();
+
+        Task CreateIdentityUsers();
+
+        void CreateVendors();
+
+        void CreateSandboxes();
+
+        void RebuildSandboxes();
+
+        void UpdateClientWithLEAIdsFromPopulatedSandbox();
+    }
+
+    public class InitializationEngine : IInitializationEngine
     {
         private readonly ILog _log = LogManager.GetLogger(typeof(InitializationEngine));
         private readonly IClientAppRepo _clientAppRepo;

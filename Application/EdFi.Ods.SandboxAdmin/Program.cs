@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -23,10 +24,10 @@ namespace EdFi.Ods.SandboxAdmin
                 .ConfigureAppConfiguration(
                     (hostBuilderContext, configbuilder) =>
                     {
-                        configbuilder.SetBasePath(hostBuilderContext.HostingEnvironment.ContentRootPath)
+                        configbuilder.SetBasePath(AppContext.BaseDirectory)
                             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                             .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                            .AddJsonFile("appsettings.user.json", optional: true, true)
+                            .AddJsonFile($"appsettings.user.json", optional: true, true)
                             .AddEnvironmentVariables();
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
