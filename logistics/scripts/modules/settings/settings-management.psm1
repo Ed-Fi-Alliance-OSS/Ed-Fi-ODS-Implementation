@@ -250,9 +250,9 @@ function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
 
 function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
     if ((Get-EnabledFeaturesFromSettings $Settings) -contains "Extensions") {
-        $excludedExtensionSources = $Settings.ApiSettings.ExcludedExtensionSources
+        $excludedExtensions = $Settings.ApiSettings.ExcludedExtensions
         $artifactSources = Select-SupportingArtifactResolvedSources |
-            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
+            Select-ExtensionArtifactResolvedName -exclude $excludedExtensions
     }
 
     $folders = @()
@@ -307,6 +307,7 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
+
 
     foreach ($project in $developmentSettingsByProject.Keys) {
         $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
