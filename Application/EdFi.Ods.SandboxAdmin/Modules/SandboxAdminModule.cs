@@ -1,26 +1,21 @@
-﻿using Autofac;
-using Autofac.Core;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using Autofac;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
-using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Sandbox.Repositories;
-using EdFi.Ods.SandboxAdmin.Contexts;
-using EdFi.Ods.SandboxAdmin.Security;
-using EdFi.Ods.SandboxAdmin.Services;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using EdFi.Ods.Sandbox.Admin;
-using EdFi.Ods.Sandbox.Admin.Services;
-using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.Ods.Common.Database;
 using EdFi.Common.Database;
+using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Admin.Initialization;
+using EdFi.Ods.Sandbox.Admin.Services;
+using EdFi.Ods.Sandbox.Provisioners;
+using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.SandboxAdmin.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.SandboxAdmin.Modules
 {
