@@ -31,7 +31,12 @@ namespace EdFi.Ods.SandboxAdmin
                             .AddEnvironmentVariables();
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
+                .ConfigureWebHostDefaults(
+                    webBuilder =>
+                    {
+                        webBuilder.ConfigureKestrel(serverOptions => serverOptions.AddServerHeader = false);
+                        webBuilder.UseStartup<Startup>();
+                    }).Build();
 
             await host.RunAsync();
 
