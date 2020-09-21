@@ -57,6 +57,11 @@
     ],
     "ExcludedExtensions": []
   },
+  "DeploymentSettings": {
+    "OdsTokens": "",
+    "OdsDatabaseTemplateName": "",
+    "DropDatabases": false
+  },
   "Plugin": {
     "Folder": "",
     "Scripts": []

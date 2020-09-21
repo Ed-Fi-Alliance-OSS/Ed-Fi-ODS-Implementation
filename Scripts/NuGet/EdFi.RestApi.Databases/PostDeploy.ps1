@@ -6,20 +6,32 @@
 # Octopus lifecycle script called automatically after deploying the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
 # see: https://octopus.com/docs/deployment-examples/custom-scripts/scripts-in-packages
 param(
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $PathResolverRepositoryOverride,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $InstallType,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $OdsYears,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $OdsTokens,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $Transient,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $ExcludedExtensionSources,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $EnabledFeatureNames,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [string] $UsePlugins,
+    [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
     [switch] $WhatIf
 )
 
 # maintains previous functionality where passed parameters override octopus parameters but without requiring those octopus parameters
 function Add-Parameter([hashtable] $hashtable, [string] $name, $value) {
-    if ($null -ne $OctopusParameters -and -not [string]::IsNullOrWhiteSpace($OctopusParameters[$name])) { $hashtable[$name] = $OctopusParameters[$name] }
+    if ($null -ne $OctopusParameters -and -not [string]::IsNullOrWhiteSpace($OctopusParameters[$name])) {
+        Write-Warning "The Octopus parameter '$name' is deprecated, and will be removed in the near future. Please use the configuration.json instead."
+        $hashtable[$name] = $OctopusParameters[$name]
+    }
     if (-not [string]::IsNullOrWhiteSpace($value)) { $hashtable[$name] = $value }
     return $hashtable
 }

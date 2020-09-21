@@ -42,10 +42,10 @@ function Initialize-DeploymentEnvironment {
         [string] $PathResolverRepositoryOverride,
 
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
-        [string] $InstallType = 'Sandbox',
+        [string] $InstallType,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
-        [String] $Engine = 'SQLServer',
+        [String] $Engine,
 
         [string] $ExcludedExtensionSources,
 
@@ -90,22 +90,25 @@ function Initialize-DeploymentEnvironment {
     Clear-Error
 
     $settings = @{
-        ApiSettings = @{ }
+        ApiSettings        = @{ }
         DeploymentSettings = @{
-            InstallType             = $InstallType
-            Engine                  = $Engine
-            OdsTokens               = $OdsTokens
-            OdsDatabaseTemplateName = $OdsDatabaseTemplateName
-            DropDatabases           = $DropDatabases.IsPresent
             NoDuration              = $NoDuration.IsPresent
             UsePlugins              = $UsePlugins.IsPresent
             MinimalTemplateSuffix   = 'Ods_Minimal_Template'
             PopulatedTemplateSuffix = 'Ods_Populated_Template'
         }
     }
-    Set-DeploymentSettings $settings
-    if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
+    if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
     if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
+    if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
+
+    if ($Engine) { $settings.DeploymentSettings.Engine = $Engine }
+    if ($OdsTokens) { $settings.DeploymentSettings.OdsTokens = $OdsTokens }
+    if ($OdsDatabaseTemplateName) { $settings.DeploymentSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
+    if ($DropDatabases.IsPresent) { $settings.DeploymentSettings.DropDatabases = $DropDatabases.IsPresent }
+    Set-DeploymentSettings $settings | Out-Null
+
+    (Get-DeploymentSettings) | ConvertTo-Json -Depth 10 | Out-Host
 
     $script:result = @()
 
