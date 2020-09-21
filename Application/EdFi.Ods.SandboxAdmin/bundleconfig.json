@@ -1,0 +1,54 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    // An array of relative input file paths. Globbing patterns supported
+    "inputFiles": [
+      "wwwroot/css/Bootstrap_Bootswatch_Flatly.css",
+      "wwwroot/css/font-awesome.css",
+      "wwwroot/css/Site.css",
+      "wwwroot/css/bootstrap-glyphicons.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/bundles.min.js",
+    "inputFiles": [
+      "wwwroot/js/extensions.js",
+      "wwwroot/js/globals.js",
+      "wwwroot/js/edfiadmin.auth.js",
+      "wwwroot/js/underscore.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optionally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/client.min.js",
+    "inputFiles": [
+      "wwwroot/js/client.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optionally generate .map file
+    "sourceMap": false
+  },
+  {
+    "outputFileName": "wwwroot/js/sandbox.min.js",
+    "inputFiles": [
+      "wwwroot/js/sandbox.js"
+    ],
+    // Optionally specify minification options
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    },
+    // Optionally generate .map file
+    "sourceMap": false
+  }
+]

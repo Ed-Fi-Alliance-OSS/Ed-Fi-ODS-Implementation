@@ -31,9 +31,11 @@ function Get-DefaultDevelopmentSettingsByProject {
             }
             ConnectionStrings = @{ }
         }
-        "Application/EdFi.Ods.SandboxAdmin.Web"           = @{
+        "Application/EdFi.Ods.SandboxAdmin"               = @{
             Urls              = "http://localhost:38928"
-            Engine            = ""
+            ApiSettings       = @{
+                Engine = ""
+            }
             ConnectionStrings = @{ }
             Logging           = @{
                 LogLevel = @{
@@ -63,7 +65,7 @@ function Get-CredentialSettingsByProject {
     $populatedSecret = Get-RandomString
 
     return @{
-        "Application/EdFi.Ods.SandboxAdmin.Web" = @{
+        "Application/EdFi.Ods.SandboxAdmin"               = @{
             User = @{
                 "Test Admin" = @{
                     Email             = "test@ed-fi.org"
@@ -138,6 +140,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0};"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres;"
             }
             DatabaseTemplate  = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'

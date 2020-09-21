@@ -1,0 +1,121 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@using EdFi.Ods.SandboxAdmin.Extensions
+@using EdFi.Ods.SandboxAdmin.Services
+<!DOCTYPE html>
+@{
+    bool isAuthenticated = false;
+    string userName = string.Empty;
+
+    UserLookupResult userLookup = ViewBag.UserLookup;
+    if (userLookup != null && userLookup.HasCurrentUser)
+    {
+        isAuthenticated = true;
+        userName = userLookup.CurrentUser.FullName;
+    }
+
+    var hideOnAuthenticated = isAuthenticated
+        ? "hidden hideWhenAuthenticated"
+        : "hideWhenAuthenticated";
+    var showOnAuthenticated = isAuthenticated
+        ? "showWhenAuthenticated"
+        : "hidden showWhenAuthenticated";
+
+    var isAdmin = false;
+    if (userLookup != null)
+    {
+        isAdmin = userLookup.IsAdmin;
+    }
+}
+
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    @RenderSection("head", required: false)
+    <link rel="stylesheet" href="~/css/site.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout/3.3.0/knockout-min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/knockout.mapping/2.4.1/knockout.mapping.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</head>
+<body data-auth="@isAuthenticated.ToString()">
+    <script src="~/js/bundles.min.js"></script>
+    <div class="navbar navbar-fixed-top navbar-lite" id="masthead">
+        <div class="container">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="@Url.Action("Index", "Home")">
+                <div class="edfilogo">EdFi Application Admin</div>
+            </a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a href="@Url.Action("Index", "Home")">Home</a>
+                    </li>
+                    <li>
+                        <a class="@showOnAuthenticated" href="@Url.Action("Index", "Client")">Manage Sandboxes</a>
+                    </li>
+                    @if (isAdmin)
+                    {
+                        <li class="dropdown">
+                            <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="account-management-menu">Manage Accounts <span class="caret"></span></a>
+                            <ul class="dropdown-menu dropdown-menu-masthead" aria-labelledby="account-menu">
+                                <li>
+                                    <a href="@Url.Action("Create", "Account")">Create Account</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ResendAccountActivation", "Account")">Resend Account Activation</a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Orphans", "Sandbox")">Sandbox Orphan Report</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav pull-right">
+                    <li class="dropdown @showOnAuthenticated">
+                        <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" id="account-menu">
+                            Account (<span class="authUserName">@userName</span>)
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-masthead" aria-labelledby="account-menu" id="account-menu-body">
+                            <li>
+                                <a id="btn-logout" href="javascript:void(0)">Logout <span class="authUserName">@userName</span></a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangePassword", "Account")">Change Password</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="@hideOnAuthenticated">
+                        <a data-toggle="modal" href="#loginModal" id="btn-showLogin">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+    <div class="container" style="padding-top: 90px;" id="main-content">
+        @if (TempData.HasErrorMessage())
+        {
+            <div class="alert fade in">@TempData.GetErrorMessage()</div>
+        }
+
+        @RenderBody()
+        <partial name="~/Views/Shared/LoginModal.cshtml" />
+        <!-- /container -->
+    </div>
+
+    <partial name="~/Views/Shared/JavascriptVariables.cshtml" />
+    @RenderSection("scripts", required: false)
+</body>
+</html>
