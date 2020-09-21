@@ -3,18 +3,19 @@ using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
 using EdFi.Ods.Sandbox.Admin.Initialization;
+using System.Collections.Generic;
 
 namespace EdFi.Ods.Sandbox.Admin.Services
 {
     public class BackgroundJobService : IBackgroundJobService
     {
         private readonly IInitializationEngine _engine;
-        private readonly UserOptions _userOptions;
+        private readonly Dictionary<string, UserOptions> _users;
 
-        public BackgroundJobService(IInitializationEngine engine, IOptions<UserOptions> userOptions)
+        public BackgroundJobService(IInitializationEngine engine, IOptions<Dictionary<string, UserOptions>> users)
         {
             _engine = engine;
-            _userOptions = userOptions.Value;
+            _users = users.Value;
         }
 
         /// <summary>
@@ -28,11 +29,14 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var id3 = BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());
             BackgroundJob.ContinueJobWith(id3, () => _engine.UpdateClientWithLEAIdsFromPopulatedSandbox());
 
-            // refresh existing sandboxes periodically
-            if (_userOptions.Sandboxes.Any(s => s.Value.Refresh))
+            foreach (var user in _users)
             {
-                // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), TimeZoneInfo.Local);
+                // refresh existing sandboxes periodically
+                if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
+                {
+                    // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
+                    RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), TimeZoneInfo.Local);
+                }
             }
         }
     }

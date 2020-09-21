@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.SandboxAdmin.Modules;
 using Hangfire;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -54,6 +56,8 @@ namespace EdFi.Ods.SandboxAdmin
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
+
+            services.Configure<Dictionary<string, UserOptions>>(Configuration.GetSection("User"));
 
             services.AddControllersWithViews().AddControllersAsServices();
 
