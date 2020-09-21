@@ -5,10 +5,6 @@
     "EdFi_Admin": "",
     "EdFi_Master": ""
   },
-  "DatabaseTemplate": {
-    "MinimalTemplateScript": "EdFiMinimalTemplate",
-    "PopulatedTemplateScript": "GrandBend"
-  },
   "ApiSettings": {
     "Mode": "sandbox",
     "Engine": "",
@@ -55,10 +51,9 @@
         "IsEnabled": false
       }
     ],
-    "ExcludedExtensions": []
-  },
-  "DeploymentSettings": {
-    "OdsTokens": "",
+    "ExcludedExtensions": [],
+    "MinimalTemplateScript": "",
+    "PopulatedTemplateScript": "",
     "OdsDatabaseTemplateName": "",
     "DropDatabases": false
   },
