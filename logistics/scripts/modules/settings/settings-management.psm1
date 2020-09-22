@@ -308,7 +308,6 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
 
-
     foreach ($project in $developmentSettingsByProject.Keys) {
         $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
         $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
