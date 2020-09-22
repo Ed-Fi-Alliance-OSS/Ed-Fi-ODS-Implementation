@@ -138,7 +138,7 @@ function Initialize-DevelopmentEnvironment {
         }
 
         if (-not $NoCredentials) { $script:result += Add-SandboxCredentials }
-        
+
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
 
@@ -224,7 +224,7 @@ function Add-SandboxCredentials {
         [string] $populatedSecret = (Get-RandomString),
         [string] $minimalKey = (Get-RandomString),
         [string] $minimalSecret = (Get-RandomString),
-        [string] $adminCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config'),
+        [string] $adminCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SandboxAdmin\AdminCredential.config'),
         [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI\appsettings.development.json'),
         [switch] $force
     )
