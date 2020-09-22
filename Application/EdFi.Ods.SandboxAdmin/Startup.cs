@@ -13,6 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using System.Data.Entity;
+using EdFi.Ods.Sandbox.Admin.Contexts;
+using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -22,7 +26,7 @@ namespace EdFi.Ods.SandboxAdmin
 
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = (IConfigurationRoot) configuration;
 
             ApiSettings = new ApiSettings();
 
@@ -42,7 +46,6 @@ namespace EdFi.Ods.SandboxAdmin
         {
             _logger.Debug("Building services collection");
 
-            services.AddSingleton(Configuration);
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
@@ -51,12 +54,23 @@ namespace EdFi.Ods.SandboxAdmin
 
             // Add Hangfire services.
             services.AddHangfire(
-                configuration => configuration
-                    .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                    .UseSimpleAssemblyNameTypeSerializer()
-                    .UseRecommendedSerializerSettings()
-                    .UseLog4NetLogProvider()
-                    .UseSqlServerStorage(Configuration.GetConnectionString("EdFi_Admin")));
+                config =>
+                {
+                    config
+                        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                        .UseSimpleAssemblyNameTypeSerializer()
+                        .UseRecommendedSerializerSettings()
+                        .UseLog4NetLogProvider();
+
+                    if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
+                    {
+                        config.UseSqlServerStorage(Configuration.GetConnectionString("EdFi_Admin"));
+                    }
+                    else
+                    {
+                        config.UsePostgreSqlStorage(Configuration.GetConnectionString("EdFi_Admin"));
+                    }
+                });
 
             // Add the processing server as IHostedService
             services.AddHangfireServer();
@@ -66,8 +80,6 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddControllersWithViews().AddControllersAsServices();
 
             services.AddMvc().AddControllersAsServices();
-
-            services.AddHttpContextAccessor();
 
             services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
         }
@@ -80,6 +92,17 @@ namespace EdFi.Ods.SandboxAdmin
         {
             _logger.Debug("Building Autofac container");
             builder.RegisterModule(new SandboxAdminModule());
+
+            if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
+            {
+                _logger.Debug($"Adding support for SqlServer");
+                builder.RegisterModule(new SqlServerModule());
+            }
+            else
+            {
+                _logger.Debug($"Adding support for PostgreSQL");
+                builder.RegisterModule(new PostgresModule());
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
