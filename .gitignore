@@ -119,5 +119,4 @@ environment.json
 # NetCore Webapi
 /**/WebApiLog*
 /**/TestHarnessLog*
-/**/EdFi.Ods.SandboxAdmin/**/*min.js
 /**/SandboxAdminLog*
