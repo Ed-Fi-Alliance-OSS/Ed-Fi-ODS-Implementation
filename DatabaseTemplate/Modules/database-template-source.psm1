@@ -133,7 +133,7 @@ function Get-PopulatedTemplateBackupPathFromSettings {
         [hashtable] $Settings
     )
 
-    return Initialize-TemplateSourceFromScriptName $Settings.DatabaseTemplate.PopulatedTemplateScript
+    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.PopulatedTemplateScript
 }
 
 function Get-MinimalTemplateBackupPathFromSettings {
@@ -142,7 +142,7 @@ function Get-MinimalTemplateBackupPathFromSettings {
         [hashtable] $Settings
     )
 
-    return Initialize-TemplateSourceFromScriptName $Settings.DatabaseTemplate.MinimalTemplateScript
+    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.MinimalTemplateScript
 }
 
 

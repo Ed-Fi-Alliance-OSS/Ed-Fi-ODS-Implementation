@@ -13,39 +13,39 @@ $script:deploymentSettingsOverrides = @{ }
 function Initialize-DeploymentEnvironment {
     <#
     .description
-    Deploy databases from the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
+        Deploy databases from the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
     .parameter PathResolverRepositoryOverride
-    A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-Ods-Implementation'
+        A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-Ods-Implementation'
     .parameter InstallType
-    The type of deployment to install: 'Sandbox', 'SharedInstance' or 'YearSpecific'
+        The type of deployment to install: 'Sandbox', 'SharedInstance' or 'YearSpecific'
     .parameter Engine
-    The database engine provider, either 'SQLServer' or 'PostgreSQL'
+        The database engine provider, either 'SQLServer' or 'PostgreSQL'
     .parameter ExcludedExtensionSources
-    A comma separated string of extensions sources to exclude from database deployment.
-    Any values specified will be excluded from the resolved extension sources list.
-    If no sources are passed then any resolved sources found by the artifact source resolver will be used.
+        A comma separated string of extensions sources to exclude from database deployment.
+        Any values specified will be excluded from the resolved extension sources list.
+        If no sources are passed then any resolved sources found by the artifact source resolver will be used.
     .parameter EnabledFeatureNames
-    Any subtype features specified will be enabled.
+        Any subtype features specified will be enabled.
     .parameter OdsTokens
     A semicolon-separated string of tokens to use when creating Ods database instances.
     For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
-    For a district specific deployment a valid value could be '255901;255902'.
-    .PARAMETER OdsDatabaseTemplateName
-    Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
+        For a district specific deployment a valid value could be '255901;255902'.
+    .parameter OdsDatabaseTemplateName
+        Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
     .parameter DropDatabases (Alias Transient)
-    If supplied the database will be dropped without being backed up before being recreated from scripts and/or migrations.
-    By default databases are not dropped and will be backup before being migrated when needed.
+        If supplied the database will be dropped without being backed up before being recreated from scripts and/or migrations.
+        By default databases are not dropped and will be backup before being migrated when needed.
     .parameter NoDuration
-    Turn off duration display
+        Turn off duration display
     #>
     param(
         [string] $PathResolverRepositoryOverride,
 
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
-        [string] $InstallType = 'Sandbox',
+        [string] $InstallType,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
-        [String] $Engine = 'SQLServer',
+        [String] $Engine,
 
         [string] $ExcludedExtensionSources,
 
@@ -76,16 +76,13 @@ function Initialize-DeploymentEnvironment {
         else {
             & $pathResolver ($PathResolverRepositoryOverride.Split(';'))
         }
-
-        if ($Engine -eq 'SQLServer') { Set-DeployConfigFile (Join-Path $PSScriptRoot 'Databases.config') }
-        if ($Engine -eq 'PostgreSQL') { Set-DeployConfigFile (Join-Path $PSScriptRoot 'Databases.Npgsql.config') }
     }
 
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
+    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
+    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 
     Write-InvocationInfo $MyInvocation
@@ -93,21 +90,25 @@ function Initialize-DeploymentEnvironment {
     Clear-Error
 
     $settings = @{
-        DeploymentSettings = @{
-            InstallType             = $InstallType
-            Engine                  = $Engine
-            OdsTokens               = $OdsTokens
-            OdsDatabaseTemplateName = $OdsDatabaseTemplateName
-            DropDatabases           = $DropDatabases
-            NoDuration              = $NoDuration
-            UsePlugins              = $UsePlugins
+        ApiSettings = @{
+            NoDuration              = $NoDuration.IsPresent
+            UsePlugins              = $UsePlugins.IsPresent
             MinimalTemplateSuffix   = 'Ods_Minimal_Template'
             PopulatedTemplateSuffix = 'Ods_Populated_Template'
         }
     }
-    if ($ExcludedExtensionSources) { $settings.DeploymentSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
-    if ($EnabledFeatureNames) { $settings.DeploymentSettings.EnabledFeatureNames = $EnabledFeatureNames }
-    Set-DeploymentSettings $settings
+    if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
+    if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
+    if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
+
+    if ($Engine) { $settings.ApiSettings.Engine = $Engine }
+    if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
+    if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
+    if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
+
+    Set-DeploymentSettings $settings | Out-Null
+
+    Write-FlatHashtable (Get-DeploymentSettings)
 
     $script:result = @()
 
@@ -115,7 +116,7 @@ function Initialize-DeploymentEnvironment {
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
 
-        if ($InstallType -ne 'Sandbox') {
+        if ((Get-DeploymentSettings).ApiSettings.Mode -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
         }
         else {
@@ -182,12 +183,12 @@ function Get-DeploymentSettings {
         Gets merged configuration values from the configuration file and any overrides
     .description
         Gets merged configuration values taking both the fresh values from the configuration file configured by the
-        Set-DeploymentSettingsFiles function and overrides those values with any values configured through the Set-DeploymentSettings.
+        Set-DeploymentSettingsFiles function and overrides those values with any values configured through the Set-ApiSettings.
         This function should be called for every task that needs fresh values
         from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = (Get-MergedAppSettings $script:deploymentSettingsFiles)
+    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles
 
     $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
@@ -210,36 +211,36 @@ Set-Alias -Scope Global Reset-YearSpecificDatabase Reset-OdsDatabase
 $deploymentTasks = @{
     'Reset-AdminDatabase'             = {
         $settings = Get-DeploymentSettings
-        $adminDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Admin
-        $adminConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$adminDatabaseType]
+        $adminDatabaseType = $settings.ApiSettings.DatabaseTypes.Admin
+        $adminConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$adminDatabaseType]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = $settings.DeploymentSettings.csbs[$adminConnectionStringKey]
+            csb          = $settings.ApiSettings.csbs[$adminConnectionStringKey]
             database     = $adminDatabaseType
-            filePaths    = $settings.DeploymentSettings.FilePaths
-            subTypeNames = $settings.DeploymentSettings.SubTypes
-            dropDatabase = $settings.DeploymentSettings.DropDatabases
+            filePaths    = $settings.ApiSettings.FilePaths
+            subTypeNames = $settings.ApiSettings.SubTypes
+            dropDatabase = $settings.ApiSettings.DropDatabases
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
     'Reset-SecurityDatabase'          = {
         $settings = Get-DeploymentSettings
-        $securityDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Security
-        $securityConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$securityDatabaseType]
+        $securityDatabaseType = $settings.ApiSettings.DatabaseTypes.Security
+        $securityConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$securityDatabaseType]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = $settings.DeploymentSettings.csbs[$securityConnectionStringKey]
+            csb          = $settings.ApiSettings.csbs[$securityConnectionStringKey]
             database     = $securityDatabaseType
-            filePaths    = $settings.DeploymentSettings.FilePaths
-            subTypeNames = $settings.DeploymentSettings.SubTypes
-            dropDatabase = $settings.DeploymentSettings.DropDatabases
+            filePaths    = $settings.ApiSettings.FilePaths
+            subTypeNames = $settings.ApiSettings.SubTypes
+            dropDatabase = $settings.ApiSettings.DropDatabases
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
     'Reset-OdsDatabase'               = {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
         $databaseName = $odsDatabaseType
         $replacementTokens = @($databaseName)
         if ($settings.OdsDatabaseTemplateName -eq 'populated') {
@@ -249,15 +250,15 @@ $deploymentTasks = @{
             $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         }
         if ($settings.ApiSettings.OdsTokens) { $replacementTokens = $settings.ApiSettings.OdsTokens -split ';' | ForEach-Object { "${databaseName}_$($_)" } }
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $replacementTokens
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) {
             $params = @{
                 engine                  = $settings.ApiSettings.engine
                 csb                     = $csb
                 database                = $odsDatabaseType
-                filePaths               = $settings.DeploymentSettings.FilePaths
-                subTypeNames            = $settings.DeploymentSettings.SubTypes
-                dropDatabase            = $settings.DeploymentSettings.DropDatabases
+                filePaths               = $settings.ApiSettings.FilePaths
+                subTypeNames            = $settings.ApiSettings.SubTypes
+                dropDatabase            = $settings.ApiSettings.DropDatabases
                 createByRestoringBackup = $backupPath
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
@@ -266,24 +267,24 @@ $deploymentTasks = @{
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
         if ($settings.ApiSettings.engine -ne 'SQLServer') { return; }
-        $masterConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Master]
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
+        $masterConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Master]
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
 
-        $masterCSB = $settings.DeploymentSettings.csbs[$masterConnectionStringKey]
-        $templateCSB = $settings.DeploymentSettings.csbs[$odsConnectionStringKey]
+        $masterCSB = $settings.ApiSettings.csbs[$masterConnectionStringKey]
+        $templateCSB = $settings.ApiSettings.csbs[$odsConnectionStringKey]
         Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB
     }
     'Reset-MinimalTemplateDatabase'   = {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-MinimalTemplateBackupPathFromSettings $settings
         $params = @{
             engine                  = $settings.ApiSettings.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.minimalTemplateSuffix
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.ApiSettings.minimalTemplateSuffix
             database                = $odsDatabaseType
-            filePaths               = $settings.DeploymentSettings.FilePaths
-            subTypeNames            = $settings.DeploymentSettings.SubTypes
+            filePaths               = $settings.ApiSettings.FilePaths
+            subTypeNames            = $settings.ApiSettings.SubTypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath
         }
@@ -291,15 +292,15 @@ $deploymentTasks = @{
     }
     'Reset-PopulatedTemplateDatabase' = {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
             engine                  = $settings.ApiSettings.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.DeploymentSettings.populatedTemplateSuffix
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens $settings.ApiSettings.populatedTemplateSuffix
             database                = $odsDatabaseType
-            filePaths               = $settings.DeploymentSettings.FilePaths
-            subTypeNames            = $settings.DeploymentSettings.SubTypes
+            filePaths               = $settings.ApiSettings.FilePaths
+            subTypeNames            = $settings.ApiSettings.SubTypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath
         }

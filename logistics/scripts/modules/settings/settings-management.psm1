@@ -130,7 +130,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
-            DatabaseTemplate  = @{
+            ApiSettings  = @{
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
             }
@@ -142,7 +142,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres;"
             }
-            DatabaseTemplate  = @{
+            ApiSettings  = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
@@ -250,9 +250,9 @@ function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
 
 function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
     if ((Get-EnabledFeaturesFromSettings $Settings) -contains "Extensions") {
-        $excludedExtensionSources = $Settings.ApiSettings.ExcludedExtensionSources
+        $excludedExtensions = $Settings.ApiSettings.ExcludedExtensions
         $artifactSources = Select-SupportingArtifactResolvedSources |
-            Select-ExtensionArtifactResolvedName -exclude $excludedExtensionSources
+            Select-ExtensionArtifactResolvedName -exclude $excludedExtensions
     }
 
     $folders = @()
@@ -266,7 +266,7 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 
 function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
     $newDeploymentSettings = @{
-        DeploymentSettings = @{
+        ApiSettings = @{
             DatabaseTypes        = Get-DatabaseTypes
             ConnectionStringKeys = Get-ConnectionStringKeyByDatabaseTypes
             Csbs                 = Get-ConnectionStringBuildersFromSettings $Settings

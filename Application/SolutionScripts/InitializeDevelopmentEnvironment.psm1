@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.0.0"
-    codeGen = "5.1.0-b10751"
+    codeGen  = "5.1.0-b10751"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -40,7 +40,7 @@ Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.user.json"
 )
 
-Set-DeploymentSettings @{ DeploymentSettings = @{ DropDatabases = $true } }
+Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
 
 Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
@@ -63,7 +63,7 @@ function Initialize-DevelopmentEnvironment {
         Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
     .parameter NoCredentials
         Skip the Add-SandboxCredentials task which is used to generate random credentials for the SandboxAdmin website.
-    .parameter RunPostman
+    .parameter RunPester
         Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
     .parameter RunPostman
         Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
@@ -115,12 +115,10 @@ function Initialize-DevelopmentEnvironment {
     $elapsed = Use-StopWatch {
 
         $settings = @{
-            ApiSettings        = @{
-                Mode      = $InstallType
-                OdsTokens = $OdsTokens
-                Engine    = $Engine
-            }
-            DeploymentSettings = @{
+            ApiSettings = @{
+                Mode                    = $InstallType
+                OdsTokens               = $OdsTokens
+                Engine                  = $Engine
                 UsePlugins              = $UsePlugins.IsPresent
                 MinimalTemplateSuffix   = 'Ods_Minimal_Template'
                 PopulatedTemplateSuffix = 'Ods_Populated_Template'
@@ -154,7 +152,7 @@ function Initialize-DevelopmentEnvironment {
                 OdsTokens     = $OdsTokens
                 DropDatabases = $true
                 NoDuration    = $true
-                UsePlugins    = $UsePlugins
+                UsePlugins    = $UsePlugins.IsPresent
             }
             $script:result += Initialize-DeploymentEnvironment @params
         }
@@ -308,7 +306,7 @@ function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         Write-Host
         Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
-        (Get-DeploymentSettings) | ConvertTo-Json -Depth 10 | Out-Host
+        Write-FlatHashtable (Get-DeploymentSettings)
     }
 }
 
@@ -367,14 +365,14 @@ Function Invoke-RebuildSolution {
 function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
-        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
+        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
+        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
         $params = @{
             engine       = $settings.ApiSettings.engine
             csb          = $connectionString
             database     = $odsDatabaseType
-            filePaths    = $settings.DeploymentSettings.FilePaths
+            filePaths    = $settings.ApiSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -385,12 +383,12 @@ function Reset-EmptySandboxDatabase {
 function Reset-TestAdminDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Admin_Test'
-            database     = $settings.DeploymentSettings.DatabaseTypes.Admin
-            filePaths    = $settings.DeploymentSettings.FilePaths
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Admin_Test'
+            database     = $settings.ApiSettings.DatabaseTypes.Admin
+            filePaths    = $settings.ApiSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -405,12 +403,12 @@ function Reset-TestAdminDatabase {
 function Reset-TestSecurityDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$settings.DeploymentSettings.DatabaseTypes.Ods]
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
         $params = @{
             engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Security_Test'
-            database     = $settings.DeploymentSettings.DatabaseTypes.Security
-            filePaths    = $settings.DeploymentSettings.FilePaths
+            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Security_Test'
+            database     = $settings.ApiSettings.DatabaseTypes.Security
+            filePaths    = $settings.ApiSettings.FilePaths
             subTypeNames = @()
             dropDatabase = $true
         }
@@ -427,15 +425,15 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.DeploymentSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.DeploymentSettings.ConnectionStringKeys[$odsDatabaseType]
+        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
         # always use Grand Bend data for the test database
         $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         $params = @{
             engine                  = $settings.ApiSettings.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.DeploymentSettings.csbs[$odsConnectionStringKey] -replacementTokens "$($settings.DeploymentSettings.populatedTemplateSuffix)_Test"
+            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
             database                = $odsDatabaseType
-            filePaths               = $settings.DeploymentSettings.FilePaths
+            filePaths               = $settings.ApiSettings.FilePaths
             subTypeNames            = Get-DefaultSubtypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath

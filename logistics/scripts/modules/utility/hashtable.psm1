@@ -80,5 +80,53 @@ function Merge-Hashtables {
     return $result
 }
 
+function Get-FlatHashTable {
+    param(
+        [hashtable] $Hastable,
+
+        [string] $Delimiter = ':'
+    )
+
+    $result = @{ }
+
+    function Get-FlatObject {
+        param(
+            $Object,
+
+            [string] $Name
+        )
+
+        if ($Object -is [Hashtable]) {
+            foreach ($key in $Object.Keys) {
+                Get-FlatObject $Object[$key] "$Name$key$Delimiter"
+            }
+        }
+        elseif ($Object -is [Object[]]) {
+            for ($i = 0; $i -lt @($Object).Count; $i++) {
+                Get-FlatObject $Object[$i] "$Name$i$Delimiter"
+            }
+        }
+        else {
+            $result[$Name.Trim($Delimiter)] = $Object
+        }
+    }
+
+    Get-FlatObject($Hastable)
+
+    return $result
+}
+
+
+function Write-FlatHashtable {
+    param(
+        [Parameter(ValueFromPipeline = $true)]
+        [Hashtable] $Hashtable
+    )
+
+   ( Get-FlatHashtable ($Hashtable)).GetEnumerator() |
+        Sort-Object -Property Name |
+        Format-Table -HideTableHeaders -AutoSize -Wrap |
+        Out-Host
+}
 
 Export-ModuleMember -Function *
