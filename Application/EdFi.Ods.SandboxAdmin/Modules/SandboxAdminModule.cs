@@ -14,6 +14,8 @@ using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
+using EdFi.Ods.SandboxAdmin.Contexts;
+using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.SandboxAdmin.Services;
 using Microsoft.Extensions.Configuration;
 
@@ -23,50 +25,25 @@ namespace EdFi.Ods.SandboxAdmin.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<ConfigurationRoot>()
-                .As<IConfigurationRoot>();
-
-            builder.RegisterType<ClientAppRepo>()
-                .As<IClientAppRepo>();
-
-            builder.RegisterType<UsersContextFactory>()
-                .As<IUsersContextFactory>();
-
-            builder.RegisterType<AdminDatabaseConnectionStringProvider>()
-                .As<IAdminDatabaseConnectionStringProvider>();
-
-            builder.Register(c => DatabaseEngine.TryParseEngine(c.Resolve<IConfiguration>().GetSection("Engine").Value));
-
-            builder.RegisterType<DatabaseNameBuilder>()
-                .As<IDatabaseNameBuilder>();
-
-            builder.RegisterType<DbConnectionStringBuilderAdapterFactory>()
-                .As<IDbConnectionStringBuilderAdapterFactory>();
-
-            builder.RegisterType<ConfigConnectionStringsProvider>()
-                .As<IConfigConnectionStringsProvider>();
-
-            builder.RegisterType<ClientCreator>()
-                .As<IClientCreator>();
-
-            builder.RegisterType<SqlServerTemplateDatabaseLeaQuery>()
-                .As<ITemplateDatabaseLeaQuery>();
-
-            builder.RegisterType<DefaultApplicationCreator>()
-                .As<IDefaultApplicationCreator>();
-
-            builder.RegisterType<ClientCreator>()
-                .As<IClientCreator>();
-
-            builder.RegisterType<SqlServerSandboxProvisioner>()
-                .As<ISandboxProvisioner>();
-
+            builder.RegisterType<ClientAppRepo>().As<IClientAppRepo>();
+            builder.RegisterType<UsersContextFactory>().As<IUsersContextFactory>();
+            builder.RegisterType<AdminDatabaseConnectionStringProvider>().As<IAdminDatabaseConnectionStringProvider>();
+            builder.RegisterType<DatabaseNameBuilder>().As<IDatabaseNameBuilder>();
+            builder.RegisterType<DbConnectionStringBuilderAdapterFactory>().As<IDbConnectionStringBuilderAdapterFactory>();
+            builder.RegisterType<ConfigConnectionStringsProvider>().As<IConfigConnectionStringsProvider>();
+            builder.RegisterType<ClientCreator>().As<IClientCreator>();
+            builder.RegisterType<DefaultApplicationCreator>().As<IDefaultApplicationCreator>();
+            builder.RegisterType<ClientCreator>().As<IClientCreator>();
             builder.RegisterType<InitializationEngine>().As<IInitializationEngine>();
-
             builder.Register(c => c.Resolve<ApiSettings>().GetDatabaseEngine());
-
-            builder.RegisterType<BackgroundJobService>()
-                .As<IBackgroundJobService>();
+            builder.RegisterType<BackgroundJobService>().As<IBackgroundJobService>();
+            builder.RegisterType<RouteService>().As<IRouteService>();
+            builder.RegisterType<EmailService>().As<IEmailService>();
+            builder.RegisterType<PasswordService>().As<IPasswordService>();
+            builder.RegisterType<UserAccountManager>().As<IUserAccountManager>();
+            builder.RegisterType<SecurityService>().As<ISecurityService>();
+            builder.RegisterType<IdentityContextFactory>().As<IIdentityContextFactory>();
+            builder.RegisterType<IdentityProvider>().As<IdentityProvider>();
         }
     }
 }
