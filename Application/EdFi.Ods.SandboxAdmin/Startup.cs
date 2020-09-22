@@ -89,6 +89,9 @@ namespace EdFi.Ods.SandboxAdmin
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
+            // Set EF Context
+            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
