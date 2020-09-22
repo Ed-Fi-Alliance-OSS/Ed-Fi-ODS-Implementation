@@ -105,9 +105,10 @@ function Initialize-DeploymentEnvironment {
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
+
     Set-DeploymentSettings $settings | Out-Null
 
-    (Get-DeploymentSettings) | ConvertTo-Json -Depth 10 | Out-Host
+    Write-FlatHashtable (Get-DeploymentSettings)
 
     $script:result = @()
 

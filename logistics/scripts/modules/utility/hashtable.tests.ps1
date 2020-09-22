@@ -165,7 +165,7 @@ Describe 'Merge-Hashtables' {
         $b = @{ b = @{ c = 2; d = @{ e = 3 } }; f = 4 }
         $c = @{ b = @{ d = @{ e = 5; g = @{ h = 6 } } }; i = @{ j = 7 } }
         $d = @{ k = 8; i = @{ l = 9 } }
-        $result = Merge-Hashtables $a,$b,$c,$d
+        $result = Merge-Hashtables $a, $b, $c, $d
 
         # @{ a = 0; b = @{ c = 2; d = @{ e = 5; g = @{ h = 6 } } }; i = @{ j = 7; l = 9 }; k = 8 }
         $result | Should -BeOfType [System.Collections.Hashtable]
@@ -180,5 +180,40 @@ Describe 'Merge-Hashtables' {
         $result.i.j | Should -Be 7
         $result.i.l | Should -Be 9
         $result.k | Should -Be 8
+    }
+}
+
+Describe 'Get-FlatHashtable' {
+    It "merges multiple hashtables into a new hashtable" {
+        $a = @{
+            b = @{
+                d = @{
+                    e = @(0, 1, 2);
+                    g = @{
+                        h = @(@{ l = 3; m = @{ n = 4 } }, 5)
+                    }
+                }
+            };
+            i = @{
+                j = 6
+            };
+            k = @(
+                @{ l = 7; m = @{ n = 8 } }
+                @{ o = 9; p = @{ q = 10 } }
+            )
+        }
+        $result = Get-FlatHashtable $a
+
+        $result['b:d:e:0'] | Should -Be 0
+        $result['b:d:e:1'] | Should -Be 1
+        $result['b:d:e:2'] | Should -Be 2
+        $result['b:d:g:h:0:l'] | Should -Be 3
+        $result['b:d:g:h:0:m:n'] | Should -Be 4
+        $result['b:d:g:h:1'] | Should -Be 5
+        $result['i:j'] | Should -Be 6
+        $result['k:0:l'] | Should -Be 7
+        $result['k:0:m:n'] | Should -Be 8
+        $result['k:1:o'] | Should -Be 9
+        $result['k:1:p:q'] | Should -Be 10
     }
 }
