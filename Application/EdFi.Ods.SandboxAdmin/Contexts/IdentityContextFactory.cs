@@ -13,8 +13,8 @@ using EdFi.Ods.SandboxAdmin.Contexts;
 namespace EdFi.Ods.Sandbox.Admin.Contexts
 {
     // TODO Address on spike ODS-4538
-    // public class IdentityContextFactory : IIdentityContextFactory
-    // {
+    public class IdentityContextFactory : IIdentityContextFactory
+    {
     //     private readonly Dictionary<DatabaseEngine, Type> _identityContextTypeByDatabaseEngine =
     //         new Dictionary<DatabaseEngine, Type>
     //         {
@@ -42,6 +42,6 @@ namespace EdFi.Ods.Sandbox.Admin.Contexts
     //
     //         throw new InvalidOperationException(
     //             $"Cannot create an IUsersContext for database type {_databaseEngine.DisplayName}");
-    //     }
-    // }
+    //      }
+    }
 }
