@@ -33,7 +33,7 @@ namespace EdFi.Ods.SandboxAdmin
 
         public ApiSettings ApiSettings { get; }
 
-        public IConfiguration Configuration { get; }
+        public IConfigurationRoot Configuration { get; }
 
         public ILifetimeScope Container { get; private set; }
 
@@ -44,6 +44,10 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.AddSingleton(Configuration);
             services.AddSingleton(ApiSettings);
+            services.AddSingleton(Configuration);
+            services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
+            services.AddHttpContextAccessor();
 
             // Add Hangfire services.
             services.AddHangfire(
