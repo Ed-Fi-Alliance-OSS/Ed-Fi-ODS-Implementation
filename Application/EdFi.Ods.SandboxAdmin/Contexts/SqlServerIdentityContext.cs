@@ -3,12 +3,28 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using EdFi.Admin.DataAccess.Providers;
+using Microsoft.EntityFrameworkCore;
+
 namespace EdFi.Ods.Sandbox.Admin.Contexts
 {
-    // TODO Address on spike ODS-4538
-    // public class SqlServerIdentityContext : IdentityContext
-    // {
-    //     public SqlServerIdentityContext(string connectionString)
-    //         : base(connectionString) { }
-    // }
+    public class SqlServerIdentityContext : IdentityContext
+    {
+        private readonly string _connectionString;
+        public SqlServerIdentityContext(string connectionString)
+            : base()
+        {
+            _connectionString = connectionString;
+        }
+
+        public SqlServerIdentityContext(IAdminDatabaseConnectionStringProvider connectionStringsProvider)
+            : base()
+        {
+            _connectionString = connectionStringsProvider.GetConnectionString();
+        }
+        protected override void ApplyProviderSpecificConnection(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer(_connectionString);
+        }
+    }
 }

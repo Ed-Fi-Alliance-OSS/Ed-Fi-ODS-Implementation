@@ -34,11 +34,13 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         public ClientController(
             IClientAppRepo repository,
             ISandboxProvisioner sandboxProvisioner,
+            ISecurityService securityService,
             IClientCreator clientCreator)
         {
             _repository = repository;
             _sandboxProvisioner = sandboxProvisioner;
             _clientCreator = clientCreator;
+            _securityService = securityService;
         }
 
         private User UserProfile

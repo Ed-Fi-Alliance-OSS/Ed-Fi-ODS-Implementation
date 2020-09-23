@@ -13,6 +13,7 @@ using EdFi.Ods.SandboxAdmin.Models.Results;
 using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.SandboxAdmin.Services;
 using EdFi.Admin.DataAccess.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -338,6 +339,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         public async Task<ActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
+
             return Json(
                 new
                 {

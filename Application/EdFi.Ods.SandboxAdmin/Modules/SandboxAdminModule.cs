@@ -15,7 +15,6 @@ using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.Sandbox.Repositories;
-using EdFi.Ods.SandboxAdmin.Contexts;
 using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.SandboxAdmin.Services;
 using Microsoft.Extensions.Configuration;
@@ -43,8 +42,9 @@ namespace EdFi.Ods.SandboxAdmin.Modules
             builder.RegisterType<PasswordService>().As<IPasswordService>();
             builder.RegisterType<UserAccountManager>().As<IUserAccountManager>();
             builder.RegisterType<SecurityService>().As<ISecurityService>();
-            builder.RegisterType<IdentityContextFactory>().As<IIdentityContextFactory>();
-            builder.RegisterType<IdentityProvider>().As<IdentityProvider>();
+            builder.RegisterType<IdentityProvider>().As<IIdentityProvider>();
+            builder.RegisterType<SqlServerIdentityContext>();
+            builder.RegisterType<PostgresIdentityContext>();
         }
     }
 }

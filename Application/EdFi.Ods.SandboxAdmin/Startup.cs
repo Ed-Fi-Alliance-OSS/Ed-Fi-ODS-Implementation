@@ -1,7 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.SandboxAdmin.Modules;
 using Hangfire;
@@ -15,8 +14,13 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data.Entity;
 using EdFi.Ods.Sandbox.Admin.Contexts;
+using EdFi.Ods.SandboxAdmin.Filters;
+using EdFi.Ods.SandboxAdmin.Services;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -72,6 +76,35 @@ namespace EdFi.Ods.SandboxAdmin
                     }
                 });
 
+            var identityBuilder = services.AddIdentityCore<IdentityUser>(
+                    options =>
+                    {
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireDigit = false;
+                        options.User.AllowedUserNameCharacters = options.User.AllowedUserNameCharacters + " ";
+                    })
+                .AddRoles<IdentityRole>()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddDefaultTokenProviders();
+
+            if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
+            {
+                identityBuilder.AddEntityFrameworkStores<SqlServerIdentityContext>();
+            }
+            else
+            {
+                identityBuilder.AddEntityFrameworkStores<PostgresIdentityContext>();
+            }
+
+            services.AddAuthentication(IdentityConstants.ApplicationScheme)
+                .AddCookie(IdentityConstants.ApplicationScheme, options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                });
+
+            services.AddAuthorization();
             // Add the processing server as IHostedService
             services.AddHangfireServer();
 
@@ -79,9 +112,15 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.AddControllersWithViews().AddControllersAsServices();
 
-            services.AddMvc().AddControllersAsServices();
+            services.AddMvc(
+                options =>
+                {
+                    options.Filters.Add(
+                        new SetCurrentUserInfoAttribute(
+                            () => Container.Resolve<ISecurityService>(), Container.Resolve<IHttpContextAccessor>()));
+                }).AddControllersAsServices();
 
-            services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
+            //services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
         }
 
         // ConfigureContainer is where you can register things directly
@@ -127,6 +166,10 @@ namespace EdFi.Ods.SandboxAdmin
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseHangfireServer();
             var backgroundJob = Container.Resolve<IBackgroundJobService>();
