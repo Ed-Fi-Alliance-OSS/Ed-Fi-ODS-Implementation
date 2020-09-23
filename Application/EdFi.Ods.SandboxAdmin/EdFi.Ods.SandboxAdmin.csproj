@@ -45,6 +45,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="EdFi.Ods.SandboxAdmin.nuspec" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>
