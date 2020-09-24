@@ -20,6 +20,8 @@ using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
@@ -110,7 +112,16 @@ namespace EdFi.Ods.SandboxAdmin
 
             services.Configure<Dictionary<string, UserOptions>>(Configuration.GetSection("User"));
 
-            services.AddControllersWithViews().AddControllersAsServices();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .AddControllersAsServices();
 
             services.AddMvc(
                 options =>
@@ -118,7 +129,27 @@ namespace EdFi.Ods.SandboxAdmin
                     options.Filters.Add(
                         new SetCurrentUserInfoAttribute(
                             () => Container.Resolve<ISecurityService>(), Container.Resolve<IHttpContextAccessor>()));
-                }).AddControllersAsServices();
+                })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .AddControllersAsServices();
+
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                        options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                        options.SerializerSettings.Formatting = Formatting.Indented;
+                        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    })
+                .AddControllersAsServices();
 
             //services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
         }
