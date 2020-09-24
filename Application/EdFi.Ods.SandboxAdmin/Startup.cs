@@ -20,6 +20,7 @@ using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
@@ -55,8 +56,14 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
             services.AddHttpContextAccessor();
+
+            services.AddScoped(serviceProvider =>
+            {
+                var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
 
             // Add Hangfire services.
             services.AddHangfire(
@@ -150,8 +157,6 @@ namespace EdFi.Ods.SandboxAdmin
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     })
                 .AddControllersAsServices();
-
-            //services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
         }
 
         // ConfigureContainer is where you can register things directly

@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {
@@ -25,22 +26,20 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         private const string PasswordResetCompleteMessageKey = "PasswordResetCompleteMessage";
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IPasswordService _passwordService;
-        private readonly ISecurityService _securityService;
         private readonly IUserAccountManager _userAccountManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AccountController(
             IUserAccountManager userAccountManager,
             IPasswordService passwordService,
-            ISecurityService securityService,
             IClientAppRepo clientAppRepo,
-            SignInManager<IdentityUser> signInManager)
+            IHttpContextAccessor httpContextAccessor
+            )
         {
-            _signInManager = signInManager;
             _userAccountManager = userAccountManager;
             _passwordService = passwordService;
-            _securityService = securityService;
             _clientAppRepo = clientAppRepo;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public ActionResult SessionInfo()
@@ -265,7 +264,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         [HttpPost]
         public async Task<ActionResult> ChangePassword(ChangePasswordModel model)
         {
-            model.UserName = _signInManager.Context.User.Identity.Name;
+            model.UserName = _httpContextAccessor.HttpContext.User.Identity.Name;
             var result = await _userAccountManager.ChangePassword(model);
 
             if (result.Success)
@@ -283,7 +282,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await _userAccountManager.Login(model.EmailAddress, model.Password))
+                if (await _userAccountManager.Login(model.EmailAddress, model.Password, model.RememberMe))
                 {
                     var user = _clientAppRepo.GetUser(model.EmailAddress);
 
@@ -338,7 +337,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
         //[ValidateAntiForgeryToken]
         public async Task<ActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _httpContextAccessor.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
 
             return Json(
                 new

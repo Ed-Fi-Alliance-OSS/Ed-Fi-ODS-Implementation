@@ -63,7 +63,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
             return await _userManager.FindByEmailAsync(userEmail);
         }
 
-        public async Task<bool> Login(string userEmail, string password)
+        public async Task<bool> Login(string userEmail, string password, bool isPersistent = false)
         {
             var identityUser = await _userManager.FindByEmailAsync(userEmail);
 
@@ -72,7 +72,9 @@ namespace EdFi.Ods.SandboxAdmin.Security
                 return false;
             }
 
-            SignInResult signInResult = await _signInManager.PasswordSignInAsync(identityUser.UserName, password ,false,false);
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(
+                identityUser.UserName, password, isPersistent, false);
+
             return signInResult.Succeeded;
         }
 

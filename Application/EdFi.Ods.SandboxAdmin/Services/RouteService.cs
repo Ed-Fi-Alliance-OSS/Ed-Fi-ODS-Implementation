@@ -11,21 +11,15 @@ namespace EdFi.Ods.SandboxAdmin.Services
 {
     public class RouteService : IRouteService
     {
-        private readonly IActionContextAccessor _actionContextAccessor;
-
-        public RouteService(IActionContextAccessor actionContextAccessor)
+        private readonly IUrlHelper _urlHelper;
+        public RouteService(IUrlHelper urlHelper)
         {
-            _actionContextAccessor = actionContextAccessor;
-        }
-
-        private UrlHelper Url
-        {
-            get { return new UrlHelper(_actionContextAccessor.ActionContext); }
+            _urlHelper = urlHelper;
         }
 
         public string GetRouteForPasswordReset(string email, string marker)
         {
-            return Url.Action(
+            return _urlHelper.Action(
                            "ResetPassword",
                            "Account",
                            new
@@ -37,7 +31,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
         public string GetRouteForActivation(string email, string marker)
         {
-            return Url.Action(
+            return _urlHelper.Action(
                            "ActivateAccount",
                            "Account",
                            new
