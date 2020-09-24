@@ -15,12 +15,15 @@ namespace EdFi.Ods.SandboxAdmin
     {
         public static async Task Main(string[] args)
         {
+            ConfigureLogging();
+
             var _logger = LogManager.GetLogger(typeof(Program));
             _logger.Debug("Loading configuration files");
 
-            ConfigureLogging();
+            
 
             var host = Host.CreateDefaultBuilder(args)
+                        _logger.Debug($"Environment: {hostBuilderContext.HostingEnvironment.EnvironmentName}");
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
