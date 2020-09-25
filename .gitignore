@@ -119,4 +119,8 @@ environment.json
 # NetCore Webapi
 /**/WebApiLog*
 /**/TestHarnessLog*
+
+# Sandbox Admin
 /**/SandboxAdminLog*
+*.min.js
+*.min.css
