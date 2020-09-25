@@ -11,12 +11,6 @@ namespace EdFi.Ods.Sandbox.Admin.Contexts
     public class SqlServerIdentityContext : IdentityContext
     {
         private readonly string _connectionString;
-        public SqlServerIdentityContext(string connectionString)
-            : base()
-        {
-            _connectionString = connectionString;
-        }
-
         public SqlServerIdentityContext(IAdminDatabaseConnectionStringProvider connectionStringsProvider)
             : base()
         {

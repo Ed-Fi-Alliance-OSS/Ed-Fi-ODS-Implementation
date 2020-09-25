@@ -4,15 +4,12 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EdFi.Ods.Sandbox.Admin.Contexts
 {
     public class IdentityContext : IdentityDbContext
     {
-        //public const string ConnectionStringName = "EdFi_Admin";
-
         protected IdentityContext()
             : base() { }
 
