@@ -269,7 +269,7 @@ function ClientsViewModel() {
         $.support.cors = true;
 
         var token = { Client_id: mydata.Key, Client_secret: mydata.Secret, Grant_type: "client_credentials" };
-        $.post(EdFiAdmin.Urls.oauth + "token", token, function (d, e) {
+        $.post(EdFiAdmin.Urls.oauth + "token/", token, function (d, e) {
             self.tokenDialog.show({
                 message: (d.Access_token || d.access_token),
                 buttonText: "OK",
@@ -289,7 +289,6 @@ function ClientsViewModel() {
                 type: "DELETE",
                 data: clientData,
                 url: EdFiAdmin.Urls.client + "/" + client.Key(),
-                dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
                     self.apiClients.remove(client);
                     onComplete();

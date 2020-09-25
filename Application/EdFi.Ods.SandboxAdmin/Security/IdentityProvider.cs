@@ -6,7 +6,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.SandboxAdmin.Contexts;
 using log4net;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
@@ -15,21 +14,18 @@ namespace EdFi.Ods.SandboxAdmin.Security
 {
     public class IdentityProvider : IIdentityProvider
     {
-        private readonly IIdentityContextFactory _identityContextFactory;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly ILog _log = LogManager.GetLogger(typeof(IdentityProvider));
 
         public IdentityProvider(SignInManager<IdentityUser> signInManager
-            , IIdentityContextFactory identityContextFactory
             , UserManager<IdentityUser> userManager
             , RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
-            _identityContextFactory = identityContextFactory;
         }
 
         public async Task<bool> VerifyUserExists(string userEmail)
@@ -67,7 +63,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
             return await _userManager.FindByEmailAsync(userEmail);
         }
 
-        public async Task<bool> Login(string userEmail, string password)
+        public async Task<bool> Login(string userEmail, string password, bool isPersistent = false)
         {
             var identityUser = await _userManager.FindByEmailAsync(userEmail);
 
@@ -76,20 +72,10 @@ namespace EdFi.Ods.SandboxAdmin.Security
                 return false;
             }
 
-            var result = _userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, password);
+            SignInResult signInResult = await _signInManager.PasswordSignInAsync(
+                identityUser.UserName, password, isPersistent, false);
 
-            if (result == PasswordVerificationResult.Success)
-            {
-                //var authenticationManager = System.Web.HttpContext.Current.GetOwinContext().Authentication;
-
-                //var userIdentity = identityUserManager.CreateIdentity(
-                //    identityUser, DefaultAuthenticationTypes.ApplicationCookie);
-
-                await _signInManager.SignInAsync(identityUser, new AuthenticationProperties() { IsPersistent = false });
-                return true;
-            }
-
-            return false;
+            return signInResult.Succeeded;
         }
 
         public async Task<bool> ResetUserPassword(string userName, string newPassword)
@@ -176,25 +162,5 @@ namespace EdFi.Ods.SandboxAdmin.Security
             await _userManager.AddToRolesAsync(identityUser, roles.ToArray());
         }
 
-        //private UserManager<IdentityUser> GetIdentityUserManager()
-        //{
-        //    IdentityContext context = _identityContextFactory.CreateContext();
-        //    var identityUserStore = new UserStore<IdentityUser>(context);
-        //    var identityUserManager = new UserManager<IdentityUser>(identityUserStore, IdentityOptions.);
-        //    identityUserManager.UserTokenProvider = new Microsoft.AspNet.Identity.EmailTokenProvider<IdentityUser, string>();
-
-        //    identityUserManager.UserValidator =
-        //        new UserValidator<IdentityUser>(identityUserManager) { AllowOnlyAlphanumericUserNames = false };
-
-        //    return identityUserManager;
-        //}
-
-        //private RoleManager<IdentityRole> GetIdentityRoleManager()
-        //{
-        //    IdentityContext context = _identityContextFactory.CreateContext();
-        //    var roleStore = new RoleStore<IdentityRole>(context);
-        //    var identityRoleManager = new RoleManager<IdentityRole>(roleStore);
-        //    return identityRoleManager;
-        //}
     }
 }

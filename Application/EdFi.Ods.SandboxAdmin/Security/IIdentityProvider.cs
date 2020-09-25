@@ -21,7 +21,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
 
         Task<IdentityUser> FindUserByEmail(string userEmail);
 
-        Task<bool> Login(string userEmail, string password);
+        Task<bool> Login(string userEmail, string password, bool isPersistent);
 
         Task CreateRole(string role);
 

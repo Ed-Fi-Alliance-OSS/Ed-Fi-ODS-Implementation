@@ -13,7 +13,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
     {
         Task<CreateLoginResult> Create(CreateLoginModel model);
 
-        Task<bool> Login(string userName, string password);
+        Task<bool> Login(string userName, string password, bool isPersistent);
 
         Task<PasswordResetResult> ResetPassword(PasswordResetModel model);
 

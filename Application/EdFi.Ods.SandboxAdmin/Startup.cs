@@ -1,7 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Common.Configuration;
-using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.SandboxAdmin.Modules;
 using Hangfire;
@@ -15,8 +14,16 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data.Entity;
 using EdFi.Ods.Sandbox.Admin.Contexts;
+using EdFi.Ods.SandboxAdmin.Filters;
+using EdFi.Ods.SandboxAdmin.Services;
 using Hangfire.PostgreSql;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -49,8 +56,14 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-
             services.AddHttpContextAccessor();
+
+            services.AddScoped(serviceProvider =>
+            {
+                var actionContext = serviceProvider.GetRequiredService<IActionContextAccessor>().ActionContext;
+                var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
+                return factory.GetUrlHelper(actionContext);
+            });
 
             // Add Hangfire services.
             services.AddHangfire(
@@ -72,16 +85,78 @@ namespace EdFi.Ods.SandboxAdmin
                     }
                 });
 
+            var identityBuilder = services.AddIdentityCore<IdentityUser>(
+                    options =>
+                    {
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequireDigit = false;
+                        options.User.AllowedUserNameCharacters = options.User.AllowedUserNameCharacters + " ";
+                    })
+                .AddRoles<IdentityRole>()
+                .AddRoleValidator<RoleValidator<IdentityRole>>()
+                .AddRoleManager<RoleManager<IdentityRole>>()
+                .AddSignInManager<SignInManager<IdentityUser>>()
+                .AddDefaultTokenProviders();
+
+            if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
+            {
+                identityBuilder.AddEntityFrameworkStores<SqlServerIdentityContext>();
+            }
+            else
+            {
+                identityBuilder.AddEntityFrameworkStores<PostgresIdentityContext>();
+            }
+
+            services.AddAuthentication(IdentityConstants.ApplicationScheme)
+                .AddCookie(IdentityConstants.ApplicationScheme, options =>
+                {
+                    options.LoginPath = "/Account/Login";
+                });
+
+            services.AddAuthorization();
             // Add the processing server as IHostedService
             services.AddHangfireServer();
 
             services.Configure<Dictionary<string, UserOptions>>(Configuration.GetSection("User"));
 
-            services.AddControllersWithViews().AddControllersAsServices();
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .AddControllersAsServices();
 
-            services.AddMvc().AddControllersAsServices();
+            services.AddMvc(
+                options =>
+                {
+                    options.Filters.Add(
+                        new SetCurrentUserInfoAttribute(
+                            () => Container.Resolve<ISecurityService>(), Container.Resolve<IHttpContextAccessor>()));
+                })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                    options.SerializerSettings.Formatting = Formatting.Indented;
+                    options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                })
+                .AddControllersAsServices();
 
-            services.ConfigureApplicationCookie(options => { options.LoginPath = "/Account/Login"; });
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    {
+                        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                        options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                        options.SerializerSettings.DateParseHandling = DateParseHandling.None;
+                        options.SerializerSettings.Formatting = Formatting.Indented;
+                        options.SerializerSettings.ContractResolver = new DefaultContractResolver();
+                    })
+                .AddControllersAsServices();
         }
 
         // ConfigureContainer is where you can register things directly
@@ -127,6 +202,10 @@ namespace EdFi.Ods.SandboxAdmin
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseHangfireServer();
             var backgroundJob = Container.Resolve<IBackgroundJobService>();

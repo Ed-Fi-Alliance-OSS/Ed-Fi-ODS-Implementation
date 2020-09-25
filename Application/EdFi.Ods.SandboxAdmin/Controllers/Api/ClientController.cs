@@ -34,11 +34,13 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         public ClientController(
             IClientAppRepo repository,
             ISandboxProvisioner sandboxProvisioner,
+            ISecurityService securityService,
             IClientCreator clientCreator)
         {
             _repository = repository;
             _sandboxProvisioner = sandboxProvisioner;
             _clientCreator = clientCreator;
+            _securityService = securityService;
         }
 
         private User UserProfile
@@ -171,20 +173,20 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             return StatusCode((int)HttpStatusCode.NotAcceptable);
         }
 
-        [HttpPut]
-        public async Task<IActionResult> PutClient(ClientIndexViewModel client)
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutClient(ClientIndexViewModel clientViewModel)
         {
-            var test = UserProfile.ApiClients.FirstOrDefault(c => c.Key == client.Key && c.ApiClientId == client.Id);
+            var client = _repository.GetClient(clientViewModel.Key);
 
-            if (test == null)
+            if (client == null)
             {
                 throw new KeyNotFoundException();
             }
 
-            test.GenerateSecret();
-            _repository.UpdateClient(test);
-            await AddClientStatusInfo(test);
-            return Ok(ToClientIndexViewModel(test));
+            client.GenerateSecret();
+            _repository.UpdateClient(client);
+            await AddClientStatusInfo(client);
+            return Ok(ToClientIndexViewModel(client));
         }
 
         [HttpDelete("{id}")]

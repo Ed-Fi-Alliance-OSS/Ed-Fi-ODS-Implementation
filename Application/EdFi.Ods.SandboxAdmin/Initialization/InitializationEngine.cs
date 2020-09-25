@@ -18,7 +18,7 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 {
     public interface IInitializationEngine
     {
-        void CreateIdentityRoles();
+        Task CreateIdentityRoles();
 
         Task CreateIdentityUsers();
 
@@ -47,7 +47,8 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
             IClientAppRepo clientAppRepo,
             IClientCreator clientCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
-            IDefaultApplicationCreator applicationCreator
+            IDefaultApplicationCreator applicationCreator,
+            IIdentityProvider identityProvider
             )
         {
             _users = users.Value;
@@ -55,15 +56,16 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
             _clientCreator = clientCreator;
             _templateDatabaseLeaQuery = templateDatabaseLeaQuery;
             _applicationCreator = applicationCreator;
+            _identityProvider = identityProvider;
         }
 
-        public void CreateIdentityRoles()
+        public async Task CreateIdentityRoles()
         {
             try
             {
                 foreach (var role in SecurityRoles.AllRoles)
                 {
-                    _identityProvider.CreateRole(role);
+                    await _identityProvider.CreateRole(role);
                 }
             }
             catch (Exception ex)

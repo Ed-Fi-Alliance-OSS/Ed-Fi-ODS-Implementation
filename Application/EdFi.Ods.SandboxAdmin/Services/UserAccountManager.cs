@@ -72,9 +72,9 @@ namespace EdFi.Ods.SandboxAdmin.Services
                .AddFailingField(x => x.Email);
         }
 
-        public async Task<bool> Login(string userEmail, string password)
+        public async Task<bool> Login(string userEmail, string password, bool isPersistent = false)
         {
-            return await _identityProvider.Login(userEmail, password);
+            return await _identityProvider.Login(userEmail, password, isPersistent);
         }
 
         public async Task<PasswordResetResult> ResetPassword(PasswordResetModel model)
@@ -209,8 +209,9 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
         private async Task<CreateLoginResult> CreateNewUser(CreateLoginModel model)
         {
-            var randomPassword = Guid.NewGuid()
-                                     .ToString();
+            var randomPassword = Guid.NewGuid().ToString();
+
+            randomPassword = randomPassword.Substring(0, 4).ToUpper() + randomPassword.Substring(4);
 
             try
             {
@@ -233,8 +234,8 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 _log.Error("CreateNewUser", e);
 
                 var message = string.Format("An exception was thrown when attempting to create the user:\n{0}", e.Message)
-                                    .Replace("\r\n", "\n")
-                                    .Replace("\n", "<br/>");
+                    .Replace("\r\n", "\n")
+                    .Replace("\n", "<br/>");
 
                 return CreateLoginResult.Fail.WithMessage(message);
             }
