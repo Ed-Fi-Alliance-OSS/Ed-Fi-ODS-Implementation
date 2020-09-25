@@ -1,15 +1,15 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using EdFi.Ods.Common.Extensions;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {
@@ -46,9 +46,10 @@ namespace EdFi.Ods.SandboxAdmin.Services
             };
 
             message.To.Add(new MailAddress(emailAddress));
+            message.From = GetFromAddress();
 
             GetSmtpClientWithEnvironmentVariableExpansion()
-               .Send(message);
+                .Send(message);
         }
 
         public void SendForgotPasswordEmail(string emailAddress, string secret)
@@ -68,26 +69,48 @@ namespace EdFi.Ods.SandboxAdmin.Services
             };
 
             message.To.Add(new MailAddress(emailAddress));
+            message.From = GetFromAddress();
 
             GetSmtpClientWithEnvironmentVariableExpansion()
-               .Send(message);
+                .Send(message);
         }
 
         private SmtpClient GetSmtpClientWithEnvironmentVariableExpansion()
         {
+            var smtpUsername = _configuration.GetValue<string>("MailSettings:Smtp:Username");
+            var smtpPassword = _configuration.GetValue<string>("MailSettings:Smtp:Password");
+            var host = _configuration.GetValue<string>("MailSettings:Smtp:Host");
+            var port = _configuration.GetValue<int>("MailSettings:Smtp:Port");
+            var pickupDirectoryLocation = _configuration.GetValue<string>("MailSettings:Smtp:SpecifiedPickupDirectory:PickupDirectoryLocation");
+
             var smtpClient = new SmtpClient();
-            var smtpUsername = _configuration.GetSection("smtp:Username").Value;
-            var smtpPassword = _configuration.GetSection("smtp:Password").Value;
 
             if (smtpUsername != null && smtpPassword != null)
             {
                 smtpClient.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
             }
 
-            // Expand any embedded environment variables
-            if (smtpClient.PickupDirectoryLocation != null)
+            if (!string.IsNullOrEmpty(host))
             {
-                smtpClient.PickupDirectoryLocation = Environment.ExpandEnvironmentVariables(smtpClient.PickupDirectoryLocation);
+                smtpClient.Host = host;
+            }
+
+            if (!port.IsDefaultValue())
+            {
+                smtpClient.Port = port;
+            }
+
+            if (Enum.TryParse(
+                typeof(SmtpDeliveryMethod), _configuration.GetValue<string>("MailSettings:Smtp:DeliveryMethod"), true,
+                out object deliveryMethod))
+            {
+                smtpClient.DeliveryMethod = (SmtpDeliveryMethod) deliveryMethod;
+            }
+
+            if (!string.IsNullOrEmpty(pickupDirectoryLocation))
+            {
+                // Expand any embedded environment variables
+                smtpClient.PickupDirectoryLocation = Environment.ExpandEnvironmentVariables(pickupDirectoryLocation);
 
                 // Try to make sure that the specified email directory exists
                 try
@@ -98,6 +121,11 @@ namespace EdFi.Ods.SandboxAdmin.Services
             }
 
             return smtpClient;
+        }
+
+        private MailAddress GetFromAddress()
+        {
+            return new MailAddress(_configuration.GetValue<string>("MailSettings:Smtp:From"));
         }
     }
 }
