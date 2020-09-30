@@ -3,8 +3,10 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace EdFi.Ods.SwaggerUI
@@ -18,6 +20,15 @@ namespace EdFi.Ods.SwaggerUI
 
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(
+                    (hostBuilderContext, configbuilder) =>
+                    {
+                        configbuilder.SetBasePath(AppContext.BaseDirectory)
+                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                            .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", true, true)
+                            .AddJsonFile($"appsettings.user.json", optional: true, true)
+                            .AddEnvironmentVariables();
+                    })
                 .ConfigureWebHostDefaults(
                     webBuilder =>
                     {
