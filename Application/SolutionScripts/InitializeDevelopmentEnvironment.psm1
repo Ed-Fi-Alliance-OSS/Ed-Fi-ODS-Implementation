@@ -137,8 +137,6 @@ function Initialize-DevelopmentEnvironment {
             $script:result += Invoke-RebuildSolution
         }
 
-        if (-not $NoCredentials) { $script:result += Add-SandboxCredentials }
-
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
 
