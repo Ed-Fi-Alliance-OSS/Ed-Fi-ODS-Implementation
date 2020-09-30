@@ -333,63 +333,21 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
         $newSettingsFiles += $newDevelopmentSettingsPath
 
-        $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
-        $userSecrets += ($credentialSettings | ConvertTo-Json -Depth 10 | dotnet user-secrets set --project $projectPath --id (Get-UserSecretsIdByProject).$project)
     }
 
     return $newSettingsFiles
 }
 
-$RegExFilter = "\A(?<curr>[^:]+)(:(?<remain>(?<sub>[^:]+)(:.*)?))?\Z"
-
-function Get-FlattenHash {
-    param([string]$Key,$Value,$Obj)  
-
-    if ($Value) {
-        if ($key -match $RegExFilter) {
-            $Current = $matches.curr
-            if (-not ($Obj | gm $Current)) {
-                        if (-not $Obj.ContainsKey($Current)) { $Obj.$Current = @{ } }
-            }
-
-            if ($matches.remain) {
-                $Obj.$Current = Get-FlattenHash -Key $matches.remain -Value $Value -Obj ($Obj.$Current)
-            } else {
-                $Obj.$Current = $Value
-            }
-            return $Obj
-        }
-    }
-}
-
 function Get-UserSecrets() {
-    $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
+    
     $inputTable = @{}
-    foreach ($project in $developmentSettingsByProject.Keys){
-        $projectPath = Get-RepositoryResolvedPath $project
-        $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
-
-        if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
-        {
-            $lineLength= $userSecretList.Split("\r?\n|\r").length
-            $line= ($userSecretList -split "\r?\n|\r")
-            for ($linecnt=0; $linecnt -lt $lineLength; $linecnt++){
-               if ([string]::IsNullOrEmpty($line[$linecnt]) -ne 'True' )
-               {
-                  $line[$linecnt]= $line[$linecnt].Remove($line[$linecnt].LastIndexOf(' '),1)
-                  $lastindex= $line[$linecnt].LastIndexOf('=')
-                  $elementkey= $line[$linecnt].Substring(0,$lastindex-1)
-                  $elementvalue= $line[$linecnt].Substring($lastindex+1)
-                  $inputTable.Add($elementkey,$elementvalue)
-               }
-            }
-        }
-    }    
-    $resultTable = @{}
-    foreach ($key in $inputTable.Keys) {
-        if ($inputTable.$key) {
-        $resultTable = Get-FlattenHash -Key $key -Value $inputTable.$key -Obj $resultTable
-        }
+    $project = "Application/EdFi.Ods.WebApi.NetCore"
+    $projectPath = Get-RepositoryResolvedPath $project
+    $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
+    if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+    {
+       $inputTable= ConvertFrom-StringData -StringData $userSecretList
     }
+    $resultTable = Get-UnFlatHashTable($inputTable)
    return ($resultTable)
 }
