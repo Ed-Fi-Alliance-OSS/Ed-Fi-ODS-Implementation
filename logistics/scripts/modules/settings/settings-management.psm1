@@ -304,6 +304,15 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
     return $newSettings
 }
 
+function Get-UserSecretsIdByProject {
+    return @{
+        "Application/EdFi.Ods.SandboxAdmin" = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        "Application/EdFi.Ods.SwaggerUI" = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        "Application/EdFi.Ods.WebApi.NetCore" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
+    }
+}
+
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
@@ -312,9 +321,11 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
         $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
 
-        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine, $Settings
+        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
+
+        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, (Get-CredentialSettingsByProject)[$project], $Settings
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
@@ -323,10 +334,62 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newSettingsFiles += $newDevelopmentSettingsPath
 
         $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
-        $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
-        New-JsonFile $newUserSettingsPath $credentialSettings
-        $newSettingsFiles += $newUserSettingsPath
+        $userSecrets += ($credentialSettings | ConvertTo-Json -Depth 10 | dotnet user-secrets set --project $projectPath --id (Get-UserSecretsIdByProject).$project)
     }
 
     return $newSettingsFiles
+}
+
+$RegExFilter = "\A(?<curr>[^:]+)(:(?<remain>(?<sub>[^:]+)(:.*)?))?\Z"
+
+function Get-FlattenHash {
+    param([string]$Key,$Value,$Obj)  
+
+    if ($Value) {
+        if ($key -match $RegExFilter) {
+            $Current = $matches.curr
+            if (-not ($Obj | gm $Current)) {
+                        if (-not $Obj.ContainsKey($Current)) { $Obj.$Current = @{ } }
+            }
+
+            if ($matches.remain) {
+                $Obj.$Current = Get-FlattenHash -Key $matches.remain -Value $Value -Obj ($Obj.$Current)
+            } else {
+                $Obj.$Current = $Value
+            }
+            return $Obj
+        }
+    }
+}
+
+function Get-UserSecrets() {
+    $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
+    $inputTable = @{}
+    foreach ($project in $developmentSettingsByProject.Keys){
+        $projectPath = Get-RepositoryResolvedPath $project
+        $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
+
+        if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+        {
+            $lineLength= $userSecretList.Split("\r?\n|\r").length
+            $line= ($userSecretList -split "\r?\n|\r")
+            for ($linecnt=0; $linecnt -lt $lineLength; $linecnt++){
+               if ([string]::IsNullOrEmpty($line[$linecnt]) -ne 'True' )
+               {
+                  $line[$linecnt]= $line[$linecnt].Remove($line[$linecnt].LastIndexOf(' '),1)
+                  $lastindex= $line[$linecnt].LastIndexOf('=')
+                  $elementkey= $line[$linecnt].Substring(0,$lastindex-1)
+                  $elementvalue= $line[$linecnt].Substring($lastindex+1)
+                  $inputTable.Add($elementkey,$elementvalue)
+               }
+            }
+        }
+    }    
+    $resultTable = @{}
+    foreach ($key in $inputTable.Keys) {
+        if ($inputTable.$key) {
+        $resultTable = Get-FlattenHash -Key $key -Value $inputTable.$key -Obj $resultTable
+        }
+    }
+   return ($resultTable)
 }
