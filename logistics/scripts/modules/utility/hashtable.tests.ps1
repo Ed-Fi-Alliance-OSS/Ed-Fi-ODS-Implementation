@@ -217,3 +217,23 @@ Describe 'Get-FlatHashtable' {
         $result['k:1:p:q'] | Should -Be 10
     }
 }
+
+Describe 'Get-UnFlatHashTable' {
+    It "Convert the flatten hashtables into a new unflatten hashtable" {
+    $a = @{ 
+    'a:b:c' = 'd'
+    'a:b:e:f:g' = 'h'
+    }
+
+    $result = Get-UnFlatHashTable $a
+
+    $result | Should -BeOfType [System.Collections.Hashtable]
+    $result.a | Should -BeOfType [System.Collections.Hashtable]
+    $result.a.b | Should -BeOfType [System.Collections.Hashtable]
+    $result.a.b.c | Should -Be 'd'
+    $result.a.b.e | Should -BeOfType [System.Collections.Hashtable]
+    $result.a.b.e.f | Should -BeOfType [System.Collections.Hashtable]
+    $result.a.b.e.f.g | Should -Be 'h'
+
+   }
+}
