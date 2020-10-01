@@ -21,15 +21,6 @@ namespace EdFi.Ods.SandboxAdmin
             ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configbuilder) =>
-                    {
-                        configbuilder.SetBasePath(AppContext.BaseDirectory)
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                            .AddJsonFile($"appsettings.user.json", optional: true, true)
-                            .AddEnvironmentVariables();
-                    })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>

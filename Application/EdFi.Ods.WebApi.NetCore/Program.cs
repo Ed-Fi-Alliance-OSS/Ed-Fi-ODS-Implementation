@@ -25,33 +25,6 @@ namespace EdFi.Ods.WebApi.NetCore
             ConfigureLogging();
 
             var host = Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(
-                    (hostingContext, config) =>
-                    {
-                        var env = hostingContext.HostingEnvironment;
-
-                        config
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile("appsettings.user.json", optional: true, reloadOnChange: true);
-
-                        if (env.IsDevelopment() && !string.IsNullOrEmpty(env.ApplicationName))
-                        {
-                            var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
-
-                            if (appAssembly != null)
-                            {
-                                config.AddUserSecrets(appAssembly, optional: true);
-                            }
-                        }
-
-                        config.AddEnvironmentVariables();
-
-                        if (args != null)
-                        {
-                            config.AddCommandLine(args);
-                        }
-                    })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>

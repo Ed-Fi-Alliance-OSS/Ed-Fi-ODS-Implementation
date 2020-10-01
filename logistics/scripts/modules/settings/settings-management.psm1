@@ -304,6 +304,15 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
     return $newSettings
 }
 
+function Get-UserSecretsIdByProject {
+    return @{
+        "Application/EdFi.Ods.SandboxAdmin" = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        "Application/EdFi.Ods.SwaggerUI" = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        "Application/EdFi.Ods.WebApi.NetCore" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
+    }
+}
+
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
@@ -312,9 +321,11 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
         $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
 
-        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine, $Settings
+        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
+
+        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, (Get-CredentialSettingsByProject)[$project], $Settings
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
@@ -322,11 +333,21 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
         $newSettingsFiles += $newDevelopmentSettingsPath
 
-        $credentialSettings = Merge-Hashtables @{ }, (Get-CredentialSettingsByProject)[$project]
-        $newUserSettingsPath = Join-Path $projectPath "appsettings.user.json"
-        New-JsonFile $newUserSettingsPath $credentialSettings
-        $newSettingsFiles += $newUserSettingsPath
     }
 
     return $newSettingsFiles
+}
+
+function Get-UserSecrets() {
+    
+    $inputTable = @{}
+    $project = "Application/EdFi.Ods.WebApi.NetCore"
+    $projectPath = Get-RepositoryResolvedPath $project
+    $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
+    if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+    {
+       $inputTable= ConvertFrom-StringData -StringData $userSecretList
+    }
+    $resultTable = Get-UnFlatHashTable($inputTable)
+   return ($resultTable)
 }

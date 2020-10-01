@@ -129,4 +129,39 @@ function Write-FlatHashtable {
         Out-Host
 }
 
+$RegExFilter = "\A(?<curr>[^:]+)(:(?<remain>(?<sub>[^:]+)(:.*)?))?\Z"
+
+function Get-UnFlatObject {
+    param([string]$Key,$Value,$Object)
+
+    if ($Value) {
+        if ($key -match $RegExFilter) {
+        $Current = $matches.curr
+
+            if (-not ($Object | gm $Current)) {
+                   if (-not $Object.ContainsKey($Current)) { $Object.$Current = @{ } }
+            }
+
+            if ($matches.remain) {
+                $Object.$Current = Get-UnFlatObject -Key $matches.remain -Value $Value -Obj ($Object.$Current)
+            } else {
+                $Object.$Current = $Value
+            }
+
+        return $Object
+        }
+    }
+}
+
+function Get-UnFlatHashTable {
+   param([Hashtable] $Hashtable)
+ $resultTable = @{}
+      foreach ($key in $Hashtable.Keys) {
+        if ($Hashtable.$key) {
+        $resultTable = Get-UnFlatObject -Key $key -Value $Hashtable.$key -Obj $resultTable
+        }
+    }
+ return $resultTable
+}
+
 Export-ModuleMember -Function *

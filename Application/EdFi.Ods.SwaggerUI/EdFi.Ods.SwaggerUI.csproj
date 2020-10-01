@@ -6,6 +6,7 @@
     <FileVersion>0.0.0</FileVersion>
     <RestorePackages>true</RestorePackages>
     <AspNetCoreHostingModel>OutOfProcess</AspNetCoreHostingModel>
+    <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690eb</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Resources\Swashbuckle_index.html" />
@@ -19,5 +20,8 @@
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
   </ItemGroup>
 </Project>

@@ -29,31 +29,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 .ConfigureAppConfiguration(
                     (hostingContext, config) =>
                     {
-                        var env = hostingContext.HostingEnvironment;
-
-                        config
-                            .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile("appsettings.user.json", optional: true, reloadOnChange: true);
-
-
-                        if (env.IsDevelopment() && !string.IsNullOrEmpty(env.ApplicationName))
-                        {
-                            var appAssembly = Assembly.Load(new AssemblyName(env.ApplicationName));
-                            if (appAssembly != null)
-                            {
-                                config.AddUserSecrets(appAssembly, optional: true);
-                            }
-                        }
-
-                        config.AddEnvironmentVariables();
-
-                        if (args != null)
-                        {
-                            config.AddCommandLine(args);
-                        }
-
+                        config.SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName);
                     })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
