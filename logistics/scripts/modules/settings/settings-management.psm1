@@ -42,6 +42,20 @@ function Get-DefaultDevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
+            OAuthUrl           = "http://localhost:54746/oauth/"
+            DefaultOperationalContextUri = "uri://ed-fi-api-host.org"
+            MailSettings       = @{
+                Smtp = @{
+                    UserName = "Bingo"
+                    Password = "Tingo"
+                    DeliveryMethod = "SpecifiedPickupDirectory"
+                    From = "noreply@ed-fi.org"
+                    SpecifiedPickupDirectory = @{
+                        PickupDirectoryLocation = "C:\Temp\AdminConsole\Artifacts\Emails"
+                    }
+
+                }
+            }
         }
         "Application/EdFi.Ods.SwaggerUI"                  = @{
             Urls             = "http://localhost:56641"
