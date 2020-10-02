@@ -60,8 +60,6 @@ function Initialize-DevelopmentEnvironment {
         Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
     .parameter NoDeploy
         Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
-    .parameter NoCredentials
-        Skip the Add-SandboxCredentials task which is used to generate random credentials for the SandboxAdmin website.
     .parameter RunPester
         Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
     .parameter RunPostman
@@ -137,8 +135,6 @@ function Initialize-DevelopmentEnvironment {
             $script:result += Invoke-RebuildSolution
         }
 
-        if (-not $NoCredentials) { $script:result += Add-SandboxCredentials }
-        
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
 
@@ -211,65 +207,6 @@ function Get-RandomString {
     )
 
     return ([char[]]([char]65..[char]90) + ([char[]]([char]97..[char]122)) + 0..9 | Sort-Object { Get-Random })[0..$length] -join ""
-}
-
-function Add-SandboxCredentials {
-    [Obsolete("This function is deprecated, and will be removed in the near future. Please use Get-CredentialSettingsByProject property in settings-management.psm1 instead.")]
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingPlainTextForPassword', '', Scope = 'Function', Justification = 'development use only')]
-    Param(
-        [string] $adminName = 'Test Admin',
-        [string] $adminEmail = 'test@ed-fi.org',
-        [string] $adminPassword = (Get-RandomString),
-        [string] $populatedKey = (Get-RandomString),
-        [string] $populatedSecret = (Get-RandomString),
-        [string] $minimalKey = (Get-RandomString),
-        [string] $minimalSecret = (Get-RandomString),
-        [string] $adminCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SandboxAdmin.Web\AdminCredential.config'),
-        [string] $swaggerCredentialConfigPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'Application\EdFi.Ods.SwaggerUI\appsettings.development.json'),
-        [switch] $force
-    )
-
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        # modifying the credentials file does not automatically update the admin database
-        # pass $force if we expect to also reset the admin database
-        if (-not $force -and (Test-Path $adminCredentialConfigPath)) {
-            Write-Host "Admin credential config file already exists at $adminCredentialConfigPath"
-            return
-        }
-
-        $adminCredentialContent =
-        @"
-<initialization enabled="true">
-    <users>
-        <add name="$adminName" email="$adminEmail" password="$adminPassword" admin="true">
-            <namespacePrefixes>
-                <namespacePrefix name="uri://ed-fi.org" />
-                <namespacePrefix name="uri://gbisd.edu" />
-            </namespacePrefixes>
-            <sandboxes>
-                <sandbox name="Populated Demonstration Sandbox" key="$populatedKey" secret="$populatedSecret" type="Sample" refresh="true" />
-                <sandbox name="Minimal Demonstration Sandbox" key="$minimalKey" secret="$minimalSecret" type="Minimal" refresh="true" />
-            </sandboxes>
-        </add>
-    </users>
-</initialization>
-"@
-        $adminCredentialContent | Out-File $adminCredentialConfigPath -Encoding utf8
-        Write-Host "Created config: $adminCredentialConfigPath"
-
-        $swaggerAppSettings = @{
-            Urls             = 'http://localhost:56641'
-            WebApiVersionUrl = 'http://localhost:54746'
-            SwaggerUIOptions = @{
-                OAuthConfigObject = @{
-                    ClientId     = $populatedKey
-                    ClientSecret = $populatedSecret
-                }
-            }
-        }
-        $swaggerAppSettings | ConvertTo-Json -depth 10 | Out-File $swaggerCredentialConfigPath -Encoding utf8
-        Write-Host "Created config: $swaggerCredentialConfigPath"
-    }
 }
 
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {

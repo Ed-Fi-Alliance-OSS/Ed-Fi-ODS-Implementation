@@ -42,6 +42,20 @@ function Get-DefaultDevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
+            OAuthUrl           = "http://localhost:54746/oauth/"
+            DefaultOperationalContextUri = "uri://ed-fi-api-host.org"
+            MailSettings       = @{
+                Smtp = @{
+                    UserName = "Bingo"
+                    Password = "Tingo"
+                    DeliveryMethod = "SpecifiedPickupDirectory"
+                    From = "noreply@ed-fi.org"
+                    SpecifiedPickupDirectory = @{
+                        PickupDirectoryLocation = "C:\Temp\AdminConsole\Artifacts\Emails"
+                    }
+
+                }
+            }
         }
         "Application/EdFi.Ods.SwaggerUI"                  = @{
             Urls             = "http://localhost:56641"
@@ -199,7 +213,7 @@ function New-JsonFile {
 
     if (-not $Overwrite -and (Test-Path $FilePath)) { return }
 
-    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
+    $Hashtable | ConvertTo-Json -Depth 10 | Format-Json | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
@@ -317,6 +331,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
 
+    $credentialSettingsByProject = Get-CredentialSettingsByProject
+
     foreach ($project in $developmentSettingsByProject.Keys) {
         $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
         $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
@@ -325,7 +341,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
-        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, (Get-CredentialSettingsByProject)[$project], $Settings
+        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
@@ -338,16 +354,95 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     return $newSettingsFiles
 }
 
-function Get-UserSecrets() {
-    
-    $inputTable = @{}
-    $project = "Application/EdFi.Ods.WebApi.NetCore"
-    $projectPath = Get-RepositoryResolvedPath $project
-    $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
-    if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
-    {
-       $inputTable= ConvertFrom-StringData -StringData $userSecretList
+function Format-Json {
+    <#
+    .SYNOPSIS
+        Prettifies JSON output.
+    .DESCRIPTION
+        Reformats a JSON string so the output looks better than what ConvertTo-Json outputs.
+    .PARAMETER Json
+        Required: [string] The JSON text to prettify.
+    .PARAMETER Minify
+        Optional: Returns the json string compressed.
+    .PARAMETER Indentation
+        Optional: The number of spaces (1..1024) to use for indentation. Defaults to 4.
+    .PARAMETER AsArray
+        Optional: If set, the output will be in the form of a string array, otherwise a single string is output.
+    .EXAMPLE
+        $json | ConvertTo-Json  | Format-Json -Indentation 2
+    #>
+    [CmdletBinding(DefaultParameterSetName = 'Prettify')]
+    Param(
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
+        [string]$Json,
+
+        [Parameter(ParameterSetName = 'Minify')]
+        [switch]$Minify,
+
+        [Parameter(ParameterSetName = 'Prettify')]
+        [ValidateRange(1, 1024)]
+        [int]$Indentation = 4,
+
+        [Parameter(ParameterSetName = 'Prettify')]
+        [switch]$AsArray
+    )
+
+    if ($PSCmdlet.ParameterSetName -eq 'Minify') {
+        return ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100 -Compress
     }
-    $resultTable = Get-UnFlatHashTable($inputTable)
+
+    # If the input JSON text has been created with ConvertTo-Json -Compress
+    # then we first need to reconvert it without compression
+    if ($Json -notmatch '\r?\n') {
+        $Json = ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100
+    }
+
+    $indent = 0
+    $regexUnlessQuoted = '(?=([^"]*"[^"]*")*[^"]*$)'
+
+    $result = $Json -split '\r?\n' |
+        ForEach-Object {
+            # If the line contains a ] or } character,
+            # we need to decrement the indentation level unless it is inside quotes.
+            if ($_ -match "[}\]]$regexUnlessQuoted") {
+                $indent = [Math]::Max($indent - $Indentation, 0)
+            }
+
+            # Replace all colon-space combinations by ": " unless it is inside quotes.
+            $line = (' ' * $indent) + ($_.TrimStart() -replace ":\s+$regexUnlessQuoted", ': ')
+
+            # If the line contains a [ or { character,
+            # we need to increment the indentation level unless it is inside quotes.
+            if ($_ -match "[\{\[]$regexUnlessQuoted") {
+                $indent += $Indentation
+            }
+
+            $line
+        }
+
+    if ($AsArray) { return $result }
+    return $result -Join [Environment]::NewLine
+}
+
+function Get-UserSecrets() {
+
+    $inputTable = @{}
+    $resultTable = @{}
+    $project = "Application/EdFi.Ods.WebApi.NetCore"
+
+    try {
+        $projectPath = Get-RepositoryResolvedPath $project
+        $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
+        if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+        {
+           $inputTable= ConvertFrom-StringData -StringData $userSecretList
+        }
+
+        $resultTable = Get-UnFlatHashTable($inputTable)
+    }
+    catch {
+        Write-Host $_.Exception.Message -ForegroundColor Yellow
+    }
+
    return ($resultTable)
 }

@@ -45,6 +45,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+    <Content Include="EdFi.Ods.SandboxAdmin.nuspec" CopyToPublishDirectory="Always" />
+    <Content Update="appsettings.*.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

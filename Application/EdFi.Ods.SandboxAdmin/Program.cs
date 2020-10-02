@@ -15,10 +15,10 @@ namespace EdFi.Ods.SandboxAdmin
     {
         public static async Task Main(string[] args)
         {
-            var _logger = LogManager.GetLogger(typeof(Program));
-            _logger.Debug("Loading configuration files");
-
             ConfigureLogging();
+
+            var logger = LogManager.GetLogger(typeof(Program));
+            logger.Debug("Loading configuration files");
 
             var host = Host.CreateDefaultBuilder(args)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
