@@ -341,7 +341,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
-        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, (Get-CredentialSettingsByProject)[$project], $Settings
+        $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
@@ -425,7 +425,7 @@ function Format-Json {
 }
 
 function Get-UserSecrets() {
-    
+
     $inputTable = @{}
     $project = "Application/EdFi.Ods.WebApi.NetCore"
     $projectPath = Get-RepositoryResolvedPath $project

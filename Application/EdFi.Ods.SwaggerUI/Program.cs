@@ -20,15 +20,6 @@ namespace EdFi.Ods.SwaggerUI
 
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(
-                    (hostBuilderContext, configbuilder) =>
-                    {
-                        configbuilder.SetBasePath(AppContext.BaseDirectory)
-                            .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                            .AddJsonFile($"appsettings.{hostBuilderContext.HostingEnvironment.EnvironmentName}.json", true, true)
-                            .AddJsonFile($"appsettings.user.json", optional: true, true)
-                            .AddEnvironmentVariables();
-                    })
                 .ConfigureWebHostDefaults(
                     webBuilder =>
                     {

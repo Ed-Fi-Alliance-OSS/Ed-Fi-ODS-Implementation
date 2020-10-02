@@ -21,8 +21,6 @@ namespace EdFi.Ods.SandboxAdmin
             logger.Debug("Loading configuration files");
 
             var host = Host.CreateDefaultBuilder(args)
-                        logger.Debug($"Environment: {hostBuilderContext.HostingEnvironment.EnvironmentName}");
-                            .AddJsonFile($"appsettings.development.json", true, true)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
                     webBuilder =>
