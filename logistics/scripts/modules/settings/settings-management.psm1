@@ -213,7 +213,7 @@ function New-JsonFile {
 
     if (-not $Overwrite -and (Test-Path $FilePath)) { return }
 
-    $Hashtable | ConvertTo-Json -Depth 10 | Format-Json |  Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
+    $Hashtable | ConvertTo-Json -Depth 10 | Format-Json | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
@@ -427,13 +427,22 @@ function Format-Json {
 function Get-UserSecrets() {
 
     $inputTable = @{}
+    $resultTable = @{}
     $project = "Application/EdFi.Ods.WebApi.NetCore"
-    $projectPath = Get-RepositoryResolvedPath $project
-    $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
-    if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
-    {
-       $inputTable= ConvertFrom-StringData -StringData $userSecretList
+
+    try {
+        $projectPath = Get-RepositoryResolvedPath $project
+        $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
+        if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+        {
+           $inputTable= ConvertFrom-StringData -StringData $userSecretList
+        }
+
+        $resultTable = Get-UnFlatHashTable($inputTable)
     }
-    $resultTable = Get-UnFlatHashTable($inputTable)
+    catch {
+        Write-Host $_.Exception.Message -ForegroundColor Yellow
+    }
+
    return ($resultTable)
 }

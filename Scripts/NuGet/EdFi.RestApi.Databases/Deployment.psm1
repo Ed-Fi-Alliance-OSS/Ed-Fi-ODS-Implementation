@@ -194,6 +194,8 @@ function Get-DeploymentSettings {
 
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 
+    $hashTableUserSecrets = Get-UserSecrets
+
     $mergedSettings = Merge-Hashtables $mergedSettings, $hashTableUserSecrets
 
     return $mergedSettings
