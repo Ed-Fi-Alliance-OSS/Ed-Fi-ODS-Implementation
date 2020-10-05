@@ -7,6 +7,7 @@ using Autofac;
 using EdFi.Admin.DataAccess.Contexts;
 using EdFi.Admin.DataAccess.Providers;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Common.Configuration;
 using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
