@@ -12,7 +12,7 @@ run the prep-installer-package.ps1 script first. Think of it as a "restore-packa
 step before compiling in C#.
 #>
 
-& "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
 
