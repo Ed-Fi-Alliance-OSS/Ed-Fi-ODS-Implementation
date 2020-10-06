@@ -65,7 +65,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
             return new CreateLoginResult
             {
-                Message = $"A user already exists with this email address, but email address has not been confirmed.{Environment.NewLine}{Environment.NewLine}" +
+                Message = "A user already exists with this email address, but email address has not been confirmed.\n\n" +
                                  "Use the link below to send the confirmation link again.",
                 UserStatus = UserStatus.NeedsEmailConfirmation
             }
@@ -233,7 +233,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
             {
                 _log.Error("CreateNewUser", e);
 
-                var message = string.Format($"An exception was thrown when attempting to create the user:{Environment.NewLine}{{0}}", e.Message)
+                var message = string.Format("An exception was thrown when attempting to create the user:\n{0}", e.Message)
                     .Replace("\r\n", "\n")
                     .Replace("\n", "<br/>");
 
