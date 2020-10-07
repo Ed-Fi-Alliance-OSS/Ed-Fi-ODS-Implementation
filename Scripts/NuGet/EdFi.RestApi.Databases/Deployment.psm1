@@ -272,7 +272,7 @@ $deploymentTasks = @{
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
 
-        if ($settings.ApiSettings.engine -ne 'SQLServer' -and $settings.ApiSettings.engine -ne 'PostgreSQL') { return }
+        if ($settings.ApiSettings.engine -ne 'SQLServer' -and $settings.ApiSettings.engine -ne 'PostgreSQL') { return; }
 
         $masterConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Master]
         $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
@@ -284,7 +284,6 @@ $deploymentTasks = @{
             Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB
          }
          else {
-
             $params = @{
                 serverName   = $masterCSB["host"]
                 portNumber   = $masterCSB["port"]
