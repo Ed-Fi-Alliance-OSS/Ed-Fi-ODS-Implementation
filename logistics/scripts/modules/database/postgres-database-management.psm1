@@ -296,6 +296,37 @@ function Remove-PostgreSQLDatabase {
     Test-Error
 }
 
+function Get-SandboxDatabaseNames {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] $userName
+    )
+
+    $parameters = @{
+        serverName   = $serverName
+        portNumber   = $portNumber
+        userName     = $userName
+        databaseName = 'postgres'
+        commands     = "select datname from pg_database where datname similar to 'EdFi_Ods_Sandbox%';"
+    }
+
+    $results = Invoke-PsqlCommand @parameters
+    Test-Error
+
+    $sandboxNames = New-Object System.Collections.ArrayList($null);
+
+    foreach($item in $results){
+        if (-not [string]::IsNullOrEmpty($item)){
+            $sandboxNames.Add($item.trim())
+        }
+    }
+
+    return  $sandboxNames
+}
+
 function Backup-PostgreSQLDatabase {
     Param (
         [string] [Parameter(Mandatory = $true)] $serverName,
@@ -379,4 +410,5 @@ Invoke-PsqlCommand,
 Backup-PostgreSQLDatabase,
 Test-PostgreSQLDatabaseExists,
 Set-PostgresSQLDatabaseAsTemplate,
-Remove-PostgresSQLDatabaseAsTemplate
+Remove-PostgresSQLDatabaseAsTemplate,
+Get-SandboxDatabaseNames
