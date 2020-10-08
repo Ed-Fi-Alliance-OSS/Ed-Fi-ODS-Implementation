@@ -240,12 +240,32 @@ function Invoke-TransformWebConfigAccountInitialization {
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
 
-        $InitializationSetting = @{
-            "{ACCOUNT_EMAIL}"    = $Config.AccountEmail
-            "{ACCOUNT_PASSWORD}" = $Config.AccountSecret
-            "{POPULATED_SECRET}" = $Config.PopulatedSecret
-            "{MINIMAL_SECRET}"   = $Config.MinimalSecret
+        $InitializationSetting =@{
+            User = @{
+                "Test Admin" = @{
+                    Email             = $Config.AccountEmail
+                    Password          = $Config.AccountSecret
+                    Admin             = "true"
+                    NamespacePrefixes = @(
+                        "uri://ed-fi.org"
+                        "uri://gbisd.org"
+                    )
+                    Sandboxes         = @{
+                        "Populated Demonstration Sandbox" = @{
+                            Secret  = $Config.PopulatedSecret
+                            Type    = "Sample"
+                            Refresh = "false"
+                        }
+                        "Minimal Demonstration Sandbox"   = @{
+                            Secret  = $Config.MinimalSecret
+                            Type    = "Minimal"
+                            Refresh = "false"
+                        }
+                    }
+                }
+            }
         }
+
         $mergedSettings = Merge-Hashtables $settings, $InitializationSetting
         New-JsonFile $webConfigPath  $mergedSettings -Overwrite
        
