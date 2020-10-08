@@ -13,7 +13,7 @@ step before compiling in C#.
 #>
 
 Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/hashtable.psm1"
+Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
 
