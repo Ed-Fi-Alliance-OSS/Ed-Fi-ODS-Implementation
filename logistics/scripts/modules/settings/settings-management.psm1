@@ -8,6 +8,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
 
 function Get-DefaultDevelopmentSettingsByProject {
+
     return @{
         "Application/EdFi.Ods.WebApi.NetCore"             = @{
             Urls              = "http://localhost:54746"
@@ -71,19 +72,43 @@ function Get-DefaultDevelopmentSettingsByProject {
 
 function Get-CredentialSettingsByProject {
 
+    [CmdletBinding()]
+    param (
+        # Web site user e-mail address. Default value: test@ed-fi.org.
+        [string]
+        $AccountEmail = "test@ed-fi.org",
+
+        # Web site user password. Default value: ***REMOVED***.
+        [string]
+        $AccountSecret = "***REMOVED***",
+
+        # Secret for the Populated Sandbox credentials
+        [string]
+        $PopulatedSecret = "populatedSandboxSecret",
+
+        # Secret for the Minimal Sandbox credentials
+        [string]
+        $MinimalSecret = "minimumSandboxSecret",
+
+    )
+
     function Get-RandomString([int] $length = 20) {
         return ([char[]]([char]65..[char]90) + ([char[]]([char]97..[char]122)) + 0..9 | Sort-Object { Get-Random })[0..$length] -join ''
     }
 
-    $populatedKey = Get-RandomString
-    $populatedSecret = Get-RandomString
+    $Config = @{
+        AccountEmail = $AccountEmail
+        AccountSecret = $AccountSecret
+        PopulatedSecret = $PopulatedSecret
+        MinimalSecret = $MinimalSecret
+    }
 
     return @{
         "Application/EdFi.Ods.SandboxAdmin"               = @{
             User = @{
                 "Test Admin" = @{
-                    Email             = "test@ed-fi.org"
-                    Password          = Get-RandomString
+                    Email             =  $Config.AccountEmail
+                    Password          =  $Config.AccountSecret
                     Admin             = "true"
                     NamespacePrefixes = @(
                         "uri://ed-fi.org"
@@ -91,14 +116,14 @@ function Get-CredentialSettingsByProject {
                     )
                     Sandboxes         = @{
                         "Populated Demonstration Sandbox" = @{
-                            Key     = $populatedKey
-                            Secret  = $populatedSecret
+                            Key     = Get-RandomString
+                            Secret  = $Config.PopulatedSecret
                             Type    = "Sample"
                             Refresh = "false"
                         }
                         "Minimal Demonstration Sandbox"   = @{
                             Key     = Get-RandomString
-                            Secret  = Get-RandomString
+                            Secret  = $Config.MinimalSecret
                             Type    = "Minimal"
                             Refresh = "false"
                         }
@@ -139,10 +164,10 @@ function Get-DefaultDevelopmentSettingsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
-                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "Server=KESHAVA\SQLDEV2017; Trusted_Connection=True; Database=EdFi_{0};"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Server=KESHAVA\SQLDEV2017; Trusted_Connection=True; Database=EdFi_Admin;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=KESHAVA\SQLDEV2017; Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
+                ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=KESHAVA\SQLDEV2017; Trusted_Connection=True; Database=master;"
             }
             ApiSettings  = @{
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'

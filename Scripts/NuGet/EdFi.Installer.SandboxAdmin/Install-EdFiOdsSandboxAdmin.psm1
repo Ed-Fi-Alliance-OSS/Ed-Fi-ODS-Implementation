@@ -221,16 +221,11 @@ function Invoke-TransformWebConfigAppSettings {
     )
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $appSettings = @{
-            "OAuthUrl" = $Config.OAuthUrl
-        }
-
-        $Config.AppSettingsOverrides.GetEnumerator() | ForEach-Object {
-            Merge-Hashtables $appSettings $_.value.toString()
-        }
-       
-        $newDevelopmentSettingsPath = Join-Path $Config.WebConfigLocation "appsettings.json"
-        New-JsonFile $newDevelopmentSettingsPath $appSettings -Overwrite
+        $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
+        $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+        $settings.OAuthUrl=$Config.OAuthUrl
+        $mergedSettings = Merge-Hashtables $settings, $Config.AppSettingsOverrides
+        New-JsonFile $settingsFile $mergedSettings -Overwrite
     }
 }
 
@@ -243,6 +238,7 @@ function Invoke-TransformWebConfigAccountInitialization {
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
 
         $InitializationSetting = @{
             "{ACCOUNT_EMAIL}"    = $Config.AccountEmail
@@ -250,8 +246,8 @@ function Invoke-TransformWebConfigAccountInitialization {
             "{POPULATED_SECRET}" = $Config.PopulatedSecret
             "{MINIMAL_SECRET}"   = $Config.MinimalSecret
         }
-       
-        New-JsonFile $webConfigPath  $InitializationSetting -Overwrite
+        $mergedSettings = Merge-Hashtables $settings, $InitializationSetting
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
        
     }
 }
