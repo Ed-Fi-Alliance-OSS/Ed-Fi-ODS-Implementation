@@ -143,7 +143,7 @@ function Get-DbConnectionStringBuilderFromTemplate {
 
 function Get-Configuration {
     param(
-        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi.NetCore\appsettings.json')
+        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi\appsettings.json')
     )
 
     $csbs = Get-DbConnectionStringBuilderFromConfig $configFile

@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json.schemastore.org/launchsettings.json",
+  "profiles": {
+    "EdFi.Ods.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "commandLineArgs": "--environment Development",
+      "applicationUrl": "http://localhost:54746"
+    }
+  }
+}

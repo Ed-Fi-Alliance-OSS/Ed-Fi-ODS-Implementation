@@ -9,7 +9,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
-        "Application/EdFi.Ods.WebApi.NetCore"             = @{
+        "Application/EdFi.Ods.WebApi"             = @{
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
                 Engine = ""
@@ -322,7 +322,7 @@ function Get-UserSecretsIdByProject {
     return @{
         "Application/EdFi.Ods.SandboxAdmin" = "f1506d66-289c-44cb-a2e2-80411cc690ea"
         "Application/EdFi.Ods.SwaggerUI" = "f1506d66-289c-44cb-a2e2-80411cc690eb"
-        "Application/EdFi.Ods.WebApi.NetCore" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        "Application/EdFi.Ods.WebApi" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
         "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
@@ -428,7 +428,7 @@ function Get-UserSecrets() {
 
     $inputTable = @{}
     $resultTable = @{}
-    $project = "Application/EdFi.Ods.WebApi.NetCore"
+    $project = "Application/EdFi.Ods.WebApi"
 
     try {
         $projectPath = Get-RepositoryResolvedPath $project

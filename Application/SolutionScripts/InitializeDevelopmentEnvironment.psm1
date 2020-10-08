@@ -35,8 +35,8 @@ Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedT
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
 Set-DeploymentSettingsFiles @(
-    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi.NetCore')\appsettings.development.json"
+    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi')\appsettings.json",
+    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi')\appsettings.development.json"
 )
 
 Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
@@ -213,7 +213,7 @@ function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     <#
     .description
         Generates appsettings.development.json and if not already created a appsettings.user.json for the following projects:
-            EdFi.Ods.WebApi.NetCore
+            EdFi.Ods.WebApi
             EdFi.Ods.Api.IntegrationTestHarness
             EdFi.Ods.SandboxAdmin.Web
             EdFi.Ods.SwaggerUI
