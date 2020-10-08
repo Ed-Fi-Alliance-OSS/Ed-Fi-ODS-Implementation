@@ -270,10 +270,8 @@ $deploymentTasks = @{
     }
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
-
         $masterConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Master]
         $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
-
         $masterCSB = $settings.ApiSettings.csbs[$masterConnectionStringKey]
         $templateCSB = $settings.ApiSettings.csbs[$odsConnectionStringKey]
 
