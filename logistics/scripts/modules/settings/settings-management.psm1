@@ -88,7 +88,7 @@ function Get-CredentialSettingsByProject {
 
         # Secret for the Minimal Sandbox credentials
         [string]
-        $MinimalSecret = "minimumSandboxSecret",
+        $MinimalSecret = "minimumSandboxSecret"
 
     )
 
