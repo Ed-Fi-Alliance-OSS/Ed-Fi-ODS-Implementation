@@ -252,11 +252,13 @@ function Invoke-TransformWebConfigAccountInitialization {
                     )
                     Sandboxes         = @{
                         "Populated Demonstration Sandbox" = @{
+                            Key     = "populatedSandbox"
                             Secret  = $Config.PopulatedSecret
                             Type    = "Sample"
                             Refresh = "false"
                         }
                         "Minimal Demonstration Sandbox"   = @{
+                            Key     = "minimalSandbox"
                             Secret  = $Config.MinimalSecret
                             Type    = "Minimal"
                             Refresh = "false"
