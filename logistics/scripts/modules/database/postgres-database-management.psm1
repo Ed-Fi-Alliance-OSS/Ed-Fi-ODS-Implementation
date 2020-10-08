@@ -296,6 +296,70 @@ function Remove-PostgreSQLDatabase {
     Test-Error
 }
 
+function Remove-EdFiPostgresSandboxDatabases {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] [Parameter(Mandatory = $true)] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseTemplate
+    )
+
+    $params = @{
+        serverName        = $serverName
+        portNumber        = $portNumber
+        userName          = $userName
+        databaseTemplate  = $databaseTemplate
+    }
+
+    $sandboxNames = Get-SandboxDatabaseNames @params
+
+    $params.remove('databaseTemplate')
+
+    foreach($sandboxName in $sandboxNames){
+        $params.databaseName = $sandboxName
+        Remove-PostgreSQLDatabase @params
+    }
+}
+function Get-SandboxDatabaseNames {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] [Parameter(Mandatory = $true)] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseTemplate
+    )
+
+    $sandboxNames = [System.Collections.ArrayList]::new()
+
+    if ($databaseTemplate -like '*{0}*'){
+        $templateBaseName = $databaseTemplate -f "Ods_Sandbox_"
+
+        $parameters = @{
+            serverName   = $serverName
+            portNumber   = $portNumber
+            userName     = $userName
+            databaseName = 'postgres'
+            commands     = "select datname from pg_database where datname similar to '$templateBaseName%';"
+        }
+
+        $results = Invoke-PsqlCommand @parameters
+        Test-Error
+
+        foreach($item in $results){
+            if (-not [string]::IsNullOrEmpty($item)){
+                $sandboxNames.Add($item.trim()) | Out-Null
+            }
+        }
+    }
+
+    return ,$sandboxNames
+}
+
 function Backup-PostgreSQLDatabase {
     Param (
         [string] [Parameter(Mandatory = $true)] $serverName,
@@ -379,4 +443,6 @@ Invoke-PsqlCommand,
 Backup-PostgreSQLDatabase,
 Test-PostgreSQLDatabaseExists,
 Set-PostgresSQLDatabaseAsTemplate,
-Remove-PostgresSQLDatabaseAsTemplate
+Remove-PostgresSQLDatabaseAsTemplate,
+Get-SandboxDatabaseNames,
+Remove-EdFiPostgresSandboxDatabases

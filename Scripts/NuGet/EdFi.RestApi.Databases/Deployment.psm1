@@ -270,13 +270,12 @@ $deploymentTasks = @{
     }
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
-        if ($settings.ApiSettings.engine -ne 'SQLServer') { return; }
         $masterConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Master]
         $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
-
         $masterCSB = $settings.ApiSettings.csbs[$masterConnectionStringKey]
         $templateCSB = $settings.ApiSettings.csbs[$odsConnectionStringKey]
-        Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB
+
+        Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB -Engine $settings.ApiSettings.engine
     }
     'Reset-MinimalTemplateDatabase'   = {
         $settings = Get-DeploymentSettings
