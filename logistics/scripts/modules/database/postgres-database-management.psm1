@@ -296,35 +296,68 @@ function Remove-PostgreSQLDatabase {
     Test-Error
 }
 
+function Remove-EdFiPostgresSandboxDatabases {
+    Param (
+        [string] [Parameter(Mandatory = $true)] $serverName,
+
+        [string] [Parameter(Mandatory = $true)] $portNumber,
+
+        [string] [Parameter(Mandatory = $true)] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseTemplate
+    )
+
+    $params = @{
+        serverName        = $serverName
+        portNumber        = $portNumber
+        userName          = $userName
+        databaseTemplate  = $databaseTemplate
+    }
+
+    $sandboxNames = Get-SandboxDatabaseNames @params
+
+    $params.remove('databaseTemplate')
+
+    foreach($sandboxName in $sandboxNames){
+        $params.databaseName = $sandboxName
+        Remove-PostgreSQLDatabase @params
+    }
+}
 function Get-SandboxDatabaseNames {
     Param (
         [string] [Parameter(Mandatory = $true)] $serverName,
 
         [string] [Parameter(Mandatory = $true)] $portNumber,
 
-        [string] $userName
+        [string] [Parameter(Mandatory = $true)] $userName,
+
+        [string] [Parameter(Mandatory = $true)] $databaseTemplate
     )
 
-    $parameters = @{
-        serverName   = $serverName
-        portNumber   = $portNumber
-        userName     = $userName
-        databaseName = 'postgres'
-        commands     = "select datname from pg_database where datname similar to 'EdFi_Ods_Sandbox%';"
-    }
+    $sandboxNames = [System.Collections.ArrayList]::new()
 
-    $results = Invoke-PsqlCommand @parameters
-    Test-Error
+    if ($databaseTemplate -like '*{0}*'){
+        $templateBaseName = $databaseTemplate -f "Ods_Sandbox_"
 
-    $sandboxNames = New-Object System.Collections.ArrayList($null);
+        $parameters = @{
+            serverName   = $serverName
+            portNumber   = $portNumber
+            userName     = $userName
+            databaseName = 'postgres'
+            commands     = "select datname from pg_database where datname similar to '$templateBaseName%';"
+        }
 
-    foreach($item in $results){
-        if (-not [string]::IsNullOrEmpty($item)){
-            $sandboxNames.Add($item.trim())
+        $results = Invoke-PsqlCommand @parameters
+        Test-Error
+
+        foreach($item in $results){
+            if (-not [string]::IsNullOrEmpty($item)){
+                $sandboxNames.Add($item.trim()) | Out-Null
+            }
         }
     }
 
-    return  $sandboxNames
+    return ,$sandboxNames
 }
 
 function Backup-PostgreSQLDatabase {
@@ -411,4 +444,5 @@ Backup-PostgreSQLDatabase,
 Test-PostgreSQLDatabaseExists,
 Set-PostgresSQLDatabaseAsTemplate,
 Remove-PostgresSQLDatabaseAsTemplate,
-Get-SandboxDatabaseNames
+Get-SandboxDatabaseNames,
+Remove-EdFiPostgresSandboxDatabases

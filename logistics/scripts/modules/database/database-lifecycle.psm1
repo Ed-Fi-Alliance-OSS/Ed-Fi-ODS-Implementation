@@ -148,7 +148,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             userName     = $csb.username
             databaseName = $csb.database
         }
-    
+
         Remove-PostgresSQLDatabaseAsTemplate @scriptParams
 
         if ($dropDatabase) {
@@ -254,8 +254,31 @@ In this example, the function looks for databases that begin with the string
 function Remove-EdFiSandboxDatabases {
     [CmdletBinding()] param(
         [Parameter(Mandatory = $true)] [System.Data.Common.DbConnectionStringBuilder] $masterCSB,
-        [Parameter(Mandatory = $true)] [System.Data.Common.DbConnectionStringBuilder] $edfiOdsTemplateCSB
+        [Parameter(Mandatory = $true)] [System.Data.Common.DbConnectionStringBuilder] $edfiOdsTemplateCSB,
+        [Parameter(Mandatory = $true)] [String] $Engine
     )
+
+    if ($Engine -eq 'SQLServer') {
+        Remove-SqlServerSandboxDatabase $masterCSB $edfiOdsTemplateCSB
+    }
+    else{
+        $params = @{
+            serverName       = $masterCSB["host"]
+            portNumber       = $masterCSB["port"]
+            userName         = $masterCSB["username"]
+            databaseTemplate = $edfiOdsTemplateCSB["database"]
+        }
+
+        Remove-EdFiPostgresSandboxDatabases @params
+    }
+}
+
+function Remove-SqlServerSandboxDatabase {
+    param(
+        [System.Data.Common.DbConnectionStringBuilder] $masterCSB,
+        [System.Data.Common.DbConnectionStringBuilder] $edfiOdsTemplateCSB
+    )
+
     $masterCSB = Convert-CommonDbCSBtoSqlCSB $masterCSB
     $edfiOdsTemplateCSB = Convert-CommonDbCSBtoSqlCSB $edfiOdsTemplateCSB
 
@@ -266,7 +289,7 @@ function Remove-EdFiSandboxDatabases {
     }
 
     $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
-    
+
     if ($templateInitialCatalog -like '*{0}*') {
         $smo = Get-Server -csb $masterCSB
         foreach ($db in $smo.Databases) {

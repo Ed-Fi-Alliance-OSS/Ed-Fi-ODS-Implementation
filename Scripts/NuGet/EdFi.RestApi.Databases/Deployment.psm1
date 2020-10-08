@@ -84,7 +84,6 @@ function Initialize-DeploymentEnvironment {
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\postgres-database-management.psm1')
 
     Write-InvocationInfo $MyInvocation
 
@@ -272,32 +271,13 @@ $deploymentTasks = @{
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings
 
-        if ($settings.ApiSettings.engine -ne 'SQLServer' -and $settings.ApiSettings.engine -ne 'PostgreSQL') { return; }
-
         $masterConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Master]
         $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
 
         $masterCSB = $settings.ApiSettings.csbs[$masterConnectionStringKey]
         $templateCSB = $settings.ApiSettings.csbs[$odsConnectionStringKey]
 
-        if ($settings.ApiSettings.engine -eq 'SQLServer') {
-            Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB
-         }
-         else {
-            $params = @{
-                serverName   = $masterCSB["host"]
-                portNumber   = $masterCSB["port"]
-                userName     = $masterCSB["username"]
-            }
-
-            $sandboxNames = Get-SandboxDatabaseNames @params
-
-            foreach($sandboxName in $sandboxNames){
-                $params.databaseName = $sandboxName
-                Remove-PostgreSQLDatabase @params
-            }
-         }
-
+        Remove-EdFiSandboxDatabases -masterCSB $masterCSB -edfiOdsTemplateCSB $templateCSB -Engine $settings.ApiSettings.engine
     }
     'Reset-MinimalTemplateDatabase'   = {
         $settings = Get-DeploymentSettings
