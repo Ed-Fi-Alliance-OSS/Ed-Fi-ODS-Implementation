@@ -13,6 +13,7 @@ step before compiling in C#.
 #>
 
 Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
+Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
 
@@ -68,7 +69,7 @@ function Install-EdFiOdsSandboxAdmin {
     param (
         # NuGet package name. Default: EdFi.Suite3.Ods.SandboxAdmin.Web.
         [string]
-        $PackageName = "EdFi.Suite3.Ods.SandboxAdmin.Web",
+        $PackageName = "EdFi.Suite3.Ods.SandboxAdmin",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
@@ -159,7 +160,6 @@ function Install-EdFiOdsSandboxAdmin {
     $elapsed = Use-StopWatch {
 
         $result += Get-SandboxAdminPackage -Config $Config
-        $result += Invoke-TransformWebConfigRelease -Config $Config
         $result += Invoke-TransformWebConfigAppSettings -Config $Config
         $result += Invoke-TransformWebConfigAccountInitialization -Config $Config
         $result += Install-Application -Config $Config
@@ -195,27 +195,21 @@ function Get-SandboxAdminPackage {
         Test-Error
 
         $Config.PackageDirectory = $packageDir
-        $Config.WebConfigLocation = Resolve-Path (Join-Path $packageDir "Web.config")
+        $Config.WebConfigLocation = $packageDir
     }
 }
+function New-JsonFile {
+    param(
+        [string] $FilePath,
 
-function Invoke-TransformWebConfigRelease {
-    [CmdletBinding()]
-    param (
-        [hashtable]
-        [Parameter(Mandatory=$true)]
-        $Config
+        [hashtable] $Hashtable,
+
+        [switch] $Overwrite
     )
 
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.Base.config"
-            transformFile = "$($Config.PackageDirectory)/Web.Release.config"
-            destinationFile = "$($Config.PackageDirectory)/Web.config"
-            toolsPath = $Config.ToolsPath
-        }
-        Invoke-ConfigTransformation @transformParams
-    }
+    if (-not $Overwrite -and (Test-Path $FilePath)) { return }
+
+    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Invoke-TransformWebConfigAppSettings {
@@ -227,15 +221,11 @@ function Invoke-TransformWebConfigAppSettings {
     )
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $appSettings = @{
-            "OAuthUrl" = $Config.OAuthUrl
-        }
-
-        $Config.AppSettingsOverrides.GetEnumerator() | ForEach-Object {
-            $appSettings[$_.key] = $_.value.toString()
-        }
-
-        Set-ApplicationSettings -ConfigFile $Config.WebConfigLocation -AppSettings $appSettings
+        $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
+        $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+        $settings.OAuthUrl=$Config.OAuthUrl
+        $mergedSettings = Merge-Hashtables $settings, $Config.AppSettingsOverrides
+        New-JsonFile $settingsFile $mergedSettings -Overwrite
     }
 }
 
@@ -247,24 +237,40 @@ function Invoke-TransformWebConfigAccountInitialization {
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $webConfigPath = "$($Config.PackageDirectory)/Web.config"
+        $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
 
-        # Transform the web.config file using the initialization config
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.config"
-            transformFile = "$PSScriptRoot/initialization.config"
-            destinationFile = $webConfigPath
-            toolsPath = $Config.ToolsPath
+        $InitializationSetting =@{
+            User = @{
+                "Test Admin" = @{
+                    Email             = $Config.AccountEmail
+                    Password          = $Config.AccountSecret
+                    Admin             = "true"
+                    NamespacePrefixes = @(
+                        "uri://ed-fi.org"
+                        "uri://gbisd.org"
+                    )
+                    Sandboxes         = @{
+                        "Populated Demonstration Sandbox" = @{
+                            Key     = "populatedSandbox"
+                            Secret  = $Config.PopulatedSecret
+                            Type    = "Sample"
+                            Refresh = "false"
+                        }
+                        "Minimal Demonstration Sandbox"   = @{
+                            Key     = "minimalSandbox"
+                            Secret  = $Config.MinimalSecret
+                            Type    = "Minimal"
+                            Refresh = "false"
+                        }
+                    }
+                }
+            }
         }
-        Invoke-ConfigTransformation @transformParams
 
-        # Inject secrets into the web.config
-        $contents = Get-Content -Path $webConfigPath
-        $contents = $contents -replace "{ACCOUNT_EMAIL}", $Config.AccountEmail
-        $contents = $contents -Replace "{ACCOUNT_PASSWORD}", $Config.AccountSecret
-        $contents = $contents -Replace "{POPULATED_SECRET}", $Config.PopulatedSecret
-        $contents = $contents -replace "{MINIMAL_SECRET}", $Config.MinimalSecret
-        $contents | Set-Content -Path $webConfigPath
+        $mergedSettings = Merge-Hashtables $settings, $InitializationSetting
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
+       
     }
 }
 
