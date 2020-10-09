@@ -195,7 +195,7 @@ function Get-SandboxAdminPackage {
         Test-Error
 
         $Config.PackageDirectory = $packageDir
-        $Config.WebConfigLocation = Resolve-Path (Join-Path $packageDir "Web.config")
+        $Config.WebConfigLocation = $packageDir
     }
 }
 function New-JsonFile {

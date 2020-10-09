@@ -23,7 +23,7 @@ function Invoke-Install {
 function Invoke-CustomPackage {
     $p = @{
         OAuthUrl = "https://localhost/EdFiOdsWebApi"
-        PackageVersion = "3.4.0-b10596"
+        PackageVersion = "5.1.0-b12760"
     }
 
     Install-EdFiOdsSandboxAdmin @p
