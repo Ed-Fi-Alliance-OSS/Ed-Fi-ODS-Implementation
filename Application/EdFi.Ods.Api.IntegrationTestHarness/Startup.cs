@@ -13,6 +13,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
             : base(env, configuration)
         {
+
         }
     }
 }
