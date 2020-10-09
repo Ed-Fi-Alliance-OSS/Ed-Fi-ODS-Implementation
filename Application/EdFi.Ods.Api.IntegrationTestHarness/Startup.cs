@@ -13,8 +13,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public Startup(IWebHostEnvironment env, IConfiguration configuration)
             : base(env, configuration)
         {
-            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Composites_Test>();
-            AssemblyLoader.EnsureLoaded<Marker_EdFi_Ods_Profiles_Test>();
         }
     }
 }
