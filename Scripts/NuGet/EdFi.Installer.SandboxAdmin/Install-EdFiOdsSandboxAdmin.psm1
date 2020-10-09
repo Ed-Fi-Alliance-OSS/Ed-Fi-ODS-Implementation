@@ -209,7 +209,7 @@ function New-JsonFile {
 
     if (-not $Overwrite -and (Test-Path $FilePath)) { return }
 
-    $Hashtable | ConvertTo-Json -Depth 10 | Format-Json | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
+    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Invoke-TransformWebConfigAppSettings {
