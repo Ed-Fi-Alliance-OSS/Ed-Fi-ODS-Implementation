@@ -7,16 +7,14 @@
 
 $script:pluginFolderConfigKey = 'plugin:folder'
 $script:pluginScriptConfigKey = 'plugin:script'
-$script:defaultConfig = 'Application\EdFi.Ods.WebApi\Web.Base.config'
+$script:defaultConfig = 'Application\EdFi.Ods.WebApi\appsettings.json'
 
 function Get-PluginFolderFromConfig {
     param(
         $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
     )
-
-    $configDoc = New-Object System.Xml.XmlDocument
-    $configDoc.Load($configFile)
-    $folder = ($configDoc.SelectSingleNode("/configuration/appSettings/add[@key=`"$script:pluginFolderConfigKey`"]/@value")).Value
+    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
+    $folder = $jsonFromFile.Plugin.Folder
 
     if ($null -eq $folder) { return [string]::Empty }
 
@@ -30,9 +28,8 @@ function Get-PluginScriptsFromConfig {
         $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
     )
 
-    $configDoc = New-Object System.Xml.XmlDocument
-    $configDoc.Load($configFile)
-    $scripts = ($configDoc.SelectSingleNode("/configuration/appSettings/add[@key=`"$script:pluginScriptConfigKey`"]/@value")).Value
+    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
+    $scripts = $jsonFromFile.Plugin.Scripts
 
     if ($null -eq $scripts) { return [string]::Empty }
     return $scripts.Split(',')

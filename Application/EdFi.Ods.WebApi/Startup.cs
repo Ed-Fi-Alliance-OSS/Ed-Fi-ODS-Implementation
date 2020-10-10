@@ -7,7 +7,7 @@ using EdFi.Ods.Api.Startup;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.WebApi.NetCore
+namespace EdFi.Ods.WebApi
 {
     public class Startup : OdsStartupBase
     {
