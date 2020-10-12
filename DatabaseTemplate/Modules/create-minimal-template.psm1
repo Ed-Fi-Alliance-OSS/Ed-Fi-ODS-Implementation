@@ -9,8 +9,9 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
 
-function Get-MinimalConfiguration {
-    $config = @{ }
+function Get-MinimalConfiguration([hashtable] $config = @{ }) {
+
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
 
     $config.Remove('apiClientNameSandbox')
 
@@ -21,8 +22,6 @@ function Get-MinimalConfiguration {
 
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template"
     $config.packageNuspecName = "EdFi.Ods.Minimal.Template"
-
-    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
 
     return $config
 }
@@ -87,8 +86,8 @@ function Initialize-MinimalTemplate {
         engine       = $engine
     }
 
-    $config = Merge-Hashtables (Get-MinimalConfiguration), $paramConfig
-    ($config).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+    $config = (Get-MinimalConfiguration $paramConfig)
+    Write-FlatHashtable $config
 
     $script:result = @()
 

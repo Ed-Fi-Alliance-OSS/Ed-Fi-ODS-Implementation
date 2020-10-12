@@ -29,8 +29,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
-        (Join-Path $config.outputFolder "appsettings.development.json"),
-        (Join-Path $config.outputFolder "appsettings.user.json")
+        (Join-Path $config.outputFolder "appsettings.development.json")
     )
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles
 
@@ -288,8 +287,8 @@ function Get-DatabaseRecordCount {
     param(
         [hashtable] $config
     )
-    if ($config.engine -eq 'SQLServer') { return Get-SQLServerDatabaseRecordCount }
-    if ($config.engine -eq 'PostgreSQL') { return Get-PostgreSQLDatabaseRecordCount }
+    if ($config.engine -eq 'SQLServer') { return (Get-SQLServerDatabaseRecordCount $config) }
+    if ($config.engine -eq 'PostgreSQL') { return (Get-PostgreSQLDatabaseRecordCount $config) }
 }
 
 function Invoke-LoadBootstrapData {
@@ -318,11 +317,11 @@ function Invoke-LoadBootstrapData {
         bulkLoadTaskCapacity        = 50
     }
 
-    $initialRecordCount = (Get-DatabaseRecordCount)
+    $initialRecordCount = (Get-DatabaseRecordCount $config)
 
     Invoke-BulkLoadClient $params
 
-    $totalRecordCount = (Get-DatabaseRecordCount)
+    $totalRecordCount = (Get-DatabaseRecordCount $config)
     $recordCount = ($totalRecordCount - $initialRecordCount)
 
     Write-Host "$initialRecordCount initial records."
