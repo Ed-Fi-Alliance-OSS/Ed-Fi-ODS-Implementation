@@ -1,4 +1,3 @@
-#if NETCOREAPP
 using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
@@ -26,4 +25,3 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Container.Modules
         }
     }
 }
-#endif
