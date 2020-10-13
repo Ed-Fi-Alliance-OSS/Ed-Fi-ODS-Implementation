@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.0.0"
-    codeGen = "5.1.0-b11037"
+    codeGen = "5.1.0-b11014"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -381,12 +381,28 @@ function Reset-TestPopulatedTemplateDatabase {
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
+    param(
+        [ValidateSet('SQLServer', 'PostgreSQL')]
+        [String] $Engine = 'SQLServer',
+        [switch] $IncludeExtensions
+    )
+
+    Install-CodeGenUtility
+
+    if ([string]::IsNullOrEmpty($Engine)){
+        $Engine = (Get-DeploymentSettings).Engine
+    }
+
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        & $tool -r $repositoryRoot -e $settings.ApiSettings.engine | Write-Host
+        if ($IncludeExtensions){
+            & $tool -r $repositoryRoot -e $Engine -IncludeExtensions | Write-Host
+        }
+        else{
+            & $tool -r $repositoryRoot -e $Engine | Write-Host
+        }
     }
 }
 
