@@ -457,3 +457,27 @@ function Get-UserSecrets([string]$project) {
 
    return ($resultTable)
 }
+
+function Set-Feature([hashtable] $Settings = {}, [string] $FeatureName, [bool] $IsEnabled) {
+    $features = $Settings.ApiSettings.Features | Where-Object { $_.Name -eq $featureName }
+
+    if ($features.Length -eq 0) {
+        $properties = @{Name = $FeatureName; IsEnabled = $IsEnabled}
+
+        if ($Settings.ApiSettings.Features.Length -eq 0)
+        {
+            $Settings.ApiSettings.Features = @()
+        }
+        
+        $Settings.ApiSettings.Features += New-Object psobject -Property $properties
+    }
+    else {
+        foreach ($feature in $Settings.ApiSettings.Features) {
+            if ($feature.Name -eq $FeatureName) {
+                $feature.IsEnabled = $IsEnabled
+            }
+        }
+    }
+
+    return $Settings
+}
