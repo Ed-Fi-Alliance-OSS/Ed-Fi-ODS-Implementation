@@ -33,7 +33,4 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Container\Installers\" />
-  </ItemGroup>
 </Project>
