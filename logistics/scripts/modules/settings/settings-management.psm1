@@ -272,9 +272,14 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 
     $folders = @()
 
-    $folders = Get-RepositoryArtifactPaths
-
-    $folders += Get-ExtensionScriptFiles $artifactSources
+    if ($Settings.ApiSettings.UsePlugins){
+        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
+        $folders += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
+    }
+    else{
+        $folders = Get-RepositoryArtifactPaths
+        $folders += Get-ExtensionScriptFiles $artifactSources
+    }
 
     return $folders
 }

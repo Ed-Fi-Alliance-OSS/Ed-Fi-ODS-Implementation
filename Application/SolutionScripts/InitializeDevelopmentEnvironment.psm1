@@ -12,10 +12,6 @@ $toolVersion = @{
     codeGen = "5.1.0-b11014"
 }
 
-$extensionVersion = @{
-    "EdFi.Suite3.Ods.Extensions.Homograph" = "5.1.0-b10399"
-}
-
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 $implementationRepo = Get-Item "$PSScriptRoot\..\.." | Select-Object -Expand Name
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
@@ -128,8 +124,6 @@ function Initialize-DevelopmentEnvironment {
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
-        if ($UsePlugins.IsPresent) { $script:result += Install-ExtensionPackages $settings }
-
         $script:result += Install-DbDeploy
 
         if (-not $ExcludeCodeGen) {
@@ -171,25 +165,6 @@ function Initialize-DevelopmentEnvironment {
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
     return $script:result | Format-Table
-}
-
-function Install-ExtensionPackages([hashtable] $Settings) {
-
-    $appSettings = Get-DeploymentSettings
-
-    $folder = $appSettings["Plugin"]["Folder"];
-
-    foreach ($key in $extensionVersion.Keys){
-
-        $parameters = @{
-            PackageName = $key
-            PackageVersion = $extensionVersion[$key]
-            OutputDirectory = $folder
-            ToolsPath = "D:\src-oss2\Ed-Fi-ODS-Implementation\tools"
-        }
-
-       Get-NuGetPackage @parameters
-    }
 }
 function Invoke-ConfigTransform {
     [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
