@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>EdFi.Ods.Features.OwnershipBasedAuthorization</RootNamespace>
     <AssemblyName>EdFi.Ods.Features.OwnershipBasedAuthorization</AssemblyName>
     <Product>EdFi.Ods.Api.Startup</Product>
@@ -23,15 +23,9 @@
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' ">
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
-  </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
-    <PackageReference Include="Castle.Core" Version="4.4.0" />
-    <PackageReference Include="Castle.Windsor" Version="5.0.1" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
-    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj" />
