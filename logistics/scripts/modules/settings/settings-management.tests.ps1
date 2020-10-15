@@ -167,10 +167,11 @@ Describe 'Get-MergedSettings' {
         $developmentAppSettings =  "TestDrive:\appSettings.development.json"
         Set-Content $developmentAppSettings -value '{ "object": { "array": [ 0 ], "newProperty": "value" }, "property": "newValue" }'
 
-        $userAppSettings =  "TestDrive:\appSettings.user.json"
-        Set-Content $userAppSettings -value '{ "object": { "newObject": { "newObjectProperty": "value" } } }'
-
-        $settings = Get-MergedAppSettings $appSettings, $developmentAppSettings, $userAppSettings
+        $appSettingsFiles = @(
+        $appSettings,
+        $developmentAppSettings
+        )
+        $settings = Get-MergedAppSettings $appSettingsFiles "Application/EdFi.Ods.WebApi"
 
         $settings | Should -Not -BeNullOrEmpty
         $settings.object | Should -Not -BeNullOrEmpty

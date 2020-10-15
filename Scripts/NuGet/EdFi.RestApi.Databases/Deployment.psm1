@@ -188,15 +188,15 @@ function Get-DeploymentSettings {
         from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles
+    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles "Application/EdFi.Ods.WebApi"
 
     $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 
-    $hashTableUserSecrets = Get-UserSecrets
+   # $hashTableUserSecrets = Get-UserSecrets
 
-    $mergedSettings = Merge-Hashtables $mergedSettings, $hashTableUserSecrets
+   # $mergedSettings = Merge-Hashtables $mergedSettings, $hashTableUserSecrets
 
     return $mergedSettings
 }

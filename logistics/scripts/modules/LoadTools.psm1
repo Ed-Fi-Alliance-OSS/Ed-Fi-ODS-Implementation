@@ -168,7 +168,7 @@ function Invoke-SetTestHarnessConfig {
     if ((-not $config.noExtensions) -and (-not $config.noChanges)) { return }
 
     $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
-    $settings = Get-MergedAppSettings $developmentSettingsFile
+    $settings = Get-MergedAppSettings $developmentSettingsFile "Application/EdFi.Ods.Api.IntegrationTestHarness"
 
     Write-Host "Editing $developmentSettingsFile"
     foreach ($feature in $settings.ApiSettings.Features) {
