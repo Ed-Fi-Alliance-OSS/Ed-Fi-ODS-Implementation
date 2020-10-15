@@ -79,16 +79,18 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
 
         public static int Port(this HttpRequest request, bool useProxyHeaders = false)
         {
+            var defaultPortForScheme = Scheme(request, useProxyHeaders) == "https"
+                ? 443
+                : 80;
+
             if (!useProxyHeaders)
             {
-                return request.Host.Port ?? 80;
+                return request.Host.Port ?? defaultPortForScheme;
             }
 
-            int port;
-
-            if (!int.TryParse(GetHeaderValue(request, XForwardedPort), out port))
+            if (!int.TryParse(GetHeaderValue(request, XForwardedPort), out int port))
             {
-                port = request.Host.Port ?? 80;
+                port = request.Host.Port ?? defaultPortForScheme;
             }
 
             return port;
