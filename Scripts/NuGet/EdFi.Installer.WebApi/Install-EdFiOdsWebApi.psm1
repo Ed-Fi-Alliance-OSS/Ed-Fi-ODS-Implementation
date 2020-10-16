@@ -438,15 +438,19 @@ function Invoke-TransformWebConfigConnectionStrings {
             }
         }
 
+        $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
+
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
-        $parameters = @{
-            ConfigFile = $Config.WebConfigLocation
-            AdminDbConnectionInfo = $Config.AdminDbConnectionInfo
-            OdsDbConnectionInfo = $Config.OdsDbConnectionInfo
-            SecurityDbConnectionInfo = $Config.SecurityDbConnectionInfo
-            SspiUsername = $Config.WebApplicationName
-        }
-        Set-DatabaseConnections @parameters
+
+        $connectionstrings = @{ConnectionStrings= @{
+            EdFi_Ods= $Config.OdsDbConnectionInfo
+            EdFi_Admin= $Config.AdminDbConnectionInfo
+            EdFi_Security= $Config.SecurityDbConnectionInfo
+          }}
+     
+        $mergedSettings = Merge-Hashtables $settings, $connectionstrings
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
     }
 }
 
