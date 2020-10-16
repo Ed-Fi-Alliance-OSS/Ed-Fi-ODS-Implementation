@@ -67,17 +67,14 @@ function Get-Plugins {
 }
 
 function Get-PluginScriptsForPackaging {
-    param(
-        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
-    )
 
     $result = @()
 
-    $pluginFolder = (Get-PluginFolderFromConfig $configFile)
+    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
 
     $result += Get-ChildItem $pluginFolder -File | Where-Object { $_.extension -in ".ps1", ".psm1" }
 
     return $result
 }
 
-Export-ModuleMember -Function 'Invoke-PluginScript'
+Export-ModuleMember -Function 'Invoke-PluginScript', 'PluginScriptsForPackaging'
