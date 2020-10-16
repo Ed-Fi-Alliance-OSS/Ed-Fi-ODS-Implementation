@@ -230,7 +230,6 @@ $deploymentTasks = @(
                 filePaths               = $postgreSQLConfig.ApiSettings.FilePaths
                 subTypeNames            = $postgreSQLConfig.ApiSettings.SubTypes
                 dropDatabase            = $true
-                createByRestoringBackup = $backupPath
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
