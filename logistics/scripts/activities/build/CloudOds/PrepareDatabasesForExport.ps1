@@ -222,7 +222,6 @@ $deploymentTasks = @(
         Script = {
             $databaseType = $postgreSQLConfig.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgreSQLConfig.ApiSettings.ConnectionStringKeys[$databaseType]
-            $backupPath = Get-MinimalTemplateBackupPathFromSettings $postgreSQLConfig
             $params = @{
                 engine                  = $postgreSQLConfig.ApiSettings.engine
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgreSQLConfig.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods_Empty_Template"
