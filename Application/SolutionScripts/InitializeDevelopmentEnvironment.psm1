@@ -395,7 +395,7 @@ Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
-        [String] $Engine = 'SQLServer',
+        [String] $Engine,
         [switch] $IncludeExtensions
     )
 
