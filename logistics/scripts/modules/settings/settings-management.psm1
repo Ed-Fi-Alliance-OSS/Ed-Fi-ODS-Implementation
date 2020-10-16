@@ -429,7 +429,6 @@ function Get-UserSecrets([string]$project) {
 
     $inputTable = @{}
     $resultTable = @{}
-    ##$project = "Application/EdFi.Ods.WebApi"
 
     try {
         $projectPath = Get-RepositoryResolvedPath $project
