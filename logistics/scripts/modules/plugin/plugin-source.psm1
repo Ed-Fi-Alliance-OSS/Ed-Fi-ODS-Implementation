@@ -79,3 +79,5 @@ function Get-PluginScriptsForPackaging {
 
     return $result
 }
+
+Export-ModuleMember -Function 'Invoke-PluginScript'

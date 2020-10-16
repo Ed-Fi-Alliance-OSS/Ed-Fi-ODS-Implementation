@@ -30,6 +30,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
 Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
@@ -124,6 +125,8 @@ function Initialize-DevelopmentEnvironment {
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
+        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
+
         $script:result += Install-DbDeploy
 
         if (-not $ExcludeCodeGen) {
@@ -165,6 +168,16 @@ function Initialize-DevelopmentEnvironment {
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
     return $script:result | Format-Table
+}
+
+function Invoke-PluginFolderScript {
+    $settings = Get-DeploymentSettings
+    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
+
+    foreach($script in $settings.Plugin.Scripts){
+        $script = Join-Path $pluginFolder $script
+        Invoke-PluginScript "$script.ps1"
+    }
 }
 function Invoke-ConfigTransform {
     [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
