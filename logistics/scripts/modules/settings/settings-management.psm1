@@ -216,7 +216,7 @@ function New-JsonFile {
     $Hashtable | ConvertTo-Json -Depth 10 | Format-Json | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
-function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
+function Get-MergedAppSettings([string[]] $SettingsFiles = @() , [string]$Project) {
 
     $mergedSettings = @{ }
 
@@ -226,7 +226,8 @@ function Get-MergedAppSettings([string[]] $SettingsFiles = @()) {
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
         $mergedSettings = Merge-Hashtables $mergedSettings, $settings
     }
-
+    $hashTableUserSecrets = Get-UserSecrets $Project
+    $mergedSettings = Merge-Hashtables $mergedSettings, $hashTableUserSecrets
     return $mergedSettings
 }
 
@@ -424,11 +425,10 @@ function Format-Json {
     return $result -Join [Environment]::NewLine
 }
 
-function Get-UserSecrets() {
+function Get-UserSecrets([string]$project) {
 
     $inputTable = @{}
     $resultTable = @{}
-    $project = "Application/EdFi.Ods.WebApi"
 
     try {
         $projectPath = Get-RepositoryResolvedPath $project
