@@ -70,7 +70,7 @@ function Initialize-PopulatedTemplate {
     }
 
     $config = (Get-DefaultTemplateConfiguration $paramConfig)
-    $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+    Write-FlatHashtable $config
 
     $script:result = @()
 

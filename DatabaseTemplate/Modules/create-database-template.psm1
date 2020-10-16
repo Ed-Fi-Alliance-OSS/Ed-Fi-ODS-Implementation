@@ -287,8 +287,8 @@ function Get-DatabaseRecordCount {
     param(
         [hashtable] $config
     )
-    if ($config.engine -eq 'SQLServer') { return Get-SQLServerDatabaseRecordCount }
-    if ($config.engine -eq 'PostgreSQL') { return Get-PostgreSQLDatabaseRecordCount }
+    if ($config.engine -eq 'SQLServer') { return (Get-SQLServerDatabaseRecordCount $config) }
+    if ($config.engine -eq 'PostgreSQL') { return (Get-PostgreSQLDatabaseRecordCount $config) }
 }
 
 function Invoke-LoadBootstrapData {
@@ -317,11 +317,11 @@ function Invoke-LoadBootstrapData {
         bulkLoadTaskCapacity        = 50
     }
 
-    $initialRecordCount = (Get-DatabaseRecordCount)
+    $initialRecordCount = (Get-DatabaseRecordCount $config)
 
     Invoke-BulkLoadClient $params
 
-    $totalRecordCount = (Get-DatabaseRecordCount)
+    $totalRecordCount = (Get-DatabaseRecordCount $config)
     $recordCount = ($totalRecordCount - $initialRecordCount)
 
     Write-Host "$initialRecordCount initial records."
