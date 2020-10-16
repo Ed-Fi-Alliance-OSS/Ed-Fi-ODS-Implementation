@@ -138,7 +138,6 @@ $deploymentTasks = @(
         Script = {
             $databaseType = $sqlServerConfig.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerConfig.ApiSettings.ConnectionStringKeys[$databaseType]
-            $backupPath = Get-MinimalTemplateBackupPathFromSettings $sqlServerConfig
             $params = @{
                 engine                  = $sqlServerConfig.ApiSettings.engine
                 csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerConfig.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods_Empty_Template"
