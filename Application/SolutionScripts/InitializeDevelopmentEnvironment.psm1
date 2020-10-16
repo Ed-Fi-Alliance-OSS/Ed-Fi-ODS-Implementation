@@ -402,7 +402,7 @@ function Invoke-CodeGen {
     Install-CodeGenUtility
 
     if ([string]::IsNullOrEmpty($Engine)){
-        $Engine = (Get-DeploymentSettings).Engine
+        $Engine = (Get-DeploymentSettings).ApiSettings.Engine
     }
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
