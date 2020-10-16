@@ -145,7 +145,6 @@ $deploymentTasks = @(
                 filePaths               = $sqlServerConfig.ApiSettings.FilePaths
                 subTypeNames            = $sqlServerConfig.ApiSettings.SubTypes
                 dropDatabase            = $true
-                createByRestoringBackup = $backupPath
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
