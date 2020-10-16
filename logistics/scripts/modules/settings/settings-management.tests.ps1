@@ -168,8 +168,8 @@ Describe 'Get-MergedSettings' {
         Set-Content $developmentAppSettings -value '{ "object": { "array": [ 0 ], "newProperty": "value" }, "property": "newValue" }'
 
         $appSettingsFiles = @(
-        $appSettings,
-        $developmentAppSettings
+            $appSettings,
+            $developmentAppSettings
         )
         $settings = Get-MergedAppSettings $appSettingsFiles "Application/EdFi.Ods.WebApi"
 
