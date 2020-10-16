@@ -13,6 +13,7 @@ function Get-DefaultDevelopmentSettingsByProject {
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
                 Engine = ""
+                DecryptSecrets = $true
             }
             ConnectionStrings = @{ }
             Plugin            = @{
