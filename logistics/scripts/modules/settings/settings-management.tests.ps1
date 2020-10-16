@@ -180,7 +180,5 @@ Describe 'Get-MergedSettings' {
         $settings.property | Should -Not -BeNullOrEmpty
         $settings.property | Should -be 'newValue'
         $settings.object.newProperty | Should -Not -BeNullOrEmpty
-        $settings.object.newObject | Should -Not -BeNullOrEmpty
-        $settings.object.newObject.newObjectProperty | Should -Not -BeNullOrEmpty
     }
 }
