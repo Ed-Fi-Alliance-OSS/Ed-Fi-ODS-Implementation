@@ -389,6 +389,7 @@ function Invoke-TransformWebConfigAppSettings {
             $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
             $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
             $settings.ApiSettings.Mode = $Config.InstallType
+            $settings.ApiSettings.Engine = $Config.engine
             $mergedSettings = Merge-Hashtables $settings, $Config.WebApiFeatures
             New-JsonFile $settingsFile $mergedSettings -Overwrite
         }
