@@ -279,10 +279,13 @@ function Invoke-TransformWebConfigAppSettings {
         }
         
         $appSettings = @{
-            "swagger.webApiMetadataUrl" = $Config.WebApiMetadataUrl
-            "swagger.webApiVersionUrl" = $Config.WebApiVersionUrl
-            "swagger.prepopulatedKey" = $Config.PrePopulatedKey
-            "swagger.prepopulatedSecret" = $Config.PrePopulatedSecret
+            WebApiVersionUrl = $Config.WebApiMetadataUrl
+            SwaggerUIOptions = @{
+                OAuthConfigObject = @{
+                    ClientId     = $Config.PrePopulatedKey
+                    ClientSecret = $Config.PrePopulatedSecret
+                }
+            }
         }
         
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
