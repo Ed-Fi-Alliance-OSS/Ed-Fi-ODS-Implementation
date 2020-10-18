@@ -55,7 +55,6 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Security\EdFi.Ods.Security.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
-    <ProjectReference Include="..\EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj" />
   </ItemGroup>
 
   <ItemGroup>
