@@ -400,7 +400,6 @@ $deploymentTasks = @(
             $databaseType = $sqlServerConfig.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerConfig.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerConfig.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Minimal_Template'
-            $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $script:sqlServerConnectionStrings[$databaseIds.ods.connectionStringKey] -replacementTokens "Ods_Minimal_Template"
             $databaseName = $csb["Database"]
             $params = @{
                 sqlPackagePath = $sqlPackagePath
