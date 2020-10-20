@@ -133,51 +133,19 @@ function Install-EdFiOdsWebApi {
             }
             WebApiFeatures = @{
                 BearerTokenTimeoutMinutes="23"
-                ExcludedExtensionSources="GrandBend"
+                ExcludedExtensions=@{}
                 Features= @{
-                "OpenApiMetadata"=@{
-                  Name= "OpenApiMetadata"
-                  IsEnabled= $true
-                }
+                "OpenApiMetadata"= @{
+                    Name= "OpenApiMetadata"
+                    IsEnabled= $true
+                    }
                 "AggregateDependencies"=@{
-                  Name= "AggregateDependencies"
-                  IsEnabled= $true
+                     Name= "AggregateDependencies"
+                    IsEnabled= $true
+                     }
+                    }
                 }
-                "TokenInfo"=@{
-                    Name= "TokenInfo"
-                    IsEnabled= $true
-                  }
-                  "Extensions"=@{
-                    Name= "Extensions"
-                    IsEnabled= $true
-                  }
-                  "Composites"=@{
-                    Name= "Composites"
-                    IsEnabled= $true
-                  }
-                  "Profiles"=@{
-                    Name= "Profiles"
-                    IsEnabled= $true
-                  }
-                  "ChangeQueries"=@{
-                    Name= "ChangeQueries"
-                    IsEnabled= $false
-                  }
-                  "IdentityManagement"=@{
-                    Name= "IdentityManagement"
-                    IsEnabled= $false
-                  }
-                  "OwnershipBasedAuthorization"=@{
-                    Name= "OwnershipBasedAuthorization"
-                    IsEnabled= $false
-                  }
-                  "UniqueIdValidation"=@{
-                    Name= "UniqueIdValidation"
-                    IsEnabled= $false
-                  }
-            }
-            }
-        }
+             }
         PS c:\> Install-EdFiOdsWebApi @parameters
 
         Install in the default mode (shared) instance with basic database
@@ -191,8 +159,7 @@ function Install-EdFiOdsWebApi {
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
-        $PackageVersion,
-
+        $PackageVersion="5.1.0-b12868",
         # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
@@ -422,7 +389,11 @@ function Invoke-TransformWebConfigAppSettings {
             $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
             $settings.ApiSettings.Mode = $Config.InstallType
             $settings.ApiSettings.Engine = $Config.engine
-            $mergedSettings = Merge-Hashtables $settings, $Config.WebApiFeatures
+            $settings.ApiSettings.Features=$Config.WebApiFeatures.Features
+            $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
+            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+            $EmptyHashTable=@{}
+            $mergedSettings = Merge-Hashtables $settings, $EmptyHashTable
             New-JsonFile $settingsFile $mergedSettings -Overwrite
         }
 }
