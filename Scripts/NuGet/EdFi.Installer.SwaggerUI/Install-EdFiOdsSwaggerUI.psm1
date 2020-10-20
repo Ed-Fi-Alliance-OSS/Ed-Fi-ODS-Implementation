@@ -82,7 +82,7 @@ function Install-EdFiOdsSwaggerUI {
 
         # Full URL to the Ed-Fi ODS / API metadata endpoint.
         [string]
-        [Parameter(Mandatory=$true)]
+        [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
         $WebApiMetadataUrl,
 
         # Full URL to the Ed-Fi ODS / API version endpoint.
