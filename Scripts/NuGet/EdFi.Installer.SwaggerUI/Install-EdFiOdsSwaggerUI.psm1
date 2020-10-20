@@ -279,7 +279,7 @@ function Invoke-TransformWebConfigAppSettings {
         }
         
         $appSettings = @{
-            WebApiVersionUrl = $Config.WebApiMetadataUrl
+            WebApiVersionUrl = $Config.WebApiVersionUrl
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId     = $Config.PrePopulatedKey
