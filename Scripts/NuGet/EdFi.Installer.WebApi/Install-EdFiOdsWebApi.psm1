@@ -191,7 +191,7 @@ function Install-EdFiOdsWebApi {
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
-        $PackageVersion="5.1.0-b12868",
+        $PackageVersion,
 
         # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
         [string]
