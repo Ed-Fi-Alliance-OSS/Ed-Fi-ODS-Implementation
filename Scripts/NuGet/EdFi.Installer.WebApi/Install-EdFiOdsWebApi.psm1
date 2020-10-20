@@ -476,15 +476,17 @@ function Invoke-TransformWebConfigConnectionStrings {
 
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
 
-        $adminconnString =New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
-        $odsconnString =New-ConnectionString -ConnectionInfo $Config.OdsDbConnectionInfo -SspiUsername $Config.WebApplicationName
-        $securityConnString =New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
-      
-       $connectionstrings = @{ConnectionStrings= @{
-            EdFi_Ods= $odsconnString
-            EdFi_Admin= $adminconnString
-            EdFi_Security=$securityConnString 
-          }}
+        $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
+        $odsconnString = New-ConnectionString -ConnectionInfo $Config.OdsDbConnectionInfo -SspiUsername $Config.WebApplicationName
+        $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+        $connectionstrings = @{
+            ConnectionStrings = @{
+                EdFi_Ods = $odsconnString
+                EdFi_Admin = $adminconnString
+                EdFi_Security = $securityConnString 
+            }
+        }
 
         $mergedSettings = Merge-Hashtables $settings, $connectionstrings
         New-JsonFile $webConfigPath  $mergedSettings -Overwrite
