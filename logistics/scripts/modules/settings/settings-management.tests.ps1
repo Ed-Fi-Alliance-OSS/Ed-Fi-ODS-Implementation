@@ -182,3 +182,43 @@ Describe 'Get-MergedSettings' {
         $settings.object.newProperty | Should -Not -BeNullOrEmpty
     }
 }
+
+Describe 'Set-Feature' {
+    It "returns a settings object with a new feature when the feature does not exist" {
+        $appSettings = "TestDrive:\appSettings.json"
+        Set-Content $appSettings -value '{ "ApiSettings": { "Features": [ ] } }'
+
+        $settings = Get-MergedAppSettings $appSettings
+        $settings = Set-Feature -Settings $settings -FeatureName "NewFeature" -IsEnabled $true
+
+        $settings | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.Features | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.Features.Length | Should -Be 1
+
+        $feature = $settings.ApiSettings.Features[0]
+
+        $feature | Should -Not -BeNullOrEmpty
+        $feature.Name | Should -Be "NewFeature"
+        $feature.IsEnabled | Should -Be $true
+    }
+
+    It "returns a settings file with an updated feature" {
+        $appSettings = "TestDrive:\appSettings.json"
+        $settings = Set-Content $appSettings -value '{ "ApiSettings": { "Features": [ {"Name" : "Feature", "IsEnabled" : "false"} ] } }'
+
+        $settings = Get-MergedAppSettings $appSettings
+        $settings = Set-Feature -Settings $settings -FeatureName "Feature" -IsEnabled $true
+        
+        $settings | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.Features | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.Features.Length | Should -Be 1
+
+        $feature = $settings.ApiSettings.Features[0]
+
+        $feature | Should -Not -BeNullOrEmpty
+        $feature.Name | Should -Be "Feature"
+        $feature.IsEnabled | Should -Be $true
+    }
+}
