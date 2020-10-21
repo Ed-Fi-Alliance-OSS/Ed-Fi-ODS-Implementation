@@ -17,6 +17,7 @@ function Get-DefaultDevelopmentSettingsByProject {
             }
             ConnectionStrings = @{ }
             Plugin            = @{
+                Folder = "../../Plugin"
                 Scripts = @("development")
             }
             Logging           = @{
@@ -29,6 +30,10 @@ function Get-DefaultDevelopmentSettingsByProject {
             Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
+            }
+            Plugin            = @{
+                Folder = "../../Plugin"
+                Scripts = @("development")
             }
             ConnectionStrings = @{ }
         }
