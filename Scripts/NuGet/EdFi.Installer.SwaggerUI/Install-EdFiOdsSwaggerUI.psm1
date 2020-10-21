@@ -13,6 +13,7 @@ step before compiling in C#.
 #>
 
 Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
+Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
 
@@ -81,7 +82,7 @@ function Install-EdFiOdsSwaggerUI {
 
         # Full URL to the Ed-Fi ODS / API metadata endpoint.
         [string]
-        [Parameter(Mandatory=$true)]
+        [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
         $WebApiMetadataUrl,
 
         # Full URL to the Ed-Fi ODS / API version endpoint.
@@ -133,8 +134,6 @@ function Install-EdFiOdsSwaggerUI {
     $elapsed = Use-StopWatch {
 
         $result += Get-SwaggerPackage -Config $Config
-        $result += Invoke-TransformWebConfigRelease -Config $Config
-        $result += Invoke-TransformWebConfigOctopus -Config $Config
         $result += Invoke-TransformWebConfigAppSettings -Config $Config
         $result += Install-Application -Config $Config
 
@@ -246,46 +245,22 @@ function Get-SwaggerPackage {
         $packageDir = Get-NuGetPackage @parameters
 
         $Config.PackageDirectory = $packageDir
-        $Config.WebConfigLocation = Resolve-Path (Join-Path $packageDir "Web.config")
+        $Config.WebConfigLocation = $packageDir
     }
 }
 
-function Invoke-TransformWebConfigRelease {
-    [CmdletBinding()]
-    param (
-        [hashtable]
-        [Parameter(Mandatory=$true)]
-        $Config
+function New-JsonFile {
+    param(
+        [string] $FilePath,
+
+        [hashtable] $Hashtable,
+
+        [switch] $Overwrite
     )
 
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.Base.config"
-            transformFile = "$($Config.PackageDirectory)/Web.Release.config"
-            destinationFile = "$($Config.PackageDirectory)/Web.config"
-            toolsPath = $Config.ToolsPath
-        }
-        Invoke-ConfigTransformation @transformParams
-    }
-}
+    if (-not $Overwrite -and (Test-Path $FilePath)) { return }
 
-function Invoke-TransformWebConfigOctopus {
-    [CmdletBinding()]
-    param (
-        [hashtable]
-        [Parameter(Mandatory=$true)]
-        $Config
-    )
-
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.Base.config"
-            transformFile = "$($Config.PackageDirectory)/Web.Octopus.config"
-            destinationFile = "$($Config.PackageDirectory)/Web.config"
-            toolsPath = $Config.ToolsPath
-        }
-        Invoke-ConfigTransformation @transformParams
-    }
+    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Invoke-TransformWebConfigAppSettings {
@@ -302,15 +277,21 @@ function Invoke-TransformWebConfigAppSettings {
             $Config.PrePopulatedKey = [string]::Empty
             $Config.PrePopulatedSecret = [string]::Empty
         }
-
+        
         $appSettings = @{
-            "swagger.webApiMetadataUrl" = $Config.WebApiMetadataUrl
-            "swagger.webApiVersionUrl" = $Config.WebApiVersionUrl
-            "swagger.prepopulatedKey" = $Config.PrePopulatedKey
-            "swagger.prepopulatedSecret" = $Config.PrePopulatedSecret
+            WebApiVersionUrl = $Config.WebApiVersionUrl
+            SwaggerUIOptions = @{
+                OAuthConfigObject = @{
+                    ClientId     = $Config.PrePopulatedKey
+                    ClientSecret = $Config.PrePopulatedSecret
+                }
+            }
         }
-
-        Set-ApplicationSettings -ConfigFile $Config.WebConfigLocation -appSettings $appSettings
+        
+        $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
+        $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+        $mergedSettings = Merge-Hashtables $settings, $appSettings
+        New-JsonFile $settingsFile $mergedSettings -Overwrite
     }
 }
 
