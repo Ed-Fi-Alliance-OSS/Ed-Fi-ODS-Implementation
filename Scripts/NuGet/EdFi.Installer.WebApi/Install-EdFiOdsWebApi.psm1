@@ -13,6 +13,7 @@ step before compiling in C#.
 #>
 
 Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
+Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
 
@@ -132,19 +133,19 @@ function Install-EdFiOdsWebApi {
             }
             WebApiFeatures = @{
                 BearerTokenTimeoutMinutes="23"
-                ExcludedExtensionSources="GrandBend"
-                FeatureIsEnabled=@{
-                    changeQueries = $true
-                    openApiMetadata = $false
-                    composites = $false
-                    profiles = $false
-                    identityManagement = $false
-                    extensions = $false
-                    ownershipBasedAuthorization = $true
-                    uniqueIdValidation = $true
+                ExcludedExtensions=@{}
+                Features= @{
+                "OpenApiMetadata"= @{
+                    Name= "OpenApiMetadata"
+                    IsEnabled= $true
+                    }
+                "AggregateDependencies"=@{
+                     Name= "AggregateDependencies"
+                    IsEnabled= $true
+                     }
+                    }
                 }
-            }
-        }
+             }
         PS c:\> Install-EdFiOdsWebApi @parameters
 
         Install in the default mode (shared) instance with basic database
@@ -158,8 +159,7 @@ function Install-EdFiOdsWebApi {
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
-        $PackageVersion,
-
+        $PackageVersion="5.1.0-b12868",
         # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
@@ -296,12 +296,6 @@ function Install-EdFiOdsWebApi {
     $elapsed = Use-StopWatch {
         $result += Initialize-Configuration -Config $config
         $result += Get-WebApiPackage -Config $config
-        $result += Invoke-TransformWebConfigRelease -Config $config
-
-        if (Test-IsPostgreSQL -Engine $config.Engine) {
-            $result += Invoke-TransformWebConfigPostgreSQL -Config $config
-        }
-
         $result += Invoke-TransformWebConfigAppSettings -Config $config
         $result += Invoke-TransformWebConfigConnectionStrings -Config $config
         $result += Install-Application -Config $config
@@ -317,6 +311,20 @@ function Install-EdFiOdsWebApi {
         $result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
         $result | Format-Table
     }
+}
+
+function New-JsonFile {
+    param(
+        [string] $FilePath,
+
+        [hashtable] $Hashtable,
+
+        [switch] $Overwrite
+    )
+
+    if (-not $Overwrite -and (Test-Path $FilePath)) { return }
+
+    $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
 function Initialize-Configuration {
@@ -365,46 +373,9 @@ function Get-WebApiPackage {
         Test-Error
 
         $Config.PackageDirectory = $packageDir
-        $Config.WebConfigLocation = Resolve-Path (Join-Path $packageDir "Web.config")
+        $Config.WebConfigLocation = $packageDir
     }
 }
-
-function Invoke-TransformWebConfigRelease {
-    [CmdletBinding()]
-    param (
-        [hashtable]
-        [Parameter(Mandatory=$true)]
-        $Config
-    )
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.Base.config"
-            transformFile = "$($Config.PackageDirectory)/Web.Release.config"
-            destinationFile = "$($Config.PackageDirectory)/Web.config"
-            toolsPath = $Config.ToolsPath
-        }
-        Invoke-ConfigTransformation @transformParams
-    }
-}
-
-function Invoke-TransformWebConfigPostgreSQL {
-    [CmdletBinding()]
-    param (
-        [hashtable]
-        [Parameter(Mandatory=$true)]
-        $Config
-    )
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $transformParams = @{
-            sourceFile = "$($Config.PackageDirectory)/Web.config"
-            transformFile = "$($Config.PackageDirectory)/Web.Npgsql.config"
-            destinationFile = "$($Config.PackageDirectory)/Web.config"
-            toolsPath = $Config.ToolsPath
-        }
-        Invoke-ConfigTransformation @transformParams
-    }
-}
-
 function Invoke-TransformWebConfigAppSettings {
     [CmdletBinding()]
     param (
@@ -412,27 +383,19 @@ function Invoke-TransformWebConfigAppSettings {
         [Parameter(Mandatory=$true)]
         $Config
     )
-    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        $appSettings = @{
-            "apiStartup:type" = $Config.InstallType
+   
+        Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+            $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
+            $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+            $settings.ApiSettings.Mode = $Config.InstallType
+            $settings.ApiSettings.Engine = $Config.engine
+            $settings.ApiSettings.Features=$Config.WebApiFeatures.Features
+            $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
+            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+            $EmptyHashTable=@{}
+            $mergedSettings = Merge-Hashtables $settings, $EmptyHashTable
+            New-JsonFile $settingsFile $mergedSettings -Overwrite
         }
-
-        if ($Config.WebApiFeatures) {
-            if ($Config.WebApiFeatures.ContainsKey("BearerTokenTimeoutMinutes")) {
-                $appSettings.BearerTokenTimeoutMinutes = $Config.WebApiFeatures.BearerTokenTimeoutMinutes
-            }
-            if ($Config.WebApiFeatures.ContainsKey("ExcludedExtensionSources")) {
-                $appSettings.ExcludedExtensionSources = $Config.WebApiFeatures.ExcludedExtensionSources
-            }
-            if ($Config.WebApiFeatures.FeatureIsEnabled) {
-                $Config.WebApiFeatures.FeatureIsEnabled.GetEnumerator() | ForEach-Object {
-                    $appSettings["$($_.key):featureIsEnabled"] = $_.value.toString()
-                }
-            }
-        }
-
-        Set-ApplicationSettings -ConfigFile $Config.WebConfigLocation -appSettings $appSettings
-    }
 }
 
 function Invoke-TransformWebConfigConnectionStrings {
@@ -479,15 +442,25 @@ function Invoke-TransformWebConfigConnectionStrings {
             }
         }
 
+        $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
+
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
-        $parameters = @{
-            ConfigFile = $Config.WebConfigLocation
-            AdminDbConnectionInfo = $Config.AdminDbConnectionInfo
-            OdsDbConnectionInfo = $Config.OdsDbConnectionInfo
-            SecurityDbConnectionInfo = $Config.SecurityDbConnectionInfo
-            SspiUsername = $Config.WebApplicationName
+
+        $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
+        $odsconnString = New-ConnectionString -ConnectionInfo $Config.OdsDbConnectionInfo -SspiUsername $Config.WebApplicationName
+        $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+        $connectionstrings = @{
+            ConnectionStrings = @{
+                EdFi_Ods = $odsconnString
+                EdFi_Admin = $adminconnString
+                EdFi_Security = $securityConnString 
+            }
         }
-        Set-DatabaseConnections @parameters
+
+        $mergedSettings = Merge-Hashtables $settings, $connectionstrings
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
     }
 }
 
