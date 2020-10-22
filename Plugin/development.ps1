@@ -11,7 +11,7 @@ $pluginPaths = @()
 
 $parameters = @{
     packageName     = "EdFi.Suite3.Ods.Extensions.Sample"
-    packageVersion  = "5.1.0-b10416"
+    packageVersion  = "5.1.0-b10428"
     packageSource   = "https://www.myget.org/F/ed-fi/"
     outputDirectory = "$PSScriptRoot"
     toolsPath       = (Get-ToolsPath)
@@ -20,7 +20,7 @@ $pluginPaths += Get-NuGetPackage @parameters
 
 $parameters = @{
     packageName     = "EdFi.Suite3.Ods.Extensions.Homograph"
-    packageVersion  = "5.1.0-b10436"
+    packageVersion  = "5.1.0-b10448"
     packageSource   = "https://www.myget.org/F/ed-fi/"
     outputDirectory = "$PSScriptRoot"
     toolsPath       = (Get-ToolsPath)
@@ -29,7 +29,7 @@ $pluginPaths += Get-NuGetPackage @parameters
 
 $parameters = @{
     packageName     = "EdFi.Suite3.Ods.Extensions.TPDM"
-    packageVersion  = "5.1.0-b10415"
+    packageVersion  = "5.1.0-b10426"
     packageSource   = "https://www.myget.org/F/ed-fi/"
     outputDirectory = "$PSScriptRoot"
     toolsPath       = (Get-ToolsPath)
