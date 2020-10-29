@@ -57,8 +57,10 @@
     "OdsDatabaseTemplateName": "",
     "DropDatabases": false
   },
-  "Plugin": {
-    "Folder": "",
-    "Scripts": []
-  }
+ "Plugin": {
+        "Folder": "../../Plugin",
+        "Scripts": [
+            "production"
+        ]
+    }
 }
