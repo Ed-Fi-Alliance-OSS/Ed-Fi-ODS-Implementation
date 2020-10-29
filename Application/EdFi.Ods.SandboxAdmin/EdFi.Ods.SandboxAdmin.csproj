@@ -21,7 +21,7 @@
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="Hangfire" Version="1.7.13" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.7.1" />
-    <PackageReference Include="log4net" Version="2.0.8" />
+    <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
