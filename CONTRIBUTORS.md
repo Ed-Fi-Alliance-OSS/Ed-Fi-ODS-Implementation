@@ -1,67 +1,28 @@
-﻿Nodeunit contributors (sorted alphabetically)
+﻿Ed-Fi-ODS-Implementation contributors (sorted alphabetically)
 ============================================
 
-* **[Alex Gorbatchev](https://github.com/alexgorbatchev)**
+* **[Bhanuprakash Thunga](https://github.com/Bhanuprakashthunga)**
 
-  * Deeper default object inspection
-  * Timeout to ensure flushing of console output (default reporter)
-
-* **[Alex Wolfe](https://github.com/alexkwolfe)**
-
-  * HTML test reporter
-
-* **[Caolan McMahon](https://github.com/caolan)**
-
-  * Author and maintainer
   * Most features develpopment
 
-* **[Carl Fürstenberg](https://github.com/azatoth)**
+* **[Benjamin Meyers](https://github.com/blmeyers)**
 
-  * Debian-friendly Makefile, supports both 'node' and 'nodejs' executables
-  * Sandbox utility
-  * Minimal test reporter
+  * Arctic Code Vault Contributor
 
-* **[Gerad Suyderhoud](https://github.com/gerad)**
+* **[CSR2017](https://github.com/CSR2017)**
 
-  * First comand-line tool
+  * Application Reviewer
+ 
+* **[David Jimenez Barrantes](https://github.com/DavidJGapCR)**
 
-* **[Kadir Pekel](https://github.com/kadirpekel)**
+  * Application Reviewer
 
-  * Improvements to default test reporter
-  * HTTP test utility
+* **[Geoff McElhanon](https://github.com/gmcelhanon)**
 
-* **[Λlisue](https://github.com/lambdalisue)**
+  * Arctic Code Vault Contributor
 
-  * Add machineout reporter
+* **[Jim McKay](https://github.com/jamessmckay)**
 
-* **[Matthias Lübken](https://github.com/luebken)**
+  *  Arctic Code Vault Contributor
 
-  * Utility functions for tracking incomplete tests on exit
-
-* **[Oleg Efimov](https://github.com/Sannis)**
-
-  * Adding 'make lint' and fixing nodelint errors
-  * Option parsing, --help text and config file support
-  * Reporters option for command-line tool
-
-* **[Orlando Vazquez](https://github.com/orlandov)**
-
-  * Added jUnit XML reporter
-
-* **[Ryan Dahl](https://github.com/ry)**
-
-  * Add package.json
-
-* **[Sam Stephenson](https://github.com/sstephenson)**
-
-  * Coffee-script support
-
-* **[Thomas Mayfield](https://github.com/thegreatape)**
-
-  * Async setUp and tearDown support for testCase
-
-* **[Maciej Małecki](https://github.com/mmalecki)**
-
-  * Removal of `testCase`
-
-**[Full contributors list](https://github.com/caolan/nodeunit/contributors).**
+**[Full contributors list](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/graphs/contributors).**
