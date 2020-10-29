@@ -3,7 +3,7 @@
 
 * **[Bhanuprakash Thunga](https://github.com/Bhanuprakashthunga)**
 
-  * Most features develpopment
+  * Most features development
 
 * **[Benjamin Meyers](https://github.com/blmeyers)**
 
