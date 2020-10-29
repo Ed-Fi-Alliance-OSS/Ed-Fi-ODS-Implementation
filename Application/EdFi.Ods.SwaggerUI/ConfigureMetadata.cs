@@ -73,9 +73,16 @@ namespace EdFi.Ods.SwaggerUI
                     .ForEach(
                         x =>
                         {
+                            var name = x.GetProperty("name").GetString();
+                            var prefix = x.GetProperty("prefix").GetString();
+
+                            name = !string.IsNullOrEmpty(prefix)
+                                ? $"{prefix}: {name}"
+                                : name;
+
                             options.SwaggerEndpoint(
                                 x.GetProperty("endpointUri").GetString(),
-                                x.GetProperty("name").GetString());
+                                name);
                         });
             }
             catch (Exception ex)
