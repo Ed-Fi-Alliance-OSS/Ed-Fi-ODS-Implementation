@@ -84,6 +84,7 @@ function Initialize-DeploymentEnvironment {
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
     Write-InvocationInfo $MyInvocation
 
@@ -116,6 +117,8 @@ function Initialize-DeploymentEnvironment {
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
 
+        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
+
         if ((Get-DeploymentSettings).ApiSettings.Mode -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
         }
@@ -135,6 +138,16 @@ function Initialize-DeploymentEnvironment {
     }
 
     return $script:result
+}
+
+function Invoke-PluginFolderScript {
+    $settings = Get-DeploymentSettings
+    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
+
+    foreach($script in $settings.Plugin.Scripts){
+        $script = Join-Path $pluginFolder $script
+        Invoke-PluginScript "$script.ps1"
+    }
 }
 
 function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
