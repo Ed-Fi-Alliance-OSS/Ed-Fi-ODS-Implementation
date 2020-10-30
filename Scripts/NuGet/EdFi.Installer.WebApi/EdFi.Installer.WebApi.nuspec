@@ -16,7 +16,6 @@
     <file src="Ed-Fi-Common/**" />
     <file src="Ed-Fi-ODS/**" />
     <file src="Ed-Fi-ODS-Implementation/**" />
-    <file src="Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/**" />
     <file src="../../../LICENSE.txt" />
     <file src="../../../NOTICES.md" />
   </files>

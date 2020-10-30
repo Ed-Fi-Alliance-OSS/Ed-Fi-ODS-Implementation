@@ -16,7 +16,7 @@ Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logis
 Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
-
+Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
 # Import the following with global scope so that they are available inside of script blocks
 Import-Module -Force -Scope Global $folders.modules.invoke("Application/Install.psm1")
 Import-Module -Force -Scope Global $folders.modules.invoke("Application/Uninstall.psm1")
