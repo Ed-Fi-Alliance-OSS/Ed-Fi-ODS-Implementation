@@ -18,7 +18,7 @@
     <file src="Ed-Fi-ODS-Implementation/**" />
     <file src="../../../LICENSE.txt" />
     <file src="../../../NOTICES.md" />
-    <file src="..\..\..\logistics\scripts\modules\utility\hashtable.psm1" />
+    <file src="..\..\..\logistics\scripts\modules\utility\hashtable.psm1" target="Ed-Fi-ODS-Implementation\logistics\scripts\modules\utility\" />
     <file src="../../../readme.md" />
   </files>
 </package>
