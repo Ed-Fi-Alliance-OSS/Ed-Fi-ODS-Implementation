@@ -72,7 +72,7 @@ function Get-PluginScriptsForPackaging {
 
     $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
 
-    $result += Get-ChildItem $pluginFolder -File | Where-Object { $_.extension -in ".ps1", ".psm1" }
+    $result += Get-ChildItem $pluginFolder -Recurse -File | Where-Object { $_.extension -notin ".nupkg", ".dll" -and $_.directoryname -notlike "*Homograph*" }
 
     return $result
 }
