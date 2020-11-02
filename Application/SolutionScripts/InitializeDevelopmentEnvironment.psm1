@@ -171,12 +171,14 @@ function Initialize-DevelopmentEnvironment {
 }
 
 function Invoke-PluginFolderScript {
-    $settings = Get-DeploymentSettings
-    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $settings = Get-DeploymentSettings
+        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
 
-    foreach($script in $settings.Plugin.Scripts){
-        $script = Join-Path $pluginFolder $script
-        Invoke-PluginScript "$script.ps1"
+        foreach ($script in $settings.Plugin.Scripts) {
+            $script = Join-Path $pluginFolder $script
+            Invoke-PluginScript "$script.ps1"
+        }
     }
 }
 function Invoke-ConfigTransform {
@@ -401,7 +403,7 @@ function Invoke-CodeGen {
 
     Install-CodeGenUtility
 
-    if ([string]::IsNullOrEmpty($Engine)){
+    if ([string]::IsNullOrEmpty($Engine)) {
         $Engine = (Get-DeploymentSettings).ApiSettings.Engine
     }
 
@@ -409,10 +411,10 @@ function Invoke-CodeGen {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        if ($IncludePlugins){
+        if ($IncludePlugins) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
         }
-        else{
+        else {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
         }
     }
