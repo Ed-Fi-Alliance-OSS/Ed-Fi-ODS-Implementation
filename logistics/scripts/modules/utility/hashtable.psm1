@@ -45,21 +45,25 @@ function Get-HashtableDeepClone {
     return $result
 }
 
+$script:MergeWithDefault = { param($Key, $Left, $Right) return $Right[$Key] }
+
 function Merge-HashtablesDeepRight {
     param(
         [Hashtable] $HashtableLeft,
 
-        [Hashtable] $HashtableRight
+        [Hashtable] $HashtableRight,
+
+        [scriptblock] $MergeWith = $script:MergeWithDefault
     )
 
     $result = $HashtableLeft | Get-HashtableDeepClone
 
     foreach ($key in $HashtableRight.Keys) {
         if ($HashtableLeft[$key] -is [Hashtable] -and $HashtableRight[$key] -is [Hashtable]) {
-            $result[$key] = Merge-HashtablesDeepRight $HashtableLeft[$key] $HashtableRight[$key]
+            $result[$key] = (Merge-HashtablesDeepRight $HashtableLeft[$key] $HashtableRight[$key] $MergeWith)
         }
         else {
-            $result[$key] = $HashtableRight[$key]
+            $result[$key] = (& $MergeWith $key $HashtableLeft $HashtableRight)
         }
     }
 
@@ -68,16 +72,40 @@ function Merge-HashtablesDeepRight {
 
 function Merge-Hashtables {
     param(
-        [Hashtable[]] $Hashtables
+        [Hashtable[]] $Hashtables,
+
+        [scriptblock] $MergeWith = $script:MergeWithDefault
     )
 
     $result = $Hashtables[0] | Get-HashtableDeepClone
 
     for ($i = 0; $i -lt @($Hashtables).Count; $i++) {
-        $result = Merge-HashtablesDeepRight $result $Hashtables[$i + 1]
+        $result = Merge-HashtablesDeepRight $result $Hashtables[$i + 1] $MergeWith
     }
 
     return $result
+}
+
+function Merge-HashtablesOrDefaults {
+    param(
+        [Hashtable[]] $Hashtables
+    )
+
+    $MergeWith = {
+        param(
+            $Key,
+
+            $Left,
+
+            $Right
+        )
+
+        if (-not ([string]::IsNullOrWhiteSpace($Left[$Key]))) { return $Left[$Key] }
+
+        return (& $script:MergeWithDefault $Key $Left $Right)
+    }
+
+    return (Merge-Hashtables $Hashtables $MergeWith)
 }
 
 function Get-FlatHashTable {
@@ -116,52 +144,64 @@ function Get-FlatHashTable {
     return $result
 }
 
-
 function Write-FlatHashtable {
     param(
         [Parameter(ValueFromPipeline = $true)]
         [Hashtable] $Hashtable
     )
 
-   ( Get-FlatHashtable ($Hashtable)).GetEnumerator() |
+    (Get-FlatHashtable ($Hashtable)).GetEnumerator() |
         Sort-Object -Property Name |
         Format-Table -HideTableHeaders -AutoSize -Wrap |
         Out-Host
 }
 
-$RegExFilter = "\A(?<curr>[^:]+)(:(?<remain>(?<sub>[^:]+)(:.*)?))?\Z"
-
 function Get-UnFlatObject {
-    param([string]$Key,$Value,$Object)
+    param(
+        [string] $Key,
+
+        $Value,
+
+        $Object
+    )
+
+    $RegExFilter = "\A(?<curr>[^:]+)(:(?<remain>(?<sub>[^:]+)(:.*)?))?\Z"
 
     if ($Value) {
         if ($key -match $RegExFilter) {
-        $Current = $matches.curr
+            $Current = $matches.curr
 
             if (-not ($Object | gm $Current)) {
-                   if (-not $Object.ContainsKey($Current)) { $Object.$Current = @{ } }
+                if (-not $Object.ContainsKey($Current)) { $Object.$Current = @{ }
+                }
             }
 
             if ($matches.remain) {
                 $Object.$Current = Get-UnFlatObject -Key $matches.remain -Value $Value -Obj ($Object.$Current)
-            } else {
+            }
+            else {
                 $Object.$Current = $Value
             }
 
-        return $Object
+            return $Object
         }
     }
 }
 
 function Get-UnFlatHashTable {
-   param([Hashtable] $Hashtable)
- $resultTable = @{}
-      foreach ($key in $Hashtable.Keys) {
+    param(
+        [Hashtable] $Hashtable
+    )
+
+    $resultTable = @{ }
+
+    foreach ($key in $Hashtable.Keys) {
         if ($Hashtable.$key) {
-        $resultTable = Get-UnFlatObject -Key $key -Value $Hashtable.$key -Obj $resultTable
+            $resultTable = Get-UnFlatObject -Key $key -Value $Hashtable.$key -Obj $resultTable
         }
     }
- return $resultTable
+
+    return $resultTable
 }
 
 Export-ModuleMember -Function *

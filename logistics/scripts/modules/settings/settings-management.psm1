@@ -365,7 +365,6 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
         $newSettingsFiles += $newDevelopmentSettingsPath
-
     }
 
     return $newSettingsFiles
@@ -473,7 +472,7 @@ function Set-Feature([hashtable] $Settings = {}, [string] $FeatureName, [bool] $
         {
             $Settings.ApiSettings.Features = @()
         }
-        
+
         $Settings.ApiSettings.Features += New-Object psobject -Property $properties
     }
     else {

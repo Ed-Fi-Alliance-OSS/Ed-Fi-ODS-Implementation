@@ -183,6 +183,22 @@ Describe 'Merge-Hashtables' {
     }
 }
 
+Describe 'Merge-HashtablesOrDefaults' {
+    It "merges multiple hashtables into a new hashtable only if value is null or whitespace" {
+        $a = @{ a = " "; b = "0"; c = "1"; d = @{ e = " "; f = "2"; g = "3" } }
+        $b = @{ a = "4"; b = " "; c = "5"; d = @{ e = "6"; f = "7"; g = "8" } }
+        $result = Merge-HashtablesOrDefaults $a, $b
+
+        $result | Should -BeOfType [System.Collections.Hashtable]
+        $result.a | Should -Be "4"
+        $result.b | Should -Be "0"
+        $result.c | Should -Be "1"
+        $result.d.e | Should -Be "6"
+        $result.d.f | Should -Be "2"
+        $result.d.g | Should -Be "3"
+    }
+}
+
 Describe 'Get-FlatHashtable' {
     It "merges multiple hashtables into a new hashtable" {
         $a = @{
@@ -220,7 +236,7 @@ Describe 'Get-FlatHashtable' {
 
 Describe 'Get-UnFlatHashTable' {
     It "Convert the flatten hashtables into a new unflatten hashtable" {
-    $a = @{ 
+    $a = @{
     'a:b:c' = 'd'
     'a:b:e:f:g' = 'h'
     }
