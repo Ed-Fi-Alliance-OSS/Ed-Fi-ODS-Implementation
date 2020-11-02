@@ -165,7 +165,7 @@ function Invoke-SetTestHarnessConfig {
         [hashtable] $config
     )
 
-    if ((-not $config.noExtensions) -and (-not $config.noChanges)) { return }
+    if (-not $config.noExtensions) { return }
 
     $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
     $settings = Get-MergedAppSettings $developmentSettingsFile "Application/EdFi.Ods.Api.IntegrationTestHarness"
@@ -175,12 +175,6 @@ function Invoke-SetTestHarnessConfig {
     {
         Write-Host "Disabling Extensions..."
         $settings = Set-Feature -Settings $settings -FeatureName "Extensions" -IsEnabled $false
-    }
-
-    if ($config.noChanges)
-    {
-        Write-Host "Disabling Change Queries..."
-        $settings = Set-Feature -Settings $settings -FeatureName "ChangeQueries" -IsEnabled $false
     }
 
     New-JsonFile $developmentSettingsFile $settings -Overwrite

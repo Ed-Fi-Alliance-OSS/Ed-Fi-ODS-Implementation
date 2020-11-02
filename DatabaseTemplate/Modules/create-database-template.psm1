@@ -62,8 +62,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.database = (Get-DatabaseTypes).Ods
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
     $config.databaseConnectionString = (Get-ConnectionStringBuildersFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
-    $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util')
-    $config.noChanges = $true
+    $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_deletes_edfi')
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
 
@@ -109,7 +108,7 @@ function New-DatabaseTemplate {
         engine       = $config.engine
         database     = $config.database
         filePaths    = $filePaths
-        subTypeNames = @()
+        subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
         transient    = $true
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
