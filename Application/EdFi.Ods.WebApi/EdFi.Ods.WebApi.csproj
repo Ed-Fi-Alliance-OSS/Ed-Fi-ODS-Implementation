@@ -15,12 +15,12 @@
   <ItemGroup>
     <None Include="log4net.config" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
     <None Update="hibernate.cfg.xml" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
-    <Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" />
-    <Content Include="EdFi.Ods.WebApi.nuspec" CopyToPublishDirectory="Always" />
+    <Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never"/>
+    <Content Include="EdFi.Ods.WebApi.nuspec" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never"/>
     <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
     <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
-    <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
-    <Content Update="log4net.*.config" CopyToPublishDirectory="Never" />
+    <Content Update="appsettings.development.json" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always"/>
+    <Content Update="log4net.development.config" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always"/>
   </ItemGroup>
 
   <ItemGroup>
