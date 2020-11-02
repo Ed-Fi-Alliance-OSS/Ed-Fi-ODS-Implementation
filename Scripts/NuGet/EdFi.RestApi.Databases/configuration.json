@@ -9,6 +9,7 @@
     "Mode": "sandbox",
     "Engine": "",
     "OdsTokens": [],
+    "UsePlugins": true,
     "Features": [
       {
         "Name": "OpenApiMetadata",

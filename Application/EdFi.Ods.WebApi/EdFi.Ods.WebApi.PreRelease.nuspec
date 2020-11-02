@@ -12,6 +12,6 @@
     <license type="file">LICENSE.txt</license>
   </metadata>
   <files>
-    <file src="**" exclude="Plugin/**Sample*/**;Plugin/**Homograph*/**;**/*.sql" />
+    <file src="**" exclude="**/*.sql" />
   </files>
 </package>
