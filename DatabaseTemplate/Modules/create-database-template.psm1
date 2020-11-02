@@ -108,7 +108,7 @@ function New-DatabaseTemplate {
         engine       = $config.engine
         database     = $config.database
         filePaths    = $filePaths
-        subTypeNames = @()
+        subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
         transient    = $true
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
