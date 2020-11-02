@@ -16,7 +16,7 @@
     <None Include="log4net.config" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
     <None Update="hibernate.cfg.xml" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
     <Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never"/>
-    <Content Include="EdFi.Ods.WebApi.nuspec" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never"/>
+    <Content Include="EdFi.Ods.WebApi*.nuspec" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never"/>
     <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
     <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
     <Content Update="appsettings.development.json" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always"/>
