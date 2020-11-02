@@ -101,7 +101,7 @@ DatabaseTemplate/*
 !DatabaseTemplate/Modules/
 
 # Plugin
-Plugin/*
+**/Plugin/*
 !Plugin/*.ps1
 
 # .Net Tools
