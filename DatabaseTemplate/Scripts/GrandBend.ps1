@@ -5,7 +5,7 @@
 
 $params = @{
     packageName    = "EdFi.Suite3.Ods.Populated.Template"
-    packageVersion = "5.1.0-b10348"
+    packageVersion = "5.1.0-b10360"
     packageSource  = "https://www.myget.org/F/ed-fi/"
 }
 
