@@ -17,7 +17,6 @@ function Get-DefaultDevelopmentSettingsByProject {
             }
             ConnectionStrings = @{ }
             Plugin            = @{
-                Folder = "../../Plugin"
                 Scripts = @("development")
             }
             Logging           = @{
@@ -32,7 +31,6 @@ function Get-DefaultDevelopmentSettingsByProject {
                 Engine = ""
             }
             Plugin            = @{
-                Folder = "../../Plugin"
                 Scripts = @("development")
             }
             ConnectionStrings = @{ }
@@ -473,7 +471,7 @@ function Set-Feature([hashtable] $Settings = {}, [string] $FeatureName, [bool] $
         {
             $Settings.ApiSettings.Features = @()
         }
-        
+
         $Settings.ApiSettings.Features += New-Object psobject -Property $properties
     }
     else {

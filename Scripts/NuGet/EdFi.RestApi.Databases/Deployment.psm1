@@ -114,10 +114,10 @@ function Initialize-DeploymentEnvironment {
     $script:result = @()
 
     $elapsed = Use-StopWatch {
+        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-GetPlugins }
+
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
-
-        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
 
         if ((Get-DeploymentSettings).ApiSettings.Mode -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
@@ -138,16 +138,6 @@ function Initialize-DeploymentEnvironment {
     }
 
     return $script:result
-}
-
-function Invoke-PluginFolderScript {
-    $settings = Get-DeploymentSettings
-    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-
-    foreach($script in $settings.Plugin.Scripts){
-        $script = Join-Path $pluginFolder $script
-        Invoke-PluginScript "$script.ps1"
-    }
 }
 
 function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
@@ -212,12 +202,14 @@ function Get-DeploymentSettings {
     return $mergedSettings
 }
 
+function Invoke-GetPlugins { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task { Get-Plugins (Get-DeploymentSettings) } }
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-SecurityDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-OdsDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Remove-SandboxDatabases { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-MinimalTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-PopulatedTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
+
 
 Set-Alias -Scope Global Reset-PopulatedTemplate Reset-PopulatedTemplateDatabase
 Set-Alias -Scope Global Remove-Sandboxes Remove-SandboxDatabases
