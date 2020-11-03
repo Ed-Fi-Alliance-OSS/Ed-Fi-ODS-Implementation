@@ -93,7 +93,6 @@ function Initialize-DeploymentEnvironment {
     $settings = @{
         ApiSettings = @{
             NoDuration              = $NoDuration.IsPresent
-            UsePlugins              = $UsePlugins.IsPresent
             MinimalTemplateSuffix   = 'Ods_Minimal_Template'
             PopulatedTemplateSuffix = 'Ods_Populated_Template'
         }
@@ -106,6 +105,7 @@ function Initialize-DeploymentEnvironment {
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
+    if ($UsePlugins.IsPresent) { $settings.ApiSettings.UsePlugins = $UsePlugins.IsPresent }
 
     Set-DeploymentSettings $settings | Out-Null
 

@@ -46,12 +46,10 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
     <Content Include="EdFi.Ods.SandboxAdmin.nuspec" CopyToPublishDirectory="Always" />
-    <Content Update="appsettings.*.json">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </Content>
-    <Content Update="log4net.development.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
+    <Content Update="log4net.*.config" CopyToOutputDirectory="Always" CopyToPublishDirectory="Never" />
+    <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md"  Link="NOTICES.md" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>
