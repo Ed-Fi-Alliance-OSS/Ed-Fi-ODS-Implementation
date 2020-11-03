@@ -1,8 +1,8 @@
 ﻿{
   "ConnectionStrings": {
     "EdFi_Ods": "",
-    "EdFi_Security": "",
     "EdFi_Admin": "",
+    "EdFi_Security": "",
     "EdFi_Master": ""
   },
   "ApiSettings": {
@@ -58,10 +58,8 @@
     "OdsDatabaseTemplateName": "",
     "DropDatabases": false
   },
- "Plugin": {
-        "Folder": "../../Plugin",
-        "Scripts": [
-            "production"
-        ]
-    }
+  "Plugin": {
+    "Folder": "../../Plugin",
+    "Scripts": ["production"]
+  }
 }
