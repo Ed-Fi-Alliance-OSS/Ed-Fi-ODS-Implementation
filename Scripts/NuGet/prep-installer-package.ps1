@@ -15,7 +15,7 @@ $ErrorActionPreference = "Stop"
 Push-Location $PackageDirectory
 
 $dependencyVersions = @{
-    AppCommon = "1.0.3"
+    AppCommon = "1.0.3-pre1125"
 }
 
 $edFiRepoContainer = "$PackageDirectory/../../../.."
