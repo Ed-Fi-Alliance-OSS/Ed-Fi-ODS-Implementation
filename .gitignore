@@ -102,7 +102,7 @@ DatabaseTemplate/*
 
 # Plugin
 **/Plugin/*
-!Plugin/*.ps1
+!**/Plugin/*.ps1
 
 # .Net Tools
 tools/*

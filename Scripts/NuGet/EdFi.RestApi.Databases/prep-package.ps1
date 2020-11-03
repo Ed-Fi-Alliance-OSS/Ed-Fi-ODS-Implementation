@@ -66,7 +66,6 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
-    Get-PluginScriptsForPackaging
 
     # DbScripts in Artifacts
     Select-CumulativeRepositoryResolvedItems -recurse "Artifacts"

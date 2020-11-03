@@ -114,18 +114,18 @@ function Initialize-DevelopmentEnvironment {
 
         $settings = @{
             ApiSettings = @{
-                Mode                    = $InstallType
-                OdsTokens               = $OdsTokens
-                Engine                  = $Engine
-                UsePlugins              = $UsePlugins.IsPresent
                 MinimalTemplateSuffix   = 'Ods_Minimal_Template'
                 PopulatedTemplateSuffix = 'Ods_Populated_Template'
             }
         }
+        if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
+        if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
+        if ($Engine) { $settings.ApiSettings.Engine = $Engine }
+        if ($UsePlugins.IsPresent) { $settings.ApiSettings.UsePlugins = $UsePlugins.IsPresent }
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
-        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
+        if ((Get-DeploymentSettings).ApiSettings.UsePlugins) { $script:result += Install-Plugins }
 
         $script:result += Install-DbDeploy
 
@@ -170,17 +170,6 @@ function Initialize-DevelopmentEnvironment {
     return $script:result | Format-Table
 }
 
-function Invoke-PluginFolderScript {
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
-        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-
-        foreach ($script in $settings.Plugin.Scripts) {
-            $script = Join-Path $pluginFolder $script
-            Invoke-PluginScript "$script.ps1"
-        }
-    }
-}
 function Invoke-ConfigTransform {
     [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
     param(

@@ -9,16 +9,16 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
-        "Application/EdFi.Ods.WebApi"             = @{
+        "Application/EdFi.Ods.WebApi"                     = @{
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
-                Engine = ""
+                Engine           = ""
                 PlainTextSecrets = $true
             }
             ConnectionStrings = @{ }
             Plugin            = @{
-                Folder = "../../Plugin"
-                Scripts = @("development")
+                Folder  = "./Plugin"
+                Scripts = @("sample", "homograph", "tpdm")
             }
             Logging           = @{
                 LogLevel = @{
@@ -32,30 +32,30 @@ function Get-DefaultDevelopmentSettingsByProject {
                 Engine = ""
             }
             Plugin            = @{
-                Folder = "../../Plugin"
-                Scripts = @("development")
+                Folder  = "./Plugin"
+                Scripts = @("sample", "homograph", "tpdm")
             }
             ConnectionStrings = @{ }
         }
         "Application/EdFi.Ods.SandboxAdmin"               = @{
-            Urls              = "http://localhost:38928"
-            ApiSettings       = @{
+            Urls                         = "http://localhost:38928"
+            ApiSettings                  = @{
                 Engine = ""
             }
-            ConnectionStrings = @{ }
-            Logging           = @{
+            ConnectionStrings            = @{ }
+            Logging                      = @{
                 LogLevel = @{
                     Default = "Debug"
                 }
             }
-            OAuthUrl           = "http://localhost:54746/oauth/"
+            OAuthUrl                     = "http://localhost:54746/oauth/"
             DefaultOperationalContextUri = "uri://ed-fi-api-host.org"
-            MailSettings       = @{
+            MailSettings                 = @{
                 Smtp = @{
-                    UserName = "Bingo"
-                    Password = "Tingo"
-                    DeliveryMethod = "SpecifiedPickupDirectory"
-                    From = "noreply@ed-fi.org"
+                    UserName                 = "Bingo"
+                    Password                 = "Tingo"
+                    DeliveryMethod           = "SpecifiedPickupDirectory"
+                    From                     = "noreply@ed-fi.org"
                     SpecifiedPickupDirectory = @{
                         PickupDirectoryLocation = "C:\Temp\AdminConsole\Artifacts\Emails"
                     }
@@ -85,7 +85,7 @@ function Get-CredentialSettingsByProject {
     $populatedSecret = Get-RandomString
 
     return @{
-        "Application/EdFi.Ods.SandboxAdmin"               = @{
+        "Application/EdFi.Ods.SandboxAdmin" = @{
             User = @{
                 "Test Admin" = @{
                     Email             = "test@ed-fi.org"
@@ -112,7 +112,7 @@ function Get-CredentialSettingsByProject {
                 }
             }
         }
-        "Application/EdFi.Ods.SwaggerUI"        = @{
+        "Application/EdFi.Ods.SwaggerUI"    = @{
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId     = $populatedKey
@@ -150,7 +150,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
-            ApiSettings  = @{
+            ApiSettings       = @{
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
             }
@@ -162,7 +162,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres;"
             }
-            ApiSettings  = @{
+            ApiSettings       = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
@@ -280,15 +280,15 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 
     $folders = Get-RepositoryArtifactPaths
 
-    if ($Settings.ApiSettings.UsePlugins){
+    if ($Settings.ApiSettings.UsePlugins) {
         $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
         $plugInArtifactsParentfolders += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
 
-        if ($null -ne $plugInArtifactsParentfolders){
+        if ($null -ne $plugInArtifactsParentfolders) {
             $folders += $plugInArtifactsParentfolders
         }
     }
-    else{
+    else {
         $folders += Get-ExtensionScriptFiles $artifactSources
     }
 
@@ -337,9 +337,9 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
 
 function Get-UserSecretsIdByProject {
     return @{
-        "Application/EdFi.Ods.SandboxAdmin" = "f1506d66-289c-44cb-a2e2-80411cc690ea"
-        "Application/EdFi.Ods.SwaggerUI" = "f1506d66-289c-44cb-a2e2-80411cc690eb"
-        "Application/EdFi.Ods.WebApi" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        "Application/EdFi.Ods.SandboxAdmin"               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        "Application/EdFi.Ods.SwaggerUI"                  = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        "Application/EdFi.Ods.WebApi"                     = "f1506d66-289c-44cb-a2e2-80411cc690ec"
         "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
@@ -441,15 +441,14 @@ function Format-Json {
 }
 
 function Get-UserSecrets([string] $Project) {
-    $inputTable = @{}
-    $resultTable = @{}
+    $inputTable = @{ }
+    $resultTable = @{ }
 
     try {
         $projectPath = Get-RepositoryResolvedPath $Project
         $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
-        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null))
-        {
-           $inputTable = ConvertFrom-StringData -StringData $userSecretList
+        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null)) {
+            $inputTable = ConvertFrom-StringData -StringData $userSecretList
         }
 
         $resultTable = Get-UnFlatHashTable($inputTable)
@@ -458,17 +457,16 @@ function Get-UserSecrets([string] $Project) {
         Write-Host $_.Exception.Message -ForegroundColor Yellow
     }
 
-   return ($resultTable)
+    return ($resultTable)
 }
 
-function Set-Feature([hashtable] $Settings = {}, [string] $FeatureName, [bool] $IsEnabled) {
+function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] $IsEnabled) {
     $features = $Settings.ApiSettings.Features | Where-Object { $_.Name -eq $featureName }
 
     if ($features.Length -eq 0) {
-        $properties = @{Name = $FeatureName; IsEnabled = $IsEnabled}
+        $properties = @{ Name = $FeatureName; IsEnabled = $IsEnabled }
 
-        if ($Settings.ApiSettings.Features.Length -eq 0)
-        {
+        if ($Settings.ApiSettings.Features.Length -eq 0) {
             $Settings.ApiSettings.Features = @()
         }
 

@@ -9,7 +9,7 @@
     "Mode": "sandbox",
     "Engine": "",
     "OdsTokens": [],
-    "UsePlugins": true,
+    "UsePlugins": false,
     "Features": [
       {
         "Name": "OpenApiMetadata",
@@ -59,7 +59,7 @@
     "DropDatabases": false
   },
   "Plugin": {
-    "Folder": "../../Plugin",
-    "Scripts": ["production"]
+    "Folder": "./Plugin",
+    "Scripts": []
   }
 }

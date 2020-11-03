@@ -5,76 +5,69 @@
 
 #requires -modules "path-resolver"
 
-$script:pluginFolderConfigKey = 'plugin:folder'
-$script:pluginScriptConfigKey = 'plugin:script'
-$script:defaultConfig = 'Application\EdFi.Ods.WebApi\appsettings.json'
+function Get-PluginFolderFromSettings([hashtable] $Settings) {
 
-function Get-PluginFolderFromConfig {
-    param(
-        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
-    )
-    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
-    $folder = $jsonFromFile.Plugin.Folder
+    $folder = $Settings.Plugin.Folder
 
     if ($null -eq $folder) { return [string]::Empty }
 
-    if (-not (Test-Path $folder)) { $folder = Join-Path $configFile $folder }
+    if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath).Path $folder) }
 
-    return Resolve-Path $folder
+    if (-not (Test-Path $folder)) { $folder = (Get-RepositoryResolvedPath $folder) }
+
+    return (Resolve-Path $folder)
 }
 
-function Get-PluginScriptsFromConfig {
-    param(
-        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
-    )
+function Get-PluginScriptsFromSettings([hashtable] $Settings) {
 
-    $jsonFromFile = (Get-Content $configFile -Raw -Encoding UTF8 | ConvertFrom-JSON)
-    $scripts = $jsonFromFile.Plugin.Scripts
+    $scripts = $Settings.Plugin.Scripts
 
-    if ($null -eq $scripts) { return [string]::Empty }
-    return $scripts.Split(',')
+    if ($null -eq $scripts) { return @() }
+
+    return , $scripts
 }
 
-function Get-PluginScript {
-    param(
-        [parameter(Mandatory)] $pluginFolder,
-        [parameter(ValueFromPipeline, Mandatory)] $scriptName
-    )
+function Get-PluginScript([string] $pluginFolder, [string] $scriptName) {
 
     $scriptPath = Get-ChildItem $pluginFolder -File -Filter "$scriptName.ps1"
-    return $scriptPath | Select-Object -First 1 -ExpandProperty FullName
+
+    return ($scriptPath | Select-Object -First 1 -ExpandProperty FullName)
 }
 
-function Invoke-PluginScript {
-    param(
-        [parameter(ValueFromPipeline, Mandatory)] $scriptPath
-    )
+function Invoke-PluginScript([string] $scriptPath) {
 
     if (($null -eq $scriptPath) -or (-not (Test-Path $scriptPath))) { return }
+
+    Write-Host -ForegroundColor Magenta "& $scriptPath"
     & $scriptPath
 }
 
-function Get-Plugins {
-    param(
-        $configFile = (Get-RepositoryResolvedPath $script:defaultConfig)
-    )
+function Get-Plugins([hashtable] $Settings) {
 
-    $pluginFolder = (Get-PluginFolderFromConfig $configFile)
-
-    return Get-PluginScriptsFromConfig $configFile |
-        Get-PluginScript $pluginFolder |
-        Invoke-PluginScript
-}
-
-function Get-PluginScriptsForPackaging {
+    $folder = (Get-PluginFolderFromSettings $Settings)
+    $scripts = (Get-PluginScriptsFromSettings $Settings)
 
     $result = @()
 
-    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
+    foreach ($script in $scripts) {
+        $scriptPath = Get-PluginScript $folder $script
+        $extensionPath = Invoke-PluginScript $scriptPath
+        Write-Host $extensionPath
+        $result += $extensionPath
+    }
+
+    return $result
+}
+
+function Get-PluginScriptsForPackaging([hashtable] $Settings) {
+
+    $result = @()
+
+    $pluginFolder = (Get-PluginFolderFromSettings $Settings)
 
     $result += Get-ChildItem $pluginFolder -Recurse -File | Where-Object { $_.extension -notin ".nupkg", ".dll" }
 
     return $result
 }
 
-Export-ModuleMember -Function 'Invoke-PluginScript', 'Get-PluginScriptsForPackaging'
+Export-ModuleMember -Function Get-Plugins, Get-PluginScriptsForPackaging
