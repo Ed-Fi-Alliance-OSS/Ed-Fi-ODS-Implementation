@@ -440,17 +440,16 @@ function Format-Json {
     return $result -Join [Environment]::NewLine
 }
 
-function Get-UserSecrets([string]$project) {
-
+function Get-UserSecrets([string] $Project) {
     $inputTable = @{}
     $resultTable = @{}
 
     try {
-        $projectPath = Get-RepositoryResolvedPath $project
-        $userSecretList= dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$project | Out-String
-        if($userSecretList -NotLike "*No secrets configured for this application*" -And ($userSecretList -ne $null) )
+        $projectPath = Get-RepositoryResolvedPath $Project
+        $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
+        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null))
         {
-           $inputTable= ConvertFrom-StringData -StringData $userSecretList
+           $inputTable = ConvertFrom-StringData -StringData $userSecretList
         }
 
         $resultTable = Get-UnFlatHashTable($inputTable)

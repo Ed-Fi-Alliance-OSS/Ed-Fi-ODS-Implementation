@@ -172,7 +172,8 @@ function Get-UnFlatObject {
             $Current = $matches.curr
 
             if (-not ($Object | gm $Current)) {
-                if (-not $Object.ContainsKey($Current)) { $Object.$Current = @{ }
+                if (-not $Object.ContainsKey($Current)) {
+                    $Object.$Current = @{ }
                 }
             }
 

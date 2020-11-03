@@ -186,7 +186,7 @@ Describe 'Merge-Hashtables' {
 Describe 'Merge-HashtablesOrDefaults' {
     It "merges multiple hashtables into a new hashtable only if value is null or whitespace" {
         $a = @{ a = " "; b = "0"; c = "1"; d = @{ e = " "; f = "2"; g = "3" } }
-        $b = @{ a = "4"; b = " "; c = "5"; d = @{ e = "6"; f = "7"; g = "8" } }
+        $b = @{ a = "4"; b = " "; c = "5"; d = @{ e = "6"; f = " "; g = "8" } }
         $result = Merge-HashtablesOrDefaults $a, $b
 
         $result | Should -BeOfType [System.Collections.Hashtable]
