@@ -27,8 +27,8 @@ function Initialize-DeploymentEnvironment {
     .parameter EnabledFeatureNames
         Any subtype features specified will be enabled.
     .parameter OdsTokens
-    A semicolon-separated string of tokens to use when creating Ods database instances.
-    For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
+        A semicolon-separated string of tokens to use when creating Ods database instances.
+        For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter OdsDatabaseTemplateName
         Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
@@ -38,7 +38,7 @@ function Initialize-DeploymentEnvironment {
     .parameter NoDuration
         Turn off duration display
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [string] $PathResolverRepositoryOverride,

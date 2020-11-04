@@ -50,8 +50,8 @@ function Initialize-DevelopmentEnvironment {
     .parameter InstallType
         The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'
     .parameter OdsTokens
-    A semicolon-separated string of tokens to use when creating Ods database instances.
-    For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
+        A semicolon-separated string of tokens to use when creating Ods database instances.
+        For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter Engine
         The database engine provider, either "SQLServer" or "PostgreSQL"
@@ -68,7 +68,7 @@ function Initialize-DevelopmentEnvironment {
     .parameter RunSmokeTest
         Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
