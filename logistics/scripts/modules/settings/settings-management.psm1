@@ -6,6 +6,7 @@
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
@@ -280,16 +281,13 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 
     $folders = Get-RepositoryArtifactPaths
 
-    if ($Settings.ApiSettings.UsePlugins) {
-        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-        $plugInArtifactsParentfolders += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
+    $folders += Get-ExtensionScriptFiles $artifactSources
 
-        if ($null -ne $plugInArtifactsParentfolders) {
-            $folders += $plugInArtifactsParentfolders
-        }
-    }
-    else {
-        $folders += Get-ExtensionScriptFiles $artifactSources
+    if ($Settings.ApiSettings.UsePlugins) {
+        $pluginFolder = (Get-PluginFolderFromSettings $Settings)
+        $pluginArtifactSource += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
+
+        if ($null -ne $pluginArtifactSource) { $folders += $pluginArtifactSource }
     }
 
     return $folders

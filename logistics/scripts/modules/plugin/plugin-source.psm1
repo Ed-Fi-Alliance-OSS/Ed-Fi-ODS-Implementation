@@ -59,15 +59,4 @@ function Get-Plugins([hashtable] $Settings) {
     return $result
 }
 
-function Get-PluginScriptsForPackaging([hashtable] $Settings) {
-
-    $result = @()
-
-    $pluginFolder = (Get-PluginFolderFromSettings $Settings)
-
-    $result += Get-ChildItem $pluginFolder -Recurse -File | Where-Object { $_.extension -notin ".nupkg", ".dll" }
-
-    return $result
-}
-
-Export-ModuleMember -Function Get-Plugins, Get-PluginScriptsForPackaging
+Export-ModuleMember -Function Get-Plugins, Get-PluginFolderFromSettings
