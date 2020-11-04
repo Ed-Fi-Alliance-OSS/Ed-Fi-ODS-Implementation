@@ -67,7 +67,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
-    Get-PluginScriptsForPackaging (Get-MergedAppSettings "$PSScriptRoot\configuration.json")
+    Get-PluginScriptsForPackaging (Get-EdFiDeveloperPluginSettings)
 
     # DbScripts in Artifacts
     Select-CumulativeRepositoryResolvedItems -recurse "Artifacts"
