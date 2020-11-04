@@ -59,4 +59,11 @@ function Get-Plugins([hashtable] $Settings) {
     return $result
 }
 
-Export-ModuleMember -Function Get-Plugins, Get-PluginFolderFromSettings
+function Get-PluginScriptsForPackaging([hashtable] $Settings) {
+
+    $pluginScripts = Get-ChildItem (Get-PluginFolderFromSettings $Settings) -File
+
+    return ($pluginScripts | Where-Object { $_.extension -in ".ps1", ".psm1" }).FullName
+}
+
+Export-ModuleMember -Function Get-PluginFolderFromSettings, Get-PluginScriptsFromSettings, Get-Plugins, Get-PluginScriptsForPackaging
