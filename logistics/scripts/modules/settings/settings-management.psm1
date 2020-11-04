@@ -17,10 +17,6 @@ function Get-DefaultDevelopmentSettingsByProject {
                 PlainTextSecrets = $true
             }
             ConnectionStrings = @{ }
-            Plugin            = @{
-                Folder  = "./Plugin"
-                Scripts = @("sample", "homograph", "tpdm")
-            }
             Logging           = @{
                 LogLevel = @{
                     Default = "Debug"
@@ -31,10 +27,6 @@ function Get-DefaultDevelopmentSettingsByProject {
             Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
-            }
-            Plugin            = @{
-                Folder  = "./Plugin"
-                Scripts = @("sample", "homograph", "tpdm")
             }
             ConnectionStrings = @{ }
         }
@@ -120,6 +112,15 @@ function Get-CredentialSettingsByProject {
                     ClientSecret = $populatedSecret
                 }
             }
+        }
+    }
+}
+
+function Get-EdFiDeveloperPluginSettings {
+    return @{
+        Plugin = @{
+            Folder  = "./Plugin"
+            Scripts = @("sample", "homograph", "tpdm")
         }
     }
 }

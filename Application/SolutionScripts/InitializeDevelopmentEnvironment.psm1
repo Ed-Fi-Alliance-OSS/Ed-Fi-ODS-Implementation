@@ -121,11 +121,11 @@ function Initialize-DevelopmentEnvironment {
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
-        if ($UsePlugins.IsPresent) { $settings.ApiSettings.UsePlugins = $UsePlugins.IsPresent }
+        if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
-        if ((Get-DeploymentSettings).ApiSettings.UsePlugins) { $script:result += Install-Plugins }
+        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
         $script:result += Install-DbDeploy
 

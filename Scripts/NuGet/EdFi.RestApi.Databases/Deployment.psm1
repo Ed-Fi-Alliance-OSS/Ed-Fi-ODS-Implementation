@@ -107,7 +107,7 @@ function Initialize-DeploymentEnvironment {
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
-    if ($UsePlugins.IsPresent) { $settings.ApiSettings.UsePlugins = $UsePlugins.IsPresent }
+    if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
     Set-DeploymentSettings $settings | Out-Null
 
@@ -116,7 +116,7 @@ function Initialize-DeploymentEnvironment {
     $script:result = @()
 
     $elapsed = Use-StopWatch {
-        if ((Get-DeploymentSettings).ApiSettings.UsePlugins) { $script:result += Install-Plugins }
+        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
