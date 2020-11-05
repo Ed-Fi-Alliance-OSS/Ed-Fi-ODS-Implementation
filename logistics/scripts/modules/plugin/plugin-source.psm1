@@ -12,7 +12,7 @@ function Get-PluginFolderFromSettings([hashtable] $Settings) {
     if ([string]::IsNullOrWhitespace($folder)) { return [string]::Empty }
 
     # in a developer environment the plugin folder is relative to the WebApi project
-    if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath "Application/EdFi.Ods.WebApi").Path $folder) }
+    if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath) "Application/EdFi.Ods.WebApi/$folder") }
 
     # in a deployment environment the plugin folder is relative to the repo since the WebApi project is not a part of the database package
     if (-not (Test-Path $folder)) { $folder = (Get-RepositoryResolvedPath $folder) }
