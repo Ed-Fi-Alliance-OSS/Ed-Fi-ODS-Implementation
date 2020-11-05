@@ -112,12 +112,8 @@ function Initialize-DevelopmentEnvironment {
 
     $elapsed = Use-StopWatch {
 
-        $settings = @{
-            ApiSettings = @{
-                MinimalTemplateSuffix   = 'Ods_Minimal_Template'
-                PopulatedTemplateSuffix = 'Ods_Populated_Template'
-            }
-        }
+        $settings = @{ ApiSettings = @{} }
+
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
