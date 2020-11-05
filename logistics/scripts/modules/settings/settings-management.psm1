@@ -295,8 +295,7 @@ function New-JsonFile {
 }
 
 function Get-UserSecrets([string] $Project) {
-    if ([string]::IsNullOrWhitespace($Project)) { return @{ }
-    }
+    if ([string]::IsNullOrWhitespace($Project)) { return @{ } }
 
     $inputTable = @{ }
     $resultTable = @{ }
