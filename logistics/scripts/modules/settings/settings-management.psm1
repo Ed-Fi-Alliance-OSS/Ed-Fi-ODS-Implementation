@@ -119,7 +119,7 @@ function Get-CredentialSettingsByProject {
 function Get-EdFiDeveloperPluginSettings {
     return @{
         Plugin = @{
-            Folder  = "./Plugin"
+            Folder  = "../../Plugin"
             Scripts = @("sample", "homograph", "tpdm")
         }
     }
