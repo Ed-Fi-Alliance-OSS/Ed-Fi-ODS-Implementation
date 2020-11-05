@@ -6,20 +6,17 @@
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
-        "Application/EdFi.Ods.WebApi"             = @{
+        "Application/EdFi.Ods.WebApi"                     = @{
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
-                Engine = ""
+                Engine           = ""
                 PlainTextSecrets = $true
             }
             ConnectionStrings = @{ }
-            Plugin            = @{
-                Folder = "../../Plugin"
-                Scripts = @("development")
-            }
             Logging           = @{
                 LogLevel = @{
                     Default = "Debug"
@@ -31,31 +28,27 @@ function Get-DefaultDevelopmentSettingsByProject {
             ApiSettings       = @{
                 Engine = ""
             }
-            Plugin            = @{
-                Folder = "../../Plugin"
-                Scripts = @("development")
-            }
             ConnectionStrings = @{ }
         }
         "Application/EdFi.Ods.SandboxAdmin"               = @{
-            Urls              = "http://localhost:38928"
-            ApiSettings       = @{
+            Urls                         = "http://localhost:38928"
+            ApiSettings                  = @{
                 Engine = ""
             }
-            ConnectionStrings = @{ }
-            Logging           = @{
+            ConnectionStrings            = @{ }
+            Logging                      = @{
                 LogLevel = @{
                     Default = "Debug"
                 }
             }
-            OAuthUrl           = "http://localhost:54746/oauth/"
+            OAuthUrl                     = "http://localhost:54746/oauth/"
             DefaultOperationalContextUri = "uri://ed-fi-api-host.org"
-            MailSettings       = @{
+            MailSettings                 = @{
                 Smtp = @{
-                    UserName = "Bingo"
-                    Password = "Tingo"
-                    DeliveryMethod = "SpecifiedPickupDirectory"
-                    From = "noreply@ed-fi.org"
+                    UserName                 = "Bingo"
+                    Password                 = "Tingo"
+                    DeliveryMethod           = "SpecifiedPickupDirectory"
+                    From                     = "noreply@ed-fi.org"
                     SpecifiedPickupDirectory = @{
                         PickupDirectoryLocation = "C:\Temp\AdminConsole\Artifacts\Emails"
                     }
@@ -85,7 +78,7 @@ function Get-CredentialSettingsByProject {
     $populatedSecret = Get-RandomString
 
     return @{
-        "Application/EdFi.Ods.SandboxAdmin"               = @{
+        "Application/EdFi.Ods.SandboxAdmin" = @{
             User = @{
                 "Test Admin" = @{
                     Email             = "test@ed-fi.org"
@@ -112,13 +105,22 @@ function Get-CredentialSettingsByProject {
                 }
             }
         }
-        "Application/EdFi.Ods.SwaggerUI"        = @{
+        "Application/EdFi.Ods.SwaggerUI"    = @{
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId     = $populatedKey
                     ClientSecret = $populatedSecret
                 }
             }
+        }
+    }
+}
+
+function Get-EdFiDeveloperPluginSettings {
+    return @{
+        Plugin = @{
+            Folder  = "../../Plugin"
+            Scripts = @("sample", "homograph", "tpdm")
         }
     }
 }
@@ -150,7 +152,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
             }
-            ApiSettings  = @{
+            ApiSettings       = @{
                 MinimalTemplateScript   = 'EdFiMinimalTemplate'
                 PopulatedTemplateScript = 'GrandBend'
             }
@@ -162,7 +164,7 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres;"
             }
-            ApiSettings  = @{
+            ApiSettings       = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
@@ -208,6 +210,76 @@ function Add-ApplicationNameToConnectionStrings([hashtable] $Settings = @{ }, [s
     return $newSettings
 }
 
+function Format-Json {
+    <#
+    .SYNOPSIS
+        Prettifies JSON output.
+    .DESCRIPTION
+        Reformats a JSON string so the output looks better than what ConvertTo-Json outputs.
+    .PARAMETER Json
+        Required: [string] The JSON text to prettify.
+    .PARAMETER Minify
+        Optional: Returns the json string compressed.
+    .PARAMETER Indentation
+        Optional: The number of spaces (1..1024) to use for indentation. Defaults to 2.
+    .PARAMETER AsArray
+        Optional: If set, the output will be in the form of a string array, otherwise a single string is output.
+    .EXAMPLE
+        $json | ConvertTo-Json  | Format-Json -Indentation 2
+    #>
+    [CmdletBinding(DefaultParameterSetName = 'Prettify')]
+    Param(
+        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
+        [string] $Json,
+
+        [Parameter(ParameterSetName = 'Minify')]
+        [switch] $Minify,
+
+        [Parameter(ParameterSetName = 'Prettify')]
+        [ValidateRange(1, 1024)]
+        [int] $Indentation = 2,
+
+        [Parameter(ParameterSetName = 'Prettify')]
+        [switch] $AsArray
+    )
+
+    if ($PSCmdlet.ParameterSetName -eq 'Minify') {
+        return ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100 -Compress
+    }
+
+    # If the input JSON text has been created with ConvertTo-Json -Compress
+    # then we first need to reconvert it without compression
+    if ($Json -notmatch '\r?\n') {
+        $Json = ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100
+    }
+
+    $indent = 0
+    $regexUnlessQuoted = '(?=([^"]*"[^"]*")*[^"]*$)'
+
+    $result = $Json -split '\r?\n' |
+        ForEach-Object {
+            # If the line contains a ] or } character,
+            # we need to decrement the indentation level unless it is inside quotes.
+            if ($_ -match "[}\]]$regexUnlessQuoted") {
+                $indent = [Math]::Max($indent - $Indentation, 0)
+            }
+
+            # Replace all colon-space combinations by ": " unless it is inside quotes.
+            $line = (' ' * $indent) + ($_.TrimStart() -replace ":\s+$regexUnlessQuoted", ': ')
+
+            # If the line contains a [ or { character,
+            # we need to increment the indentation level unless it is inside quotes.
+            if ($_ -match "[\{\[]$regexUnlessQuoted") {
+                $indent += $Indentation
+            }
+
+            $line
+        }
+
+    if ($AsArray) { return $result }
+    return $result -Join [Environment]::NewLine
+}
+
 function New-JsonFile {
     param(
         [string] $FilePath,
@@ -222,6 +294,29 @@ function New-JsonFile {
     $Hashtable | ConvertTo-Json -Depth 10 | Format-Json | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
+function Get-UserSecrets([string] $Project) {
+    if ([string]::IsNullOrWhitespace($Project)) { return @{ } }
+
+    $inputTable = @{ }
+    $resultTable = @{ }
+
+    try {
+        $projectPath = Get-RepositoryResolvedPath $Project
+        $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
+
+        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null)) {
+            $inputTable = ConvertFrom-StringData -StringData $userSecretList
+        }
+
+        $resultTable = Get-UnFlatHashTable($inputTable)
+    }
+    catch {
+        Write-Host $_.Exception.Message -ForegroundColor Yellow
+    }
+
+    return ($resultTable)
+}
+
 function Get-MergedAppSettings([string[]] $SettingsFiles = @() , [string]$Project) {
 
     $mergedSettings = @{ }
@@ -232,8 +327,11 @@ function Get-MergedAppSettings([string[]] $SettingsFiles = @() , [string]$Projec
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
         $mergedSettings = Merge-Hashtables $mergedSettings, $settings
     }
-    $hashTableUserSecrets = Get-UserSecrets $Project
-    $mergedSettings = Merge-Hashtables $mergedSettings, $hashTableUserSecrets
+
+    $userSecrets = Get-UserSecrets $Project
+
+    $mergedSettings = Merge-Hashtables $mergedSettings, $userSecrets
+
     return $mergedSettings
 }
 
@@ -280,16 +378,13 @@ function Get-DatabaseScriptFoldersFromSettings([hashtable] $Settings = @{ }) {
 
     $folders = Get-RepositoryArtifactPaths
 
-    if ($Settings.ApiSettings.UsePlugins){
-        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-        $plugInArtifactsParentfolders += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
+    $folders += Get-ExtensionScriptFiles $artifactSources
 
-        if ($null -ne $plugInArtifactsParentfolders){
-            $folders += $plugInArtifactsParentfolders
-        }
-    }
-    else{
-        $folders += Get-ExtensionScriptFiles $artifactSources
+    $pluginFolder = (Get-PluginFolderFromSettings $Settings)
+    if (-not [string]::IsNullOrWhitespace($pluginFolder)) {
+        $pluginArtifactSource += ((Get-ChildItem -Path $pluginFolder -Filter "*Artifacts*" -Recurse -Directory).Parent).FullName
+
+        if ($null -ne $pluginArtifactSource) { $folders += $pluginArtifactSource }
     }
 
     return $folders
@@ -337,9 +432,9 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
 
 function Get-UserSecretsIdByProject {
     return @{
-        "Application/EdFi.Ods.SandboxAdmin" = "f1506d66-289c-44cb-a2e2-80411cc690ea"
-        "Application/EdFi.Ods.SwaggerUI" = "f1506d66-289c-44cb-a2e2-80411cc690eb"
-        "Application/EdFi.Ods.WebApi" = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        "Application/EdFi.Ods.SandboxAdmin"               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        "Application/EdFi.Ods.SwaggerUI"                  = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        "Application/EdFi.Ods.WebApi"                     = "f1506d66-289c-44cb-a2e2-80411cc690ec"
         "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
@@ -370,105 +465,13 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     return $newSettingsFiles
 }
 
-function Format-Json {
-    <#
-    .SYNOPSIS
-        Prettifies JSON output.
-    .DESCRIPTION
-        Reformats a JSON string so the output looks better than what ConvertTo-Json outputs.
-    .PARAMETER Json
-        Required: [string] The JSON text to prettify.
-    .PARAMETER Minify
-        Optional: Returns the json string compressed.
-    .PARAMETER Indentation
-        Optional: The number of spaces (1..1024) to use for indentation. Defaults to 4.
-    .PARAMETER AsArray
-        Optional: If set, the output will be in the form of a string array, otherwise a single string is output.
-    .EXAMPLE
-        $json | ConvertTo-Json  | Format-Json -Indentation 2
-    #>
-    [CmdletBinding(DefaultParameterSetName = 'Prettify')]
-    Param(
-        [Parameter(Mandatory = $true, Position = 0, ValueFromPipeline = $true)]
-        [string]$Json,
-
-        [Parameter(ParameterSetName = 'Minify')]
-        [switch]$Minify,
-
-        [Parameter(ParameterSetName = 'Prettify')]
-        [ValidateRange(1, 1024)]
-        [int]$Indentation = 4,
-
-        [Parameter(ParameterSetName = 'Prettify')]
-        [switch]$AsArray
-    )
-
-    if ($PSCmdlet.ParameterSetName -eq 'Minify') {
-        return ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100 -Compress
-    }
-
-    # If the input JSON text has been created with ConvertTo-Json -Compress
-    # then we first need to reconvert it without compression
-    if ($Json -notmatch '\r?\n') {
-        $Json = ($Json | ConvertFrom-Json) | ConvertTo-Json -Depth 100
-    }
-
-    $indent = 0
-    $regexUnlessQuoted = '(?=([^"]*"[^"]*")*[^"]*$)'
-
-    $result = $Json -split '\r?\n' |
-        ForEach-Object {
-            # If the line contains a ] or } character,
-            # we need to decrement the indentation level unless it is inside quotes.
-            if ($_ -match "[}\]]$regexUnlessQuoted") {
-                $indent = [Math]::Max($indent - $Indentation, 0)
-            }
-
-            # Replace all colon-space combinations by ": " unless it is inside quotes.
-            $line = (' ' * $indent) + ($_.TrimStart() -replace ":\s+$regexUnlessQuoted", ': ')
-
-            # If the line contains a [ or { character,
-            # we need to increment the indentation level unless it is inside quotes.
-            if ($_ -match "[\{\[]$regexUnlessQuoted") {
-                $indent += $Indentation
-            }
-
-            $line
-        }
-
-    if ($AsArray) { return $result }
-    return $result -Join [Environment]::NewLine
-}
-
-function Get-UserSecrets([string] $Project) {
-    $inputTable = @{}
-    $resultTable = @{}
-
-    try {
-        $projectPath = Get-RepositoryResolvedPath $Project
-        $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
-        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null))
-        {
-           $inputTable = ConvertFrom-StringData -StringData $userSecretList
-        }
-
-        $resultTable = Get-UnFlatHashTable($inputTable)
-    }
-    catch {
-        Write-Host $_.Exception.Message -ForegroundColor Yellow
-    }
-
-   return ($resultTable)
-}
-
-function Set-Feature([hashtable] $Settings = {}, [string] $FeatureName, [bool] $IsEnabled) {
+function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] $IsEnabled) {
     $features = $Settings.ApiSettings.Features | Where-Object { $_.Name -eq $featureName }
 
     if ($features.Length -eq 0) {
-        $properties = @{Name = $FeatureName; IsEnabled = $IsEnabled}
+        $properties = @{ Name = $FeatureName; IsEnabled = $IsEnabled }
 
-        if ($Settings.ApiSettings.Features.Length -eq 0)
-        {
+        if ($Settings.ApiSettings.Features.Length -eq 0) {
             $Settings.ApiSettings.Features = @()
         }
 

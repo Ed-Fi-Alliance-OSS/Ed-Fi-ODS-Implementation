@@ -32,13 +32,15 @@ $ErrorActionPreference = 'Stop'
 & "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\packaging.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
-function Select-ExtensionAssemblyMetadataJson
-{
+Clear-Error
+
+function Select-ExtensionAssemblyMetadataJson {
     $extensions = @()
     $enabledSources | ForEach-Object {
         $extensions += (Select-CumulativeRepositoryResolvedItems -recurse "Application/EdFi.Ods.Extensions.$_" | Where-Object { $_.Name -eq "assemblyMetadata.json" })
@@ -46,8 +48,7 @@ function Select-ExtensionAssemblyMetadataJson
     return $extensions
 }
 
-if (-not $outputDirectory) { $outputDirectory = $PSScriptRoot} # Note: this cannot be done in the param block. $PSScriptRoot is not available at that time.
-if (-not $enabledSources) { $enabledSources = (Get-Configuration).artifactSources }
+if (-not $outputDirectory) { $outputDirectory = $PSScriptRoot } # Note: this cannot be done in the param block. $PSScriptRoot is not available at that time.
 
 $nuspecPath = "$outputDirectory\$packageName.nuspec"
 
@@ -66,7 +67,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
-    Get-PluginScriptsForPackaging
+    Get-PluginScriptsForPackaging (Get-EdFiDeveloperPluginSettings)
 
     # DbScripts in Artifacts
     Select-CumulativeRepositoryResolvedItems -recurse "Artifacts"
@@ -82,7 +83,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems "tools\EdFi.Db.Deploy.exe"
     ((Select-CumulativeRepositoryResolvedItems -recurse "tools\.store\EdFi.Suite3.Db.Deploy" ) | Where-Object { -not $_.Name.EndsWith(".nupkg") })
 
-     # Add the License and Notices files
+    # Add the License and Notices files
     "$PSScriptRoot\..\..\..\LICENSE.txt"
     "$PSScriptRoot\..\..\..\NOTICES.md"
 )

@@ -50,8 +50,8 @@ function Initialize-DevelopmentEnvironment {
     .parameter InstallType
         The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'
     .parameter OdsTokens
-    A semicolon-separated string of tokens to use when creating Ods database instances.
-    For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
+        A semicolon-separated string of tokens to use when creating Ods database instances.
+        For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter Engine
         The database engine provider, either "SQLServer" or "PostgreSQL"
@@ -68,7 +68,7 @@ function Initialize-DevelopmentEnvironment {
     .parameter RunSmokeTest
         Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions instead of extensions found in the Ed-Fi-Ods-Implementation
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -112,20 +112,16 @@ function Initialize-DevelopmentEnvironment {
 
     $elapsed = Use-StopWatch {
 
-        $settings = @{
-            ApiSettings = @{
-                Mode                    = $InstallType
-                OdsTokens               = $OdsTokens
-                Engine                  = $Engine
-                UsePlugins              = $UsePlugins.IsPresent
-                MinimalTemplateSuffix   = 'Ods_Minimal_Template'
-                PopulatedTemplateSuffix = 'Ods_Populated_Template'
-            }
-        }
+        $settings = @{ ApiSettings = @{} }
+
+        if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
+        if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
+        if ($Engine) { $settings.ApiSettings.Engine = $Engine }
+        if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
-        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
+        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
         $script:result += Install-DbDeploy
 
@@ -170,17 +166,6 @@ function Initialize-DevelopmentEnvironment {
     return $script:result | Format-Table
 }
 
-function Invoke-PluginFolderScript {
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
-        $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-
-        foreach ($script in $settings.Plugin.Scripts) {
-            $script = Join-Path $pluginFolder $script
-            Invoke-PluginScript "$script.ps1"
-        }
-    }
-}
 function Invoke-ConfigTransform {
     [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
     param(

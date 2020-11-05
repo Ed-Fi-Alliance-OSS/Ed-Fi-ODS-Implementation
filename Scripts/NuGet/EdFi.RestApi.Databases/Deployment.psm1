@@ -27,8 +27,8 @@ function Initialize-DeploymentEnvironment {
     .parameter EnabledFeatureNames
         Any subtype features specified will be enabled.
     .parameter OdsTokens
-    A semicolon-separated string of tokens to use when creating Ods database instances.
-    For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
+        A semicolon-separated string of tokens to use when creating Ods database instances.
+        For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter OdsDatabaseTemplateName
         Template to use when deploying Ods database. Allowed values: minimal, populated. Defaults to minimal.
@@ -37,6 +37,8 @@ function Initialize-DeploymentEnvironment {
         By default databases are not dropped and will be backup before being migrated when needed.
     .parameter NoDuration
         Turn off duration display
+    .parameter UsePlugins
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
     #>
     param(
         [string] $PathResolverRepositoryOverride,
@@ -105,7 +107,7 @@ function Initialize-DeploymentEnvironment {
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
-    if ($UsePlugins.IsPresent) { $settings.ApiSettings.UsePlugins = $UsePlugins.IsPresent }
+    if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
     Set-DeploymentSettings $settings | Out-Null
 
@@ -114,10 +116,10 @@ function Initialize-DeploymentEnvironment {
     $script:result = @()
 
     $elapsed = Use-StopWatch {
+        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
+
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
-
-        if ($settings.ApiSettings.UsePlugins) { $script:result += Invoke-PluginFolderScript }
 
         if ((Get-DeploymentSettings).ApiSettings.Mode -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
@@ -138,16 +140,6 @@ function Initialize-DeploymentEnvironment {
     }
 
     return $script:result
-}
-
-function Invoke-PluginFolderScript {
-    $settings = Get-DeploymentSettings
-    $pluginFolder = (Get-RepositoryResolvedPath "Plugin").Path
-
-    foreach($script in $settings.Plugin.Scripts){
-        $script = Join-Path $pluginFolder $script
-        Invoke-PluginScript "$script.ps1"
-    }
 }
 
 function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
@@ -207,7 +199,7 @@ function Get-DeploymentSettings {
 
     $defaultSettings = (Get-DefaultDevelopmentSettingsByProject)['Application/EdFi.Ods.WebApi']
 
-    if ([string]::IsNullOrWhiteSpace($mergedSettings.ApiSettings.Engine)) { $mergedSettings.ApiSettings.Engine = 'SQLServer'}
+    if ([string]::IsNullOrWhiteSpace($mergedSettings.ApiSettings.Engine)) { $mergedSettings.ApiSettings.Engine = 'SQLServer' }
     $defaultSettings = Merge-Hashtables $defaultSettings, (Get-DefaultDevelopmentSettingsByEngine)[$mergedSettings.ApiSettings.Engine]
 
     $defaultSettings = Add-ApplicationNameToConnectionStrings $defaultSettings 'EdFi.RestApi.Databases'
@@ -219,6 +211,7 @@ function Get-DeploymentSettings {
     return $mergedSettings
 }
 
+function Install-Plugins { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-SecurityDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-OdsDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
@@ -226,11 +219,16 @@ function Remove-SandboxDatabases { Invoke-Task -name ($MyInvocation.MyCommand.Na
 function Reset-MinimalTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-PopulatedTemplateDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 
+
 Set-Alias -Scope Global Reset-PopulatedTemplate Reset-PopulatedTemplateDatabase
 Set-Alias -Scope Global Remove-Sandboxes Remove-SandboxDatabases
 Set-Alias -Scope Global Reset-YearSpecificDatabase Reset-OdsDatabase
 
 $deploymentTasks = @{
+    'Install-Plugins'               = {
+        $settings = Get-DeploymentSettings
+        Get-Plugins $settings
+    }
     'Reset-AdminDatabase'             = {
         $settings = Get-DeploymentSettings
         $adminDatabaseType = $settings.ApiSettings.DatabaseTypes.Admin

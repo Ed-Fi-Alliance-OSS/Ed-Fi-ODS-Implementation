@@ -9,7 +9,6 @@
     "Mode": "sandbox",
     "Engine": "",
     "OdsTokens": [],
-    "UsePlugins": true,
     "Features": [
       {
         "Name": "OpenApiMetadata",
@@ -53,13 +52,13 @@
       }
     ],
     "ExcludedExtensions": [],
-    "MinimalTemplateScript": "",
-    "PopulatedTemplateScript": "",
     "OdsDatabaseTemplateName": "",
-    "DropDatabases": false
+    "DropDatabases": false,
+    "MinimalTemplateSuffix": "Ods_Minimal_Template",
+    "PopulatedTemplateSuffix": "Ods_Populated_Template"
   },
   "Plugin": {
-    "Folder": "../../Plugin",
-    "Scripts": ["production"]
+    "Folder": "",
+    "Scripts": []
   }
 }
