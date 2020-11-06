@@ -6,22 +6,23 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1" @('Ed-Fi-ODS', (Get-Item "$PSScriptRoot\..\..\..").Name, (Get-Item "$PSScriptRoot\..\..\..\Ed-Fi-Extensions").Name)
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
 
-function Get-TPDMConfiguration {
-    $config = @{ }
+function Get-TPDMConfiguration([hashtable] $config = @{ }) {
 
-    Merge-Configurations $config (Get-DefaultTemplateConfiguration)
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
 
     $config.bulkLoadMaxRequests = 1
     $config.bulkLoadDirectorySchema = $config.bulkLoadTempDirectorySchema
     $config.schemaDirectories = @(
-        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\"),
-        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Extensions.TPDM\Artifacts\Schemas\")
+        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
+        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
     )
+    $config.appSettings.Plugin.Scripts = @("tpdm")
 
     $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template.TPDM"
@@ -74,7 +75,6 @@ function Initialize-TPDMTemplate {
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
         [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/v0.8",
-        [switch] $noExtensions,
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
@@ -91,15 +91,17 @@ function Initialize-TPDMTemplate {
         createByRestoringBackup = $createByRestoringBackup
     }
 
-    $config = Merge-Hashtables (Get-TPDMConfiguration), $paramConfig
-    $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
+    $config = (Get-TPDMConfiguration $paramConfig)
+    Write-FlatHashtable $config
 
-    if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-PopulatedTemplateBackupPath $config.configFile) }
+    if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-PopulatedTemplateBackupPathFromSettings $config.appSettings) }
 
     $script:result = @()
 
     $elapsed = Use-StopWatch {
         try {
+            $script:result += Invoke-Task 'Remove-Plugins' { Remove-Plugins $config.appSettings }
+            $script:result += Invoke-Task 'Get-Plugins' { Get-Plugins $config.appSettings }
             $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }
             $script:result += Invoke-Task 'New-TempDirectory' { New-TempDirectory $config }
             $script:result += Invoke-Task 'Copy-BootstrapInterchangeFiles' { Copy-BootstrapInterchangeFiles $config }
