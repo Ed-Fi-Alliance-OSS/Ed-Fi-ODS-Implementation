@@ -50,9 +50,7 @@ function Invoke-PluginScript([string] $scriptPath) {
 function Get-Plugins([hashtable] $Settings) {
 
     $folder = (Get-PluginFolderFromSettings $Settings)
-    Write-Host $folder
     $scripts = (Get-PluginScriptsFromSettings $Settings)
-    Write-Host $scripts
 
     $result = @()
 
@@ -67,7 +65,11 @@ function Get-Plugins([hashtable] $Settings) {
 }
 
 function Remove-Plugins([hashtable] $Settings) {
-    Get-ChildItem -Path (Get-PluginFolderFromSettings $Settings) -Directory -Recurse | Remove-Item
+    $folder = (Get-PluginFolderFromSettings $Settings)
+
+    if ([string]::IsNullOrWhitespace($folder)) { return }
+
+    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse
 }
 
 function Get-PluginScriptsForPackaging([hashtable] $Settings) {

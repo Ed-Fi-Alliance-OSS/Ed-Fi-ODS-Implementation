@@ -165,20 +165,14 @@ function Invoke-SetTestHarnessConfig {
         [hashtable] $config
     )
 
-    $pluginScripts = $config.appSettings.Plugin.Scripts
-    if (-not $pluginScripts) { return }
+    $settings = $config.appSettings
 
-    $appSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
-    $settings = Get-MergedAppSettings $appSettingsFile "Application/EdFi.Ods.Api.IntegrationTestHarness"
-
-    Write-Host "Editing $appSettingsFile"
-    if ($pluginScripts)
+    if ($config.noExtensions)
     {
-        Write-Host "Modify plugin scripts to $($pluginScripts)"
-        $settings.Plugin.Scripts = @($pluginScripts)
+        $settings = Set-Feature -Settings $settings -FeatureName "Extensions" -IsEnabled $false
     }
 
-    New-JsonFile $appSettingsFile $settings -Overwrite
+    New-JsonFile $config.appSettingsFiles[-1] $settings -Overwrite
 }
 
 Export-ModuleMember -function Add-RandomKeySecret,

@@ -92,17 +92,11 @@ function Initialize-DeploymentEnvironment {
 
     Clear-Error
 
-    $settings = @{
-        ApiSettings = @{
-            NoDuration              = $NoDuration.IsPresent
-            MinimalTemplateSuffix   = 'Ods_Minimal_Template'
-            PopulatedTemplateSuffix = 'Ods_Populated_Template'
-        }
-    }
+    $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
+
     if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
     if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
     if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
-
     if ($Engine) { $settings.ApiSettings.Engine = $Engine }
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }

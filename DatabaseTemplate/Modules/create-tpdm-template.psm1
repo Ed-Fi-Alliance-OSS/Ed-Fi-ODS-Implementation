@@ -6,12 +6,14 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1" @('Ed-Fi-ODS', (Get-Item "$PSScriptRoot\..\..\..").Name, (Get-Item "$PSScriptRoot\..\..\..\Ed-Fi-Extensions").Name)
+& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
 
 function Get-TPDMConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+    $config.appSettings.Plugin.Folder = "./Plugin"
+    $config.appSettings.Plugin.Scripts = @("tpdm")
 
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
@@ -20,9 +22,8 @@ function Get-TPDMConfiguration([hashtable] $config = @{ }) {
     $config.bulkLoadDirectorySchema = $config.bulkLoadTempDirectorySchema
     $config.schemaDirectories = @(
         (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
-        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
+        ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")
     )
-    $config.appSettings.Plugin.Scripts = @("tpdm")
 
     $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template.TPDM"
@@ -100,6 +101,7 @@ function Initialize-TPDMTemplate {
 
     $elapsed = Use-StopWatch {
         try {
+            $script:result += Invoke-Task 'Invoke-SetTestHarnessConfig' { Invoke-SetTestHarnessConfig $config }
             $script:result += Invoke-Task 'Remove-Plugins' { Remove-Plugins $config.appSettings }
             $script:result += Invoke-Task 'Get-Plugins' { Get-Plugins $config.appSettings }
             $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }
@@ -107,7 +109,6 @@ function Initialize-TPDMTemplate {
             $script:result += Invoke-Task 'Copy-BootstrapInterchangeFiles' { Copy-BootstrapInterchangeFiles $config }
             $script:result += Invoke-Task 'Copy-SampleInterchangeFiles' { Copy-SampleInterchangeFiles $config }
             $script:result += Invoke-Task 'Copy-SchemaFiles' { Copy-SchemaFiles $config }
-            $script:result += Invoke-Task 'Invoke-SetTestHarnessConfig' { Invoke-SetTestHarnessConfig $config }
             $script:result += Invoke-Task 'Add-RandomKeySecret' { Add-RandomKeySecret $config }
             $script:result += Invoke-Task 'Invoke-RestoreLoadToolsPackages' { Invoke-RestoreLoadToolsPackages $config }
             $script:result += Invoke-Task 'Invoke-BuildLoadTools' { Invoke-BuildLoadTools $config }
