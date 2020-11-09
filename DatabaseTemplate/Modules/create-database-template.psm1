@@ -43,7 +43,6 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.apiYear = (Get-Date).Year
 
     $config.testHarnessExecutable = "$($config.outputFolder)\EdFi.Ods.Api.IntegrationTestHarness.exe"
-    $config.testHarnessAppConfig = $config.appSettings
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.json"
     $config.testHarnessJsonConfigLEAs = @(255901)
 
@@ -141,7 +140,7 @@ function Copy-SchemaFiles {
 
     $directory = New-Item -Force $config.bulkLoadTempDirectorySchema -ItemType Directory
     foreach ($schemaDirectory in $config.schemaDirectories) {
-        $xsdFiles = Get-ChildItem $schemaDirectory -Recurse -Filter "*.xsd"
+        $xsdFiles = Get-ChildItem (resolve-path $schemaDirectory) -Recurse -Filter "*.xsd"
         foreach ($xsdFile in $xsdFiles) {
             $elapsed = Use-Stopwatch {
                 Write-Host "copy to $($directory.Name)\$($xsdFile.Name) " -NoNewline
@@ -355,11 +354,11 @@ function Invoke-LoadSampleData {
         bulkLoadTaskCapacity        = 50
     }
 
-    $initialRecordCount = (Get-DatabaseRecordCount)
+    $initialRecordCount = (Get-DatabaseRecordCount $config)
 
     Invoke-BulkLoadClient $params
 
-    $totalRecordCount = (Get-DatabaseRecordCount)
+    $totalRecordCount = (Get-DatabaseRecordCount $config)
     $recordCount = ($totalRecordCount - $initialRecordCount)
 
     Write-Host "$initialRecordCount initial records."
