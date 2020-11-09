@@ -26,7 +26,6 @@ function Invoke-BuildLoadTools {
     )
 
     $buildConfiguration = $config.buildConfiguration
-    if ($config.buildConfiguration -eq 'Npgsql') { $buildConfiguration = 'Debug' }
 
     $msBuildParameters = @(
         "`"/property:Configuration=$($buildConfiguration)`"",
