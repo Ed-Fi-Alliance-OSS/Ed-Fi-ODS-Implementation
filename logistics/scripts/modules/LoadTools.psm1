@@ -26,7 +26,6 @@ function Invoke-BuildLoadTools {
     )
 
     $buildConfiguration = $config.buildConfiguration
-    if ($config.buildConfiguration -eq 'Npgsql') { $buildConfiguration = 'Debug' }
 
     $msBuildParameters = @(
         "`"/property:Configuration=$($buildConfiguration)`"",
@@ -165,19 +164,14 @@ function Invoke-SetTestHarnessConfig {
         [hashtable] $config
     )
 
-    if (-not $config.noExtensions) { return }
+    $settings = $config.appSettings
 
-    $developmentSettingsFile = ($config.appSettingsFiles | Select-String 'appsettings.json')
-    $settings = Get-MergedAppSettings $developmentSettingsFile "Application/EdFi.Ods.Api.IntegrationTestHarness"
-
-    Write-Host "Editing $developmentSettingsFile"
     if ($config.noExtensions)
     {
-        Write-Host "Disabling Extensions..."
         $settings = Set-Feature -Settings $settings -FeatureName "Extensions" -IsEnabled $false
     }
 
-    New-JsonFile $developmentSettingsFile $settings -Overwrite
+    New-JsonFile $config.appSettingsFiles[-1] $settings -Overwrite
 }
 
 Export-ModuleMember -function Add-RandomKeySecret,

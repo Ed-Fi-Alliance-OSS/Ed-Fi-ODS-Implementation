@@ -11,6 +11,9 @@ function Get-PluginFolderFromSettings([hashtable] $Settings) {
 
     if ([string]::IsNullOrWhitespace($folder)) { return [string]::Empty }
 
+    # if an absolute path is provided, just return it
+    if ([System.IO.Path]::IsPathRooted($folder)) { return $folder }
+
     # in a developer environment the plugin folder is relative to the WebApi project
     if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath) "Application/EdFi.Ods.WebApi/$($Settings.Plugin.Folder)") }
 
@@ -61,6 +64,14 @@ function Get-Plugins([hashtable] $Settings) {
     return $result
 }
 
+function Remove-Plugins([hashtable] $Settings) {
+    $folder = (Get-PluginFolderFromSettings $Settings)
+
+    if ([string]::IsNullOrWhitespace($folder)) { return }
+
+    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse
+}
+
 function Get-PluginScriptsForPackaging([hashtable] $Settings) {
 
     $pluginScripts = Get-ChildItem (Get-PluginFolderFromSettings $Settings) -File
@@ -68,4 +79,4 @@ function Get-PluginScriptsForPackaging([hashtable] $Settings) {
     return ($pluginScripts | Where-Object { $_.extension -in ".ps1", ".psm1" }).FullName
 }
 
-Export-ModuleMember -Function Get-PluginFolderFromSettings, Get-PluginScriptsFromSettings, Get-Plugins, Get-PluginScriptsForPackaging
+Export-ModuleMember -Function Get-PluginFolderFromSettings, Get-PluginScriptsFromSettings, Get-Plugins, Remove-Plugins, Get-PluginScriptsForPackaging
