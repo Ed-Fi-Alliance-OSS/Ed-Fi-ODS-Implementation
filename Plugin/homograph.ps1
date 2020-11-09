@@ -12,7 +12,7 @@ $pluginPaths = @()
 
 $parameters = @{
     packageName     = "EdFi.Suite3.Ods.Extensions.Homograph"
-    packageVersion  = "5.1.0-b10452"
+    packageVersion  = "5.1.0"
     packageSource   = "https://www.myget.org/F/ed-fi/"
     outputDirectory = "$PSScriptRoot"
     toolsPath       = (Get-ToolsPath)
