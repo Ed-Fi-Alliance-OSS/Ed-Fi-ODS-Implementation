@@ -171,7 +171,7 @@ Describe 'Get-MergedSettings' {
             $appSettings,
             $developmentAppSettings
         )
-        $settings = Get-MergedAppSettings $appSettingsFiles "Application/EdFi.Ods.WebApi"
+        $settings = Get-MergedAppSettings $appSettingsFiles ((Get-ProjectTypes).WebApi)
 
         $settings | Should -Not -BeNullOrEmpty
         $settings.object | Should -Not -BeNullOrEmpty
@@ -209,7 +209,7 @@ Describe 'Set-Feature' {
 
         $settings = Get-MergedAppSettings $appSettings
         $settings = Set-Feature -Settings $settings -FeatureName "Feature" -IsEnabled $true
-        
+
         $settings | Should -Not -BeNullOrEmpty
         $settings.ApiSettings | Should -Not -BeNullOrEmpty
         $settings.ApiSettings.Features | Should -Not -BeNullOrEmpty

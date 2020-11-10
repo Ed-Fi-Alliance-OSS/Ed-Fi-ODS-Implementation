@@ -187,16 +187,17 @@ function Get-DeploymentSettings {
         from a configuration file otherwise any configuration file changes will be ignored until the scripts are re-imported.
     #>
 
-    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles 'Application/EdFi.Ods.WebApi'
+    $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles ((Get-ProjectTypes).WebApi)
 
     $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
-    $defaultSettings = (Get-DefaultDevelopmentSettingsByProject)['Application/EdFi.Ods.WebApi']
+    $defaultSettings = (Get-DefaultDevelopmentSettingsByProject)[((Get-ProjectTypes).WebApi)]
 
     if ([string]::IsNullOrWhiteSpace($mergedSettings.ApiSettings.Engine)) { $mergedSettings.ApiSettings.Engine = 'SQLServer' }
-    $defaultSettings = Merge-Hashtables $defaultSettings, (Get-DefaultDevelopmentSettingsByEngine)[$mergedSettings.ApiSettings.Engine]
+    $defaultSettings = Merge-Hashtables $defaultSettings, (Get-DefaultConnectionStringsByEngine)[$mergedSettings.ApiSettings.Engine]
+    $defaultSettings = Merge-Hashtables $defaultSettings, (Get-DefaultTemplateSettingsByEngine)[$mergedSettings.ApiSettings.Engine]
 
-    $defaultSettings = Add-ApplicationNameToConnectionStrings $defaultSettings 'EdFi.RestApi.Databases'
+    $defaultSettings = Add-ApplicationNameToConnectionStrings $defaultSettings ((Get-ProjectTypes).Databases)
 
     $mergedSettings = Merge-HashtablesOrDefaults $mergedSettings, $defaultSettings
 

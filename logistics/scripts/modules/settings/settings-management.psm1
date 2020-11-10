@@ -8,9 +8,19 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
+function Get-ProjectTypes {
+    return @{
+        WebApi                 = 'Application/EdFi.Ods.WebApi'
+        IntegrationTestHarness = 'Application/EdFi.Ods.Api.IntegrationTestHarness'
+        SandboxAdmin           = 'Application/EdFi.Ods.SandboxAdmin'
+        SwaggerUI              = 'Application/EdFi.Ods.SwaggerUI'
+        Databases              = 'Scripts/NuGet/EdFi.RestApi.Databases'
+    }
+}
+
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
-        "Application/EdFi.Ods.WebApi"                     = @{
+        ((Get-ProjectTypes).WebApi)                 = @{
             Urls              = "http://localhost:54746"
             ApiSettings       = @{
                 Engine           = ""
@@ -23,14 +33,14 @@ function Get-DefaultDevelopmentSettingsByProject {
                 }
             }
         }
-        "Application/EdFi.Ods.Api.IntegrationTestHarness" = @{
+        ((Get-ProjectTypes).IntegrationTestHarness) = @{
             Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
             }
             ConnectionStrings = @{ }
         }
-        "Application/EdFi.Ods.SandboxAdmin"               = @{
+        ((Get-ProjectTypes).SandboxAdmin)           = @{
             Urls                         = "http://localhost:38928"
             ApiSettings                  = @{
                 Engine = ""
@@ -56,7 +66,7 @@ function Get-DefaultDevelopmentSettingsByProject {
                 }
             }
         }
-        "Application/EdFi.Ods.SwaggerUI"                  = @{
+        ((Get-ProjectTypes).SwaggerUI)              = @{
             Urls             = "http://localhost:56641"
             WebApiVersionUrl = "http://localhost:54746"
             Logging          = @{
@@ -78,7 +88,7 @@ function Get-CredentialSettingsByProject {
     $populatedSecret = Get-RandomString
 
     return @{
-        "Application/EdFi.Ods.SandboxAdmin" = @{
+        ((Get-ProjectTypes).SandboxAdmin) = @{
             User = @{
                 "Test Admin" = @{
                     Email             = "test@ed-fi.org"
@@ -105,7 +115,7 @@ function Get-CredentialSettingsByProject {
                 }
             }
         }
-        "Application/EdFi.Ods.SwaggerUI"    = @{
+        ((Get-ProjectTypes).SwaggerUI)    = @{
             SwaggerUIOptions = @{
                 OAuthConfigObject = @{
                     ClientId     = $populatedKey
@@ -143,7 +153,7 @@ function Get-ConnectionStringKeyByDatabaseTypes {
     }
 }
 
-function Get-DefaultDevelopmentSettingsByEngine {
+function Get-DefaultConnectionStringsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
@@ -151,10 +161,6 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Server=(local); Trusted_Connection=True; Database=master;"
-            }
-            ApiSettings       = @{
-                MinimalTemplateScript   = 'EdFiMinimalTemplate'
-                PopulatedTemplateScript = 'GrandBend'
             }
         }
         PostgreSQL = @{
@@ -164,7 +170,20 @@ function Get-DefaultDevelopmentSettingsByEngine {
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security]) = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security;"
                 ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master])   = "Host=localhost; Port=5432; Username=postgres; Database=postgres;"
             }
-            ApiSettings       = @{
+        }
+    }
+}
+
+function Get-DefaultTemplateSettingsByEngine {
+    return  @{
+        SQLServer  = @{
+            ApiSettings = @{
+                MinimalTemplateScript   = 'EdFiMinimalTemplate'
+                PopulatedTemplateScript = 'GrandBend'
+            }
+        }
+        PostgreSQL = @{
+            ApiSettings = @{
                 MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
                 PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
             }
@@ -304,7 +323,7 @@ function Get-UserSecrets([string] $Project) {
         $projectPath = Get-RepositoryResolvedPath $Project
         $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
 
-        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($userSecretList -ne $null)) {
+        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($null -ne $userSecretList)) {
             $inputTable = ConvertFrom-StringData -StringData $userSecretList
         }
 
@@ -404,8 +423,18 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
     return (Merge-Hashtables $Settings, $newDeploymentSettings)
 }
 
+function Add-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne ((Get-ProjectTypes).WebApi)) { return $Settings }
+
+    $newSettings = (Get-DefaultTemplateSettingsByEngine)[$Settings.ApiSettings.Engine]
+
+    $newSettings = (Merge-Hashtables $Settings, $newSettings)
+
+    return $newSettings
+}
+
 function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne 'Application/EdFi.Ods.Api.IntegrationTestHarness') { return $Settings }
+    if ($ProjectName -ne ((Get-ProjectTypes).IntegrationTestHarness)) { return $Settings }
 
     $databaseName = @{
         ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "EdFi_Ods_Populated_Template_Test"
@@ -430,12 +459,22 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
     return $newSettings
 }
 
+function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -eq ((Get-ProjectTypes).WebApi)) { return $Settings }
+    if ($null -eq $Settings.ApiSettings.Mode) { return $Settings }
+
+    $newSettings = Get-HashtableDeepClone $settings
+    $newSettings.ApiSettings.Remove('Mode')
+
+    return $newSettings
+}
+
 function Get-UserSecretsIdByProject {
     return @{
-        "Application/EdFi.Ods.SandboxAdmin"               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
-        "Application/EdFi.Ods.SwaggerUI"                  = "f1506d66-289c-44cb-a2e2-80411cc690eb"
-        "Application/EdFi.Ods.WebApi"                     = "f1506d66-289c-44cb-a2e2-80411cc690ec"
-        "Application/EdFi.Ods.Api.IntegrationTestHarness" = "f1506d66-289c-44cb-a2e2-80411cc690ed"
+        ((Get-ProjectTypes).SandboxAdmin)           = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        ((Get-ProjectTypes).SwaggerUI)              = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        ((Get-ProjectTypes).WebApi)                 = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        ((Get-ProjectTypes).IntegrationTestHarness) = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
 
@@ -446,14 +485,16 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $credentialSettingsByProject = Get-CredentialSettingsByProject
 
     foreach ($project in $developmentSettingsByProject.Keys) {
-        $developmentSettingsForEngine = (Get-DefaultDevelopmentSettingsByEngine)[$Settings.ApiSettings.Engine]
+        $developmentSettingsForEngine = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
 
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine
 
+        $newDevelopmentSettings = Add-WebApiSpecificSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
+        $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
