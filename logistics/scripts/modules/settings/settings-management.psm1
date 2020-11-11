@@ -428,7 +428,7 @@ function Add-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $Proj
 
     $newSettings = (Get-DefaultTemplateSettingsByEngine)[$Settings.ApiSettings.Engine]
 
-    $newSettings = (Merge-Hashtables $Settings, $newSettings)
+    $newSettings = (Merge-HashtablesOrDefaults $Settings, $newSettings)
 
     return $newSettings
 }
@@ -485,15 +485,15 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $credentialSettingsByProject = Get-CredentialSettingsByProject
 
     foreach ($project in $developmentSettingsByProject.Keys) {
-        $developmentSettingsForEngine = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
-        $developmentSettingsForEngine = Add-ApplicationNameToConnectionStrings $developmentSettingsForEngine $project
+        $newDevelopmentSettings = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
+        $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
+        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
-        $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $developmentSettingsForEngine
-
-        $newDevelopmentSettings = Add-WebApiSpecificSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
+
+        $newDevelopmentSettings = Add-WebApiSpecificSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
