@@ -4,6 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 & "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 
 $script:testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
 $script:testHarnessName = (Get-Item $script:testHarnessFolder).Name
@@ -91,21 +92,25 @@ function Start-TestHarness {
 
     $timeOut = (Get-Date).AddSeconds(60);
 
+    $response = @{}
     $isPingSuccessful = $false;
 
     while ($isPingSuccessful -eq $false -and (Get-Date) -le $timeOut) {
         try {
-            Invoke-RestMethod -Uri $apiUrl
+            $response = Invoke-RestMethod -Uri $apiUrl
             $isPingSuccessful = $true;
+            Write-Host
         }
         catch {
-            Write-Host "pinging $apiUrl..."
+            Write-Host "Waiting for TestHarness startup at $apiUrl..."
         }
     }
 
     if ($isPingSuccessful -eq $false) {
         throw "No response from $apiUrl"
     }
+
+    Write-FlatHashtable ($response | ConvertTo-Hashtable)
 }
 
 function Stop-TestHarness {
