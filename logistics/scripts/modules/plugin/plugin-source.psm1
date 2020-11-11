@@ -15,7 +15,7 @@ function Get-PluginFolderFromSettings([hashtable] $Settings) {
     if ([System.IO.Path]::IsPathRooted($folder)) { return $folder }
 
     # in a developer environment the plugin folder is relative to the WebApi project
-    if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath) "Application/EdFi.Ods.WebApi/$($Settings.Plugin.Folder)") }
+    if (-not (Test-Path $folder)) { $folder = (Join-Path (Get-RepositoryResolvedPath) "$((Get-ProjectTypes).WebApi)/$($Settings.Plugin.Folder)") }
 
     # in a deployment environment the plugin folder is relative to the repo since the WebApi project is not a part of the database package
     if (-not (Test-Path $folder)) { $folder = (Get-RepositoryResolvedPath $Settings.Plugin.Folder) }

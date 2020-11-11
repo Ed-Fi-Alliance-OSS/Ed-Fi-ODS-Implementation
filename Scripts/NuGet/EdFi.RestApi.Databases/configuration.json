@@ -56,8 +56,8 @@
     "DropDatabases": false,
     "MinimalTemplateSuffix": "Ods_Minimal_Template",
     "PopulatedTemplateSuffix": "Ods_Populated_Template",
-    "MinimalTemplateScript": "EdFiMinimalTemplate",
-    "PopulatedTemplateScript": "GrandBend"
+    "MinimalTemplateScript": "",
+    "PopulatedTemplateScript": ""
   },
   "Plugin": {
     "Folder": "",
