@@ -99,6 +99,8 @@ Write-Host
 Write-Host "postgresSettings:" -ForegroundColor Green
 Write-FlatHashtable $postgresSettings
 
+Install-ToolDbDeploy (Get-ToolsPath) "2.1.0"
+
 $deploymentTasks = @(
     @{
         Name   = "Deploy Admin Database to SQLServer"
