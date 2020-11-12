@@ -15,30 +15,27 @@
 #>
 param(
     [Parameter(
-        Mandatory = $true,
         HelpMessage = "Path to the sqlpackage.exe is required.`n`rExample: C:/Program Files/Microsoft SQL Server/150/DAC/bin"
     )]
     [ValidateNotNullOrEmpty()]
-    [string] $sqlPackagePath,
+    [string] $sqlPackagePath = "C:/Program Files/Microsoft SQL Server/150/DAC/bin",
 
     [Parameter(
-        Mandatory = $true,
         HelpMessage = "Path the the output folder is required.`n`rExample: C:/tmp/artifacts"
     )]
     [ValidateNotNullOrEmpty()]
-    [string] $artifactPath,
+    [string] $artifactPath = (Join-Path $env:temp "CloudOds"),
 
     [switch] $WhatIf
 )
+
+if (-not (Test-Path $sqlPackagePath)) { throw "Could not find sqlpackage.exe at $sqlPackagePath" }
 
 $ErrorActionPreference = 'Stop'
 
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-Tools\Application\EdFi.Ods.AdminApp.Web')
 & "$PSScriptRoot/../../../../../logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
-$implementationRepo = Get-Item "$PSScriptRoot/../../../../.." | Select-Object -Expand Name
-$env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-bacpac.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-template.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
