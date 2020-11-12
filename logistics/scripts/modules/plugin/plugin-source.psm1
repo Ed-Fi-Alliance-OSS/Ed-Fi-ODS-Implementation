@@ -68,7 +68,9 @@ function Remove-Plugins([hashtable] $Settings) {
     $folder = (Get-PluginFolderFromSettings $Settings)
 
     if ([string]::IsNullOrWhitespace($folder)) { return }
+    if (-not (Test-Path $folder)) { return }
 
+    Write-Host $folder
     Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse
 }
 
