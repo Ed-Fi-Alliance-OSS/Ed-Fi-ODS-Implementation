@@ -35,14 +35,8 @@ $ErrorActionPreference = 'Stop'
 
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-AdminApp/Application/EdFi.Ods.AdminApp.Web')
 & "$PSScriptRoot/../../../../../logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-bacpac.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/postgres-database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
 
 Clear-Error
 
@@ -99,7 +93,9 @@ Write-Host
 Write-Host "postgresSettings:" -ForegroundColor Green
 Write-FlatHashtable $postgresSettings
 
-Install-ToolDbDeploy (Get-ToolsPath) "2.1.0"
+Install-DbDeploy
+Install-CodeGenUtility
+Invoke-CodeGen
 
 $deploymentTasks = @(
     @{
