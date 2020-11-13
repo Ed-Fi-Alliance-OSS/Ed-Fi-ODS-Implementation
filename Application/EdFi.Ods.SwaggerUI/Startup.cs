@@ -35,7 +35,6 @@ namespace EdFi.Ods.SwaggerUI
                     Configuration.Bind("SwaggerUIOptions", options);
                     options.ConfigObject.AdditionalItems.Add("WebApiVersionUrl", Configuration.GetValue("WebApiVersionUrl", string.Empty));
                 });
-            services.AddScoped<IConfigureOptions<SwaggerUIOptions>, ConfigureMetadata>();
 
             services.AddScoped<EdFiSwaggerMiddleware>();
         }

@@ -44,44 +44,87 @@
     <script src="./swagger-ui-standalone-preset.js"></script>
     <script>
         window.onload = function () {
-            var configObject = JSON.parse('%(ConfigObject)');
-            var oauthConfigObject = JSON.parse('%(OAuthConfigObject)');
 
-            var currentUrl = window.location.href;
-            var match = currentUrl.match(/year=(20\d{2})/);
+            initSwaggerUI();
 
-            // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
-            configObject.urls.forEach(function (item) {
-                if (match !== null && match.length > 1) {
-                    item.url = item.url.replace(/20\d{2}/g, match[1]);
-                }
+            async function initSwaggerUI() {
+
+                var configObject = JSON.parse('%(ConfigObject)');
+                var oauthConfigObject = JSON.parse('%(OAuthConfigObject)');
+
+                var currentUrl = window.location.href;
+                var match = currentUrl.match(/year=(20\d{2})/);
+
+                configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);
+
+                // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
+                configObject.urls.forEach(function (item) {
+                    if (match !== null && match.length > 1) {
+                        item.url = item.url.replace(/20\d{2}/g, match[1]);
+                    }
                 
-                if (item.url.startsWith("http") || item.url.startsWith("/")) return;
-                item.url = window.location.href.replace("index.html", item.url).split('#')[0];
-            });
+                    if (item.url.startsWith("http") || item.url.startsWith("/")) return;
+                    item.url = window.location.href.replace("index.html", item.url).split('#')[0];
+                });
 
-            // If validatorUrl is not explicitly provided, disable the feature by setting to null
-            if (!configObject.hasOwnProperty("validatorUrl"))
-                configObject.validatorUrl = null
+                // If validatorUrl is not explicitly provided, disable the feature by setting to null
+                if (!configObject.hasOwnProperty("validatorUrl"))
+                    configObject.validatorUrl = null
 
-            // If oauth2RedirectUrl isn't specified, use the built-in default
-            if (!configObject.hasOwnProperty("oauth2RedirectUrl"))
-                configObject.oauth2RedirectUrl = window.location.href.replace("index.html", "oauth2-redirect.html").split('#')[0];
+                // If oauth2RedirectUrl isn't specified, use the built-in default
+                if (!configObject.hasOwnProperty("oauth2RedirectUrl"))
+                    configObject.oauth2RedirectUrl = window.location.href.replace("index.html", "oauth2-redirect.html").split('#')[0];
 
-            // Apply mandatory parameters
-            configObject.dom_id = "#swagger-ui";
-            configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
-            configObject.layout = "StandaloneLayout";
+                // Apply mandatory parameters
+                configObject.dom_id = "#swagger-ui";
+                configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
+                configObject.layout = "StandaloneLayout";
 
-            // Begin Swagger UI call region
+                // Begin Swagger UI call region
 
-            const ui = SwaggerUIBundle(configObject);
+                const ui = SwaggerUIBundle(configObject);
 
-            ui.initOAuth(oauthConfigObject);
+                ui.initOAuth(oauthConfigObject);
 
-            // End Swagger UI call region
+                // End Swagger UI call region
 
-            window.ui = ui
+                window.ui = ui
+            }
+
+            async function getOpenApiUrls(WebApiVersionUrl) {
+
+                let response = await fetch(WebApiVersionUrl);
+
+                if (response.status !== 200) {
+                    throw new Error(`Failed to retrieve version from ${WebApiVersionUrl}`);
+                }
+
+                let data = await response.json();
+                let openApiMetadataResponse = await fetch(data.urls.openApiMetadata);
+
+                if (openApiMetadataResponse.status !== 200) {
+                    throw new Error(`Failed to retrieve resource from ${data.urls.openApiMetadata}`);
+                }
+
+                let openApiMetadatadataData = await openApiMetadataResponse.json();
+                let urls = [];
+
+                openApiMetadatadataData.forEach(item => {
+
+                    let name = item.name;
+
+                    if (item.prefix.length > 0) {
+                        name = item.prefix + ": " + item.name;
+                    }
+
+                    urls.push({
+                        url: item.endpointUri,
+                        name: name
+                    });
+                });
+
+                return urls;
+            }
         }
     </script>
 </body>
