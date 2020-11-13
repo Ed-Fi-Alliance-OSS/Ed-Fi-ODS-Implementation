@@ -24,11 +24,9 @@ param(
         HelpMessage = 'Path the the output folder is required.`n`rExample: C:/tmp/artifacts'
     )]
     [ValidateNotNullOrEmpty()]
-    [string] $artifactPath = (Join-Path $env:temp 'CloudOds'),
+    [string] $artifactPath = (Join-Path $env:temp 'EdFi.CloudOds'),
 
     [string] $packageName = 'EdFi.CloudODS',
-
-    [string] $outputDirectory,
 
     [switch] $WhatIf
 )
@@ -512,12 +510,24 @@ $deploymentTasks = @(
         }
     }
     @{
+        Name = "Create Archives"
+        Script = {
+            if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
+                Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+            }
+
+            $filesToArchive = Get-ChildItem $artifactPath -Directory
+            foreach ($file in $filesToArchive) {
+                Write-Host "$($file.FullName) => $artifactPath/$($file.Name).zip"
+                Compress-7Zip -Path $file.FullName -ArchiveFileName "$artifactPath/$($file.Name).zip" -Format Zip
+            }
+            Write-Host
+        }
+    }
+    @{
         Name   = "Create Cloud ODS .nuspec file"
         Script = {
-            # Note: this cannot be done in the param block. $PSScriptRoot must not be available at that time.
-            if (-not $outputDirectory) { $outputDirectory = $PSScriptRoot }
-
-            $nuspecPath = "$outputDirectory/$packageName.nuspec"
+            $nuspecPath = "$artifactPath/$packageName.nuspec"
 
             # Create a Nuspec file with an empty <files> element
             New-Nuspec -forceOverwrite -nuspecPath $nuspecPath -id $packageName -description $packageName -authors "Ed-Fi Alliance" -owners "Ed-Fi Alliance"
@@ -527,7 +537,10 @@ $deploymentTasks = @(
 
             # Add all files in the artifacts directory to the root of the nuspec package definition
             Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $filesToPackage
-            Write-Host $nuspecPath
+
+            Write-Host
+            Write-Host "Created $nuspecPath" -ForegroundColor Green
+            Write-Host
         }
     }
 )
