@@ -97,10 +97,6 @@ Write-Host
 Write-Host "postgresSettings:" -ForegroundColor Green
 Write-FlatHashtable $postgresSettings
 
-Install-CodeGenUtility
-Invoke-CodeGen
-Install-DbDeploy
-
 $deploymentTasks = @(
     @{
         Name   = "Deploy Admin Database to SQLServer"
@@ -527,6 +523,10 @@ $deploymentTasks = @(
 $script:result = @()
 
 $elapsed = Use-StopWatch {
+    $script:result += Install-CodeGenUtility
+    $script:result += Invoke-CodeGen
+    $script:result += Install-DbDeploy
+
     foreach ($task in $deploymentTasks) {
         $script:result += Invoke-Task -name $task.Name -task $task.Script
     }
