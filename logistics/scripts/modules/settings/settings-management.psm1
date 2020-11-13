@@ -424,7 +424,7 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
 }
 
 function Add-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne ((Get-ProjectTypes).WebApi)) { return $Settings }
+    if (($ProjectName -ne ((Get-ProjectTypes).WebApi)) -and ($ProjectName -ne ((Get-ProjectTypes).IntegrationTestHarness))) { return $Settings }
 
     $newSettings = (Get-DefaultTemplateSettingsByEngine)[$Settings.ApiSettings.Engine]
 

@@ -12,7 +12,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 function Get-TPDMConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
-    $config.appSettings.Plugin.Folder = "./Plugin"
+    $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
 
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
@@ -75,7 +75,7 @@ function Initialize-TPDMTemplate {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/v0.8",
+        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/",
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
