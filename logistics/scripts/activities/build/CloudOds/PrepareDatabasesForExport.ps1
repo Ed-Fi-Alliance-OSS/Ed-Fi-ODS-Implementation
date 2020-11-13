@@ -522,7 +522,7 @@ $deploymentTasks = @(
             # Create a Nuspec file with an empty <files> element
             New-Nuspec -forceOverwrite -nuspecPath $nuspecPath -id $packageName -description $packageName -authors "Ed-Fi Alliance" -owners "Ed-Fi Alliance"
 
-            $filesToPackage = (Get-ChildItem $artifactsDirectory -Exclude *.nuspec | where { ! $_.PSIsContainer } | foreach { @{ source = $_.FullName; target = "." } })
+            $filesToPackage = (Get-ChildItem $artifactPath -Exclude *.nuspec | where { ! $_.PSIsContainer } | foreach { @{ source = $_.FullName; target = "." } })
 
             # Add all files in the artifacts directory to the root of the nuspec package definition
             Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $filesToPackage
