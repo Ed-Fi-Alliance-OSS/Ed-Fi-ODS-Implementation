@@ -24,7 +24,10 @@ param(
         HelpMessage = 'Path the the output folder is required.`n`rExample: C:/tmp/artifacts'
     )]
     [ValidateNotNullOrEmpty()]
-    [string] $artifactPath = (Join-Path $env:temp "CloudOds"),
+    [string] $artifactPath = (Join-Path $env:temp 'CloudOds'),
+
+    [string] $packageName = 'EdFi.CloudODS',
+
     [string] $outputDirectory,
 
     [switch] $WhatIf
@@ -500,6 +503,23 @@ $deploymentTasks = @(
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
             Backup-DatabaseTemplate $params
+        }
+    }
+    @{
+        Name   = "Create Cloud ODS .nuspec file"
+        Script = {
+            # Note: this cannot be done in the param block. $PSScriptRoot must not be available at that time.
+            if (-not $outputDirectory) { $outputDirectory = $PSScriptRoot }
+
+            $nuspecPath = "$outputDirectory/$packageName.nuspec"
+
+            # Create a Nuspec file with an empty <files> element
+            New-Nuspec -forceOverwrite -nuspecPath $nuspecPath -id $packageName -description $packageName -authors "Ed-Fi Alliance" -owners "Ed-Fi Alliance"
+
+            $filesToPackage = (Get-ChildeItem $artifactsDirectory -Exclude *.nuspec | where { ! $_.PSIsContainer } | foreach { @{ source = $_.FullName; target = "." } })
+
+            # Add all files in the artifacts directory to the root of the nuspec package definition
+            Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $filesToPackage
         }
     }
 )
