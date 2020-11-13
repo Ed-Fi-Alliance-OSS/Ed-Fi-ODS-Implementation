@@ -279,6 +279,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -295,6 +296,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -311,6 +313,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -327,6 +330,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -343,6 +347,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -434,6 +439,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -450,6 +456,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -466,6 +473,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -482,6 +490,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -498,6 +507,7 @@ $deploymentTasks = @(
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
             }
+            Write-FlatHashtable $params
             Backup-DatabaseTemplate $params
         }
     }
@@ -516,6 +526,7 @@ $deploymentTasks = @(
 
             # Add all files in the artifacts directory to the root of the nuspec package definition
             Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $filesToPackage
+            Write-Host $nuspecPath
         }
     }
 )
