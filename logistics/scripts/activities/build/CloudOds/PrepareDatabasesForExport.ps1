@@ -15,16 +15,17 @@
 #>
 param(
     [Parameter(
-        HelpMessage = "Path to the sqlpackage.exe is required.`n`rExample: C:/Program Files/Microsoft SQL Server/150/DAC/bin"
+        HelpMessage = 'Path to the sqlpackage.exe is required.`n`rExample: C:/Program Files/Microsoft SQL Server/150/DAC/bin'
     )]
     [ValidateNotNullOrEmpty()]
-    [string] $sqlPackagePath = "C:/Program Files/Microsoft SQL Server/150/DAC/bin",
+    [string] $sqlPackagePath = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
 
     [Parameter(
-        HelpMessage = "Path the the output folder is required.`n`rExample: C:/tmp/artifacts"
+        HelpMessage = 'Path the the output folder is required.`n`rExample: C:/tmp/artifacts'
     )]
     [ValidateNotNullOrEmpty()]
     [string] $artifactPath = (Join-Path $env:temp "CloudOds"),
+    [string] $outputDirectory,
 
     [switch] $WhatIf
 )
@@ -34,7 +35,7 @@ if (-not (Test-Path $sqlPackagePath)) { throw "Could not find sqlpackage.exe at 
 $ErrorActionPreference = 'Stop'
 
 $repositoryNames = @('Ed-Fi-Ods', 'Ed-Fi-ODS-Implementation', 'Ed-Fi-ODS-AdminApp/Application/EdFi.Ods.AdminApp.Web')
-& "$PSScriptRoot/../../../../../logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
+Import-Module -Force -Scope Global "$PSScriptRoot/../../../../../logistics/scripts/modules/path-resolver.psm1" -ArgumentList @(, $repositoryNames)
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-database-bacpac.psm1')
 
@@ -93,9 +94,9 @@ Write-Host
 Write-Host "postgresSettings:" -ForegroundColor Green
 Write-FlatHashtable $postgresSettings
 
-Install-DbDeploy
 Install-CodeGenUtility
 Invoke-CodeGen
+Install-DbDeploy
 
 $deploymentTasks = @(
     @{
@@ -136,12 +137,12 @@ $deploymentTasks = @(
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine                  = $sqlServerSettings.ApiSettings.engine
-                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
-                database                = $databaseType
-                filePaths               = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames            = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase            = $true
+                engine       = $sqlServerSettings.ApiSettings.engine
+                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
+                database     = $databaseType
+                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
+                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
+                dropDatabase = $true
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -220,12 +221,12 @@ $deploymentTasks = @(
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine                  = $postgresSettings.ApiSettings.engine
-                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
-                database                = $databaseType
-                filePaths               = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames            = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase            = $true
+                engine       = $postgresSettings.ApiSettings.engine
+                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
+                database     = $databaseType
+                filePaths    = $postgresSettings.ApiSettings.FilePaths
+                subTypeNames = $postgresSettings.ApiSettings.SubTypes
+                dropDatabase = $true
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
