@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentValidation" Version="9.3.0" />
+    <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.16.0" />
