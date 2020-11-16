@@ -21,13 +21,14 @@ param(
     [string] $sqlPackagePath = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
 
     [Parameter(
-        HelpMessage = 'Path the the output folder is required.`n`rExample: C:/tmp/artifacts'
+        HelpMessage = 'Path the the output folder is required.`n`rExample: C:/tmp/EdFi.CloudOds'
     )]
     [ValidateNotNullOrEmpty()]
     [string] $artifactPath = (Join-Path $env:temp 'EdFi.CloudOds'),
 
     [string] $packageName = 'EdFi.CloudODS',
 
+    [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
     [switch] $WhatIf
 )
 
