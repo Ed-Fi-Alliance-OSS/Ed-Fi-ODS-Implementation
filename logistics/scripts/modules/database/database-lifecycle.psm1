@@ -179,7 +179,6 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         }
         Invoke-DbDeploy @params
 
-        Write-Host $scriptParams
         Set-PostgresSQLDatabaseAsTemplate @scriptParams
         return;
     }
