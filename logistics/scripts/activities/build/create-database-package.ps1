@@ -5,28 +5,22 @@
 
 <#
 .DESCRIPTION
-    Deploys databases needed for Cloud ODS export
-
-.PARAMETER SQLPackage
-    An absolute path to the folder containing sqlpackage.exe. Example: 'C:/Program Files/Microsoft SQL Server/150/DAC/bin'
-
-.PARAMETER Output
-   An absolute path to the output folder to store artifacts.
+    Deploys Admin or Security databases for packaging
 #>
 param(
-    # An absolute path to the folder containing sqlpackage.exe. Example: 'C:/Program Files/Microsoft SQL Server/150/DAC/bin'
-    [string] $SQLPackage = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
-
-    # An absolute path to the output folder to store artifacts.
-    [string] $Output = 'C:/tmp/EdFi.CloudOds',
-
     # The type of database to create, either 'Admin' or 'Security'
     [Parameter(Mandatory = $true)]
     [ValidateSet('Admin', 'Security')]
     [string] $DatabaseType,
 
-    # The NuGet package id
+    # Override the default NuGet package id
     [string] $PackageName,
+
+    # An absolute path to the folder containing sqlpackage.exe. Example: 'C:/Program Files/Microsoft SQL Server/150/DAC/bin'
+    [string] $SQLPackage = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
+
+    # An absolute path to the output folder to store artifacts.
+    [string] $Output = "C:/tmp/EdFi.CloudOds",
 
     [string[]] $PathResolverOverride
 )
@@ -273,7 +267,3 @@ $script:result += New-TaskResult -name '-' -duration '-'
 $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
 return $script:result | Format-Table
-
-
-EdFi.Security.Database.nuspec
-EdFi.Security.Database.nuspec
