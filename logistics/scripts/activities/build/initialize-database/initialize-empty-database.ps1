@@ -10,7 +10,7 @@ $Error.Clear()
 & "$PSScriptRoot/../../../../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1')
 
-Write-Warning "logistics/scripts/activities/build/initialize-database/initialize-empty-database.ps1 is deprecated, and will be removed in the near future. Please use the 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1' instead."
+Write-Warning "'logistics/scripts/activities/build/initialize-database/initialize-empty-database.ps1' is deprecated, and will be removed in the near future. Please use the 'Application/SolutionScripts/InitializeDevelopmentEnvironment.psm1' instead."
 
 Invoke-ConfigTransform
 Install-DbDeploy
