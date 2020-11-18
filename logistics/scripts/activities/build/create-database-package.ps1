@@ -156,8 +156,8 @@ $tasks = [ordered] @{
         Backup-DatabaseTemplate $params
     }
     'Create SQLServer Backup .nuspec'                      = {
-        $name = "$PackageName.nuspec"
-        $nuspecPath = Join-Path $Output $name
+        $name = $PackageName
+        $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
             forceOverwrite           = $true
@@ -189,8 +189,8 @@ $tasks = [ordered] @{
         Write-Host
     }
     'Create SQLServer BACPAC .nuspec'                      = {
-        $name = "$PackageName.BACPAC.nuspec"
-        $nuspecPath = Join-Path $Output $name
+        $name = "$PackageName.BACPAC"
+        $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
             forceOverwrite           = $true
@@ -222,8 +222,8 @@ $tasks = [ordered] @{
         Write-Host
     }
     'Create PostgreSQL Backup .nuspec'                     = {
-        $name = "$PackageName.PostgreSQL.nuspec"
-        $nuspecPath = Join-Path $Output $name
+        $name = "$PackageName.PostgreSQL"
+        $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
             forceOverwrite           = $true
