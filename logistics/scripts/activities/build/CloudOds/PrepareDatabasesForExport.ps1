@@ -89,16 +89,16 @@ $postgresSettings = Set-Feature -Settings $postgresSettings -FeatureName "Change
 $postgresSettings = Add-DeploymentSpecificSettings $postgresSettings
 
 Write-Host
-Write-Host "sqlServerSettings:" -ForegroundColor Green
+Write-Host 'sqlServerSettings:' -ForegroundColor Green
 Write-FlatHashtable $sqlServerSettings
 
 Write-Host
-Write-Host "postgresSettings:" -ForegroundColor Green
+Write-Host 'postgresSettings:' -ForegroundColor Green
 Write-FlatHashtable $postgresSettings
 
 $deploymentTasks = @(
     @{
-        Name   = "Deploy Admin Database to SQLServer"
+        Name   = 'Deploy Admin Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -114,7 +114,7 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Security Database to SQLServer"
+        Name   = 'Deploy Security Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -130,13 +130,13 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Empty Template Database to SQLServer"
+        Name   = 'Deploy Empty Template Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
                 engine       = $sqlServerSettings.ApiSettings.engine
-                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
+                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
                 database     = $databaseType
                 filePaths    = $sqlServerSettings.ApiSettings.FilePaths
                 subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
@@ -146,7 +146,7 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Minimal Template Database to SQLServer"
+        Name   = 'Deploy Minimal Template Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -164,7 +164,7 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Populated Template Database to SQLServer"
+        Name   = 'Deploy Populated Template Database to SQLServer'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -182,7 +182,7 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Admin Database to PostgreSQL"
+        Name   = 'Deploy Admin Database to PostgreSQL'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -198,7 +198,7 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Security Database to PostgreSQL"
+        Name   = 'Deploy Security Database to PostgreSQL'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
@@ -214,13 +214,13 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Empty Template Database to PostgreSQL"
+        Name   = 'Deploy Empty Template Database to PostgreSQL'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
                 engine       = $postgresSettings.ApiSettings.engine
-                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods"
+                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
                 database     = $databaseType
                 filePaths    = $postgresSettings.ApiSettings.FilePaths
                 subTypeNames = $postgresSettings.ApiSettings.SubTypes
@@ -230,14 +230,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Minimal Template Database to PostgreSQL"
+        Name   = 'Deploy Minimal Template Database to PostgreSQL'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $backupPath = Get-MinimalTemplateBackupPathFromSettings $postgresSettings
             $params = @{
                 engine                  = $postgresSettings.ApiSettings.engine
-                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods_Minimal_Template"
+                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Minimal_Template'
                 database                = $databaseType
                 filePaths               = $postgresSettings.ApiSettings.FilePaths
                 subTypeNames            = $postgresSettings.ApiSettings.SubTypes
@@ -248,14 +248,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Deploy Populated Template Database to PostgreSQL"
+        Name   = 'Deploy Populated Template Database to PostgreSQL'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $backupPath = Get-PopulatedTemplateBackupPathFromSettings $postgresSettings
             $params = @{
                 engine                  = $postgresSettings.ApiSettings.engine
-                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens "Ods_Populated_Template"
+                csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Populated_Template'
                 database                = $databaseType
                 filePaths               = $postgresSettings.ApiSettings.FilePaths
                 subTypeNames            = $postgresSettings.ApiSettings.SubTypes
@@ -266,14 +266,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Admin Database from SQLServer as .bak"
+        Name   = 'Export Admin Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
@@ -283,14 +283,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Security Database from SQLServer as .bak"
+        Name   = 'Export Security Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
@@ -300,14 +300,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Empty Template Database from SQLServer as .bak"
+        Name   = 'Export Empty Template Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
@@ -317,14 +317,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Minimal Template Database from SQLServer as .bak"
+        Name   = 'Export Minimal Template Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Minimal_Template'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
@@ -334,14 +334,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Populated Template Database from SQLServer as .bak"
+        Name   = 'Export Populated Template Database from SQLServer as .bak'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Populated_Template'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $sqlServerSettings.ApiSettings.Engine
@@ -351,89 +351,89 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Admin Database from SQLServer as .bacpac"
+        Name   = 'Export Admin Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            $databaseName = $csb["Database"]
+            $databaseName = $csb['Database']
             $params = @{
                 sqlPackagePath = $sqlPackagePath
                 database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath "EdFi_Admin.bacpac")
+                artifactOutput = (Join-Path $artifactPath 'EdFi_Admin.bacpac')
             }
             Export-BacPac @params
         }
     }
     @{
-        Name   = "Export Security Database from SQLServer as .bacpac"
+        Name   = 'Export Security Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            $databaseName = $csb["Database"]
+            $databaseName = $csb['Database']
             $params = @{
                 sqlPackagePath = $sqlPackagePath
                 database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath "EdFi_Security.bacpac")
+                artifactOutput = (Join-Path $artifactPath 'EdFi_Security.bacpac')
             }
             Export-BacPac @params
         }
     }
     @{
-        Name   = "Export Empty Template Database from SQLServer as .bacpac"
+        Name   = 'Export Empty Template Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
-            $databaseName = $csb["Database"]
+            $databaseName = $csb['Database']
             $params = @{
                 sqlPackagePath = $sqlPackagePath
                 database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath "EdFi_Ods.bacpac")
+                artifactOutput = (Join-Path $artifactPath 'EdFi_Ods.bacpac')
             }
             Export-BacPac @params
         }
     }
     @{
-        Name   = "Export Minimal Template Database from SQLServer as .bacpac"
+        Name   = 'Export Minimal Template Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Minimal_Template'
-            $databaseName = $csb["Database"]
+            $databaseName = $csb['Database']
             $params = @{
                 sqlPackagePath = $sqlPackagePath
                 database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath "EdFi_Ods_Minimal_Template.bacpac")
+                artifactOutput = (Join-Path $artifactPath 'EdFi_Ods_Minimal_Template.bacpac')
             }
             Export-BacPac @params
         }
     }
     @{
-        Name   = "Export Populated Template Database from SQLServer as .bacpac"
+        Name   = 'Export Populated Template Database from SQLServer as .bacpac'
         Script = {
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Populated_Template'
-            $databaseName = $csb["Database"]
+            $databaseName = $csb['Database']
             $params = @{
                 sqlPackagePath = $sqlPackagePath
                 database       = $databaseName
-                artifactOutput = (Join-Path $artifactPath "EdFi_Ods_Populated_Template.bacpac")
+                artifactOutput = (Join-Path $artifactPath 'EdFi_Ods_Populated_Template.bacpac')
             }
             Export-BacPac @params
         }
     }
     @{
-        Name   = "Export Admin Database from PostgreSQL as .sql"
+        Name   = 'Export Admin Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
@@ -443,14 +443,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Security Database from PostgreSQL as .sql"
+        Name   = 'Export Security Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
@@ -460,14 +460,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Empty Template Database from PostgreSQL as .sql"
+        Name   = 'Export Empty Template Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
@@ -477,14 +477,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Minimal Template Database from PostgreSQL as .sql"
+        Name   = 'Export Minimal Template Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Minimal_Template'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
@@ -494,14 +494,14 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Export Populated Template Database from PostgreSQL as .sql"
+        Name   = 'Export Populated Template Database from PostgreSQL as .sql'
         Script = {
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods_Populated_Template'
             $params = @{
                 databaseConnectionString = $csb
-                databaseBackupName       = $csb["Database"]
+                databaseBackupName       = $csb['Database']
                 backupDirectory          = $artifactPath
                 multipleBackups          = $true
                 engine                   = $postgresSettings.ApiSettings.Engine
@@ -511,9 +511,9 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name = "Create Archives"
+        Name = 'Create Archives'
         Script = {
-            if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
+            if (-not (Get-InstalledModule | Where-Object -Property Name -eq '7Zip4Powershell')) {
                 Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
             }
 
@@ -526,12 +526,12 @@ $deploymentTasks = @(
         }
     }
     @{
-        Name   = "Create Cloud ODS .nuspec file"
+        Name   = 'Create Cloud ODS .nuspec file'
         Script = {
             $nuspecPath = "$artifactPath/$packageName.nuspec"
 
             # Create a Nuspec file with an empty <files> element
-            New-Nuspec -forceOverwrite -nuspecPath $nuspecPath -id $packageName -description $packageName -authors "Ed-Fi Alliance" -owners "Ed-Fi Alliance"
+            New-Nuspec -forceOverwrite -nuspecPath $nuspecPath -id $packageName -description $packageName -authors 'Ed-Fi Alliance' -owners 'Ed-Fi Alliance'
 
             $filesToPackage = (Get-ChildItem $artifactPath -Exclude *.nuspec | where { ! $_.PSIsContainer } | foreach { @{ source = $_.FullName; target = "." } })
             $filesToPackage.source | Write-Host
