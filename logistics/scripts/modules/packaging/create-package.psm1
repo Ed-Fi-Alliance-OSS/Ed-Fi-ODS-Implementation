@@ -70,7 +70,11 @@ function Invoke-CreatePackage {
     )
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
-    $nuget = (Install-NuGetCli -ToolsPath $ToolsPath)
+    # Ensure we have a NuGet.exe to work with
+    $nuget = Get-Command -Name nuget.exe -ErrorAction SilentlyContinue
+
+    Install-NuGetCli -ToolsPath $ToolsPath
+    $nuget = Join-Path -Path $ToolsPath -ChildPath "nuget.exe"
 
     # Build release
     $parameters = @{

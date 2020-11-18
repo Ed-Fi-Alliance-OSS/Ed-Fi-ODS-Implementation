@@ -48,8 +48,6 @@ function Install-NuGetCli {
     if (-not ($env:PATH.Contains($ToolsPath))) {
         $env:PATH = "$ToolsPath;$env:PATH"
     }
-
-    return $nuget
 }
 
 function Get-NuGetPackage {
