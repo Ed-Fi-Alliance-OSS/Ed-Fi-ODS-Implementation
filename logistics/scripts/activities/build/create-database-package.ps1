@@ -20,7 +20,7 @@ param(
     [string] $SQLPackage = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
 
     # An absolute path to the output folder to store artifacts.
-    [string] $Output = "C:/tmp/EdFi.CloudOds",
+    [string] $Output = "C:/tmp/EdFi.Database",
 
     [string[]] $PathResolverOverride
 )
