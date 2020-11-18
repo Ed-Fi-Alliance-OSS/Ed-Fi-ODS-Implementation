@@ -49,7 +49,7 @@
     <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
     <Content Update="log4net.*.config" CopyToOutputDirectory="Always" CopyToPublishDirectory="Never" />
     <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
-    <Content Include="../../NOTICES.md"  Link="NOTICES.md" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
   <ItemGroup>
