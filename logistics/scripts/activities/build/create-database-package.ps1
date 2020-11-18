@@ -160,10 +160,15 @@ $tasks = [ordered] @{
         $nuspecPath = Join-Path $Output $name
 
         $params = @{
-            forceOverwrite = $true
-            nuspecPath     = $nuspecPath
-            id             = $name
-            description    = $name
+            forceOverwrite           = $true
+            nuspecPath               = $nuspecPath
+            id                       = $name
+            description              = $name
+            version                  = '$version$'
+            authors                  = '$authors$'
+            owners                   = '$owners$'
+            copyright                = '$copyright$'
+            requireLicenseAcceptance = $false
         }
         New-Nuspec @params
 
@@ -188,10 +193,15 @@ $tasks = [ordered] @{
         $nuspecPath = Join-Path $Output $name
 
         $params = @{
-            forceOverwrite = $true
-            nuspecPath     = $nuspecPath
-            id             = $name
-            description    = $name
+            forceOverwrite           = $true
+            nuspecPath               = $nuspecPath
+            id                       = $name
+            description              = $name
+            version                  = '$version$'
+            authors                  = '$authors$'
+            owners                   = '$owners$'
+            copyright                = '$copyright$'
+            requireLicenseAcceptance = $false
         }
         New-Nuspec @params
 
@@ -216,10 +226,15 @@ $tasks = [ordered] @{
         $nuspecPath = Join-Path $Output $name
 
         $params = @{
-            forceOverwrite = $true
-            nuspecPath     = $nuspecPath
-            id             = $name
-            description    = $name
+            forceOverwrite           = $true
+            nuspecPath               = $nuspecPath
+            id                       = $name
+            description              = $name
+            version                  = '$version$'
+            authors                  = '$authors$'
+            owners                   = '$owners$'
+            copyright                = '$copyright$'
+            requireLicenseAcceptance = $false
         }
         New-Nuspec @params
 
@@ -257,3 +272,7 @@ $script:result += New-TaskResult -name '-' -duration '-'
 $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
 return $script:result | Format-Table
+
+
+EdFi.Security.Database.nuspec
+EdFi.Security.Database.nuspec
