@@ -21,7 +21,7 @@
     $params = @{
         packageName    = "EdFi.Samples.Ods"
         packageVersion = "3.3.0"
-        packageSource  = "https://www.myget.org/F/ed-fi/"
+        packageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
 
     & "$PSScriptRoot\..\Modules\get-populated-from-nuget.ps1" @params

@@ -24,7 +24,7 @@ function Invoke-CreatePackage {
             Suffix = "pre0001"
             OutputDirectory = "c:\temp"
             Publish = $true
-            Source = "https://www.myget.org/F/ed-fi/api/v3/index.json"
+            Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
             ApiKey = $env:myget.apiKey
             ToolsPath = "tools"
         }

@@ -98,7 +98,7 @@ function Install-DotNetTool {
 
     Write-Host "Installing $Name version $Version to $Path"
 
-    $source = "https://www.myget.org/F/ed-fi/"
+    $source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     & dotnet tool install $Name --version $Version --tool-path $Path --add-source $source
 }
 

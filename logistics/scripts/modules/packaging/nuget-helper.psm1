@@ -70,7 +70,7 @@ function Get-NuGetPackage {
     .PARAMETER outputDirectory
         The path into which the package is unzipped. Defaults to ".\downloads".
     .PARAMETER packageSource
-        The NuGet package source. Defaults to "https://www.myget.org/F/ed-fi/api/v3/index.json".
+        The NuGet package source. Defaults to "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json".
     .EXAMPLE
         $parameters = @{
             packageName = "EdFi.Suite3.Ods.WebApi"
@@ -97,10 +97,10 @@ function Get-NuGetPackage {
         $OutputDirectory = '.\downloads',
 
         [string]
-        $PackageSource = "https://www.myget.org/F/ed-fi/api/v3/index.json"
+        $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     )
 
-    Install-NuGetCli $ToolsPath
+    $nuget = Install-NuGetCli $ToolsPath
 
     if (-not $PackageVersion) {
         # Lookup current "latest" version
