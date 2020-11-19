@@ -3,10 +3,18 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-$params = @{
-    packageName    = "EdFi.Suite3.Ods.Populated.Template"
-    packageVersion = "5.1.0"
-    packageSource  = "https://www.myget.org/F/ed-fi/"
-}
+#requires -modules "path-resolver"
 
-& "$PSScriptRoot\..\Modules\get-populated-from-nuget.ps1" @params
+Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
+Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+
+$parameters = @{
+    packageName     = 'EdFi.Suite3.Ods.Populated.Template'
+    packageVersion  = '5.2.0-b10386'
+    packageSource   = 'https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json'
+    outputDirectory = "$PSScriptRoot/../Database"
+    toolsPath       = (Get-ToolsPath)
+}
+$packagePath = Get-NuGetPackage @parameters
+
+return Get-ChildItem "$packagePath/*.bak"
