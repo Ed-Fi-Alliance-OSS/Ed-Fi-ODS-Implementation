@@ -23,6 +23,8 @@ param(
     $outputDirectory
 )
 
+Write-Warning "'Scripts/NuGet/EdFi.RestApi.Databases/prep-package-cloud.ps1' is deprecated, and will be removed in the near future. Functionality is now included in 'logistics/scripts/activities/build/CloudOds/PrepareDatabasesForExport.ps1' instead."
+
 # Note: this cannot be done in the param block. $PSScriptRoot must not be available at that time.
 if (-not $outputDirectory) {
     $outputDirectory = $PSScriptRoot
