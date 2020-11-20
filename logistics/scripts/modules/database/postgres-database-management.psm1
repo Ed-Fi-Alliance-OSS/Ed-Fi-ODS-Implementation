@@ -53,8 +53,6 @@ function Install-PostgreSQLBinaries {
     if (-not (Test-PostgreSQLBinariesInstalled)) {
         throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
     }
-
-    return $packagePath
 }
 
 function Invoke-PsqlCommand {
