@@ -5,13 +5,12 @@
   See the LICENSE and NOTICES files in the project root for more information.
 -->
 
-@using System.Configuration
-@using EdFi.Ods.SandboxAdmin.Extensions
+@using EdFi.Ods.Sandbox.Admin.Extensions
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @{
-    var homeUrl = "~".ToAbsolutePath(Context.Request);
-    var oauthUrl = Configuration.GetSection("OAuthUrl").Value;
+    var homeUrl = Context.Request.ToAbsolutePath();
+    var oauthUrl = Configuration.GetValue<string>("OAuthUrl");
 }
 
 <script>

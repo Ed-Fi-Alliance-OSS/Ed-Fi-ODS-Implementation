@@ -3,23 +3,24 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Configuration;
 using System;
+using log4net;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Internal;
 
-namespace EdFi.Ods.SandboxAdmin.Extensions
+namespace EdFi.Ods.Sandbox.Admin.Extensions
 {
-    public static class HttpContextExtensions
+    public static class RequestExtensions
     {
-        public static string UseReverseProxyHeadersConfigKey = "UseReverseProxyHeaders";
-        private static readonly Lazy<bool> _useProxyHeaders = new Lazy<bool>(SetProxyHeaderConfigValue);
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(RequestExtensions));
 
         private const string XForwardedProto = "X-Forwarded-Proto";
         private const string XForwardedHost = "X-Forwarded-Host";
         private const string XForwardedPort = "X-Forwarded-Port";
 
-        public static string ToAbsolutePath(this string relativePath, HttpRequest request, string hashFragment = null)
+        public static string ToAbsolutePath(this HttpRequest request, string relativePath = "~", string hashFragment = null)
         {
+            bool useProxyHeaders = UseProxyHeaders(request);
             string path;
             string query;
 
@@ -43,9 +44,9 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
 
             var absolutePathBuilder = new UriBuilder
             {
-                Scheme = request.Scheme(_useProxyHeaders.Value),
-                Host = request.Host.Host,
-                Port = request.Port(_useProxyHeaders.Value),
+                Scheme = request.Scheme(useProxyHeaders),
+                Host = request.Host(useProxyHeaders),
+                Port = request.Port(useProxyHeaders),
                 Path = path,
                 Query = query,
                 Fragment = string.IsNullOrWhiteSpace(hashFragment)
@@ -53,10 +54,25 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
                                                   : hashFragment
             };
 
-            return absolutePathBuilder.Uri.ToString()
-                                      .TrimEnd('/');
+            _logger.Debug($"Created uri '{absolutePathBuilder.Uri}'");
+
+            return absolutePathBuilder.Uri.ToString().TrimEnd('/');
         }
 
+        public static bool IsAjaxRequest(this HttpRequest request)
+        {
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.Headers != null)
+            {
+                return request.Headers["X-Requested-With"] == "XMLHttpRequest";
+            }
+
+            return false;
+        }
         public static string Scheme(this HttpRequest request, bool useProxyHeaders = false)
         {
             string scheme = request.Scheme;
@@ -96,16 +112,9 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
             return port;
         }
 
-        private static string GetHeaderValue(HttpRequest request, string headerName)
-        {
-            var values = request.Headers[headerName];
-
-            return values;
-        }
-
         public static string Host(this HttpRequest request, bool useProxyHeaders = false)
         {
-            string host = request.Host.Value;
+            string host = request.Host.Host;
 
             if (!useProxyHeaders)
             {
@@ -122,20 +131,17 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
             return host;
         }
 
-        private static bool SetProxyHeaderConfigValue()
+        private static bool UseProxyHeaders(HttpRequest request)
         {
-            bool tempConfigValue;
-            bool.TryParse(ConfigurationManager.AppSettings[UseReverseProxyHeadersConfigKey], out tempConfigValue);
-            return tempConfigValue;
+            return request.Headers.ContainsKey(XForwardedHost) || request.Headers.ContainsKey(XForwardedPort) ||
+                   request.Headers.ContainsKey(XForwardedProto);
         }
 
-        public static bool IsAjaxRequest(this HttpRequest request)
+        private static string GetHeaderValue(HttpRequest request, string headerName)
         {
-            if (request == null)
-                throw new ArgumentNullException("request");
-            if (request.Headers != null)
-                return request.Headers["X-Requested-With"] == "XMLHttpRequest";
-            return false;
+            var values = request.Headers[headerName];
+
+            return values;
         }
     }
 }
