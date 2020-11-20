@@ -8,6 +8,7 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 
 $script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
