@@ -58,7 +58,7 @@ function Get-NuGetPackage {
         Download and unzip a NuGet package for the purpose of bundling into another package.
     .DESCRIPTION
         Uses nuget command line to download a NuGet package and unzip it into an output
-        directory. Uses the Ed-Fi MyGet package feed by default. Default output directory
+        directory. Uses the Ed-Fi Azure Artifacts package feed by default. Default output directory
         is .\downloads.
     .PARAMETER packageName
         Alias "applicationId". Name of the package to download.
