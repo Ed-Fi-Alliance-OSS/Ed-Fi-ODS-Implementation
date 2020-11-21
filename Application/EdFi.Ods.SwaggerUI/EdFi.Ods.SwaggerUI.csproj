@@ -15,14 +15,14 @@
     <Content Include="EdFi.Ods.SwaggerUI.nuspec" CopyToPublishDirectory="Always" />
     <Content Update="appsettings.*.json" CopyToPublishDirectory="Never" />
     <Content Include="../../LICENSE.txt" Link="LICENSE.txt" CopyToPublishDirectory="Always" />
-    <Content Include="../../NOTICES.md"  Link="NOTICES.md" CopyToPublishDirectory="Always" />
+    <Content Include="../../NOTICES.md" Link="NOTICES.md" CopyToPublishDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\Swashbuckle_index.html" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
