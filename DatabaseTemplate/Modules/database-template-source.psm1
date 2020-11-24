@@ -121,7 +121,7 @@ function Initialize-TemplateSourceFromScriptName {
     $scriptPath = Get-TemplateScriptPath $scriptName
     $returnedPath = Invoke-TemplateScript $scriptPath
 
-    $returnedValidPath = ($returnedPath -is [string]) -and (-not [string]::IsNullOrWhiteSpace($returnedPath)) -and (Test-Path $returnedPath)
+    $returnedValidPath = ((-not [string]::IsNullOrWhiteSpace($returnedPath)) -and (Test-Path $returnedPath))
     if ($returnedValidPath) { return $returnedPath }
 
     return Get-TemplateBackupPath

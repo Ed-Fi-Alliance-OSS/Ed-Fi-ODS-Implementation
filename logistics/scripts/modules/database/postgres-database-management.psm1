@@ -8,15 +8,16 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 
 $script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
-$script:packageSource = "https://www.myget.org/F/ed-fi/"
+$script:packageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
 $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "12.2.0"
 
 function Test-PostgreSQLBinariesInstalled {
-    $packagePath = "$script:toolsPath/$script:packageName"
+    $packagePath = "$script:toolsPath/$script:packageName.$script:packageVersion"
 
     $psqlExists = (Test-Path "$packagePath/tools/psql.exe")
     $pgdumpExists = (Test-Path "$packagePath/tools/pg_dump.exe")
@@ -25,7 +26,7 @@ function Test-PostgreSQLBinariesInstalled {
     return ($psqlExists -and $pgdumpExists -and $pgrestoreExists)
 }
 
-function Get-PostgreSQLBinariesPath { return (Resolve-path "$script:toolsPath/$script:packageName/tools").Path }
+function Get-PostgreSQLBinariesPath { return (Resolve-path "$script:toolsPath/$script:packageName.$script:packageVersion/tools/").Path }
 
 function Get-PSQLPath { return (Resolve-path (Join-Path (Get-PostgreSQLBinariesPath) 'psql.exe')).Path }
 
@@ -39,51 +40,16 @@ function Install-PostgreSQLBinaries {
         [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
     }
 
-    if (-not (Get-PackageProvider | Where-Object { $_.Name -eq $script:providerName })) {
-        Write-Host "Installing nuget package provider"
-        Install-PackageProvider -Force -Name $script:providerName | Out-Null
-    }
-    if (-not (Get-PackageSource | Where-Object {
-                $_.Location -eq $script:packageSource -and $_.ProviderName -eq $script:providerName
-            })) {
-        Write-Host "Registering nuget package source: $script:packageSource"
-        Register-PackageSource -Name $script:packageSource -Location $script:packageSource -Provider $script:providerName | Out-Null
-    }
-
-    if (-not (Test-Path $script:toolsPath)) { New-Item -Path $script:toolsPath -ItemType 'Directory' | Out-Null }
-
-    $savePackageArgs = @{
-        ProviderName    = $script:providerName
-        Source          = $script:packageSource
-        Name            = $script:packageName
-        RequiredVersion = $script:packageVersion
-        Path            = $script:toolsPath
+    $parameters = @{
+        packageName     = $script:packageName
+        packageVersion  = $script:packageVersion
+        packageSource   = $script:packageSource
+        outputDirectory = $script:toolsPath
+        toolsPath       = $script:toolsPath
     }
 
     Write-Host "Installing $script:packageName version $script:packageVersion to $script:toolsPath"
-    $result = (Save-Package @savePackageArgs)
-
-    $alreadyDownloaded = $null -eq $result.Payload
-    $binariesInstalled = (Test-PostgreSQLBinariesInstalled)
-
-    if ($alreadyDownloaded -and $binariesInstalled) {
-        Write-Host "$script:packageName v$script:packageVersion is already installed at $script:toolsPath"
-        return
-    }
-
-    if ($binariesInstalled) { Remove-Item -Force -Recurse "$script:toolsPath/$script:packageName" }
-
-    if (-not (Get-InstalledModule | Where-Object -Property Name -eq '7Zip4Powershell')) {
-        Install-Module -Force -Scope CurrentUser -Name '7Zip4Powershell'
-    }
-
-    Write-Host "Extracting $script:packageName version $script:packageVersion to $script:toolsPath\$script:packageName"
-
-    $params = @{
-        ArchiveFileName = "$script:toolsPath\$script:packageName.$script:packageVersion.nupkg"
-        TargetPath      = "$script:toolsPath\$script:packageName"
-    }
-    Expand-7Zip @params
+    $packagePath = Get-NuGetPackage @parameters
 
     if (-not (Test-PostgreSQLBinariesInstalled)) {
         throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "

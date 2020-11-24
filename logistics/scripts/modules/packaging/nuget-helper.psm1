@@ -58,7 +58,7 @@ function Get-NuGetPackage {
         Download and unzip a NuGet package for the purpose of bundling into another package.
     .DESCRIPTION
         Uses nuget command line to download a NuGet package and unzip it into an output
-        directory. Uses the Ed-Fi MyGet package feed by default. Default output directory
+        directory. Uses the Ed-Fi Azure Artifacts package feed by default. Default output directory
         is .\downloads.
     .PARAMETER packageName
         Alias "applicationId". Name of the package to download.
@@ -70,7 +70,7 @@ function Get-NuGetPackage {
     .PARAMETER outputDirectory
         The path into which the package is unzipped. Defaults to ".\downloads".
     .PARAMETER packageSource
-        The NuGet package source. Defaults to "https://www.myget.org/F/ed-fi/api/v3/index.json".
+        The NuGet package source. Defaults to "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json".
     .EXAMPLE
         $parameters = @{
             packageName = "EdFi.Suite3.Ods.WebApi"
@@ -97,10 +97,10 @@ function Get-NuGetPackage {
         $OutputDirectory = '.\downloads',
 
         [string]
-        $PackageSource = "https://www.myget.org/F/ed-fi/api/v3/index.json"
+        $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     )
 
-    Install-NuGetCli $ToolsPath
+    $nuget = Install-NuGetCli $ToolsPath
 
     if (-not $PackageVersion) {
         # Lookup current "latest" version
