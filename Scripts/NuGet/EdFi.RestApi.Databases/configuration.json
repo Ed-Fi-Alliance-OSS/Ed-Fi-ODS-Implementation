@@ -49,6 +49,10 @@
       {
         "Name": "UniqueIdValidation",
         "IsEnabled": false
+      },
+      {
+        "Name": "Publishing",
+        "IsEnabled": false
       }
     ],
     "ExcludedExtensions": [],

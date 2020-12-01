@@ -28,6 +28,10 @@ function Get-AvailableFeatures {
         @{
             featureName = "ownershipBasedAuthorization";
             subTypeName = "RecordOwnership"
+        },
+        @{
+            featureName = "publishing";
+            subTypeName = "publishing";
         }
     )
 }
