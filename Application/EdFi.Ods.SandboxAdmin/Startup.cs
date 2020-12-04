@@ -195,6 +195,8 @@ namespace EdFi.Ods.SandboxAdmin
         {
             loggerFactory.AddLog4Net();
 
+            app.UsePathBase("/sandboxadmin");
+
             Container = app.ApplicationServices.GetAutofacRoot();
 
             // Set EF Context
