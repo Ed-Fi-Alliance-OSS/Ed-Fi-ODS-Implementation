@@ -20,10 +20,7 @@ param (
     $Publish,
 
     [string]
-    $NuGetFeed,
-
-    [string]
-    $NuGetApiKey
+    $NuGetFeed
 )
 $ErrorActionPreference = "Stop"
 
@@ -40,7 +37,6 @@ $parameters = @{
     OutputDirectory = Resolve-Path $PSScriptRoot
     Publish = $Publish
     Source = $NuGetFeed
-    ApiKey = $NuGetApiKey
     ToolsPath = "../../../tools"
 }
 Invoke-CreatePackage @parameters -Verbose:$verbose

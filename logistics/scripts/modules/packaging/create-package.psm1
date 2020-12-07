@@ -60,10 +60,6 @@ function Invoke-CreatePackage {
         [string]
         $Source,
 
-        # NuGet feed API Key for package publishing.
-        [string]
-        $ApiKey,
-
         # Path to download and store nuget.exe if not already present in the path.
         [string]
         $ToolsPath
@@ -100,7 +96,6 @@ function Invoke-CreatePackage {
     $parameters = @{
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
             Source = $Source
-            ApiKey = $ApiKey
             NuGet = $nuget
             Verbose = $verbose
         }
@@ -160,16 +155,14 @@ function Publish-PrereleasePackage {
         $Source,
 
         [string]
-        $ApiKey,
-
-        [string]
         [Parameter(Mandatory = $true)]
         $NuGet
     )
+
     $parameters = @(
         "push", $PackageFile,
         "-Source", $Source,
-        "-ApiKey", $ApiKey
+        "-ApiKey", "ignored"
     )
 
     if ($Verbose) {
