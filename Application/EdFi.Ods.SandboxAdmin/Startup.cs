@@ -200,7 +200,11 @@ namespace EdFi.Ods.SandboxAdmin
 
             if (virtualPathEnabled)
             {
-                app.UsePathBase("/sandboxadmin");
+                var pathBase = !string.IsNullOrEmpty(configuration["PathBase"])
+                    ? configuration["PathBase"]
+                    : "/sandboxadmin";
+
+                app.UsePathBase(pathBase);
             }
             
             Container = app.ApplicationServices.GetAutofacRoot();
