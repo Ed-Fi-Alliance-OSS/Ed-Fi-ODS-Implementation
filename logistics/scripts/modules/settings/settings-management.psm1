@@ -129,7 +129,7 @@ function Get-CredentialSettingsByProject {
 function Get-EdFiDeveloperPluginSettings {
     return @{
         Plugin = @{
-            Folder  = "../../Plugin"
+            Folder  = "D:\src-oss\Ed-Fi-ODS-Implementation\Plugin"
             Scripts = @("sample", "homograph", "tpdm")
         }
     }
