@@ -57,7 +57,7 @@ function Initialize-DeploymentEnvironment {
         [string] $OdsTokens,
 
         [ValidateSet("minimal", "populated")]
-        [string] $OdsDatabaseTemplateName = "minimal",
+        [string] $OdsDatabaseTemplateName,
 
         [Alias('Transient')]
         [switch] $DropDatabases,
