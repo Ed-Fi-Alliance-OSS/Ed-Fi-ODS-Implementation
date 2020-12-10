@@ -34,10 +34,6 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
 
     $config.apiUrlBase = "http://localhost:8765"
-    $config.apiUrlOAuth = "$($config.apiUrlBase)/oauth"
-    $config.apiUrlMetadata = "$($config.apiUrlBase)/metadata"
-    $config.apiUrlData = "$($config.apiUrlBase)/data/v3"
-    $config.apiUrlDependencies = "$($config.apiUrlMetadata)/data/v3/dependencies"
     $config.apiClientNameBootstrap = "BulkLoadClientBootstrap"
     $config.apiClientNameSandbox = "BulkLoadClientSandbox"
     $config.apiYear = (Get-Date).Year
@@ -297,10 +293,7 @@ function Invoke-LoadBootstrapData {
     $params = @{
         apiKey                      = $config.apiBootstrapKey
         apiSecret                   = $config.apiBootstrapSecret
-        apiUrlData                  = $config.apiUrlData
-        apiUrlMetadata              = $config.apiUrlMetadata
-        apiUrlOAuth                 = $config.apiUrlOAuth
-        apiUrlDependencies          = $config.apiUrlDependencies
+        apiUrlBase                  = $config.apiUrlBase
         apiYear                     = $config.apiYear
         bulkLoadClientExecutable    = $config.bulkLoadClientExecutable
         bulkLoadConnectionLimit     = 100
@@ -336,10 +329,7 @@ function Invoke-LoadSampleData {
     $params = @{
         apiKey                      = $config.apiSandboxKey
         apiSecret                   = $config.apiSandboxSecret
-        apiUrlData                  = $config.apiUrlData
-        apiUrlMetadata              = $config.apiUrlMetadata
-        apiUrlOAuth                 = $config.apiUrlOAuth
-        apiUrlDependencies          = $config.apiUrlDependencies
+        apiUrlBase                  = $config.apiUrlBase
         apiYear                     = $config.apiYear
         bulkLoadClientExecutable    = $config.bulkLoadClientExecutable
         bulkLoadConnectionLimit     = 100
