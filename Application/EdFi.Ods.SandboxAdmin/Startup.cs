@@ -196,13 +196,11 @@ namespace EdFi.Ods.SandboxAdmin
         {
             loggerFactory.AddLog4Net();
 
-            var virtualPathEnabled = configuration["VirtualPathEnabled"].ToBoolean();
+            var pathBase = configuration["PathBase"];
 
-            if (virtualPathEnabled)
+            if (!string.IsNullOrEmpty(pathBase))
             {
-                var pathBase = !string.IsNullOrEmpty(configuration["PathBase"])
-                    ? configuration["PathBase"]
-                    : "/sandboxadmin";
+                pathBase = pathBase.Replace("/", string.Empty);
 
                 app.UsePathBase(pathBase);
             }
