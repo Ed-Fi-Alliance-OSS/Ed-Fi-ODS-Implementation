@@ -258,7 +258,7 @@ $deploymentTasks = @{
         $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
         $databaseName = $odsDatabaseType
         $replacementTokens = @($databaseName)
-        if ($settings.OdsDatabaseTemplateName -eq 'populated') {
+        if ($settings.ApiSettings.OdsDatabaseTemplateName -eq 'populated') {
             $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
         }
         else {
