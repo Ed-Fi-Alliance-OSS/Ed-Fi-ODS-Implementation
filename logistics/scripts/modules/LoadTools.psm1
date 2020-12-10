@@ -66,9 +66,7 @@ function Invoke-SmokeTestClient {
 
     if (-not (Test-Path $smokeTestExecutable)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutable not found." }
 
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlOAuth)) { throw "apiUrlOAuth is required" }
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlMetadata)) { throw "apiUrlMetdata is required" }
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlData)) { throw "apiUrlData is required" }
+    if ([string]::IsNullOrWhiteSpace($config.apiUrlBase)) {throw "apiUrlBase is required"}
     if ([string]::IsNullOrWhiteSpace($config.apiKey)) { throw "apiKey is required" }
     if ([string]::IsNullOrWhiteSpace($config.apiSecret)) { throw "apiSecret is required" }
     if ([string]::IsNullOrWhiteSpace($config.apiYear)) { $config.apiYear = [string]::Empty }

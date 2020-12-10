@@ -18,12 +18,6 @@
     * Builds the test Load Tools solution
     * Run Smoke Tests non destructive tests by default
 
-    .PARAMETER metadataUrl
-    The url for the listing of Open API specifications of the api website deployment, must NOT end in a forward slash, for example: https://api-stage.ed-fi.org/api/metadata
-
-    .PARAMETER apiDataUrl
-    The url for accessing the api website deployment, must NOT end in a forward slash, for example: https://api-stage.ed-fi.org/api/api/ods/v3/data/v3
-
     .PARAMETER apiUrl
     The url for accessing the api website deployment, must NOT end in a forward slash, for example: https://api-stage.ed-fi.org/api/api/ods/v3
 
@@ -49,9 +43,7 @@
     PS> run-smoke-tests.ps1
 #>
 param(
-    [string] $metadataUrl = "http://localhost:8765/metadata",
     [string] $apiUrl = "http://localhost:8765",
-    [string] $apiDataUrl = "http://localhost:8765/data/v3",
     [string] $key = $null,
     [string] $secret = $null,
     [string] $namespaceUri = "http://edfi.org",
@@ -88,9 +80,6 @@ function Get-SmokeTestConfiguration {
     $config = @{ }
 
     $config.apiUrlBase = $apiUrl
-    $config.apiUrlOAuth = $config.apiUrlBase
-    $config.apiUrlMetadata = $metadataUrl
-    $config.apiUrlData = $apiDataUrl
     $config.apiNamespaceUri = $namespaceUri
     $config.apiKey = $key
     $config.apiSecret = $secret
