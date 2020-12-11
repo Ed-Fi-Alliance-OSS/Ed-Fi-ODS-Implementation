@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Data.Entity;
 using EdFi.Common.Configuration;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Sandbox.Admin.Contexts;
 using EdFi.Ods.SandboxAdmin.Filters;
 using EdFi.Ods.SandboxAdmin.Services;
@@ -191,10 +192,19 @@ namespace EdFi.Ods.SandboxAdmin
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, IConfigurationRoot configuration)
         {
             loggerFactory.AddLog4Net();
 
+            var pathBase = configuration["PathBase"];
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                pathBase = pathBase.Trim('/');
+                pathBase = "/" + pathBase;
+                app.UsePathBase(pathBase);
+            }
+            
             Container = app.ApplicationServices.GetAutofacRoot();
 
             // Set EF Context
