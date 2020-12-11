@@ -76,8 +76,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess.UnitT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess.UnitTests", "..\..\Ed-Fi-ODS\tests\EdFi.Security.DataAccess.UnitTests\EdFi.Security.DataAccess.UnitTests.csproj", "{5D29E54C-0788-42D3-AC34-F7E144975458}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj", "{F80D1A5F-38F1-4B66-85F1-50085BC209A7}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Features", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj", "{64381013-0EDC-46D3-9E24-E5500DF00A2A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.TestFixture", "..\..\Ed-Fi-ODS\tests\EdFi.TestFixture\EdFi.TestFixture.csproj", "{81FE570F-FDA0-4184-8F26-D925423FDE57}"
@@ -187,10 +185,6 @@ Global
 		{5D29E54C-0788-42D3-AC34-F7E144975458}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D29E54C-0788-42D3-AC34-F7E144975458}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D29E54C-0788-42D3-AC34-F7E144975458}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F80D1A5F-38F1-4B66-85F1-50085BC209A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F80D1A5F-38F1-4B66-85F1-50085BC209A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F80D1A5F-38F1-4B66-85F1-50085BC209A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F80D1A5F-38F1-4B66-85F1-50085BC209A7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64381013-0EDC-46D3-9E24-E5500DF00A2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{64381013-0EDC-46D3-9E24-E5500DF00A2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64381013-0EDC-46D3-9E24-E5500DF00A2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
