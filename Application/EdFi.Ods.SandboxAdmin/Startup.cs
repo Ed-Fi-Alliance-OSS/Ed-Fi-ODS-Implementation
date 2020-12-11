@@ -200,7 +200,7 @@ namespace EdFi.Ods.SandboxAdmin
 
             if (!string.IsNullOrEmpty(pathBase))
             {
-                pathBase = pathBase.Replace("/", "");
+                pathBase = pathBase.Trim('/');
                 pathBase = "/" + pathBase;
                 app.UsePathBase(pathBase);
             }
