@@ -66,9 +66,7 @@ function Invoke-SmokeTestClient {
 
     if (-not (Test-Path $smokeTestExecutable)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutable not found." }
 
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlOAuth)) { throw "apiUrlOAuth is required" }
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlMetadata)) { throw "apiUrlMetdata is required" }
-    if ([string]::IsNullOrWhiteSpace($config.apiUrlData)) { throw "apiUrlData is required" }
+    if ([string]::IsNullOrWhiteSpace($config.apiUrlBase)) {throw "apiUrlBase is required"}
     if ([string]::IsNullOrWhiteSpace($config.apiKey)) { throw "apiKey is required" }
     if ([string]::IsNullOrWhiteSpace($config.apiSecret)) { throw "apiSecret is required" }
     if ([string]::IsNullOrWhiteSpace($config.apiYear)) { $config.apiYear = [string]::Empty }
@@ -79,9 +77,7 @@ function Invoke-SmokeTestClient {
 
     foreach ($testSet in $config.testSets) {
         $params = @(
-            '-o', '"{0}"' -f $config.apiUrlOAuth
-            '-m', '"{0}"' -f $config.apiUrlMetadata
-            '-a', '"{0}"' -f $config.apiUrlData
+            '-b', '"{0}"' -f $config.apiUrlBase
             '-k', '"{0}"' -f $config.apiKey
             '-s', '"{0}"' -f $config.apiSecret
             '-n', '"{0}"' -f $config.apiNamespaceUri
@@ -108,10 +104,7 @@ function Invoke-BulkLoadClient {
 
     $apiKey = $config.apiKey
     $apiSecret = $config.apiSecret
-    $apiUrlData = $config.apiUrlData
-    $apiUrlMetadata = $config.apiUrlMetadata
-    $apiUrlDependencies = $config.apiUrlDependencies
-    $apiUrlOAuth = $config.apiUrlOAuth
+    $apiBaseUrl = $config.apiUrlBase
     $apiYear = $config.apiYear
     $bulkLoadConnectionLimit = $config.bulkLoadConnectionLimit
     $bulkLoadDirectoryData = $config.bulkLoadDirectoryData
@@ -127,10 +120,7 @@ function Invoke-BulkLoadClient {
     $params = @()
     if (-not [string]::IsNullOrWhiteSpace($apiKey)) { $params += "-k", $apiKey }
     if (-not [string]::IsNullOrWhiteSpace($apiSecret)) { $params += "-s", $apiSecret }
-    if (-not [string]::IsNullOrWhiteSpace($apiUrlData)) { $params += "-a", $apiUrlData }
-    if (-not [string]::IsNullOrWhiteSpace($apiUrlMetadata)) { $params += "-m", $apiUrlMetadata }
-    if (-not [string]::IsNullOrWhiteSpace($apiUrlOAuth)) { $params += "-o", $apiUrlOAuth }
-    if (-not [string]::IsNullOrWhiteSpace($apiUrlDependencies)) { $params += "-g", $apiUrlDependencies }
+    if (-not [string]::IsNullOrWhiteSpace($apiBaseUrl)) { $params += "-b", $apiBaseUrl }
     if (-not [string]::IsNullOrWhiteSpace($apiYear)) { $params += "-y", $apiYear }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadConnectionLimit)) { $params += "-c", $bulkLoadConnectionLimit }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadDirectoryData)) { $params += "-d", "`"$bulkLoadDirectoryData`"" }
