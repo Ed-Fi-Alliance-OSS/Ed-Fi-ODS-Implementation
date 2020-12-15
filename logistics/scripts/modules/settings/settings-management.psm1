@@ -328,7 +328,7 @@ function Get-UserSecrets([string] $Project) {
             $inputTable = ConvertFrom-StringData -StringData $userSecretList
         }
 
-        $resultTable = Get-UnFlatHashTable($inputTable)
+        $resultTable = Get-UnFlatHashtable($inputTable)
     }
     catch {
         Write-Host $_.Exception.Message -ForegroundColor Yellow
