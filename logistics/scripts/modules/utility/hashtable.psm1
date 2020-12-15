@@ -17,6 +17,16 @@ function ConvertTo-Hashtable {
         if ($Object.$key -is [PSObject]) {
             $result[$key] = $Object.$key | ConvertTo-Hashtable
         }
+        elseif ($Object.$key -is [Object[]]) {
+            $result[$key] = @()
+            for ($i = 0; $i -lt @($Object.$key).Count; $i++) {
+                if ($Object.$key[$i] -is [PSObject]) {
+                    $result[$key] += $Object.$key[$i] | ConvertTo-Hashtable
+                } else {
+                    $result[$key] += $Object.$key[$i]
+                }
+            }
+        }
         else {
             $result[$key] = $Object.$key
         }

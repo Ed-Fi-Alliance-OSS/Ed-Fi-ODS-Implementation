@@ -64,6 +64,24 @@ Describe 'ConvertTo-Hashtable' {
         $a.x.y.z[1] | Should -Be 1
         $a.x.y.z[2] | Should -Be 2
     }
+
+    It "converts nested arrays of objects to hashtable" {
+        $a = '{ "x": { "y": { "z": [ { "a": 1, "b": 2 }, { "c": 3, "d": 4 }, { "e": 5, "f": 6 } ] } } }' | ConvertFrom-Json | ConvertTo-Hashtable
+
+        $a | Should -Not -BeNullOrEmpty
+        $a.x | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y.z | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y.z[0] | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y.z[0].a | Should -Be 1
+        $a.x.y.z[0].b | Should -Be 2
+        $a.x.y.z[1] | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y.z[1].c | Should -Be 3
+        $a.x.y.z[1].d | Should -Be 4
+        $a.x.y.z[2] | Should -BeOfType [System.Collections.Hashtable]
+        $a.x.y.z[2].e | Should -Be 5
+        $a.x.y.z[2].f | Should -Be 6
+    }
 }
 
 Describe 'Get-HashtableDeepClone' {
