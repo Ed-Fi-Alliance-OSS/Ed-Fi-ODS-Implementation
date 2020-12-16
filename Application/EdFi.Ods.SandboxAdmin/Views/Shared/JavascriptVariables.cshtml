@@ -9,7 +9,7 @@
 @using Microsoft.Extensions.Configuration
 @inject IConfiguration Configuration
 @{
-    var homeUrl = Context.Request.ToAbsolutePath();
+    var homeUrl = Context.Request.ToAbsolutePath("~", null, Configuration.GetValue<bool>("ApiSettings:UseReverseProxyHeaders"));
     var oauthUrl = Configuration.GetValue<string>("OAuthUrl");
 }
 

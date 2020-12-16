@@ -18,9 +18,8 @@ namespace EdFi.Ods.Sandbox.Admin.Extensions
         private const string XForwardedHost = "X-Forwarded-Host";
         private const string XForwardedPort = "X-Forwarded-Port";
 
-        public static string ToAbsolutePath(this HttpRequest request, string relativePath = "~", string hashFragment = null)
+        public static string ToAbsolutePath(this HttpRequest request, string relativePath = "~", string hashFragment = null, bool useProxyHeaders = false)
         {
-            bool useProxyHeaders = UseProxyHeaders(request);
             string path;
             string query;
 
