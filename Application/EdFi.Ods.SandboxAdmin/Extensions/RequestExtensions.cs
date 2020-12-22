@@ -20,7 +20,6 @@ namespace EdFi.Ods.Sandbox.Admin.Extensions
 
         public static string ToAbsolutePath(this HttpRequest request, string relativePath = "~", string hashFragment = null, bool useProxyHeaders = false)
         {
-            bool useProxyHeaders = UseProxyHeaders(request);
             string path;
             string query;
 
