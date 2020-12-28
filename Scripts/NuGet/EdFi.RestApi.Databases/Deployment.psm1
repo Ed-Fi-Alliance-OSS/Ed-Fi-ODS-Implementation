@@ -171,7 +171,7 @@ function Set-DeploymentSettings([hashtable] $Settings = @{ }) {
         Values set by this parameter will be merged overridding any previous values configured by this function.
     #>
 
-    $script:deploymentSettingsOverrides = Merge-Hashtables $script:deploymentSettingsOverrides, $Settings
+    $script:deploymentSettingsOverrides = $Settings
 
     return $script:deploymentSettingsOverrides
 }
