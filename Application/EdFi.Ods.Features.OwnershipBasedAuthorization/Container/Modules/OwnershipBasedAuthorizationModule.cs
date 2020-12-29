@@ -7,10 +7,6 @@ using Autofac;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
-using EdFi.Ods.Common.Infrastructure.Configuration;
-using EdFi.Ods.Common.Repositories;
-using EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate;
-using EdFi.Ods.Features.OwnershipBasedAuthorization.Security;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Container.Modules
 {
@@ -23,10 +19,6 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Container.Modules
 
         public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
-            builder.RegisterType<OwnershipBasedAuthorizationNHibernateConfigurationActivity>()
-                .As<INHibernateBeforeBindMappingActivity>();
-
-            builder.RegisterGenericDecorator(typeof(OwnershipInitializationCreateEntityDecorator<>), typeof(ICreateEntity<>));
         }
     }
 }
