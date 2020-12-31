@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11259"
+    codeGen  = "5.2.0-b11368"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -384,7 +384,8 @@ function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
-        [switch] $IncludePlugins
+        [switch] $IncludePlugins,
+        [string[]] $ExtensionLocationPaths = @()
     )
 
     Install-CodeGenUtility
@@ -396,8 +397,21 @@ function Invoke-CodeGen {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
+                
+        if (((-not [string]::IsNullOrWhiteSpace($ExtensionLocationPaths)) -and (-not $IncludePlugins))) {
+            
+            $extensionLocationPlugins = @()
+            Foreach ($extensionLocationPath in $ExtensionLocationPaths) {
+                if (![System.IO.Directory]::Exists($extensionLocationPath)) {
+                    throw "Unable to find extension Location project path at location $extensionLocationPath ."
+                }
 
-        if ($IncludePlugins) {
+                $extensionLocationPlugins += $extensionLocationPath
+            }
+
+            & $tool -r $repositoryRoot -e $Engine -j $extensionLocationPlugins | Write-Host
+        }
+        elseif ($IncludePlugins) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
         }
         else {
