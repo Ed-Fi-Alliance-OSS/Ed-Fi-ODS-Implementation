@@ -61,8 +61,16 @@ namespace EdFi.Ods.SandboxAdmin
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddHttpContextAccessor();
 
-            services.Configure<ForwardedHeadersOptions>(
-                options => { options.ForwardedHeaders = ForwardedHeaders.All; });
+            if (ApiSettings.UseReverseProxyHeaders.HasValue && ApiSettings.UseReverseProxyHeaders.Value)
+            {
+                services.Configure<ForwardedHeadersOptions>(
+                    options =>
+                    {
+                        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                                                   & ForwardedHeaders.XForwardedHost
+                                                   & ForwardedHeaders.XForwardedProto;
+                    });
+            }
 
             services.AddScoped(
                 serviceProvider =>
