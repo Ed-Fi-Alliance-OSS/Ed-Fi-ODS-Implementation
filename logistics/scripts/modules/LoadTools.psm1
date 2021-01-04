@@ -60,11 +60,11 @@ function Invoke-SmokeTestClient {
 
     Write-HashtableInfo $config
 
-    $smokeTestExecutable = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+    $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
     $smokeTestSdkDll = (Get-ChildItem -Recurse $config.smokeTestDll).FullName
     $testSetDependsOnSdk = ($config.testSets -contains 'NonDestructiveSdk') -or ($config.testSets -contains 'DestructiveSdk')
 
-    if (-not (Test-Path $smokeTestExecutable)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutable not found." }
+    if (-not (Test-Path $smokeTestExecutableOrDll)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutableOrDll not found." }
 
     if ([string]::IsNullOrWhiteSpace($config.apiUrlBase)) {throw "apiUrlBase is required"}
     if ([string]::IsNullOrWhiteSpace($config.apiKey)) { throw "apiKey is required" }
@@ -87,11 +87,17 @@ function Invoke-SmokeTestClient {
         if ($config.apiYear) { $params += ('-y', '"{0}"' -f $config.apiYear) }
         if ($testSetDependsOnSdk) { $params += ('-l', '"{0}"' -f $smokeTestSdkDll) }
 
-        Write-Host -ForegroundColor Magenta $smokeTestExecutable $params
-        $exitCode = (Start-Process -FilePath $smokeTestExecutable -ArgumentList $params -NoNewWindow -PassThru -Wait).ExitCode
+
+        if ($smokeTestExecutableOrDll.EndsWith('.dll')) {
+            Write-Host -ForegroundColor Magenta "& dotnet $smokeTestExecutableOrDll $params"
+            & dotnet $smokeTestExecutableOrDll $params
+        } else {
+            Write-Host -ForegroundColor Magenta $smokeTestExecutableOrDll $params
+            $exitCode = (Start-Process -FilePath $smokeTestExecutableOrDll -ArgumentList $params -NoNewWindow -PassThru -Wait).ExitCode
+            if ($exitCode -gt 0) { throw "$testSet exited with an error" }
+        }
 
         Test-Error
-        if ($exitCode -gt 0) { throw "$testSet exited with an error" }
     }
 }
 
