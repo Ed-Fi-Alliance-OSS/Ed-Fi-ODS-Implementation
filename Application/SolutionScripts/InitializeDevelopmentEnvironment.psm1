@@ -396,8 +396,6 @@ function Invoke-CodeGen {
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
-        $tool = 'C:\OSS-Workspace\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen\bin\Debug\netcoreapp3.1\EdFi.Ods.CodeGen'
-        Write-Host $tool
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
         
         $extensionLocationPlugins = @()
