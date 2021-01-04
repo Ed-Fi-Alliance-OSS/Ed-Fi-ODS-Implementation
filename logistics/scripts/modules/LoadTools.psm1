@@ -77,21 +77,28 @@ function Invoke-SmokeTestClient {
 
     foreach ($testSet in $config.testSets) {
         $params = @(
-            '-b', '"{0}"' -f $config.apiUrlBase
-            '-k', '"{0}"' -f $config.apiKey
-            '-s', '"{0}"' -f $config.apiSecret
-            '-n', '"{0}"' -f $config.apiNamespaceUri
-            '-t', '"{0}"' -f $testSet
+            '-b', ('"{0}"' -f $config.apiUrlBase),
+            '-k', ('"{0}"' -f $config.apiKey),
+            '-s', ('"{0}"' -f $config.apiSecret),
+            '-n', ('"{0}"' -f $config.apiNamespaceUri),
+            '-t', ('"{0}"' -f $testSet)
         )
 
-        if ($config.apiYear) { $params += ('-y', '"{0}"' -f $config.apiYear) }
-        if ($testSetDependsOnSdk) { $params += ('-l', '"{0}"' -f $smokeTestSdkDll) }
+        if ($config.apiYear) {
+            $params += '-y'
+            $params += ('"{0}"' -f $config.apiYear)
+         }
+        if ($testSetDependsOnSdk) {
+            $params += '-l'
+            $params += ('"{0}"' -f $smokeTestSdkDll)
+        }
 
 
         if ($smokeTestExecutableOrDll.EndsWith('.dll')) {
             Write-Host -ForegroundColor Magenta "& dotnet $smokeTestExecutableOrDll $params"
             & dotnet $smokeTestExecutableOrDll $params
         } else {
+            $params = ($params -join " ")
             Write-Host -ForegroundColor Magenta $smokeTestExecutableOrDll $params
             $exitCode = (Start-Process -FilePath $smokeTestExecutableOrDll -ArgumentList $params -NoNewWindow -PassThru -Wait).ExitCode
             if ($exitCode -gt 0) { throw "$testSet exited with an error" }
