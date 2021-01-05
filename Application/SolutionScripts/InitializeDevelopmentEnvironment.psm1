@@ -277,7 +277,7 @@ Function Invoke-RebuildSolution {
 		$buildErrorsLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.errors.log"
 		$buildSucceeded = $null
         
-        # Build
+		# Build
 		dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath
 		
 		# If we can't find the build's log file in order to inspect it, write a warning and return null.
