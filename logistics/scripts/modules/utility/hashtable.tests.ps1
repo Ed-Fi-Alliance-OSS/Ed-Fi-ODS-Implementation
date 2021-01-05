@@ -336,3 +336,20 @@ Describe 'Get-UnFlatHashtable' {
         $result.a[3].b.c[2] | Should -Be 8
     }
 }
+
+Describe "Convert-HashtableToArray" {
+    Context "converts a hashtable to an array" {
+        It "returns the hashtable for an empty hashtable" {
+            $a = @{}
+            $result = Convert-HashtableToArray $a
+            $result | Should -Be $a
+            $result | Should -BeOfType [System.Collections.Hashtable]
+        }
+
+        It "returns null for an null hashtable" {
+            $a = $null
+            $result = Convert-HashtableToArray $a
+            $result | Should -Be $a
+        }
+    }
+}
