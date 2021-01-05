@@ -131,7 +131,7 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not $NoRebuild) {
             $script:result += Invoke-RestorePackages
-            $script:result += Invoke-RebuildSolutionUsingDotnetBuild
+            $script:result += Invoke-RebuildSolution
         }
 
         $script:result += Reset-TestAdminDatabase
@@ -250,61 +250,6 @@ Set-Alias -Scope Global Rebuild-Solution Invoke-RebuildSolution
 Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
-        [string] $target = "build",
-        [string] $verbosity = "minimal",
-        [string] $maxCpuCount = "",
-        [string] $noReuse = "false",
-        [string] $platformEnvironmentVariable = "Any CPU",
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
-        [string] $msBuildFilePath = $env:msbuild_exe
-    )
-
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
-        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
-
-        Write-Warning -Message ('Invoke-RebuildSolution function will be deprecated. Please use Invoke-RebuildSolution-UsingDotnetBuild')
-
-        $msBuildParameters = @(
-            "`"/property:Configuration=$buildConfiguration`"",
-            "`"/target:$target`"",
-            "`"/verbosity:$verbosity`"",
-            "`"/nr:$noReuse`"",
-            "`"/p:Platform=$platformEnvironmentVariable`""
-        )
-
-        if (-not [string]::IsNullOrWhiteSpace($maxCpuCount)) {
-            $msBuildParameters += "`"/m:$maxCpuCount`""
-        }
-        else {
-            $msBuildParameters += "`"/m`""
-        }
-
-        $params = @{
-            Path                           = $solutionPath
-            MsBuildParameters              = ($msBuildParameters -join ' ')
-            ShowBuildOutputInCurrentWindow = $true
-            LogVerbosityLevel              = $verbosity
-        }
-
-        if (-not [string]::IsNullOrWhiteSpace($msBuildFilePath)) { $params.MsBuildFilePath = $msBuildFilePath }
-
-        ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
-        $buildResult = Invoke-MsBuild @params
-
-        if ($null -eq $buildResult.BuildSucceeded) { throw "Unsure if build passed or failed: $($buildResult.Message)" }
-        if ($buildResult.BuildSucceeded -eq $true) { return }
-        if ($buildResult.BuildSucceeded -eq $false) {
-            Write-Host 'Ensure that the Visual Studio SDK is installed.'
-            throw "Build failed after $(Get-DurationString $buildResult.BuildDuration). Check the build log file '$($buildResult.BuildLogFilePath)' for errors."
-        }
-    }
-}
-
-Set-Alias -Scope Global Rebuild-Solution Invoke-RebuildSolutionUsingDotnetBuild
-Function Invoke-RebuildSolutionUsingDotnetBuild {
-    Param(
-        [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
     )
@@ -333,7 +278,7 @@ Function Invoke-RebuildSolutionUsingDotnetBuild {
 		$buildSucceeded = $null
 		
 		# Build
-        dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath
+		dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath
 		
 		# If we can't find the build's log file in order to inspect it, write a warning and return null.
 		if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))

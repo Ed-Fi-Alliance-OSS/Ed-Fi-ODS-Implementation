@@ -5,7 +5,7 @@
 
 & "$PSScriptRoot\modules\load-path-resolver.ps1"
 
-$testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
+$solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
 $reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
 
 if (Test-Path $reports) {
@@ -14,10 +14,8 @@ if (Test-Path $reports) {
 
 New-Item -ItemType Directory -Force -Path $reports
 
-foreach ($assembly in $testAssemblies) {
-    Write-Host ( "Testing assembly " + $assembly)
+Write-Host ( "Testing Solution Ed-Fi-Ods.sln")
 
-    $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
+$reportName = $reports + "Ed-Fi-Ods-Tests.xml"
 
-    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
-}
+& dotnet test $solutionPath --logger ("trx;LogFileName=" + $reportName)
