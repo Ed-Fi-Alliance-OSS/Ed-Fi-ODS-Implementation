@@ -91,8 +91,9 @@ function Get-PostgresBinaries([hashtable] $config = (Get-DefaultConfiguration)) 
 }
 
 function Expand-PostgresBinariesArchive([hashtable] $config = (Get-DefaultConfiguration)) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -eq 7Zip4Powershell)) { Install-Module -Force -Scope
-        CurrentUser -Name 7Zip4Powershell }
+    if (-not (Get-InstalledModule | Where-Object -Property Name -eq 7Zip4Powershell)) {
+        Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+    }
 
     Write-Host "Expanding Archive: " -NoNewLine
     Write-Host $config.archivePath -ForegroundColor DarkGray
@@ -137,16 +138,16 @@ function New-PackageNuspec([hashtable] $config = (Get-DefaultConfiguration)) {
     $nuspecPath = Join-Path $config.packagePath 'package.nuspec'
 
     $params = @{
-        nuspecPath = $nuspecPath
-        id = '$id$'
-        title = '$title$'
-        description = '$description$'
-        version = '$version$'
-        authors = '$authors$'
-        copyright = '$copyright$'
-        owners = '$owners$'
+        nuspecPath               = $nuspecPath
+        id                       = '$id$'
+        title                    = '$title$'
+        description              = '$description$'
+        version                  = '$version$'
+        authors                  = '$authors$'
+        copyright                = '$copyright$'
+        owners                   = '$owners$'
         requireLicenseAcceptance = $false
-        forceOverwrite = $true
+        forceOverwrite           = $true
     }
     New-Nuspec @params
 
