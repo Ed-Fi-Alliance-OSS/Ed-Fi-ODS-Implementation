@@ -318,23 +318,22 @@ function Get-UserSecrets([string] $Project) {
     if ([string]::IsNullOrWhitespace($Project)) { return @{ } }
 
     $inputTable = @{ }
-    $resultTable = @{ }
 
     try {
         $projectPath = Get-RepositoryResolvedPath $Project
-        $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
-
-        if ($userSecretList -notlike "*No secrets configured for this application*" -and ($null -ne $userSecretList)) {
-            $inputTable = ConvertFrom-StringData -StringData $userSecretList
-        }
-
-        $resultTable = Get-UnFlatHashtable($inputTable)
     }
     catch {
-        Write-Host $_.Exception.Message -ForegroundColor Yellow
+        # if the project throws an error because it does not exist we swallow the error and return an empty hashtable
+        return @{ }
     }
 
-    return ($resultTable)
+    $userSecretList = dotnet user-secrets list --project $projectPath --id (Get-UserSecretsIdByProject).$Project | Out-String
+
+    if ($userSecretList -notlike "*No secrets configured for this application*" -and ($null -ne $userSecretList)) {
+        $inputTable = ConvertFrom-StringData -StringData $userSecretList
+    }
+
+    return (Get-UnFlatHashtable($inputTable))
 }
 
 function Get-MergedAppSettings([string[]] $SettingsFiles = @() , [string]$Project) {
