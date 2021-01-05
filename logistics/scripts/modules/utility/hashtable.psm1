@@ -199,6 +199,8 @@ function Convert-HashtableToArray {
         $Hashtable
     )
 
+    if ($null -eq $Hashtable -or 0 -eq $Hashtable.Keys.Count) { return $Hashtable }
+
     $result = $null
 
     $keysAsIntegers = ($Hashtable.Keys | ForEach-Object { $_ -as [int] }) | Sort-Object -Unique
