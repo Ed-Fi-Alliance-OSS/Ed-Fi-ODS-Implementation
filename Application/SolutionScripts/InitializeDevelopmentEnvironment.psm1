@@ -416,6 +416,9 @@ function Invoke-CodeGen {
         elseif ($IncludePlugins -and $extensionLocationPlugins.count -gt 0 ) {            
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins -j $extensionLocationPlugins | Write-Host
         }
+        elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -gt 0 ) {
+            & $tool -r $repositoryRoot -e $Engine | Write-Host
+        }
         elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
         }
