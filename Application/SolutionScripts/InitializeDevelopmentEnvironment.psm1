@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11371"
+    codeGen = "5.2.0-b11380"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -398,9 +398,10 @@ function Invoke-CodeGen {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
         $total=$ExtensionPaths.Split(" ").Length
-        $counter=1
+        $counter=0
 
-        if (-not [string]::IsNullOrWhiteSpace($ExtensionPaths)) {  
+        if (-not [string]::IsNullOrWhiteSpace($ExtensionPaths)) {
+            $counter=1
             Foreach ($extensionPath in $ExtensionPaths.Split(" ")) {
 
                 if (![System.IO.Directory]::Exists($extensionPath)) {
@@ -418,16 +419,16 @@ function Invoke-CodeGen {
             }
         }
        
-        if ($IncludePlugins -and $extensionLocationPlugins.count -eq 0 ) {
+        if ($IncludePlugins -and $counter -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
         }
-        elseif ($IncludePlugins -and $extensionLocationPlugins.count -gt 0 ) {
+        elseif ($IncludePlugins -and $counter -gt 0 ) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins --ExtensionPaths $extensionLocationPlugins | Write-Host
         }
-        elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -gt 0 ) {
+        elseif ($IncludePlugins -ne 'True' -and $counter -gt 0 ) {
             & $tool -r $repositoryRoot -e $Engine --ExtensionPaths $extensionLocationPlugins | Write-Host
         }
-        elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -eq 0 ) {
+        elseif ($IncludePlugins -ne 'True' -and $counter -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
         }
     }
