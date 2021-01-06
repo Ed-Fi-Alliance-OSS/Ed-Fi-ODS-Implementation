@@ -14,8 +14,10 @@ if (Test-Path $reports) {
 
 New-Item -ItemType Directory -Force -Path $reports
 
-Write-Host ( "Testing Solution Ed-Fi-Ods.sln")
+Write-Host "Testing Solution at $solutionPath"
 
 $reportName = $reports + "Ed-Fi-Ods-Tests.xml"
 
-& dotnet test $solutionPath --logger ("trx;LogFileName=" + $reportName)
+Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --no-build --no-restore --logger=trx;LogFileName=$reportName"
+
+& dotnet test $solutionPath --no-build --no-restore --logger=trx;LogFileName=$reportName
