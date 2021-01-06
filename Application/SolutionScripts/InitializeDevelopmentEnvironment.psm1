@@ -251,11 +251,20 @@ Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
+        [string] $maxCpuCount = "",
+        [string] $noReuse = "false",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+        if (-not [string]::IsNullOrWhiteSpace($maxCpuCount)) {
+            $maxCpuCount = "/m:$maxCpuCount"
+        }
+        else {
+            $maxCpuCount = "/m"
+        }
 
         $params = @{
             Path                           = $solutionPath
@@ -274,35 +283,25 @@ Function Invoke-RebuildSolution {
 		# Local Variables.
 		$solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
 		$buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
-		$buildErrorsLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.errors.log"
-		$buildSucceeded = $null
-        
+		
 		# Build
-		dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath
+        dotnet build $solutionPath -c $buildConfiguration -v $verbosity $maxCpuCount /nr:$noReuse /flp:v=$verbosity /flp:logfile=$buildLogFilePath
 		
 		# If we can't find the build's log file in order to inspect it, write a warning and return null.
 		if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
 		{
-			$buildSucceeded = $null
-			
 			Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
 		}
 		
 		# Get if the build succeeded or not.
-		[bool] $buildOutputDoesNotContainFailureMessage = $null -eq (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
-		$buildSucceeded = $buildOutputDoesNotContainFailureMessage
+		[bool] $buildSucceeded = $null -eq (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
 
-        if ($null -eq $buildSucceeded) { throw "Unsure if build passed or failed: FAILED to build ""$solutionPath"". Please check the build log ""$buildLogFilePath"" for details." }
-        if ($buildSucceeded -eq $true) 
-		{ 
-			if (Test-Path -LiteralPath $buildLogFilePath -PathType Leaf) { Remove-Item -LiteralPath $buildLogFilePath -Force }
-			if (Test-Path -LiteralPath $buildErrorsLogFilePath -PathType Leaf) { Remove-Item -LiteralPath $buildErrorsLogFilePath -Force }
-			return
-		}
         if ($buildSucceeded -eq $false) {
             Write-Host 'Ensure that the Visual Studio SDK is installed.'
             throw "Build failed. Check the build log file '$buildLogFilePath' for errors."
         }
+
+        return
     }
 }
 
