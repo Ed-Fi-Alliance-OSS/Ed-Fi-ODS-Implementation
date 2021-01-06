@@ -413,8 +413,7 @@ function Invoke-CodeGen {
                 else
                 {
                     $extensionLocationPlugins += $extensionPath + ','
-                }
-                
+                }                
                 $counter++
             }
         }
