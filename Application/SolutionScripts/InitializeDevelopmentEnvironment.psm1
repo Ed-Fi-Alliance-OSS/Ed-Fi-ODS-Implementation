@@ -274,27 +274,27 @@ Function Invoke-RebuildSolution {
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
 
-		# Local Variables.
-		$BuildLogDirectoryPath = $env:Temp
-		
-		# Always get the full path to the Log files directory.
-		$BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($BuildLogDirectoryPath)
-		
-		# Local Variables.
-		$solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
-		$buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
-		
-		# Build
-        dotnet build $solutionPath -c $buildConfiguration -v $verbosity $maxCpuCount /nr:$noReuse /flp:v=$verbosity /flp:logfile=$buildLogFilePath
-		
-		# If we can't find the build's log file in order to inspect it, write a warning and return null.
-		if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
-		{
-			Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
-		}
-		
-		# Get if the build succeeded or not.
-		[bool] $buildSucceeded = $null -eq (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
+	# Local Variables.
+	$BuildLogDirectoryPath = $env:Temp
+	
+	# Always get the full path to the Log files directory.
+	$BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($BuildLogDirectoryPath)
+	
+	# Local Variables.
+	$solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
+	$buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
+	
+	# Build
+	dotnet build $solutionPath -c $buildConfiguration -v $verbosity $maxCpuCount /nr:$noReuse /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+	
+	# If we can't find the build's log file in order to inspect it, write a warning and return null.
+	if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
+	{
+		Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
+	}
+	
+	# Get if the build succeeded or not.
+	[bool] $buildSucceeded = $null -eq (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
 
         if ($buildSucceeded -eq $false) {
             Write-Host 'Ensure that the Visual Studio SDK is installed.'
