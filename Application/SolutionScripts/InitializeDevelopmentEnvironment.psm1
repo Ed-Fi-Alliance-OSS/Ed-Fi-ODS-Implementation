@@ -385,7 +385,7 @@ function Invoke-CodeGen {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
         [switch] $IncludePlugins,
-        [string[]] $ExtensionPaths = @()
+        [String] $ExtensionPaths
     )
 
     Install-CodeGenUtility
@@ -397,27 +397,36 @@ function Invoke-CodeGen {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
-        
-        $extensionLocationPlugins = @()
+        $total=$ExtensionPaths.Split(" ").Length
+        $counter=1
 
-        if (-not [string]::IsNullOrWhiteSpace($ExtensionPaths)) {                        
-            Foreach ($extensionPath in $ExtensionPaths) {
+        if (-not [string]::IsNullOrWhiteSpace($ExtensionPaths)) {  
+            Foreach ($extensionPath in $ExtensionPaths.Split(" ")) {
+
                 if (![System.IO.Directory]::Exists($extensionPath)) {
                     throw "Unable to find extension Location project path at location $extensionPath ."
                 }
 
-                $extensionLocationPlugins += $extensionPath
+                if($counter -eq $total){
+                    $extensionLocationPlugins += $extensionPath
+                }
+                else
+                {
+                    $extensionLocationPlugins += $extensionPath + ','
+                }
+                
+                $counter++
             }
         }
        
-        if ($IncludePlugins -and $extensionLocationPlugins.count -eq 0 ) {            
+        if ($IncludePlugins -and $extensionLocationPlugins.count -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
         }
-        elseif ($IncludePlugins -and $extensionLocationPlugins.count -gt 0 ) {            
-            & $tool -r $repositoryRoot -e $Engine -IncludePlugins -j $extensionLocationPlugins | Write-Host
+        elseif ($IncludePlugins -and $extensionLocationPlugins.count -gt 0 ) {
+            & $tool -r $repositoryRoot -e $Engine -IncludePlugins --ExtensionPaths $extensionLocationPlugins | Write-Host
         }
         elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -gt 0 ) {
-            & $tool -r $repositoryRoot -e $Engine -j $extensionLocationPlugins | Write-Host
+            & $tool -r $repositoryRoot -e $Engine --ExtensionPaths $extensionLocationPlugins | Write-Host
         }
         elseif ($IncludePlugins -ne 'True' -and $extensionLocationPlugins.count -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
