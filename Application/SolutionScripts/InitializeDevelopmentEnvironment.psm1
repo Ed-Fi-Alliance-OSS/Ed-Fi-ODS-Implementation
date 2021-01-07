@@ -275,10 +275,7 @@ Function Invoke-RebuildSolution {
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
 
         # Local Variables.
-        $BuildLogDirectoryPath = $env:Temp
-        
-        # Always get the full path to the Log files directory.
-        $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($BuildLogDirectoryPath)
+        $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($env:Temp)
         
         # Local Variables.
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
