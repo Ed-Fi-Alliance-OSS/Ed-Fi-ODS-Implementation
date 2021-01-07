@@ -292,7 +292,7 @@ Function Invoke-RebuildSolution {
         }
         
         # Get if the build succeeded or not.
-        [bool] $buildSucceeded = $null -eq (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
+        [bool] $buildSucceeded = (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch)
 
         if ($buildSucceeded -eq $false) {
             Write-Host 'Ensure that the Visual Studio SDK is installed.'
