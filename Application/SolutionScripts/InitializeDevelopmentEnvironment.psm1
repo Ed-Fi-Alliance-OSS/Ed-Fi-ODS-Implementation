@@ -288,6 +288,7 @@ Function Invoke-RebuildSolution {
         if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
         {
             Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
+            return
         }
         
         # Get if the build succeeded or not.
