@@ -257,13 +257,6 @@ Function Invoke-RebuildSolution {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
-        if (-not [string]::IsNullOrWhiteSpace($maxCpuCount)) {
-            $maxCpuCount = "/m:$maxCpuCount"
-        }
-        else {
-            $maxCpuCount = "/m"
-        }
-
         $params = @{
             Path                           = $solutionPath
             BuildConfiguration             = $buildConfiguration
