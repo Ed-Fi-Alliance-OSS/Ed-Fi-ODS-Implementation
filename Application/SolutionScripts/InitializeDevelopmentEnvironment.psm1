@@ -130,7 +130,6 @@ function Initialize-DevelopmentEnvironment {
         }
 
         if (-not $NoRebuild) {
-            $script:result += Invoke-RestorePackages
             $script:result += Invoke-RebuildSolution
         }
 
@@ -400,13 +399,6 @@ function Invoke-CodeGen {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
         }
     }
-}
-
-function Invoke-RestorePackages {
-    Param(
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
-    )
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task { Restore-Packages -solutionPath $solutionPath -toolsPath $toolsPath }
 }
 
 function Install-DbDeploy {
