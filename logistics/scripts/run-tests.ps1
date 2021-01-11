@@ -18,6 +18,6 @@ Write-Host "Testing Solution at $solutionPath"
 
 $reportName = $reports + "Ed-Fi-Ods-Tests.xml"
 
-Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --no-build --no-restore --logger=trx;LogFileName=$reportName"
+Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --no-build --no-restore --logger (""trx;LogFileName=$reportName"")"
 
-& dotnet test $solutionPath --no-build --no-restore --logger=trx;LogFileName=$reportName
+& dotnet test $solutionPath --no-build --no-restore --logger ("trx;LogFileName=$reportName")
