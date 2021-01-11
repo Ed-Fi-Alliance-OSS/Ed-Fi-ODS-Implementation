@@ -18,4 +18,4 @@ Write-Host "Testing Solution at $solutionPath"
 
 Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger 'trx'"
 
-& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger "trx"
+& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger "console;verbosity=detailed"
