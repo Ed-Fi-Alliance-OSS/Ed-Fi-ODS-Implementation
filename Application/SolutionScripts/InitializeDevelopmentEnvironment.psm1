@@ -130,7 +130,6 @@ function Initialize-DevelopmentEnvironment {
         }
 
         if (-not $NoRebuild) {
-            $script:result += Invoke-RestorePackages
             $script:result += Invoke-RebuildSolution
         }
 
@@ -250,51 +249,47 @@ Set-Alias -Scope Global Rebuild-Solution Invoke-RebuildSolution
 Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
-        [string] $target = "build",
         [string] $verbosity = "minimal",
-        [string] $maxCpuCount = "",
-        [string] $noReuse = "false",
-        [string] $platformEnvironmentVariable = "Any CPU",
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
-        [string] $msBuildFilePath = $env:msbuild_exe
+        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
-        $msBuildParameters = @(
-            "`"/property:Configuration=$buildConfiguration`"",
-            "`"/target:$target`"",
-            "`"/verbosity:$verbosity`"",
-            "`"/nr:$noReuse`"",
-            "`"/p:Platform=$platformEnvironmentVariable`""
-        )
-
-        if (-not [string]::IsNullOrWhiteSpace($maxCpuCount)) {
-            $msBuildParameters += "`"/m:$maxCpuCount`""
-        }
-        else {
-            $msBuildParameters += "`"/m`""
-        }
-
         $params = @{
             Path                           = $solutionPath
-            MsBuildParameters              = ($msBuildParameters -join ' ')
-            ShowBuildOutputInCurrentWindow = $true
+            BuildConfiguration             = $buildConfiguration
             LogVerbosityLevel              = $verbosity
         }
 
-        if (-not [string]::IsNullOrWhiteSpace($msBuildFilePath)) { $params.MsBuildFilePath = $msBuildFilePath }
-
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
-        $buildResult = Invoke-MsBuild @params
 
-        if ($null -eq $buildResult.BuildSucceeded) { throw "Unsure if build passed or failed: $($buildResult.Message)" }
-        if ($buildResult.BuildSucceeded -eq $true) { return }
-        if ($buildResult.BuildSucceeded -eq $false) {
-            Write-Host 'Ensure that the Visual Studio SDK is installed.'
-            throw "Build failed after $(Get-DurationString $buildResult.BuildDuration). Check the build log file '$($buildResult.BuildLogFilePath)' for errors."
+        # Local Variables.
+        $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($env:Temp)
+        
+        # Local Variables.
+        $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
+        $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
+        
+        # Build
+        dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+        
+        # If we can't find the build's log file in order to inspect it, write a warning and return null.
+        if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
+        {
+            Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
+            return
         }
+        
+        # Get if the build succeeded or not.
+        [bool] $buildFailed = (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch -Quiet)
+
+        if ($buildFailed) {
+            Write-Host 'Ensure that the Visual Studio SDK is installed.'
+            throw "Build failed. Check the build log file '$buildLogFilePath' for errors."
+        }
+
+        return
     }
 }
 
@@ -404,13 +399,6 @@ function Invoke-CodeGen {
             & $tool -r $repositoryRoot -e $Engine | Write-Host
         }
     }
-}
-
-function Invoke-RestorePackages {
-    Param(
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
-    )
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task { Restore-Packages -solutionPath $solutionPath -toolsPath $toolsPath }
 }
 
 function Install-DbDeploy {
