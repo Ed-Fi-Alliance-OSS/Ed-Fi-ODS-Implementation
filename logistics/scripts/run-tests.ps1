@@ -16,6 +16,6 @@ New-Item -ItemType Directory -Force -Path $reports
 
 Write-Host "Testing Solution at $solutionPath"
 
-Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger 'trx'"
+Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --results-directory $reports --logger 'trx'"
 
-& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger "console;verbosity=detailed"
+& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger "trx;verbosity=detailed"
