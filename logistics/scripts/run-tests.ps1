@@ -3,10 +3,10 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot/modules/load-path-resolver.ps1"
+& "$PSScriptRoot\modules\load-path-resolver.ps1"
 
-$solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
-$reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "/reports/"
+$testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
+$reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
 
 if (Test-Path $reports) {
     Remove-Item -Path $reports -Force -Recurse
@@ -14,8 +14,10 @@ if (Test-Path $reports) {
 
 New-Item -ItemType Directory -Force -Path $reports
 
-Write-Host "Testing Solution at $solutionPath"
+foreach ($assembly in $testAssemblies) {
+    Write-Host ( "Testing assembly " + $assembly)
 
-Write-Host -ForegroundColor Magenta "& dotnet test $solutionPath --results-directory $reports --logger 'trx'"
+    $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
 
-& dotnet test $solutionPath --no-build --no-restore --results-directory $reports --logger "trx;verbosity=detailed"
+    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
+}
