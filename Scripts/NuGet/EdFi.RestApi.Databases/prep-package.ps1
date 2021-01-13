@@ -40,6 +40,8 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 
 Clear-Error
 
+Write-InvocationInfo $MyInvocation
+
 function Select-ExtensionAssemblyMetadataJson {
     $extensions = @()
     $enabledSources | ForEach-Object {

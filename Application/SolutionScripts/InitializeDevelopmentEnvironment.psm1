@@ -114,7 +114,7 @@ function Initialize-DevelopmentEnvironment {
 
     $elapsed = Use-StopWatch {
 
-        $settings = @{ ApiSettings = @{} }
+        $settings = @{ ApiSettings = @{ } }
 
         if (-not $settings.ContainsKey('ApiSettings')) { $settings = (Merge-Hashtables $settings, @{ ApiSettings = @{ } }) }
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
@@ -257,9 +257,9 @@ Function Invoke-RebuildSolution {
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @{
-            Path                           = $solutionPath
-            BuildConfiguration             = $buildConfiguration
-            LogVerbosityLevel              = $verbosity
+            Path               = $solutionPath
+            BuildConfiguration = $buildConfiguration
+            LogVerbosityLevel  = $verbosity
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
@@ -275,8 +275,7 @@ Function Invoke-RebuildSolution {
         dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
-        if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
-        {
+        if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
             Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
             return
         }
@@ -450,8 +449,93 @@ function Invoke-DotnetTest {
     }
 }
 
-function New-OdsApiPackages {
-    & (Get-RepositoryResolvedPath GetScripts/NuGet/EdFi.RestApi.Databases/prep-package.ps1)
+function Get-DefaultNuGetProperties {
+    $buildConfiguration = 'debug'
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+    return @(
+        "authors=Ed-Fi Alliance"
+        "owners=Ed-Fi Alliance"
+        "configuration=$buildConfiguration"
+    )
+}
+
+function New-DatabasesPackage {
+    param(
+        [string] $ProjectType,
+
+        [string] $PackageId,
+
+        [string] $Version,
+
+        [string[]] $Properties = @(),
+
+        [string] $OutputDirectory
+    )
+
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $projectPath = (Get-RepositoryResolvedPath $ProjectType)
+
+        Write-Host -ForegroundColor Magenta "& `"$projectPath/prep-package.ps1`" $PackageId"
+        & "$projectPath/prep-package.ps1" $PackageId
+
+        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
+
+        $params = @{
+            PackageDefinitionFile = "$projectPath/$PackageId.nuspec"
+            PackageId             = $PackageId
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $OutputDirectory
+            NuGet                 = $nuget
+        }
+        New-Package @params | Out-Host
+    }
+}
+
+function New-WebPackage {
+    param(
+        [string] $ProjectType,
+
+        [string] $PackageId,
+
+        [string] $Version,
+
+        [string[]] $Properties = @(),
+
+        [string] $OutputDirectory
+    )
+
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($PackageId)" -task {
+
+        $projectPath = (Get-RepositoryResolvedPath $ProjectType)
+        $buildConfiguration = 'debug'
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+        $params = @(
+            "publish", $projectPath,
+            "--configuration", $buildConfiguration,
+            "--no-restore",
+            "--no-build"
+        )
+
+        Write-Host -ForegroundColor Magenta "& dotnet $params"
+        & dotnet $params | Out-Host
+
+        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
+
+        $params = @{
+            PackageDefinitionFile = (Get-ChildItem "$projectPath/bin/**/**/publish/$(Split-Path $ProjectType -Leaf).nuspec")
+            PackageId             = $PackageId
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $OutputDirectory
+            NuGet                 = $nuget
+        }
+
+        New-Package @params | Out-Host
+    }
+
 }
 
 Export-ModuleMember -Function * -Alias *

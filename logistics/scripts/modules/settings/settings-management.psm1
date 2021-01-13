@@ -8,6 +8,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
 
+
 function Get-ProjectTypes {
     return @{
         WebApi                 = 'Application/EdFi.Ods.WebApi'
@@ -15,6 +16,16 @@ function Get-ProjectTypes {
         SandboxAdmin           = 'Application/EdFi.Ods.SandboxAdmin'
         SwaggerUI              = 'Application/EdFi.Ods.SwaggerUI'
         Databases              = 'Scripts/NuGet/EdFi.RestApi.Databases'
+    }
+}
+
+function Get-ProjectNameByType {
+    return @{
+        WebApi                 = (Split-Path -Leaf ((Get-ProjectTypes).WebApi))
+        IntegrationTestHarness = (Split-Path -Leaf ((Get-ProjectTypes).IntegrationTestHarness))
+        SandboxAdmin           = (Split-Path -Leaf ((Get-ProjectTypes).SandboxAdmin))
+        SwaggerUI              = (Split-Path -Leaf ((Get-ProjectTypes).SwaggerUI))
+        Databases              = (Split-Path -Leaf ((Get-ProjectTypes).Databases))
     }
 }
 
@@ -531,7 +542,7 @@ function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] 
 
 function ConvertTo-Array($Value) {
     if ($null -eq $Value) { return $null }
-    return $Value.Split([Environment]::NewLine).Split(';')
+    return ,$Value.Split([Environment]::NewLine).Split(';')
 }
 
 function ConvertTo-Boolean($Value) {

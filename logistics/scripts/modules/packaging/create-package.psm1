@@ -68,13 +68,10 @@ function Invoke-CreatePackage {
         [string]
         $ToolsPath
     )
+
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
-    # Ensure we have a NuGet.exe to work with
-    $nuget = Get-Command -Name nuget.exe -ErrorAction SilentlyContinue
-
-    Install-NuGetCli -ToolsPath $ToolsPath
-    $nuget = Join-Path -Path $ToolsPath -ChildPath "nuget.exe"
+    $nuget = Install-NuGetCli -ToolsPath $ToolsPath
 
     # Build release
     $parameters = @{
@@ -93,16 +90,16 @@ function Invoke-CreatePackage {
     # Publish pre-release
     if ($Publish) {
 
-     # Extract package ID from the  nuspec file name
+        # Extract package ID from the nuspec file name
+        [ xml ] $fileContents = Get-Content -Path $PackageDefinitionFile
+        $packageId= $fileContents.package.metadata.id
 
-    [ xml ] $fileContents = Get-Content -Path $PackageDefinitionFile
-    $packageId= $fileContents.package.metadata.id
-    $parameters = @{
-            PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
-            Source = $Source
-            ApiKey = $ApiKey
-            NuGet = $nuget
-            Verbose = $verbose
+        $parameters = @{
+                PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
+                Source = $Source
+                ApiKey = $ApiKey
+                NuGet = $nuget
+                Verbose = $verbose
         }
         Publish-PrereleasePackage @parameters
     }
@@ -110,9 +107,13 @@ function Invoke-CreatePackage {
 
 function New-Package {
     param (
+
         [string]
         [Parameter(Mandatory = $true)]
         $PackageDefinitionFile,
+
+        [string]
+        $PackageId,
 
         [string]
         [Parameter(Mandatory = $true)]
@@ -120,6 +121,9 @@ function New-Package {
 
         [string]
         $Suffix,
+
+        [string[]]
+        $Properties = @(),
 
         [string]
         [Parameter(Mandatory = $true)]
@@ -129,6 +133,7 @@ function New-Package {
         [Parameter(Mandatory = $true)]
         $NuGet
     )
+
     $parameters = @(
         "pack", $PackageDefinitionFile,
         "-Version", $Version,
@@ -140,13 +145,18 @@ function New-Package {
         $parameters += $Suffix
     }
 
+    if ($Properties.Count -gt 0) {
+        $parameters += "-Properties"
+        $parameters += $Properties -join ';'
+    }
+
     if ($Verbose) {
         $parameters += "-Verbosity"
         $parameters += "detailed"
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
-    &$NuGet @parameters
+    & $NuGet @parameters
 }
 
 
@@ -178,7 +188,7 @@ function Publish-PrereleasePackage {
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
-    &$NuGet @parameters
+    & $NuGet @parameters
 }
 
-Export-ModuleMember -Function Invoke-CreatePackage
+Export-ModuleMember -Function Invoke-CreatePackage, New-Package
