@@ -7,11 +7,10 @@ $ErrorActionPreference = 'Stop'
 
 & "$PSScriptRoot\Initialize-PowershellForDevelopment.ps1"
 
-if (Test-TeamCityVersion) { Remove-EdFiDatabases -Force }
-
 $teamcityParameters = Get-TeamCityParameters
 Write-Host
 Write-Host "$($teamcityParameters.Count) TeamCity parameters found."
+Write-Host
 
 # Build and Test
 $params = @{
@@ -27,6 +26,8 @@ $params = @{
     RunSmokeTest  = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSmokeTest'])  $true
     UsePlugins    = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.usePlugins'])    $false
 }
+
+Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
 
 Write-FlatHashtable $params
 Initialize-DevelopmentEnvironment @params
