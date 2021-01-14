@@ -107,7 +107,6 @@ function Invoke-CreatePackage {
 
 function New-Package {
     param (
-
         [string]
         [Parameter(Mandatory = $true)]
         $PackageDefinitionFile,

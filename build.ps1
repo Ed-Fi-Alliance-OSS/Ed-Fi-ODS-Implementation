@@ -5,7 +5,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-. "$PSScriptRoot\Initialize-PowershellForDevelopment.ps1"
+& "$PSScriptRoot/Initialize-PowershellForDevelopment.ps1"
 
 $params = @{
     InstallType   = "Sandbox"

@@ -542,7 +542,6 @@ function New-WebPackage {
 
         New-Package @params | Out-Host
     }
-
 }
 
 Export-ModuleMember -Function * -Alias *
