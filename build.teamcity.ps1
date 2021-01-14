@@ -68,3 +68,5 @@ $params = @{
     OutputDirectory       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.output']      "$PSScriptRoot/packages"
 }
 New-DatabasesPackage @params
+
+if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages']" }
