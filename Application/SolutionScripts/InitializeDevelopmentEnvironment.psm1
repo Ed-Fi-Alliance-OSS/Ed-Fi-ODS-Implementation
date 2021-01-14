@@ -473,11 +473,12 @@ function New-DatabasesPackage {
         [string] $OutputDirectory
     )
 
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectType -Leaf))" -task {
         $projectPath = (Get-RepositoryResolvedPath $ProjectType)
 
         Write-Host -ForegroundColor Magenta "& `"$projectPath/prep-package.ps1`" $PackageId"
         & "$projectPath/prep-package.ps1" $PackageId
+        Write-Host
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
 
@@ -506,7 +507,7 @@ function New-WebPackage {
         [string] $OutputDirectory
     )
 
-    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($PackageId)" -task {
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectType -Leaf))" -task {
 
         $projectPath = (Get-RepositoryResolvedPath $ProjectType)
         $buildConfiguration = 'debug'
@@ -521,12 +522,20 @@ function New-WebPackage {
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"
         & dotnet $params | Out-Host
+        Write-Host
+
+        $PackageDefinitionFile = (Get-ChildItem "$projectPath/bin/**/**/publish/$(Split-Path $ProjectType -Leaf).nuspec")
+
+        if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
+            [xml] $xml = Get-Content $PackageDefinitionFile
+            $xml.package.metadata.id = $PackageId
+            $xml.Save($PackageDefinitionFile)
+        }
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
 
         $params = @{
-            PackageDefinitionFile = (Get-ChildItem "$projectPath/bin/**/**/publish/$(Split-Path $ProjectType -Leaf).nuspec")
-            PackageId             = $PackageId
+            PackageDefinitionFile = $PackageDefinitionFile
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $OutputDirectory
