@@ -551,4 +551,7 @@ function ConvertTo-Boolean($Value) {
     return $null
 }
 
-function Get-ValueOrDefault($Value, $Default) {  return ($Value, $Default | Select-Object -First 1) }
+function Get-ValueOrDefault($Value, $Default) {
+    if ([string]::IsNullOrWhiteSpace($Value)) { return $Default }
+    return $Value
+}
