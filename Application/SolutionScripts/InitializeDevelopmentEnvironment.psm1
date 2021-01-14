@@ -264,14 +264,11 @@ Function Invoke-RebuildSolution {
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
 
-        # Local Variables.
-        $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($env:Temp)
+        $BuildLogDirectoryPath = (Get-Location)
 
-        # Local Variables.
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
-        # Build
         dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
