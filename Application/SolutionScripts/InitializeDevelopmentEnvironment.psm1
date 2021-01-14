@@ -462,7 +462,9 @@ function Get-DefaultNuGetProperties {
 
 function New-DatabasesPackage {
     param(
-        [string] $ProjectType,
+        [string] $ProjectPath,
+
+        [string] $PackageDefinitionFile = "$ProjectPath/$PackageId.nuspec",
 
         [string] $PackageId,
 
@@ -473,17 +475,16 @@ function New-DatabasesPackage {
         [string] $OutputDirectory
     )
 
-    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectType -Leaf))" -task {
-        $projectPath = (Get-RepositoryResolvedPath $ProjectType)
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        Write-Host -ForegroundColor Magenta "& `"$projectPath/prep-package.ps1`" $PackageId"
-        & "$projectPath/prep-package.ps1" $PackageId
+        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId"
+        & "$ProjectPath/prep-package.ps1" $PackageId
         Write-Host
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
 
         $params = @{
-            PackageDefinitionFile = "$projectPath/$PackageId.nuspec"
+            PackageDefinitionFile = (Get-ChildItem "$ProjectPath/$PackageId.nuspec")
             PackageId             = $PackageId
             Version               = $Version
             Properties            = $Properties
@@ -496,7 +497,9 @@ function New-DatabasesPackage {
 
 function New-WebPackage {
     param(
-        [string] $ProjectType,
+        [string] $ProjectPath,
+
+        [string] $PackageDefinitionFile = "$ProjectPath/bin/**/**/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
 
         [string] $PackageId,
 
@@ -504,17 +507,16 @@ function New-WebPackage {
 
         [string[]] $Properties = @(),
 
-        [string] $OutputDirectory
+        [string] $OutputDirectory`
     )
 
-    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectType -Leaf))" -task {
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        $projectPath = (Get-RepositoryResolvedPath $ProjectType)
         $buildConfiguration = 'debug'
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @(
-            "publish", $projectPath,
+            "publish", $ProjectPath,
             "--configuration", $buildConfiguration,
             "--no-restore",
             "--no-build"
@@ -524,8 +526,7 @@ function New-WebPackage {
         & dotnet $params | Out-Host
         Write-Host
 
-        $PackageDefinitionFile = (Get-ChildItem "$projectPath/bin/**/**/publish/$(Split-Path $ProjectType -Leaf).nuspec")
-
+        $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
         if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
             [xml] $xml = Get-Content $PackageDefinitionFile
             $xml.package.metadata.id = $PackageId
