@@ -80,7 +80,7 @@ function Initialize-DevelopmentEnvironment {
         [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
-        [string[]] $OdsTokens = @(),
+        [string[]] $OdsTokens,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer',
