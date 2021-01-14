@@ -19,16 +19,6 @@ function Get-ProjectTypes {
     }
 }
 
-function Get-ProjectNameByType {
-    return @{
-        WebApi                 = (Split-Path -Leaf ((Get-ProjectTypes).WebApi))
-        IntegrationTestHarness = (Split-Path -Leaf ((Get-ProjectTypes).IntegrationTestHarness))
-        SandboxAdmin           = (Split-Path -Leaf ((Get-ProjectTypes).SandboxAdmin))
-        SwaggerUI              = (Split-Path -Leaf ((Get-ProjectTypes).SwaggerUI))
-        Databases              = (Split-Path -Leaf ((Get-ProjectTypes).Databases))
-    }
-}
-
 function Get-DefaultDevelopmentSettingsByProject {
     return @{
         ((Get-ProjectTypes).WebApi)                 = @{
