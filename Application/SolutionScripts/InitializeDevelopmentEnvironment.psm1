@@ -398,14 +398,6 @@ function Invoke-CodeGen {
         $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
               
-        if (-not [string]::IsNullOrWhiteSpace($ExtensionPaths)) {           
-            Foreach ($extensionPath in $ExtensionPaths) {        
-                if (![System.IO.Directory]::Exists($extensionPath)) {
-                    throw "Unable to find extension Location project path at location $extensionPath ."
-                }
-            }
-        }
-       
         if ($IncludePlugins -and $ExtensionPaths.Length -eq 0 ) {
             & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
         }
