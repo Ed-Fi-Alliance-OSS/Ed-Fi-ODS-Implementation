@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11259"
+    codeGen = "5.2.0-b11391"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -379,7 +379,8 @@ function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
-        [switch] $IncludePlugins
+        [switch] $IncludePlugins,
+        [string[]] $ExtensionPaths
     )
 
     Install-CodeGenUtility
@@ -389,15 +390,21 @@ function Invoke-CodeGen {
     }
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
+        $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
-
+        $parameters = @(
+            "-r", $repositoryRoot,
+            "-e", $Engine
+        )
         if ($IncludePlugins) {
-            & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
+            $parameters += "--IncludePlugins"
         }
-        else {
-            & $tool -r $repositoryRoot -e $Engine | Write-Host
+        if ($ExtensionPaths.Length -gt 0) {
+            $parameters += "--ExtensionPaths"
+            $parameters += $ExtensionPaths
         }
+        Write-Host -ForegroundColor Magenta "& $codeGen $parameters"
+        & $codeGen $parameters | Out-Host
     }
 }
 
