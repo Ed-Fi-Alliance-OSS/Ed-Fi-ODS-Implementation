@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11380"
+    codeGen = "5.2.0-b11390"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -395,21 +395,21 @@ function Invoke-CodeGen {
     }
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $tool = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
+        $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
-              
-        if ($IncludePlugins -and $ExtensionPaths.Length -eq 0 ) {
-            & $tool -r $repositoryRoot -e $Engine -IncludePlugins | Write-Host
+        $parameters = @(
+            "-r", $repositoryRoot,
+            "-e", $Engine
+        )
+        if ($IncludePlugins) {
+            $parameters += "--IncludePlugins"
         }
-        elseif ($IncludePlugins -and $ExtensionPaths.Length -gt 0 ) {
-            & $tool -r $repositoryRoot -e $Engine -IncludePlugins --ExtensionPaths $ExtensionPaths | Write-Host
+        if ($ExtensionPaths.Length -gt 0) {
+            $parameters += "--ExtensionPaths"
+            $parameters += $ExtensionPaths
         }
-        elseif (-not  $IncludePlugins -and $ExtensionPaths.Length -gt 0 ) {
-            & $tool -r $repositoryRoot -e $Engine --ExtensionPaths $ExtensionPaths | Write-Host
-        }
-        elseif (-not  $IncludePlugins -and $ExtensionPaths.Length -eq 0 ) {
-            & $tool -r $repositoryRoot -e $Engine | Write-Host
-        }
+        Write-Host -ForegroundColor Magenta "& $codeGen $parameters"
+        & $codeGen $parameters | Out-Host
     }
 }
 
