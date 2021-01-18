@@ -495,7 +495,7 @@ function New-WebPackage {
     param(
         [string] $ProjectPath,
 
-        [string] $PackageDefinitionFile = "$ProjectPath/bin/**/**/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
+        [string] $PackageDefinitionFile = "$ProjectPath/bin/*/*/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
 
         [string] $PackageId,
 
