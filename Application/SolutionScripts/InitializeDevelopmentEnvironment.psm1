@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11391"
+    codeGen = "5.2.0-b11394"
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
@@ -266,21 +266,21 @@ Function Invoke-RebuildSolution {
 
         # Local Variables.
         $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($env:Temp)
-        
+
         # Local Variables.
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
-        
+
         # Build
         dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
-        
+
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
         if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
         {
             Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
             return
         }
-        
+
         # Get if the build succeeded or not.
         [bool] $buildFailed = (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch -Quiet)
 
