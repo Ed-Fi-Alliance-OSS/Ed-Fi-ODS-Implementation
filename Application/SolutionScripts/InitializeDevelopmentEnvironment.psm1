@@ -460,8 +460,6 @@ function New-DatabasesPackage {
     param(
         [string] $ProjectPath,
 
-        [string] $PackageDefinitionFile = "$ProjectPath/$PackageId.nuspec",
-
         [string] $PackageId,
 
         [string] $Version,
@@ -472,6 +470,7 @@ function New-DatabasesPackage {
     )
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
+        if ([string]::IsNullOrWhiteSpace($PackageId)) { $PackageId = (Split-Path $ProjectPath -Leaf) }
 
         Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId"
         & "$ProjectPath/prep-package.ps1" $PackageId

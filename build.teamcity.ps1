@@ -30,7 +30,7 @@ $params = @{
 Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
 
 Write-FlatHashtable $params
-Initialize-DevelopmentEnvironment @params
+$result = Initialize-DevelopmentEnvironment @params
 
 # Package
 $params = @{
@@ -40,7 +40,7 @@ $params = @{
     Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.sandboxAdmin.properties']) (Get-DefaultNuGetProperties)
     OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.output']      "$PSScriptRoot/packages"
 }
-New-WebPackage @params
+$result += New-WebPackage @params
 
 $params = @{
     ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SwaggerUI)
@@ -49,7 +49,7 @@ $params = @{
     Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.swaggerUI.properties']) (Get-DefaultNuGetProperties)
     OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.output']      "$PSScriptRoot/packages"
 }
-New-WebPackage @params
+$result += New-WebPackage @params
 
 $params = @{
     ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
@@ -58,7 +58,7 @@ $params = @{
     Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.webApi.properties']) (Get-DefaultNuGetProperties)
     OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.output']      "$PSScriptRoot/packages"
 }
-New-WebPackage @params
+$result += New-WebPackage @params
 
 $params = @{
     ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases)
@@ -67,6 +67,8 @@ $params = @{
     Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.databases.properties']) (Get-DefaultNuGetProperties)
     OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.output']      "$PSScriptRoot/packages"
 }
-New-DatabasesPackage @params
+$result += New-DatabasesPackage @params
+
+$result | Format-Table
 
 if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages']" }
