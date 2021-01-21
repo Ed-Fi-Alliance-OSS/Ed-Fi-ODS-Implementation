@@ -71,4 +71,4 @@ $result += New-DatabasesPackage @params
 
 $result | Format-Table
 
-if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages']" }
+if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages,*.log']" }
