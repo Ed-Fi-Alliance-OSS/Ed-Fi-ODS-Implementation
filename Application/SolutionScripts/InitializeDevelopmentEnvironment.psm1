@@ -9,35 +9,38 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11394"
+    codeGen  = "5.2.0-b11394"
 }
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-$implementationRepo = Get-Item "$PSScriptRoot\..\.." | Select-Object -Expand Name
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+$implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Name
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-minimal-template.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\create-populated-template.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\config\config-transform.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\postgres-database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-minimal-template.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-populated-template.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/build-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-teamcity.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/postgres-database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/create-package.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/nuget-helper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/config/config-transform.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
 
 Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
 Set-DeploymentSettingsFiles @(
-    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi')\appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi')\appsettings.development.json"
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
 )
 
 Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
@@ -46,36 +49,38 @@ Set-Alias -Scope Global initdev Initialize-DevelopmentEnvironment
 function Initialize-DevelopmentEnvironment {
     <#
     .description
-        Builds the ODS/API solution and deploys the necessary databases
+        Builds the ODS/API solution and deploys the necessary databases in order to setup a complete development environment.
     .parameter InstallType
-        The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'
+        The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'.
     .parameter OdsTokens
         A semicolon-separated string of tokens to use when creating Ods database instances.
         For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter Engine
-        The database engine provider, either "SQLServer" or "PostgreSQL"
+        The database engine provider, either "SQLServer" or "PostgreSQL".
     .parameter NoRebuild
-        Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln
+        Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln.
     .parameter NoCodeGen
         Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
     .parameter NoDeploy
         Skip the Initialize-DeploymentEnvironment task which is primarily used to setup developer/production environments. Mainly used by continuous integration.
     .parameter RunPester
         Runs the Invoke-PesterTests task which will run the Pester tests in addition to the other initdev pipeline tasks.
+    .parameter RunDotnetTest
+        Runs the dotnet tests for the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln.
     .parameter RunPostman
         Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
     .parameter RunSmokeTest
         Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
     .parameter UsePlugins
-        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
+        Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
         [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
-        [string] $OdsTokens = @(),
+        [string[]] $OdsTokens,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine = 'SQLServer',
@@ -88,18 +93,15 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $NoDeploy,
 
-        [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
-        [switch] $NoCredentials,
-
         [switch] $RunPester,
+
+        [switch] $RunDotnetTest,
 
         [switch] $RunPostman,
 
         [switch] $RunSmokeTest,
 
-        [switch] $UsePlugins,
-
-        [switch] $RunDotnetTest
+        [switch] $UsePlugins
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -112,7 +114,7 @@ function Initialize-DevelopmentEnvironment {
 
     $elapsed = Use-StopWatch {
 
-        $settings = @{ ApiSettings = @{} }
+        $settings = @{ ApiSettings = @{ } }
 
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
@@ -123,16 +125,13 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
-        $script:result += Install-DbDeploy
-
-        if (-not $ExcludeCodeGen) {
-            $script:result += Invoke-CodeGen
-        }
+        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen }
 
         if (-not $NoRebuild) {
             $script:result += Invoke-RebuildSolution
         }
 
+        $script:result += Install-DbDeploy
         $script:result += Reset-TestAdminDatabase
         $script:result += Reset-TestSecurityDatabase
 
@@ -152,11 +151,11 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunPester) { $script:result += Invoke-PesterTests }
 
+        if ($RunDotnetTest) { $script:result += Invoke-DotnetTest }
+
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
-
-        if ($RunDotnetTest) { $script:result += Invoke-DotnetTest }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -172,9 +171,9 @@ function Invoke-ConfigTransform {
         [String] $Engine = 'SQLServer'
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $baseConfig = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Base.config'
-        $npgsqlTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Npgsql.config'
-        $debugTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.WebApi\Web.Debug.config'
+        $baseConfig = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Base.config'
+        $npgsqlTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Npgsql.config'
+        $debugTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Debug.config'
         $destinationFile = ($baseConfig -replace "base.", "")
 
         $transformFiles = @()
@@ -185,9 +184,9 @@ function Invoke-ConfigTransform {
     }
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $baseConfig = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Base.config'
-        $npgsqlTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Npgsql.config'
-        $debugTransform = Get-RepositoryResolvedPath 'Application\EdFi.Ods.SandboxAdmin.Web\Web.Debug.config'
+        $baseConfig = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Base.config'
+        $npgsqlTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Npgsql.config'
+        $debugTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Debug.config'
         $destinationFile = ($baseConfig -replace "base.", "")
 
         $transformFiles = @()
@@ -257,26 +256,22 @@ Function Invoke-RebuildSolution {
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @{
-            Path                           = $solutionPath
-            BuildConfiguration             = $buildConfiguration
-            LogVerbosityLevel              = $verbosity
+            Path               = $solutionPath
+            BuildConfiguration = $buildConfiguration
+            LogVerbosityLevel  = $verbosity
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
 
-        # Local Variables.
-        $BuildLogDirectoryPath = [System.IO.Path]::GetFullPath($env:Temp)
+        $BuildLogDirectoryPath = (Get-Location)
 
-        # Local Variables.
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
-        # Build
         dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
-        if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf))
-        {
+        if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
             Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
             return
         }
@@ -426,27 +421,126 @@ function Invoke-PesterTests {
             Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
         }
 
-        $params = @{ Output = 'Detailed' }
-        if (Test-TeamCityVersion) { $params.CI = $true }
+        $params = @{
+            Output = 'Detailed'
+            CI     = $true
+        }
         Invoke-Pester @params
     }
 }
 
 function Invoke-PostmanIntegrationTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics\scripts\Invoke-PostmanIntegrationTests.ps1")
+        & (Get-RepositoryResolvedPath "logistics/scripts/Invoke-PostmanIntegrationTests.ps1")
     }
 }
 
 function Invoke-SmokeTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics\scripts\run-smoke-tests.ps1")
+        & (Get-RepositoryResolvedPath "logistics/scripts/run-smoke-tests.ps1")
     }
 }
 
 function Invoke-DotnetTest {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics\scripts\run-tests.ps1")
+        & (Get-RepositoryResolvedPath "logistics/scripts/run-tests.ps1")
+    }
+}
+
+function Get-DefaultNuGetProperties {
+    $buildConfiguration = 'debug'
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+    return @(
+        "authors=Ed-Fi Alliance"
+        "owners=Ed-Fi Alliance"
+        "configuration=$buildConfiguration"
+    )
+}
+
+function New-DatabasesPackage {
+    param(
+        [string] $ProjectPath,
+
+        [string] $PackageId,
+
+        [string] $Version,
+
+        [string[]] $Properties = @(),
+
+        [string] $OutputDirectory
+    )
+
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
+        if ([string]::IsNullOrWhiteSpace($PackageId)) { $PackageId = (Split-Path $ProjectPath -Leaf) }
+
+        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId"
+        & "$ProjectPath/prep-package.ps1" $PackageId
+        Write-Host
+
+        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
+
+        $params = @{
+            PackageDefinitionFile = (Get-ChildItem "$ProjectPath/$PackageId.nuspec")
+            PackageId             = $PackageId
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $OutputDirectory
+            NuGet                 = $nuget
+        }
+        New-Package @params | Out-Host
+    }
+}
+
+function New-WebPackage {
+    param(
+        [string] $ProjectPath,
+
+        [string] $PackageDefinitionFile = "$ProjectPath/bin/*/*/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
+
+        [string] $PackageId,
+
+        [string] $Version,
+
+        [string[]] $Properties = @(),
+
+        [string] $OutputDirectory`
+    )
+
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
+
+        $buildConfiguration = 'debug'
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+        $params = @(
+            "publish", $ProjectPath,
+            "--configuration", $buildConfiguration,
+            "--no-restore",
+            "--no-build"
+        )
+
+        Write-Host -ForegroundColor Magenta "& dotnet $params"
+        & dotnet $params | Out-Host
+        Write-Host
+
+        $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
+        if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
+            [xml] $xml = Get-Content $PackageDefinitionFile
+            $xml.package.metadata.id = $PackageId
+            $xml.Save($PackageDefinitionFile)
+        }
+
+        $nuget = Install-NuGetCli -ToolsPath $ToolsPath
+
+        $params = @{
+            PackageDefinitionFile = $PackageDefinitionFile
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $OutputDirectory
+            NuGet                 = $nuget
+        }
+
+        New-Package @params | Out-Host
     }
 }
 

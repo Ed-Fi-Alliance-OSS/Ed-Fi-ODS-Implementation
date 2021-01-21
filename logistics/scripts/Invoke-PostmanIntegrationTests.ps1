@@ -26,7 +26,19 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\script
 $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
-function Install-Newman { & npm install -g newman newman-reporter-teamcity newman-reporter-html }
+function Install-Newman {
+
+    node --version | Out-Host
+    npm version | Out-Host
+
+    try {
+        npm install -g newman newman-reporter-teamcity newman-reporter-html
+    }
+    catch {
+        Write-Host $_ -ForegroundColor Red
+        Clear-Error
+    }
+}
 
 function Invoke-Newman {
     $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite\")

@@ -5,7 +5,7 @@
 
 #requires -module Pester -version 5
 
-BeforeAll { Import-Module -Force ($PSCommandPath.Replace('.tests.ps1', '.psm1')) }
+BeforeAll { Import-Module -Force -Scope Global ($PSCommandPath.Replace('.tests.ps1', '.psm1')) }
 
 Describe 'Assert-ValidAppSettings' {
     It "returns successful when settings are valid" {

@@ -730,7 +730,10 @@ Function Remove-Database {
         # NOTE: We use DROP DATABASE rather than the SMO's .KillDatabase() function because the former can
         #       drop a database stuck in "Restoring" state, but the latter cannot
         $dropDatabase = @(
-            "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+            "IF DATABASEPROPERTYEX('$databaseName', 'Status') != 'RESTORING'"
+            "BEGIN"
+                "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+            "END"
             "GO"
             "DROP DATABASE [$databaseName]"
             "GO"

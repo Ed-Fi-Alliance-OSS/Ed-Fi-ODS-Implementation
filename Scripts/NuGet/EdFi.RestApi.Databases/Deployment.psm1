@@ -54,7 +54,7 @@ function Initialize-DeploymentEnvironment {
         [string] $EnabledFeatureNames,
 
         [Alias('OdsYears')]
-        [string] $OdsTokens,
+        [string[]] $OdsTokens,
 
         [ValidateSet("minimal", "populated")]
         [string] $OdsDatabaseTemplateName,

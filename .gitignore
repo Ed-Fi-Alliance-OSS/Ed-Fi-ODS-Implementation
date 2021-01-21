@@ -84,7 +84,7 @@ libs.codegen/
 *.ncrunchsolution
 /Application/*.ncrunchsolution
 /Application/*.DotSettings
-/Application/msbuild.log
+*.msbuild.log
 
 # ExtensionProjects
 Extensions/**/MetaEdOutput/

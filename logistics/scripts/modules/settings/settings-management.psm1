@@ -528,3 +528,19 @@ function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] 
 
     return $Settings
 }
+
+function ConvertTo-Array($Value) {
+    if ($null -eq $Value) { return $null }
+    return ,$Value.Split([Environment]::NewLine).Split(';')
+}
+
+function ConvertTo-Boolean($Value) {
+    $result = $null
+    if ([Boolean]::TryParse($Value, [ref]$result)) { return $result }
+    return $null
+}
+
+function Get-ValueOrDefault($Value, $Default) {
+    if ([string]::IsNullOrWhiteSpace($Value)) { return $Default }
+    return $Value
+}
