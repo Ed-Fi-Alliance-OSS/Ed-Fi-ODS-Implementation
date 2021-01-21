@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen = "5.2.0-b11394"
+    codeGen  = "5.2.0-b11394"
 }
 
 & "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
@@ -421,8 +421,10 @@ function Invoke-PesterTests {
             Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
         }
 
-        $params = @{ Output = 'Detailed' }
-        if (Test-TeamCityVersion) { $params.CI = $true }
+        $params = @{
+            Output = 'Detailed'
+            CI     = $true
+        }
         Invoke-Pester @params
     }
 }
