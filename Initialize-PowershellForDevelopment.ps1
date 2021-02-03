@@ -37,10 +37,6 @@ function Find-BlockedFiles {
 }
 
 function Install-RequiredPackageProvider {
-    # Ensure we have Tls12 support
-    if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
-        [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
-    }
     $packageProvider = Get-PackageProvider | ? -Property Name -eq "NuGet"
 
     if ($packageProvider -eq $null) {

@@ -17,11 +17,6 @@ function Use-SqlServerModule {
         Import-Module -Force -Scope Global SqlServer
     }
     else {
-        # Ensure we have Tls12 support
-        if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
-            [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
-        }
-
         Write-Host "Installing SqlServer Module"
         Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
         Import-Module -Force -Scope Global SqlServer

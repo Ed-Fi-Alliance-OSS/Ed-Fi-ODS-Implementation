@@ -35,11 +35,6 @@ function Get-PGDumpPath { return (Resolve-path (Join-Path (Get-PostgreSQLBinarie
 function Get-PGRestorePath { return (Resolve-path (Join-Path (Get-PostgreSQLBinariesPath) 'pg_restore.exe')).Path }
 
 function Install-PostgreSQLBinaries {
-    # Ensure we have Tls12 support
-    if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
-        [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
-    }
-
     $parameters = @{
         packageName     = $script:packageName
         packageVersion  = $script:packageVersion

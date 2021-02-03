@@ -42,11 +42,6 @@ param (
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
 
-# Ensure we have Tls12 support
-if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12))
-{
-    [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
-}
 $providerName = 'NuGet'
 if (-not (Get-PackageProvider | Where-Object { $_.Name -eq $providerName })) {
     Write-Host "Installing nuget package provider"
