@@ -10,7 +10,7 @@ Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\Tools
 
 $parameters = @{
     packageName     = 'EdFi.Suite3.Ods.Populated.Template.PostgreSQL'
-    packageVersion  = '5.2.0-b10420'
+    packageVersion  = '5.2.0-b10421'
     packageSource   = 'https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json'
     outputDirectory = "$PSScriptRoot/../Database"
     toolsPath       = (Get-ToolsPath)
