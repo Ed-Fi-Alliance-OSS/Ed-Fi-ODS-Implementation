@@ -9,7 +9,7 @@ $ErrorActionPreference = 'Stop'
 
 $toolVersion = @{
     dbDeploy = "2.2.0-b10049"
-    codeGen  = "5.2.0-b11478"
+    codeGen  = "5.2.0-b11527"
 }
 
 & "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
