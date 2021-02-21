@@ -45,7 +45,6 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities\DataLoading\LoadTools.sln")
     $config.bulkLoadClientExecutable = "$(Get-RepositoryResolvedPath "Utilities\DataLoading\EdFi.BulkLoadClient.Console")\bin\**\EdFi.BulkLoadClient.Console.exe"
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors", "InterchangeStandards", "InterchangeEducationOrganization")
-    $config.bulkLoadDirectorySchema = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
     $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Metadata\")
     $config.bulkLoadTempDirectory = Join-Path $env:temp "CreateDatabaseTemplate"
     $config.bulkLoadTempDirectorySchema = Join-Path $config.bulkLoadTempDirectory "Schemas"
@@ -300,7 +299,6 @@ function Invoke-LoadBootstrapData {
         bulkLoadDirectoryWorking    = $config.bulkLoadTempDirectory
         bulkLoadDirectoryData       = $config.bulkLoadTempDirectoryBootstrap
         bulkLoadDirectoryMetadata   = $config.bulkLoadDirectoryMetadata
-        bulkLoadDirectorySchema     = $config.bulkLoadDirectorySchema
         bulkLoadForceReloadMetadata = $true
         bulkLoadMaxRequests         = $config.bulkLoadMaxRequests
         BulkLoadNoXmlValidation     = $config.noValidation
@@ -335,7 +333,6 @@ function Invoke-LoadSampleData {
         bulkLoadConnectionLimit     = 100
         bulkLoadDirectoryData       = $config.bulkLoadTempDirectorySample
         bulkLoadDirectoryMetadata   = $config.bulkLoadDirectoryMetadata
-        bulkLoadDirectorySchema     = $config.bulkLoadDirectorySchema
         bulkLoadDirectoryWorking    = $config.bulkLoadTempDirectory
         bulkLoadForceReloadMetadata = $true
         bulkLoadMaxRequests         = $config.bulkLoadMaxRequests
