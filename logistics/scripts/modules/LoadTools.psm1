@@ -122,7 +122,6 @@ function Invoke-BulkLoadClient {
     $bulkLoadConnectionLimit = $config.bulkLoadConnectionLimit
     $bulkLoadDirectoryData = $config.bulkLoadDirectoryData
     $bulkLoadDirectoryMetadata = $config.bulkLoadDirectoryMetadata -replace '\\', '/'
-    $bulkLoadDirectorySchema = $config.bulkLoadDirectorySchema -replace '\\', '/'
     $bulkLoadDirectoryWorking = $config.bulkLoadDirectoryWorking -replace '\\', '/'
     $bulkLoadForceReloadMetadata = $config.bulkLoadForceReloadMetadata -replace '\\', '/'
     $bulkLoadMaxRequests = $config.bulkLoadMaxRequests
@@ -138,7 +137,6 @@ function Invoke-BulkLoadClient {
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadConnectionLimit)) { $params += "-c", $bulkLoadConnectionLimit }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadDirectoryData)) { $params += "-d", "`"$bulkLoadDirectoryData`"" }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadDirectoryMetadata)) { $params += "-i", "`"$bulkLoadDirectoryMetadata`"" }
-    if (-not [string]::IsNullOrWhiteSpace($bulkLoadDirectorySchema)) { $params += "-x", "`"$bulkLoadDirectorySchema`"" }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadDirectoryWorking)) { $params += "-w", "`"$bulkLoadDirectoryWorking`"" }
     if ($bulkLoadForceReloadMetadata) { $params += "-f" }
     if (-not [string]::IsNullOrWhiteSpace($bulkLoadMaxRequests)) { $params += "-l", $bulkLoadMaxRequests }

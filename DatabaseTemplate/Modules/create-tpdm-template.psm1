@@ -19,7 +19,6 @@ function Get-TPDMConfiguration([hashtable] $config = @{ }) {
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
 
     $config.bulkLoadMaxRequests = 1
-    $config.bulkLoadDirectorySchema = $config.bulkLoadTempDirectorySchema
     $config.schemaDirectories = @(
         (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
         ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")

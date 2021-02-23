@@ -19,7 +19,6 @@ function Get-MinimalConfiguration([hashtable] $config = @{ }) {
 
     $config.Remove('bulkLoadTempDirectorySample')
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors")
-
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template"
     $config.packageNuspecName = "EdFi.Ods.Minimal.Template"
 
