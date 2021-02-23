@@ -8,12 +8,14 @@
 Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 
+$configuration = (Get-Content "$PSScriptRoot/configuration.json" | ConvertFrom-Json).homograph
+
 $pluginPaths = @()
 
 $parameters = @{
-    packageName     = "EdFi.Suite3.Ods.Extensions.Homograph"
-    packageVersion  = "5.2.0-b10551"
-    packageSource   = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    packageName     = $configuration.packageName
+    packageVersion  = $configuration.packageVersion
+    packageSource   = $configuration.packageSource
     outputDirectory = "$PSScriptRoot"
     toolsPath       = (Get-ToolsPath)
 }

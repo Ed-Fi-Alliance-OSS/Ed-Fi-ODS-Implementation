@@ -79,7 +79,8 @@ function Install-DotNetTool {
     Param(
         [string] $Path,
         [string] $Name,
-        [string] $Version
+        [string] $Version,
+        [string] $Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     )
 
     $installedVersion = (Get-DotNetTool $Path $Name).Version
@@ -89,7 +90,6 @@ function Install-DotNetTool {
         return
     }
 
-
     if ($null -ne $installedVersion) {
         # there is a bug where we cannot update a beta package, so a remove and install is the safe solution
         # c.f. https://github.com/dotnet/sdk/issues/2551
@@ -97,9 +97,9 @@ function Install-DotNetTool {
     }
 
     Write-Host "Installing $Name version $Version to $Path"
+    Write-Host -ForegroundColor Magenta "& dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source"
 
-    $source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-    & dotnet tool install $Name --version $Version --tool-path $Path --add-source $source
+    & dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source
 }
 
 function Install-ToolDbDeploy {

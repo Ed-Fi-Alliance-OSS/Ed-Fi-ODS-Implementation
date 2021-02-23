@@ -5,13 +5,16 @@
 
 #requires -modules "path-resolver"
 
-Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
-Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+
+$configuration = (Get-Content "$PSScriptRoot/configuration.json" | ConvertFrom-Json).EdFiMinimalTemplate
 
 $parameters = @{
-    packageName     = 'EdFi.Suite3.Ods.Minimal.Template'
-    packageVersion  = '5.2.0-b10476'
-    packageSource   = 'https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json'
+    packageName     = $configuration.packageName
+    packageVersion  = $configuration.packageVersion
+    packageSource   = $configuration.packageSource
     outputDirectory = "$PSScriptRoot/../Database"
     toolsPath       = (Get-ToolsPath)
 }
