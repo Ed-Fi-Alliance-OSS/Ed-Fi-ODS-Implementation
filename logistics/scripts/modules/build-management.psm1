@@ -158,7 +158,7 @@ function New-OctopusChannel {
     $odsApiChannelGetUri = "$octopusServer/api/projects/$octopusProjectId/channels/"
     $channelPostUri = "$octopusServer/api/channels/"
     $response = Invoke-RestMethod -Method 'Get' -Uri $odsApiChannelGetUri -Headers $headers -UseBasicParsing
-    if ($response.Items -match $channelName) {
+    if ($response.Items -eq $channelName) {
         Write-Host "Channel $channelName already exists."
     }
     else {
