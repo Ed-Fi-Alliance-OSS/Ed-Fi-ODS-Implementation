@@ -162,6 +162,8 @@ function New-OctopusChannel {
         Write-Host "Channel $channelName already exists."
     }
     else {
+        Write-Host "Creating channel $channelName"
+
         # Build version string allowing any package that has the same major/minor version, including prerelease packages
         # For example, Major = 5, Minor = 2
         # Built version string: [5.2-0,5.3-0)
@@ -193,10 +195,11 @@ function New-OctopusChannel {
         $newChannelJson = ConvertTo-Json $newChannelObject -Depth 100 -Compress
         $createResponse = Invoke-WebRequest -Method 'Post' -Uri $channelPostUri -Headers $headers -Body $newChannelJson -UseBasicParsing
         if ($createResponse.StatusCode -ne 201) {
-            Write-Host "Channel creation failed"
+            Write-Host "Channel creation $channelName failed"
             $createResponse
             exit 1
         }
+        Write-Host "Channel creation $channelName succeeded"
     }
     Write-Host "##teamcity[setParameter name='octopus.release.channel' value='$channelName']"
     exit 0
