@@ -6,7 +6,7 @@
 // @ts-check
 const newVersion = (suite, major, minor, patch, prerelease) => ({ suite, major, minor, patch, prerelease })
 
-const getVersionString = (v) => `${v.major}.${v.minor}.${v.patch}${v.prerelease != null ? '-' + v.prerelease : ''}`
+const getVersionString = (v) => `${v.major}.${v.minor}${getPatchVersion(v)}${v.prerelease != null ? '-' + v.prerelease : ''}`
 
 // stops patch versions of 0 from being displayed in previous releases
 const getPatchVersion = (v) => ((v.patch === 0 && v.suite <= 3 && v.major <= 3) || (v.major > 3) ? '' : '.' + v.patch)
