@@ -135,7 +135,15 @@ const search = async (state) => {
 
     if (state.response.ok) {
       state = next(resetState(state))
-      state.versions.push(state.version)
+
+      if (state.version.suite >= 3 && state.version.major >= 5 && state.version.minor >= 1) {
+        if (state.version.patch === 0) {
+          state.versions.push(state.version)
+        }
+      }
+      else {
+        state.versions.push(state.version)
+      }
     }
 
     state = next(state)
