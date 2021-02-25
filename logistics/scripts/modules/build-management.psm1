@@ -142,41 +142,38 @@ function New-OctopusChannel {
     }
 
     $splitPackageVersion = $packageVersion.Split(".")
-    # We only care about Major/Minor/Patch for determining channel, so only look at the first three entries
-    if ($splitPackageVersion.Count -lt 3) {
-        Write-Host "Invalid Package Version provided $packageVersion.  Package version must include major, minor, and patch."
-        exit 1
-    }
-    $majorVersion = $splitPackageVersion[0]
-    $minorVersion = $splitPackageVersion[1]
-    $patchVersion = $splitPackageVersion[2]
-    $versionRangeStartMajorVersion = $majorVersion
-    $versionRangeStartMinorVersion = $minorVersion
-    $versionRangeStartPatchVersion = $patchVersion - 1
-    if ($versionRangeStartPatchVersion -lt 0) {
-        $versionRangeStartMinorVersion = $minorVersion - 1
-        $versionRangeStartPatchVersion = 9999;
-        if ($versionRangeStartMinorVersion -lt 0) {
-            $versionRangeStartMajorVersion = $majorVersion - 1
-            $versionRangeStartMinorVersion = 9999;
-            if ($versionRangeStartMajorVersion -lt 0) {
-                Write-Host "Invalid version, unable to set start of version range"
-                exit 1
-            }
-        }
+    # We only care about Major/Minor for determining channel, so only look at the first two entries
+    if ($splitPackageVersion.Count -lt 2) {
+        throw "Invalid Package Version provided $packageVersion.  Package version must include major and minor."
     }
 
-    $channelName = "v$majorVersion.$minorVersion.$patchVersion$prereleaseSuffix";
+    $majorVersion = $splitPackageVersion[0]
+    $minorVersion = $splitPackageVersion[1]
+
+    $channelName = "v$majorVersion.$minorVersion$prereleaseSuffix";
 
     $headers = @{ "X-Octopus-ApiKey" = $octopusApiKey }
 
     $odsApiChannelGetUri = "$octopusServer/api/projects/$octopusProjectId/channels/"
     $channelPostUri = "$octopusServer/api/channels/"
     $response = Invoke-RestMethod -Method 'Get' -Uri $odsApiChannelGetUri -Headers $headers -UseBasicParsing
-    if ($response.Items -match $channelName) {
+    if ($response.Items.Name -contains $channelName) {
         Write-Host "Channel $channelName already exists."
     }
     else {
+        Write-Host "Creating channel $channelName"
+
+        # Build version string allowing any package that has the same major/minor version, including prerelease packages
+        # For example, Major = 5, Minor = 2
+        # Built version string: [5.2-0,5.3-0)
+        # Allowed: 5.2.0, 5.2.33, 5.2.9000, 5.2.8753-b290384
+        # Blocked: 5.1.0, 5.1.9999, 5.1.0-b290384, 5.3.0, 5.3.9999, 5.3.0-b290384
+        # See https://github.com/NuGet/Home/issues/6434 for recommendation around using "-0" on the version match to manage prerelease
+        $versionRangeStartMajorVersion = $majorVersion
+        $versionRangeStartMinorVersion = $minorVersion
+        $versionRangeEndMajorVersion = $majorVersion
+        $versionRangeEndMinorVersion = [int]$minorVersion + 1
+
         $newChannelObject = @{
             IsDefault = $false
             Rules     = @(
@@ -187,7 +184,7 @@ function New-OctopusChannel {
                         "Install Admin NuGet Package",
                         "Install Swagger NuGet package"
                     )
-                    VersionRange = "($versionRangeStartMajorVersion.$versionRangeStartMinorVersion.$versionRangeStartPatchVersion,$majorVersion.$minorVersion.$patchVersion]"
+                    VersionRange = "[$versionRangeStartMajorVersion.$versionRangeStartMinorVersion-0,$versionRangeEndMajorVersion.$versionRangeEndMinorVersion-0)"
                 }
             )
             Name      = $channelName
@@ -197,13 +194,12 @@ function New-OctopusChannel {
         $newChannelJson = ConvertTo-Json $newChannelObject -Depth 100 -Compress
         $createResponse = Invoke-WebRequest -Method 'Post' -Uri $channelPostUri -Headers $headers -Body $newChannelJson -UseBasicParsing
         if ($createResponse.StatusCode -ne 201) {
-            Write-Host "Channel creation failed"
-            $createResponse
-            exit 1
+            Write-Host $createResponse
+            throw "Channel creation $channelName failed"
         }
+        Write-Host "Channel creation $channelName succeeded"
     }
-    Write-Host "##teamcity[setParameter name='octopus.release.channel' value='$channelName']"
-    exit 0
+    if (Test-TeamCityVersion) { Write-Host "##teamcity[setParameter name='octopus.release.channel' value='$channelName']" }
 }
 
 function Select-NodeVersion {
