@@ -6,7 +6,9 @@
 // @ts-check
 const newVersion = (suite, major, minor, patch, prerelease) => ({ suite, major, minor, patch, prerelease })
 
-const getVersionString = (v) => `${v.major}.${v.minor}${getPatchVersion(v)}${v.prerelease != null ? '-' + v.prerelease : ''}`
+const getVersionString = (v) => `${v.major}.${v.minor}.${v.patch}${v.prerelease != null ? '-' + v.prerelease : ''}`
+
+const getVersionStringForNavigation = (v) => `${v.major}.${v.minor}${(v.suite <= 3 && (v.major <= 3 || (v.major >= 4 && v.minor <= 1))) ? '.' + v.patch : ''}${v.prerelease != null ? '-' + v.prerelease : ''}`
 
 // stops patch versions of 0 from being displayed in previous releases
 const getPatchVersion = (v) => ((v.patch === 0 && v.suite <= 3 && v.major <= 3) || (v.major > 3) ? '' : '.' + v.patch)
@@ -39,14 +41,14 @@ const sortVersions = (vx, vy) => {
   return 0
 }
 
-const docsUrlFor = (state) =>
+const docsUrlFor = (state, isNavigationRoute = false) =>
   state.config.docsUrlTemplate
-    .replace('{{version}}', getVersionString(state.version))
+    .replace('{{version}}', isNavigationRoute ? getVersionStringForNavigation(state.version) : getVersionString(state.version))
     .replace('{{suite}}', state.version.suite.toString())
 
-const apiUrlFor = (state) =>
+const apiUrlFor = (state, isNavigationRoute = false) =>
   state.config.apiUrlTemplate
-    .replace('{{version}}', getVersionString(state.version))
+    .replace('{{version}}', isNavigationRoute ? getVersionStringForNavigation(state.version) : getVersionString(state.version))
     .replace('{{suite}}', state.version.suite.toString())
 
 const getDisplayVersionFor = (state) =>
@@ -173,11 +175,11 @@ const createVersionRows = (state) => {
 
     if (s.config.apiUrlTemplate != null) {
       const apiTemplate = document.querySelector('#apiTemplate').innerHTML
-      versionLinks.innerHTML += apiTemplate.replace(/{{apiUrl}}/g, apiUrlFor(s))
+      versionLinks.innerHTML += apiTemplate.replace(/{{apiUrl}}/g, apiUrlFor(s, true))
     }
 
     const docsTemplate = document.querySelector('#docsTemplate').innerHTML
-    versionLinks.innerHTML += docsTemplate.replace(/{{docsUrl}}/g, docsUrlFor(s))
+    versionLinks.innerHTML += docsTemplate.replace(/{{docsUrl}}/g, docsUrlFor(s, true))
   })
 }
 
