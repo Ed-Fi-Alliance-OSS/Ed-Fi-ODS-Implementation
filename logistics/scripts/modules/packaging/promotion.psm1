@@ -9,7 +9,7 @@ function Get-AzurePackages {
     )
 
     $uri = "$FeedsURL/packages?api-version=6.0-preview.1"
-    $json = (Invoke-WebRequest -Uri $uri).Content | ConvertFrom-Json
+    $json = (Invoke-WebRequest -Uri $uri -UseBasicParsing).Content | ConvertFrom-Json
 
     $result = @{ }
 
