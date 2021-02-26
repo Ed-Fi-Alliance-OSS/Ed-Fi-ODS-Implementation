@@ -129,4 +129,6 @@ Function Invoke-PromotePackages {
         $response = Invoke-WebRequest @parameters
         $response | ConvertTo-Json -Depth 10 | Out-Host
     }
+
+    Write-TeamCityBuildStatus "Packages promoted: $($Packages.Count)"
 }
