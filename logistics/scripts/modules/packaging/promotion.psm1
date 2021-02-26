@@ -9,7 +9,6 @@ function Get-AzurePackages {
     )
 
     $uri = "$FeedsURL/packages?api-version=6.0-preview.1"
-    Write-Host $uri
     $json = (Invoke-WebRequest -Uri $uri).Content | ConvertFrom-Json
 
     $result = @{ }
@@ -21,7 +20,7 @@ function Get-AzurePackages {
         )
     }
 
-    Write-Host "Found $($result.Count) azure packages."
+    Write-Host "Found $($result.Count) azure packages at $uri."
 
     return $result
 }
@@ -59,7 +58,8 @@ function Select-DotNetPackages {
         }
     }
 
-    Write-Host "Found $($result.Count) dotnet packages."
+    Write-Host "Found $($result.Count) dotnet packages at:"
+    $Paths | Out-Host
 
     return $result
 }
@@ -74,6 +74,8 @@ function Select-ConfigurationPackages {
     $result = @{ }
 
     foreach ($key in $configuration.packages.Keys) { $result.add($configuration.packages[$key].PackageName.ToLower().Trim(), $configuration.packages[$key].PackageVersion) }
+
+    Write-Host "Found $($result.Count) packages at $configurationFile."
 
     return $result
 }
