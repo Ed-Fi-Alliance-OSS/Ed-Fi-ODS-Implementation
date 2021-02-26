@@ -7,11 +7,6 @@
 
 $ErrorActionPreference = 'Stop'
 
-$toolVersion = @{
-    dbDeploy = "2.2.0-b10049"
-    codeGen  = "5.2.0-b11564"
-}
-
 & "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
 $implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Name
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
@@ -40,7 +35,8 @@ Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTempl
 
 Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json",
+    (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
 )
 
 Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
@@ -380,11 +376,11 @@ function Invoke-CodeGen {
 
     Install-CodeGenUtility
 
-    if ([string]::IsNullOrEmpty($Engine)) {
-        $Engine = (Get-DeploymentSettings).ApiSettings.Engine
-    }
-
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        if ([string]::IsNullOrEmpty($Engine)) {
+            $Engine = (Get-DeploymentSettings).ApiSettings.Engine
+        }
+
         $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
         $parameters = @(
@@ -404,11 +400,33 @@ function Invoke-CodeGen {
 }
 
 function Install-DbDeploy {
-    Install-ToolDbDeploy -toolsPath $toolsPath -toolVersion $toolVersion.DbDeploy
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $settings = Get-DeploymentSettings
+
+        $packageSettings = $settings.packages['EdFi.Db.Deploy']
+        $parameters = @{
+            Name    = $packageSettings.packageName
+            Version = $packageSettings.packageVersion
+            Source  = $packageSettings.packageSource
+        }
+        if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
+        Install-DotNetTool @parameters
+    }
 }
 
 function Install-CodeGenUtility {
-    Install-ToolCodeGenUtility -toolsPath $toolsPath -toolVersion $toolVersion.CodeGen
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $settings = Get-DeploymentSettings
+
+        $packageSettings = $settings.packages['EdFi.Ods.CodeGen']
+        $parameters = @{
+            Name    = $packageSettings.packageName
+            Version = $packageSettings.packageVersion
+            Source  = $packageSettings.packageSource
+        }
+        if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
+        Install-DotNetTool @parameters
+    }
 }
 
 function Invoke-PesterTests {

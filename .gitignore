@@ -103,6 +103,7 @@ DatabaseTemplate/*
 # Plugin
 **/Plugin/*
 !**/Plugin/*.ps1
+!**/Plugin/configuration.json
 
 # .Net Tools
 tools/*

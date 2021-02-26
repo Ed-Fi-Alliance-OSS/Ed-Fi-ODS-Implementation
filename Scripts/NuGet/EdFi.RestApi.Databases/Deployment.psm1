@@ -7,7 +7,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-$script:deploymentSettingsFiles = @((Join-Path $PSScriptRoot 'configuration.json'))
+$script:deploymentSettingsFiles = @((Join-Path $PSScriptRoot 'configuration.json'), (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
 $script:deploymentSettingsOverrides = @{ }
 
 function Initialize-DeploymentEnvironment {

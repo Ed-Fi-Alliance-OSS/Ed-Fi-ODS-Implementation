@@ -8,10 +8,13 @@
 Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 
+$configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
+$configuration = (Get-Content $configurationFile | ConvertFrom-Json).packages.PostgreSqlMinimalTemplate
+
 $parameters = @{
-    packageName     = 'EdFi.Suite3.Ods.Minimal.Template.PostgreSQL'
-    packageVersion  = '5.2.0-b10452'
-    packageSource   = 'https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json'
+    packageName     = $configuration.packageName
+    packageVersion  = $configuration.packageVersion
+    packageSource   = $configuration.packageSource
     outputDirectory = "$PSScriptRoot/../Database"
     toolsPath       = (Get-ToolsPath)
 }
