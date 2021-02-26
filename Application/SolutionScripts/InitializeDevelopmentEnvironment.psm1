@@ -35,7 +35,8 @@ Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTempl
 
 Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json",
+    (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
 )
 
 Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
@@ -402,7 +403,12 @@ function Install-DbDeploy {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
 
-        $parameters = $settings.Tools['EdFi.Db.Deploy']
+        $packageSettings = $settings.packages['EdFi.Db.Deploy']
+        $parameters = @{
+            Name    = $packageSettings.packageName
+            Version = $packageSettings.packageVersion
+            Source  = $packageSettings.packageSource
+        }
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
     }
@@ -412,7 +418,12 @@ function Install-CodeGenUtility {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
 
-        $parameters = $settings.Tools['EdFi.Ods.CodeGen']
+        $packageSettings = $settings.packages['EdFi.Ods.CodeGen']
+        $parameters = @{
+            Name    = $packageSettings.packageName
+            Version = $packageSettings.packageVersion
+            Source  = $packageSettings.packageSource
+        }
         if ([string]::IsNullOrWhiteSpace($parameters.Path)) { $parameters.Path = $toolsPath }
         Install-DotNetTool @parameters
     }

@@ -30,68 +30,18 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 
-function Select-DatabaseTemplatePackages {
-    & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-    Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
-
-    $configurationFile = (Get-RepositoryResolvedPath 'DatabaseTemplate/Scripts/configuration.json')
-
-    $configuration = Get-Content $configurationFile | ConvertFrom-Json | ConvertTo-Hashtable
-
-    $result = @{ }
-
-    foreach ($key in $configuration.Keys) { $result.add($configuration[$key].PackageName.ToLower().Trim(), $configuration[$key].PackageVersion) }
-
-    return $result
-}
-
-function Select-DotNetToolPackages {
-
-    $parameters = @{
-        SettingsFiles = @(
-            "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json"
-        )
-        Project       = (Get-ProjectTypes).WebApi
-    }
-
-    $settings = Get-MergedAppSettings @parameters
-
-    $result = @{ }
-
-    foreach ($key in $settings.Tools.Keys) {
-        $result.add(
-            $settings.Tools[$key].Name.ToLower().Trim(),
-            $settings.Tools[$key].Version
-        )
-    }
-
-    return $result
-}
-
-function Select-PluginPackages {
-    $pluginFolder = Get-PluginFolderFromSettings (Get-EdFiDeveloperPluginSettings)
-    $configurationFile = Join-Path $pluginFolder "configuration.json"
-    $configuration = Get-Content $configurationFile | ConvertFrom-Json | ConvertTo-Hashtable
-
-    $result = @{ }
-
-    foreach ($key in $configuration.Keys) { $result.add($configuration[$key].PackageName.ToLower().Trim(), $configuration[$key].PackageVersion) }
-
-    return $result
-}
-
 $packages = @{ }
 
 Invoke-Task -name 'gather package versions' -task {
 
     $searchPaths = (Get-ChildItem (Get-RepositoryRoot) -Recurse -Filter '*.sln').FullName
+    $configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
 
     $packages = Merge-Hashtables @(
         (Select-DotNetPackages $searchPaths),
-        (Select-DotNetToolPackages),
-        (Select-DatabaseTemplatePackages),
-        (Select-PluginPackages)
+        (Select-ConfigurationPackages $configurationFile)
     )
+
     $azurePackages = (Get-AzurePackages $FeedsURL)
 
     $result = @{ }

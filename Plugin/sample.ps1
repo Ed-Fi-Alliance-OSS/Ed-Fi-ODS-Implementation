@@ -8,7 +8,8 @@
 Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 
-$configuration = (Get-Content "$PSScriptRoot/configuration.json" | ConvertFrom-Json).sample
+$configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
+$configuration = (Get-Content $configurationFile | ConvertFrom-Json).packages.sample
 
 $pluginPaths = @()
 

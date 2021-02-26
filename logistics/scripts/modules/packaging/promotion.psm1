@@ -64,6 +64,20 @@ function Select-DotNetPackages {
     return $result
 }
 
+function Select-ConfigurationPackages {
+    param (
+        $configurationFile
+    )
+
+    $configuration = Get-Content $configurationFile | ConvertFrom-Json | ConvertTo-Hashtable
+
+    $result = @{ }
+
+    foreach ($key in $configuration.packages.Keys) { $result.add($configuration.packages[$key].PackageName.ToLower().Trim(), $configuration.packages[$key].PackageVersion) }
+
+    return $result
+}
+
 Function Invoke-PromotePackages {
     [cmdletbinding(SupportsShouldProcess)]
     param(
