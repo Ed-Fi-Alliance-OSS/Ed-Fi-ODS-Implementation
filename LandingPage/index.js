@@ -6,9 +6,7 @@
 // @ts-check
 const newVersion = (suite, major, minor, patch, prerelease) => ({ suite, major, minor, patch, prerelease })
 
-const getVersionString = (v) => `${v.major}.${v.minor}.${v.patch}${v.prerelease != null ? '-' + v.prerelease : ''}`
-
-const getVersionStringForNavigation = (v) => `${v.major}.${v.minor}${(v.suite <= 3 && (v.major <= 3 || (v.major >= 4 && v.minor <= 1))) ? '.' + v.patch : ''}${v.prerelease != null ? '-' + v.prerelease : ''}`
+const getVersionString = (v) => `${v.major}.${v.minor}${(v.major <= 3 || (v.major == 5 && v.minor <= 1) || (v.major >= 5 && v.patch > 0)) ? '.' + v.patch : ''}${v.prerelease != null ? '-' + v.prerelease : ''}`
 
 // stops patch versions of 0 from being displayed in previous releases
 const getPatchVersion = (v) => ((v.patch === 0 && v.suite <= 3 && v.major <= 3) || (v.major > 3) ? '' : '.' + v.patch)
@@ -41,14 +39,14 @@ const sortVersions = (vx, vy) => {
   return 0
 }
 
-const docsUrlFor = (state, isNavigationRoute = false) =>
+const docsUrlFor = (state) =>
   state.config.docsUrlTemplate
-    .replace('{{version}}', isNavigationRoute ? getVersionStringForNavigation(state.version) : getVersionString(state.version))
+    .replace('{{version}}', getVersionString(state.version))
     .replace('{{suite}}', state.version.suite.toString())
 
-const apiUrlFor = (state, isNavigationRoute = false) =>
+const apiUrlFor = (state) =>
   state.config.apiUrlTemplate
-    .replace('{{version}}', isNavigationRoute ? getVersionStringForNavigation(state.version) : getVersionString(state.version))
+    .replace('{{version}}', getVersionString(state.version))
     .replace('{{suite}}', state.version.suite.toString())
 
 const getDisplayVersionFor = (state) =>
@@ -135,15 +133,7 @@ const search = async (state) => {
 
     if (state.response.ok) {
       state = next(resetState(state))
-
-      if (state.version.suite >= 3 && state.version.major >= 5 && state.version.minor >= 1) {
-        if (state.version.patch === 0) {
-          state.versions.push(state.version)
-        }
-      }
-      else {
-        state.versions.push(state.version)
-      }
+      state.versions.push(state.version)
     }
 
     state = next(state)
@@ -183,11 +173,11 @@ const createVersionRows = (state) => {
 
     if (s.config.apiUrlTemplate != null) {
       const apiTemplate = document.querySelector('#apiTemplate').innerHTML
-      versionLinks.innerHTML += apiTemplate.replace(/{{apiUrl}}/g, apiUrlFor(s, true))
+      versionLinks.innerHTML += apiTemplate.replace(/{{apiUrl}}/g, apiUrlFor(s))
     }
 
     const docsTemplate = document.querySelector('#docsTemplate').innerHTML
-    versionLinks.innerHTML += docsTemplate.replace(/{{docsUrl}}/g, docsUrlFor(s, true))
+    versionLinks.innerHTML += docsTemplate.replace(/{{docsUrl}}/g, docsUrlFor(s))
   })
 }
 
