@@ -32,12 +32,12 @@
     },
     "sample": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Sample",
-      "PackageVersion": "5.2.0-b10579",
+      "PackageVersion": "5.2.0-b10581",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.1.0.0",
-      "PackageVersion": "5.2.0-b25",
+      "PackageVersion": "5.2.0-b27",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
