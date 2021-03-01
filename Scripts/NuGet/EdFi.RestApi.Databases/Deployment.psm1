@@ -7,7 +7,7 @@
 
 $ErrorActionPreference = 'Stop'
 
-$script:deploymentSettingsFiles = @((Join-Path $PSScriptRoot 'configuration.json'), (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
+$script:deploymentSettingsFiles = @()
 $script:deploymentSettingsOverrides = @{ }
 
 function Initialize-DeploymentEnvironment {
@@ -91,6 +91,8 @@ function Initialize-DeploymentEnvironment {
     Write-InvocationInfo $MyInvocation
 
     Clear-Error
+
+    $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'), (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
 
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
