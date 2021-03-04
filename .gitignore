@@ -123,5 +123,3 @@ environment.json
 
 # Sandbox Admin
 /**/SandboxAdminLog*
-*.min.js
-*.min.css
