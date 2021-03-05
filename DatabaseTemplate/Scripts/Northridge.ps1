@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 $params = @{
-    sourceUrl = "https://odsassets.blob.core.windows.net/public/Northridge/EdFi_Ods_Northridge_v500_20200909.7z"
-    fileName  = "EdFi_Ods_Northridge_v500_20200909.7z"
+    sourceUrl = "https://odsassets.blob.core.windows.net/public/Northridge/EdFi_Ods_Northridge_v51_20210224.7z"
+    fileName  = "EdFi_Ods_Northridge_v51_20210224.7z"
 }
 
 & "$PSScriptRoot\..\Modules\get-populated-from-web.ps1" @params
