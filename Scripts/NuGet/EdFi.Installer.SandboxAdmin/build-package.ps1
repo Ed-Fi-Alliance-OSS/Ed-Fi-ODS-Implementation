@@ -6,15 +6,14 @@
 #requires -version 5
 param (
     [string]
-    [Parameter(Mandatory=$true)]
+    [Parameter(Mandatory = $true)]
     $SemanticVersion,
 
     [string]
-    [Parameter(Mandatory=$true)]
     $BuildCounter,
 
     [string]
-    $PreReleaseLabel = "pre",
+    $PreReleaseLabel,
 
     [switch]
     $Publish,
@@ -35,12 +34,14 @@ Import-Module "$PSScriptRoot/../../../logistics/scripts/modules/packaging/create
 
 $parameters = @{
     PackageDefinitionFile = Resolve-Path ("$PSScriptRoot/EdFi.Installer.SandboxAdmin.nuspec")
-    Version = $SemanticVersion
-    Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))"
-    OutputDirectory = Resolve-Path $PSScriptRoot
-    Publish = $Publish
-    Source = $NuGetFeed
-    ApiKey = $NuGetApiKey
-    ToolsPath = "../../../tools"
+    Version               = $SemanticVersion
+    OutputDirectory       = Resolve-Path $PSScriptRoot
+    Publish               = $Publish
+    Source                = $NuGetFeed
+    ApiKey                = $NuGetApiKey
+    ToolsPath             = "../../../tools"
 }
+
+if ($BuildCounter) { $parameters.Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))" }
+
 Invoke-CreatePackage @parameters -Verbose:$verbose
