@@ -22,22 +22,22 @@
     },
     "homograph": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph",
-      "PackageVersion": "5.2.0-b10602",
+      "PackageVersion": "5.2.10608",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "profiles.sample": {
       "PackageName": "EdFi.Suite3.Ods.Profiles.Sample",
-      "PackageVersion": "5.2.0-b10569",
+      "PackageVersion": "5.2.10572",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "sample": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Sample",
-      "PackageVersion": "5.2.0-b10588",
+      "PackageVersion": "5.2.10594",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.1.0.0",
-      "PackageVersion": "5.2.0-b34",
+      "PackageVersion": "5.2.40",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
