@@ -43,7 +43,6 @@ function Invoke-CreatePackage {
 
         # Pre-release suffix, e.g. "pre1234".
         [string]
-        [Parameter(Mandatory = $true)]
         $Suffix,
 
         # Output directory where the .nupkg file will land.
@@ -76,30 +75,33 @@ function Invoke-CreatePackage {
     # Build release
     $parameters = @{
         PackageDefinitionFile = $PackageDefinitionFile
-        Version = $Version
-        OutputDirectory = $OutputDirectory
-        NuGet = $nuget
-        Verbose = $verbose
+        Version               = $Version
+        OutputDirectory       = $OutputDirectory
+        NuGet                 = $nuget
+        Verbose               = $verbose
     }
     New-Package @parameters
 
     # Build pre-release
-    $parameters["Suffix"] = $Suffix
-    New-Package @parameters
+    if ($Suffix) {
+        $parameters["Suffix"] = $Suffix
+        New-Package @parameters
+        $Version += "-$Suffix"
+    }
 
-    # Publish pre-release
+    # Publish
     if ($Publish) {
 
         # Extract package ID from the nuspec file name
         [ xml ] $fileContents = Get-Content -Path $PackageDefinitionFile
-        $packageId= $fileContents.package.metadata.id
+        $packageId = $fileContents.package.metadata.id
 
         $parameters = @{
-                PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version-$Suffix.nupkg").FullName
-                Source = $Source
-                ApiKey = $ApiKey
-                NuGet = $nuget
-                Verbose = $verbose
+            PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
+            Source      = $Source
+            ApiKey      = $ApiKey
+            NuGet       = $nuget
+            Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
     }
