@@ -9,6 +9,7 @@ using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -28,6 +29,8 @@ namespace EdFi.Ods.SwaggerUI
 
         public void ConfigureServices(IServiceCollection services)
         {
+            bool useReverseProxyHeaders = Configuration.GetValue("UseReverseProxyHeaders", false);
+
             services.AddScoped<IConfigureOptions<SwaggerUIOptions>, ConfigureDefaults>();
             services.Configure<SwaggerUIOptions>(
                 options =>
@@ -37,6 +40,17 @@ namespace EdFi.Ods.SwaggerUI
                 });
 
             services.AddScoped<EdFiSwaggerMiddleware>();
+
+            if (useReverseProxyHeaders)
+            {
+                services.Configure<ForwardedHeadersOptions>(
+                    options =>
+                    {
+                        options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
+                                                   & ForwardedHeaders.XForwardedHost
+                                                   & ForwardedHeaders.XForwardedProto;
+                    });
+            }
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,10 +67,12 @@ namespace EdFi.Ods.SwaggerUI
                                 new
                                 {
                                     WebApiVersionUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty),
-                                    RoutePrefix = Configuration.GetValue("RoutePrefix", "swagger"),
+                                    RoutePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger"),
                                 }));
                     });
             }
+
+            app.UseForwardedHeaders();
 
             if (env.IsDevelopment())
             {

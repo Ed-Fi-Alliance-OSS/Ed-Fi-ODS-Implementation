@@ -5,7 +5,9 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:56641",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SwaggerUIOptions__RoutePrefix": "docs",
+        "UseReverseProxyHeaders" : true
       }
     },
     "Reverse Proxy": {
