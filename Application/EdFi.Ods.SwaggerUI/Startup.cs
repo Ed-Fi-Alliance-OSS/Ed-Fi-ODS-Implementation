@@ -27,7 +27,7 @@ namespace EdFi.Ods.SwaggerUI
 
         public void ConfigureServices(IServiceCollection services)
         {
-            bool useReverseProxyHeaders = Configuration.GetValue("UseReverseProxyHeaders", false);
+            bool useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
 
             if (useReverseProxyHeaders)
             {
@@ -47,9 +47,19 @@ namespace EdFi.Ods.SwaggerUI
 
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
 
+            string pathBase = Configuration.GetValue<string>("PathBase");
+
             logger.LogInformation($"RoutePrefix = '{routePrefix}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
-            logger.LogInformation($"Configuration = '{Configuration}'");
+            logger.LogInformation($"UseReverseProxyHeaders = '{Configuration.GetValue<bool>("UseReverseProxyHeaders")}'");
+            logger.LogInformation($"PathBase = '{pathBase}'");
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                var path = pathBase.Trim('/');
+                path = "/" + path;
+                app.UsePathBase(path);
+            }
 
             void AppSettingsDelegate(IApplicationBuilder app)
             {
