@@ -3,8 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,33 +11,23 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Logging;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace EdFi.Ods.SwaggerUI
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        public IConfiguration Configuration { get; }
+
         public void ConfigureServices(IServiceCollection services)
         {
             bool useReverseProxyHeaders = Configuration.GetValue("UseReverseProxyHeaders", false);
-
-            services.AddScoped<IConfigureOptions<SwaggerUIOptions>, ConfigureDefaults>();
-            services.Configure<SwaggerUIOptions>(
-                options =>
-                {
-                    Configuration.Bind("SwaggerUIOptions", options);
-                    options.ConfigObject.AdditionalItems.Add("WebApiVersionUrl", Configuration.GetValue("WebApiVersionUrl", string.Empty));
-                });
-
-            services.AddScoped<EdFiSwaggerMiddleware>();
 
             if (useReverseProxyHeaders)
             {
@@ -53,8 +41,15 @@ namespace EdFi.Ods.SwaggerUI
             }
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
+            string routePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger");
+
+            string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
+
+            logger.LogInformation($"RoutePrefix = '{routePrefix}'");
+            logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
+
             void AppSettingsDelegate(IApplicationBuilder app)
             {
                 app.Run(
@@ -66,8 +61,8 @@ namespace EdFi.Ods.SwaggerUI
                             JsonSerializer.Serialize(
                                 new
                                 {
-                                    WebApiVersionUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty),
-                                    RoutePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger"),
+                                    WebApiVersionUrl = webApiUrl,
+                                    RoutePrefix = routePrefix
                                 }));
                     });
             }
@@ -85,9 +80,21 @@ namespace EdFi.Ods.SwaggerUI
 
             app.Map("/appSettings.json", AppSettingsDelegate);
 
-            app.UseEdFiSwaggerUI();
+            app.UseSwaggerUI(
+                options =>
+                {
+                    Configuration.Bind("SwaggerUIOptions", options);
 
-            app.UseFileServer();
+                    options.InjectStylesheet("/swagger.css");
+
+                    options.IndexStream = ()
+                        => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
+
+                    options.RoutePrefix = routePrefix;
+                    options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
+                });
+
+            app.UseStaticFiles();
         }
     }
 }
