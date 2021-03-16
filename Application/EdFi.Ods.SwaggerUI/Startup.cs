@@ -49,6 +49,7 @@ namespace EdFi.Ods.SwaggerUI
 
             logger.LogInformation($"RoutePrefix = '{routePrefix}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
+            logger.LogInformation($"Configuration = '{Configuration}'");
 
             void AppSettingsDelegate(IApplicationBuilder app)
             {
