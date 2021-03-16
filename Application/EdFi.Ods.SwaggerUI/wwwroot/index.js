@@ -23,7 +23,6 @@ sections.Composites.description = [
 ]
 sections.Other.description = [
   'The other area of the API contains functional resources. These resources may be enabled or disabled by the ODS / API platform host.',
-  'The identity management API is used to access a native identity system if one exists in the enterprise. The endpoints provide client applications with the ability to find and (optionally) create unique person identifiers that can be used with Student, Staff, and Parent resources.',
 ]
 sections.Profiles.description = [
   'Profiles are used by platform hosts to restrict access to properties of a resource. Resource properties may be read-write, read-only, or unavailable. When API client applications use a profile to access resources, they are limited to a subset of the properties available on the underlying resource.',
