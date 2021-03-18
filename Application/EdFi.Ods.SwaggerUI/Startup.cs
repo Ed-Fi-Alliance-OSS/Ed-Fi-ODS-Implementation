@@ -12,24 +12,32 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace EdFi.Ods.SwaggerUI
 {
     public class Startup
     {
+        private readonly bool _useReverseProxyHeaders;
+        private readonly string _pathBase;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            _useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
+
+            string pathBase = Configuration.GetValue<string>("PathBase");
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                _pathBase = "/" + pathBase.Trim('/');
+            }
         }
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            bool useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
-
-            if (useReverseProxyHeaders)
+            if (_useReverseProxyHeaders)
             {
                 services.Configure<ForwardedHeadersOptions>(
                     options =>
@@ -44,22 +52,14 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string routePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger");
-
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
-
-            string pathBase = Configuration.GetValue<string>("PathBase");
+            string swaggerStyleSheetPath = _pathBase + "/swagger.css";
 
             logger.LogInformation($"RoutePrefix = '{routePrefix}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
-            logger.LogInformation($"UseReverseProxyHeaders = '{Configuration.GetValue<bool>("UseReverseProxyHeaders")}'");
-            logger.LogInformation($"PathBase = '{pathBase}'");
-
-            if (!string.IsNullOrEmpty(pathBase))
-            {
-                var path = pathBase.Trim('/');
-                path = "/" + path;
-                app.UsePathBase(path);
-            }
+            logger.LogInformation($"UseReverseProxyHeaders = '{_useReverseProxyHeaders}'");
+            logger.LogInformation($"PathBase = '{_pathBase}'");
+            logger.LogInformation($"SwaggerStyleSheetPath = '{swaggerStyleSheetPath}'");
 
             void AppSettingsDelegate(IApplicationBuilder app)
             {
@@ -76,6 +76,11 @@ namespace EdFi.Ods.SwaggerUI
                                     RoutePrefix = routePrefix
                                 }));
                     });
+            }
+
+            if (!string.IsNullOrEmpty(_pathBase))
+            {
+                app.UsePathBase(_pathBase);
             }
 
             app.UseForwardedHeaders();
@@ -96,7 +101,7 @@ namespace EdFi.Ods.SwaggerUI
                 {
                     Configuration.Bind("SwaggerUIOptions", options);
 
-                    options.InjectStylesheet("/swagger.css");
+                    options.InjectStylesheet(swaggerStyleSheetPath);
 
                     options.IndexStream = ()
                         => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
