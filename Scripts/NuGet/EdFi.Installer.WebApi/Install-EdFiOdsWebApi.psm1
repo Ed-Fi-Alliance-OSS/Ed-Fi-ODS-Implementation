@@ -369,6 +369,7 @@ function Get-WebApiPackage {
             PackageVersion = $Config.PackageVersion
             ToolsPath = $Config.ToolsPath
             OutputDirectory = $Config.DownloadPath
+            PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi%40Release/nuget/v3/index.json"
         }
         $packageDir = Get-NuGetPackage @parameters
         Test-Error
