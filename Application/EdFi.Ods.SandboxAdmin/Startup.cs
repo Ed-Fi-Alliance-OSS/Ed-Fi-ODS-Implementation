@@ -204,15 +204,13 @@ namespace EdFi.Ods.SandboxAdmin
         {
             loggerFactory.AddLog4Net();
 
-            var pathBase = configuration["PathBase"];
+            var pathBase = configuration.GetValue<string>("PathBase");
 
             if (!string.IsNullOrEmpty(pathBase))
             {
-                pathBase = pathBase.Trim('/');
-                pathBase = "/" + pathBase;
-                app.UsePathBase(pathBase);
+                app.UsePathBase("/" + pathBase.Trim('/'));
             }
-            
+
             Container = app.ApplicationServices.GetAutofacRoot();
 
             // Set EF Context
@@ -228,6 +226,8 @@ namespace EdFi.Ods.SandboxAdmin
             {
                 app.UseExceptionHandler("/Home/Error");
             }
+
+            app.UseDefaultFiles();
 
             app.UseStaticFiles();
 

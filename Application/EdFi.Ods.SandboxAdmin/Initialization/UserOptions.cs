@@ -17,6 +17,6 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
         public string[] NamespacePrefixes { get; set; }
 
-        public Dictionary<string, SandboxOptions> Sandboxes { get; set; }
+        public Dictionary<string, SandboxOptions> Sandboxes { get; set; } = new Dictionary<string, SandboxOptions>();
     }
 }
