@@ -110,6 +110,7 @@ namespace EdFi.Ods.SwaggerUI
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
                 });
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
         }
     }
