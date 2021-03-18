@@ -191,6 +191,9 @@ function Get-DeploymentSettings {
 
     $mergedSettings = Get-MergedAppSettings $script:deploymentSettingsFiles ((Get-ProjectTypes).WebApi)
 
+    $userSecrets = Get-UserSecrets ((Get-ProjectTypes).WebApi)
+    if (![string]::IsNullOrWhiteSpace($userSecrets) -and ![string]::IsNullOrWhiteSpace($userSecrets.Plugin)) { $script:deploymentSettingsOverrides.Plugin = $userSecrets.Plugin }
+
     $mergedSettings = Merge-Hashtables $mergedSettings, $script:deploymentSettingsOverrides
 
     $defaultSettings = (Get-DefaultDevelopmentSettingsByProject)[((Get-ProjectTypes).WebApi)]
