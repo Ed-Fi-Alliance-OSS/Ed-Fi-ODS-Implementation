@@ -141,15 +141,39 @@ function Invoke-FeatureOverride {
         WebApiFeatures = @{
             BearerTokenTimeoutMinutes="BearerTokenTimeoutMinutes"                                   
             ExcludedExtensionSources="GrandBend"
-            FeatureIsEnabled=@{
-                changeQueries = $true
-                openApiMetadata = $false
-                composites = $false
-                profiles = $false                
-                identityManagement = $false
-                extensions = $false
-                ownershipBasedAuthorization = $true
-                uniqueIdValidation = $true
+            Features= @{
+                "changeQueries"= @{
+                    Name= "changeQueries"
+                    IsEnabled= $true
+                    }
+				"OpenApiMetadata"= @{
+                    Name= "OpenApiMetadata"
+                    IsEnabled= $false
+                    }
+				"composites"= @{
+                    Name= "composites"
+                    IsEnabled= $false
+                    }
+				"profiles"= @{
+                    Name= "profiles"
+                    IsEnabled= $false
+                    }
+				"identityManagement"= @{
+                    Name= "identityManagement"
+                    IsEnabled= $false
+                    }
+				"extensions"= @{
+                    Name= "extensions"
+                    IsEnabled= $false
+                    }
+				"ownershipBasedAuthorization"= @{
+                    Name= "ownershipBasedAuthorization"
+                    IsEnabled= $true
+                    }
+				"uniqueIdValidation"= @{
+                    Name= "uniqueIdValidation"
+                    IsEnabled= $true
+                    }
             }
         }
     }
