@@ -53,8 +53,6 @@ function Invoke-DifferentPackageSource {
             Server="localhost"
             UseIntegratedSecurity=$true
         }
-        PackageName = "EdFi.Suite3.Ods.WebApi"
-        PackageVersion = "5.2.14321"
         PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
     Install-EdFiOdsWebApi @p
@@ -191,6 +189,7 @@ try {
         "Sandbox" { Invoke-Sandbox }
         default { 
             Write-Host "Valid test scenarios are: "
+            Write-Host "    DifferentPackageSource"
             Write-Host "    SeparateConnectionInfo"
             Write-Host "    CommonConnectionInfo"
             Write-Host "    FeatureOverride"

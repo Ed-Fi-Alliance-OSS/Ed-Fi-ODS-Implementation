@@ -75,6 +75,10 @@ function Install-EdFiOdsSandboxAdmin {
         [string]
         $PackageVersion,
 
+        # NuGet package source . default value is set for release package source for installer .
+        [string]
+        $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi%40Release/nuget/v3/index.json",
+
         # Path for storing installation tools, e.g. nuget.exe. Default: "./tools".
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
@@ -142,6 +146,7 @@ function Install-EdFiOdsSandboxAdmin {
         WebApplicationPath = $WebApplicationPath
         PackageName = $PackageName
         PackageVersion = $PackageVersion
+        PackageSource = $PackageSource
         ToolsPath = $ToolsPath
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
@@ -190,6 +195,7 @@ function Get-SandboxAdminPackage {
             PackageVersion = $Config.PackageVersion
             ToolsPath = $Config.ToolsPath
             OutputDirectory = $Config.DownloadPath
+            PackageSource = $Config.PackageSource
         }
         $packageDir = Get-NuGetPackage @parameters
         Test-Error

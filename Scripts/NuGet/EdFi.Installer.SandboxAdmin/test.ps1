@@ -20,6 +20,15 @@ function Invoke-Install {
     Install-EdFiOdsSandboxAdmin @p
 }
 
+function Invoke-DifferentPackageSource {
+    $p = @{
+        OAuthUrl = "https://localhost/EdFiOdsWebApi"
+        PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    }
+
+    Install-EdFiOdsSandboxAdmin @p
+}
+
 function Invoke-CustomPackage {
     $p = @{
         OAuthUrl = "https://localhost/EdFiOdsWebApi"
@@ -68,12 +77,15 @@ try {
     switch ($Scenario) {
         "Install" { Invoke-Install }
         "CustomPackage" { Invoke-CustomPackage }
+        "DifferentPackageSource" { Invoke-DifferentPackageSource }
         "Uninstall" { Invoke-Uninstall }
         "InstallCustomSettings" { Invoke-InstallCustomSettings }
         "UninstallCustomSettings" { Invoke-UninstallCustomSettings }
         default {
             Write-Host "Valid test scenarios are: "
             Write-Host "    Install"
+            Write-Host "    CustomPackage"
+            Write-Host "    DifferentPackageSource"
             Write-Host "    Uninstall"
             Write-Host "    InstallCustomSettings"
             Write-Host "    UninstallCustomSettings"
