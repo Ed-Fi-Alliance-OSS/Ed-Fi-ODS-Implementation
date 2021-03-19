@@ -1,9 +1,0 @@
-// SPDX-License-Identifier: Apache-2.0
-//  Licensed to the Ed-Fi Alliance under one or more agreements.
-//  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
-//  See the LICENSE and NOTICES files in the project root for more information.
-
-Shared Decimal ScoreResultAverage
-  documentation "A meaningful average score or statistical expression of the performance of an group. The results can be expressed as a number, percentile, range, level, etc."
-  total digits 18
-  decimal places 4
