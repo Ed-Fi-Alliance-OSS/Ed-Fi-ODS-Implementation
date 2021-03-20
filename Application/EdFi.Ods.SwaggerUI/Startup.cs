@@ -55,14 +55,11 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
-            string swaggerStyleSheetPath = "/swagger.css";
+            string swaggerStyleSheetPath = string.IsNullOrWhiteSpace(_routePrefix) ? "../swagger.css" : "./swagger.css";
 
             if (!string.IsNullOrEmpty(_pathBase))
             {
                 app.UsePathBase(_pathBase);
-
-                // specific for staging
-                swaggerStyleSheetPath = "../swagger.css";
             }
 
             if (_useReverseProxyHeaders)
