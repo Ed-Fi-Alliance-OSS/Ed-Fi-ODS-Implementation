@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace EdFi.Ods.SwaggerUI
 {
@@ -19,17 +21,18 @@ namespace EdFi.Ods.SwaggerUI
     {
         private readonly bool _useReverseProxyHeaders;
         private readonly string _pathBase;
+        private readonly string _routePrefix;
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             _useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
 
-            string pathBase = Configuration.GetValue<string>("PathBase");
+            _routePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger");
 
-            if (!string.IsNullOrEmpty(pathBase))
+            if (!string.IsNullOrEmpty(_routePrefix))
             {
-                _pathBase = "/" + pathBase.Trim('/');
+                _pathBase = "/" + _routePrefix.Trim('/');
             }
         }
 
@@ -51,39 +54,24 @@ namespace EdFi.Ods.SwaggerUI
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
-            string routePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", "swagger");
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
             string swaggerStyleSheetPath = _pathBase + "/swagger.css";
 
-            logger.LogInformation($"RoutePrefix = '{routePrefix}'");
+            logger.LogInformation($"RoutePrefix = '{_routePrefix}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
             logger.LogInformation($"UseReverseProxyHeaders = '{_useReverseProxyHeaders}'");
             logger.LogInformation($"PathBase = '{_pathBase}'");
             logger.LogInformation($"SwaggerStyleSheetPath = '{swaggerStyleSheetPath}'");
-
-            void AppSettingsDelegate(IApplicationBuilder app)
-            {
-                app.Run(
-                    async context =>
-                    {
-                        context.Response.ContentType = "application/json";
-
-                        await context.Response.WriteAsync(
-                            JsonSerializer.Serialize(
-                                new
-                                {
-                                    WebApiVersionUrl = webApiUrl,
-                                    RoutePrefix = routePrefix
-                                }));
-                    });
-            }
 
             if (!string.IsNullOrEmpty(_pathBase))
             {
                 app.UsePathBase(_pathBase);
             }
 
-            app.UseForwardedHeaders();
+            if (_useReverseProxyHeaders)
+            {
+                app.UseForwardedHeaders();
+            }
 
             if (env.IsDevelopment())
             {
@@ -94,19 +82,41 @@ namespace EdFi.Ods.SwaggerUI
                 app.UseExceptionHandler("/Error");
             }
 
-            app.Map("/appSettings.json", AppSettingsDelegate);
+            app.Map("/appSettings.json", builder =>
+            {
+                builder.Run(
+                    async context =>
+                    {
+                        context.Response.ContentType = "application/json";
+
+                        await context.Response.WriteAsync(
+                            JsonSerializer.Serialize(
+                                new
+                                {
+                                    WebApiVersionUrl = webApiUrl,
+                                    RoutePrefix = _routePrefix
+                                }));
+                    });
+            });
 
             app.UseSwaggerUI(
                 options =>
                 {
                     Configuration.Bind("SwaggerUIOptions", options);
 
+                    options.DocumentTitle = "Ed-Fi ODS API Documentation";
+
+                    options.OAuthScopeSeparator(" ");
+                    options.OAuthAppName(Assembly.GetExecutingAssembly().GetName().Name);
+                    options.DocExpansion(DocExpansion.None);
+                    options.DisplayRequestDuration();
+                    options.ShowExtensions();
+                    options.EnableValidator();
                     options.InjectStylesheet(swaggerStyleSheetPath);
 
                     options.IndexStream = ()
                         => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
 
-                    options.RoutePrefix = routePrefix;
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
                 });
 
