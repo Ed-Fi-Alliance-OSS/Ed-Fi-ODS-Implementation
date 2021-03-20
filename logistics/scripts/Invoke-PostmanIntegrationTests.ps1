@@ -27,12 +27,13 @@ $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
 function Install-Newman {
+    $nodeVersion = Get-ValueOrDefault (Get-TeamCityParameters)['node.version'] '12.4.0'
 
-    node --version | Out-Host
-    npm version | Out-Host
+    Select-NodeVersion $nodeVersion
 
     try {
-        npm install -g newman newman-reporter-teamcity newman-reporter-html
+        npm install -g newman@5.2.2 newman-reporter-teamcity@0.1.12 newman-reporter-html@1.0.5
+        newman --version
     }
     catch {
         Write-Host $_ -ForegroundColor Red
