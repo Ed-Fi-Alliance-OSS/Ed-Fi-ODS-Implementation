@@ -134,12 +134,12 @@ function Install-EdFiOdsWebApi {
             WebApiFeatures = @{
                 BearerTokenTimeoutMinutes="23"
                 ExcludedExtensions=@{}
-                Features= @(               
-				    @{
+                Features= @(   
+                    @{
                         Name= "OpenApiMetadata"
                         IsEnabled= $true
                     },
-				    @{
+                    @{
                         Name= "AggregateDependencies"
                         IsEnabled= $true
                     }
