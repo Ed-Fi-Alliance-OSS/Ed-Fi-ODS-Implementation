@@ -21,18 +21,20 @@ namespace EdFi.Ods.SwaggerUI
     {
         private readonly bool _useReverseProxyHeaders;
         private readonly string _pathBase;
-        private readonly string _routePrefix;
+        private string _routePrefix;
+        private const string DefaultRoutePrefix = "swagger";
 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             _useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
 
-            _routePrefix = Configuration.GetValue<string>("RoutePrefix");
+            var pathBase = Configuration.GetValue<string>("PathBase");
+            _routePrefix = Configuration.GetValue("SwaggerUIOptions:RoutePrefix", DefaultRoutePrefix);
 
-            if (!string.IsNullOrEmpty(_routePrefix))
+            if (!string.IsNullOrEmpty(pathBase))
             {
-                _pathBase = "/" + _routePrefix.Trim('/');
+                _pathBase = "/" + pathBase.Trim('/');
             }
         }
 
@@ -55,7 +57,7 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
-            string swaggerStyleSheetPath = string.IsNullOrWhiteSpace(_routePrefix) ? "../swagger.css" : "./swagger.css";
+            string swaggerStyleSheetPath = "../swagger.css";
 
             if (!string.IsNullOrEmpty(_pathBase))
             {
@@ -65,7 +67,6 @@ namespace EdFi.Ods.SwaggerUI
             if (_useReverseProxyHeaders)
             {
                 app.UseForwardedHeaders();
-                swaggerStyleSheetPath = _pathBase + "/swagger.css";
             }
 
             if (env.IsDevelopment())
@@ -90,17 +91,17 @@ namespace EdFi.Ods.SwaggerUI
                                     new
                                     {
                                         WebApiVersionUrl = webApiUrl,
-                                        RoutePrefix = _routePrefix ?? "swagger"
+                                        RoutePrefix = _routePrefix
                                     }));
                         });
                 });
 
-            logger.LogInformation($"RoutePrefix = '{_routePrefix}'");
             logger.LogInformation($"WebApiUrl = '{webApiUrl}'");
             logger.LogInformation($"UseReverseProxyHeaders = '{_useReverseProxyHeaders}'");
             logger.LogInformation($"PathBase = '{_pathBase}'");
             logger.LogInformation($"SwaggerStyleSheetPath = '{swaggerStyleSheetPath}'");
 
+            // routes for swagger: http://server/PATHBASE/ROUTEPREFIX/index.html
             app.UseSwaggerUI(
                 options =>
                 {
@@ -120,9 +121,7 @@ namespace EdFi.Ods.SwaggerUI
                         => GetType().Assembly.GetManifestResourceStream("EdFi.Ods.SwaggerUI.Resources.Swashbuckle_index.html");
 
                     options.ConfigObject.AdditionalItems["WebApiVersionUrl"] = webApiUrl;
-
-                    // default behavior requires "swagger"
-                    options.RoutePrefix = _routePrefix ?? "swagger";
+                    options.RoutePrefix = _routePrefix;
                 });
 
             app.UseDefaultFiles();
