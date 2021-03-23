@@ -103,10 +103,9 @@ function Initialize-DeploymentEnvironment {
     if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
+    if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
     Set-DeploymentSettings $settings | Out-Null
-
-    if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
     Write-FlatHashtable (Get-DeploymentSettings)
 
