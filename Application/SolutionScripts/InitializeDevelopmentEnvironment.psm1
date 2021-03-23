@@ -115,6 +115,9 @@ function Initialize-DevelopmentEnvironment {
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
+
+        Set-DeploymentSettings $settings | Out-Null
+
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
@@ -213,7 +216,6 @@ function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
         See the Get-DefaultDevelopmentSettingsByProject in settings-managements.psm1 for the default settings.
     #>
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        Set-DeploymentSettings $Settings | Out-Null
         $newSettingsFiles = New-DevelopmentAppSettings $Settings
 
         Write-Host 'created settings files:' -ForegroundColor Green
