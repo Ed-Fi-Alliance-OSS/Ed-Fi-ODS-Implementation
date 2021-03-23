@@ -101,38 +101,20 @@ function Get-NuGetPackage {
     )
 
     $nuget = Install-NuGetCli $ToolsPath
-
-    if (-not $PackageVersion) {
-        # Lookup current "latest" version
-        $latestVersion = & "$ToolsPath\nuget" list -source $PackageSource $PackageName
-        if ($latestVersion) {
-            # output is like "packageName packageVersion", split to get second part
-            $parts = $latestVersion.split(' ')
-            if ($parts.length -eq 2) {
-                $PackageVersion = $parts[1]
-            }
-        }
-    }
-
-    $downloadedPackagePath = Join-Path $OutputDirectory "$PackageName.$PackageVersion"
-
-    if (Test-Path $downloadedPackagePath) {
-        Write-Debug "Reusing already downloaded package for: $PackageName"
-
-        return $downloadedPackagePath
-    }
-
     $parameters = @(
         "install", $PackageName,
         "-source", $PackageSource,
-        "-version", $PackageVersion,
         "-outputDirectory", $OutputDirectory
     )
-
+    if ($PackageVersion) {
+        $parameters += "-version"
+        $parameters += $PackageVersion
+    }
+    
     Write-Host -ForegroundColor Magenta "$ToolsPath\nuget $parameters"
     & "$ToolsPath\nuget" $parameters | Out-Null
 
-    return Resolve-Path $downloadedPackagePath
+    return Resolve-Path $outputDirectory/$PackageName.$PackageVersion* | Select-Object -Last 1
 }
 
 $exports = @(

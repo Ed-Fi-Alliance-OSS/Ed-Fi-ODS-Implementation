@@ -23,6 +23,17 @@ function Invoke-Install {
     Install-EdFiOdsSwaggerUI @p
 }
 
+function Invoke-DifferentPackageSource {
+    $p = @{
+        ToolsPath = "../../../tools"
+        WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
+        WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
+        PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    }
+
+    Install-EdFiOdsSwaggerUI @p
+}
+
 function Invoke-KeyAndSecret {
     $p = @{
         ToolsPath = "../../../tools"
@@ -58,11 +69,14 @@ function Invoke-Uninstall {
 try {
     switch ($Scenario) {
         "Install" { Invoke-Install }
+        "DifferentPackageSource" { Invoke-DifferentPackageSource }
         "KeyAndSecret" { Invoke-KeyAndSecret }
         "Uninstall" { Invoke-Uninstall }
         default {
             Write-Host "Valid test scenarios are: "
             Write-Host "    Install"
+            Write-Host "    DifferentPackageSource"
+            Write-Host "    KeyAndSecret"
             Write-Host "    Uninstall"
         }
     }

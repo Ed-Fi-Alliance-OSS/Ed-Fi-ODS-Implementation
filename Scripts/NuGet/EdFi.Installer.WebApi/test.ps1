@@ -44,6 +44,20 @@ function Invoke-NonDefaultApplication {
     Install-EdFiOdsWebApi @p
 }
 
+function Invoke-DifferentPackageSource {
+    $p = @{
+        ToolsPath = "../../../tools"
+        InstallType = "SharedInstance"
+        DbConnectionInfo = @{
+            Engine="SqlServer"
+            Server="localhost"
+            UseIntegratedSecurity=$true
+        }
+        PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    }
+    Install-EdFiOdsWebApi @p
+}
+
 function Invoke-SeparateConnectionInfo {
     $p = @{
         ToolsPath = "../../../tools"
@@ -164,6 +178,7 @@ function Invoke-UninstallDifferentWebSite {
 
 try {
     switch ($Scenario) {
+        "DifferentPackageSource" { Invoke-DifferentPackageSource } 
         "SeparateConnectionInfo" { Invoke-SeparateConnectionInfo } 
         "CommonConnectionInfo" { Invoke-CommonConnectionInfo }
         "FeatureOverride" { Invoke-FeatureOverride }
@@ -175,6 +190,7 @@ try {
         "Sandbox" { Invoke-Sandbox }
         default { 
             Write-Host "Valid test scenarios are: "
+            Write-Host "    DifferentPackageSource"
             Write-Host "    SeparateConnectionInfo"
             Write-Host "    CommonConnectionInfo"
             Write-Host "    FeatureOverride"
