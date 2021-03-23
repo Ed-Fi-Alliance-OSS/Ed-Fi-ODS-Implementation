@@ -390,12 +390,18 @@ function Invoke-TransformWebConfigAppSettings {
             $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
             $settings.ApiSettings.Mode = $Config.InstallType
             $settings.ApiSettings.Engine = $Config.engine
-            $settings.ApiSettings.Features=$Config.WebApiFeatures.Features
-            $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
-            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
-            $EmptyHashTable=@{}
-            $mergedSettings = Merge-Hashtables $settings, $EmptyHashTable
-            New-JsonFile $settingsFile $mergedSettings -Overwrite
+            If ($Config.WebApiFeatures.Features -ne $Null) {
+                foreach ($feature in $Config.WebApiFeatures.Features) {
+                    foreach ($defaultfeature in $settings.ApiSettings.Features) {
+                        If ( $feature.Name -eq $defaultfeature.Name) {
+                            $defaultfeature.IsEnabled =$feature.IsEnabled
+                        }
+                    }
+                }
+            }
+           $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
+           $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+           New-JsonFile $settingsFile $settings -Overwrite
         }
 }
 
