@@ -239,6 +239,9 @@ function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
         Write-Host
         Write-Host 'initdev is now using the following settings:' -ForegroundColor Green
         Write-FlatHashtable (Get-DeploymentSettings)
+
+        Write-Warning "The following settings are being overridden by the $(Split-Path -Leaf (Get-ProjectTypes).WebApi) project's user secrets:"
+        Write-FlatHashtable (Get-UserSecrets ((Get-ProjectTypes).WebApi))
     }
 }
 
