@@ -134,18 +134,18 @@ function Install-EdFiOdsWebApi {
             WebApiFeatures = @{
                 BearerTokenTimeoutMinutes="23"
                 ExcludedExtensions=@{}
-                Features= @{
-                "OpenApiMetadata"= @{
-                    Name= "OpenApiMetadata"
-                    IsEnabled= $true
+                Features= @(               
+				    @{
+                        Name= "OpenApiMetadata"
+                        IsEnabled= $true
+                    },
+				    @{
+                        Name= "AggregateDependencies"
+                        IsEnabled= $true
                     }
-                "AggregateDependencies"=@{
-                     Name= "AggregateDependencies"
-                    IsEnabled= $true
-                     }
-                    }
-                }
-             }
+                )
+            }
+        }
         PS c:\> Install-EdFiOdsWebApi @parameters
 
         Install in the default mode (shared) instance with basic database
