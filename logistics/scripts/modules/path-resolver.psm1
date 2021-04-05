@@ -645,6 +645,7 @@ $exportFunction = @(
     'Select-SupportingArtifactResolvedSources'
     'Select-SupportingArtifactResolvedFiles'
     'Select-ExtensionArtifactResolvedName'
+    'Get-RootPath'
     'Get-CorePath'
     'Get-RepositoryResolvedPath'    
     'Get-RepositoryRoot'
