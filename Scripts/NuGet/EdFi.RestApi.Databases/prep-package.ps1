@@ -80,11 +80,7 @@ $repoNuspecFiles = @(
     # Extension scripts
     Select-SupportingArtifactResolvedFiles -recurse -artifactType "Database" -artifactSources $enabledSources
     Select-ExtensionAssemblyMetadataJson
-
-    # Add the EdFi.Db.Deploy tool files
-    Select-CumulativeRepositoryResolvedItems "tools\EdFi.Db.Deploy.exe"
-    ((Select-CumulativeRepositoryResolvedItems -recurse "tools\.store\EdFi.Suite3.Db.Deploy" ) | Where-Object { -not $_.Name.EndsWith(".nupkg") })
-
+  
     # Add the License and Notices files
     "$PSScriptRoot\..\..\..\LICENSE.txt"
     "$PSScriptRoot\..\..\..\NOTICES.md"
@@ -97,6 +93,15 @@ $nonrepoNuspecFiles = Get-ChildItem $outputDirectory -Exclude *.nuspec, prep-pac
     ForEach-Object { @{ source = $_.FullName; target = "." } }
 
 Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $nonrepoNuspecFiles
+
+Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems "tools\EdFi.Db.Deploy.exe"; target = "tools" }
+
+$dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools\.store\EdFi.Suite3.Db.Deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
+
+Foreach ($eachtoolfile in $dbDeployToolfiles)
+{
+    Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair @{ source = $eachtoolfile.FullName; target =  $eachtoolfile.FullName.Substring($eachtoolfile.FullName.IndexOf('tools'))}
+}
 
 Write-Host -ForegroundColor Green "Created nuspec at: $nuspecPath"
 

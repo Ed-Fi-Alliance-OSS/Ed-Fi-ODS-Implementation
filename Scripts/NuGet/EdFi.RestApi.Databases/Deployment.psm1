@@ -78,6 +78,7 @@ function Initialize-DeploymentEnvironment {
         else {
             & $pathResolver ($PathResolverRepositoryOverride.Split(';'))
         }
+        $env:toolsPath = (Join-Path (Get-RootPath) 'tools')
     }
 
     Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
