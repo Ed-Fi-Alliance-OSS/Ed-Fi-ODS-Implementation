@@ -243,7 +243,7 @@ function Invoke-DbDeploy {
         [AllowEmptyCollection()]
         $Features = @(),
 
-        [string] $ToolsPath = (Get-ToolsPath) 
+        [string] $ToolsPath = (Get-ToolsPath)
     )
 
     $databaseIdLookup = @{
