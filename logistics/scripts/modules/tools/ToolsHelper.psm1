@@ -243,7 +243,7 @@ function Invoke-DbDeploy {
         [AllowEmptyCollection()]
         $Features = @(),
 
-        [string] $ToolsPath = (Get-ToolsPath)
+        [string] $ToolsPath 
     )
 
     $databaseIdLookup = @{
@@ -255,7 +255,9 @@ function Invoke-DbDeploy {
         "Security" = "Security"
     }
     $databaseType = $databaseIdLookup[$Database]
-
+    
+    if ([string]::IsNullOrWhiteSpace($ToolsPath)) { $ToolsPath = $env:toolsPath }
+    
     $tool = (Join-Path $ToolsPath 'EdFi.Db.Deploy')
 
     $hasFeatures = ($Features.count -gt 0)
