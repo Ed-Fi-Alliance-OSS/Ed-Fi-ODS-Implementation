@@ -255,7 +255,7 @@ function Invoke-DbDeploy {
         "Security" = "Security"
     }
     $databaseType = $databaseIdLookup[$Database]
-    
+
     $tool = (Join-Path $ToolsPath 'EdFi.Db.Deploy')
 
     $hasFeatures = ($Features.count -gt 0)
