@@ -1,7 +1,4 @@
-﻿/// <reference path="globals.js" />
-/// <reference path="extensions.js" />
-/// <reference path="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js" />
-// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
