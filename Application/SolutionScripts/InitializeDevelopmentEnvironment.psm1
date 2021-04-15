@@ -97,6 +97,8 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSmokeTest,
 
+        [switch] $RunSdkGen,
+
         [switch] $UsePlugins
     )
 
@@ -155,6 +157,8 @@ function Initialize-DevelopmentEnvironment {
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
+
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -455,6 +459,12 @@ function Invoke-PesterTests {
 function Invoke-PostmanIntegrationTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         & (Get-RepositoryResolvedPath "logistics/scripts/Invoke-PostmanIntegrationTests.ps1")
+    }
+}
+
+function Invoke-SdkGen {
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        & (Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1")
     }
 }
 

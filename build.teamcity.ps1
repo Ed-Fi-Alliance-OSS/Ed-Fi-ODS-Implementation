@@ -25,6 +25,7 @@ $params = @{
     RunPostman    = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runPostman'])    $true
     RunSmokeTest  = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSmokeTest'])  $true
     UsePlugins    = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.usePlugins'])    $false
+    RunSdkGen     = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSdkGen'])     $false
 }
 
 Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
