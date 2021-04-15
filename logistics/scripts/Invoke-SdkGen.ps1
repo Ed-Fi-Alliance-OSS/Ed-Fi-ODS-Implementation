@@ -19,18 +19,18 @@
     PS> Invoke-SdkGen.ps1
 #>
 param(
-    [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json"),
+    [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
-    [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot\modules")
+    [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path
 )
 
 $ErrorActionPreference = 'Stop'
 
 $error.Clear()
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global  (Get-RepositoryResolvedPath "Initialize-PowershellForDevelopment.ps1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/load-path-resolver.ps1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Initialize-PowershellForDevelopment.ps1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
 
 function Invoke-SdkGen {
     $script:result = @()
@@ -42,7 +42,7 @@ function Invoke-SdkGen {
         try {
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole  $buildConfiguration }
+            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiUrl $buildConfiguration }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
