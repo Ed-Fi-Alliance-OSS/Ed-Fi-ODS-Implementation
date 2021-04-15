@@ -45,6 +45,7 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole  $buildConfiguration }
         }
         finally {
+            $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
     }
 
