@@ -67,8 +67,10 @@ function Invoke-SdkGenConsole {
         [string] $buildConfiguration = "Debug"
     )
     
-    $sdkGenConsoleExecutableFolder = "$(Get-RepositoryResolvedPath "\Utilities\SdkGen\EdFi.SdkGen.Console")\bin\$buildConfiguration\netcoreapp3.1"
-    $params = "/c EdFi.SdkGen.Console.exe -m "+ $apiUrl+"/metadata?sdk=true -v 2.4.15 --include-profiles --include-composites --include-identity"
+    $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "\Utilities\SdkGen\EdFi.SdkGen.Console")
+    $sdkGenConsoleExeName = (Get-Item $sdkGenConsoleFolder).Name
+    $sdkGenConsoleExecutableFolder = "$sdkGenConsoleFolder\bin\$buildConfiguration\netcoreapp3.1"
+    $params = "/c $sdkGenConsoleExeName.exe -m "+ $apiUrl+"/metadata?sdk=true -v 2.4.15 --include-profiles --include-composites --include-identity"
     Write-Host "$sdkGenConsoleExecutableFolder $params" -ForegroundColor Magenta
     Start-Process -FilePath cmd -WorkingDirectory $sdkGenConsoleExecutableFolder -verb runas -ArgumentList ($params) -PassThru -Wait
 }
