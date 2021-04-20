@@ -108,7 +108,7 @@ function Install-EdFiOdsSandboxAdmin {
 
         # Full URL to the Ed-Fi ODS / API OAuth endpoint.
         [string]
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         $OAuthUrl,
 
         # Optional hashtable containing appSettings override values.
@@ -143,23 +143,23 @@ function Install-EdFiOdsSandboxAdmin {
     $result = @()
 
     $Config = @{
-        WebApplicationPath = $WebApplicationPath
-        PackageName = $PackageName
-        PackageVersion = $PackageVersion
-        PackageSource = $PackageSource
-        ToolsPath = $ToolsPath
-        DownloadPath = $DownloadPath
-        WebSitePath = $WebSitePath
-        WebSiteName = $WebSiteName
-        WebSitePort = $WebSitePort
-        WebApplicationName = $WebApplicationName
-        OAuthUrl = $OAuthUrl
+        WebApplicationPath   = $WebApplicationPath
+        PackageName          = $PackageName
+        PackageVersion       = $PackageVersion
+        PackageSource        = $PackageSource
+        ToolsPath            = $ToolsPath
+        DownloadPath         = $DownloadPath
+        WebSitePath          = $WebSitePath
+        WebSiteName          = $WebSiteName
+        WebSitePort          = $WebSitePort
+        WebApplicationName   = $WebApplicationName
+        OAuthUrl             = $OAuthUrl
         AppSettingsOverrides = $AppSettingsOverrides
-        AccountEmail = $AccountEmail
-        AccountSecret = $AccountSecret
-        PopulatedSecret = $PopulatedSecret
-        MinimalSecret = $MinimalSecret
-        NoDuration = $NoDuration
+        AccountEmail         = $AccountEmail
+        AccountSecret        = $AccountSecret
+        PopulatedSecret      = $PopulatedSecret
+        MinimalSecret        = $MinimalSecret
+        NoDuration           = $NoDuration
     }
 
     $elapsed = Use-StopWatch {
@@ -185,17 +185,17 @@ function Get-SandboxAdminPackage {
     [CmdletBinding()]
     param (
         [hashtable]
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         $Config
     )
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $parameters = @{
-            PackageName = $Config.PackageName
-            PackageVersion = $Config.PackageVersion
-            ToolsPath = $Config.ToolsPath
+            PackageName     = $Config.PackageName
+            PackageVersion  = $Config.PackageVersion
+            ToolsPath       = $Config.ToolsPath
             OutputDirectory = $Config.DownloadPath
-            PackageSource = $Config.PackageSource
+            PackageSource   = $Config.PackageSource
         }
         $packageDir = Get-NuGetPackage @parameters
         Test-Error
@@ -222,14 +222,14 @@ function Invoke-TransformWebConfigAppSettings {
     [CmdletBinding()]
     param (
         [hashtable]
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         $Config
     )
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
-        $settings.OAuthUrl=$Config.OAuthUrl
+        $settings.OAuthUrl = $Config.OAuthUrl
         $mergedSettings = Merge-Hashtables $settings, $Config.AppSettingsOverrides
         New-JsonFile $settingsFile $mergedSettings -Overwrite
     }
@@ -239,14 +239,14 @@ function Invoke-TransformWebConfigAccountInitialization {
     [CmdletBinding()]
     param (
         [hashtable]
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
 
-        $InitializationSetting =@{
+        $InitializationSetting = @{
             User = @{
                 "Test Admin" = @{
                     Email             = $Config.AccountEmail
@@ -276,7 +276,7 @@ function Invoke-TransformWebConfigAccountInitialization {
 
         $mergedSettings = Merge-Hashtables $settings, $InitializationSetting
         New-JsonFile $webConfigPath  $mergedSettings -Overwrite
-       
+
     }
 }
 
@@ -284,18 +284,18 @@ function Install-Application {
     [CmdletBinding()]
     param (
         [hashtable]
-        [Parameter(Mandatory=$true)]
+        [Parameter(Mandatory = $true)]
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
 
         $iisParams = @{
-            SourceLocation = $Config.PackageDirectory
+            SourceLocation     = $Config.PackageDirectory
             WebApplicationPath = $Config.WebApplicationPath
             WebApplicationName = $Config.WebApplicationName
-            WebSitePath = $Config.WebSitePath
-            WebSitePort = $WebSitePort
-            WebSiteName = $Config.WebSiteName
+            WebSitePath        = $Config.WebSitePath
+            WebSitePort        = $WebSitePort
+            WebSiteName        = $Config.WebSiteName
         }
         Install-EdFiApplicationIntoIIS @iisParams
     }
@@ -350,10 +350,10 @@ function Uninstall-EdFiOdsSandboxAdmin {
     )
 
     $config = @{
-        ToolsPath = $ToolsPath
+        ToolsPath          = $ToolsPath
         WebApplicationPath = $WebApplicationPath
         WebApplicationName = $WebApplicationName
-        WebSiteName = $WebSiteName
+        WebSiteName        = $WebSiteName
     }
 
     $result = @()
@@ -363,7 +363,7 @@ function Uninstall-EdFiOdsSandboxAdmin {
         $parameters = @{
             WebApplicationPath = $Config.WebApplicationPath
             WebApplicationName = $Config.WebApplicationName
-            WebSiteName = $Config.WebSiteName
+            WebSiteName        = $Config.WebSiteName
         }
         Uninstall-EdFiApplicationFromIIS @parameters
 
