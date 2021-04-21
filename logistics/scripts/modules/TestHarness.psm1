@@ -65,13 +65,13 @@ function Invoke-SdkGenConsole {
     Param(
         [Parameter(Mandatory = $true)] [string] $apiMetadataUrl, 
         [string] $buildConfiguration = "Debug",
-        [string] $SdkCliVersion = "2.4.15"
+        [string] $sdkCliVersion = "2.4.15"
     )
     
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/netcoreapp3.1"    
     $sdkGenConsoleFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console')
-    & $sdkGenConsoleFullPath -m ($apiMetadataUrl) -v ($SdkCliVersion) -p $true -c $true -i $true | Write-Host
+    & $sdkGenConsoleFullPath -p $true -c $true -i $true -m ($apiMetadataUrl) -v $sdkCliVersion | Write-Host
 }
 
 function Start-TestHarness {
