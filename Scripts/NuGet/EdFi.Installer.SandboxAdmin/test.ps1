@@ -6,100 +6,89 @@
 # This script should not be included in the NuGet package. It can be used
 # to run various test scenarios during manual/exploratory testing.
 Param(
+    [Parameter(Mandatory = $true)]
+    [ValidateSet(
+        'Install',
+        'InstallPostgreSQL',
+        'InstallCustomPackage',
+        'Uninstall',
+        'InstallCustomSettings',
+        'UninstallCustomSettings'
+    )]
     $Scenario
 )
 
-& "../../../../Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1"
-import-module -Force "$PSScriptRoot\Install-EdFiOdsSandboxAdmin.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Install-EdFiOdsSandboxAdmin.psm1"
 
-function Invoke-Install {
-    $p = @{
-        OAuthUrl = "https://localhost/EdFiOdsWebApi"
-    }
+function Invoke-Install { Install-EdFiOdsSandboxAdmin }
 
-    Install-EdFiOdsSandboxAdmin @p
-}
+function Invoke-InstallPostgreSQL { Install-EdFiOdsSandboxAdmin -Engine PostgreSQL }
 
-function Invoke-DifferentPackageSource {
-    $p = @{
-        OAuthUrl = "https://localhost/EdFiOdsWebApi"
-        PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-    }
-
-    Install-EdFiOdsSandboxAdmin @p
-}
-
-function Invoke-CustomPackage {
-    $p = @{
-        OAuthUrl = "https://localhost/EdFiOdsWebApi"
-        PackageVersion = "5.1.0-b12760"
-    }
-
-    Install-EdFiOdsSandboxAdmin @p
+function Invoke-InstallCustomPackage {
+    $params = @{ PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json" }
+    Install-EdFiOdsSandboxAdmin @params
 }
 
 function Invoke-InstallCustomSettings {
-    $p = @{
-        OAuthUrl = "https://localhost/EdFiOdsWebApi"
-        PackageVersion = "3.4.0"
-        WebSitePath = "c:\inetpub\Ed-Fi-Sandbox"
-        WebSitePort = 8765
-        WebApplicationPath = "c:\inetpub\Ed-Fi-Sandbox\3.4.0-release"
-        WebApplicationName = "SandboxAdmin"
-        AppSettingsOverride = @{
-            DefaultApplicationName = "My Sandbox Administrator"
+    $params = @{
+        PackageVersion     = "5.1.0"
+        WebSitePath        = "c:\inetpub\SandboxAdminTest"
+        WebApplicationPath = "c:\inetpub\SandboxAdminTest\5.1.0-test"
+        WebApplicationName = "SandboxAdminTest"
+        WebSitePort        = 8765
+        Settings           = @{
+            DefaultApplicationName       = "My Sandbox Administrator"
             DefaultOperationalContextUri = "uri://sample.edu"
-            PreserveLoginUrl = $false
+            PreserveLoginUrl             = $false
+            User                         = @{
+                "Test Admin" = @{
+                    Email             = "nobody@ed-fi.org"
+                    Password          = "***REMOVED***"
+                    Admin             = $true
+                    NamespacePrefixes = @("uri://ed-fi.org", "uri://gbisd.org")
+                    Sandboxes         = @{
+                        "Populated Demonstration Sandbox" = @{
+                            Key     = "populatedSandbox"
+                            Secret  = "populatedSandboxSecret"
+                            Type    = "Sample"
+                            Refresh = $false
+                        }
+                        "Minimal Demonstration Sandbox"   = @{
+                            Key     = "minimalSandbox"
+                            Secret  = "minimalSandboxSecret"
+                            Type    = "Minimal"
+                            Refresh = $false
+                        }
+                    }
+                }
+            }
         }
-        AccountEmail = "nobody@ed-fi.org"
-        AccountSecret = "AccountPassword$"
-        PopulatedSecret = "PopulatedSecret$"
-        MinimalSecret = "MinimalSecret$"
     }
 
-    Install-EdFiOdsSandboxAdmin @p
+    Install-EdFiOdsSandboxAdmin @params
 }
 
-function Invoke-Uninstall {
-    UnInstall-EdFiOdsSandboxAdmin
-}
+function Invoke-Uninstall { UnInstall-EdFiOdsSandboxAdmin }
 
 function Invoke-UninstallCustomSettings {
-    $p = @{
-        WebApplicationPath = "c:\inetpub\Ed-Fi-Sandbox\3.4.0-release"
-        WebApplicationName = "SandboxAdmin"
+    $params = @{
+        WebApplicationPath = "c:\inetpub\SandboxAdminTest\5.1.0-test"
+        WebApplicationName = "SandboxAdminTest"
     }
 
-    UnInstall-EdFiOdsSandboxAdmin @p
+    UnInstall-EdFiOdsSandboxAdmin @params
 }
 
 try {
-    switch ($Scenario) {
-        "Install" { Invoke-Install }
-        "CustomPackage" { Invoke-CustomPackage }
-        "DifferentPackageSource" { Invoke-DifferentPackageSource }
-        "Uninstall" { Invoke-Uninstall }
-        "InstallCustomSettings" { Invoke-InstallCustomSettings }
-        "UninstallCustomSettings" { Invoke-UninstallCustomSettings }
-        default {
-            Write-Host "Valid test scenarios are: "
-            Write-Host "    Install"
-            Write-Host "    CustomPackage"
-            Write-Host "    DifferentPackageSource"
-            Write-Host "    Uninstall"
-            Write-Host "    InstallCustomSettings"
-            Write-Host "    UninstallCustomSettings"
-        }
-    }
+    & "Invoke-$Scenario"
 }
 catch {
-    $ErrorRecord= $_
+    $ErrorRecord = $_
     $ErrorRecord | Format-List * -Force
-    $ErrorRecord.InvocationInfo |Format-List *
+    $ErrorRecord.InvocationInfo | Format-List *
     $Exception = $ErrorRecord.Exception
-    for ($i = 0; $Exception; $i++, ($Exception = $Exception.InnerException))
-    {
+    for ($i = 0; $Exception; $i++, ($Exception = $Exception.InnerException)) {
         "$i" * 80
-        $Exception |Format-List * -Force
+        $Exception | Format-List * -Force
     }
 }
