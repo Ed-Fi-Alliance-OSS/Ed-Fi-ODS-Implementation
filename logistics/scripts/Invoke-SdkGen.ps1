@@ -35,14 +35,15 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 function Invoke-SdkGen {
     $script:result = @()
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
-     $buildConfiguration = "Debug"
+    $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
+    $buildConfiguration = "Debug"
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
     
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiUrl $buildConfiguration }
+            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
