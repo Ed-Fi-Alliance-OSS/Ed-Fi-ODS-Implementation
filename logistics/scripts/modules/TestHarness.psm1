@@ -71,7 +71,7 @@ function Invoke-SdkGenConsole {
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/netcoreapp3.1"    
     $sdkGenConsoleFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console')
-    & $sdkGenConsoleFullPath -m ($apiMetadataUrl) -v ($SdkCliVersion) --include-profiles --include-composites --include-identity | Write-Host
+    & $sdkGenConsoleFullPath -m ($apiMetadataUrl) -v ($SdkCliVersion) -p $true -c $true -i $true | Write-Host
 }
 
 function Start-TestHarness {
