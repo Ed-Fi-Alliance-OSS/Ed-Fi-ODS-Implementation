@@ -162,6 +162,7 @@ function Install-EdFiOdsSandboxAdmin {
         $result += Get-SandboxAdminPackage $config
         $result += Set-AppSettings $config
         $result += Install-Application $config
+        $result += New-SqlLogins $config
         $result
     }
 
@@ -208,10 +209,10 @@ function Get-DefaultConnectionStringsByEngine {
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Master   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Ods      = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Admin    = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Security = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Master   = "Host=localhost; Port=5402; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
             }
         }
     }
@@ -281,10 +282,13 @@ function Set-AppSettings {
             $engine = @{ ApiSettings = @{ Engine = $Config.Engine } }
             $settings = Merge-Hashtables $settings, (Get-DefaultConnectionStringsByEngine)[$Config.Engine], $engine
             New-JsonFile $settingsPath $settings -Overwrite
+
         }
 
         $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings), $Config.Settings
         New-JsonFile $settingsPath $settings -Overwrite
+
+        $Config.MergedSettings = $settings
 
         Write-Host "Using settings file at:"
         Write-Host $settingsPath -ForegroundColor Green
@@ -312,6 +316,48 @@ function Install-Application {
         Install-EdFiApplicationIntoIIS @params
     }
 }
+
+function Convert-ConnectionStringtoDatabaseConnectionInfo {
+    [CmdletBinding()]
+    param (
+        [string]
+        [Parameter(Mandatory = $true)]
+        $ConnectionString
+    )
+
+    $csb = New-Object System.Data.Common.DbConnectionStringBuilder
+    # using set_ConnectionString correctly uses the underlying C# setter functionality resulting in a dictionary of connection string properties
+    $csb.set_ConnectionString($ConnectionString)
+
+    $dbConnectionInfo = @{
+        UseIntegratedSecurity = $true
+        Engine                = $Config.MergedSettings.ApiSettings.Engine
+    }
+    if ($null -ne $csb.Server) { $dbConnectionInfo.Server = $csb.Server }
+    if ($null -ne $csb.Host) { $dbConnectionInfo.Server = $csb.Host }
+
+    return $dbConnectionInfo
+}
+
+function New-SqlLogins {
+    [CmdletBinding()]
+    param (
+        [hashtable]
+        [Parameter(Mandatory = $true)]
+        $Config
+    )
+
+    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        $adminDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Ods)
+        $odsDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Admin)
+        $securityDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Security)
+
+        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName
+        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName
+        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName
+    }
+}
+
 
 function Uninstall-EdFiOdsSandboxAdmin {
     <#
