@@ -11,13 +11,13 @@ To run manually from source code, instead of from an expanded NuGet package,
 run the prep-installer-package.ps1 script first. Think of it as a "restore-packages"
 step before compiling in C#.
 #>
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/hashtable.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/nuget-helper.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/tasks/TaskHelper.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Install.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Uninstall.psm1"
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Configuration.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/hashtable.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/nuget-helper.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/tasks/TaskHelper.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Install.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Uninstall.psm1"
+Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Configuration.psm1"
 
 function Install-EdFiOdsSandboxAdmin {
     <#
@@ -42,33 +42,39 @@ function Install-EdFiOdsSandboxAdmin {
 
     .EXAMPLE
         PS c:\> $parameters = @{
-            PackageVersion = "5.1.0"
-            WebSitePath = "c:\inetpub\Ed-Fi-Sandbox"
-            WebSitePort = 8765
-            WebApplicationPath = "c:\inetpub\Ed-Fi-Sandbox\5.1.0"
-            WebApplicationName = "SandboxAdmin5.1.0"
+            PackageVersion     = '5.1.0'
+            WebSitePath        = 'c:\inetpub\SandboxAdmin'
+            WebSitePort        = 8765
+            WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
+            WebApplicationName = 'SandboxAdmin5.1.0'
             Settings           = @{
-                OAuthUrl = "https://localhost/EdFiOdsWebApi"
-                DefaultApplicationName       = "My Sandbox Administrator"
-                DefaultOperationalContextUri = "uri://sample.edu"
+                ConnectionStrings            = @{
+                    EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
+                    EdFi_Admin    = 'Server=(local); Trusted_Connection=True; Database=EdFi_Admin; Application Name=EdFi.Ods.SandboxAdmin'
+                    EdFi_Security = 'Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True; Application Name=EdFi.Ods.SandboxAdmin'
+                    EdFi_Master   = 'Server=(local); Trusted_Connection=True; Database=master; Application Name=EdFi.Ods.SandboxAdmin'
+                }
+                OAuthUrl                     = 'https://localhost/EdFiOdsWebApi'
+                DefaultApplicationName       = 'My Sandbox Administrator'
+                DefaultOperationalContextUri = 'uri://sample.edu'
                 PreserveLoginUrl             = $false
                 User                         = @{
-                    "Test Admin" = @{
-                        Email             = "test@ed-fi.org"
-                        Password          = "***REMOVED***"
+                    'Test Admin' = @{
+                        Email             = 'test@ed-fi.org'
+                        Password          = '***REMOVED***'
                         Admin             = $true
-                        NamespacePrefixes = @("uri://ed-fi.org", "uri://gbisd.org")
+                        NamespacePrefixes = @('uri://ed-fi.org', 'uri://gbisd.org')
                         Sandboxes         = @{
-                            "Populated Demonstration Sandbox" = @{
-                                Key     = "populatedSandbox"
-                                Secret  = "populatedSandboxSecret"
-                                Type    = "Sample"
+                            'Populated Demonstration Sandbox' = @{
+                                Key     = 'populatedSandbox'
+                                Secret  = 'populatedSandboxSecret'
+                                Type    = 'Sample'
                                 Refresh = $false
                             }
-                            "Minimal Demonstration Sandbox"   = @{
-                                Key     = "minimalSandbox"
-                                Secret  = "minimalSandboxSecret"
-                                Type    = "Minimal"
+                            'Minimal Demonstration Sandbox'   = @{
+                                Key     = 'minimalSandbox'
+                                Secret  = 'minimalSandboxSecret'
+                                Type    = 'Minimal'
                                 Refresh = $false
                             }
                         }
@@ -154,7 +160,7 @@ function Install-EdFiOdsSandboxAdmin {
 
     $elapsed = Use-StopWatch {
         $result += Get-SandboxAdminPackage $config
-        $result += Set-Appsettings $config
+        $result += Set-AppSettings $config
         $result += Install-Application $config
         $result
     }
@@ -185,6 +191,8 @@ function Get-SandboxAdminPackage {
             PackageSource   = $Config.PackageSource
         }
         $Config.PackageDirectory = Get-NuGetPackage @parameters
+
+        Write-Host $Config.PackageDirectory -ForegroundColor Green
     }
 }
 
@@ -192,18 +200,18 @@ function Get-DefaultConnectionStringsByEngine {
     return  @{
         SQLServer  = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0};"
-                EdFi_Admin    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin;"
-                EdFi_Security = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True;"
-                EdFi_Master   = "Server=(local); Trusted_Connection=True; Database=master;"
+                EdFi_Ods      = "Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Admin    = "Server=(local); Trusted_Connection=True; Database=EdFi_Admin; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Security = "Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Master   = "Server=(local); Trusted_Connection=True; Database=master; Application Name=EdFi.Ods.SandboxAdmin"
             }
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
-                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
-                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50;"
-                EdFi_Master   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false;"
+                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Master   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
             }
         }
     }
@@ -257,7 +265,7 @@ function New-JsonFile {
     $Hashtable | ConvertTo-Json -Depth 10 | Out-File -FilePath $FilePath -NoNewline -Encoding UTF8
 }
 
-function Set-Appsettings {
+function Set-AppSettings {
     [CmdletBinding()]
     param (
         [hashtable]
@@ -276,8 +284,10 @@ function Set-Appsettings {
         }
 
         $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings), $Config.Settings
-        New-JsonFile $settingsPath $settings
+        New-JsonFile $settingsPath $settings -Overwrite
 
+        Write-Host "Using settings file at:"
+        Write-Host $settingsPath -ForegroundColor Green
         Write-FlatHashtable $settings
     }
 }
@@ -320,7 +330,7 @@ function Uninstall-EdFiOdsSandboxAdmin {
         Uninstall using all default values.
     .EXAMPLE
         PS c:\> $p = @{
-            WebSiteName="Ed-Fi-3"
+            WebSiteName="Ed-Fi"
             WebApplicationPath="d:/octopus/applications/staging/Sandbox-3"
             WebApplicationName = "Sandbox"
         }

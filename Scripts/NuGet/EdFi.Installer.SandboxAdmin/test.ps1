@@ -25,38 +25,46 @@ function Invoke-Install { Install-EdFiOdsSandboxAdmin }
 function Invoke-InstallPostgreSQL { Install-EdFiOdsSandboxAdmin -Engine PostgreSQL }
 
 function Invoke-InstallCustomPackage {
-    $params = @{ PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json" }
-    Install-EdFiOdsSandboxAdmin @params
+    $parameters = @{ PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json" }
+    Install-EdFiOdsSandboxAdmin @parameters
 }
 
 function Invoke-InstallCustomSettings {
-    $params = @{
-        PackageVersion     = "5.1.0"
-        WebSitePath        = "c:\inetpub\SandboxAdminTest"
-        WebApplicationPath = "c:\inetpub\SandboxAdminTest\5.1.0-test"
-        WebApplicationName = "SandboxAdminTest"
+    # this should match the example for the Install-EdFiOdsSandboxAdmin function in Install-EdFiOdsSandboxAdmin.psm1
+    $parameters = @{
+        PackageVersion     = '5.1.0'
+        WebSitePath        = 'c:\inetpub\SandboxAdmin'
         WebSitePort        = 8765
+        WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
+        WebApplicationName = 'SandboxAdmin5.1.0'
         Settings           = @{
-            DefaultApplicationName       = "My Sandbox Administrator"
-            DefaultOperationalContextUri = "uri://sample.edu"
+            ConnectionStrings            = @{
+                EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
+                EdFi_Admin    = 'Server=(local); Trusted_Connection=True; Database=EdFi_Admin; Application Name=EdFi.Ods.SandboxAdmin'
+                EdFi_Security = 'Server=(local); Trusted_Connection=True; Database=EdFi_Security; Persist Security Info=True; Application Name=EdFi.Ods.SandboxAdmin'
+                EdFi_Master   = 'Server=(local); Trusted_Connection=True; Database=master; Application Name=EdFi.Ods.SandboxAdmin'
+            }
+            OAuthUrl                     = 'https://localhost/EdFiOdsWebApi'
+            DefaultApplicationName       = 'My Sandbox Administrator'
+            DefaultOperationalContextUri = 'uri://sample.edu'
             PreserveLoginUrl             = $false
             User                         = @{
-                "Test Admin" = @{
-                    Email             = "nobody@ed-fi.org"
-                    Password          = "***REMOVED***"
+                'Test Admin' = @{
+                    Email             = 'test@ed-fi.org'
+                    Password          = '***REMOVED***'
                     Admin             = $true
-                    NamespacePrefixes = @("uri://ed-fi.org", "uri://gbisd.org")
+                    NamespacePrefixes = @('uri://ed-fi.org', 'uri://gbisd.org')
                     Sandboxes         = @{
-                        "Populated Demonstration Sandbox" = @{
-                            Key     = "populatedSandbox"
-                            Secret  = "populatedSandboxSecret"
-                            Type    = "Sample"
+                        'Populated Demonstration Sandbox' = @{
+                            Key     = 'populatedSandbox'
+                            Secret  = 'populatedSandboxSecret'
+                            Type    = 'Sample'
                             Refresh = $false
                         }
-                        "Minimal Demonstration Sandbox"   = @{
-                            Key     = "minimalSandbox"
-                            Secret  = "minimalSandboxSecret"
-                            Type    = "Minimal"
+                        'Minimal Demonstration Sandbox'   = @{
+                            Key     = 'minimalSandbox'
+                            Secret  = 'minimalSandboxSecret'
+                            Type    = 'Minimal'
                             Refresh = $false
                         }
                     }
@@ -65,18 +73,18 @@ function Invoke-InstallCustomSettings {
         }
     }
 
-    Install-EdFiOdsSandboxAdmin @params
+    Install-EdFiOdsSandboxAdmin @parameters
 }
 
 function Invoke-Uninstall { UnInstall-EdFiOdsSandboxAdmin }
 
 function Invoke-UninstallCustomSettings {
-    $params = @{
-        WebApplicationPath = "c:\inetpub\SandboxAdminTest\5.1.0-test"
-        WebApplicationName = "SandboxAdminTest"
+    $parameters = @{
+        WebApplicationPath = "c:\inetpub\SandboxAdmin\5.1.0"
+        WebApplicationName = "SandboxAdmin"
     }
 
-    UnInstall-EdFiOdsSandboxAdmin @params
+    UnInstall-EdFiOdsSandboxAdmin @parameters
 }
 
 try {
