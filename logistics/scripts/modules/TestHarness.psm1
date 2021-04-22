@@ -69,10 +69,8 @@ function Invoke-SdkGenConsole {
     
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/netcoreapp3.1"
-    $sdkGenConsoleExeName = (Get-Item $sdkGenConsoleFolder).Name
-    $params = "/c $sdkGenConsoleExeName.exe -m "+ $apiMetadataUrl+" -p true -c true -i true"
-    Write-Host "$sdkGenConsoleExecutableFolder $params" -ForegroundColor Magenta
-    Start-Process -FilePath cmd -WorkingDirectory $sdkGenConsoleExecutableFolder -ArgumentList ($params) -Wait
+    $sdkGenConsoleExecutableFolderFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console.exe')
+    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList @('-m', $apiMetadataUrl, '-p', '-c', '-i') -NoNewWindow -Wait | Out-Host
 }
 
 function Start-TestHarness {
