@@ -13,7 +13,6 @@
   </metadata>
   <files>
     <file src="Install-EdFiOdsSandboxAdmin.psm1" />
-    <file src="initialization.config" />
     <file src="Ed-Fi-Common/**" />
     <file src="Ed-Fi-ODS/**" />
     <file src="Ed-Fi-ODS-Implementation/**" />
