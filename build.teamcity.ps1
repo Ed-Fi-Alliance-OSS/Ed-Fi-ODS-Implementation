@@ -25,6 +25,7 @@ $params = @{
     RunPostman    = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runPostman'])    $true
     RunSmokeTest  = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSmokeTest'])  $true
     UsePlugins    = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.usePlugins'])    $false
+    RunSdkGen     = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSdkGen'])     $false
 }
 
 Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
@@ -32,43 +33,47 @@ Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params
 Write-FlatHashtable $params
 $result = Initialize-DevelopmentEnvironment @params
 
-# Package
-$params = @{
-    ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SandboxAdmin)
-    PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.id']
-    Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.version']     '0.0.0'
-    Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.sandboxAdmin.properties']) (Get-DefaultNuGetProperties)
-    OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.output']      "$PSScriptRoot/packages"
+$noPackaging   = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.noPackaging'])
+
+if (-not $noPackaging) {
+    # Package
+    $params = @{
+        ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SandboxAdmin)
+        PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.id']
+        Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.version']     '0.0.0'
+        Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.sandboxAdmin.properties']) (Get-DefaultNuGetProperties)
+        OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.sandboxAdmin.output']      "$PSScriptRoot/packages"
+    }
+    $result += New-WebPackage @params
+
+    $params = @{
+        ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SwaggerUI)
+        PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.id']
+        Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.version']     '0.0.0'
+        Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.swaggerUI.properties']) (Get-DefaultNuGetProperties)
+        OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.output']      "$PSScriptRoot/packages"
+    }
+    $result += New-WebPackage @params
+
+    $params = @{
+        ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
+        PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.id']
+        Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.version']     '0.0.0'
+        Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.webApi.properties']) (Get-DefaultNuGetProperties)
+        OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.output']      "$PSScriptRoot/packages"
+    }
+    $result += New-WebPackage @params
+
+    $params = @{
+        ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases)
+        PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.id']
+        Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.version']     '0.0.0'
+        Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.databases.properties']) (Get-DefaultNuGetProperties)
+        OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.output']      "$PSScriptRoot/packages"
+    }
+    $result += New-DatabasesPackage @params
+
+    $result | Format-Table
+
+    if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages,*.log']" }
 }
-$result += New-WebPackage @params
-
-$params = @{
-    ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SwaggerUI)
-    PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.id']
-    Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.version']     '0.0.0'
-    Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.swaggerUI.properties']) (Get-DefaultNuGetProperties)
-    OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.swaggerUI.output']      "$PSScriptRoot/packages"
-}
-$result += New-WebPackage @params
-
-$params = @{
-    ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
-    PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.id']
-    Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.version']     '0.0.0'
-    Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.webApi.properties']) (Get-DefaultNuGetProperties)
-    OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.webApi.output']      "$PSScriptRoot/packages"
-}
-$result += New-WebPackage @params
-
-$params = @{
-    ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases)
-    PackageId       = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.id']
-    Version         = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.version']     '0.0.0'
-    Properties      = Get-ValueOrDefault (ConvertTo-Array $teamcityParameters['odsapi.build.package.databases.properties']) (Get-DefaultNuGetProperties)
-    OutputDirectory = Get-ValueOrDefault                  $teamcityParameters['odsapi.build.package.databases.output']      "$PSScriptRoot/packages"
-}
-$result += New-DatabasesPackage @params
-
-$result | Format-Table
-
-if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages,*.log']" }

@@ -61,6 +61,18 @@ function Get-TestHarnessExecutable {
     return $testHarnessExecutable
 }
 
+function Invoke-SdkGenConsole {
+    Param(
+        [Parameter(Mandatory = $true)] [string] $apiMetadataUrl,
+        [string] $buildConfiguration = "Debug"
+    )
+    
+    $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
+    $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/netcoreapp3.1"
+    $sdkGenConsoleExecutableFolderFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console.exe')
+    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList @('-m', $apiMetadataUrl, '-p', '-c', '-i') -WorkingDirectory $sdkGenConsoleExecutableFolder -NoNewWindow -Wait | Out-Host
+}
+
 function Start-TestHarness {
     param(
         [Parameter(Mandatory = $true)] [string] $apiUrl,
@@ -121,5 +133,5 @@ function Stop-TestHarness {
     }
 }
 
-Export-ModuleMember -function Add-RandomKeySecret, Start-TestHarness,
+Export-ModuleMember -function Add-RandomKeySecret, Start-TestHarness, Invoke-SdkGenConsole,
 Stop-TestHarness -Alias *
