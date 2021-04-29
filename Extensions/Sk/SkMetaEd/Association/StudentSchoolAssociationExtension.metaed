@@ -1,0 +1,14 @@
+
+Association EdFi.StudentSchoolAssociation additions
+domain entity EdFi.LocalEducationAgency
+    documentation "District where student resides. If student resides out of state, use district of enrollment."
+    is required
+    role name Resident
+domain entity EdFi.School
+    documentation "School within a district where student resides. If student resides out of state, use school of enrollment or leave blank."
+    is optional
+    role name Resident
+domain entity EdFi.School
+    documentation "School within a district where student's records should be reported for state reporting purposes."
+    is required
+    role name Reporting
