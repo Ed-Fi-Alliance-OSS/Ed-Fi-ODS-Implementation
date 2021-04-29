@@ -1,4 +1,0 @@
-Association EdFi.StudentSpecialEducationProgramAssociation additions
-bool ToTakeAlternateAssessment
-    documentation "True = Indicates the student needs alternate assessment."
-    is optional
