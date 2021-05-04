@@ -99,7 +99,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSdkGen,
 
-        [switch] $UsePlugins
+        [switch] $UsePlugins,
+
+        [hashtable] $Settings = @{ ApiSettings = @{ } }
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -112,17 +114,15 @@ function Initialize-DevelopmentEnvironment {
 
     $elapsed = Use-StopWatch {
 
-        $settings = @{ ApiSettings = @{ } }
+        if ($InstallType) { $Settings.ApiSettings.Mode = $InstallType }
+        if ($OdsTokens) { $Settings.ApiSettings.OdsTokens = $OdsTokens }
+        if ($Engine) { $Settings.ApiSettings.Engine = $Engine }
 
-        if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
-        if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
-        if ($Engine) { $settings.ApiSettings.Engine = $Engine }
+        Set-DeploymentSettings $Settings | Out-Null
 
-        Set-DeploymentSettings $settings | Out-Null
+        if ($UsePlugins.IsPresent) { $Settings = (Merge-Hashtables $Settings, (Get-EdFiDeveloperPluginSettings)) }
 
-        if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
-
-        $script:result += Invoke-NewDevelopmentAppSettings $settings
+        $script:result += Invoke-NewDevelopmentAppSettings $Settings
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
