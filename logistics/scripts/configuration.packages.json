@@ -49,6 +49,91 @@
       "PackageName": "EdFi.Suite3.Db.Deploy",
       "PackageVersion": "2.3.2",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Admin.PostgreSQL": {
+      "PackageName": "EdFi.Database.Admin.PostgreSQL",
+      "PackageVersion": "5.3.6",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Admin": {
+      "PackageName": "EdFi.Database.Admin",
+      "PackageVersion": "5.3.6",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Admin.DataAccess": {
+      "PackageName": "EdFi.Suite3.Admin.DataAccess",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Security.DataAccess": {
+      "PackageName": "EdFi.Suite3.Security.DataAccess",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Security": {
+      "PackageName": "EdFi.Database.Security",
+      "PackageVersion": "5.3.6",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Database.Security.PostgreSQL": {
+      "PackageName": "EdFi.Database.Security.PostgreSQL",
+      "PackageVersion": "5.3.6",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.BulkLoadClient.Console": {
+      "PackageName": "EdFi.Suite3.BulkLoadClient.Console",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },    
+    "EdFi.SmokeTest.Console": {
+      "PackageName": "EdFi.Suite3.SmokeTest.Console",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.LoadTools": {
+      "PackageName": "EdFi.Suite3.LoadTools",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },    
+    "EdFi.Installer.SandboxAdmin": {
+      "PackageName": "EdFi.Suite3.Installer.SandboxAdmin",
+      "PackageVersion": "5.3.3",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.OdsApi.Sdk": {
+      "PackageName": "EdFi.Suite3.OdsApi.Sdk",
+      "PackageVersion": "5.3.2",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Installer.SwaggerUI": {
+      "PackageName": "EdFi.Suite3.Installer.SwaggerUI",
+      "PackageVersion": "5.3.1",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Installer.WebApi": {
+      "PackageName": "EdFi.Suite3.Installer.WebApi",
+      "PackageVersion": "5.3.2",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.SandboxAdmin": {
+      "PackageName": "EdFi.Suite3.Ods.SandboxAdmin",
+      "PackageVersion": "5.3.139",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.SwaggerUI": {
+      "PackageName": "EdFi.Suite3.Ods.SwaggerUI",
+      "PackageVersion": "5.3.139",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.Ods.WebApi": {
+      "PackageName": "EdFi.Suite3.Ods.WebApi",
+      "PackageVersion": "5.3.139",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "EdFi.RestApi.Databases": {
+      "PackageName": "EdFi.Suite3.RestApi.Databases",
+      "PackageVersion": "5.3.139",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
   }
 }

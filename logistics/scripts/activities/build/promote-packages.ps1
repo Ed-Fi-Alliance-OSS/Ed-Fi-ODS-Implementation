@@ -32,7 +32,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/script
 
 $packages = @{ }
 
-Invoke-Task -name 'gather package versions' -task {
+Invoke-Task -name 'Gather package versions' -task {
 
     $searchPaths = (Get-ChildItem (Get-RepositoryRoot) -Recurse -Filter '*.sln').FullName
     $configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
@@ -57,7 +57,7 @@ Invoke-Task -name 'gather package versions' -task {
     Write-FlatHashtable $result
 }
 
-Invoke-Task -name 'promote packages' -task {
+Invoke-Task -name 'Promote packages' -task {
 
     $parameters = @{
         PackagesURL = $PackagesURL
