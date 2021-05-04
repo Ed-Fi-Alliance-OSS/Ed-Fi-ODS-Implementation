@@ -74,7 +74,7 @@ function Initialize-SKTemplate {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $samplePath = "$PSScriptRoot/../../../Starter-Kit-SEA-Data-Collection/sample-extension/EdFi.Ods.Extensions.Sk/",
+        [string] $samplePath = "$PSScriptRoot/../../../Starter-Kit-SEA-Data-Collection/sample-data/",
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
