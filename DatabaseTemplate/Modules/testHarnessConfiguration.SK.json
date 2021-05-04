@@ -1,0 +1,35 @@
+{
+  "Vendors": [
+    {
+      "Email": "test@sk.ed-fi.org",
+      "VendorName": "sk.ed-fi.org",
+      "Applications": [
+        {
+          "ApplicationName": "BulkLoadClientBootstrap",
+          "ClaimSetName": "Bootstrap Descriptors and EdOrgs",
+          "ApiClients": [
+            {
+              "ApiClientName": "BulkLoadClientBootstrap",
+              "LocalEducationOrganizations": []
+            }
+          ]
+        },
+        {
+          "ApplicationName": "BulkLoadClientSandbox",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "BulkLoadClientSandbox",
+              "LocalEducationOrganizations": []
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [
+        "uri://ed-fi.org",
+        "uri://gbisd.edu",
+        "uri://sk.ed-fi.org"
+      ]
+    }
+  ]
+}
