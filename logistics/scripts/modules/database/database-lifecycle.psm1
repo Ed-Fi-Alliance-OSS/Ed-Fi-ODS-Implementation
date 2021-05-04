@@ -185,8 +185,6 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
 
-    $msSqlBackupPath = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-
     $databaseNeedsBackup = (
         (-not $dropDatabase) -and
         (Test-DatabaseExists -csb $csb) -and
@@ -194,6 +192,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     )
 
     if ($databaseNeedsBackup) {
+        $msSqlBackupPath = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
         Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
         Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath\" -overwriteExisting | Out-Null
     }
