@@ -49,7 +49,12 @@ Invoke-Task -name 'Gather package versions' -task {
     # intersection
     foreach ($key in $packages.Keys) {
         if (-not ($key -in $azurePackages.keys)) { continue }
-        $result.add($key.ToLower(), $packages[$key])
+                if ('latest' -eq  $packages[$key]) {
+                    $result.add($key.ToLower(), $azurePackages[$key])
+                }
+                else {
+                    $result.add($key.ToLower(), $packages[$key])
+                }
     }
 
     Write-Host "Found $($result.Count) packages in common:"
