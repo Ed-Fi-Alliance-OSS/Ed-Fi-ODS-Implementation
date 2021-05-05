@@ -26,31 +26,42 @@ function Invoke-BuildLoadTools {
     )
 
     $buildConfiguration = $config.buildConfiguration
+    $solutionPath = $config.loadToolsSolution
+    $verbosity = "minimal"
 
-    $msBuildParameters = @(
-        "`"/property:Configuration=$($buildConfiguration)`"",
-        "`"/target:clean;build`"",
-        "`"/verbosity:minimal`"",
-        "`"/m`"",
-        "`"/nr:false`"",
-        "`"/p:Platform=Any CPU`""
-    ) -join ' '
+    if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
     $params = @{
-        Path                           = (Get-ChildItem $config.loadToolsSolution).FullName
-        MsBuildParameters              = $msBuildParameters
-        ShowBuildOutputInCurrentWindow = $true
+        Path               = $solutionPath
+        BuildConfiguration = $buildConfiguration
+        LogVerbosityLevel  = $verbosity
     }
-
-    if (-not [string]::IsNullOrWhiteSpace($config.msbuild_exe)) { $params.MsBuildFilePath = $config.msbuild_exe }
 
     ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
-    $buildResult = Invoke-MsBuild @params
 
-    if ($buildResult.BuildSucceeded -eq $true) { return }
-    if ($null -eq $buildResult.BuildSucceeded -or $buildResult.BuildSucceeded -eq $false) {
-        throw "Build failed after $(Get-DurationString $buildResult.BuildDuration). Check the build log file '$($buildResult.BuildLogFilePath)' for errors."
+    $BuildLogDirectoryPath = (Get-Location)
+
+    $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
+    $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
+
+    dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+
+    # If we can't find the build's log file in order to inspect it, write a warning and return null.
+    if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
+        Write-Warning ("Cannot find the build log file at '$buildLogFilePath', so unable to determine if build succeeded or not.")
+        return
     }
+
+    # Get if the build succeeded or not.
+    [bool] $buildFailed = (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch -Quiet)
+
+    if ($buildFailed) {
+        Write-Host 'Ensure that the Visual Studio SDK is installed.'
+        throw "Build failed. Check the build log file '$buildLogFilePath' for errors."
+    }
+
+    return
 }
 
 function Invoke-SmokeTestClient {
