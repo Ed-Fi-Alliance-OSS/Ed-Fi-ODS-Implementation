@@ -993,7 +993,7 @@ Function Restore-Database {
     # set the db_owner of the database
     $user = if ($csb.UserID) { $csb.UserID } else { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }
     Write-Host "Setting db_owner: $user"
-    $db.SetOwner($user, $true)
+    # $db.SetOwner($user, $true)
     $db.Refresh()
 }
 
