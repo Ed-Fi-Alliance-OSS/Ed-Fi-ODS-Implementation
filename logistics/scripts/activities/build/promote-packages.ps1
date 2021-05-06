@@ -32,7 +32,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/script
 
 $packages = @{ }
 
-Invoke-Task -name 'gather package versions' -task {
+Invoke-Task -name 'Gather package versions' -task {
 
     $searchPaths = (Get-ChildItem (Get-RepositoryRoot) -Recurse -Filter '*.sln').FullName
     $configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
@@ -49,7 +49,12 @@ Invoke-Task -name 'gather package versions' -task {
     # intersection
     foreach ($key in $packages.Keys) {
         if (-not ($key -in $azurePackages.keys)) { continue }
-        $result.add($key.ToLower(), $packages[$key])
+                if ('latest' -eq  $packages[$key]) {
+                    $result.add($key.ToLower(), $azurePackages[$key])
+                }
+                else {
+                    $result.add($key.ToLower(), $packages[$key])
+                }
     }
 
     Write-Host "Found $($result.Count) packages in common:"
@@ -57,7 +62,7 @@ Invoke-Task -name 'gather package versions' -task {
     Write-FlatHashtable $result
 }
 
-Invoke-Task -name 'promote packages' -task {
+Invoke-Task -name 'Promote packages' -task {
 
     $parameters = @{
         PackagesURL = $PackagesURL
