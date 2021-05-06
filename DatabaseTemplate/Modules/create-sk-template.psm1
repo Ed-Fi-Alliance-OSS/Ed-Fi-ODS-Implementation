@@ -21,7 +21,7 @@ function Get-SKConfiguration([hashtable] $config = @{ }) {
     $config.bulkLoadMaxRequests = 1
     $config.schemaDirectories = @(
         (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
-        ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Ods.Extensions.SK*\Artifacts\Schemas\")
+        ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Ods.Extensions.Sk*\Artifacts\Schemas\")
     )
 
     $config.databaseBackupName = "EdFi.Ods.Populated.Template.SK"
