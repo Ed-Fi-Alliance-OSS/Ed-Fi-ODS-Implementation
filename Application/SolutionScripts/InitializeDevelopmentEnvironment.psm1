@@ -54,7 +54,6 @@ function Initialize-DevelopmentEnvironment {
 		Example for semicolon-separated string which requires single quote	in this format '2013;2014;2015;2016;2017'
         For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
-        OdsTokens variable is an array of string variable ,so please use single quotes which is supported format ,when you set this values in octopus.
     .parameter Engine
         The database engine provider, either "SQLServer" or "PostgreSQL".
     .parameter NoRebuild
