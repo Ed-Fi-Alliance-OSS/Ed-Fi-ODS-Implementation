@@ -498,7 +498,9 @@ function New-DatabaseTemplateNuspec {
     $packageNuspecName = $config.packageNuspecName
     if ($config.engine -eq 'PostgreSQL') { $packageNuspecName += ".PostgreSQL" }
 
-    $populatedTemplatePath = $global:templateDatabaseFolder
+    if (-not $config.backupDirectory) { $populatedTemplatePath = $global:templateDatabaseFolder }
+    else { $populatedTemplatePath = $config.backupDirectory }
+    
     $nuspecPath = Join-Path $populatedTemplatePath "$packageNuspecName.nuspec"
 
     $params = @{
