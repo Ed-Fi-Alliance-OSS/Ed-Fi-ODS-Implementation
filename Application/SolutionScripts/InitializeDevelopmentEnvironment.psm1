@@ -51,7 +51,7 @@ function Initialize-DevelopmentEnvironment {
     .parameter OdsTokens
         A semicolon-separated string which requires single quotes or an array of strings for OdsTokens to use when creating Ods database instances.
         Example for Array of Strings in this format @("2018","2019","2020")
-		Example for semicolon-separated string which requires single quote	in this format '2013;2014;2015;2016;2017'
+        Example for semicolon-separated string which requires single quote in this format '2013;2014;2015;2016;2017'
         For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
     .parameter Engine
