@@ -48,9 +48,10 @@ function Initialize-DevelopmentEnvironment {
         Builds the ODS/API solution and deploys the necessary databases in order to setup a complete development environment.
     .parameter InstallType
         The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'.
-        InstallType variable is an string variable ,so you can use single quotes or double quotes both are supported format ,when you set this one value in octopus.
     .parameter OdsTokens
-        A semicolon-separated string of tokens to use when creating Ods database instances.
+        A semicolon-separated string which requires single quotes or an array of strings for OdsTokens to use when creating Ods database instances.
+        Example for Array of Strings in this format @("2018","2019","2020")
+		Example for semicolon-separated string which requires single quote	in this format '2013;2014;2015;2016;2017'
         For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
         For a district specific deployment a valid value could be '255901;255902'.
         OdsTokens variable is an array of string variable ,so please use single quotes which is supported format ,when you set this values in octopus.
