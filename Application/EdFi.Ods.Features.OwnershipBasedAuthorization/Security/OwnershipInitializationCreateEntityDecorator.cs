@@ -11,7 +11,7 @@ using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
-using EdFi.Ods.Security.Authorization.Repositories;
+using EdFi.Ods.Api.Security.Authorization.Repositories;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
 {
