@@ -6,12 +6,12 @@
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.SandboxAdmin.Models.Sandbox;
 using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.Ods.Sandbox.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using EdFi.Admin.DataAccess.Repositories;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {

@@ -4,7 +4,6 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
-using EdFi.Admin.DataAccess.Models;
 using EdFi.Ods.SandboxAdmin.Models.Results;
 
 namespace EdFi.Ods.SandboxAdmin.Services
