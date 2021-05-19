@@ -42,8 +42,4 @@ EdFi.Ods.SandboxAdmin
   Set OAuthUrl to use the reverse proxy instead of hitting the API directly
   Change the launch url to use the reverse proxy instead of hitting the app directly
 
-Note that currently EdFi.Ods.SandboxAdmin doesn't fully support a reverse proxy configuration.  Most of the pages will show up, but because all the client side urls are built using a server provided home url, none of the API calls work. See https://tracker.ed-fi.org/browse/ODS-4593 for progress on adding that support.
-
-Visual Studio 2019 does not fully support setting the launch profile when running multiple projects.  To test with these profiles, the easiest way is to go to each project, right click and select Properties, then the Debug tab, then select the Reverse Proxy profile.  Then right click the project and select Debug -> Start new instance to test.  You can repeat this for every project you want to run and verify.
-
-If you run into issues with port binding, you may need to close IIS Express from the system tray, since IIS Express will bind on the same port for usual debugging.
+Visual Studio 2019 considers the launch profile that was set for each project while running multiple projects.  To test with these profiles, the easiest way is to select the project in Startup Projects dropdown and select Reverse Proxy profile.  You can repeat this for every project you want to run. Once the launch profile is set for all projects, you can run multiple projects at once or right click each project and select Debug -> Start new instance to test.
