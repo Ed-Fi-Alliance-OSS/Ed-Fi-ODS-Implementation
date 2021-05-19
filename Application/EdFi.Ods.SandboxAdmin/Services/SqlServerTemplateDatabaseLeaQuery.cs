@@ -7,7 +7,6 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Configuration;
-using EdFi.Ods.Common.Configuration;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {

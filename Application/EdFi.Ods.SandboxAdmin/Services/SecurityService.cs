@@ -6,8 +6,8 @@
 using System.Data.SqlClient;
 using System.Security.Principal;
 using EdFi.Admin.DataAccess.Models;
+using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.SandboxAdmin.Security;
-using EdFi.Ods.Sandbox.Repositories;
 using Microsoft.AspNetCore.Http;
 
 namespace EdFi.Ods.SandboxAdmin.Services

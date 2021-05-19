@@ -8,7 +8,6 @@ using System.Net;
 using System.Threading.Tasks;
 using EdFi.Ods.SandboxAdmin.Extensions;
 using EdFi.Ods.SandboxAdmin.Models;
-using EdFi.Ods.Sandbox.Repositories;
 using EdFi.Ods.SandboxAdmin.Models.Results;
 using EdFi.Ods.SandboxAdmin.Security;
 using EdFi.Ods.SandboxAdmin.Services;
@@ -18,6 +17,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
+using EdFi.Admin.DataAccess.Repositories;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {
