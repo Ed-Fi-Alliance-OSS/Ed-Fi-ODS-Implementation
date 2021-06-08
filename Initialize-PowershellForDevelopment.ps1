@@ -49,15 +49,6 @@ function Install-RequiredPackageProvider {
     }
 }
 
-function Install-RequiredModules {
-    $msbuild = Get-InstalledModule | ? -Property Name -eq "Invoke-MsBuild"
-
-    if ($null -eq $msbuild) {
-        Write-Host "Installing Invoke-MsBuild"
-        Install-Module -Name Invoke-MsBuild -Scope CurrentUser -MinimumVersion 2.6.0 -Force | Out-Null
-    }
-}
-
 function global:Update-SolutionScripts {
     foreach ($file in (gci $global:SolutionScriptsDir)) {
         if ($file.extension -eq '.ps1') {
@@ -73,6 +64,5 @@ function global:Update-SolutionScripts {
 
 Find-BlockedFiles
 Install-RequiredPackageProvider
-Install-RequiredModules
 Update-SolutionScripts
 
