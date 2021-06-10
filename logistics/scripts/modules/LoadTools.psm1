@@ -20,7 +20,6 @@ function Invoke-BuildLoadTools {
     $solutionPath = $config.loadToolsSolution
     $verbosity = "minimal"
 
-    if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
 
