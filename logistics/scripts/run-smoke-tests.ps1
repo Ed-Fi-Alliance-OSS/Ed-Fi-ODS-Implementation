@@ -118,7 +118,6 @@ try {
     $script:result = @()
 
     if (-not $noRebuild) {
-        $script:result += Invoke-Task "Invoke-RestoreLoadToolsPackages" { Invoke-RestoreLoadToolsPackages $config }
         $script:result += Invoke-Task "Invoke-BuildLoadTools" { Invoke-BuildLoadTools $config }
     }
 
