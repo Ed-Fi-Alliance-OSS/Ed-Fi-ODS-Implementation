@@ -109,7 +109,6 @@ function Initialize-TPDMTemplate {
             $script:result += Invoke-Task 'Copy-SampleInterchangeFiles' { Copy-SampleInterchangeFiles $config }
             $script:result += Invoke-Task 'Copy-SchemaFiles' { Copy-SchemaFiles $config }
             $script:result += Invoke-Task 'Add-RandomKeySecret' { Add-RandomKeySecret $config }
-            $script:result += Invoke-Task 'Invoke-RestoreLoadToolsPackages' { Invoke-RestoreLoadToolsPackages $config }
             $script:result += Invoke-Task 'Invoke-BuildLoadTools' { Invoke-BuildLoadTools $config }
             $script:result += Invoke-Task 'New-DatabaseTemplate' { New-DatabaseTemplate $config }
             $script:result += Invoke-Task 'Assert-DisallowedSchemas' { Assert-DisallowedSchemas $config }
