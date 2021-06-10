@@ -49,7 +49,6 @@ function Invoke-BuildLoadTools {
     [bool] $buildFailed = (Select-String -Path $buildLogFilePath -Pattern "Build FAILED." -SimpleMatch -Quiet)
 
     if ($buildFailed) {
-        Write-Host 'Ensure that the Visual Studio SDK is installed.'
         throw "Build failed. Check the build log file '$buildLogFilePath' for errors."
     }
 
