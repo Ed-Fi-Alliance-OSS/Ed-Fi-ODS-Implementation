@@ -11,15 +11,6 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
 
-function Invoke-RestoreLoadToolsPackages {
-    param(
-        [hashtable] $config
-    )
-
-    $toolsPath = Join-Path (Get-RepositoryResolvedPath) 'tools'
-    Restore-Packages -toolsPath $toolsPath -solutionPath (Get-ChildItem $config.loadToolsSolution).FullName
-}
-
 function Invoke-BuildLoadTools {
     param(
         [hashtable] $config
@@ -192,5 +183,4 @@ Get-RandomString,
 Invoke-BulkLoadClient,
 Invoke-SmokeTestClient,
 Invoke-BuildLoadTools,
-Invoke-RestoreLoadToolsPackages,
 Invoke-SetTestHarnessConfig  -Alias *
