@@ -994,6 +994,10 @@ Function Restore-Database {
     $user = if ($csb.UserID) { $csb.UserID } else { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }
     Write-Host "Setting db_owner: $user"
     # $db.SetOwner($user, $true)
+    if ($user -ne $null) {
+        $query = "EXEC sp_changedbowner $user"
+        $db.ExecuteNonQuery($query)
+    }
     $db.Refresh()
 }
 
