@@ -246,6 +246,10 @@ function Invoke-DbDeploy {
         [string] $ToolsPath = (Get-ToolsPath)
     )
 
+    if ($ConnectionString.Contains('User ID') -and $ConnectionString.Contains('Password')){
+        $ConnectionString = $ConnectionString -replace 'Integrated Security=True','Integrated Security=False'
+    }
+    
     $databaseIdLookup = @{
         "Admin" = "Admin"
         "EdFi" = "ODS"
