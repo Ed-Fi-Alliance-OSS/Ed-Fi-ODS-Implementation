@@ -993,7 +993,14 @@ Function Restore-Database {
     # set the db_owner of the database
     $user = if ($csb.UserID) { $csb.UserID } else { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }
     Write-Host "Setting db_owner: $user"
-    $db.SetOwner($user, $true)
+    if ($user -ne $null) {
+        $databaseName = $csb["Initial Catalog"]
+        $query = "USE $databaseName; DECLARE @owner_sid  AS VARCHAR(100);
+        SELECT @owner_sid=suser_sname(owner_sid) FROM SYS.DATABASES WHERE name = `'$databaseName`';"
+        $query += "IF @owner_sid <> `'$user`' BEGIN EXEC sp_changedbowner `'$user`' END"
+        $db.ExecuteNonQuery($query)
+        Write-Host "sp_changedbowner  query : " $query
+    }
     $db.Refresh()
 }
 
