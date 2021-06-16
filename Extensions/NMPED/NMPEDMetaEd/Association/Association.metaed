@@ -1,0 +1,4 @@
+Association EdFi.StudentEducationOrganizationAssociation additions
+    date YearsInUSSchool
+        documentation "This field holds the date when a student entered a US school."
+        is optional

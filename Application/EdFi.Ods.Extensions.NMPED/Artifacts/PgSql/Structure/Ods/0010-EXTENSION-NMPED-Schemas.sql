@@ -1,0 +1,1 @@
+CREATE SCHEMA nmped AUTHORIZATION postgres;
