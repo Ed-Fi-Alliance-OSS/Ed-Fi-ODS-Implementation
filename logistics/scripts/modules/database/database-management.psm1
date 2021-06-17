@@ -995,7 +995,7 @@ Function Restore-Database {
     Write-Host "Setting db_owner: $user"
     if ($user -ne $null) {
         $databaseName = $csb["Initial Catalog"]
-        $query = "USE $databaseName; DECLARE @owner_sid  AS VARCHAR(100);
+        $query = "USE [$databaseName]; DECLARE @owner_sid  AS VARCHAR(100);
         SELECT @owner_sid=suser_sname(owner_sid) FROM SYS.DATABASES WHERE name = `'$databaseName`';"
         $query += "IF @owner_sid <> `'$user`' BEGIN EXEC sp_changedbowner `'$user`' END"
         $db.ExecuteNonQuery($query)
