@@ -2,3 +2,6 @@ Association EdFi.StudentEducationOrganizationAssociation additions
     date YearsInUSSchool
         documentation "This field holds the date when a student entered a US school."
         is optional
+    date Grade09Entry
+        documentation "This field holds the date when a student entered the ninth grade."
+        is optional

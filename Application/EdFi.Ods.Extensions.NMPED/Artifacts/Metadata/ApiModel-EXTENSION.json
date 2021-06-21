@@ -30,6 +30,23 @@
           }
         },
         {
+          "propertyName": "Grade09Entry",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This field holds the date when a student entered the ninth grade.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Grade09Entry",
+            "postgreSql": "Grade09Entry"
+          }
+        },
+        {
           "propertyName": "YearsInUSSchool",
           "propertyType": {
             "dbType": "Date",

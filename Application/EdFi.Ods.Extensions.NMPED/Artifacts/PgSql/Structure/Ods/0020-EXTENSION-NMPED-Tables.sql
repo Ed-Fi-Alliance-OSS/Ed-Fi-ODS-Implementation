@@ -3,6 +3,7 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     EducationOrganizationId INT NOT NULL,
     StudentUSI INT NOT NULL,
     YearsInUSSchool DATE NULL,
+    Grade09Entry DATE NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 

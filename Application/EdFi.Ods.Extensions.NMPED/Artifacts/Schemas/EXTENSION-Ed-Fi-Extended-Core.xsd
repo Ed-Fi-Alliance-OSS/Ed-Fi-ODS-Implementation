@@ -28,6 +28,11 @@
               <xs:documentation>This field holds the date when a student entered a US school.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Grade09Entry" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>This field holds the date when a student entered the ninth grade.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
