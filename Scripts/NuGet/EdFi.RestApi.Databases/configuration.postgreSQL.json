@@ -1,0 +1,66 @@
+﻿{
+  "ConnectionStrings": {
+    "EdFi_Ods": "host=localhost;port=5432;username=postgres;database=EdFi_{0};Application Name=EdFi.Ods.WebApi",
+    "EdFi_Security": "host=localhost;port=5432;username=postgres;database=EdFi_Security;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Admin": "host=localhost;port=5432;username=postgres;database=EdFi_Admin;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Master": "host=localhost;port=5432;username=postgres;database=postgres;Application Name=EdFi.Ods.WebApi"
+  },
+  "ApiSettings": {
+    "Mode": "sandbox",
+    "Engine": "PostgreSQL",
+    "OdsTokens": [],
+    "Features": [
+      {
+        "Name": "OpenApiMetadata",
+        "IsEnabled": true
+      },
+      {
+        "Name": "AggregateDependencies",
+        "IsEnabled": true
+      },
+      {
+        "Name": "TokenInfo",
+        "IsEnabled": true
+      },
+      {
+        "Name": "Extensions",
+        "IsEnabled": true
+      },
+      {
+        "Name": "Composites",
+        "IsEnabled": true
+      },
+      {
+        "Name": "Profiles",
+        "IsEnabled": false
+      },
+      {
+        "Name": "ChangeQueries",
+        "IsEnabled": true
+      },
+      {
+        "Name": "IdentityManagement",
+        "IsEnabled": false
+      },
+      {
+        "Name": "OwnershipBasedAuthorization",
+        "IsEnabled": false
+      },
+      {
+        "Name": "UniqueIdValidation",
+        "IsEnabled": false
+      }
+    ],
+    "ExcludedExtensions": [],
+    "OdsDatabaseTemplateName": "",
+    "DropDatabases": false,
+    "MinimalTemplateSuffix": "Ods_Minimal_Template",
+    "PopulatedTemplateSuffix": "Ods_Populated_Template",
+    "MinimalTemplateScript": "PostgreSQLMinimalTemplate",
+    "PopulatedTemplateScript": "PostgreSQLPopulatedTemplate"
+  },
+  "Plugin": {
+    "Folder": "",
+    "Scripts": []
+  }
+}
