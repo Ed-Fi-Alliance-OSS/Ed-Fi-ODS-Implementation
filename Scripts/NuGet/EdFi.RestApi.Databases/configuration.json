@@ -1,13 +1,13 @@
 ﻿{
   "ConnectionStrings": {
-    "EdFi_Ods": "",
-    "EdFi_Admin": "",
-    "EdFi_Security": "",
-    "EdFi_Master": ""
+    "EdFi_Ods": "server=(local);trusted_connection=True;database=EdFi_{0};Application Name=EdFi.Ods.WebApi",
+    "EdFi_Security": "server=(local);trusted_connection=True;database=EdFi_Security;persist security info=True;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Admin": "server=(local);trusted_connection=True;database=EdFi_Admin;Application Name=EdFi.Ods.WebApi",
+    "EdFi_Master": "server=(local);trusted_connection=True;database=master;Application Name=EdFi.Ods.WebApi"
   },
   "ApiSettings": {
     "Mode": "sandbox",
-    "Engine": "",
+    "Engine": "SQLServer",
     "OdsTokens": [],
     "Features": [
       {
@@ -56,8 +56,8 @@
     "DropDatabases": false,
     "MinimalTemplateSuffix": "Ods_Minimal_Template",
     "PopulatedTemplateSuffix": "Ods_Populated_Template",
-    "MinimalTemplateScript": "",
-    "PopulatedTemplateScript": ""
+    "MinimalTemplateScript": "EdFiMinimalTemplate",
+    "PopulatedTemplateScript": "GrandBend"
   },
   "Plugin": {
     "Folder": "",
