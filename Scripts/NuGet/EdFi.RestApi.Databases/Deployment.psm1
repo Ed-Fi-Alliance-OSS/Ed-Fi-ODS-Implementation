@@ -93,7 +93,14 @@ function Initialize-DeploymentEnvironment {
 
     Clear-Error
 
-    $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'), (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
+    $script:deploymentSettingsFiles += @((Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
+
+    if ($Engine -eq 'PostgreSQL') { 
+        $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.postgreSQL.json'))
+    }
+    else {
+        $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'))
+    }
 
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
