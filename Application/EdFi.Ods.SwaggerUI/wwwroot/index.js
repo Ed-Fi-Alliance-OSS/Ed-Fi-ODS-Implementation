@@ -97,22 +97,39 @@ function createSectionLinks(sectionName, hasYear) {
     .join('')
 }
 
-function addYearOptions(){
-    var year = new Date().getFullYear()
-    for (let i = year - 1; i <= year + 1; i++) {
-        $('#schoolYearSelect').append(new Option(i, i))
+async function addYearOptionsAsync() {
+
+    let defaultYear = 0;
+
+    var years = await GetConfigurableYearsForYearSpecificModeAsync(appSettings);
+
+    if (years.length > 0) {
+
+        years.forEach(element => {
+            $('#schoolYearSelect').append(new Option(element.year, element.year));
+        });
+
+        var defaultYears = $.grep(years, function (item) { return item.isDefault });
+
+        defaultYear = defaultYears.length === 0 ? years[0].year : defaultYears[0].year;
+    }
+    else {
+        defaultYear = new Date().getFullYear()
+        for (let i = defaultYear - 1; i <= defaultYear + 1; i++) {
+            $('#schoolYearSelect').append(new Option(i, i))
+        }
     }
 
-    $("#schoolYearSelect option[value='" + year + "']").attr("selected", "selected");
+    $("#schoolYearSelect option[value='" + defaultYear + "']").attr("selected", "selected");
 }
 
 // dynamically creates the api sections using the #sectionTemplate
-function createSections() {
+async function createSectionsAsync() {
     var uri = sections['Resources'].links[0].uri;
     var hasYear = /\/(20)\d{2}/.test(uri);
 
     if (hasYear) {
-        addYearOptions();
+        await addYearOptionsAsync();
         $("#schoolYear").show();
     }
 
@@ -164,10 +181,24 @@ const fetchAppSettings = (route = 'appSettings.json') =>
   fetch(route)
     .then(getJSON)
     .then(logJSON)
-    .then((json) => {
+        .then((json) => {
       appSettings = json
       return json
     })
+
+async function GetConfigurableYearsForYearSpecificModeAsync(appSettings){
+    const { GetYearsForYearSpecificUrl } = appSettings
+
+    let response = await fetch(GetYearsForYearSpecificUrl)
+
+    if (response.status !== 200) {
+        throw new Error(`Failed to retrieve years for YearSpecific mode from ${GetYearsForYearSpecificUrl} - Status Code: ${response.Status}`);
+    }
+
+    var years = await response.json();
+
+    return years;
+}
 
 const fetchWebApiVersionUrl = (appSettings) => {
   const { WebApiVersionUrl } = appSettings
@@ -199,7 +230,7 @@ fetchAppSettings()
   .then(fetchOpenApiMetadata)
   .then(mapSections)
   .then(showPageDescription)
-  .then(createSections)
+  .then(createSectionsAsync)
   // extra .then() because Edge has no .finally() support
   .then(hideProgress)
   .finally(hideProgress)

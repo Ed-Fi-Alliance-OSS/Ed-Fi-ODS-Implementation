@@ -57,6 +57,7 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
+            string getYearsForYearSpecificUrl = Configuration.GetValue("GetYearsForYearSpecificUrl", string.Empty);
             string swaggerStyleSheetPath = "../swagger.css";
 
             if (!string.IsNullOrEmpty(_pathBase))
@@ -91,7 +92,8 @@ namespace EdFi.Ods.SwaggerUI
                                     new
                                     {
                                         WebApiVersionUrl = webApiUrl,
-                                        RoutePrefix = _routePrefix
+                                        RoutePrefix = _routePrefix,
+                                        GetYearsForYearSpecificUrl = getYearsForYearSpecificUrl
                                     }));
                         });
                 });
