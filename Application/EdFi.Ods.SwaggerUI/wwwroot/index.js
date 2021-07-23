@@ -97,21 +97,20 @@ function createSectionLinks(sectionName, hasYear) {
     .join('')
 }
 
-async function addYearOptionsAsync() {
+async function addYearOptions() {
+    const { Years } = appSettings;
 
     let defaultYear = 0;
 
-    var years = await GetConfigurableYearsForYearSpecificModeAsync(appSettings);
+    if (Years.length > 0) {
 
-    if (years.length > 0) {
-
-        years.forEach(element => {
-            $('#schoolYearSelect').append(new Option(element.year, element.year));
+        Years.forEach(element => {
+            $('#schoolYearSelect').append(new Option(element.Year, element.Year));
         });
 
-        var defaultYears = $.grep(years, function (item) { return item.isDefault });
+        var defaultYears = $.grep(Years, function (item) { return item.IsDefault });
 
-        defaultYear = defaultYears.length === 0 ? years[0].year : defaultYears[0].year;
+        defaultYear = defaultYears.length === 0 ? Years[0].Year : defaultYears[0].Year;
     }
     else {
         defaultYear = new Date().getFullYear()
@@ -124,12 +123,12 @@ async function addYearOptionsAsync() {
 }
 
 // dynamically creates the api sections using the #sectionTemplate
-async function createSectionsAsync() {
+function createSections() {
     var uri = sections['Resources'].links[0].uri;
     var hasYear = /\/(20)\d{2}/.test(uri);
 
     if (hasYear) {
-        await addYearOptionsAsync();
+        addYearOptions();
         $("#schoolYear").show();
     }
 
@@ -186,20 +185,6 @@ const fetchAppSettings = (route = 'appSettings.json') =>
       return json
     })
 
-async function GetConfigurableYearsForYearSpecificModeAsync(appSettings){
-    const { GetYearsForYearSpecificUrl } = appSettings
-
-    let response = await fetch(GetYearsForYearSpecificUrl)
-
-    if (response.status !== 200) {
-        throw new Error(`Failed to retrieve years for YearSpecific mode from ${GetYearsForYearSpecificUrl} - Status Code: ${response.Status}`);
-    }
-
-    var years = await response.json();
-
-    return years;
-}
-
 const fetchWebApiVersionUrl = (appSettings) => {
   const { WebApiVersionUrl } = appSettings
 
@@ -230,7 +215,7 @@ fetchAppSettings()
   .then(fetchOpenApiMetadata)
   .then(mapSections)
   .then(showPageDescription)
-  .then(createSectionsAsync)
+  .then(createSections)
   // extra .then() because Edge has no .finally() support
   .then(hideProgress)
   .finally(hideProgress)
