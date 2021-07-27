@@ -180,7 +180,7 @@ const fetchAppSettings = (route = 'appSettings.json') =>
   fetch(route)
     .then(getJSON)
     .then(logJSON)
-        .then((json) => {
+    .then((json) => {
       appSettings = json
       return json
     })
