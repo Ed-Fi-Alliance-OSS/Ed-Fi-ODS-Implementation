@@ -97,13 +97,29 @@ function createSectionLinks(sectionName, hasYear) {
     .join('')
 }
 
-function addYearOptions(){
-    var year = new Date().getFullYear()
-    for (let i = year - 1; i <= year + 1; i++) {
-        $('#schoolYearSelect').append(new Option(i, i))
+async function addYearOptions() {
+    const { Years } = appSettings;
+
+    let defaultYear = 0;
+
+    if (Years.length > 0) {
+
+        Years.forEach(element => {
+            $('#schoolYearSelect').append(new Option(element.Year, element.Year));
+        });
+
+        var defaultYears = $.grep(Years, function (item) { return item.IsDefault });
+
+        defaultYear = defaultYears.length === 0 ? Years[0].Year : defaultYears[0].Year;
+    }
+    else {
+        defaultYear = new Date().getFullYear()
+        for (let i = defaultYear - 1; i <= defaultYear + 1; i++) {
+            $('#schoolYearSelect').append(new Option(i, i))
+        }
     }
 
-    $("#schoolYearSelect option[value='" + year + "']").attr("selected", "selected");
+    $("#schoolYearSelect option[value='" + defaultYear + "']").attr("selected", "selected");
 }
 
 // dynamically creates the api sections using the #sectionTemplate

@@ -3,6 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text.Json;
 using Microsoft.AspNetCore.Builder;
@@ -57,6 +58,7 @@ namespace EdFi.Ods.SwaggerUI
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
+            var years = Configuration.GetSection("Years").Get<List<Years>>() ?? new List<Years>();
             string swaggerStyleSheetPath = "../swagger.css";
 
             if (!string.IsNullOrEmpty(_pathBase))
@@ -91,7 +93,8 @@ namespace EdFi.Ods.SwaggerUI
                                     new
                                     {
                                         WebApiVersionUrl = webApiUrl,
-                                        RoutePrefix = _routePrefix
+                                        RoutePrefix = _routePrefix,
+                                        Years = years
                                     }));
                         });
                 });
