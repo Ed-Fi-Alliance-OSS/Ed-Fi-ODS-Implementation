@@ -29,17 +29,19 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         private readonly IConfiguration _configuration;
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
+        private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
 
         public ClientCreator(
             IConfiguration configValueProvider,
             IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
+            ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             ISandboxProvisioner sandboxProvisioner)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
             _maximumSandboxesPerUser = GetMaximumSandboxesPerUserOrDefault();
-
+            _templateDatabaseLeaQuery = Preconditions.ThrowIfNull(templateDatabaseLeaQuery, nameof(templateDatabaseLeaQuery));
             _clientAppRepo = Preconditions.ThrowIfNull(clientAppRepo, nameof(clientAppRepo));
             _defaultApplicationCreator = Preconditions.ThrowIfNull(defaultApplicationCreator, nameof(defaultApplicationCreator));
         }
@@ -67,6 +69,10 @@ namespace EdFi.Ods.Sandbox.Admin.Services
 
             ProvisionSandbox(client);
 
+            var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key);
+
+            _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, client.Application.ApplicationId);
+
             return client;
         }
 
@@ -75,6 +81,10 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user);
 
             ProvisionSandbox(client);
+
+            var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key);
+
+            _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, client.Application.ApplicationId);
 
             return client;
         }
