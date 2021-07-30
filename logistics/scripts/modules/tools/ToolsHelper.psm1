@@ -260,10 +260,10 @@ function Invoke-DbDeploy {
 
     $hasFeatures = ($Features.count -gt 0)
     if ($hasFeatures) {
-        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -f $Features -p $FilePaths | Write-Host
+        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -t 300 -f $Features -p $FilePaths | Write-Host
     }
     else {
-        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -p $FilePaths | Write-Host
+        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -t 300 -p $FilePaths | Write-Host
     }
 
     <#
