@@ -245,7 +245,7 @@ function Invoke-DbDeploy {
 
         [string] $ToolsPath = (Get-ToolsPath),
 
-        [Int] $DatabaseTimeoutInSeconds = 60
+        [Int] $DatabaseTimeoutInSeconds
     )
 
     $databaseIdLookup = @{
