@@ -8,6 +8,7 @@
   "ApiSettings": {
     "Mode": "sandbox",
     "Engine": "PostgreSQL",
+	"DatabaseTimeOutInSeconds": "300",
     "OdsTokens": [],
     "Features": [
       {

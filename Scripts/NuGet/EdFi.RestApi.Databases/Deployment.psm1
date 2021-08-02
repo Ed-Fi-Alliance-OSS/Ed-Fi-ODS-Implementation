@@ -327,6 +327,7 @@ $deploymentTasks = @{
             subTypeNames            = $settings.ApiSettings.SubTypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath
+            databaseTimeoutInSeconds = $settings.ApiSettings.DatabaseTimeOutInSeconds
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

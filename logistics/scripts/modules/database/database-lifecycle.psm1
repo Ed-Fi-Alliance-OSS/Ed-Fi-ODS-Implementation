@@ -136,7 +136,9 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [string] $createByRestoringBackup,
 
-        [string] $msSqlBackupPath
+        [string] $msSqlBackupPath,
+
+        [Int] $databaseTimeoutInSeconds = 60
 
     )
 
@@ -176,6 +178,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             ConnectionString = $csb
             FilePaths        = $filePaths
             Features         = $subTypeNames
+            DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         }
         Invoke-DbDeploy @params
 
