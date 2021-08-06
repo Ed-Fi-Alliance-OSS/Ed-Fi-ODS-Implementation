@@ -370,6 +370,7 @@ function Reset-TestPopulatedTemplateDatabase {
             subTypeNames            = Get-DefaultSubtypes
             dropDatabase            = $true
             createByRestoringBackup = $backupPath
+            databaseTimeoutInSeconds = $settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds
         }
 
         Initialize-EdFiDatabaseWithDbDeploy @params
