@@ -74,10 +74,13 @@ function Test-DatabaseHasScriptsToApply {
         [String[]]
         [AllowNull()]
         [AllowEmptyCollection()]
-        $Features = @()
+        $Features = @(),
+
+        [Int]
+        $DatabaseTimeoutInSeconds
     )
 
-    $exitCode = Invoke-DbDeploy -Verb "WhatIf" -Database $Database -ConnectionString $ConnectionString -FilePaths $FilePaths -Features $Features
+    $exitCode = Invoke-DbDeploy -Verb "WhatIf" -Database $Database -ConnectionString $ConnectionString -FilePaths $FilePaths -Features $Features -DatabaseTimeoutInSeconds $DatabaseTimeoutInSeconds
 
     return $exitCode -eq 1
 }
@@ -136,7 +139,9 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [string] $createByRestoringBackup,
 
-        [string] $msSqlBackupPath
+        [string] $msSqlBackupPath,
+
+        [Int] $databaseTimeoutInSeconds = 60
 
     )
 
@@ -176,6 +181,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             ConnectionString = $csb
             FilePaths        = $filePaths
             Features         = $subTypeNames
+            DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         }
         Invoke-DbDeploy @params
 
@@ -188,7 +194,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     $databaseNeedsBackup = (
         (-not $dropDatabase) -and
         (Test-DatabaseExists -csb $csb) -and
-        (Test-DatabaseHasScriptsToApply -Database $database -ConnectionString $csb -FilePaths $filePaths -Features $subTypeNames)
+        (Test-DatabaseHasScriptsToApply -Database $database -ConnectionString $csb -FilePaths $filePaths -Features $subTypeNames -DatabaseTimeoutInSeconds $databaseTimeoutInSeconds)
     )
 
     if ($databaseNeedsBackup) {
@@ -229,6 +235,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         ConnectionString = $csb
         FilePaths        = $filePaths
         Features         = $subTypeNames
+        DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
     }
     Invoke-DbDeploy @params
 }

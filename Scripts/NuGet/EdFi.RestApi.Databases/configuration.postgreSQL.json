@@ -8,6 +8,7 @@
   "ApiSettings": {
     "Mode": "sandbox",
     "Engine": "PostgreSQL",
+    "PopulatedTemplateDBTimeOutInSeconds": "60",
     "OdsTokens": [],
     "Features": [
       {
