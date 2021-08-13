@@ -13,9 +13,7 @@
   </metadata>
   <files>
     <file src="Install-EdFiOdsSandboxAdmin.psm1" />
-    <file src="Ed-Fi-Common/**" />
-    <file src="Ed-Fi-ODS/**" />
-    <file src="Ed-Fi-ODS-Implementation/**" />
+    <file src="AppCommon/**" /> 
     <file src="../../../LICENSE.txt" />
     <file src="../../../NOTICES.md" />
   </files>
