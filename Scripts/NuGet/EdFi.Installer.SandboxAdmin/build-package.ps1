@@ -25,7 +25,7 @@ param (
     $NuGetApiKey,
 
     [string]
-    $AppCommonVersion = "1.4.0-pre1183"
+    $AppCommonVersion = "2.0.0"
 )
 $ErrorActionPreference = "Stop"
 
