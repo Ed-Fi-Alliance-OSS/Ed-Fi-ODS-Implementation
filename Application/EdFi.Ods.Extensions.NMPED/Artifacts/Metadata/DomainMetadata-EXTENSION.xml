@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="NMPED" schema="nmped">
+  <Aggregate root="DirectCertificationStatusDescriptor">
+    <Entity table="DirectCertificationStatusDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
+    <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+</AggregateExtensions>

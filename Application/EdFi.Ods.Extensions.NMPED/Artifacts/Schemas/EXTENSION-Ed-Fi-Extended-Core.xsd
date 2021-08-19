@@ -10,6 +10,28 @@
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-DirectCertificationStatusDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of direct certification statuses.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
@@ -37,12 +59,83 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSchoolFoodServiceProgramAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentSchoolFoodServiceProgramAssociation">
+        <xs:sequence>
+          <xs:element name="DirectCertificationStatus" type="EXTENSION-DirectCertificationStatusDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Identifies the Direct Certification Status of a student. This does not apply to all students in the district.
+                                    Valid values:
+                                    1 = SNAP Direct Cert as identified in the direct certification report and certified by the district.
+                                    2 = Other Direct Cert Eligible (Homeless, FDPIR, Foster, Migrant, and Head Start)
+                                    3 = Family Members of SNAP identified students that were not found in the Direct Certification report.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-DirectCertificationStatusDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentSpecialEducationProgramAssociation">
+        <xs:sequence>
+          <xs:element name="SpecialEducationLevelOfIntegration" type="EXTENSION-SpecialEducationLevelOfIntegrationDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>This field holds the level of integration that represents the amount of special education service.
+                                      Valid values are:
+                                      1 = Less than 10% of the day (minimum or 'A')
+                                      2 = 11% to 49% of the day (moderate or 'B')
+                                      3 = 50% of the day or more, but not a full day (extensive or 'C')
+                                      4 = Up to a full day or program 3Y/4Y (maximum or 'D')</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-SpecialEducationLevelOfIntegrationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Extended Reference Types =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
   </xs:annotation>
+  <xs:simpleType name="EXTENSION-DirectCertificationStatusDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of direct certification statuses.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:annotation>
     <xs:documentation>===== Common Types =====</xs:documentation>
   </xs:annotation>

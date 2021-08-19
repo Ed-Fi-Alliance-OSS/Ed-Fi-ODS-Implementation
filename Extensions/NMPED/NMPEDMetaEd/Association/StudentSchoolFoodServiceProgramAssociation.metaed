@@ -1,0 +1,8 @@
+Association EdFi.StudentSchoolFoodServiceProgramAssociation additions
+    descriptor DirectCertificationStatus
+        documentation "Identifies the Direct Certification Status of a student. This does not apply to all students in the district.
+                      Valid values:
+                      1 = SNAP Direct Cert as identified in the direct certification report and certified by the district.
+                      2 = Other Direct Cert Eligible (Homeless, FDPIR, Foster, Migrant, and Head Start)
+                      3 = Family Members of SNAP identified students that were not found in the Direct Certification report."
+        is required

@@ -1,0 +1,9 @@
+Association EdFi.StudentSpecialEducationProgramAssociation additions
+    descriptor SpecialEducationLevelOfIntegration
+        documentation "This field holds the level of integration that represents the amount of special education service.
+                        Valid values are:
+                        1 = Less than 10% of the day (minimum or 'A')
+                        2 = 11% to 49% of the day (moderate or 'B')
+                        3 = 50% of the day or more, but not a full day (extensive or 'C')
+                        4 = Up to a full day or program 3Y/4Y (maximum or 'D')"
+        is required
