@@ -8,15 +8,14 @@
 param (
     [string]
     [Parameter(Mandatory = $true)]
-    $PackageDirectory
+    $PackageDirectory,
+
+    [string]
+    $AppCommonVersion 
 )
 $ErrorActionPreference = "Stop"
 
 Push-Location $PackageDirectory
-
-$dependencyVersions = @{
-    AppCommon = "1.4.0-pre1176"
-}
 
 $edFiRepoContainer = "$PackageDirectory/../../../.."
 $repositoryNames = @('Ed-Fi-ODS-Implementation')
@@ -26,32 +25,11 @@ Import-Module -Force $folders.modules.invoke("packaging/nuget-helper.psm1")
 # Download App Common
 $parameters = @{
     PackageName = "EdFi.Installer.AppCommon"
-    PackageVersion = $dependencyVersions.AppCommon
+    PackageVersion = $AppCommonVersion
     ToolsPath = "../../../tools"
 }
 $appCommonDirectory = Get-NuGetPackage @parameters
 
-# Copy Ed-Fi-XYZ folders from App Common folder to current
-@(
-    "Ed-Fi-ODS"
-    "Ed-Fi-ODS-Implementation"
-) | ForEach-Object {
-    Copy-Item -Recurse -Path $appCommonDirectory/$_ -Destination $PackageDirectory -Force
-}
-
-# Move AppCommon's modules into Ed-Fi-ODS-Implementation so that they are discoverable with pathresolver
-@(
-    "Application"
-    "Environment"
-    "IIS"
-) | ForEach-Object {
-    $parameters = @{
-        Recurse = $true
-        Force = $true
-        Path = "$appCommonDirectory/$_"
-        Destination = "$PackageDirectory/Ed-Fi-ODS-Implementation/logistics/scripts/modules"
-    }
-    Copy-Item @parameters
-}
+Copy-Item -Path $appCommonDirectory -Destination $PackageDirectory/AppCommon -recurse -Force
 
 Pop-Location

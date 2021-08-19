@@ -12,15 +12,14 @@ run the prep-installer-package.ps1 script first. Think of it as a "restore-packa
 step before compiling in C#.
 #>
 
-Import-Module -Force -Scope Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
-Import-Module -Force -Scope Global $folders.modules.invoke("utility/hashtable.psm1")
-Import-Module -Force -Scope Global $folders.modules.invoke("packaging/nuget-helper.psm1")
-Import-Module -Force -Scope Global $folders.modules.invoke("tasks/TaskHelper.psm1")
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/hashtable.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/nuget-helper.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/TaskHelper.psm1
 
 # Import the following with global  scope so that they are available inside of script blocks
-Import-Module -Force -Scope Global $folders.modules.invoke("Application/Install.psm1")
-Import-Module -Force -Scope Global $folders.modules.invoke("Application/Uninstall.psm1")
-Import-Module -Force -Scope Global $folders.modules.invoke("Application/Configuration.psm1")
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Install.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Uninstall.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Configuration.psm1
 
 function Install-EdFiOdsSwaggerUI {
     <#

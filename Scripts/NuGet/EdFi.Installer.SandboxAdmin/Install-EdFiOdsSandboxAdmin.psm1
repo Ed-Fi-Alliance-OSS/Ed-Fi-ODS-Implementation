@@ -11,13 +11,15 @@ To run manually from source code, instead of from an expanded NuGet package,
 run the prep-installer-package.ps1 script first. Think of it as a "restore-packages"
 step before compiling in C#.
 #>
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/path-resolver.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/utility/hashtable.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/packaging/nuget-helper.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/tasks/TaskHelper.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Install.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Uninstall.psm1"
-Import-Module -Force -Global "$PSScriptRoot/Ed-Fi-ODS-Implementation/logistics/scripts/modules/Application/Configuration.psm1"
+
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/hashtable.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/nuget-helper.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Utility/TaskHelper.psm1
+
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Install.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Uninstall.psm1
+Import-Module -Force -Scope Global $PSScriptRoot/AppCommon/Application/Configuration.psm1
+
 
 function Install-EdFiOdsSandboxAdmin {
     <#
