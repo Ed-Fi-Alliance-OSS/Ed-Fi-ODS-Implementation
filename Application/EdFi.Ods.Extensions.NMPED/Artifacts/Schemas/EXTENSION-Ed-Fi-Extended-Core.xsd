@@ -32,6 +32,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-SpecialProgramCodeDescriptor">
+    <xs:annotation>
+      <xs:documentation>This Code for the special program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
@@ -79,6 +90,35 @@
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-DirectCertificationStatusDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSectionAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentSectionAssociation">
+        <xs:sequence>
+          <xs:element name="SpecialProgramCode" type="EXTENSION-SpecialProgramCodeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The special program code the student is in.
+                                D = Dual Credit Course
+                                C = Concurrent Enrollment Course</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-SpecialProgramCodeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AlternateCreditCourseCode" type="EXTENSION-AlternateCreditCourseCode" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>ALTERNATE CREDIT COURSE CODE</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -136,6 +176,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-SpecialProgramCodeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This Code for the special program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:annotation>
     <xs:documentation>===== Common Types =====</xs:documentation>
   </xs:annotation>
@@ -145,6 +194,17 @@
   <xs:annotation>
     <xs:documentation>===== String Simple Types =====</xs:documentation>
   </xs:annotation>
+  <xs:simpleType name="EXTENSION-AlternateCreditCourseCode">
+    <xs:annotation>
+      <xs:documentation>ALTERNATE CREDIT COURSE CODE</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="60" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:annotation>
     <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
   </xs:annotation>

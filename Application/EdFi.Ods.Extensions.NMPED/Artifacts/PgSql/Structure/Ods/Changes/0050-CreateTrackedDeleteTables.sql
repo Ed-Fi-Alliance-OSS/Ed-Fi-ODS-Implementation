@@ -14,3 +14,11 @@ CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor
        CONSTRAINT SpecialEducationLevelOfIntegrationDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.SpecialProgramCodeDescriptor
+(
+       SpecialProgramCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+

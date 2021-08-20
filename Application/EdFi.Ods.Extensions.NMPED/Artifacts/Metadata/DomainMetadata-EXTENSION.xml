@@ -6,4 +6,7 @@
   <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
     <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="SpecialProgramCodeDescriptor">
+    <Entity table="SpecialProgramCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
 </AggregateExtensions>

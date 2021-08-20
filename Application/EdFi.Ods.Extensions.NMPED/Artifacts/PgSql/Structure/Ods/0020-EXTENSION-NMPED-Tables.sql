@@ -10,6 +10,12 @@ CREATE TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor (
     CONSTRAINT SpecialEducationLevelOfIntegrationDescriptor_PK PRIMARY KEY (SpecialEducationLevelOfIntegrationDescriptorId)
 ); 
 
+-- Table nmped.SpecialProgramCodeDescriptor --
+CREATE TABLE nmped.SpecialProgramCodeDescriptor (
+    SpecialProgramCodeDescriptorId INT NOT NULL,
+    CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (SpecialProgramCodeDescriptorId)
+); 
+
 -- Table nmped.StudentEducationOrganizationAssociationExtension --
 CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     EducationOrganizationId INT NOT NULL,
@@ -34,6 +40,22 @@ CREATE TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension (
     CONSTRAINT StudentSchoolFoodServiceProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentSectionAssociationExtension --
+CREATE TABLE nmped.StudentSectionAssociationExtension (
+    BeginDate DATE NOT NULL,
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    StudentUSI INT NOT NULL,
+    SpecialProgramCodeDescriptorId INT NOT NULL,
+    AlternateCreditCourseCode VARCHAR(60) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentSectionAssociationExtension_PK PRIMARY KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)
+); 
+ALTER TABLE nmped.StudentSectionAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentSpecialEducationProgramAssociationExtension --
 CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (

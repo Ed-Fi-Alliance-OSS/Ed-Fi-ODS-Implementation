@@ -6,6 +6,10 @@ COMMENT ON COLUMN nmped.DirectCertificationStatusDescriptor.DirectCertificationS
 COMMENT ON TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor IS 'This descriptor describes the type of Levels of Integration.';
 COMMENT ON COLUMN nmped.SpecialEducationLevelOfIntegrationDescriptor.SpecialEducationLevelOfIntegrationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[SpecialProgramCodeDescriptor] --
+COMMENT ON TABLE nmped.SpecialProgramCodeDescriptor IS 'This Code for the special program.';
+COMMENT ON COLUMN nmped.SpecialProgramCodeDescriptor.SpecialProgramCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[StudentEducationOrganizationAssociationExtension] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAssociationExtension IS '';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -26,6 +30,20 @@ COMMENT ON COLUMN nmped.StudentSchoolFoodServiceProgramAssociationExtension.Dire
                       1 = SNAP Direct Cert as identified in the direct certification report and certified by the district.
                       2 = Other Direct Cert Eligible (Homeless, FDPIR, Foster, Migrant, and Head Start)
                       3 = Family Members of SNAP identified students that were not found in the Direct Certification report.';
+
+-- Extended Properties [nmped].[StudentSectionAssociationExtension] --
+COMMENT ON TABLE nmped.StudentSectionAssociationExtension IS '';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.BeginDate IS 'Month, day, and year of the Student''s entry or assignment to the Section.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.SpecialProgramCodeDescriptorId IS 'The special program code the student is in.
+                  D = Dual Credit Course
+                  C = Concurrent Enrollment Course';
+COMMENT ON COLUMN nmped.StudentSectionAssociationExtension.AlternateCreditCourseCode IS 'ALTERNATE CREDIT COURSE CODE';
 
 -- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationExtension IS '';

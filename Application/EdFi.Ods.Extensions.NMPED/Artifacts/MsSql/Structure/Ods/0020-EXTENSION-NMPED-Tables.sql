@@ -16,6 +16,15 @@ CREATE TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[SpecialProgramCodeDescriptor] --
+CREATE TABLE [nmped].[SpecialProgramCodeDescriptor] (
+    [SpecialProgramCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SpecialProgramCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SpecialProgramCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[StudentEducationOrganizationAssociationExtension] --
 CREATE TABLE [nmped].[StudentEducationOrganizationAssociationExtension] (
     [EducationOrganizationId] [INT] NOT NULL,
@@ -53,6 +62,32 @@ CREATE TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] ADD CONSTRAINT [StudentSchoolFoodServiceProgramAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StudentSectionAssociationExtension] --
+CREATE TABLE [nmped].[StudentSectionAssociationExtension] (
+    [BeginDate] [DATE] NOT NULL,
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [SpecialProgramCodeDescriptorId] [INT] NOT NULL,
+    [AlternateCreditCourseCode] [NVARCHAR](60) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentSectionAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StudentSectionAssociationExtension] ADD CONSTRAINT [StudentSectionAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentSpecialEducationProgramAssociationExtension] --

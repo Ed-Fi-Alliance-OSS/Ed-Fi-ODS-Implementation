@@ -1,0 +1,10 @@
+Association EdFi.StudentSectionAssociation additions
+descriptor SpecialProgramCode
+    documentation "The special program code the student is in.
+                  D = Dual Credit Course
+                  C = Concurrent Enrollment Course"
+    is required
+string AlternateCreditCourseCode
+  documentation "ALTERNATE CREDIT COURSE CODE"
+  is optional
+  max length 60

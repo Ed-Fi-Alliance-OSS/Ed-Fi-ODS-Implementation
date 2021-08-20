@@ -12,3 +12,10 @@ CREATE TABLE [tracked_deletes_nmped].[SpecialEducationLevelOfIntegrationDescript
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_SpecialEducationLevelOfIntegrationDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[SpecialProgramCodeDescriptor]
+(
+       SpecialProgramCodeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_SpecialProgramCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
