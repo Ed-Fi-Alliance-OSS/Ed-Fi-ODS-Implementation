@@ -134,6 +134,11 @@
       "PackageName": "EdFi.Suite3.RestApi.Databases",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+    },
+    "AppCommon": {
+      "PackageName": "EdFi.Installer.AppCommon",
+      "PackageVersion": "2.0.0",
+      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
   }
 }

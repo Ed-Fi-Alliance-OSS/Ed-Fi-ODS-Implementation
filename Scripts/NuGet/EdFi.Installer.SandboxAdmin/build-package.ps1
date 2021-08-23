@@ -22,14 +22,11 @@ param (
     $NuGetFeed,
 
     [string]
-    $NuGetApiKey,
-
-    [string]
-    $AppCommonVersion = "2.0.0"
+    $NuGetApiKey  
 )
 $ErrorActionPreference = "Stop"
 
-Invoke-Expression "$PSScriptRoot/../prep-installer-package.ps1 $PSScriptRoot $AppCommonVersion"
+Invoke-Expression "$PSScriptRoot/../prep-installer-package.ps1 $PSScriptRoot"
 
 $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
