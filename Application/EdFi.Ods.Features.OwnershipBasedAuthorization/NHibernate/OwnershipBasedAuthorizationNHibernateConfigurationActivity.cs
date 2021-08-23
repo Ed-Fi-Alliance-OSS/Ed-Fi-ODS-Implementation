@@ -6,7 +6,6 @@
 using System.Linq;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Common;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.SqlServer;
 using log4net;
@@ -58,7 +57,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate
         private static bool IsEdFiQueryMappingEvent(BindMappingEventArgs e)
         {
             return (e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.BaseNamespace) ||
-                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views))
+                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views) ||
+                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Tables))
                    && e.Mapping.assembly.Equals(Namespaces.Standard.BaseNamespace);
         }
     }
