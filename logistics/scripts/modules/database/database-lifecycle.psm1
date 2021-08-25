@@ -13,6 +13,270 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
 
+function Get-SQLServerDatabaseRemoveStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+
+    Write-Host "Executing SQLServerRemoveStrategy..."
+
+    if (-not $Setting.ApiSettings.DropDatabase) { return }
+
+    $csb = Convert-CommonDbCSBtoSqlCSB $csb
+    Remove-Database -csb $csb -safe | Out-Null
+}
+
+function Get-SQLServerDatabaseCreateStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+
+    Write-Host "Executing SQLServerCreateStrategy..."
+
+    $csb = Convert-CommonDbCSBtoSqlCSB $csb
+
+    if (-not (Test-DatabaseExists -csb $csb)) {
+        if ($createByRestoringBackup) {
+            # Copy the backup to a location that the SQL Server has permission to see
+            Write-Host "Using backup $createByRestoringBackup"
+            $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -PassThru
+            Write-Host "Copying to backup directory $backupDir"
+            Restore-Database -csb $csb -backupFile $restorableBackup
+        }
+    }
+
+    $params = @{
+        Verb                     = "Deploy"
+        Engine                   = $Settings.ApiSettings.engine
+        Database                 = $Database
+        ConnectionString         = $csb
+        FilePaths                = $Settings.ApiSettings.FilePaths
+        Features                 = $Settings.ApiSettings.SubTypes
+        DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+    }
+    Invoke-DbDeploy @params
+}
+
+function Get-SQLServerDatabaseBackupStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+
+    Write-Host "Executing SQLServerBackupStrategy..."
+
+    $databaseNeedsBackup = (
+        (-not $Setting.ApiSettings.DropDatabase) -and
+        (Test-DatabaseExists -csb $csb) -and
+        (Test-DatabaseHasScriptsToApply -Database $Database -ConnectionString $csb -FilePaths $Settings.ApiSettings.FilePaths -Features $Settings.ApiSettings.SubTypes)
+    )
+
+    if ($databaseNeedsBackup) {
+        $msSqlBackupPath = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
+        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath\" -overwriteExisting | Out-Null
+    }
+    else {
+        Write-Host "No backup required for database $($csb.InitialCatalog)"
+    }
+}
+
+function Get-PostgreSQLDatabaseRemoveStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+
+    if (-not $Settings.ApiSettings.DropDatabases) { return }
+
+    Write-Host "Executing PostgreSQLRemoveStrategy..."
+
+    $params = @{
+        serverName   = $csb.host
+        portNumber   = $csb.port
+        userName     = $csb.username
+        databaseName = $csb.database
+    }
+    Remove-PostgresSQLDatabaseAsTemplate @params
+    Remove-PostgreSQLDatabase @params
+}
+
+function Get-PostgreSQLDatabaseCreateStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+
+    Write-Host "Executing PostgreSQLCreateStrategy..."
+
+    $params = @{
+        serverName   = $csb.host
+        portNumber   = $csb.port
+        userName     = $csb.username
+        databaseName = $csb.database
+    }
+    $databaseExists = (Test-PostgreSQLDatabaseExists @params)
+
+    if (-not $databaseExists -and $createByRestoringBackup) {
+        Install-PostgreSQLTemplate @params -backupFile $createByRestoringBackup
+    }
+
+    $dbDeployParams = @{
+        Verb                     = "Deploy"
+        Engine                   = $Engine
+        Database                 = $database
+        ConnectionString         = $csb
+        FilePaths                = $filePaths
+        Features                 = $subTypeNames
+        DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+    }
+    Invoke-DbDeploy @dbDeployParams
+    Set-PostgresSQLDatabaseAsTemplate @params
+}
+
+function New-EdFiDatabaseLifecycle {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [scriptblock]
+        $BackupStrategy,
+
+        [scriptblock]
+        $RemoveStrategy,
+
+        [scriptblock]
+        $CreateStrategy
+    )
+
+    $params = @{}
+
+    if ($Settings.ApiSettings.Engine -eq 'SQLServer') {
+        $strategies = @{
+            BackupStrategy = ${function:Get-SQLServerDatabaseBackupStrategy}
+            RemoveStrategy = ${function:Get-SQLServerDatabaseRemoveStrategy}
+            CreateStrategy = ${function:Get-SQLServerDatabaseCreateStrategy}
+        }
+
+        if ($Settings.Azure) {
+            $strategies = @{
+                BackupStrategy = ${function:Get-AzureSQLServerDatabaseBackupStrategy}
+                RemoveStrategy = ${function:Get-AzureSQLServerDatabaseRemoveStrategy}
+                CreateStrategy = ${function:Get-AzureSQLServerDatabaseCreateStrategy}
+            }
+        }
+
+        Merge-Hashtables $params, $strategies
+    }
+
+    if ($Settings.ApiSettings.Engine -eq 'PostgreSQL') {
+        $strategies = @{
+            RemoveStrategy = ${function:Get-PostgresDatabaseRemoveStrategy}
+            CreateStrategy = ${function:Get-PostgresDatabaseCreateStrategy}
+        }
+
+        if ($Settings.Azure) {
+            $strategies = @{
+                BackupStrategy = ${function:Get-AzurePostgreSQLDatabaseBackupStrategy}
+                RemoveStrategy = ${function:Get-AzurePostgreSQLDatabaseRemoveStrategy}
+                CreateStrategy = ${function:Get-AzurePostgreSQLDatabaseCreateStrategy}
+            }
+        }
+
+        Merge-Hashtables $params, $strategies
+    }
+
+    # Override database engine defaults with any custom strategies
+    if ($null -ne $BackupStrategy) { $params.BackupStrategy = $BackupStrategy }
+    if ($null -ne $RemoveStrategy) { $params.RemoveStrategy = $RemoveStrategy }
+    if ($null -ne $CreateStrategy) { $params.CreateStrategy = $CreateStrategy }
+
+    return $params
+}
+
+function Initialize-EdFiDatabase {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [scriptblock]
+        $BackupStrategy,
+
+        [scriptblock]
+        $RemoveStrategy,
+
+        [scriptblock]
+        $CreateStrategy
+    )
+
+    Write-InvocationInfo $MyInvocation
+
+    $lifecycle = New-EdFiDatabaseLifecycle @PSBoundParameters
+
+    & $lifecycle.BackupStrategy $Settings $Database $csb
+    & $lifecycle.RemoveStrategy $Settings $Database $csb
+    & $lifecycle.CreateStrategy $Settings $Database $csb
+}
+
 <#
 .description
 Runs the dotnet tool "EdFi.Db.Deploy" with WhatIf verb to determine whether there are migration scripts on the filesystem that haven't been applied to an Ed-Fi database

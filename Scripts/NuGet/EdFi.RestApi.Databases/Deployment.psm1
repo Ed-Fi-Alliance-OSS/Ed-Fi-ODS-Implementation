@@ -96,6 +96,7 @@ function Initialize-DeploymentEnvironment {
     $script:deploymentSettingsFiles += @((Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
 
     if ($Engine -eq 'PostgreSQL') { 
+    if ($Engine -eq 'PostgreSQL') {
         $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.postgreSQL.json'))
     }
     else {
@@ -238,6 +239,7 @@ $deploymentTasks = @{
         $settings = Get-DeploymentSettings
         $adminDatabaseType = $settings.ApiSettings.DatabaseTypes.Admin
         $adminConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$adminDatabaseType]
+        Initialize-EdFiDatabase $settings $adminDatabaseType $settings.ApiSettings.csbs[$adminConnectionStringKey]
         $params = @{
             engine       = $settings.ApiSettings.engine
             csb          = $settings.ApiSettings.csbs[$adminConnectionStringKey]
@@ -246,7 +248,7 @@ $deploymentTasks = @{
             subTypeNames = $settings.ApiSettings.SubTypes
             dropDatabase = $settings.ApiSettings.DropDatabases
         }
-        Initialize-EdFiDatabaseWithDbDeploy @params
+        # Initialize-EdFiDatabaseWithDbDeploy @params
     }
     'Reset-SecurityDatabase'          = {
         $settings = Get-DeploymentSettings
