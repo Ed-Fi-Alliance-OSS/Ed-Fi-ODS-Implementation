@@ -38,8 +38,8 @@ function Get-DotNetTool {
     if ($parts -ge 2) {
         return @{
             ProcessId = $parts[0]
-            Version = $parts[1]
-            Commands = $parts[2..-1]
+            Version   = $parts[1]
+            Commands  = $parts[2..-1]
         }
     }
 }
@@ -119,8 +119,8 @@ function Install-ToolDbDeploy {
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
-            Path = $toolsPath
-            Name = 'EdFi.Suite3.Db.Deploy'
+            Path    = $toolsPath
+            Name    = 'EdFi.Suite3.Db.Deploy'
             Version = $toolVersion
         }
 
@@ -146,8 +146,8 @@ function Install-ToolCodeGenUtility {
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $params = @{
-            Path = $toolsPath
-            Name = 'EdFi.Suite3.Ods.CodeGen'
+            Path    = $toolsPath
+            Name    = 'EdFi.Suite3.Ods.CodeGen'
             Version = $toolVersion
         }
 
@@ -245,34 +245,37 @@ function Invoke-DbDeploy {
 
         [string] $ToolsPath = (Get-ToolsPath),
 
-        [Int] $DatabaseTimeoutInSeconds
+        [Int] $DatabaseTimeoutInSeconds = 600
     )
 
     $databaseIdLookup = @{
-        "Admin" = "Admin"
-        "EdFi" = "ODS"
-        "EdFi_Admin" = "Admin"
+        "Admin"        = "Admin"
+        "EdFi_Admin"   = "Admin"
+        "ODS"          = "ODS"
+        "EdFi"         = "ODS"
+        "Security"     = "Security"
         "EdFiSecurity" = "Security"
-        "ODS" = "ODS"
-        "Security" = "Security"
     }
     $databaseType = $databaseIdLookup[$Database]
 
     $tool = (Join-Path $ToolsPath 'EdFi.Db.Deploy')
 
-    $hasFeatures = ($Features.count -gt 0)
-    if ($hasFeatures) {
-        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -t $DatabaseTimeoutInSeconds -f $Features -p $FilePaths | Write-Host
-    }
-    else {
-        & $tool $Verb -e $Engine -d $databaseType -c "$ConnectionString" -t $DatabaseTimeoutInSeconds -p $FilePaths | Write-Host
-    }
+    $params = @(
+        $Verb,
+        "--engine", $Engine,
+        "--database", $databaseType,
+        "--connectionString", $ConnectionString,
+        "--timeOut", $DatabaseTimeoutInSeconds,
+        "--filePaths", ($FilePaths -join ',')
+    )
 
-    <#
-    EdFi.Db.Deploy returns 0 when "deploy" is successful; 0 or 1 when "whatif" is successful (1 meaning that an
-    upgrade is required, 0 that no upgrade is required); and any other exit code denotes a failure condition.
-    #>
+    if ($Features.count -gt 0) { $params += @('--features', ($Features -join ',')) }
 
+    Write-Host -ForegroundColor Magenta "& $tool $params"
+    & $tool $params | Write-Host
+
+    # EdFi.Db.Deploy returns 0 when "deploy" is successful; 0 or 1 when "whatif" is successful (1 meaning that an
+    # upgrade is required, 0 that no upgrade is required); and any other exit code denotes a failure condition.
     switch ($Verb) {
         "Deploy" {
             if ($LASTEXITCODE -eq 0) { return $LASTEXITCODE }

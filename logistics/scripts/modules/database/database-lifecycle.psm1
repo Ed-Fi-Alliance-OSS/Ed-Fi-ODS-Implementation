@@ -29,7 +29,7 @@ function Get-SQLServerDatabaseRemoveStrategy {
 
     Write-Host "Executing SQLServerRemoveStrategy..."
 
-    if (-not $Setting.ApiSettings.DropDatabase) { return }
+    if (-not $Settings.ApiSettings.DropDatabases) { return }
 
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
     Remove-Database -csb $csb -safe | Out-Null
@@ -46,22 +46,22 @@ function Get-SQLServerDatabaseCreateStrategy {
         $Database,
 
         [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [string] $CreateByRestoringBackup
     )
 
     Write-Host "Executing SQLServerCreateStrategy..."
 
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
 
-    if (-not (Test-DatabaseExists -csb $csb)) {
-        if ($createByRestoringBackup) {
-            # Copy the backup to a location that the SQL Server has permission to see
-            Write-Host "Using backup $createByRestoringBackup"
-            $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -PassThru
-            Write-Host "Copying to backup directory $backupDir"
-            Restore-Database -csb $csb -backupFile $restorableBackup
-        }
+    if (-not (Test-DatabaseExists -csb $csb) -and $CreateByRestoringBackup) {
+        # Copy the backup to a location that the SQL Server has permission to see
+        Write-Host "Using backup $CreateByRestoringBackup"
+        $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        $restorableBackup = Copy-Item $CreateByRestoringBackup $backupDir -PassThru
+        Write-Host "Copying to backup directory $backupDir"
+        Restore-Database -csb $csb -backupFile $restorableBackup
     }
 
     $params = @{
@@ -71,7 +71,54 @@ function Get-SQLServerDatabaseCreateStrategy {
         ConnectionString         = $csb
         FilePaths                = $Settings.ApiSettings.FilePaths
         Features                 = $Settings.ApiSettings.SubTypes
-        DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+        DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds
+    }
+    Invoke-DbDeploy @params
+}
+
+function Get-AzureSQLServerDatabaseCreateStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [string] $CreateByRestoringBackup
+    )
+
+    Write-Host "Executing SQLServerCreateStrategy..."
+
+    $csb = Convert-CommonDbCSBtoSqlCSB $csb
+
+    $restoreParams = @{
+        ResourceGroupName          = $Settings.Azure.ResourceGroupName
+        ServerName                 = $Settings.Azure.ServerName
+        DatabaseName               = $csb.InitialCatalog
+        StorageKeyType             = $Settings.Azure.StorageKeyType
+        StorageKey                 = $Settings.Azure.StorageKey
+        StorageUri                 = $Settings.Azure.StorageUri
+        AdministratorLogin         = $Settings.Azure.AdministratorLogin
+        AdministratorLoginPassword = (ConvertTo-SecureString $Settings.Azure.AdministratorLoginPassword -AsPlainText -Force)
+        Edition                    = $Settings.Azure.Edition
+        ServiceObjectiveName       = $Settings.Azure.ServiceObjectiveName
+        DatabaseMaxSizeBytes       = $Settings.Azure.DatabaseMaxSizeBytes
+    }
+
+    New-AzSqlDatabaseImport @restoreParams
+
+    $params = @{
+        Verb                     = "Deploy"
+        Engine                   = $Settings.ApiSettings.engine
+        Database                 = $Database
+        ConnectionString         = $csb
+        FilePaths                = $Settings.ApiSettings.FilePaths
+        Features                 = $Settings.ApiSettings.SubTypes
     }
     Invoke-DbDeploy @params
 }
@@ -92,14 +139,16 @@ function Get-SQLServerDatabaseBackupStrategy {
 
     Write-Host "Executing SQLServerBackupStrategy..."
 
+    $csb = Convert-CommonDbCSBtoSqlCSB $csb
+
     $databaseNeedsBackup = (
-        (-not $Setting.ApiSettings.DropDatabase) -and
+        (-not $Settings.ApiSettings.DropDatabaseas) -and
         (Test-DatabaseExists -csb $csb) -and
         (Test-DatabaseHasScriptsToApply -Database $Database -ConnectionString $csb -FilePaths $Settings.ApiSettings.FilePaths -Features $Settings.ApiSettings.SubTypes)
     )
 
     if ($databaseNeedsBackup) {
-        $msSqlBackupPath = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        $msSqlBackupPath = if ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
         Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
         Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath\" -overwriteExisting | Out-Null
     }
@@ -147,7 +196,9 @@ function Get-PostgreSQLDatabaseCreateStrategy {
         $Database,
 
         [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [string] $CreateByRestoringBackup
     )
 
     Write-Host "Executing PostgreSQLCreateStrategy..."
@@ -177,6 +228,21 @@ function Get-PostgreSQLDatabaseCreateStrategy {
     Set-PostgresSQLDatabaseAsTemplate @params
 }
 
+function Get-NoStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb
+    )
+}
+
 function New-EdFiDatabaseLifecycle {
     param(
         [Parameter(Mandatory = $true)]
@@ -189,6 +255,8 @@ function New-EdFiDatabaseLifecycle {
 
         [Parameter(Mandatory = $true)]
         [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [string] $CreateByRestoringBackup,
 
         [scriptblock]
         $BackupStrategy,
@@ -209,10 +277,12 @@ function New-EdFiDatabaseLifecycle {
             CreateStrategy = ${function:Get-SQLServerDatabaseCreateStrategy}
         }
 
-        if ($Settings.Azure) {
+        if ($CreateByRestoringBackup -and
+            (-not [string]::IsNullOrWhiteSpace($Settings.Azure.StorageUri.Minimal) -or
+             -not [string]::IsNullOrWhiteSpace($Settings.Azure.StorageUri.Populated))) {
             $strategies = @{
-                BackupStrategy = ${function:Get-AzureSQLServerDatabaseBackupStrategy}
-                RemoveStrategy = ${function:Get-AzureSQLServerDatabaseRemoveStrategy}
+                BackupStrategy = ${function:Get-NoStrategy}
+                RemoveStrategy = ${function:Get-NoStrategy}
                 CreateStrategy = ${function:Get-AzureSQLServerDatabaseCreateStrategy}
             }
         }
@@ -222,16 +292,9 @@ function New-EdFiDatabaseLifecycle {
 
     if ($Settings.ApiSettings.Engine -eq 'PostgreSQL') {
         $strategies = @{
+            BackupStrategy = ${function:Get-NoStrategy}
             RemoveStrategy = ${function:Get-PostgresDatabaseRemoveStrategy}
             CreateStrategy = ${function:Get-PostgresDatabaseCreateStrategy}
-        }
-
-        if ($Settings.Azure) {
-            $strategies = @{
-                BackupStrategy = ${function:Get-AzurePostgreSQLDatabaseBackupStrategy}
-                RemoveStrategy = ${function:Get-AzurePostgreSQLDatabaseRemoveStrategy}
-                CreateStrategy = ${function:Get-AzurePostgreSQLDatabaseCreateStrategy}
-            }
         }
 
         Merge-Hashtables $params, $strategies
@@ -256,7 +319,9 @@ function Initialize-EdFiDatabase {
         $Database,
 
         [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb,
+        [System.Data.Common.DbConnectionStringBuilder] $CSB,
+
+        [string] $CreateByRestoringBackup,
 
         [scriptblock]
         $BackupStrategy,
@@ -272,9 +337,9 @@ function Initialize-EdFiDatabase {
 
     $lifecycle = New-EdFiDatabaseLifecycle @PSBoundParameters
 
-    & $lifecycle.BackupStrategy $Settings $Database $csb
-    & $lifecycle.RemoveStrategy $Settings $Database $csb
-    & $lifecycle.CreateStrategy $Settings $Database $csb
+    & $lifecycle.BackupStrategy $Settings $Database $CSB
+    & $lifecycle.RemoveStrategy $Settings $Database $CSB
+    & $lifecycle.CreateStrategy $Settings $Database $CSB $CreateByRestoringBackup
 }
 
 <#
@@ -406,7 +471,6 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         [string] $msSqlBackupPath,
 
         [Int] $databaseTimeoutInSeconds = 60
-
     )
 
     Write-InvocationInfo $MyInvocation
@@ -439,12 +503,12 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         }
 
         $params = @{
-            Verb             = "Deploy"
-            Engine           = $Engine
-            Database         = $database
-            ConnectionString = $csb
-            FilePaths        = $filePaths
-            Features         = $subTypeNames
+            Verb                     = "Deploy"
+            Engine                   = $Engine
+            Database                 = $database
+            ConnectionString         = $csb
+            FilePaths                = $filePaths
+            Features                 = $subTypeNames
             DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         }
         Invoke-DbDeploy @params
@@ -479,26 +543,19 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             # Copy the backup to a location that the SQL Server has permission to see
             Write-Host "Using backup $createByRestoringBackup"
             $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -passthru
+            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -PassThru
             Write-Host "Copying to backup directory $backupDir"
             Restore-Database -csb $csb -backupFile $restorableBackup
-        }
-        else {
-            $recoveryModel = if ($dropDatabase) { "Simple" } else { "Full" }
-
-            $s = Get-Server -csb $csb
-            $databaseName = $csb['Initial Catalog']
-            $db = New-Database -sqlServer $s -databaseName $databaseName -recoveryModel $recoveryModel
         }
     }
 
     $params = @{
-        Verb             = "Deploy"
-        Engine           = $Engine
-        Database         = $database
-        ConnectionString = $csb
-        FilePaths        = $filePaths
-        Features         = $subTypeNames
+        Verb                     = "Deploy"
+        Engine                   = $Engine
+        Database                 = $database
+        ConnectionString         = $csb
+        FilePaths                = $filePaths
+        Features                 = $subTypeNames
         DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
     }
     Invoke-DbDeploy @params
@@ -531,7 +588,7 @@ function Remove-EdFiSandboxDatabases {
     if ($Engine -eq 'SQLServer') {
         Remove-SqlServerSandboxDatabase $masterCSB $edfiOdsTemplateCSB
     }
-    else{
+    else {
         $params = @{
             serverName       = $masterCSB["host"]
             portNumber       = $masterCSB["port"]
