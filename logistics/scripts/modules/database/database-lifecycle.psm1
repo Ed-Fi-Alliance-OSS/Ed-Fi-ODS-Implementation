@@ -217,12 +217,12 @@ function Get-PostgreSQLDatabaseCreateStrategy {
 
     $dbDeployParams = @{
         Verb                     = "Deploy"
-        Engine                   = $Engine
-        Database                 = $database
+        Engine                   = $Settings.ApiSettings.engine
+        Database                 = $Database
         ConnectionString         = $csb
-        FilePaths                = $filePaths
-        Features                 = $subTypeNames
-        DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+        FilePaths                = $Settings.ApiSettings.FilePaths
+        Features                 = $Settings.ApiSettings.SubTypes
+        # DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
     }
     Invoke-DbDeploy @dbDeployParams
     Set-PostgresSQLDatabaseAsTemplate @params
@@ -241,6 +241,8 @@ function Get-NoStrategy {
         [Parameter(Mandatory = $true)]
         [System.Data.Common.DbConnectionStringBuilder] $csb
     )
+
+    Write-Host "Executing NoStrategy..."
 }
 
 function New-EdFiDatabaseLifecycle {
@@ -293,8 +295,8 @@ function New-EdFiDatabaseLifecycle {
     if ($Settings.ApiSettings.Engine -eq 'PostgreSQL') {
         $strategies = @{
             BackupStrategy = ${function:Get-NoStrategy}
-            RemoveStrategy = ${function:Get-PostgresDatabaseRemoveStrategy}
-            CreateStrategy = ${function:Get-PostgresDatabaseCreateStrategy}
+            RemoveStrategy = ${function:Get-PostgreSQLDatabaseRemoveStrategy}
+            CreateStrategy = ${function:Get-PostgreSQLDatabaseCreateStrategy}
         }
 
         Merge-Hashtables $params, $strategies
