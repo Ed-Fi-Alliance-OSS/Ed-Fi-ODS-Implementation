@@ -65,42 +65,6 @@ function Get-SQLServerDatabaseCreateStrategy {
     }
 }
 
-function Get-AzureSQLServerDatabaseCreateStrategy {
-    param(
-        [Parameter(Mandatory = $true)]
-        [hashtable]
-        $Settings,
-
-        [Parameter(Mandatory = $true)]
-        [string]
-        $Database,
-
-        [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb,
-
-        [string] $CreateByRestoringBackup
-    )
-
-    Write-Host "Executing AzureSQLServerDatabaseCreateStrategy..."
-
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-
-    $restoreParams = @{
-        ResourceGroupName          = $Settings.Azure.ResourceGroupName
-        ServerName                 = $Settings.Azure.ServerName
-        DatabaseName               = $csb.InitialCatalog
-        StorageKeyType             = $Settings.Azure.StorageKeyType
-        StorageKey                 = $Settings.Azure.StorageKey
-        StorageUri                 = $CreateByRestoringBackup
-        AdministratorLogin         = $Settings.Azure.AdministratorLogin
-        AdministratorLoginPassword = (ConvertTo-SecureString $Settings.Azure.AdministratorLoginPassword -AsPlainText -Force)
-        Edition                    = $Settings.Azure.Edition
-        ServiceObjectiveName       = $Settings.Azure.ServiceObjectiveName
-        DatabaseMaxSizeBytes       = $Settings.Azure.DatabaseMaxSizeBytes
-    }
-    New-AzSqlDatabaseImport @restoreParams
-}
-
 function Get-SQLServerDatabaseScriptStrategy {
     param(
         [Parameter(Mandatory = $true)]
@@ -311,17 +275,6 @@ function New-EdFiDatabaseLifecycle {
             RemoveStrategy = ${function:Get-SQLServerDatabaseRemoveStrategy}
             CreateStrategy = ${function:Get-SQLServerDatabaseCreateStrategy}
             ScriptStrategy = ${function:Get-SQLServerDatabaseScriptStrategy}
-        }
-
-        if ($CreateByRestoringBackup -and
-            (-not [string]::IsNullOrWhiteSpace($Settings.Azure.StorageUri.Minimal) -or
-             -not [string]::IsNullOrWhiteSpace($Settings.Azure.StorageUri.Populated))) {
-            $strategies = @{
-                BackupStrategy = ${function:Get-NoStrategy}
-                RemoveStrategy = ${function:Get-NoStrategy}
-                CreateStrategy = ${function:Get-AzureSQLServerDatabaseCreateStrategy}
-                ScriptStrategy = ${function:Get-SQLServerDatabaseScriptStrategy}
-            }
         }
 
         Merge-Hashtables $params, $strategies
