@@ -342,7 +342,7 @@ function Reset-TestPopulatedTemplateDatabase {
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
         $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
-        Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup # $settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds
+        Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
     }
 }
 

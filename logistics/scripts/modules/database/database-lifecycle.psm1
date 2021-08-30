@@ -124,6 +124,7 @@ function Get-SQLServerDatabaseScriptStrategy {
         FilePaths                = $Settings.ApiSettings.FilePaths
         Features                 = $Settings.ApiSettings.SubTypes
     }
+    if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
 }
 
@@ -242,8 +243,8 @@ function Get-PostgreSQLDatabaseScriptStrategy {
         ConnectionString         = $csb
         FilePaths                = $Settings.ApiSettings.FilePaths
         Features                 = $Settings.ApiSettings.SubTypes
-        # DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
     }
+    if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
 
     $params = @{
