@@ -260,7 +260,7 @@ $deploymentTasks = @{
         }
         if ($settings.ApiSettings.OdsTokens) { $replacementTokens = $settings.ApiSettings.OdsTokens -split ';' | ForEach-Object { "${databaseName}_$($_)" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $odsDatabaseType $csb $backupPath }
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $backupPath }
     }
     'Remove-SandboxDatabases'         = {
         $settings = Get-DeploymentSettings

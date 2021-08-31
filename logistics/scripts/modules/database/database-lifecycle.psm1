@@ -65,6 +65,75 @@ function Get-SQLServerDatabaseCreateStrategy {
     }
 }
 
+function Get-AzureSQLServerDatabaseCreateStrategy {
+    param(
+        [Parameter(Mandatory = $true)]
+        [hashtable]
+        $Settings,
+
+        [Parameter(Mandatory = $true)]
+        [string]
+        $Database,
+
+        [Parameter(Mandatory = $true)]
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [string] $CreateByRestoringBackup
+    )
+
+    Write-Host "Executing AzureSQLServerDatabaseCreateStrategy..."
+
+    $csb = Convert-CommonDbCSBtoSqlCSB $csb
+    $databaseExists = Test-DatabaseExists -csb $csb
+
+    if ($databaseExists) { return }
+
+    if ([string]::IsNullOrWhiteSpace($CreateByRestoringBackup)) {
+        $params = @{
+            ResourceGroupName = $Settings.Azure.ResourceGroupName
+            ServerName = $Settings.Azure.ServerName
+            DatabaseName = $csb.InitialCatalog
+            RequestedServiceObjectiveName = $Settings.Azure.ServiceObjectiveName
+        }
+        $database = New-AzSqlDatabase @params
+        $database | fl | Out-Host
+        return
+    }
+
+    $params = @{
+        ResourceGroupName          = $Settings.Azure.ResourceGroupName
+        ServerName                 = $Settings.Azure.ServerName
+        DatabaseName               = $csb.InitialCatalog
+        StorageKeyType             = $Settings.Azure.StorageKeyType
+        StorageKey                 = $Settings.Azure.StorageKey
+        StorageUri                 = $CreateByRestoringBackup
+        AdministratorLogin         = $Settings.Azure.AdministratorLogin
+        AdministratorLoginPassword = (ConvertTo-SecureString $Settings.Azure.AdministratorLoginPassword -AsPlainText -Force)
+        Edition                    = $Settings.Azure.Edition
+        ServiceObjectiveName       = $Settings.Azure.ServiceObjectiveName
+        DatabaseMaxSizeBytes       = $Settings.Azure.DatabaseMaxSizeBytes
+    }
+    $importRequest = New-AzSqlDatabaseImport @params
+    Write-Host "import request:"
+    $importRequest | fl | Out-Host
+
+    $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+
+    Write-Host "Importing $CreateByRestoringBackup"
+    $progress = ""
+    while ($importStatus.Status -eq "InProgress")
+    {
+        $importStatus = Get-AzSqlDatabaseImportExportStatus -OperationStatusLink $importRequest.OperationStatusLink
+        if ($importStatus.StatusMessage -ne $progress) {
+            Write-Host $importStatus.StatusMessage
+            $progress = $importStatus.StatusMessage
+        }
+        Write-Host -NoNewline "."
+        Start-Sleep -s 10
+    }
+    $importStatus | fl | Out-Host
+}
+
 function Get-SQLServerDatabaseScriptStrategy {
     param(
         [Parameter(Mandatory = $true)]
@@ -81,12 +150,12 @@ function Get-SQLServerDatabaseScriptStrategy {
 
     Write-Host "Executing SQLServerDatabaseScriptStrategy..."
     $params = @{
-        Verb                     = "Deploy"
-        Engine                   = $Settings.ApiSettings.Engine
-        Database                 = $Database
-        ConnectionString         = $csb
-        FilePaths                = $Settings.ApiSettings.FilePaths
-        Features                 = $Settings.ApiSettings.SubTypes
+        Verb             = "Deploy"
+        Engine           = $Settings.ApiSettings.Engine
+        Database         = $Database
+        ConnectionString = $csb
+        FilePaths        = $Settings.ApiSettings.FilePaths
+        Features         = $Settings.ApiSettings.SubTypes
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -201,12 +270,12 @@ function Get-PostgreSQLDatabaseScriptStrategy {
 
     Write-Host "Executing PostgreSQLDatabaseScriptStrategy..."
     $params = @{
-        Verb                     = "Deploy"
-        Engine                   = $Settings.ApiSettings.engine
-        Database                 = $Database
-        ConnectionString         = $csb
-        FilePaths                = $Settings.ApiSettings.FilePaths
-        Features                 = $Settings.ApiSettings.SubTypes
+        Verb             = "Deploy"
+        Engine           = $Settings.ApiSettings.engine
+        Database         = $Database
+        ConnectionString = $csb
+        FilePaths        = $Settings.ApiSettings.FilePaths
+        Features         = $Settings.ApiSettings.SubTypes
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -220,24 +289,7 @@ function Get-PostgreSQLDatabaseScriptStrategy {
     Set-PostgresSQLDatabaseAsTemplate @params
 }
 
-function Get-NoStrategy {
-    param(
-        [Parameter(Mandatory = $true)]
-        [hashtable]
-        $Settings,
-
-        [Parameter(Mandatory = $true)]
-        [string]
-        $Database,
-
-        [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb,
-
-        [string] $CreateByRestoringBackup
-    )
-
-    Write-Host "Executing NoStrategy..."
-}
+function Get-NoStrategy {}
 
 function New-EdFiDatabaseLifecycle {
     param(
@@ -270,14 +322,23 @@ function New-EdFiDatabaseLifecycle {
     $params = @{}
 
     if ($Settings.ApiSettings.Engine -eq 'SQLServer') {
-        $strategies = @{
-            BackupStrategy = ${function:Get-SQLServerDatabaseBackupStrategy}
-            RemoveStrategy = ${function:Get-SQLServerDatabaseRemoveStrategy}
-            CreateStrategy = ${function:Get-SQLServerDatabaseCreateStrategy}
-            ScriptStrategy = ${function:Get-SQLServerDatabaseScriptStrategy}
+        if (-not [string]::IsNullOrWhiteSpace($Settings.Azure)) {
+            $strategies = @{
+                BackupStrategy = ${function:Get-NoStrategy}
+                RemoveStrategy = ${function:Get-NoStrategy}
+                CreateStrategy = ${function:Get-AzureSQLServerDatabaseCreateStrategy}
+                ScriptStrategy = ${function:Get-SQLServerDatabaseScriptStrategy}
+            }
+            Merge-Hashtables $params, $strategies
+        } else {
+            $strategies = @{
+                BackupStrategy = ${function:Get-SQLServerDatabaseBackupStrategy}
+                RemoveStrategy = ${function:Get-SQLServerDatabaseRemoveStrategy}
+                CreateStrategy = ${function:Get-SQLServerDatabaseCreateStrategy}
+                ScriptStrategy = ${function:Get-SQLServerDatabaseScriptStrategy}
+            }
+            Merge-Hashtables $params, $strategies
         }
-
-        Merge-Hashtables $params, $strategies
     }
 
     if ($Settings.ApiSettings.Engine -eq 'PostgreSQL') {
@@ -288,7 +349,6 @@ function New-EdFiDatabaseLifecycle {
             ScriptStrategy = ${function:Get-PostgreSQLDatabaseScriptStrategy}
 
         }
-
         Merge-Hashtables $params, $strategies
     }
 
