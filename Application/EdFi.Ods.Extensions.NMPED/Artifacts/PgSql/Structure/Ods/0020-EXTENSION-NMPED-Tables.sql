@@ -4,6 +4,20 @@ CREATE TABLE nmped.DirectCertificationStatusDescriptor (
     CONSTRAINT DirectCertificationStatusDescriptor_PK PRIMARY KEY (DirectCertificationStatusDescriptorId)
 ); 
 
+-- Table nmped.DisciplineIncidentExtension --
+CREATE TABLE nmped.DisciplineIncidentExtension (
+    IncidentIdentifier VARCHAR(20) NOT NULL,
+    SchoolId INT NOT NULL,
+    DrugRelatedIndicator BOOLEAN NOT NULL,
+    AlcoholRelatedIndicator BOOLEAN NOT NULL,
+    GangRelatedIndicator BOOLEAN NOT NULL,
+    HateCrimeRelatedIndicator BOOLEAN NOT NULL,
+    SeriousBodilyInjuryIndicator BOOLEAN NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT DisciplineIncidentExtension_PK PRIMARY KEY (IncidentIdentifier, SchoolId)
+); 
+ALTER TABLE nmped.DisciplineIncidentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table nmped.SpecialEducationLevelOfIntegrationDescriptor --
 CREATE TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor (
     SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,

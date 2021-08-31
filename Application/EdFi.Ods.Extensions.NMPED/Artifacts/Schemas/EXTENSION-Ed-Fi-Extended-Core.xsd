@@ -7,6 +7,45 @@
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-DisciplineIncidentExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DisciplineIncident">
+        <xs:sequence>
+          <xs:element name="DrugRelatedIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether or not this discipline incident is drug related or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AlcoholRelatedIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether or not this discipline incident is alcohol related or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GangRelatedIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether or not this discipline incident is gang related or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HateCrimeRelatedIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether or not this discipline incident is hate crime related or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SeriousBodilyInjuryIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>An indication of whether or not this discipline incident is serious bodily injury related or not.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>

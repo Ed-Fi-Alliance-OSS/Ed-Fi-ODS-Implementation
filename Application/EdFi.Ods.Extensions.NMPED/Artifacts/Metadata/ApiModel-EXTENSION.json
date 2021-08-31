@@ -72,6 +72,135 @@
     },
     {
       "schema": "nmped",
+      "name": "DisciplineIncidentExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "AlcoholRelatedIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of whether or not this discipline incident is alcohol related or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AlcoholRelatedIndicator",
+            "postgreSql": "AlcoholRelatedIndicator"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "DrugRelatedIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of whether or not this discipline incident is drug related or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DrugRelatedIndicator",
+            "postgreSql": "DrugRelatedIndicator"
+          }
+        },
+        {
+          "propertyName": "GangRelatedIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of whether or not this discipline incident is gang related or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GangRelatedIndicator",
+            "postgreSql": "GangRelatedIndicator"
+          }
+        },
+        {
+          "propertyName": "HateCrimeRelatedIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of whether or not this discipline incident is hate crime related or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "HateCrimeRelatedIndicator",
+            "postgreSql": "HateCrimeRelatedIndicator"
+          }
+        },
+        {
+          "propertyName": "SeriousBodilyInjuryIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "An indication of whether or not this discipline incident is serious bodily injury related or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SeriousBodilyInjuryIndicator",
+            "postgreSql": "SeriousBodilyInjuryIndicator"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "DisciplineIncidentExtension_PK",
+          "identifyingPropertyNames": [
+            "IncidentIdentifier",
+            "SchoolId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DisciplineIncidentExtension_PK",
+            "postgreSql": "DisciplineIncidentExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "DisciplineIncidentExtension",
+        "postgreSql": "DisciplineIncidentExtension"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "SpecialEducationLevelOfIntegrationDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -421,6 +550,99 @@
         "postgreSql": "FK_e919b1_Descriptor"
       },
       "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DisciplineIncidentExtension_DisciplineIncident"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "DisciplineIncident"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "IncidentIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IncidentIdentifier",
+            "postgreSql": "IncidentIdentifier"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DisciplineIncidentExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "IncidentIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IncidentIdentifier",
+            "postgreSql": "IncidentIdentifier"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DisciplineIncidentExtension_DisciplineIncident",
+        "postgreSql": "FK_cde8b8_DisciplineIncident"
+      }
     },
     {
       "fullName": {

@@ -7,6 +7,25 @@ CREATE TABLE [nmped].[DirectCertificationStatusDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[DisciplineIncidentExtension] --
+CREATE TABLE [nmped].[DisciplineIncidentExtension] (
+    [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [DrugRelatedIndicator] [BIT] NOT NULL,
+    [AlcoholRelatedIndicator] [BIT] NOT NULL,
+    [GangRelatedIndicator] [BIT] NOT NULL,
+    [HateCrimeRelatedIndicator] [BIT] NOT NULL,
+    [SeriousBodilyInjuryIndicator] [BIT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [DisciplineIncidentExtension_PK] PRIMARY KEY CLUSTERED (
+        [IncidentIdentifier] ASC,
+        [SchoolId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[DisciplineIncidentExtension] ADD CONSTRAINT [DisciplineIncidentExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 CREATE TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] (
     [SpecialEducationLevelOfIntegrationDescriptorId] [INT] NOT NULL,

@@ -47,5 +47,3 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://ed-fi.org/SpecialProgramCodeDescriptor','C','C = Concurrent Enrollment Course','C = Concurrent Enrollment Course');
 SELECT @DescriptorId=SCOPE_IDENTITY();
 INSERT INTO nmped.SpecialProgramCodeDescriptor(SpecialProgramCodeDescriptorId) values (@DescriptorId);
-
---SELECT * FROM edfi.Descriptor 

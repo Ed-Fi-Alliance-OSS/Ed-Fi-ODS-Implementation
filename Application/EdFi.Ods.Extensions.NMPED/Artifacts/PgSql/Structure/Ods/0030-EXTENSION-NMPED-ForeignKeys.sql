@@ -3,6 +3,11 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.DisciplineIncidentExtension ADD CONSTRAINT FK_cde8b8_DisciplineIncident FOREIGN KEY (IncidentIdentifier, SchoolId)
+REFERENCES edfi.DisciplineIncident (IncidentIdentifier, SchoolId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor ADD CONSTRAINT FK_74d1c3_Descriptor FOREIGN KEY (SpecialEducationLevelOfIntegrationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE

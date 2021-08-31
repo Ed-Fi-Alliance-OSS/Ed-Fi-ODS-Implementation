@@ -1,0 +1,16 @@
+Domain Entity EdFi.DisciplineIncident additions
+    bool DrugRelatedIndicator
+        documentation "An indication of whether or not this discipline incident is drug related or not."
+        is required
+    bool AlcoholRelatedIndicator
+        documentation "An indication of whether or not this discipline incident is alcohol related or not."
+        is required
+    bool GangRelatedIndicator
+        documentation "An indication of whether or not this discipline incident is gang related or not."
+        is required
+    bool HateCrimeRelatedIndicator
+        documentation "An indication of whether or not this discipline incident is hate crime related or not."
+        is required
+    bool SeriousBodilyInjuryIndicator
+        documentation "An indication of whether or not this discipline incident is serious bodily injury related or not."
+        is required
