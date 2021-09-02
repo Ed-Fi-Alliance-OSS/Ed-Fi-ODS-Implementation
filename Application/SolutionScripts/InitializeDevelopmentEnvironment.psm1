@@ -275,7 +275,8 @@ Function Invoke-RebuildSolution {
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
-        dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+        Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
+        & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
         if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
@@ -298,58 +299,35 @@ Function Invoke-RebuildSolution {
 function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
         $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
-        $connectionString = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Ods_Sandbox_Empty'
-        $params = @{
-            engine       = $settings.ApiSettings.engine
-            csb          = $connectionString
-            database     = $odsDatabaseType
-            filePaths    = $settings.ApiSettings.FilePaths
-            subTypeNames = @()
-            dropDatabase = $true
-        }
-        Initialize-EdFiDatabaseWithDbDeploy @params
+        $settings.ApiSettings.SubTypes = @()
+        $settings.ApiSettings.DropDatabases = $true
+        $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens 'Admin_Test'
+        Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }
 
 function Reset-TestAdminDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
-        $params = @{
-            engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Admin_Test'
-            database     = $settings.ApiSettings.DatabaseTypes.Admin
-            filePaths    = $settings.ApiSettings.FilePaths
-            subTypeNames = @()
-            dropDatabase = $true
-        }
-        if ($settings.ApiSettings.Engine -eq 'SQLServer') {
-            # turn on all available features for the test database to ensure all the schema components are available
-            $params.subTypeNames = Get-DefaultSubtypes
-        }
-        Initialize-EdFiDatabaseWithDbDeploy @params
+        # turn on all available features for the test database to ensure all the schema components are available
+        $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
+        $settings.ApiSettings.DropDatabases = $true
+        $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Admin_Test'
+        Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }
 
 function Reset-TestSecurityDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]
-        $params = @{
-            engine       = $settings.ApiSettings.engine
-            csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens 'Security_Test'
-            database     = $settings.ApiSettings.DatabaseTypes.Security
-            filePaths    = $settings.ApiSettings.FilePaths
-            subTypeNames = @()
-            dropDatabase = $true
-        }
-        if ($settings.ApiSettings.Engine -eq 'SQLServer') {
-            # turn on all available features for the test database to ensure all the schema components are available
-            $params.subTypeNames = Get-DefaultSubtypes
-        }
-        Initialize-EdFiDatabaseWithDbDeploy @params
+        # turn on all available features for the test database to ensure all the schema components are available
+        $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
+        $settings.ApiSettings.DropDatabases = $true
+        $databaseType = $settings.ApiSettings.DatabaseTypes.Security
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Security_Test'
+        Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }
 
@@ -357,23 +335,14 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
-        $odsDatabaseType = $settings.ApiSettings.DatabaseTypes.Ods
-        $odsConnectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$odsDatabaseType]
-        # always use Grand Bend data for the test database
-        $backupPath = Get-PopulatedTemplateBackupPathFromSettings $settings
-        $params = @{
-            engine                  = $settings.ApiSettings.engine
-            csb                     = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$odsConnectionStringKey] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
-            database                = $odsDatabaseType
-            filePaths               = $settings.ApiSettings.FilePaths
-            subTypeNames            = Get-DefaultSubtypes
-            dropDatabase            = $true
-            createByRestoringBackup = $backupPath
-            databaseTimeoutInSeconds = $settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds
-        }
-
-        Initialize-EdFiDatabaseWithDbDeploy @params
+       $settings = Get-DeploymentSettings
+        # turn on all available features for the test database to ensure all the schema components are available
+        $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
+        $settings.ApiSettings.DropDatabases = $true
+        $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
+        $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
+        Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
     }
 }
 

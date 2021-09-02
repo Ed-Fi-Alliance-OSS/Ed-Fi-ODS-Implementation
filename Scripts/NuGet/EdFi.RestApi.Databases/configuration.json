@@ -8,7 +8,7 @@
   "ApiSettings": {
     "Mode": "sandbox",
     "Engine": "SQLServer",
-    "PopulatedTemplateDBTimeOutInSeconds": "60",
+    "PopulatedTemplateDBTimeOutInSeconds": "600",
     "OdsTokens": [],
     "Features": [
       {
