@@ -322,6 +322,8 @@ function New-EdFiDatabaseLifecycle {
     $params = @{}
 
     if ($Settings.ApiSettings.Engine -eq 'SQLServer') {
+        Use-SqlServerModule
+
         if (-not [string]::IsNullOrWhiteSpace($Settings.Azure)) {
             $strategies = @{
                 BackupStrategy = ${function:Get-NoStrategy}
