@@ -107,8 +107,8 @@ function Get-AzureSQLServerDatabaseCreateStrategy {
         StorageKeyType             = $Settings.Azure.StorageKeyType
         StorageKey                 = $Settings.Azure.StorageKey
         StorageUri                 = $CreateByRestoringBackup
-        AdministratorLogin         = $Settings.Azure.AdministratorLogin
-        AdministratorLoginPassword = (ConvertTo-SecureString $Settings.Azure.AdministratorLoginPassword -AsPlainText -Force)
+        AdministratorLogin         = $csb.UserID
+        AdministratorLoginPassword = (ConvertTo-SecureString $csb.Password -AsPlainText -Force)
         Edition                    = $Settings.Azure.Edition
         ServiceObjectiveName       = $Settings.Azure.ServiceObjectiveName
         DatabaseMaxSizeBytes       = $Settings.Azure.DatabaseMaxSizeBytes
