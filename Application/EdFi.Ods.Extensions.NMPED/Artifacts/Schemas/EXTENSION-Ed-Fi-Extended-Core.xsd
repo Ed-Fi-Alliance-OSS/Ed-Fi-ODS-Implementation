@@ -60,6 +60,28 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-IndustryCredentialDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Industry Credential for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ProgramDeliveryMethodDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the delivery method for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
@@ -85,6 +107,45 @@
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-StudentCTEProgramAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentCTEProgramAssociation">
+        <xs:sequence>
+          <xs:element name="ProgramDeliveryMethod" type="EXTENSION-ProgramDeliveryMethodDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Identifies the Delivery Method for a program a student is enrolled in.
+                                Valid values:
+                                CG = College Granted Certificate
+                                IS = Industry Standard Third Party Assessment</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ProgramDeliveryMethodDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IndustryCredential" type="EXTENSION-IndustryCredentialDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Identifies the Industry Credential for a program a student is enrolled in.
+                                Valid values: (too many to list here)</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-IndustryCredentialDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CredentialEarnedDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The date the credential was earned.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentEducationOrganizationAssociationExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -200,6 +261,24 @@
   <xs:simpleType name="EXTENSION-DirectCertificationStatusDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of direct certification statuses.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-IndustryCredentialDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Industry Credential for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ProgramDeliveryMethodDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the delivery method for the student's program.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

@@ -26,6 +26,24 @@ GO
 ALTER TABLE [nmped].[DisciplineIncidentExtension] ADD CONSTRAINT [DisciplineIncidentExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [nmped].[IndustryCredentialDescriptor] --
+CREATE TABLE [nmped].[IndustryCredentialDescriptor] (
+    [IndustryCredentialDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [IndustryCredentialDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [IndustryCredentialDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[ProgramDeliveryMethodDescriptor] --
+CREATE TABLE [nmped].[ProgramDeliveryMethodDescriptor] (
+    [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ProgramDeliveryMethodDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ProgramDeliveryMethodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 CREATE TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] (
     [SpecialEducationLevelOfIntegrationDescriptorId] [INT] NOT NULL,
@@ -42,6 +60,31 @@ CREATE TABLE [nmped].[SpecialProgramCodeDescriptor] (
         [SpecialProgramCodeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [nmped].[StudentCTEProgramAssociationExtension] --
+CREATE TABLE [nmped].[StudentCTEProgramAssociationExtension] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
+    [IndustryCredentialDescriptorId] [INT] NOT NULL,
+    [CredentialEarnedDate] [DATE] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentCTEProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] ADD CONSTRAINT [StudentCTEProgramAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentEducationOrganizationAssociationExtension] --

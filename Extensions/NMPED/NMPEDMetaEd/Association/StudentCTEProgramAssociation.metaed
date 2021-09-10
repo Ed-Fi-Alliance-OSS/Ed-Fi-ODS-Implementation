@@ -1,0 +1,14 @@
+Association EdFi.StudentCTEProgramAssociation additions
+    descriptor ProgramDeliveryMethod
+    documentation "Identifies the Delivery Method for a program a student is enrolled in.
+                  Valid values:
+                  CG = College Granted Certificate
+                  IS = Industry Standard Third Party Assessment"
+    is required
+    descriptor IndustryCredential
+    documentation "Identifies the Industry Credential for a program a student is enrolled in.
+                  Valid values: (too many to list here)"
+    is required
+    date CredentialEarnedDate
+    documentation "The date the credential was earned."
+    is optional

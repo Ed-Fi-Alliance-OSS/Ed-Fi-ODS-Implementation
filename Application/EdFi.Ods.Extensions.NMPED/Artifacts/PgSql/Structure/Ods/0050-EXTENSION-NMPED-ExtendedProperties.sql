@@ -12,6 +12,14 @@ COMMENT ON COLUMN nmped.DisciplineIncidentExtension.GangRelatedIndicator IS 'An 
 COMMENT ON COLUMN nmped.DisciplineIncidentExtension.HateCrimeRelatedIndicator IS 'An indication of whether or not this discipline incident is hate crime related or not.';
 COMMENT ON COLUMN nmped.DisciplineIncidentExtension.SeriousBodilyInjuryIndicator IS 'An indication of whether or not this discipline incident is serious bodily injury related or not.';
 
+-- Extended Properties [nmped].[IndustryCredentialDescriptor] --
+COMMENT ON TABLE nmped.IndustryCredentialDescriptor IS 'This descriptor describes the Industry Credential for the student''s program.';
+COMMENT ON COLUMN nmped.IndustryCredentialDescriptor.IndustryCredentialDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
+COMMENT ON TABLE nmped.ProgramDeliveryMethodDescriptor IS 'This descriptor describes the delivery method for the student''s program.';
+COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 COMMENT ON TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor IS 'This descriptor describes the type of Levels of Integration.';
 COMMENT ON COLUMN nmped.SpecialEducationLevelOfIntegrationDescriptor.SpecialEducationLevelOfIntegrationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -19,6 +27,22 @@ COMMENT ON COLUMN nmped.SpecialEducationLevelOfIntegrationDescriptor.SpecialEduc
 -- Extended Properties [nmped].[SpecialProgramCodeDescriptor] --
 COMMENT ON TABLE nmped.SpecialProgramCodeDescriptor IS 'This Code for the special program.';
 COMMENT ON COLUMN nmped.SpecialProgramCodeDescriptor.SpecialProgramCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[StudentCTEProgramAssociationExtension] --
+COMMENT ON TABLE nmped.StudentCTEProgramAssociationExtension IS '';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramDeliveryMethodDescriptorId IS 'Identifies the Delivery Method for a program a student is enrolled in.
+                  Valid values:
+                  CG = College Granted Certificate
+                  IS = Industry Standard Third Party Assessment';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.IndustryCredentialDescriptorId IS 'Identifies the Industry Credential for a program a student is enrolled in.
+                  Valid values: (too many to list here)';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.CredentialEarnedDate IS 'The date the credential was earned.';
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAssociationExtension] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAssociationExtension IS '';

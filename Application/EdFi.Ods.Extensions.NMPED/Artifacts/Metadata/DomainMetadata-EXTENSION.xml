@@ -3,6 +3,12 @@
   <Aggregate root="DirectCertificationStatusDescriptor">
     <Entity table="DirectCertificationStatusDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="IndustryCredentialDescriptor">
+    <Entity table="IndustryCredentialDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="ProgramDeliveryMethodDescriptor">
+    <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
     <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>

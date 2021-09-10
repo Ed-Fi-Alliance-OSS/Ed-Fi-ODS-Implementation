@@ -13,7 +13,7 @@
         <xs:element name="StudentProgramAssociation" type="StudentProgramAssociation" />
         <xs:element name="StudentSpecialEducationProgramAssociation" type="EXTENSION-StudentSpecialEducationProgramAssociationExtension" />
         <xs:element name="RestraintEvent" type="RestraintEvent" />
-        <xs:element name="StudentCTEProgramAssociation" type="StudentCTEProgramAssociation" />
+        <xs:element name="StudentCTEProgramAssociation" type="EXTENSION-StudentCTEProgramAssociationExtension" />
         <xs:element name="StudentTitleIPartAProgramAssociation" type="StudentTitleIPartAProgramAssociation" />
         <xs:element name="StudentMigrantEducationProgramAssociation" type="StudentMigrantEducationProgramAssociation" />
         <xs:element name="StudentLanguageInstructionProgramAssociation" type="StudentLanguageInstructionProgramAssociation" />

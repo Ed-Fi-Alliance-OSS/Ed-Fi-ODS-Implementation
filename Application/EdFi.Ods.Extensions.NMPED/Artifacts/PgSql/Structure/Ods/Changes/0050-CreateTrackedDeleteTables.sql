@@ -6,6 +6,22 @@ CREATE TABLE tracked_deletes_nmped.DirectCertificationStatusDescriptor
        CONSTRAINT DirectCertificationStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.IndustryCredentialDescriptor
+(
+       IndustryCredentialDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT IndustryCredentialDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor
+(
+       ProgramDeliveryMethodDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT ProgramDeliveryMethodDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor
 (
        SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,

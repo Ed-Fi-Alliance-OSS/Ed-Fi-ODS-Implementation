@@ -18,6 +18,18 @@ CREATE TABLE nmped.DisciplineIncidentExtension (
 ); 
 ALTER TABLE nmped.DisciplineIncidentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table nmped.IndustryCredentialDescriptor --
+CREATE TABLE nmped.IndustryCredentialDescriptor (
+    IndustryCredentialDescriptorId INT NOT NULL,
+    CONSTRAINT IndustryCredentialDescriptor_PK PRIMARY KEY (IndustryCredentialDescriptorId)
+); 
+
+-- Table nmped.ProgramDeliveryMethodDescriptor --
+CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
+    ProgramDeliveryMethodDescriptorId INT NOT NULL,
+    CONSTRAINT ProgramDeliveryMethodDescriptor_PK PRIMARY KEY (ProgramDeliveryMethodDescriptorId)
+); 
+
 -- Table nmped.SpecialEducationLevelOfIntegrationDescriptor --
 CREATE TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor (
     SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,
@@ -29,6 +41,22 @@ CREATE TABLE nmped.SpecialProgramCodeDescriptor (
     SpecialProgramCodeDescriptorId INT NOT NULL,
     CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (SpecialProgramCodeDescriptorId)
 ); 
+
+-- Table nmped.StudentCTEProgramAssociationExtension --
+CREATE TABLE nmped.StudentCTEProgramAssociationExtension (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ProgramDeliveryMethodDescriptorId INT NOT NULL,
+    IndustryCredentialDescriptorId INT NOT NULL,
+    CredentialEarnedDate DATE NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentCTEProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentEducationOrganizationAssociationExtension --
 CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
