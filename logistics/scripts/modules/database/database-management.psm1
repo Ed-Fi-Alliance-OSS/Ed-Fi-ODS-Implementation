@@ -1033,6 +1033,7 @@ Function Test-DatabaseExists {
 }
 
 Export-ModuleMember -Function `
+    Use-SqlServerModule,
     New-DbConnectionStringBuilder,
     Get-DbConnectionStringBuilderFromConfig,
     Backup-Database,

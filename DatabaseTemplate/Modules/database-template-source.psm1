@@ -127,24 +127,25 @@ function Initialize-TemplateSourceFromScriptName {
     return Get-TemplateBackupPath
 }
 
-function Get-PopulatedTemplateBackupPathFromSettings {
-    [CmdletBinding()] param(
-        [parameter(ValueFromPipeline, Mandatory)]
-        [hashtable] $Settings
-    )
-
-    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.PopulatedTemplateScript
-}
-
 function Get-MinimalTemplateBackupPathFromSettings {
     [CmdletBinding()] param(
         [parameter(ValueFromPipeline, Mandatory)]
         [hashtable] $Settings
     )
 
+    if (-not [string]::IsNullOrWhiteSpace($Settings.Azure.MinimalStorageUri)) { return $Settings.Azure.MinimalStorageUri }
     return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.MinimalTemplateScript
 }
 
+function Get-PopulatedTemplateBackupPathFromSettings {
+    [CmdletBinding()] param(
+        [parameter(ValueFromPipeline, Mandatory)]
+        [hashtable] $Settings
+    )
+
+    if (-not [string]::IsNullOrWhiteSpace($Settings.Azure.PopulatedStorageUri)) { return $Settings.Azure.PopulatedStorageUri }
+    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.PopulatedTemplateScript
+}
 
 Export-ModuleMember -Function Get-MinimalTemplateBackupPath,
 Get-PopulatedTemplateBackupPath,
@@ -152,5 +153,5 @@ Get-EdFiDefaultMinimalTemplateBackupPath,
 Get-EdFiDefaultPopulatedTemplateBackupPath,
 Get-TemplateBackupPath,
 Get-TemplateScripts,
-Get-PopulatedTemplateBackupPathFromSettings,
-Get-MinimalTemplateBackupPathFromSettings
+Get-MinimalTemplateBackupPathFromSettings,
+Get-PopulatedTemplateBackupPathFromSettings
