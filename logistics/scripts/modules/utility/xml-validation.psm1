@@ -70,12 +70,6 @@ function Invoke-XmlValidation {
 
     $xmlFiles = Get-ChildItem -Path $source -Filter $filter -Recurse:$recurse
 
-    $xmlReaderSettings = New-Object System.Xml.XmlReaderSettings
-    $xmlReaderSettings.ValidationType = [System.Xml.ValidationType]::Schema
-    $xmlReaderSettings.ValidationFlags =
-    [System.Xml.Schema.XmlSchemaValidationFlags]::ProcessInlineSchema -bor
-    [System.Xml.Schema.XmlSchemaValidationFlags]::ReportValidationWarnings
-
     $validationHandler = [System.Xml.Schema.ValidationEventHandler] {
         if ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Warning) {
             Write-Warning "$($_.Message)"
@@ -84,7 +78,6 @@ function Invoke-XmlValidation {
             Write-Error "$($_.Message)"
         }
     }
-    $xmlReaderSettings.add_ValidationEventHandler($validationHandler)
 
     $previousErrorActionPreference = $ErrorActionPreference
     $ErrorActionPreference = "Continue"
@@ -99,7 +92,18 @@ function Invoke-XmlValidation {
                     continue
                 }
                 $schemaFile = (Join-Path $file.Directory.FullName $rootElement.schema -Resolve)
+
+                $xmlReaderSettings = New-Object System.Xml.XmlReaderSettings
+                $xmlReaderSettings.ValidationType = [System.Xml.ValidationType]::Schema
+                $xmlReaderSettings.ValidationFlags =
+                [System.Xml.Schema.XmlSchemaValidationFlags]::ProcessInlineSchema -bor
+                [System.Xml.Schema.XmlSchemaValidationFlags]::ReportValidationWarnings
+                $xmlReaderSettings.add_ValidationEventHandler($validationHandler)
                 $xmlReaderSettings.Schemas.Add($rootElement.namespace, $schemaFile) | Out-Null
+                # Force use of XmlUrlResolver to allow external schema loads for later powershell versions
+                # see https://github.com/dotnet/runtime/issues/29346#issuecomment-485798826
+                $xmlReaderSettings.Schemas.XmlResolver = New-Object System.Xml.XmlUrlResolver
+
                 $xmlReader = [System.Xml.XmlReader]::Create($file.FullName, $xmlReaderSettings)
 
                 while ($xmlReader.Read()) { }
