@@ -40,11 +40,6 @@
       "PackageVersion": "5.3.11",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
-	"sk": {
-      "PackageName": "EdFi.Suite3.Ods.Extensions.SK",
-      "PackageVersion": "5.3.32",
-      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-    },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
       "PackageVersion": "5.3.500",
