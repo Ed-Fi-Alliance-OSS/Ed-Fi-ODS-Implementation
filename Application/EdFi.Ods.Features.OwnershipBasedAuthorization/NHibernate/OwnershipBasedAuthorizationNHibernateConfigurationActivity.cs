@@ -58,7 +58,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate
         private static bool IsEdFiQueryMappingEvent(BindMappingEventArgs e)
         {
             return (e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.BaseNamespace) ||
-                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views))
+                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views) ||
+                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Tables))
                    && e.Mapping.assembly.Equals(Namespaces.Standard.BaseNamespace);
         }
     }
