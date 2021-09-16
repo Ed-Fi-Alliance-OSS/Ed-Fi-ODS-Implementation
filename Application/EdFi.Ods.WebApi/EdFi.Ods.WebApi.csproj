@@ -24,6 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="FluentValidation" Version="8.6.3" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.16.0" />
@@ -39,13 +41,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>

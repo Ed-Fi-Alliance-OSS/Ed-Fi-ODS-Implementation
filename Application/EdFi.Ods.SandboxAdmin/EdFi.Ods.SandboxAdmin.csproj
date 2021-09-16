@@ -15,7 +15,9 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
     <PackageReference Include="EdFi.Suite3.Common" Version="5.3.3" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.1" />
     <PackageReference Include="Hangfire" Version="1.7.17" />
@@ -33,10 +35,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
