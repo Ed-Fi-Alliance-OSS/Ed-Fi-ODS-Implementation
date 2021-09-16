@@ -22,18 +22,14 @@ param (
     [Parameter(Mandatory)]
     [string] $fileName
 )
-
 $isArchiveFile = $fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')
 $archiveBackupFilePath = Join-Path $global:templateFolder $fileName
 $finalBackupFilePath = Join-Path $global:templateDatabaseFolder $fileName
 
-if (Test-Path -Path $global:templateDatabaseFolder\*) {
-    Write-Host "Template found, using existing file at $global:templateDatabaseFolder"
-    return
+if (Test-Path $finalBackupFilePath) {
+    Write-Host "Template found, using existing file at $finalBackupFilePath"
+    return $finalBackupFilePath
 }
-
-if (Test-Path $global:templateDatabaseFolder) { Remove-Item -Force -Recurse -Path $global:templateDatabaseFolder | Out-Null }
-New-Item -Path $global:templateDatabaseFolder -ItemType "Directory" | Out-Null
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
@@ -69,3 +65,4 @@ if ($isArchiveFile) {
     Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
 }
 if ($error.count -gt 0 -or $LASTEXITCODE -gt 0) { exit 1; }
+return $finalBackupFilePath
