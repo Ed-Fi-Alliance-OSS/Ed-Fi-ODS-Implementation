@@ -60,16 +60,6 @@
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
-    "EdFi.Admin.DataAccess": {
-      "PackageName": "EdFi.Suite3.Admin.DataAccess",
-      "PackageVersion": "latest",
-      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-    },
-    "EdFi.Security.DataAccess": {
-      "PackageName": "EdFi.Suite3.Security.DataAccess",
-      "PackageVersion": "latest",
-      "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-    },
     "EdFi.Database.Security": {
       "PackageName": "EdFi.Database.Security",
       "PackageVersion": "latest",
