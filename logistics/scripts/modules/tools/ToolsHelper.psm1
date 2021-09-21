@@ -156,22 +156,30 @@ function Install-ToolCodeGenUtility {
 }
 
 function Test-DotNetCore {
+    # If the required version changes, update global.json as well
     $requiredMajor = 3
     $requiredMinor = 1
 
     try {
-        ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
+        $dotnetVersionErr = $( $dotnetVersionOut = dotnet --version ) 2>&1
 
-        if ($dotnet.Version.Major -lt $requiredMajor) {
+        if ($dotnetVersionErr) {
             throw
         }
 
-        if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
+        $version = $dotnetVersionOut.Split(".") 
+        $major = $version[0]
+        $minor = $version[1]
+
+        if (-not ($major -eq $requiredMajor -and $minor -eq $requiredMinor)) {
             throw
         }
     }
     catch {
-        throw "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor)+, available from https://dotnet.microsoft.com/download."
+        throw @(
+            "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor).x, available from https://dotnet.microsoft.com/download."
+            "If it is already installed, make sure your working directory is within Ed-Fi-ODS-Implementation."
+        )
     }
 }
 
