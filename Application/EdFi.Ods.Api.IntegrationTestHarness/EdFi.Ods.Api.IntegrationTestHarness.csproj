@@ -33,6 +33,8 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.10" />
@@ -45,7 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
@@ -53,7 +54,6 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
