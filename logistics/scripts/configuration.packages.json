@@ -36,8 +36,8 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
-      "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.1.0.0",
-      "PackageVersion": "5.3.11",
+      "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0",
+      "PackageVersion": "5.3.17",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
