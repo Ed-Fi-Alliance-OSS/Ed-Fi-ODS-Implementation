@@ -59,13 +59,13 @@ function Assert-NoDuplicatePlugins([hashtable] $Settings) {
 
         $schemaName = $json.schemaDefinition.physicalName
 
-        $relativePluginFolderPath = (Get-Item $apiModelFilePath.FullName).Directory.Parent.Parent.Name
+        $pluginFolderName = (Get-Item $apiModelFilePath.FullName).Directory.Parent.Parent.Name
 
         if ($schemaNameToFolderNames.ContainsKey($schemaName)) {
-            $schemaNameToFolderNames[$schemaName] += $relativePluginFolderPath
+            $schemaNameToFolderNames[$schemaName] += $pluginFolderName
         }
         else {
-            $schemaNameToFolderNames[$schemaName] = @($relativePluginFolderPath)
+            $schemaNameToFolderNames[$schemaName] = @($pluginFolderName)
         }
     }
 
