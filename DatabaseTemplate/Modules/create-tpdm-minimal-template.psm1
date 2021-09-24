@@ -78,7 +78,7 @@ function Initialize-TPDMMinimalTemplate {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Artifacts/",
+        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/",
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
