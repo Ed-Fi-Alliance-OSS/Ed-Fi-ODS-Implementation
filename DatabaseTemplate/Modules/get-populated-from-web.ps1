@@ -5,9 +5,9 @@
 
 <#
 .SYNOPSIS
-    Downloads a backup file or zip archive containing the template backup
+    Downloads a zip archive containing the populated template backup
 .DESCRIPTION
-    Given a source url to a backup file or zip archive this will download and extract if necessary to the Database folder.
+    Given a source url to a zip archive this will download and unzip to the Database folder.
 .INPUTS
     [uri] Source Url
     [string] File Name
@@ -15,54 +15,39 @@
     None.
 #>
 param (
-    # The source url to download the backup from
+    # The source url to download the zip archive from
     [Parameter(Mandatory)]
     [uri] $sourceUrl,
     # The name of the file that is downloaded from the source url
     [Parameter(Mandatory)]
     [string] $fileName
 )
-$isArchiveFile = $fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')
-$archiveBackupFilePath = Join-Path $global:templateFolder $fileName
-$finalBackupFilePath = Join-Path $global:templateDatabaseFolder $fileName
 
-if (Test-Path $finalBackupFilePath) {
-    Write-Host "Template found, using existing file at $finalBackupFilePath"
-    return $finalBackupFilePath
+if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
+    Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
 }
 
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
-Write-Host "Downloading file from $sourceUrl..."
+Write-host "Downloading file from $sourceUrl..."
 $webClient = New-Object System.Net.WebClient
-if ($isArchiveFile) {
-    $webClient.DownloadFile($sourceUrl, $archiveBackupFilePath)
+$webClient.DownloadFile($sourceUrl, "$global:templateFolder\$fileName")
 
-    if (-not (Test-Path $archiveBackupFilePath)) {
-        Write-Error "Template source file '$archiveBackupFilePath' not found."
-        exit -1
-    }
-}
-else {
-    $webClient.DownloadFile($sourceUrl, $finalBackupFilePath)
+Write-host "Download complete."
 
-    if (-not (Test-Path $finalBackupFilePath)) {
-        Write-Error "Template source file '$finalBackupFilePath' not found."
-        exit -1
-    }
+if (Test-Path $global:templateDatabaseFolder) { Remove-Item -Force -Recurse -Path $global:templateDatabaseFolder | Out-Null }
+New-Item -Path $global:templateDatabaseFolder -ItemType "Directory" | Out-Null
+
+if (-not (Test-Path "$global:templateFolder\$fileName")) {
+    Write-Warning "Populated Template source file '$fileName' not found."
+    exit 0
 }
 
-Write-Host "Download complete."
-
-if ($isArchiveFile) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
-        Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-    }
-    Write-Host "Extracting $fileName..."
-    Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
-    Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
+if ($fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')) {
+    Write-host "Extracting $fileName..."
+    Expand-7Zip -ArchiveFileName "$global:templateFolder\$fileName" -TargetPath "$global:templateDatabaseFolder"
+    Write-Host "Extracted to: $global:templateDatabaseFolder\$fileName" -ForegroundColor Green
 }
 if ($error.count -gt 0 -or $LASTEXITCODE -gt 0) { exit 1; }
-return $finalBackupFilePath

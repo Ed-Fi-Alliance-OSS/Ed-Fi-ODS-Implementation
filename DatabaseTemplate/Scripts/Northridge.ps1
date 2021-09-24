@@ -5,7 +5,7 @@
 
 $params = @{
     sourceUrl = "https://odsassets.blob.core.windows.net/public/Northridge/EdFi_Ods_Northridge_v51_20210224.7z"
-    fileName  = "EdFi_Ods_Northridge_v51_20210224.7z"
+    fileName  = "EdFi_Ods_Northridge_v510.bak"
 }
 
-& "$PSScriptRoot\..\Modules\get-populated-from-web.ps1" @params
+return (& "$PSScriptRoot\..\Modules\get-template-from-web.ps1" @params)

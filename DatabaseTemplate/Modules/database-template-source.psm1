@@ -12,7 +12,7 @@ $databaseTemplateDatabaseFolder = "$databaseTemplateFolder\Database"
 $databasePopulatedTemplateScriptConfigKey = "PopulatedTemplateScript"
 $databaseMinimalTemplateScriptConfigKey = "MinimalTemplateScript"
 
-# required for get-populated-from-nuget.ps1 and for get-populated-from-web.ps1
+# required for get-populated-from-nuget.ps1 and for get-template-from-web.ps1
 $global:templateDatabaseFolder = $databaseTemplateDatabaseFolder
 $global:templateFolder = $databaseTemplateFolder
 
