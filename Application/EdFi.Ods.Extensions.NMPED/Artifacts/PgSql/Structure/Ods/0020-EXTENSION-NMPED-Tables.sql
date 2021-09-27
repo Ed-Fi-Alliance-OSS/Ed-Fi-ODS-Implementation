@@ -24,6 +24,12 @@ CREATE TABLE nmped.IndustryCredentialDescriptor (
     CONSTRAINT IndustryCredentialDescriptor_PK PRIMARY KEY (IndustryCredentialDescriptorId)
 ); 
 
+-- Table nmped.LevelOfEducationInstitutionDescriptor --
+CREATE TABLE nmped.LevelOfEducationInstitutionDescriptor (
+    LevelOfEducationInstitutionDescriptorId INT NOT NULL,
+    CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (LevelOfEducationInstitutionDescriptorId)
+); 
+
 -- Table nmped.ProgramDeliveryMethodDescriptor --
 CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
     ProgramDeliveryMethodDescriptorId INT NOT NULL,
@@ -41,6 +47,28 @@ CREATE TABLE nmped.SpecialProgramCodeDescriptor (
     SpecialProgramCodeDescriptorId INT NOT NULL,
     CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (SpecialProgramCodeDescriptorId)
 ); 
+
+-- Table nmped.StaffEducationOrganizationAssignmentAssociationExtension --
+CREATE TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    StaffClassificationDescriptorId INT NOT NULL,
+    StaffUSI INT NOT NULL,
+    FullTimeEquivalency DECIMAL(5, 4) NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StaffEducationOrganizationAssignmentAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
+); 
+ALTER TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StaffExtension --
+CREATE TABLE nmped.StaffExtension (
+    StaffUSI INT NOT NULL,
+    HighestCompletedLevelOfEducationInstitutionDescriptorId INT NOT NULL,
+    BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
+); 
+ALTER TABLE nmped.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentCTEProgramAssociationExtension --
 CREATE TABLE nmped.StudentCTEProgramAssociationExtension (

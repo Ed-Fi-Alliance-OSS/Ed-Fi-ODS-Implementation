@@ -16,6 +16,10 @@ COMMENT ON COLUMN nmped.DisciplineIncidentExtension.SeriousBodilyInjuryIndicator
 COMMENT ON TABLE nmped.IndustryCredentialDescriptor IS 'This descriptor describes the Industry Credential for the student''s program.';
 COMMENT ON COLUMN nmped.IndustryCredentialDescriptor.IndustryCredentialDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[LevelOfEducationInstitutionDescriptor] --
+COMMENT ON TABLE nmped.LevelOfEducationInstitutionDescriptor IS 'Indicates the Level of Education Institution';
+COMMENT ON COLUMN nmped.LevelOfEducationInstitutionDescriptor.LevelOfEducationInstitutionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
 COMMENT ON TABLE nmped.ProgramDeliveryMethodDescriptor IS 'This descriptor describes the delivery method for the student''s program.';
 COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -27,6 +31,20 @@ COMMENT ON COLUMN nmped.SpecialEducationLevelOfIntegrationDescriptor.SpecialEduc
 -- Extended Properties [nmped].[SpecialProgramCodeDescriptor] --
 COMMENT ON TABLE nmped.SpecialProgramCodeDescriptor IS 'This Code for the special program.';
 COMMENT ON COLUMN nmped.SpecialProgramCodeDescriptor.SpecialProgramCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] --
+COMMENT ON TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension IS '';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.FullTimeEquivalency IS 'The full time equivalency.';
+
+-- Extended Properties [nmped].[StaffExtension] --
+COMMENT ON TABLE nmped.StaffExtension IS '';
+COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Highest Completed Level Of Education Institution.';
+COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId IS 'Indicates the Baccalaureate Level Of Education Institution.';
 
 -- Extended Properties [nmped].[StudentCTEProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentCTEProgramAssociationExtension IS '';

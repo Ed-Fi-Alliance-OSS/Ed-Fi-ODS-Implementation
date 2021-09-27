@@ -6,6 +6,9 @@
   <Aggregate root="IndustryCredentialDescriptor">
     <Entity table="IndustryCredentialDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="LevelOfEducationInstitutionDescriptor">
+    <Entity table="LevelOfEducationInstitutionDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>

@@ -12,6 +12,13 @@ CREATE TABLE [tracked_deletes_nmped].[IndustryCredentialDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_IndustryCredentialDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[LevelOfEducationInstitutionDescriptor]
+(
+       LevelOfEducationInstitutionDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_LevelOfEducationInstitutionDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[ProgramDeliveryMethodDescriptor]
 (
        ProgramDeliveryMethodDescriptorId [INT] NOT NULL,

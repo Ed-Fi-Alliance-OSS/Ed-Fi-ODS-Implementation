@@ -35,6 +35,15 @@ CREATE TABLE [nmped].[IndustryCredentialDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[LevelOfEducationInstitutionDescriptor] --
+CREATE TABLE [nmped].[LevelOfEducationInstitutionDescriptor] (
+    [LevelOfEducationInstitutionDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [LevelOfEducationInstitutionDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [LevelOfEducationInstitutionDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[ProgramDeliveryMethodDescriptor] --
 CREATE TABLE [nmped].[ProgramDeliveryMethodDescriptor] (
     [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
@@ -60,6 +69,39 @@ CREATE TABLE [nmped].[SpecialProgramCodeDescriptor] (
         [SpecialProgramCodeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] --
+CREATE TABLE [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StaffClassificationDescriptorId] [INT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [FullTimeEquivalency] [DECIMAL](5, 4) NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StaffEducationOrganizationAssignmentAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [StaffClassificationDescriptorId] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] ADD CONSTRAINT [StaffEducationOrganizationAssignmentAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StaffExtension] --
+CREATE TABLE [nmped].[StaffExtension] (
+    [StaffUSI] [INT] NOT NULL,
+    [HighestCompletedLevelOfEducationInstitutionDescriptorId] [INT] NOT NULL,
+    [BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StaffExtension_PK] PRIMARY KEY CLUSTERED (
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffExtension] ADD CONSTRAINT [StaffExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentCTEProgramAssociationExtension] --

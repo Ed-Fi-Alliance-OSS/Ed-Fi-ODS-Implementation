@@ -1,0 +1,6 @@
+Association EdFi.StaffEducationOrganizationAssignmentAssociation additions
+    decimal FullTimeEquivalency
+      documentation "The full time equivalency."
+      is required
+      total digits 5
+      decimal places 4

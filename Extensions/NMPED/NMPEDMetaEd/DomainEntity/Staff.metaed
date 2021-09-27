@@ -1,0 +1,9 @@
+Domain Entity EdFi.Staff additions
+    descriptor LevelOfEducationInstitution
+        documentation "Indicates the Highest Completed Level Of Education Institution."
+        is required
+        role name HighestCompletedLevelOfEducationInstitution
+    descriptor LevelOfEducationInstitution
+        documentation "Indicates the Baccalaureate Level Of Education Institution."
+        is required
+        role name BaccalaureateInstitutionDescriptorId

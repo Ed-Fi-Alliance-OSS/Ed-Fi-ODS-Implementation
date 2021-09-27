@@ -14,6 +14,14 @@ CREATE TABLE tracked_deletes_nmped.IndustryCredentialDescriptor
        CONSTRAINT IndustryCredentialDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.LevelOfEducationInstitutionDescriptor
+(
+       LevelOfEducationInstitutionDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor
 (
        ProgramDeliveryMethodDescriptorId INT NOT NULL,

@@ -46,6 +46,36 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StaffExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Staff">
+        <xs:sequence>
+          <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the Highest Completed Level Of Education Institution.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the Baccalaureate Level Of Education Institution.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
@@ -63,6 +93,17 @@
   <xs:complexType name="EXTENSION-IndustryCredentialDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Industry Credential for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-LevelOfEducationInstitutionDescriptor">
+    <xs:annotation>
+      <xs:documentation>Indicates the Level of Education Institution</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -107,6 +148,25 @@
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-StaffEducationOrganizationAssignmentAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StaffEducationOrganizationAssignmentAssociation">
+        <xs:sequence>
+          <xs:element name="FullTimeEquivalency" type="EXTENSION-FullTimeEquivalency">
+            <xs:annotation>
+              <xs:documentation>The full time equivalency.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentCTEProgramAssociationExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -276,6 +336,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Indicates the Level of Education Institution</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ProgramDeliveryMethodDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the delivery method for the student's program.</xs:documentation>
@@ -326,4 +395,16 @@
   <xs:annotation>
     <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
   </xs:annotation>
+  <xs:simpleType name="EXTENSION-FullTimeEquivalency">
+    <xs:annotation>
+      <xs:documentation>The full time equivalency.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="5" />
+      <xs:fractionDigits value="4" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>
