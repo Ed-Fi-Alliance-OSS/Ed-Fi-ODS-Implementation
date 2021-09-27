@@ -24,13 +24,12 @@ function Get-TPDMConfiguration([hashtable] $config = @{ }) {
         ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")
     )
 
-    $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM"
-    $config.packageNuspecName = "EdFi.Ods.Populated.Template.TPDM"
+    $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM.Core"
+    $config.packageNuspecName = "EdFi.Ods.Populated.Template.TPDM.Core"
 
     return $config
 }
 
-Set-Alias -Scope Global initpop Initialize-PopulatedTemplate
 function Initialize-TPDMTemplate {
     <#
     .SYNOPSIS
@@ -74,7 +73,7 @@ function Initialize-TPDMTemplate {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/",
+        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Artifacts/",
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',

@@ -28,23 +28,22 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
         ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")
     )
 
-    $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM"
-    $config.packageNuspecName = "EdFi.Ods.Minimal.Template.TPDM"
+    $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM.Core"
+    $config.packageNuspecName = "EdFi.Ods.Minimal.Template.TPDM.Core"
 
     return $config
 }
 
-Set-Alias -Scope Global initmin Initialize-MinimalTemplate
 function Initialize-TPDMMinimalTemplate {
     <#
     .SYNOPSIS
-        Creates a new Populated Template.
+        Creates a new Minimal Template.
 
     .DESCRIPTION
         By default this will:
         * Validate all xml files
         * Resets the admin and security database
-        * Creates a new database for the populated template data to be loaded into
+        * Creates a new database for the minimal template data to be loaded into
         * Restores packages and build the bulk load client
         * Copies sample files to isolate the files into two sections one for each of the two load scenarios
         * Generates two apiclients with key/secret for the two necessary claimsets
@@ -52,8 +51,8 @@ function Initialize-TPDMMinimalTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new populated template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Populated.Template.bak
-        * Creates a .nuspec file for the new populated template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Populated.Template.nuspec
+        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.bak
+        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.nuspec
 
     .PARAMETER samplePath
         An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
@@ -69,7 +68,7 @@ function Initialize-TPDMMinimalTemplate {
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .EXAMPLE
-        PS> Initialize-PopulatedTempalate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
+        PS> Initialize-TPDMMinimalTemplate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
     #>
     param(
         [Parameter(
@@ -78,7 +77,7 @@ function Initialize-TPDMMinimalTemplate {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Extension/",
+        [string] $samplePath = "$PSScriptRoot/../../../Ed-Fi-TPDM-Artifacts/",
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
