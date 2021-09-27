@@ -33,12 +33,26 @@ CREATE TABLE [tracked_deletes_nmped].[NMPEDService]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_NMPEDService PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[ParticipationInformationDescriptor]
+(
+       ParticipationInformationDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ParticipationInformationDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[ProgramDeliveryMethodDescriptor]
 (
        ProgramDeliveryMethodDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_ProgramDeliveryMethodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[ProgramIntensityDescriptor]
+(
+       ProgramIntensityDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ProgramIntensityDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[SerivceSettingDescriptor]
 (

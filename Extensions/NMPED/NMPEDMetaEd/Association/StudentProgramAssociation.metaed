@@ -1,0 +1,10 @@
+Association EdFi.StudentProgramAssociation additions
+  domain entity NMPEDService
+      documentation "The New Mexico Service extension."
+      is optional collection
+  descriptor ParticipationInformation
+      documentation "Indicates the program participation information."
+      is required
+    descriptor ProgramIntensity
+        documentation "Indicates the program Intensity."
+        is required

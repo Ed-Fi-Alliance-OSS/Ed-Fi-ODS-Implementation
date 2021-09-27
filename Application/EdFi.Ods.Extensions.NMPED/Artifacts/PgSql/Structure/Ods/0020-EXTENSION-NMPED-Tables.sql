@@ -57,10 +57,22 @@ ALTER TABLE nmped.NMPEDService ALTER COLUMN CreateDate SET DEFAULT current_times
 ALTER TABLE nmped.NMPEDService ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmped.NMPEDService ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
+-- Table nmped.ParticipationInformationDescriptor --
+CREATE TABLE nmped.ParticipationInformationDescriptor (
+    ParticipationInformationDescriptorId INT NOT NULL,
+    CONSTRAINT ParticipationInformationDescriptor_PK PRIMARY KEY (ParticipationInformationDescriptorId)
+); 
+
 -- Table nmped.ProgramDeliveryMethodDescriptor --
 CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
     ProgramDeliveryMethodDescriptorId INT NOT NULL,
     CONSTRAINT ProgramDeliveryMethodDescriptor_PK PRIMARY KEY (ProgramDeliveryMethodDescriptorId)
+); 
+
+-- Table nmped.ProgramIntensityDescriptor --
+CREATE TABLE nmped.ProgramIntensityDescriptor (
+    ProgramIntensityDescriptorId INT NOT NULL,
+    CONSTRAINT ProgramIntensityDescriptor_PK PRIMARY KEY (ProgramIntensityDescriptorId)
 ); 
 
 -- Table nmped.SerivceSettingDescriptor --
@@ -149,6 +161,21 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentProgramAssociationExtension --
+CREATE TABLE nmped.StudentProgramAssociationExtension (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ParticipationInformationDescriptorId INT NOT NULL,
+    ProgramIntensityDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentProgramAssociationNMPEDService --
 CREATE TABLE nmped.StudentProgramAssociationNMPEDService (

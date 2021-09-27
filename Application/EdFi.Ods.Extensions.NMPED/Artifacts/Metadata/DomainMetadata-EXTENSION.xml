@@ -15,8 +15,14 @@
   <Aggregate root="NMPEDService">
     <Entity table="NMPEDService" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="ParticipationInformationDescriptor">
+    <Entity table="ParticipationInformationDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="ProgramIntensityDescriptor">
+    <Entity table="ProgramIntensityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="SerivceSettingDescriptor">
     <Entity table="SerivceSettingDescriptor" isA="Descriptor" schema="nmped"/>

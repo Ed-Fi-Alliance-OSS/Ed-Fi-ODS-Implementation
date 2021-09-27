@@ -191,9 +191,31 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-ParticipationInformationDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-ProgramDeliveryMethodDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the delivery method for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ProgramIntensityDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Program Intensity.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -368,6 +390,22 @@
               <xs:documentation>The New Mexico Service extension.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="ParticipationInformation" type="EXTENSION-ParticipationInformationDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the program participation information.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ParticipationInformationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramIntensity" type="EXTENSION-ProgramIntensityDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the program Intensity.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ProgramIntensityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -533,9 +571,27 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ParticipationInformationDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ProgramDeliveryMethodDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the delivery method for the student's program.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ProgramIntensityDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Program Intensity.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

@@ -675,11 +675,56 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://ed-fi.org/SerivceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');SELECT @DescriptorId=SCOPE_IDENTITY();
 INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
 
+/* Program Intensity Descriptor */
+--DECLARE @DescriptorId AS Integer;
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ProgramIntensityDescriptor','1','1 program hour','1 program hour');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ProgramIntensityDescriptor(ProgramIntensityDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ProgramIntensityDescriptor','2','2 program hours','2 program hours');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ProgramIntensityDescriptor(ProgramIntensityDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ProgramIntensityDescriptor','3','3 program hours','3 program hours');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ProgramIntensityDescriptor(ProgramIntensityDescriptorId) values (@DescriptorId);
 
---SELECT * FROM edfi.Descriptor;
---SELECT * FROM nmped.LevelOfEducationInstitutionDescriptor
-
---SELECT * FROM nmped.ClassPeriodDescriptor
---SELECT * FROM edfi.Descriptor where DescriptorId>3050;
---SELECT * FROM edfi.Descriptor where Namespace like '%Period%';
-
+/*ParticipationInformationDescriptor*/
+--DECLARE @DescriptorId AS Integer;
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','1','Dual Language Immersion','Dual Language Immersion');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','2','Developmental/Maintenance Bilingual','Developmental/Maintenance Bilingual');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','3','Enrichment','Enrichment');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','4','Transitional Bilingual','Transitional Bilingual');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','5','Heritage/Indigenous Language','Heritage/Indigenous Language');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','6','Parents Refusal - received in writing from parent (opt-out form)','Parents Refusal - received in writing from parent (opt-out form)');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','7','English Language Development (ELD) pull-out course','English Language Development (ELD) pull-out course and sheltered instruction in content areas - The student is pulled out for instruction in English Language Development based on the English language proficiency level of the student and provided sheltered instruction in content areas.');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','8','English Language Development (ELD) block and sheltered','English Language Development (ELD) block and sheltered instruction in content areas (elementary grades only) - The student receives instruction in English Language Development for a minimum of 45 minutes in a self-contained elementary setting based on the English language proficiency level of the student and provided sheltered instruction in content areas.');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','9','Integrated English Language Development (ELD)','Integrated English Language Development (ELD) - English Language Arts (ELA) course and sheltered instruction in content areas (secondary grades only) - The student that is nearing proficiency in English receives instruction in an integrated ELD-ELA course at the middle school and high school level and sheltered instruction in content areas.');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','13','Voluntary CEIS','Voluntary CEIS – LEAs self-elect to participate in CEIS and can reserve up to 15% of total IDEA B funds used for Voluntary CEIS');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','14','Mandatory CEIS','Mandatory CEIS – LEAs required to participate in CEIS if found to have disproportionality. LEAs must reserve 15% of their total IDEA B funds for Mandatory CEIS.15% CEIS is required if district had significant disproportionality.');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','450HR','NMPREK ½ day student','NMPREK ½ day student – funding based on 450 hours');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ParticipationInformationDescriptor','900HR','NMPREK Full-Day day student','NMPREK Full-Day day student – funding based on 900 hours');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId) values (@DescriptorId);

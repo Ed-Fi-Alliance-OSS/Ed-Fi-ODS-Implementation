@@ -41,7 +41,17 @@ REFERENCES nmped.ServiceProviderTypeDescriptor (ServiceProviderTypeDescriptorId)
 CREATE INDEX FK_aff4a0_ServiceProviderTypeDescriptor
 ON nmped.NMPEDService (ServiceProviderTypeDescriptorId ASC);
 
+ALTER TABLE nmped.ParticipationInformationDescriptor ADD CONSTRAINT FK_2ffea1_Descriptor FOREIGN KEY (ParticipationInformationDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.ProgramDeliveryMethodDescriptor ADD CONSTRAINT FK_80f78a_Descriptor FOREIGN KEY (ProgramDeliveryMethodDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.ProgramIntensityDescriptor ADD CONSTRAINT FK_eb1e64_Descriptor FOREIGN KEY (ProgramIntensityDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -124,6 +134,25 @@ ON DELETE CASCADE
 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_StudentEducationOrganizationAssociation FOREIGN KEY (EducationOrganizationId, StudentUSI)
 REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.StudentProgramAssociationExtension ADD CONSTRAINT FK_0c120d_ParticipationInformationDescriptor FOREIGN KEY (ParticipationInformationDescriptorId)
+REFERENCES nmped.ParticipationInformationDescriptor (ParticipationInformationDescriptorId)
+;
+
+CREATE INDEX FK_0c120d_ParticipationInformationDescriptor
+ON nmped.StudentProgramAssociationExtension (ParticipationInformationDescriptorId ASC);
+
+ALTER TABLE nmped.StudentProgramAssociationExtension ADD CONSTRAINT FK_0c120d_ProgramIntensityDescriptor FOREIGN KEY (ProgramIntensityDescriptorId)
+REFERENCES nmped.ProgramIntensityDescriptor (ProgramIntensityDescriptorId)
+;
+
+CREATE INDEX FK_0c120d_ProgramIntensityDescriptor
+ON nmped.StudentProgramAssociationExtension (ProgramIntensityDescriptorId ASC);
+
+ALTER TABLE nmped.StudentProgramAssociationExtension ADD CONSTRAINT FK_0c120d_StudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.StudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
 ;
 

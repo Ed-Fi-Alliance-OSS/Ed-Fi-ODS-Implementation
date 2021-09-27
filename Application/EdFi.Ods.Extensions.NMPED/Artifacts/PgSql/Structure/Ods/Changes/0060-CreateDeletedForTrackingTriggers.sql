@@ -67,6 +67,20 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.NMPEDService 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.NMPEDService_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.ParticipationInformationDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.ParticipationInformationDescriptor(ParticipationInformationDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ParticipationInformationDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ParticipationInformationDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ParticipationInformationDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ParticipationInformationDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.ProgramDeliveryMethodDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -80,6 +94,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ProgramDeliveryMethodDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.ProgramIntensityDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.ProgramIntensityDescriptor(ProgramIntensityDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ProgramIntensityDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ProgramIntensityDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ProgramIntensityDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ProgramIntensityDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.SerivceSettingDescriptor_TR_DelTrkg()
     RETURNS trigger AS
