@@ -602,10 +602,44 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://ed-fi.org/LevelOfEducationInstitutionDescriptor','51','Outside USA','Outside USA');SELECT @DescriptorId=SCOPE_IDENTITY();
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@DescriptorId);
 
+/* ClassPeriodDescriptor */
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','AM','Morning Program for PreK ONLY','Morning Program for PreK ONLY');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','PM','Afternoon Program for PreK ONLY','Afternoon Program for PreK ONLY');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','FD','Full Day Program for PreK ONLY','Full Day Program for PreK ONLY');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','SEM','Semester','Semester');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','TRI','Trimester','Trimester');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','YR','Year-long','Year-long');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','BLK','Block Scheduling','Block Scheduling');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','QTR','Quarter','Quarter');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','SP','Self-paced','Self-paced');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ClassPeriodDescriptor','PO','Pull-out','Pull-out');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
+
+
 
 --SELECT * FROM edfi.Descriptor;
 --SELECT * FROM nmped.LevelOfEducationInstitutionDescriptor
 
---SELECT * FROM nmped.LevelOfEducationInstitutionDescriptor
+--SELECT * FROM nmped.ClassPeriodDescriptor
 --SELECT * FROM edfi.Descriptor where DescriptorId>3050;
+--SELECT * FROM edfi.Descriptor where Namespace like '%Period%';
 

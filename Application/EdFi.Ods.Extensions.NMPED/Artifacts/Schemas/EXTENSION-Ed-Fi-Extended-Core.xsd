@@ -79,6 +79,17 @@
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-ClassPeriodDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-DirectCertificationStatusDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of direct certification statuses.</xs:documentation>
@@ -161,6 +172,28 @@
           <xs:element name="FullTimeEquivalency" type="EXTENSION-FullTimeEquivalency">
             <xs:annotation>
               <xs:documentation>The full time equivalency.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StaffSectionAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StaffSectionAssociation">
+        <xs:sequence>
+          <xs:element name="ClassPeriod" type="EXTENSION-ClassPeriodDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the Class Period of this section.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ClassPeriodDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -318,6 +351,15 @@
   <xs:annotation>
     <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
   </xs:annotation>
+  <xs:simpleType name="EXTENSION-ClassPeriodDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-DirectCertificationStatusDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of direct certification statuses.</xs:documentation>

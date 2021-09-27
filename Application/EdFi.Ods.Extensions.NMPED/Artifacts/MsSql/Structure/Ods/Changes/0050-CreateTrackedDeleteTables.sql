@@ -1,3 +1,10 @@
+CREATE TABLE [tracked_deletes_nmped].[ClassPeriodDescriptor]
+(
+       ClassPeriodDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ClassPeriodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[DirectCertificationStatusDescriptor]
 (
        DirectCertificationStatusDescriptorId [INT] NOT NULL,

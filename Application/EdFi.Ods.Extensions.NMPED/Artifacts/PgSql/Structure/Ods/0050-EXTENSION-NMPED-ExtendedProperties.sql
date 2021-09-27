@@ -1,3 +1,7 @@
+-- Extended Properties [nmped].[ClassPeriodDescriptor] --
+COMMENT ON TABLE nmped.ClassPeriodDescriptor IS 'This descriptor describes the Class Period.';
+COMMENT ON COLUMN nmped.ClassPeriodDescriptor.ClassPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[DirectCertificationStatusDescriptor] --
 COMMENT ON TABLE nmped.DirectCertificationStatusDescriptor IS 'This descriptor describes the type of direct certification statuses.';
 COMMENT ON COLUMN nmped.DirectCertificationStatusDescriptor.DirectCertificationStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -45,6 +49,16 @@ COMMENT ON TABLE nmped.StaffExtension IS '';
 COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Highest Completed Level Of Education Institution.';
 COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId IS 'Indicates the Baccalaureate Level Of Education Institution.';
+
+-- Extended Properties [nmped].[StaffSectionAssociationExtension] --
+COMMENT ON TABLE nmped.StaffSectionAssociationExtension IS '';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.ClassPeriodDescriptorId IS 'Indicates the Class Period of this section.';
 
 -- Extended Properties [nmped].[StudentCTEProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentCTEProgramAssociationExtension IS '';

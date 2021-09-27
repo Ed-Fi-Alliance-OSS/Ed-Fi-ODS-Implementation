@@ -1,3 +1,21 @@
+CREATE TRIGGER [nmped].[nmped_ClassPeriodDescriptor_TR_DeleteTracking] ON [nmped].[ClassPeriodDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[ClassPeriodDescriptor](ClassPeriodDescriptorId, Id, ChangeVersion)
+    SELECT  d.ClassPeriodDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ClassPeriodDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[ClassPeriodDescriptor] ENABLE TRIGGER [nmped_ClassPeriodDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_DirectCertificationStatusDescriptor_TR_DeleteTracking] ON [nmped].[DirectCertificationStatusDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

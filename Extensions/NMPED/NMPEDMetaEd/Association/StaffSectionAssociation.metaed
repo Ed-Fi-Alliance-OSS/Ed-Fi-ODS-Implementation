@@ -1,0 +1,4 @@
+Association EdFi.StaffSectionAssociation additions
+descriptor ClassPeriod
+    documentation "Indicates the Class Period of this section."
+    is required

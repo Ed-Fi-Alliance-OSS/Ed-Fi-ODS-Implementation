@@ -1,3 +1,8 @@
+ALTER TABLE nmped.ClassPeriodDescriptor ADD CONSTRAINT FK_650c70_Descriptor FOREIGN KEY (ClassPeriodDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.DirectCertificationStatusDescriptor ADD CONSTRAINT FK_e919b1_Descriptor FOREIGN KEY (DirectCertificationStatusDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
@@ -55,6 +60,19 @@ ON nmped.StaffExtension (BaccalaureateInstitutionDescriptorIdLevelOfEducationIns
 ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)
 ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.StaffSectionAssociationExtension ADD CONSTRAINT FK_2dc783_ClassPeriodDescriptor FOREIGN KEY (ClassPeriodDescriptorId)
+REFERENCES nmped.ClassPeriodDescriptor (ClassPeriodDescriptorId)
+;
+
+CREATE INDEX FK_2dc783_ClassPeriodDescriptor
+ON nmped.StaffSectionAssociationExtension (ClassPeriodDescriptorId ASC);
+
+ALTER TABLE nmped.StaffSectionAssociationExtension ADD CONSTRAINT FK_2dc783_StaffSectionAssociation FOREIGN KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
+REFERENCES edfi.StaffSectionAssociation (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
+ON DELETE CASCADE
+ON UPDATE CASCADE
 ;
 
 ALTER TABLE nmped.StudentCTEProgramAssociationExtension ADD CONSTRAINT FK_1020a1_IndustryCredentialDescriptor FOREIGN KEY (IndustryCredentialDescriptorId)

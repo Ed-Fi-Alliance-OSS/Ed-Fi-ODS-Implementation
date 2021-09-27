@@ -1,3 +1,9 @@
+-- Table nmped.ClassPeriodDescriptor --
+CREATE TABLE nmped.ClassPeriodDescriptor (
+    ClassPeriodDescriptorId INT NOT NULL,
+    CONSTRAINT ClassPeriodDescriptor_PK PRIMARY KEY (ClassPeriodDescriptorId)
+); 
+
 -- Table nmped.DirectCertificationStatusDescriptor --
 CREATE TABLE nmped.DirectCertificationStatusDescriptor (
     DirectCertificationStatusDescriptorId INT NOT NULL,
@@ -69,6 +75,20 @@ CREATE TABLE nmped.StaffExtension (
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 ); 
 ALTER TABLE nmped.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StaffSectionAssociationExtension --
+CREATE TABLE nmped.StaffSectionAssociationExtension (
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    StaffUSI INT NOT NULL,
+    ClassPeriodDescriptorId INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StaffSectionAssociationExtension_PK PRIMARY KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
+); 
+ALTER TABLE nmped.StaffSectionAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentCTEProgramAssociationExtension --
 CREATE TABLE nmped.StudentCTEProgramAssociationExtension (

@@ -1,3 +1,17 @@
+CREATE FUNCTION tracked_deletes_nmped.ClassPeriodDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ClassPeriodDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ClassPeriodDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ClassPeriodDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ClassPeriodDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.DirectCertificationStatusDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

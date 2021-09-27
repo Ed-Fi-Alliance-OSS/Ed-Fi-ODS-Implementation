@@ -1,3 +1,12 @@
+-- Table [nmped].[ClassPeriodDescriptor] --
+CREATE TABLE [nmped].[ClassPeriodDescriptor] (
+    [ClassPeriodDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ClassPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ClassPeriodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[DirectCertificationStatusDescriptor] --
 CREATE TABLE [nmped].[DirectCertificationStatusDescriptor] (
     [DirectCertificationStatusDescriptorId] [INT] NOT NULL,
@@ -102,6 +111,29 @@ CREATE TABLE [nmped].[StaffExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StaffExtension] ADD CONSTRAINT [StaffExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StaffSectionAssociationExtension] --
+CREATE TABLE [nmped].[StaffSectionAssociationExtension] (
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [ClassPeriodDescriptorId] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StaffSectionAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffSectionAssociationExtension] ADD CONSTRAINT [StaffSectionAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentCTEProgramAssociationExtension] --

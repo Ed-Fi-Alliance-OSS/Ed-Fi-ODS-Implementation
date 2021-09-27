@@ -9,6 +9,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "ClassPeriodDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "ClassPeriodDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "DirectCertificationStatusDescriptor"
       },
       "aggregateEntityNames": [
@@ -81,6 +93,31 @@
   ],
   "aggregateExtensionDefinitions": [],
   "entityDefinitions": [
+    {
+      "schema": "nmped",
+      "name": "ClassPeriodDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "ClassPeriodDescriptor_PK",
+          "identifyingPropertyNames": [
+            "ClassPeriodDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ClassPeriodDescriptor_PK",
+            "postgreSql": "ClassPeriodDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This descriptor describes the Class Period.",
+      "tableNames": {
+        "sqlServer": "ClassPeriodDescriptor",
+        "postgreSql": "ClassPeriodDescriptor"
+      }
+    },
     {
       "schema": "nmped",
       "name": "DirectCertificationStatusDescriptor",
@@ -468,6 +505,54 @@
     },
     {
       "schema": "nmped",
+      "name": "StaffSectionAssociationExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StaffSectionAssociationExtension_PK",
+          "identifyingPropertyNames": [
+            "LocalCourseCode",
+            "SchoolId",
+            "SchoolYear",
+            "SectionIdentifier",
+            "SessionName",
+            "StaffUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffSectionAssociationExtension_PK",
+            "postgreSql": "StaffSectionAssociationExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "StaffSectionAssociationExtension",
+        "postgreSql": "StaffSectionAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "StudentCTEProgramAssociationExtension",
       "locallyDefinedProperties": [
         {
@@ -773,6 +858,66 @@
     }
   ],
   "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_ClassPeriodDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "ClassPeriodDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ClassPeriodDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ClassPeriodDescriptorId",
+            "postgreSql": "ClassPeriodDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ClassPeriodDescriptor_Descriptor",
+        "postgreSql": "FK_650c70_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
     {
       "fullName": {
         "schema": "nmped",
@@ -1564,6 +1709,295 @@
       "constraintNames": {
         "sqlServer": "FK_StaffExtension_Staff",
         "postgreSql": "FK_d7b81a_Staff"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffSectionAssociationExtension_ClassPeriodDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "ClassPeriodDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ClassPeriodDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ClassPeriodDescriptorId",
+            "postgreSql": "ClassPeriodDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffSectionAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ClassPeriodDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the Class Period of this section.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ClassPeriodDescriptorId",
+            "postgreSql": "ClassPeriodDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffSectionAssociationExtension_ClassPeriodDescriptor",
+        "postgreSql": "FK_2dc783_ClassPeriodDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffSectionAssociationExtension_StaffSectionAssociation"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StaffSectionAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LocalCourseCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local code assigned by the School that identifies the course offering provided for the instruction of students.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalCourseCode",
+            "postgreSql": "LocalCourseCode"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "SectionIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local identifier assigned to a section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SectionIdentifier",
+            "postgreSql": "SectionIdentifier"
+          }
+        },
+        {
+          "propertyName": "SessionName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SessionName",
+            "postgreSql": "SessionName"
+          }
+        },
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffSectionAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "LocalCourseCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local code assigned by the School that identifies the course offering provided for the instruction of students.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalCourseCode",
+            "postgreSql": "LocalCourseCode"
+          }
+        },
+        {
+          "propertyName": "SchoolId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a school.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolId",
+            "postgreSql": "SchoolId"
+          }
+        },
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the school year.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        },
+        {
+          "propertyName": "SectionIdentifier",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The local identifier assigned to a section.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SectionIdentifier",
+            "postgreSql": "SectionIdentifier"
+          }
+        },
+        {
+          "propertyName": "SessionName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SessionName",
+            "postgreSql": "SessionName"
+          }
+        },
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffSectionAssociationExtension_StaffSectionAssociation",
+        "postgreSql": "FK_2dc783_StaffSectionAssociation"
       }
     },
     {

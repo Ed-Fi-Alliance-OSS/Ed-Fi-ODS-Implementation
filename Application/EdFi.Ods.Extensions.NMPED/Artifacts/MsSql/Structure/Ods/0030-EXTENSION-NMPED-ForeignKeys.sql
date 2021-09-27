@@ -1,3 +1,8 @@
+ALTER TABLE [nmped].[ClassPeriodDescriptor] WITH CHECK ADD CONSTRAINT [FK_ClassPeriodDescriptor_Descriptor] FOREIGN KEY ([ClassPeriodDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [nmped].[DirectCertificationStatusDescriptor] WITH CHECK ADD CONSTRAINT [FK_DirectCertificationStatusDescriptor_Descriptor] FOREIGN KEY ([DirectCertificationStatusDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
@@ -57,6 +62,20 @@ GO
 ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_Staff] FOREIGN KEY ([StaffUSI])
 REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[StaffSectionAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StaffSectionAssociationExtension_ClassPeriodDescriptor] FOREIGN KEY ([ClassPeriodDescriptorId])
+REFERENCES [nmped].[ClassPeriodDescriptor] ([ClassPeriodDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffSectionAssociationExtension_ClassPeriodDescriptor]
+ON [nmped].[StaffSectionAssociationExtension] ([ClassPeriodDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffSectionAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StaffSectionAssociationExtension_StaffSectionAssociation] FOREIGN KEY ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StaffUSI])
+REFERENCES [edfi].[StaffSectionAssociation] ([LocalCourseCode], [SchoolId], [SchoolYear], [SectionIdentifier], [SessionName], [StaffUSI])
+ON DELETE CASCADE
+ON UPDATE CASCADE
 GO
 
 ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationExtension_IndustryCredentialDescriptor] FOREIGN KEY ([IndustryCredentialDescriptorId])
