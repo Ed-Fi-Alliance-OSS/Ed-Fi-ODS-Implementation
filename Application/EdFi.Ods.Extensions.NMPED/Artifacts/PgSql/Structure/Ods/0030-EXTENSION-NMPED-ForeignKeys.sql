@@ -23,7 +23,35 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_SerivceSettingDescriptor FOREIGN KEY (SerivceSettingDescriptorId)
+REFERENCES nmped.SerivceSettingDescriptor (SerivceSettingDescriptorId)
+;
+
+CREATE INDEX FK_aff4a0_SerivceSettingDescriptor
+ON nmped.NMPEDService (SerivceSettingDescriptorId ASC);
+
+ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
+REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
+;
+
+ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_ServiceProviderTypeDescriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
+REFERENCES nmped.ServiceProviderTypeDescriptor (ServiceProviderTypeDescriptorId)
+;
+
+CREATE INDEX FK_aff4a0_ServiceProviderTypeDescriptor
+ON nmped.NMPEDService (ServiceProviderTypeDescriptorId ASC);
+
 ALTER TABLE nmped.ProgramDeliveryMethodDescriptor ADD CONSTRAINT FK_80f78a_Descriptor FOREIGN KEY (ProgramDeliveryMethodDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.SerivceSettingDescriptor ADD CONSTRAINT FK_918c7e_Descriptor FOREIGN KEY (SerivceSettingDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.ServiceProviderTypeDescriptor ADD CONSTRAINT FK_29f0da_Descriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -98,6 +126,21 @@ ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAIN
 REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE nmped.StudentProgramAssociationNMPEDService ADD CONSTRAINT FK_548f61_NMPEDService FOREIGN KEY (ServiceDescriptorId)
+REFERENCES nmped.NMPEDService (ServiceDescriptorId)
+;
+
+CREATE INDEX FK_548f61_NMPEDService
+ON nmped.StudentProgramAssociationNMPEDService (ServiceDescriptorId ASC);
+
+ALTER TABLE nmped.StudentProgramAssociationNMPEDService ADD CONSTRAINT FK_548f61_StudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.StudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
+CREATE INDEX FK_548f61_StudentProgramAssociation
+ON nmped.StudentProgramAssociationNMPEDService (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension ADD CONSTRAINT FK_0566bb_DirectCertificationStatusDescriptor FOREIGN KEY (DirectCertificationStatusDescriptorId)
 REFERENCES nmped.DirectCertificationStatusDescriptor (DirectCertificationStatusDescriptorId)

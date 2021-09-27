@@ -1,0 +1,30 @@
+Domain Entity NMPEDService
+  documentation "The student's program service information."
+  descriptor EdFi.Service
+      documentation "Indicates the Service being provided to the student by the Program."
+      is part of identity
+  bool PrimaryIndicator
+      documentation "True if service is a primary service."
+      is optional
+  date ServiceBeginDate
+      documentation "First date the Student was in this option for the current school year."
+      is optional
+  date ServiceEndDate
+      documentation "Last date the Student was in this option for the current school year."
+      is optional
+  integer ServiceFrequency
+    documentation "Indicates the frequency of the service."
+    is optional
+  string ServiceProviderName
+    documentation "The name of the service provider."
+    is optional
+    max length 255
+  descriptor ServiceProviderType
+    documentation "The type of the service provider."
+    is optional
+  descriptor SerivceSetting
+    documentation "The service setting."
+    is optional
+  integer ServiceDuration
+    documentation "Indicates the duration of the service."
+    is optional

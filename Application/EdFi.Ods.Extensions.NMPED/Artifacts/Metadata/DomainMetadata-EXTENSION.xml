@@ -12,8 +12,17 @@
   <Aggregate root="LevelOfEducationInstitutionDescriptor">
     <Entity table="LevelOfEducationInstitutionDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="NMPEDService">
+    <Entity table="NMPEDService" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="SerivceSettingDescriptor">
+    <Entity table="SerivceSettingDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="ServiceProviderTypeDescriptor">
+    <Entity table="ServiceProviderTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
     <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
@@ -21,4 +30,7 @@
   <Aggregate root="SpecialProgramCodeDescriptor">
     <Entity table="SpecialProgramCodeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <AggregateExtension root="StudentProgramAssociation">
+    <Entity table="StudentProgramAssociationNMPEDService" schema="nmped"/>
+  </AggregateExtension>
 </AggregateExtensions>

@@ -40,10 +40,44 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LevelOfEducationInstitutionDescriptor', @level2type=N'COLUMN', @level2name=N'LevelOfEducationInstitutionDescriptorId'
 GO
 
+-- Extended Properties [nmped].[NMPEDService] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student''s program service information.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Service being provided to the student by the Program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'True if service is a primary service.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'PrimaryIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'First date the Student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceBeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Last date the Student was in this option for the current school year.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceEndDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the frequency of the service.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceFrequency'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of the service provider.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceProviderName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the service provider.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceProviderTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'SerivceSettingDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the duration of the service.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceDuration'
+GO
+
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the delivery method for the student''s program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ProgramDeliveryMethodDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ProgramDeliveryMethodDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramDeliveryMethodDescriptorId'
+GO
+
+-- Extended Properties [nmped].[SerivceSettingDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SerivceSettingDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SerivceSettingDescriptor', @level2type=N'COLUMN', @level2name=N'SerivceSettingDescriptorId'
+GO
+
+-- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the service provider.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceProviderTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceProviderTypeDescriptor', @level2type=N'COLUMN', @level2name=N'ServiceProviderTypeDescriptorId'
 GO
 
 -- Extended Properties [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
@@ -136,6 +170,24 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This field holds the date when a student entered a US school.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'YearsInUSSchool'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This field holds the date when a student entered the ninth grade.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'Grade09Entry'
+GO
+
+-- Extended Properties [nmped].[StudentProgramAssociationNMPEDService] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The New Mexico Service extension.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Service being provided to the student by the Program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
 -- Extended Properties [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --

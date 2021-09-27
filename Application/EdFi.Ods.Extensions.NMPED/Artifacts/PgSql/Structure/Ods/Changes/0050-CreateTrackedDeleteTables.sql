@@ -30,12 +30,36 @@ CREATE TABLE tracked_deletes_nmped.LevelOfEducationInstitutionDescriptor
        CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.NMPEDService
+(
+       ServiceDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT NMPEDService_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor
 (
        ProgramDeliveryMethodDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT ProgramDeliveryMethodDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.SerivceSettingDescriptor
+(
+       SerivceSettingDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SerivceSettingDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.ServiceProviderTypeDescriptor
+(
+       ServiceProviderTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT ServiceProviderTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor

@@ -36,10 +36,43 @@ CREATE TABLE nmped.LevelOfEducationInstitutionDescriptor (
     CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (LevelOfEducationInstitutionDescriptorId)
 ); 
 
+-- Table nmped.NMPEDService --
+CREATE TABLE nmped.NMPEDService (
+    ServiceDescriptorId INT NOT NULL,
+    PrimaryIndicator BOOLEAN NULL,
+    ServiceBeginDate DATE NULL,
+    ServiceEndDate DATE NULL,
+    ServiceFrequency INT NULL,
+    ServiceProviderName VARCHAR(255) NULL,
+    ServiceProviderTypeDescriptorId INT NULL,
+    SerivceSettingDescriptorId INT NULL,
+    ServiceDuration INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT NMPEDService_PK PRIMARY KEY (ServiceDescriptorId)
+); 
+ALTER TABLE nmped.NMPEDService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.NMPEDService ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.NMPEDService ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table nmped.ProgramDeliveryMethodDescriptor --
 CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
     ProgramDeliveryMethodDescriptorId INT NOT NULL,
     CONSTRAINT ProgramDeliveryMethodDescriptor_PK PRIMARY KEY (ProgramDeliveryMethodDescriptorId)
+); 
+
+-- Table nmped.SerivceSettingDescriptor --
+CREATE TABLE nmped.SerivceSettingDescriptor (
+    SerivceSettingDescriptorId INT NOT NULL,
+    CONSTRAINT SerivceSettingDescriptor_PK PRIMARY KEY (SerivceSettingDescriptorId)
+); 
+
+-- Table nmped.ServiceProviderTypeDescriptor --
+CREATE TABLE nmped.ServiceProviderTypeDescriptor (
+    ServiceProviderTypeDescriptorId INT NOT NULL,
+    CONSTRAINT ServiceProviderTypeDescriptor_PK PRIMARY KEY (ServiceProviderTypeDescriptorId)
 ); 
 
 -- Table nmped.SpecialEducationLevelOfIntegrationDescriptor --
@@ -116,6 +149,20 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentProgramAssociationNMPEDService --
+CREATE TABLE nmped.StudentProgramAssociationNMPEDService (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    ServiceDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentProgramAssociationNMPEDService_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, ServiceDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentProgramAssociationNMPEDService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentSchoolFoodServiceProgramAssociationExtension --
 CREATE TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension (

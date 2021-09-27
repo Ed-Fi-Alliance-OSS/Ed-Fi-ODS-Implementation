@@ -54,6 +54,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.LevelOfEducationInstitutionDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.LevelOfEducationInstitutionDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.NMPEDService_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.NMPEDService(ServiceDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.ServiceDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.NMPEDService 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.NMPEDService_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.ProgramDeliveryMethodDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -67,6 +80,34 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ProgramDeliveryMethodDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.SerivceSettingDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SerivceSettingDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SerivceSettingDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SerivceSettingDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SerivceSettingDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.ServiceProviderTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ServiceProviderTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ServiceProviderTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ServiceProviderTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ServiceProviderTypeDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor_TR_DelTrkg()
     RETURNS trigger AS

@@ -634,6 +634,46 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://ed-fi.org/ClassPeriodDescriptor','PO','Pull-out','Pull-out');SELECT @DescriptorId=SCOPE_IDENTITY();
 INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@DescriptorId);
 
+/* Service Provider Type Descriptor */
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','01','Community-Based Organization','Community-Based Organization');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','02','Community Recruit','Community Recruit');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','03','Educational Assistant','Educational Assistant');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','04','Faith-Based Organization','Faith-Based Organization');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','05','Parent','Parent');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','06','Teacher','Teacher');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/ServiceProviderTypeDescriptor','07','Voluntee','Voluntee');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@DescriptorId);
+
+
+/*Service Setting*/
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/SerivceSettingDescriptor','BEFORESCHOOL','BEFORESCHOOL','BEFORESCHOOL');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/SerivceSettingDescriptor','AFTERSCHOOL','AFTERSCHOOL','AFTERSCHOOL');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/SerivceSettingDescriptor','WEEKEND','WEEKEND','WEEKEND');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/SerivceSettingDescriptor','SUMMER','SUMMER','SUMMER');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://ed-fi.org/SerivceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');SELECT @DescriptorId=SCOPE_IDENTITY();
+INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@DescriptorId);
 
 
 --SELECT * FROM edfi.Descriptor;

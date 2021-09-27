@@ -24,9 +24,29 @@ COMMENT ON COLUMN nmped.IndustryCredentialDescriptor.IndustryCredentialDescripto
 COMMENT ON TABLE nmped.LevelOfEducationInstitutionDescriptor IS 'Indicates the Level of Education Institution';
 COMMENT ON COLUMN nmped.LevelOfEducationInstitutionDescriptor.LevelOfEducationInstitutionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[NMPEDService] --
+COMMENT ON TABLE nmped.NMPEDService IS 'The student''s program service information.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN nmped.NMPEDService.PrimaryIndicator IS 'True if service is a primary service.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceBeginDate IS 'First date the Student was in this option for the current school year.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceEndDate IS 'Last date the Student was in this option for the current school year.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceFrequency IS 'Indicates the frequency of the service.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceProviderName IS 'The name of the service provider.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceProviderTypeDescriptorId IS 'The type of the service provider.';
+COMMENT ON COLUMN nmped.NMPEDService.SerivceSettingDescriptorId IS 'The service setting.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceDuration IS 'Indicates the duration of the service.';
+
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
 COMMENT ON TABLE nmped.ProgramDeliveryMethodDescriptor IS 'This descriptor describes the delivery method for the student''s program.';
 COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[SerivceSettingDescriptor] --
+COMMENT ON TABLE nmped.SerivceSettingDescriptor IS 'The service setting.';
+COMMENT ON COLUMN nmped.SerivceSettingDescriptor.SerivceSettingDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
+COMMENT ON TABLE nmped.ServiceProviderTypeDescriptor IS 'The type of the service provider.';
+COMMENT ON COLUMN nmped.ServiceProviderTypeDescriptor.ServiceProviderTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 COMMENT ON TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor IS 'This descriptor describes the type of Levels of Integration.';
@@ -82,6 +102,16 @@ COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Educati
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.YearsInUSSchool IS 'This field holds the date when a student entered a US school.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Grade09Entry IS 'This field holds the date when a student entered the ninth grade.';
+
+-- Extended Properties [nmped].[StudentProgramAssociationNMPEDService] --
+COMMENT ON TABLE nmped.StudentProgramAssociationNMPEDService IS 'The New Mexico Service extension.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension IS '';

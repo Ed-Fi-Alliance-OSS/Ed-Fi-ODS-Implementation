@@ -1,0 +1,4 @@
+Association EdFi.StudentProgramAssociation additions
+  domain entity NMPEDService
+      documentation "The New Mexico Service extension."
+      is optional collection

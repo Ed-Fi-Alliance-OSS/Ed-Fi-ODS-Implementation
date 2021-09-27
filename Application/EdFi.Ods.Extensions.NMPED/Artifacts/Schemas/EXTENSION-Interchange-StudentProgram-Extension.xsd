@@ -10,7 +10,7 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
-        <xs:element name="StudentProgramAssociation" type="StudentProgramAssociation" />
+        <xs:element name="StudentProgramAssociation" type="EXTENSION-StudentProgramAssociationExtension" />
         <xs:element name="StudentSpecialEducationProgramAssociation" type="EXTENSION-StudentSpecialEducationProgramAssociationExtension" />
         <xs:element name="RestraintEvent" type="RestraintEvent" />
         <xs:element name="StudentCTEProgramAssociation" type="EXTENSION-StudentCTEProgramAssociationExtension" />

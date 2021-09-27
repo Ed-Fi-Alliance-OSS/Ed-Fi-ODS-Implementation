@@ -70,6 +70,23 @@ ALTER TABLE [nmped].[LevelOfEducationInstitutionDescriptor] ENABLE TRIGGER [nmpe
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_NMPEDService_TR_DeleteTracking] ON [nmped].[NMPEDService] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[NMPEDService](ServiceDescriptorId, Id, ChangeVersion)
+    SELECT  ServiceDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[NMPEDService] ENABLE TRIGGER [nmped_NMPEDService_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_ProgramDeliveryMethodDescriptor_TR_DeleteTracking] ON [nmped].[ProgramDeliveryMethodDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -85,6 +102,42 @@ END
 GO
 
 ALTER TABLE [nmped].[ProgramDeliveryMethodDescriptor] ENABLE TRIGGER [nmped_ProgramDeliveryMethodDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_SerivceSettingDescriptor_TR_DeleteTracking] ON [nmped].[SerivceSettingDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[SerivceSettingDescriptor](SerivceSettingDescriptorId, Id, ChangeVersion)
+    SELECT  d.SerivceSettingDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SerivceSettingDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[SerivceSettingDescriptor] ENABLE TRIGGER [nmped_SerivceSettingDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_ServiceProviderTypeDescriptor_TR_DeleteTracking] ON [nmped].[ServiceProviderTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[ServiceProviderTypeDescriptor](ServiceProviderTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.ServiceProviderTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ServiceProviderTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[ServiceProviderTypeDescriptor] ENABLE TRIGGER [nmped_ServiceProviderTypeDescriptor_TR_DeleteTracking]
 GO
 
 

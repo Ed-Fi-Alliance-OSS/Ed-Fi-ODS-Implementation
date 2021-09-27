@@ -1,0 +1,2 @@
+CREATE UNIQUE INDEX IF NOT EXISTS UX_aff4a0_Id ON nmped.NMPEDService(Id);
+

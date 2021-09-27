@@ -53,11 +53,56 @@ CREATE TABLE [nmped].[LevelOfEducationInstitutionDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[NMPEDService] --
+CREATE TABLE [nmped].[NMPEDService] (
+    [ServiceDescriptorId] [INT] NOT NULL,
+    [PrimaryIndicator] [BIT] NULL,
+    [ServiceBeginDate] [DATE] NULL,
+    [ServiceEndDate] [DATE] NULL,
+    [ServiceFrequency] [INT] NULL,
+    [ServiceProviderName] [NVARCHAR](255) NULL,
+    [ServiceProviderTypeDescriptorId] [INT] NULL,
+    [SerivceSettingDescriptorId] [INT] NULL,
+    [ServiceDuration] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [NMPEDService_PK] PRIMARY KEY CLUSTERED (
+        [ServiceDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[NMPEDService] ADD CONSTRAINT [NMPEDService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [nmped].[NMPEDService] ADD CONSTRAINT [NMPEDService_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [nmped].[NMPEDService] ADD CONSTRAINT [NMPEDService_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
 -- Table [nmped].[ProgramDeliveryMethodDescriptor] --
 CREATE TABLE [nmped].[ProgramDeliveryMethodDescriptor] (
     [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
     CONSTRAINT [ProgramDeliveryMethodDescriptor_PK] PRIMARY KEY CLUSTERED (
         [ProgramDeliveryMethodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[SerivceSettingDescriptor] --
+CREATE TABLE [nmped].[SerivceSettingDescriptor] (
+    [SerivceSettingDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [SerivceSettingDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [SerivceSettingDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[ServiceProviderTypeDescriptor] --
+CREATE TABLE [nmped].[ServiceProviderTypeDescriptor] (
+    [ServiceProviderTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ServiceProviderTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ServiceProviderTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -175,6 +220,30 @@ CREATE TABLE [nmped].[StudentEducationOrganizationAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StudentProgramAssociationNMPEDService] --
+CREATE TABLE [nmped].[StudentProgramAssociationNMPEDService] (
+    [BeginDate] [DATE] NOT NULL,
+    [EducationOrganizationId] [INT] NOT NULL,
+    [ProgramEducationOrganizationId] [INT] NOT NULL,
+    [ProgramName] [NVARCHAR](60) NOT NULL,
+    [ProgramTypeDescriptorId] [INT] NOT NULL,
+    [ServiceDescriptorId] [INT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentProgramAssociationNMPEDService_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [EducationOrganizationId] ASC,
+        [ProgramEducationOrganizationId] ASC,
+        [ProgramName] ASC,
+        [ProgramTypeDescriptorId] ASC,
+        [ServiceDescriptorId] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StudentProgramAssociationNMPEDService] ADD CONSTRAINT [StudentProgramAssociationNMPEDService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --

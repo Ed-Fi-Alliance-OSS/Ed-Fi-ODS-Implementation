@@ -23,7 +23,37 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_SerivceSettingDescriptor] FOREIGN KEY ([SerivceSettingDescriptorId])
+REFERENCES [nmped].[SerivceSettingDescriptor] ([SerivceSettingDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_NMPEDService_SerivceSettingDescriptor]
+ON [nmped].[NMPEDService] ([SerivceSettingDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_ServiceDescriptor] FOREIGN KEY ([ServiceDescriptorId])
+REFERENCES [edfi].[ServiceDescriptor] ([ServiceDescriptorId])
+GO
+
+ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_ServiceProviderTypeDescriptor] FOREIGN KEY ([ServiceProviderTypeDescriptorId])
+REFERENCES [nmped].[ServiceProviderTypeDescriptor] ([ServiceProviderTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_NMPEDService_ServiceProviderTypeDescriptor]
+ON [nmped].[NMPEDService] ([ServiceProviderTypeDescriptorId] ASC)
+GO
+
 ALTER TABLE [nmped].[ProgramDeliveryMethodDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramDeliveryMethodDescriptor_Descriptor] FOREIGN KEY ([ProgramDeliveryMethodDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[SerivceSettingDescriptor] WITH CHECK ADD CONSTRAINT [FK_SerivceSettingDescriptor_Descriptor] FOREIGN KEY ([SerivceSettingDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[ServiceProviderTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ServiceProviderTypeDescriptor_Descriptor] FOREIGN KEY ([ServiceProviderTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -102,6 +132,23 @@ GO
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[StudentProgramAssociationNMPEDService] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociationNMPEDService_NMPEDService] FOREIGN KEY ([ServiceDescriptorId])
+REFERENCES [nmped].[NMPEDService] ([ServiceDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentProgramAssociationNMPEDService_NMPEDService]
+ON [nmped].[StudentProgramAssociationNMPEDService] ([ServiceDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentProgramAssociationNMPEDService] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociationNMPEDService_StudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentProgramAssociationNMPEDService_StudentProgramAssociation]
+ON [nmped].[StudentProgramAssociationNMPEDService] ([BeginDate] ASC, [EducationOrganizationId] ASC, [ProgramEducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC, [StudentUSI] ASC)
 GO
 
 ALTER TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolFoodServiceProgramAssociationExtension_DirectCertificationStatusDescriptor] FOREIGN KEY ([DirectCertificationStatusDescriptorId])
