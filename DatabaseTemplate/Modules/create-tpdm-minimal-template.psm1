@@ -9,37 +9,41 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
 
-function Get-TPDMConfiguration([hashtable] $config = @{ }) {
+function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
 
-    $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
+    $config.Remove('apiClientNameSandbox')
+
+    $config.testHarnessJsonConfigLEAs = @()
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
 
+    $config.Remove('bulkLoadTempDirectorySample')
+    $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors")
     $config.bulkLoadMaxRequests = 1
     $config.schemaDirectories = @(
         (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
         ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")
     )
 
-    $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM.Core"
-    $config.packageNuspecName = "EdFi.Ods.Populated.Template.TPDM.Core"
+    $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM.Core"
+    $config.packageNuspecName = "EdFi.Ods.Minimal.Template.TPDM.Core"
 
     return $config
 }
 
-function Initialize-TPDMTemplate {
+function Initialize-TPDMMinimalTemplate {
     <#
     .SYNOPSIS
-        Creates a new Populated Template.
+        Creates a new Minimal Template.
 
     .DESCRIPTION
         By default this will:
         * Validate all xml files
         * Resets the admin and security database
-        * Creates a new database for the populated template data to be loaded into
+        * Creates a new database for the minimal template data to be loaded into
         * Restores packages and build the bulk load client
         * Copies sample files to isolate the files into two sections one for each of the two load scenarios
         * Generates two apiclients with key/secret for the two necessary claimsets
@@ -47,8 +51,8 @@ function Initialize-TPDMTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new populated template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Populated.Template.bak
-        * Creates a .nuspec file for the new populated template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Populated.Template.nuspec
+        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.bak
+        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.nuspec
 
     .PARAMETER samplePath
         An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
@@ -64,7 +68,7 @@ function Initialize-TPDMTemplate {
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .EXAMPLE
-        PS> Initialize-PopulatedTempalate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
+        PS> Initialize-TPDMMinimalTemplate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
     #>
     param(
         [Parameter(
@@ -90,10 +94,10 @@ function Initialize-TPDMTemplate {
         createByRestoringBackup = $createByRestoringBackup
     }
 
-    $config = (Get-TPDMConfiguration $paramConfig)
+    $config = (Get-TPDMMinimalConfiguration $paramConfig)
     Write-FlatHashtable $config
 
-    if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-PopulatedTemplateBackupPathFromSettings $config.appSettings) }
+    if ([string]::IsNullOrWhiteSpace($config.createByRestoringBackup)) { $config.createByRestoringBackup = (Get-MinimalTemplateBackupPathFromSettings $config.appSettings) }
 
     $script:result = @()
 
@@ -105,7 +109,6 @@ function Initialize-TPDMTemplate {
             $script:result += Invoke-Task 'Invoke-SampleXmlValidation' { Invoke-SampleXmlValidation $config }
             $script:result += Invoke-Task 'New-TempDirectory' { New-TempDirectory $config }
             $script:result += Invoke-Task 'Copy-BootstrapInterchangeFiles' { Copy-BootstrapInterchangeFiles $config }
-            $script:result += Invoke-Task 'Copy-SampleInterchangeFiles' { Copy-SampleInterchangeFiles $config }
             $script:result += Invoke-Task 'Copy-SchemaFiles' { Copy-SchemaFiles $config }
             $script:result += Invoke-Task 'Add-RandomKeySecret' { Add-RandomKeySecret $config }
             $script:result += Invoke-Task 'Invoke-BuildLoadTools' { Invoke-BuildLoadTools $config }
@@ -113,7 +116,6 @@ function Initialize-TPDMTemplate {
             $script:result += Invoke-Task 'Assert-DisallowedSchemas' { Assert-DisallowedSchemas $config }
             $script:result += Invoke-Task 'Invoke-StartTestHarness' { Invoke-StartTestHarness $config }
             $script:result += Invoke-Task 'Invoke-LoadBootstrapData' { Invoke-LoadBootstrapData $config }
-            $script:result += Invoke-Task 'Invoke-LoadSampleData' { Invoke-LoadSampleData $config }
             $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
             $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
             $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
