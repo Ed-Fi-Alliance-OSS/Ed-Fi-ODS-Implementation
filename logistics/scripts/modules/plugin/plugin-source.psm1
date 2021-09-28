@@ -47,6 +47,40 @@ function Invoke-PluginScript([string] $scriptPath) {
     & $scriptPath
 }
 
+function Assert-NoDuplicatePlugins([hashtable] $Settings) {
+    $pluginFolder = (Get-PluginFolderFromSettings $Settings)
+
+    $apiModelFiles = Get-ChildItem -Path $pluginFolder -Filter "ApiModel-EXTENSION.json" -Recurse
+
+    $schemaNameToFolderNames = @{}
+
+    foreach ($apiModelFilePath in $apiModelFiles) {
+        $json = Get-Content $apiModelFilePath.FullName | ConvertFrom-Json
+
+        $schemaName = $json.schemaDefinition.physicalName
+
+        $pluginFolderName = (Get-Item $apiModelFilePath.FullName).Directory.Parent.Parent.Name
+
+        if ($schemaNameToFolderNames.ContainsKey($schemaName)) {
+            $schemaNameToFolderNames[$schemaName] += $pluginFolderName
+        }
+        else {
+            $schemaNameToFolderNames[$schemaName] = @($pluginFolderName)
+        }
+    }
+
+    $duplicatePlugins = $schemaNameToFolderNames.GetEnumerator() | Where-Object { $_.Value.Length -gt 1 }
+
+    foreach ($duplicatePlugin in $duplicatePlugins) {
+        $message = "Found duplicate plugin extension schema name '$($duplicatePlugin.Name)' in plugin folder: '$pluginFolder'."
+        $message += " You will be able to deploy only one of the following plugins '$([string]::Join("' or '", $duplicatePlugin.Value))'."
+        $message += " Please remove the conflicting plugins and retry."
+        Write-Host $message -ForegroundColor Red
+    }
+
+    if ($duplicatePlugins) { throw "Found duplicate plugin extension schema name." }
+}
+
 function Get-Plugins([hashtable] $Settings) {
 
     $folder = (Get-PluginFolderFromSettings $Settings)
@@ -60,6 +94,8 @@ function Get-Plugins([hashtable] $Settings) {
         Write-Host $extensionPath
         $result += $extensionPath
     }
+
+    Assert-NoDuplicatePlugins $Settings
 
     return $result
 }
