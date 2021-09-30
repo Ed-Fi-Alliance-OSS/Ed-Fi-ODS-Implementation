@@ -191,6 +191,23 @@ function Get-DefaultTemplateSettingsByEngine {
     }
 }
 
+function Get-DefaultTPDMTemplateSettingsByEngine {
+    return  @{
+        SQLServer  = @{
+            ApiSettings = @{
+                MinimalTemplateScript   = 'TPDMCoreMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePopulatedTemplate'
+            }
+        }
+        PostgreSQL = @{
+            ApiSettings = @{
+                MinimalTemplateScript   = 'TPDMCorePostgreSqlMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePostgreSqlPopulatedTemplate'
+            }
+        }
+    }
+}
+
 function Get-SubtypesByFeature {
     return @{
         changeQueries               = 'changes'
@@ -422,14 +439,42 @@ function Add-DeploymentSpecificSettings([hashtable] $Settings = @{ }) {
     return (Merge-Hashtables $Settings, $newDeploymentSettings)
 }
 
-function Add-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if (($ProjectName -ne ((Get-ProjectTypes).WebApi)) -and ($ProjectName -ne ((Get-ProjectTypes).IntegrationTestHarness))) { return $Settings }
+function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
 
-    $newSettings = (Get-DefaultTemplateSettingsByEngine)[$Settings.ApiSettings.Engine]
+    $engine = $Settings.ApiSettings.Engine
+    $defaultTemplateSettings = Get-DefaultTemplateSettingsByEngine
+    $defaultTPDMTemplateSettings = Get-DefaultTPDMTemplateSettingsByEngine
+    $defaultMinimalTemplates = @(
+        $defaultTemplateSettings.SQLServer.ApiSettings.MinimalTemplateScript,
+        $defaultTemplateSettings.PostgreSQL.ApiSettings.MinimalTemplateScript,
+        $defaultTPDMTemplateSettings.SQLServer.ApiSettings.MinimalTemplateScript,
+        $defaultTPDMTemplateSettings.PostgreSQL.ApiSettings.MinimalTemplateScript
+    )
+    $defaultPopulatedTemplates = @(
+        $defaultTemplateSettings.SQLServer.ApiSettings.PopulatedTemplateScript,
+        $defaultTemplateSettings.PostgreSQL.ApiSettings.PopulatedTemplateScript,
+        $defaultTPDMTemplateSettings.SQLServer.ApiSettings.PopulatedTemplateScript,
+        $defaultTPDMTemplateSettings.PostgreSQL.ApiSettings.PopulatedTemplateScript
+    )
 
-    $newSettings = (Merge-HashtablesOrDefaults $Settings, $newSettings)
+    if ($Settings.Plugin.Scripts -notcontains "tpdm") {
+        if ($defaultMinimalTemplates -contains $Settings.ApiSettings.MinimalTemplateScript) {
+            $Settings.ApiSettings.MinimalTemplateScript = $defaultTemplateSettings[$engine].ApiSettings.MinimalTemplateScript
+        }
+        if ($defaultPopulatedTemplates -contains $Settings.ApiSettings.PopulatedTemplateScript) {
+            $Settings.ApiSettings.PopulatedTemplateScript = $defaultTemplateSettings[$engine].ApiSettings.PopulatedTemplateScript
+        }
+    }
+    else {
+        if ($defaultMinimalTemplates -contains $Settings.ApiSettings.MinimalTemplateScript) {
+            $Settings.ApiSettings.MinimalTemplateScript = $defaultTPDMTemplateSettings[$engine].ApiSettings.MinimalTemplateScript
+        }
+        if ($defaultPopulatedTemplates -contains $Settings.ApiSettings.PopulatedTemplateScript) {
+            $Settings.ApiSettings.PopulatedTemplateScript = $defaultTPDMTemplateSettings[$engine].ApiSettings.PopulatedTemplateScript
+        }
+    }
 
-    return $newSettings
+    return $Settings
 }
 
 function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
@@ -492,7 +537,6 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
-        $newDevelopmentSettings = Add-WebApiSpecificSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
@@ -530,7 +574,7 @@ function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] 
 
 function ConvertTo-Array($Value) {
     if ($null -eq $Value) { return $null }
-    return ,$Value.Split([Environment]::NewLine).Split(';')
+    return , $Value.Split([Environment]::NewLine).Split(';')
 }
 
 function ConvertTo-Boolean($Value) {
