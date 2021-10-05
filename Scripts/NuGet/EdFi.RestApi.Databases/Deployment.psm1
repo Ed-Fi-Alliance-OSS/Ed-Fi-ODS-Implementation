@@ -95,13 +95,15 @@ function Initialize-DeploymentEnvironment {
 
     $script:deploymentSettingsFiles += @((Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
 
-    if ($Engine -eq 'PostgreSQL') {
-        $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.postgreSQL.json'))
+    if (!($script:deploymentSettingsFiles -like '*EdFi.Ods.WebApi/appsettings.json')){
+        if ($Engine -eq 'PostgreSQL') {
+            $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.postgreSQL.json'))
+        }
+        else {
+            $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'))
+        }
     }
-    else {
-        $script:deploymentSettingsFiles += @((Join-Path $PSScriptRoot 'configuration.json'))
-    }
-
+    
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
     if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }

@@ -61,7 +61,7 @@
     "PopulatedTemplateScript": "GrandBend"
   },
   "Plugin": {
-    "Folder": "",
-    "Scripts": []
+    "Folder": "./Plugin",
+    "Scripts": [ "tpdm" ]
   }
 }
