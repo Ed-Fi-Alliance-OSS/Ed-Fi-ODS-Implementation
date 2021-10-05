@@ -21,4 +21,4 @@ $parameters = @{
 }
 $packagePath = Get-NuGetPackage @parameters
 
-return Get-ChildItem "$packagePath/*.bak"
+return Get-ChildItem "$packagePath/*.sql"
