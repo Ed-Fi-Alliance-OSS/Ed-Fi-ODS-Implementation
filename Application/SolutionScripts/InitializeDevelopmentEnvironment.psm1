@@ -123,7 +123,11 @@ function Initialize-DevelopmentEnvironment {
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
-        else { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder)) }
+
+        $pluginFolderPath = (Get-DeploymentSettings).Plugin.Folder
+        if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) { 
+            $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
+        }
 
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 

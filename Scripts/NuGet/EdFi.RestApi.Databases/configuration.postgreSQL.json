@@ -61,7 +61,7 @@
     "PopulatedTemplateScript": "PostgreSQLPopulatedTemplate"
   },
   "Plugin": {
-    "Folder": "",
-    "Scripts": []
+    "Folder": "./Plugin",
+    "Scripts": [ "tpdm" ]
   }
 }
