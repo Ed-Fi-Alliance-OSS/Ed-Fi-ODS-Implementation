@@ -97,6 +97,7 @@ function Get-CredentialSettingsByProject {
                     NamespacePrefixes = @(
                         "uri://ed-fi.org"
                         "uri://gbisd.org"
+                        "uri://tpdm.ed-fi.org"
                     )
                     Sandboxes         = @{
                         "Populated Demonstration Sandbox" = @{
@@ -131,6 +132,14 @@ function Get-EdFiDeveloperPluginSettings {
         Plugin = @{
             Folder  = "../../Plugin"
             Scripts = @("sample", "homograph", "tpdm", "profiles.sample")
+        }
+    }
+}
+
+function Get-EdFiDeveloperPluginFolder {
+    return @{
+        Plugin = @{
+            Folder  = "../../Plugin"
         }
     }
 }
