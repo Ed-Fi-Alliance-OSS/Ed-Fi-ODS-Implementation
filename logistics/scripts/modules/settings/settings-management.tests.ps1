@@ -222,3 +222,187 @@ Describe 'Set-Feature' {
         $feature.IsEnabled | Should -Be $true
     }
 }
+
+Describe 'Update-DefaultDatabaseTemplate' {
+    It "should update template defaults when switching engines from PostgreSQL to SQLServer" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
+                PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'EdFiMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'GrandBend'
+    }
+
+    It "should update template defaults when switching engines from SQLServer to PostgreSQL" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'PostgreSQL'
+                MinimalTemplateScript   = 'EdFiMinimalTemplate'
+                PopulatedTemplateScript = 'GrandBend'
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'PostgreSQLMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'PostgreSQLPopulatedTemplate'
+    }
+
+    It "should update templates to grandbend when disabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'TPDMCoreMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePopulatedTemplate'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @()
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'EdFiMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'GrandBend'
+    }
+
+    It "should update templates to grandbend when switching engines from PostgreSQL to SQLServer and disabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'TPDMCorePostgreSqlMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePostgreSqlPopulatedTemplate'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @()
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'EdFiMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'GrandBend'
+    }
+
+    It "should update templates to grandbend when switching engines from SQLServer to PostgreSQL and disabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'PostgreSQL'
+                MinimalTemplateScript   = 'TPDMCoreMinimalTemplate'
+                PopulatedTemplateScript = 'TPDMCorePopulatedTemplate'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @()
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'PostgreSQLMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'PostgreSQLPopulatedTemplate'
+    }
+
+    It "should update template defaults when enabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'EdFiMinimalTemplate'
+                PopulatedTemplateScript = 'GrandBend'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("tpdm")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'TPDMCoreMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'TPDMCorePopulatedTemplate'
+    }
+
+    It "should update template defaults when switching engines from SQLServer to PostgreSQL and enabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'PostgreSQL'
+                MinimalTemplateScript   = 'EdFiMinimalTemplate'
+                PopulatedTemplateScript = 'GrandBend'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("tpdm")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'TPDMCorePostgreSqlMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'TPDMCorePostgreSqlPopulatedTemplate'
+    }
+
+    It "should update template defaults when switching engines from PostgreSQL to SQLServer and enabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'PostgreSQLMinimalTemplate'
+                PopulatedTemplateScript = 'PostgreSQLPopulatedTemplate'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("tpdm")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'TPDMCoreMinimalTemplate'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'TPDMCorePopulatedTemplate'
+    }
+
+    It "should not update if templates are not set to any of the defaults when enabling tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'SomeMinimal'
+                PopulatedTemplateScript = 'SomePopulated'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("tpdm")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'SomeMinimal'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'SomePopulated'
+    }
+
+    It "should not update if templates are not set to any of the defaults when disabling  tpdm" {
+        $settings = Update-DefaultDatabaseTemplate @{
+            ApiSettings = @{
+                Engine = 'SQLServer'
+                MinimalTemplateScript   = 'SomeMinimal'
+                PopulatedTemplateScript = 'SomePopulated'
+            }
+            Plugin = @{
+                Folder  = "../../Plugin"
+                Scripts = @("")
+            }
+        }
+
+        $settings.ApiSettings.MinimalTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.MinimalTemplateScript | Should -Be 'SomeMinimal'
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Not -BeNullOrEmpty
+        $settings.ApiSettings.PopulatedTemplateScript | Should -Be 'SomePopulated'
+    }
+}

@@ -14,6 +14,7 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
+    $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
 
     $config.Remove('apiClientNameSandbox')
 

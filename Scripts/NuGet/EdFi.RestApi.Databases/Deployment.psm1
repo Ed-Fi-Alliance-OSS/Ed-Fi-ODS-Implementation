@@ -215,6 +215,8 @@ function Get-DeploymentSettings {
 
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 
+    $mergedSettings = Update-DefaultDatabaseTemplate $mergedSettings
+
     return $mergedSettings
 }
 

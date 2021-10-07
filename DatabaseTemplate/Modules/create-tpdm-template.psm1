@@ -14,6 +14,7 @@ function Get-TPDMConfiguration([hashtable] $config = @{ }) {
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
+    $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
 
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
     $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
