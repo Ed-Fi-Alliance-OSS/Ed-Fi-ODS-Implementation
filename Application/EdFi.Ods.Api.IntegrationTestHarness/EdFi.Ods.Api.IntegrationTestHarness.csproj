@@ -8,8 +8,6 @@
     <RootNamespace>EdFi.Ods.Api.IntegrationTestHarness</RootNamespace>
     <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
-    <AssemblyVersion>0.0.0</AssemblyVersion>
-    <FileVersion>0.0.0</FileVersion>
     <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ed</UserSecretsId>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
