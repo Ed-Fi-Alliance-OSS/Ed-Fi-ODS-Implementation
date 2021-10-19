@@ -36,7 +36,7 @@ Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTempl
 Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json",
-    (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
+    (Get-RepositoryResolvedPath 'configuration.packages.json')
 )
 
 Set-DeploymentSettings @{ ApiSettings = @{ DropDatabases = $true } }
