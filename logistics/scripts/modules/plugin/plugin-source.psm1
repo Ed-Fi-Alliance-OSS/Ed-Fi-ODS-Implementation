@@ -41,7 +41,7 @@ function Get-PluginScript([string] $pluginFolder, [string] $scriptName) {
 
 function Invoke-PluginScript([string] $scriptPath) {
 
-    if (($null -eq $scriptPath) -or (-not (Test-Path $scriptPath))) { return }
+    if (([string]::IsNullOrEmpty($scriptPath)) -or (-not (Test-Path $scriptPath))) { return }
 
     Write-Host -ForegroundColor Magenta "& $scriptPath"
     & $scriptPath
