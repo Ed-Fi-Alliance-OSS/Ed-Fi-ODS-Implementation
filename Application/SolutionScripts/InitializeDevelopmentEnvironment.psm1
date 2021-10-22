@@ -124,7 +124,10 @@ function Initialize-DevelopmentEnvironment {
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
-        $pluginFolderPath = (Get-DeploymentSettings).Plugin.Folder
+        $settingsFile = "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json"
+        $appsettings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+
+        $pluginFolderPath = $appsettings.Plugin.Folder
         if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) { 
             $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
         }
