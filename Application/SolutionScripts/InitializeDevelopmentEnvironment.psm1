@@ -307,7 +307,6 @@ Function Invoke-RebuildSolution {
 function Reset-EmptySandboxDatabase {
     Invoke-Task -name ($MyInvocation.MyCommand.Name) -task {
         $settings = Get-DeploymentSettings
-        $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
         $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens 'Ods_Sandbox_Empty'
