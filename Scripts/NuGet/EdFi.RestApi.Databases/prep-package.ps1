@@ -66,6 +66,7 @@ New-Nuspec @nuspecArgs
 
 # Add all of the in-repository files which have a relative path that should be preserved in the target
 $repoNuspecFiles = @(
+    Select-CumulativeRepositoryResolvedItems "configuration.packages.json"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/scripts"
     Select-CumulativeRepositoryResolvedItems -recurse "logistics/bin"
     Get-TemplateScripts
@@ -80,7 +81,7 @@ $repoNuspecFiles = @(
     # Extension scripts
     Select-SupportingArtifactResolvedFiles -recurse -artifactType "Database" -artifactSources $enabledSources
     Select-ExtensionAssemblyMetadataJson
-  
+
     # Add the License and Notices files
     "$PSScriptRoot\..\..\..\LICENSE.txt"
     "$PSScriptRoot\..\..\..\NOTICES.md"
