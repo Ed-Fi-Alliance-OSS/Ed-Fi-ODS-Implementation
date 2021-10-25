@@ -35,7 +35,7 @@ $packages = @{ }
 Invoke-Task -name 'Gather package versions' -task {
 
     $searchPaths = (Get-ChildItem (Get-RepositoryRoot) -Recurse -Filter '*.sln').FullName
-    $configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
+    $configurationFile = (Get-RepositoryResolvedPath 'configuration.packages.json')
 
     $packages = Merge-Hashtables @(
         (Select-DotNetPackages $searchPaths),

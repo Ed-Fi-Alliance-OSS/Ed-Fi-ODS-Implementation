@@ -8,7 +8,7 @@
 Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 
-$configurationFile = (Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json')
+$configurationFile = (Get-RepositoryResolvedPath 'configuration.packages.json')
 $configuration = (Get-Content $configurationFile | ConvertFrom-Json).packages.PostgreSqlPopulatedTemplate
 
 $parameters = @{

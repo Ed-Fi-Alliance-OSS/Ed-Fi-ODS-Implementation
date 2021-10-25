@@ -93,7 +93,7 @@ function Initialize-DeploymentEnvironment {
 
     Clear-Error
 
-    $script:deploymentSettingsFiles += @((Get-RepositoryResolvedPath 'logistics/scripts/configuration.packages.json'))
+    $script:deploymentSettingsFiles += @((Get-RepositoryResolvedPath 'configuration.packages.json'))
 
     if (!($script:deploymentSettingsFiles -like '*EdFi.Ods.WebApi/appsettings.json')){
         if ($Engine -eq 'PostgreSQL') {
