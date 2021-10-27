@@ -65,7 +65,7 @@ function Install-EdFiOdsSandboxAdmin {
                         Email             = 'test@ed-fi.org'
                         Password          = '***REMOVED***'
                         Admin             = $true
-                        NamespacePrefixes = @('uri://ed-fi.org', 'uri://gbisd.org')
+                        NamespacePrefixes = @('uri://ed-fi.org', 'uri://gbisd.edu')
                         Sandboxes         = @{
                             'Populated Demonstration Sandbox' = @{
                                 Key     = 'populatedSandbox'
@@ -233,7 +233,7 @@ function Get-DefaultCredentialSettings {
                 Admin             = "true"
                 NamespacePrefixes = @(
                     "uri://ed-fi.org"
-                    "uri://gbisd.org"
+                    "uri://gbisd.edu"
                 )
                 Sandboxes         = @{
                     "Populated Demonstration Sandbox" = @{
