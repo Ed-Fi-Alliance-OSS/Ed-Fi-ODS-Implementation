@@ -96,7 +96,7 @@ function Get-CredentialSettingsByProject {
                     Admin             = "true"
                     NamespacePrefixes = @(
                         "uri://ed-fi.org"
-                        "uri://gbisd.org"
+                        "uri://gbisd.edu"
                         "uri://tpdm.ed-fi.org"
                     )
                     Sandboxes         = @{
