@@ -234,6 +234,7 @@ function Get-DefaultCredentialSettings {
                 NamespacePrefixes = @(
                     "uri://ed-fi.org"
                     "uri://gbisd.edu"
+                    "uri://tpdm.ed-fi.org"
                 )
                 Sandboxes         = @{
                     "Populated Demonstration Sandbox" = @{
