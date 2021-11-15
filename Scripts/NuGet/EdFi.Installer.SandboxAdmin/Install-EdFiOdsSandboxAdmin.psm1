@@ -211,10 +211,10 @@ function Get-DefaultConnectionStringsByEngine {
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Admin    = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Security = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Master   = "Host=localhost; Port=5402; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Master   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
             }
         }
     }
@@ -332,8 +332,13 @@ function Convert-ConnectionStringtoDatabaseConnectionInfo {
     # using set_ConnectionString correctly uses the underlying C# setter functionality resulting in a dictionary of connection string properties
     $csb.set_ConnectionString($ConnectionString)
 
+    $useIntegratedSecurity = $false;
+    if($ConnectionString.Replace(" ","").ToLower().Contains("integratedsecurity=true")) {
+        $useIntegratedSecurity = $true
+    }
+    
     $dbConnectionInfo = @{
-        UseIntegratedSecurity = $true
+        UseIntegratedSecurity = $useIntegratedSecurity
         Engine                = $Config.MergedSettings.ApiSettings.Engine
     }
     if ($null -ne $csb.Server) { $dbConnectionInfo.Server = $csb.Server }
