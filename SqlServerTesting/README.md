@@ -8,6 +8,8 @@ and removed from Docker Hub.
 The file downloads and installs SQL Server Express with the default setup
 parameters.
 
+### **Note: This is meant for build and test purposes and not meant for Production use**
+
 ### Contents
 
 [Before you begin](#before-you-begin)<br/>
