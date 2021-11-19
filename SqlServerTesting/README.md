@@ -15,6 +15,7 @@ parameters.
 [Before you begin](#before-you-begin)<br/>
 [Run this sample](#run-this-sample)<br/>
 [Sample details](#sample-details)<br/>
+[Building this image for publishing](#building-image)<br/>
 [License Information](#license-info)<br/>
 
 <a name=before-you-begin></a>
@@ -86,6 +87,32 @@ This example shows all parameters in action:
 ```
 docker run -d -p 1433:1433 -v C:/temp/:C:/temp/ -e sa_password=<YOUR SA PASSWORD> -e ACCEPT_EULA=Y -e attach_dbs="[{'dbName':'SampleDB','dbFiles':['C:\\temp\\sampledb.mdf','C:\\temp\\sampledb_log.
 ldf']}]" edfialliance/mssql-server-windows-express
+```
+
+<a name=building-image></a>
+
+## Building and Publishing image
+
+The image currently is pointing to a specific tag for Windows Server Core,
+version 20H2. If you are on an older version of Windows you should update the
+`FROM` line in `Dockerfile` to match the version you are on, since the container
+has to be build from the same version OS as the host. You can find all current
+tags for this server core container
+[here](https://hub.docker.com/_/microsoft-windows-servercore)
+
+To build and publish this image to Docker hub, you can issue the following
+commands:
+```
+# log into dockerhub with your dockerid and password
+docker login
+# build the docker image from the Dockerfile, making sure to include a version on the end, otherwise it gets tagged as latest
+docker build . -f Dockerfile -t mssql-server-windows-express:0.1
+# find the container images to get the image id for what you just built
+docker image ls
+# tag the image for being under the edfialliance organization, making sure to include the version here as well
+docker tag image_id edfialliance/mssql-server-windows-express:0.1
+# push the image up to docker hub under the edfialliance organization
+docker push edfialliance/mssql-server-windows-express:0.1
 ```
 
 <a name=sample-details></a>
