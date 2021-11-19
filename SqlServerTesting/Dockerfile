@@ -1,4 +1,4 @@
-FROM microsoft/windowsservercore
+FROM mcr.microsoft.com/windows/servercore:20H2
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
