@@ -105,12 +105,17 @@ commands:
 ```
 # log into dockerhub with your dockerid and password
 docker login
+
 # build the docker image from the Dockerfile, making sure to include a version on the end, otherwise it gets tagged as latest
+# this part can take a while
 docker build . -f Dockerfile -t mssql-server-windows-express:0.1
+
 # find the container images to get the image id for what you just built
 docker image ls
+
 # tag the image for being under the edfialliance organization, making sure to include the version here as well
 docker tag image_id edfialliance/mssql-server-windows-express:0.1
+
 # push the image up to docker hub under the edfialliance organization
 docker push edfialliance/mssql-server-windows-express:0.1
 ```
