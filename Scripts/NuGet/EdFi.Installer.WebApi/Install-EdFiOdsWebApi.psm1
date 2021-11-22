@@ -403,6 +403,19 @@ function Invoke-TransformWebConfigAppSettings {
                     }
                 }
             }
+            # Add a Log4net property override so that logs are stored in ${LOCALAPPDATA}/WebApiLog v{version}.log
+            if($settings.Log4NetCore -eq $Null) { 
+                $settings.Log4NetCore = @{}
+            }
+            if($settings.Log4NetCore.PropertyOverrides -eq $Null) { 
+                $settings.Log4NetCore.PropertyOverrides = @()
+            }
+            $settings.Log4NetCore.PropertyOverrides += @{
+                XPath = "/log4net/appender[@name='RollingFile']/file"
+                Attributes = @{
+                    Value = "`${LOCALAPPDATA}/WebApiLog v{version}.log"
+                }
+            }
            $settings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
            New-JsonFile $settingsFile $settings -Overwrite
