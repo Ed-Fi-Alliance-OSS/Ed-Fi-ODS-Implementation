@@ -179,6 +179,14 @@ function Install-EdFiOdsWebApi {
         [string]
         $WebsiteName = "Ed-Fi",
 
+        # Log destination path. 
+        # 
+        # Add template string {version} to include API's version.
+        # To include a value from an environment variable use ${myVar}
+        # Default: "${LOCALAPPDATA}/WebApiLog.{version}.log".
+        [string]
+        $LogDestinationPath = "`${LOCALAPPDATA}/WebApiLog.{version}.log",
+
         # Web site port number. Default: 443.
         [int]
         $WebSitePort = 443,
@@ -403,7 +411,13 @@ function Invoke-TransformWebConfigAppSettings {
                     }
                 }
             }
-            # Add a Log4net property override so that logs are stored in ${LOCALAPPDATA}/WebApiLog v{version}.log
+            # Add a Log4net property override to specify the log's destination
+            $splitPackageVersion = $Config.PackageVersion.Split(".")
+            # We only care about Major/Minor for determining the log file name
+            if ($splitPackageVersion.Count -lt 2) {
+                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major and minor."
+            }
+            $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
             if($settings.Log4NetCore -eq $Null) { 
                 $settings.Log4NetCore = @{}
             }
@@ -413,7 +427,7 @@ function Invoke-TransformWebConfigAppSettings {
             $settings.Log4NetCore.PropertyOverrides += @{
                 XPath = "/log4net/appender[@name='RollingFile']/file"
                 Attributes = @{
-                    Value = "`${LOCALAPPDATA}/WebApiLog v{version}.log"
+                    Value = $logDestination
                 }
             }
            $settings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes

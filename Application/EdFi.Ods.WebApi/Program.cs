@@ -3,16 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
-using EdFi.Ods.Api.Constants;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Log4Net.AspNetCore.Entities;
 
 namespace EdFi.Ods.WebApi
 {
@@ -44,15 +40,6 @@ namespace EdFi.Ods.WebApi
                             ? "log4net.development.config"
                             : "log4net.config"
                     };
-
-                foreach (var propertyOverride in loggingOptions.PropertyOverrides)
-                {
-                    foreach (var attribute in propertyOverride.Attributes.ToList())
-                    {
-                        propertyOverride.Attributes[attribute.Key] = propertyOverride.Attributes[attribute.Key]
-                            .Replace("{version}", ApiVersionConstants.InformationalVersion);
-                    }
-                }
 
                 loggingBuilder.AddLog4Net(loggingOptions);
             }
