@@ -183,9 +183,9 @@ function Install-EdFiOdsWebApi {
         # 
         # Add template string {version} to include API's version.
         # To include a value from an environment variable use ${myVar}
-        # Default: "${LOCALAPPDATA}/WebApiLog.{version}.log".
+        # Default: "${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log".
         [string]
-        $LogDestinationPath = "`${LOCALAPPDATA}/WebApiLog.{version}.log",
+        $LogDestinationPath = "`${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log",
 
         # Web site port number. Default: 443.
         [int]
@@ -290,6 +290,7 @@ function Install-EdFiOdsWebApi {
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
         WebSiteName = $WebsiteName
+        LogDestinationPath = $LogDestinationPath
         WebSitePort = $WebsitePort
         CertThumbprint = $CertThumbprint
         WebApplicationName = $WebApplicationName
