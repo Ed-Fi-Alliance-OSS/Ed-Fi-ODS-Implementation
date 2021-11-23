@@ -181,7 +181,7 @@ function Install-EdFiOdsWebApi {
 
         # Log destination path. 
         # 
-        # Add template string {version} to include API's version.
+        # Use {version} template string to include API's version.
         # To include a value from an environment variable use ${myVar}
         # Default: "${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log".
         [string]
@@ -419,16 +419,19 @@ function Invoke-TransformWebConfigAppSettings {
                 throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major and minor."
             }
             $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
-            if($settings.Log4NetCore -eq $Null) { 
+            if($Null -eq $settings.Log4NetCore) { 
                 $settings.Log4NetCore = @{}
             }
-            if($settings.Log4NetCore.PropertyOverrides -eq $Null) { 
+            if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
                 $settings.Log4NetCore.PropertyOverrides = @()
             }
-            $settings.Log4NetCore.PropertyOverrides += @{
-                XPath = "/log4net/appender[@name='RollingFile']/file"
-                Attributes = @{
-                    Value = $logDestination
+            $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
+            if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+                $settings.Log4NetCore.PropertyOverrides += @{
+                    XPath = $rollingFileXpath
+                    Attributes = @{
+                        Value = $logDestination
+                    }
                 }
             }
            $settings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
