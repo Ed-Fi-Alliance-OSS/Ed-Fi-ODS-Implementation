@@ -179,6 +179,14 @@ function Install-EdFiOdsWebApi {
         [string]
         $WebsiteName = "Ed-Fi",
 
+        # Log destination path. 
+        # 
+        # Use {version} template string to include API's version.
+        # To include a value from an environment variable use ${myVar}
+        # Default: "${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log".
+        [string]
+        $LogDestinationPath = "`${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log",
+
         # Web site port number. Default: 443.
         [int]
         $WebSitePort = 443,
@@ -282,6 +290,7 @@ function Install-EdFiOdsWebApi {
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
         WebSiteName = $WebsiteName
+        LogDestinationPath = $LogDestinationPath
         WebSitePort = $WebsitePort
         CertThumbprint = $CertThumbprint
         WebApplicationName = $WebApplicationName
@@ -400,6 +409,28 @@ function Invoke-TransformWebConfigAppSettings {
                         If ( $feature.Name -eq $defaultfeature.Name) {
                             $defaultfeature.IsEnabled =$feature.IsEnabled
                         }
+                    }
+                }
+            }
+            # Add a Log4net property override to specify the log's destination
+            $splitPackageVersion = $Config.PackageVersion.Split(".")
+            # We only care about Major/Minor for determining the log file name
+            if ($splitPackageVersion.Count -lt 2) {
+                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major and minor."
+            }
+            $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
+            if($Null -eq $settings.Log4NetCore) { 
+                $settings.Log4NetCore = @{}
+            }
+            if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+                $settings.Log4NetCore.PropertyOverrides = @()
+            }
+            $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
+            if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+                $settings.Log4NetCore.PropertyOverrides += @{
+                    XPath = $rollingFileXpath
+                    Attributes = @{
+                        Value = $logDestination
                     }
                 }
             }
