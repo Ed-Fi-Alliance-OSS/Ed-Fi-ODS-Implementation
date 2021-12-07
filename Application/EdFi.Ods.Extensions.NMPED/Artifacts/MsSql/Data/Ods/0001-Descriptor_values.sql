@@ -18,6 +18,32 @@ BEGIN*/
 	INSERT INTO nmped.SpecialEducationLevelOfIntegrationDescriptor (SpecialEducationLevelOfIntegrationDescriptorId) values (@@IDENTITY);
 /*END;*/
 
+/* EducationOrganizationCategoryDescriptor */
+/*IF NOT EXISTS (SELECT * FROM edfi.Descriptor WHERE [Namespace]='uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor')
+BEGIN*/
+	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EducationOrganizationCategoryDescriptor','Central Office','Central Office','Central Office');
+	INSERT INTO edfi.EducationOrganizationCategoryDescriptor (EducationOrganizationCategoryDescriptorId) values (@@IDENTITY);
+
+	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EducationOrganizationCategoryDescriptor','Charter','Charter','Charter');
+	INSERT INTO edfi.EducationOrganizationCategoryDescriptor (EducationOrganizationCategoryDescriptorId) values (@@IDENTITY);
+
+	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EducationOrganizationCategoryDescriptor','Off-Site','Off-Site','Off-Site');
+	INSERT INTO edfi.EducationOrganizationCategoryDescriptor (EducationOrganizationCategoryDescriptorId) values (@@IDENTITY);
+
+	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EducationOrganizationCategoryDescriptor','Public','Public','Public');
+	INSERT INTO edfi.EducationOrganizationCategoryDescriptor (EducationOrganizationCategoryDescriptorId) values (@@IDENTITY);
+
+	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EducationOrganizationCategoryDescriptor','State Supported','State Supported','State Supported');
+	INSERT INTO edfi.EducationOrganizationCategoryDescriptor (EducationOrganizationCategoryDescriptorId) values (@@IDENTITY);
+
+
+/*END;*/
+
 /* DirectCertificationStatus */
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
