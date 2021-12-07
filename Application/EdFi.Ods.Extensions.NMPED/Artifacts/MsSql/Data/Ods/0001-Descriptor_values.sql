@@ -1,4 +1,4 @@
-/* SpecialEducationLevelOfIntegration */
+/* SpecialEducationLevelOfIntegration TEST  */
 /*IF NOT EXISTS (SELECT * FROM edfi.Descriptor WHERE [Namespace]='uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor')
 BEGIN*/
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
