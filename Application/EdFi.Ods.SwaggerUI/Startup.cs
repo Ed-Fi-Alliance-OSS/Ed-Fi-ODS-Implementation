@@ -53,6 +53,8 @@ namespace EdFi.Ods.SwaggerUI
                                                    & ForwardedHeaders.XForwardedProto;
                     });
             }
+
+            services.AddHealthChecks();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
@@ -129,6 +131,11 @@ namespace EdFi.Ods.SwaggerUI
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
