@@ -27,6 +27,8 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
+using EdFi.Ods.Sandbox.Admin.Extensions;
+using System;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -55,6 +57,8 @@ namespace EdFi.Ods.SandboxAdmin
         public void ConfigureServices(IServiceCollection services)
         {
             _logger.Debug("Building services collection");
+
+            var databaseEngine = Configuration["ApiSettings:Engine"];
 
             services.AddSingleton(ApiSettings);
             services.AddSingleton(Configuration);
@@ -176,7 +180,11 @@ namespace EdFi.Ods.SandboxAdmin
                         options.SerializerSettings.ContractResolver = new DefaultContractResolver();
                     })
                 .AddControllersAsServices();
+
+            services.AddHealthCheck(Configuration.GetConnectionString("EdFi_Admin"), IsSqlServer(databaseEngine));
         }
+
+        private static bool IsSqlServer(string databaseEngine) => "SQLServer".Equals(databaseEngine, StringComparison.InvariantCultureIgnoreCase);
 
         // ConfigureContainer is where you can register things directly
         // with Autofac. This runs after ConfigureServices so the things
@@ -241,13 +249,14 @@ namespace EdFi.Ods.SandboxAdmin
             var backgroundJob = Container.Resolve<IBackgroundJobService>();
             backgroundJob.Configure();
 
-            app.UseEndpoints(
-                endpoints =>
-                {
-                    endpoints.MapControllerRoute(
-                        name: "default",
-                        pattern: "{controller=Home}/{action=Index}/{id?}");
-                });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapHealthChecks("/health");
+            });
         }
     }
 }
