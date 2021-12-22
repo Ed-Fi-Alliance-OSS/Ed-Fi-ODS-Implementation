@@ -48,7 +48,8 @@
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-warning btn-xs dropdown-toggle actionButton" data-toggle="dropdown">
+                            <button class="btn btn-warning dropdown-toggle actionButton" data-toggle="dropdown">
+                                <i class="fa fa-cog" aria-hidden="true"></i>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
@@ -113,10 +114,10 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-xs-2">
                         <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
                     </div>
-                    <div class="col-10">
+                    <div class="col-xs-10">
                         <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
                         <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
                     </div>
@@ -151,10 +152,10 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-xs-2">
                         <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
                     </div>
-                    <div class="col-10">
+                    <div class="col-xs-10">
                         <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
                         <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
                     </div>
@@ -180,10 +181,10 @@
             </div>
             <div class="modal-footer">
                 <div class="row">
-                    <div class="col-2">
+                    <div class="col-xs-2">
                         <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
                     </div>
-                    <div class="col-10">
+                    <div class="col-xs-10">
                         <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
                     </div>
                 </div>
