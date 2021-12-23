@@ -1,5 +1,11 @@
-﻿legend {
-    color: #7b8a8b;
+﻿.navbar {
+    padding: 0.2rem;
+}
+
+.navbar-brand {
+    background: url('../images/EdFi-logo-Powered-60.png');
+    width: 118px;
+    height: 60px;
 }
 
 .dialog-footer-icon {
@@ -7,139 +13,14 @@
     margin-top: 7px;
 }
 
-.navbar-lite div.edfilogo {
-    border: 0;
-    text-shadow: none;
-    color: transparent;
-    background: url('../images/EdFi-logo-Powered-60.png');
-    width: 118px;
-    height: 60px;
-}
-
-.navbar-lite {
-    background-color: #ecf0f1;
-    color: #2c3e50;
-}
-
-.navbar-lite .navbar-nav > li > a {
-    color: #2c3e50;
-}
-
-.navbar-lite .navbar-nav > li > a:hover {
-    color: #18bc9c;
-}
-
-.navbar-nav > li > a:hover, .navbar-nav > li > a:focus {
-    color: #18bc9c;
-    background-color: transparent
-}
-
-.navbar-lite .navbar-brand {
-    padding: inherit;
-}
-
-.navbar-nav.pull-right {
-    width: 100%
-}
-
-.navbar-lite .navbar-nav > .dropdown > a:hover .caret,
-.navbar-lite .navbar-nav > .dropdown > a:focus .caret {
-    border-top-color: #18bc9c;
-}
-
-.navbar-nav > .open > a, .navbar-nav > .open > a:hover, .navbar-nav > .open > a:focus {
-    color: #fff;
-    background-color: #1a242f;
-}
-
-.navbar-lite .navbar-nav > .dropdown > a .caret {
-    border-top-color: #2c3e50;
-}
-
-@media screen and (min-width: 768px) {
-    .navbar-brand {
-        float: left;
-        margin-right: 5px;
-        margin-left: -15px
-    }
-
-    .navbar-nav {
-        float: left;
-        margin-top: 0;
-        margin-bottom: 0
-    }
-
-    .navbar-nav > li {
-        float: left
-    }
-
-    .navbar-nav > li > a {
-        border-radius: 0
-    }
-
-    .navbar-nav.pull-right {
-        float: right;
-        width: auto
-    }
-
-    .navbar-toggle {
-        position: relative;
-        top: auto;
-        left: auto;
-        display: none
-    }
-
-    .nav-collapse.collapse {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important
-    }
-}
-
-.navbar-toggle {
-    position: absolute;
-    top: 14px;
-    right: 10px;
-    width: 48px;
-    height: 32px;
-    padding: 8px 12px;
-    background-color: transparent;
-    border: 1px solid #ddd;
-    border-radius: 4px
-}
-
-.navbar-toggle:hover, .navbar-toggle:focus {
-    background-color: #ddd
-}
-
-.navbar-toggle .icon-bar {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background-color: #ccc;
-    border-radius: 1px
-}
-
 #clients-table td {
     vertical-align: middle;
 }
 
-/* Login Dialog */
-#loginModal input[type="password"],
-#loginModal input[type="email"],
-#loginModal input[type="text"] {
-    width: 100%;
-    display: block;
+.has-error .help-block, .has-error .control-label {
+    color: #e74c3c
 }
 
-#loginModal .action-row button {
-    margin-right: 25px;
-}
-
-#loginModal input[type="checkbox"] + label {
-    margin-left: 7px;
-}
-
-#loginModal .tab-pane {
-    padding-top: 10px;
+.has-error .form-control, .has-error .form-control:focus {
+    border: 2px solid #e74c3c
 }
