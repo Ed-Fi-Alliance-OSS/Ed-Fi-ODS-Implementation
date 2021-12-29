@@ -16,7 +16,7 @@
     <style>
         .counter {
             padding-left: 10px;
-            padding-top: 33px;
+            padding-top: 1.1rem;
         }
     </style>
 }
@@ -46,11 +46,11 @@
             }
 
             function showWait() {
-                $('.wait-spinner').removeClass('hidden');
+                $('.wait-spinner').removeClass('d-none');
             }
 
             function hideWait() {
-                $('.wait-spinner').addClass('hidden');
+                $('.wait-spinner').addClass('d-none');
             }
 
             this.onOkClicked = function () {
@@ -79,7 +79,7 @@
 <div class="clearfix">
     <h2 class="pull-left">Orphan Sandboxes</h2>
     <p class="pull-left counter">(<span id="orphan-count">@Model.OrphanSandboxes.Length</span>)</p>
-    <div class="pull-left" style="padding-left: 15px; padding-top: 27px">
+    <div class="pull-left" style="padding-left: 15px; padding-top: .7rem">
         <button id="button-remove-orphans" class="btn btn-danger btn-small" @enableRemoveButton>Remove Orphans</button>
     </div>
 </div>
@@ -158,7 +158,7 @@ else
 }
 
 <div class="clearfix">
-    <h2 class="pull-left">All Sandboxes (@Model.AllSandboxes.Length)</h2>
+    <h2 class="pull-left">All Sandboxes</h2>
     <p class="pull-left counter">(@Model.AllSandboxes.Length)</p>
 </div>
 @if (Model.HasSandboxes)
@@ -177,8 +177,8 @@ else
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h2 class="modal-title">Remove Orphans</h2>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-                <h2>Remove Orphans</h2>
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
@@ -197,14 +197,12 @@ else
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
-                    </div>
-                    <div class="col-10">
-                        <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                        <button id="btn-ok-removeall" type="submit" class="btn btn-primary" data-bind="enable: confirmChecked, click: onOkClicked">Remove All</button>
-                    </div>
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-removeall" type="submit" class="btn btn-primary" data-bind="enable: confirmChecked, click: onOkClicked">Remove All</button>
                 </div>
             </div>
         </div>

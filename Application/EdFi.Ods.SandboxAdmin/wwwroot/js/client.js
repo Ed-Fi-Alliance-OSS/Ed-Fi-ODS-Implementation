@@ -36,11 +36,11 @@ var ModalController = function (modalOptions) {
     };
 
     var showWait = function () {
-        getWaitSpinner().removeClass('hidden');
+        getWaitSpinner().removeClass('d-none');
     };
 
     var hideWait = function () {
-        getWaitSpinner().addClass('hidden');
+        getWaitSpinner().addClass('d-none');
     };
 
     this.show = function (onOk) {
