@@ -7,8 +7,8 @@
 
 <div class="row">
     <div class="jumbotron">
-        <h2>Sandbox Administration Portal for the Ed-Fi ODS API</h2>
-        <p>
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
             This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
         </p>
     </div>
@@ -18,7 +18,7 @@
         <form data-bind="submit: doResetSandbox, visible: showSubmit">
             <button type="submit" class="btn btn-primary">Reset</button>
         </form>
-        <div class="alert" data-bind="visible: status">
+        <div class="alert alert-warning" data-bind="visible: status">
             <strong>Status:</strong> <span data-bind="text: status"></span>
         </div>
         <div class="alert alert-danger" data-bind="visible: error">

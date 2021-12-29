@@ -74,8 +74,8 @@ EdFiAdmin.Auth = (function () {
     function setLoginMessage(id, message) {
         $('#' + id)
             .html(message)
-            .removeClass('hidden')
-            .addClass('in')
+            .removeClass('d-none')
+            .addClass('show')
             .alert();
     }
 
@@ -91,8 +91,8 @@ EdFiAdmin.Auth = (function () {
 
         $.each(id, function (elemIndex) {
             $('#' + id[elemIndex])
-                .addClass('hidden')
-                .removeClass('in')
+                .addClass('d-none')
+                .removeClass('show')
                 .text('');
         });
     }
@@ -113,11 +113,11 @@ EdFiAdmin.Auth = (function () {
     function updateAuthAndRedirectHome(data) {
         if (data.authenticated) {
             $('.authUserName').text(data.name);
-            $('.hideWhenAuthenticated').addClass('hidden');
-            $('.showWhenAuthenticated').removeClass('hidden');
+            $('.hideWhenAuthenticated').addClass('d-none');
+            $('.showWhenAuthenticated').removeClass('d-none');
         } else {
-            $('.showWhenAuthenticated').addClass('hidden');
-            $('.hideWhenAuthenticated').removeClass('hidden');
+            $('.showWhenAuthenticated').addClass('d-none');
+            $('.hideWhenAuthenticated').removeClass('d-none');
         }
         window.location = EdFiAdmin.Urls.home;
     }
@@ -195,7 +195,7 @@ EdFiAdmin.Auth = (function () {
             }
 
             if (data.UserStatusMessage === "NeedsEmailConfirmation") {
-                $('#create-resend').removeClass('hidden');
+                $('#create-resend').removeClass('d-none');
             }
 
             $.each(data.FailingFields, function (index, value) {
