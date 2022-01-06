@@ -1,5 +1,3 @@
-
-
 INSERT INTO [edfi].[Program]
            ([EducationOrganizationId]
            ,[ProgramName]
@@ -36,7 +34,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -156,7 +154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -172,7 +170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -236,7 +234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -356,7 +354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -372,7 +370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -436,7 +434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -556,7 +554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -572,7 +570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -636,7 +634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -756,7 +754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -772,7 +770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -836,7 +834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -956,7 +954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -972,7 +970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -1036,7 +1034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -1156,7 +1154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -1172,7 +1170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -1236,7 +1234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -1356,7 +1354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -1372,7 +1370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -1436,7 +1434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -1556,7 +1554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -1572,7 +1570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -1636,7 +1634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -1756,7 +1754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -1772,7 +1770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -1836,7 +1834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -1956,7 +1954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -1972,7 +1970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -2036,7 +2034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -2156,7 +2154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -2172,7 +2170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -2236,7 +2234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -2356,7 +2354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -2372,7 +2370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -2436,7 +2434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -2556,7 +2554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -2572,7 +2570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -2636,7 +2634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -2756,7 +2754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -2772,7 +2770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -2836,7 +2834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -2956,7 +2954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -2972,7 +2970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -3036,7 +3034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -3156,7 +3154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -3172,7 +3170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -3236,7 +3234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -3356,7 +3354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -3372,7 +3370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -3436,7 +3434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -3556,7 +3554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -3572,7 +3570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -3636,7 +3634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -3756,7 +3754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -3772,7 +3770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -3836,7 +3834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -3956,7 +3954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -3972,7 +3970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -4036,7 +4034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -4156,7 +4154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -4172,7 +4170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -4236,7 +4234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -4356,7 +4354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -4372,7 +4370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -4436,7 +4434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -4556,7 +4554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -4572,7 +4570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -4636,7 +4634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -4756,7 +4754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -4772,7 +4770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -4836,7 +4834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -4956,7 +4954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -4972,7 +4970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -5036,7 +5034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -5156,7 +5154,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -5172,7 +5170,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -5236,7 +5234,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -5356,7 +5354,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -5372,7 +5370,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -5436,7 +5434,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -5556,7 +5554,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -5572,7 +5570,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -5636,7 +5634,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -5756,7 +5754,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -5772,7 +5770,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -5836,7 +5834,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -5956,7 +5954,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -5972,7 +5970,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -6036,7 +6034,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -6065,15 +6063,25 @@ INSERT INTO [edfi].[Program]
            'CEIS',
            GETDATE(),
            GETDATE()
-),
+);
+
+INSERT INTO [edfi].[Program]
+           ([EducationOrganizationId]
+           ,[ProgramName]
+           ,[ProgramTypeDescriptorId]
+           ,[ProgramId]
+           ,[CreateDate]
+           ,[LastModifiedDate])
+
+     VALUES
            
-(          35031000,
-           'Charter school student participating in a district activity',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CSDA'),
-           'CSDA',
-           GETDATE(),
-           GETDATE()
-),
+--(          35031000,
+--           'Charter school student participating in a district activity',
+--           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CSDA'),
+--           'CSDA',
+--           GETDATE(),
+--           GETDATE()
+--),
            
 (          35031000,
            'Community School Program',
@@ -6156,7 +6164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -6172,7 +6180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -6236,7 +6244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -6356,7 +6364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -6372,7 +6380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -6436,7 +6444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -6556,7 +6564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -6572,7 +6580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -6636,7 +6644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -6756,7 +6764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -6772,7 +6780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -6836,7 +6844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -6956,7 +6964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -6972,7 +6980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -7036,7 +7044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -7156,7 +7164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -7172,7 +7180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -7236,7 +7244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -7356,7 +7364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -7372,7 +7380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -7436,7 +7444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -7556,7 +7564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -7572,7 +7580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -7636,7 +7644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -7756,7 +7764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -7772,7 +7780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -7836,7 +7844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -7956,7 +7964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -7972,7 +7980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -8036,7 +8044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -8156,7 +8164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -8172,7 +8180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -8236,7 +8244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -8356,7 +8364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -8372,7 +8380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -8436,7 +8444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -8556,7 +8564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -8572,7 +8580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -8636,7 +8644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -8756,7 +8764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -8772,7 +8780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -8836,7 +8844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -8956,7 +8964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -8972,7 +8980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -9036,7 +9044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -9156,7 +9164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -9172,7 +9180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -9236,7 +9244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -9356,7 +9364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -9372,7 +9380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -9436,7 +9444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -9556,7 +9564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -9572,7 +9580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -9636,7 +9644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -9756,7 +9764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -9772,7 +9780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -9836,7 +9844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -9956,7 +9964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -9972,7 +9980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -10036,7 +10044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -10156,7 +10164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -10172,7 +10180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -10236,7 +10244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -10356,7 +10364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -10372,7 +10380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -10436,7 +10444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -10556,7 +10564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -10572,7 +10580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -10636,7 +10644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -10756,7 +10764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -10772,7 +10780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -10836,7 +10844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -10956,7 +10964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -10972,7 +10980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -11036,7 +11044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -11156,7 +11164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -11172,7 +11180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -11236,7 +11244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -11356,7 +11364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -11372,7 +11380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -11436,7 +11444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -11556,7 +11564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -11572,7 +11580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -11636,7 +11644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -11756,7 +11764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -11772,7 +11780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -11836,7 +11844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -11956,7 +11964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -11972,7 +11980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -12036,7 +12044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -12156,7 +12164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -12172,7 +12180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -12236,7 +12244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -12356,7 +12364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -12372,7 +12380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -12436,7 +12444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -12556,7 +12564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -12572,7 +12580,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -12636,7 +12644,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -12756,7 +12764,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -12772,7 +12780,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -12836,7 +12844,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -12956,7 +12964,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -12972,7 +12980,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -13036,7 +13044,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -13156,7 +13164,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -13172,7 +13180,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -13236,7 +13244,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -13356,7 +13364,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -13372,7 +13380,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -13436,7 +13444,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -13556,7 +13564,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -13569,10 +13577,20 @@ INSERT INTO [edfi].[Program]
            'T1APK',
            GETDATE(),
            GETDATE()
-),
+);
+
+INSERT INTO [edfi].[Program]
+           ([EducationOrganizationId]
+           ,[ProgramName]
+           ,[ProgramTypeDescriptorId]
+           ,[ProgramId]
+           ,[CreateDate]
+           ,[LastModifiedDate])
+
+     VALUES
            
 (          35068000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -13636,7 +13654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -13756,7 +13774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -13772,7 +13790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -13836,7 +13854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -13956,7 +13974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -13972,7 +13990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -14036,7 +14054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -14156,7 +14174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -14172,7 +14190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -14236,7 +14254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -14356,7 +14374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -14372,7 +14390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -14436,7 +14454,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -14556,7 +14574,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -14572,7 +14590,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -14636,7 +14654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -14756,7 +14774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -14772,7 +14790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -14836,7 +14854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -14956,7 +14974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -14972,7 +14990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -15036,7 +15054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -15156,7 +15174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -15172,7 +15190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -15236,7 +15254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -15356,7 +15374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -15372,7 +15390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -15436,7 +15454,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -15556,7 +15574,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -15572,7 +15590,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -15636,7 +15654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -15756,7 +15774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -15772,7 +15790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -15836,7 +15854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -15956,7 +15974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -15972,7 +15990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -16036,7 +16054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -16156,7 +16174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -16172,7 +16190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -16236,7 +16254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -16356,7 +16374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -16372,7 +16390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -16436,7 +16454,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -16556,7 +16574,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -16572,7 +16590,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -16636,7 +16654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -16756,7 +16774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -16772,7 +16790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -16836,7 +16854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -16956,7 +16974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -16972,7 +16990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -17036,7 +17054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -17156,7 +17174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -17172,7 +17190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -17236,7 +17254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -17356,7 +17374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -17372,7 +17390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -17436,7 +17454,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -17556,7 +17574,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -17572,7 +17590,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -17636,7 +17654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -17756,7 +17774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -17772,7 +17790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -17836,7 +17854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -17956,7 +17974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -17972,7 +17990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -18036,7 +18054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -18156,7 +18174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -18172,7 +18190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -18236,7 +18254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -18356,7 +18374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -18372,7 +18390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -18436,7 +18454,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -18556,7 +18574,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -18572,7 +18590,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -18636,7 +18654,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -18756,7 +18774,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -18772,7 +18790,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -18836,7 +18854,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -18956,7 +18974,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -18972,7 +18990,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -19036,7 +19054,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -19156,7 +19174,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -19172,7 +19190,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -19236,7 +19254,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -19356,7 +19374,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -19372,7 +19390,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -19409,7 +19427,17 @@ INSERT INTO [edfi].[Program]
            'WRP',
            GETDATE(),
            GETDATE()
-),
+);
+
+INSERT INTO [edfi].[Program]
+           ([EducationOrganizationId]
+           ,[ProgramName]
+           ,[ProgramTypeDescriptorId]
+           ,[ProgramId]
+           ,[CreateDate]
+           ,[LastModifiedDate])
+
+     VALUES
 (
 	    35515000,
            'Child participating in the Early Childhood 3Y Program',
@@ -19436,7 +19464,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -19556,7 +19584,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -19572,7 +19600,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -19636,7 +19664,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -19756,7 +19784,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -19772,7 +19800,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -19836,7 +19864,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -19956,7 +19984,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -19972,7 +20000,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -20036,7 +20064,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -20156,7 +20184,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -20172,7 +20200,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -20236,7 +20264,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -20356,7 +20384,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -20372,7 +20400,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -20436,7 +20464,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -20556,7 +20584,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -20572,7 +20600,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -20636,7 +20664,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -20756,7 +20784,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -20772,7 +20800,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -20836,7 +20864,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -20956,7 +20984,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -20972,7 +21000,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -21036,7 +21064,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -21156,7 +21184,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -21172,7 +21200,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -21236,7 +21264,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -21356,7 +21384,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -21372,7 +21400,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -21436,7 +21464,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -21556,7 +21584,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -21572,12 +21600,22 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
            GETDATE()
-),
+);
+
+INSERT INTO [edfi].[Program]
+           ([EducationOrganizationId]
+           ,[ProgramName]
+           ,[ProgramTypeDescriptorId]
+           ,[ProgramId]
+           ,[CreateDate]
+           ,[LastModifiedDate])
+
+     VALUES
            
 (          35529000,
            'Title III',
@@ -21636,7 +21674,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -21756,7 +21794,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -21772,7 +21810,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -21836,7 +21874,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -21956,7 +21994,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -21972,7 +22010,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -22036,7 +22074,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -22156,7 +22194,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -22172,7 +22210,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -22236,7 +22274,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -22356,7 +22394,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -22372,7 +22410,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -22436,7 +22474,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -22556,7 +22594,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -22572,7 +22610,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -22636,7 +22674,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -22756,7 +22794,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -22772,7 +22810,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -22836,7 +22874,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -22956,7 +22994,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -22972,7 +23010,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -23036,7 +23074,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -23156,7 +23194,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -23172,7 +23210,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -23236,7 +23274,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -23356,7 +23394,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -23372,7 +23410,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -23436,7 +23474,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -23556,7 +23594,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -23572,7 +23610,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -23636,7 +23674,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -23756,7 +23794,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -23772,7 +23810,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -23836,7 +23874,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -23865,7 +23903,17 @@ INSERT INTO [edfi].[Program]
            'CEIS',
            GETDATE(),
            GETDATE()
-),
+);
+
+INSERT INTO [edfi].[Program]
+           ([EducationOrganizationId]
+           ,[ProgramName]
+           ,[ProgramTypeDescriptorId]
+           ,[ProgramId]
+           ,[CreateDate]
+           ,[LastModifiedDate])
+
+     VALUES
            
 (          35550000,
            'Charter school student participating in a district activity',
@@ -23956,7 +24004,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -23972,7 +24020,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -24036,7 +24084,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -24156,7 +24204,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -24172,7 +24220,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -24236,7 +24284,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -24356,7 +24404,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -24372,7 +24420,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -24436,7 +24484,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -24556,7 +24604,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -24572,7 +24620,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -24636,7 +24684,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -24756,7 +24804,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -24772,7 +24820,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -24836,7 +24884,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -24956,7 +25004,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -24972,7 +25020,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -25036,7 +25084,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -25156,7 +25204,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -25172,7 +25220,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -25236,7 +25284,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -25356,7 +25404,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -25372,7 +25420,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -25436,7 +25484,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -25556,7 +25604,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -25572,7 +25620,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -25636,7 +25684,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -25756,7 +25804,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -25772,7 +25820,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -25836,7 +25884,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -25956,7 +26004,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -25972,7 +26020,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -26036,7 +26084,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -26156,7 +26204,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -26172,7 +26220,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -26236,7 +26284,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -26356,7 +26404,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -26372,7 +26420,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -26436,7 +26484,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -26556,7 +26604,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -26572,7 +26620,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -26636,7 +26684,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -26756,7 +26804,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -26772,7 +26820,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -26836,7 +26884,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -26956,7 +27004,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -26972,7 +27020,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
@@ -27036,7 +27084,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           ''Bus Services' Vocational Ed/Concurrent Enrollment',
+           'Bus Services'' Vocational Ed/Concurrent Enrollment',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BSCE'),
            'BSCE',
            GETDATE(),
@@ -27156,7 +27204,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Title I Part A Students that are enrolled or reside in Neglected and Delinquent programs',
+           'Title I Part A Students in Neglected and Delinquent programs',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1AND'),
            'T1AND',
            GETDATE(),
@@ -27172,7 +27220,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Title I Part A Private school students receiving Title 1 services',
+           'Title I Part A Private students receiving Title 1 services',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T1APR'),
            'T1APR',
            GETDATE(),
