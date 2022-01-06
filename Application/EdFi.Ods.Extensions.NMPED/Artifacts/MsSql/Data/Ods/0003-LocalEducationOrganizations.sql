@@ -1,5 +1,5 @@
 /*LEA Inserts*/
-INSERT INTO [edfi].[LocalEducationAgency]
+/* INSERT INTO [edfi].[LocalEducationAgency]
            ([LocalEducationAgencyId] --SchoolCodeEdFi
            ,[LocalEducationAgencyCategoryDescriptorId] --Lookup from descriptor table
 		   ,[ParentLocalEducationAgencyId] -- 
@@ -145,10 +145,10 @@ INSERT INTO [edfi].[LocalEducationAgency]
 (35579000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office'), 35579000, 35000000),
 (35580000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office'), 35580000, 35000000),
 (35581000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office'), 35581000, 35000000);
-
+*/
 
 /*Schools Insert*/
-INSERT INTO [edfi].[School]
+/*INSERT INTO [edfi].[School]
            ([SchoolId]
            ,[LocalEducationAgencyId])
      VALUES
@@ -1691,7 +1691,7 @@ INSERT INTO [edfi].[School]
 (35578001, 35578000),
 (35579001, 35579000),
 (35580001, 35580000),
-(35581001, 35581000)
+(35581001, 35581000) */
 
 /*Grade Level Inserts*/
 INSERT INTO edfi.SchoolGradeLevel (SchoolID, GradeLevelDescriptorID)
