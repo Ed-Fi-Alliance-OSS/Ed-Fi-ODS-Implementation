@@ -15,10 +15,11 @@ INSERT INTO [edfi].[EducationOrganization]
            ([EducationOrganizationId]
            ,[NameOfInstitution]
            ,[OperationalStatusDescriptorId]
+		   ,[Discriminator]
            ,[CreateDate]
            ,[LastModifiedDate])
      VALUES
-	 (35000000,'New Mexico Public Education Department',(SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://ed-fi.org/OperationalStatusDescriptor' AND CodeValue = 'Active'),GETDATE(),GETDATE());
+	 (35000000,'New Mexico Public Education Department',(SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://ed-fi.org/OperationalStatusDescriptor' AND CodeValue = 'Active'), 'edfi.StateEducationAgency' ,GETDATE(),GETDATE());
 
 INSERT INTO [edfi].[StateEducationAgency]
            ([StateEducationAgencyId])
