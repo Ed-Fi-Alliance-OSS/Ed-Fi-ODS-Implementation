@@ -30,6 +30,10 @@ function Get-DefaultDevelopmentSettingsByProject {
                         Name = "OwnershipBasedAuthorization"
                         IsEnabled =$true
                     }
+                    @{
+                        Name = "ChangeQueries"
+                        IsEnabled =$true
+                    }
                 )
               }
             ConnectionStrings = @{ }
