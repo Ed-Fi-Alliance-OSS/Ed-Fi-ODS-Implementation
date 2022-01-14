@@ -25,7 +25,7 @@ function Get-DefaultDevelopmentSettingsByProject {
             ApiSettings       = @{
                 Engine           = ""
                 PlainTextSecrets = $true
-              }
+            }
             ConnectionStrings = @{ }
             Logging           = @{
                 LogLevel = @{
