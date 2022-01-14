@@ -25,16 +25,6 @@ function Get-DefaultDevelopmentSettingsByProject {
             ApiSettings       = @{
                 Engine           = ""
                 PlainTextSecrets = $true
-                Features = @( 
-                    @{
-                        Name = "OwnershipBasedAuthorization"
-                        IsEnabled =$true
-                    }
-                    @{
-                        Name = "ChangeQueries"
-                        IsEnabled =$true
-                    }
-                )
               }
             ConnectionStrings = @{ }
             Logging           = @{
