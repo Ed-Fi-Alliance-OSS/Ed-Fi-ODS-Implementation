@@ -126,6 +126,12 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 Value = client.LocalEducationOrganizations,
                                 Key = client.ApiClientName + "LeaId"
                             });
+
+                        if (client.OwnershipToken != null)
+                        {
+                            _clientAppRepo.AddOwnershipTokensToApiClient(client.OwnershipToken, apiClient.ApiClientId);
+                        }
+
                     }
 
                     if (app.Profiles != null)
