@@ -12,6 +12,7 @@ using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using log4net;
+using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -47,7 +48,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             var postmanEnvironment = new PostmanEnvironment();
 
-            _clientAppRepo.Reset();
+           _clientAppRepo.Reset();
 
             if (!string.IsNullOrEmpty(_configurationFilePath))
             {
@@ -130,6 +131,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         if (client.OwnershipToken != null)
                         {
                             _clientAppRepo.AddOwnershipTokensToApiClient(client.OwnershipToken, apiClient.ApiClientId);
+                        }
+                        
+                        if (client.ApiClientOwnershipTokens != null)
+                        {
+                             _clientAppRepo.AddApiClientOwnershipTokens(client.ApiClientOwnershipTokens, apiClient.ApiClientId);
                         }
 
                     }
