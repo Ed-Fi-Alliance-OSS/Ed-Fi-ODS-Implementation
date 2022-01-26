@@ -47,7 +47,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             var postmanEnvironment = new PostmanEnvironment();
 
-           _clientAppRepo.Reset();
+            _clientAppRepo.Reset();
 
             if (!string.IsNullOrEmpty(_configurationFilePath))
             {
