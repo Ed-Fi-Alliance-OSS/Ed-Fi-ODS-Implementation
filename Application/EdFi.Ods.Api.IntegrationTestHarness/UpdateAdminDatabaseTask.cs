@@ -12,7 +12,6 @@ using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using log4net;
-using EdFi.Security.DataAccess.Repositories;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
