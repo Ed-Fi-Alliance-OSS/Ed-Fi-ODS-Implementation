@@ -878,12 +878,12 @@
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
-      "Email": "RecordOwnership@ed-fi.org",
-      "VendorName": "Record Ownership",
+      "Email": "OwnershipBased@ed-fi.org",
+      "VendorName": "Ownership Based",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
-          "ClaimSetName": "Record Ownership",
+          "ClaimSetName": "Ownership Based",
           "ApiClients": [
             {
               "ApiClientName": "255901-A",
