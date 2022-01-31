@@ -879,11 +879,11 @@
     },
     {
       "Email": "OwnershipBased@ed-fi.org",
-      "VendorName": "Ownership Based",
+      "VendorName": "Ownership Based Test",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
-          "ClaimSetName": "Ownership Based",
+          "ClaimSetName": "Ownership Based Test",
           "ApiClients": [
             {
               "ApiClientName": "255901-A",
