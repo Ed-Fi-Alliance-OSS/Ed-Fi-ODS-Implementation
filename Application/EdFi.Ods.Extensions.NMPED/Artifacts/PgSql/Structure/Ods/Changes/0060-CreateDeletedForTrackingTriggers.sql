@@ -109,20 +109,6 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ProgramIntensityDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ProgramIntensityDescriptor_TR_DelTrkg();
 
-CREATE FUNCTION tracked_deletes_nmped.SerivceSettingDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId, Id, ChangeVersion)
-    SELECT OLD.SerivceSettingDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.SerivceSettingDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SerivceSettingDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SerivceSettingDescriptor_TR_DelTrkg();
-
 CREATE FUNCTION tracked_deletes_nmped.ServiceProviderTypeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -136,6 +122,48 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ServiceProviderTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ServiceProviderTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.ServiceSettingDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ServiceSettingDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ServiceSettingDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.ServiceSettingDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.ServiceSettingDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.SpecialEducationEventReasonDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.SpecialEducationEventReasonDescriptor(SpecialEducationEventReasonDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SpecialEducationEventReasonDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SpecialEducationEventReasonDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SpecialEducationEventReasonDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SpecialEducationEventReasonDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.SpecialEducationEventTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.SpecialEducationEventTypeDescriptor(SpecialEducationEventTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SpecialEducationEventTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SpecialEducationEventTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SpecialEducationEventTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SpecialEducationEventTypeDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -151,6 +179,20 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SpecialEducationLevelOfIntegrationDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor(SpecialEducationNonComplianceReasonDescriptorId, Id, ChangeVersion)
+    SELECT OLD.SpecialEducationNonComplianceReasonDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.SpecialEducationNonComplianceReasonDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SpecialEducationNonComplianceReasonDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.SpecialProgramCodeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
@@ -164,4 +206,17 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.SpecialProgramCodeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.SpecialProgramCodeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec_c2cadc_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc(BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.BeginDate, OLD.EducationOrganizationId, OLD.ProgramEducationOrganizationId, OLD.ProgramName, OLD.ProgramTypeDescriptorId, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec_c2cadc_TR_DelTrkg();
 

@@ -23,14 +23,6 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_SerivceSettingDescriptor] FOREIGN KEY ([SerivceSettingDescriptorId])
-REFERENCES [nmped].[SerivceSettingDescriptor] ([SerivceSettingDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_NMPEDService_SerivceSettingDescriptor]
-ON [nmped].[NMPEDService] ([SerivceSettingDescriptorId] ASC)
-GO
-
 ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_ServiceDescriptor] FOREIGN KEY ([ServiceDescriptorId])
 REFERENCES [edfi].[ServiceDescriptor] ([ServiceDescriptorId])
 GO
@@ -41,6 +33,14 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_NMPEDService_ServiceProviderTypeDescriptor]
 ON [nmped].[NMPEDService] ([ServiceProviderTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_ServiceSettingDescriptor] FOREIGN KEY ([ServiceSettingDescriptorId])
+REFERENCES [nmped].[ServiceSettingDescriptor] ([ServiceSettingDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_NMPEDService_ServiceSettingDescriptor]
+ON [nmped].[NMPEDService] ([ServiceSettingDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[ParticipationInformationDescriptor] WITH CHECK ADD CONSTRAINT [FK_ParticipationInformationDescriptor_Descriptor] FOREIGN KEY ([ParticipationInformationDescriptorId])
@@ -58,17 +58,32 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [nmped].[SerivceSettingDescriptor] WITH CHECK ADD CONSTRAINT [FK_SerivceSettingDescriptor_Descriptor] FOREIGN KEY ([SerivceSettingDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
-GO
-
 ALTER TABLE [nmped].[ServiceProviderTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ServiceProviderTypeDescriptor_Descriptor] FOREIGN KEY ([ServiceProviderTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [nmped].[ServiceSettingDescriptor] WITH CHECK ADD CONSTRAINT [FK_ServiceSettingDescriptor_Descriptor] FOREIGN KEY ([ServiceSettingDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[SpecialEducationEventReasonDescriptor] WITH CHECK ADD CONSTRAINT [FK_SpecialEducationEventReasonDescriptor_Descriptor] FOREIGN KEY ([SpecialEducationEventReasonDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[SpecialEducationEventTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_SpecialEducationEventTypeDescriptor_Descriptor] FOREIGN KEY ([SpecialEducationEventTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] WITH CHECK ADD CONSTRAINT [FK_SpecialEducationLevelOfIntegrationDescriptor_Descriptor] FOREIGN KEY ([SpecialEducationLevelOfIntegrationDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[SpecialEducationNonComplianceReasonDescriptor] WITH CHECK ADD CONSTRAINT [FK_SpecialEducationNonComplianceReasonDescriptor_Descriptor] FOREIGN KEY ([SpecialEducationNonComplianceReasonDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -220,5 +235,33 @@ GO
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationExtension_StudentSpecialEducationProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventReasonDescriptor] FOREIGN KEY ([SpecialEducationEventReasonDescriptorId])
+REFERENCES [nmped].[SpecialEducationEventReasonDescriptor] ([SpecialEducationEventReasonDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventReasonDescriptor]
+ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([SpecialEducationEventReasonDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventTypeDescriptor] FOREIGN KEY ([SpecialEducationEventTypeDescriptorId])
+REFERENCES [nmped].[SpecialEducationEventTypeDescriptor] ([SpecialEducationEventTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventTypeDescriptor]
+ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([SpecialEducationEventTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationNonComplianceReasonDescriptor] FOREIGN KEY ([SpecialEducationNonComplianceReasonDescriptorId])
+REFERENCES [nmped].[SpecialEducationNonComplianceReasonDescriptor] ([SpecialEducationNonComplianceReasonDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationNonComplianceReasonDescriptor]
+ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([SpecialEducationNonComplianceReasonDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_StudentSpecialEducationProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 GO
 

@@ -8,3 +8,13 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_UpdateChangeVersion] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+

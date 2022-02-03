@@ -7,3 +7,12 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
                         3 = 50% of the day or more, but not a full day (extensive or 'C')
                         4 = Up to a full day or program 3Y/4Y (maximum or 'D')"
         is required
+    descriptor AnnualReviewDelayReason
+        documentation "The annual review delay reason."
+        is optional
+    descriptor TriennialReviewDelayReason
+        documentation "The triennual review delay reason."
+        is optional
+    descriptor PlannedPostGraduateActivity
+        documentation "The planned post graduate activity."
+        is optional

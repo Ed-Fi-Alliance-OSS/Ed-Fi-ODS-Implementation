@@ -97,11 +97,11 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="SerivceSetting" type="EXTENSION-SerivceSettingDescriptorReferenceType" minOccurs="0">
+          <xs:element name="ServiceSetting" type="EXTENSION-ServiceSettingDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The service setting.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-SerivceSettingDescriptor</ann:Descriptor>
+                <ann:Descriptor>EXTENSION-ServiceSettingDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -137,6 +137,54 @@
               <xs:documentation>Indicates the Baccalaureate Level Of Education Institution.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
+    <xs:annotation>
+      <xs:documentation>This is documentation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StudentSpecialEducationProgramAssociationReference" type="StudentSpecialEducationProgramAssociationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The student program association.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EventDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date of the event.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialEducationEventType" type="EXTENSION-SpecialEducationEventTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The special education event type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-SpecialEducationEventTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialEducationEventReason" type="EXTENSION-SpecialEducationEventReasonDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The special education event reason.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-SpecialEducationEventReasonDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialEducationNonComplianceReason" type="EXTENSION-SpecialEducationNonComplianceReasonDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The special education non compliance reason.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-SpecialEducationNonComplianceReasonDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -224,17 +272,6 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-SerivceSettingDescriptor">
-    <xs:annotation>
-      <xs:documentation>The service setting.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-ServiceProviderTypeDescriptor">
     <xs:annotation>
       <xs:documentation>The type of the service provider.</xs:documentation>
@@ -246,9 +283,53 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-ServiceSettingDescriptor">
+    <xs:annotation>
+      <xs:documentation>The service setting.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SpecialEducationEventReasonDescriptor">
+    <xs:annotation>
+      <xs:documentation>The special education event reason.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SpecialEducationEventTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The special education event type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SpecialEducationNonComplianceReasonDescriptor">
+    <xs:annotation>
+      <xs:documentation>The special education event non compliance reason.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -532,6 +613,40 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationSpecialEducationProgramEventIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StudentSpecialEducationProgramAssociationReference" type="StudentSpecialEducationProgramAssociationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The student program association.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationSpecialEducationProgramEventReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="StudentSpecialEducationProgramAssociationSpecialEducationProgramEventIdentity" type="EXTENSION-StudentSpecialEducationProgramAssociationSpecialEducationProgramEventIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
   </xs:annotation>
@@ -598,15 +713,6 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
-  <xs:simpleType name="EXTENSION-SerivceSettingDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>The service setting.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ServiceProviderTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The type of the service provider.</xs:documentation>
@@ -616,9 +722,45 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ServiceSettingDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The service setting.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-SpecialEducationEventReasonDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The special education event reason.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-SpecialEducationEventTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The special education event type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-SpecialEducationNonComplianceReasonDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The special education event non compliance reason.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

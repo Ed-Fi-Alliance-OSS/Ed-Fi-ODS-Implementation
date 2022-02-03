@@ -57,7 +57,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The name of th
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the service provider.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceProviderTypeDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'SerivceSettingDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceSettingDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the duration of the service.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService', @level2type=N'COLUMN', @level2name=N'ServiceDuration'
 GO
@@ -80,22 +80,40 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ProgramIntensityDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramIntensityDescriptorId'
 GO
 
--- Extended Properties [nmped].[SerivceSettingDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SerivceSettingDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SerivceSettingDescriptor', @level2type=N'COLUMN', @level2name=N'SerivceSettingDescriptorId'
-GO
-
 -- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of the service provider.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceProviderTypeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceProviderTypeDescriptor', @level2type=N'COLUMN', @level2name=N'ServiceProviderTypeDescriptorId'
 GO
 
+-- Extended Properties [nmped].[ServiceSettingDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The service setting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceSettingDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ServiceSettingDescriptor', @level2type=N'COLUMN', @level2name=N'ServiceSettingDescriptorId'
+GO
+
+-- Extended Properties [nmped].[SpecialEducationEventReasonDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationEventReasonDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationEventReasonDescriptor', @level2type=N'COLUMN', @level2name=N'SpecialEducationEventReasonDescriptorId'
+GO
+
+-- Extended Properties [nmped].[SpecialEducationEventTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationEventTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationEventTypeDescriptor', @level2type=N'COLUMN', @level2name=N'SpecialEducationEventTypeDescriptorId'
+GO
+
 -- Extended Properties [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the type of Levels of Integration.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationLevelOfIntegrationDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationLevelOfIntegrationDescriptor', @level2type=N'COLUMN', @level2name=N'SpecialEducationLevelOfIntegrationDescriptorId'
+GO
+
+-- Extended Properties [nmped].[SpecialEducationNonComplianceReasonDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event non compliance reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationNonComplianceReasonDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'SpecialEducationNonComplianceReasonDescriptor', @level2type=N'COLUMN', @level2name=N'SpecialEducationNonComplianceReasonDescriptorId'
 GO
 
 -- Extended Properties [nmped].[SpecialProgramCodeDescriptor] --
@@ -289,5 +307,29 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This field hol
                         2 = 11% to 49% of the day (moderate or ''B'')
                         3 = 50% of the day or more, but not a full day (extensive or ''C'')
                         4 = Up to a full day or program 3Y/4Y (maximum or ''D'')', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'SpecialEducationLevelOfIntegrationDescriptorId'
+GO
+
+-- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This is documentation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date of the event.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'EventDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationEventTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationEventReasonDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education non compliance reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationNonComplianceReasonDescriptorId'
 GO
 

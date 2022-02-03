@@ -785,24 +785,24 @@ INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId)
 
 /*Service Setting*/
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/SerivceSettingDescriptor','BEFORESCHOOL','BEFORESCHOOL','BEFORESCHOOL');
-INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/ServiceSettingDescriptor','BEFORESCHOOL','BEFORESCHOOL','BEFORESCHOOL');
+INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/SerivceSettingDescriptor','AFTERSCHOOL','AFTERSCHOOL','AFTERSCHOOL');
-INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/ServiceSettingDescriptor','AFTERSCHOOL','AFTERSCHOOL','AFTERSCHOOL');
+INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/SerivceSettingDescriptor','WEEKEND','WEEKEND','WEEKEND');
-INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/ServiceSettingDescriptor','WEEKEND','WEEKEND','WEEKEND');
+INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/SerivceSettingDescriptor','SUMMER','SUMMER','SUMMER');
-INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/ServiceSettingDescriptor','SUMMER','SUMMER','SUMMER');
+INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/SerivceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');
-INSERT INTO nmped.SerivceSettingDescriptor(SerivceSettingDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/ServiceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');
+INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
 /* Program Intensity Descriptor */
 --DECLARE @@IDENTITY AS Integer;

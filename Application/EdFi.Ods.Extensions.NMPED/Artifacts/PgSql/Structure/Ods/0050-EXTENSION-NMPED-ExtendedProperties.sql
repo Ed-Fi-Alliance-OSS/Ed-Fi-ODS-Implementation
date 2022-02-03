@@ -33,7 +33,7 @@ COMMENT ON COLUMN nmped.NMPEDService.ServiceEndDate IS 'Last date the Student wa
 COMMENT ON COLUMN nmped.NMPEDService.ServiceFrequency IS 'Indicates the frequency of the service.';
 COMMENT ON COLUMN nmped.NMPEDService.ServiceProviderName IS 'The name of the service provider.';
 COMMENT ON COLUMN nmped.NMPEDService.ServiceProviderTypeDescriptorId IS 'The type of the service provider.';
-COMMENT ON COLUMN nmped.NMPEDService.SerivceSettingDescriptorId IS 'The service setting.';
+COMMENT ON COLUMN nmped.NMPEDService.ServiceSettingDescriptorId IS 'The service setting.';
 COMMENT ON COLUMN nmped.NMPEDService.ServiceDuration IS 'Indicates the duration of the service.';
 
 -- Extended Properties [nmped].[ParticipationInformationDescriptor] --
@@ -48,17 +48,29 @@ COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDes
 COMMENT ON TABLE nmped.ProgramIntensityDescriptor IS 'This descriptor describes the Program Intensity.';
 COMMENT ON COLUMN nmped.ProgramIntensityDescriptor.ProgramIntensityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [nmped].[SerivceSettingDescriptor] --
-COMMENT ON TABLE nmped.SerivceSettingDescriptor IS 'The service setting.';
-COMMENT ON COLUMN nmped.SerivceSettingDescriptor.SerivceSettingDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
 -- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
 COMMENT ON TABLE nmped.ServiceProviderTypeDescriptor IS 'The type of the service provider.';
 COMMENT ON COLUMN nmped.ServiceProviderTypeDescriptor.ServiceProviderTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[ServiceSettingDescriptor] --
+COMMENT ON TABLE nmped.ServiceSettingDescriptor IS 'The service setting.';
+COMMENT ON COLUMN nmped.ServiceSettingDescriptor.ServiceSettingDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[SpecialEducationEventReasonDescriptor] --
+COMMENT ON TABLE nmped.SpecialEducationEventReasonDescriptor IS 'The special education event reason.';
+COMMENT ON COLUMN nmped.SpecialEducationEventReasonDescriptor.SpecialEducationEventReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[SpecialEducationEventTypeDescriptor] --
+COMMENT ON TABLE nmped.SpecialEducationEventTypeDescriptor IS 'The special education event type.';
+COMMENT ON COLUMN nmped.SpecialEducationEventTypeDescriptor.SpecialEducationEventTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[SpecialEducationLevelOfIntegrationDescriptor] --
 COMMENT ON TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor IS 'This descriptor describes the type of Levels of Integration.';
 COMMENT ON COLUMN nmped.SpecialEducationLevelOfIntegrationDescriptor.SpecialEducationLevelOfIntegrationDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[SpecialEducationNonComplianceReasonDescriptor] --
+COMMENT ON TABLE nmped.SpecialEducationNonComplianceReasonDescriptor IS 'The special education event non compliance reason.';
+COMMENT ON COLUMN nmped.SpecialEducationNonComplianceReasonDescriptor.SpecialEducationNonComplianceReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[SpecialProgramCodeDescriptor] --
 COMMENT ON TABLE nmped.SpecialProgramCodeDescriptor IS 'This Code for the special program.';
@@ -174,4 +186,17 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.Speci
                         2 = 11% to 49% of the day (moderate or ''B'')
                         3 = 50% of the day or more, but not a full day (extensive or ''C'')
                         4 = Up to a full day or program 3Y/4Y (maximum or ''D'')';
+
+-- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc] --
+COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc IS 'This is documentation.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.EventDate IS 'The date of the event.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.SpecialEducationEventTypeDescriptorId IS 'The special education event type.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.SpecialEducationEventReasonDescriptorId IS 'The special education event reason.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.SpecialEducationNonComplianceReasonDescriptorId IS 'The special education non compliance reason.';
 

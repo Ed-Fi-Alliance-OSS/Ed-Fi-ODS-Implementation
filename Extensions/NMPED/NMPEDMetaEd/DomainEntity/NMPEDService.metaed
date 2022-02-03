@@ -22,7 +22,7 @@ Domain Entity NMPEDService
   descriptor ServiceProviderType
     documentation "The type of the service provider."
     is optional
-  descriptor SerivceSetting
+  descriptor ServiceSetting
     documentation "The service setting."
     is optional
   integer ServiceDuration

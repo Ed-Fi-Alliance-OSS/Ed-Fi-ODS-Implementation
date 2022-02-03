@@ -24,17 +24,29 @@
   <Aggregate root="ProgramIntensityDescriptor">
     <Entity table="ProgramIntensityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
-  <Aggregate root="SerivceSettingDescriptor">
-    <Entity table="SerivceSettingDescriptor" isA="Descriptor" schema="nmped"/>
-  </Aggregate>
   <Aggregate root="ServiceProviderTypeDescriptor">
     <Entity table="ServiceProviderTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="ServiceSettingDescriptor">
+    <Entity table="ServiceSettingDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="SpecialEducationEventReasonDescriptor">
+    <Entity table="SpecialEducationEventReasonDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="SpecialEducationEventTypeDescriptor">
+    <Entity table="SpecialEducationEventTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
     <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="SpecialEducationNonComplianceReasonDescriptor">
+    <Entity table="SpecialEducationNonComplianceReasonDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="SpecialProgramCodeDescriptor">
     <Entity table="SpecialProgramCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
+    <Entity table="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent" schema="nmped"/>
   </Aggregate>
   <AggregateExtension root="StudentProgramAssociation">
     <Entity table="StudentProgramAssociationNMPEDService" schema="nmped"/>

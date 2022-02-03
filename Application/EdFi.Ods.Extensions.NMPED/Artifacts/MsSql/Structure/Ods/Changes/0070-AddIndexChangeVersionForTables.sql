@@ -4,3 +4,9 @@ BEGIN TRANSACTION
     GO
 COMMIT
 
+BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent') AND name = N'UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion')
+    CREATE INDEX [UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([ChangeVersion] ASC)
+    GO
+COMMIT
+

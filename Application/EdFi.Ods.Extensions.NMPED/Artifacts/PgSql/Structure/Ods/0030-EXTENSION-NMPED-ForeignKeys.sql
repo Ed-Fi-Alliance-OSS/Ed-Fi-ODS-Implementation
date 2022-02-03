@@ -23,13 +23,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_SerivceSettingDescriptor FOREIGN KEY (SerivceSettingDescriptorId)
-REFERENCES nmped.SerivceSettingDescriptor (SerivceSettingDescriptorId)
-;
-
-CREATE INDEX FK_aff4a0_SerivceSettingDescriptor
-ON nmped.NMPEDService (SerivceSettingDescriptorId ASC);
-
 ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
 REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
 ;
@@ -40,6 +33,13 @@ REFERENCES nmped.ServiceProviderTypeDescriptor (ServiceProviderTypeDescriptorId)
 
 CREATE INDEX FK_aff4a0_ServiceProviderTypeDescriptor
 ON nmped.NMPEDService (ServiceProviderTypeDescriptorId ASC);
+
+ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_ServiceSettingDescriptor FOREIGN KEY (ServiceSettingDescriptorId)
+REFERENCES nmped.ServiceSettingDescriptor (ServiceSettingDescriptorId)
+;
+
+CREATE INDEX FK_aff4a0_ServiceSettingDescriptor
+ON nmped.NMPEDService (ServiceSettingDescriptorId ASC);
 
 ALTER TABLE nmped.ParticipationInformationDescriptor ADD CONSTRAINT FK_2ffea1_Descriptor FOREIGN KEY (ParticipationInformationDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
@@ -56,17 +56,32 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE nmped.SerivceSettingDescriptor ADD CONSTRAINT FK_918c7e_Descriptor FOREIGN KEY (SerivceSettingDescriptorId)
-REFERENCES edfi.Descriptor (DescriptorId)
-ON DELETE CASCADE
-;
-
 ALTER TABLE nmped.ServiceProviderTypeDescriptor ADD CONSTRAINT FK_29f0da_Descriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.ServiceSettingDescriptor ADD CONSTRAINT FK_5c6df0_Descriptor FOREIGN KEY (ServiceSettingDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.SpecialEducationEventReasonDescriptor ADD CONSTRAINT FK_08a218_Descriptor FOREIGN KEY (SpecialEducationEventReasonDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.SpecialEducationEventTypeDescriptor ADD CONSTRAINT FK_53c615_Descriptor FOREIGN KEY (SpecialEducationEventTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor ADD CONSTRAINT FK_74d1c3_Descriptor FOREIGN KEY (SpecialEducationLevelOfIntegrationDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.SpecialEducationNonComplianceReasonDescriptor ADD CONSTRAINT FK_63b75c_Descriptor FOREIGN KEY (SpecialEducationNonComplianceReasonDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -206,5 +221,30 @@ ON nmped.StudentSpecialEducationProgramAssociationExtension (SpecialEducationLev
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationExtension ADD CONSTRAINT FK_3da84f_StudentSpecialEducationProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.StudentSpecialEducationProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ADD CONSTRAINT FK_c2cadc_SpecialEducationEventReasonDescriptor FOREIGN KEY (SpecialEducationEventReasonDescriptorId)
+REFERENCES nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId)
+;
+
+CREATE INDEX FK_c2cadc_SpecialEducationEventReasonDescriptor
+ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc (SpecialEducationEventReasonDescriptorId ASC);
+
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ADD CONSTRAINT FK_c2cadc_SpecialEducationEventTypeDescriptor FOREIGN KEY (SpecialEducationEventTypeDescriptorId)
+REFERENCES nmped.SpecialEducationEventTypeDescriptor (SpecialEducationEventTypeDescriptorId)
+;
+
+CREATE INDEX FK_c2cadc_SpecialEducationEventTypeDescriptor
+ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc (SpecialEducationEventTypeDescriptorId ASC);
+
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ADD CONSTRAINT FK_c2cadc_SpecialEducationNonComplianceReasonDescriptor FOREIGN KEY (SpecialEducationNonComplianceReasonDescriptorId)
+REFERENCES nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorId)
+;
+
+CREATE INDEX FK_c2cadc_SpecialEducationNonComplianceReasonDescriptor
+ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc (SpecialEducationNonComplianceReasonDescriptorId ASC);
+
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ADD CONSTRAINT FK_c2cadc_StudentSpecialEducationProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+REFERENCES edfi.StudentSpecialEducationProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ;
 

@@ -62,20 +62,36 @@ CREATE TABLE tracked_deletes_nmped.ProgramIntensityDescriptor
        CONSTRAINT ProgramIntensityDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.SerivceSettingDescriptor
-(
-       SerivceSettingDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SerivceSettingDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.ServiceProviderTypeDescriptor
 (
        ServiceProviderTypeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT ServiceProviderTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.ServiceSettingDescriptor
+(
+       ServiceSettingDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT ServiceSettingDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.SpecialEducationEventReasonDescriptor
+(
+       SpecialEducationEventReasonDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SpecialEducationEventReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.SpecialEducationEventTypeDescriptor
+(
+       SpecialEducationEventTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SpecialEducationEventTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor
@@ -86,11 +102,32 @@ CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor
        CONSTRAINT SpecialEducationLevelOfIntegrationDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor
+(
+       SpecialEducationNonComplianceReasonDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SpecialEducationNonComplianceReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.SpecialProgramCodeDescriptor
 (
        SpecialProgramCodeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
+(
+       BeginDate DATE NOT NULL,
+       EducationOrganizationId INT NOT NULL,
+       ProgramEducationOrganizationId INT NOT NULL,
+       ProgramName VARCHAR(60) NOT NULL,
+       ProgramTypeDescriptorId INT NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK PRIMARY KEY (ChangeVersion)
 );
 

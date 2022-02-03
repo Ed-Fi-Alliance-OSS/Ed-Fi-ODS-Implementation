@@ -45,7 +45,7 @@ CREATE TABLE nmped.NMPEDService (
     ServiceFrequency INT NULL,
     ServiceProviderName VARCHAR(255) NULL,
     ServiceProviderTypeDescriptorId INT NULL,
-    SerivceSettingDescriptorId INT NULL,
+    ServiceSettingDescriptorId INT NULL,
     ServiceDuration INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -75,22 +75,40 @@ CREATE TABLE nmped.ProgramIntensityDescriptor (
     CONSTRAINT ProgramIntensityDescriptor_PK PRIMARY KEY (ProgramIntensityDescriptorId)
 ); 
 
--- Table nmped.SerivceSettingDescriptor --
-CREATE TABLE nmped.SerivceSettingDescriptor (
-    SerivceSettingDescriptorId INT NOT NULL,
-    CONSTRAINT SerivceSettingDescriptor_PK PRIMARY KEY (SerivceSettingDescriptorId)
-); 
-
 -- Table nmped.ServiceProviderTypeDescriptor --
 CREATE TABLE nmped.ServiceProviderTypeDescriptor (
     ServiceProviderTypeDescriptorId INT NOT NULL,
     CONSTRAINT ServiceProviderTypeDescriptor_PK PRIMARY KEY (ServiceProviderTypeDescriptorId)
 ); 
 
+-- Table nmped.ServiceSettingDescriptor --
+CREATE TABLE nmped.ServiceSettingDescriptor (
+    ServiceSettingDescriptorId INT NOT NULL,
+    CONSTRAINT ServiceSettingDescriptor_PK PRIMARY KEY (ServiceSettingDescriptorId)
+); 
+
+-- Table nmped.SpecialEducationEventReasonDescriptor --
+CREATE TABLE nmped.SpecialEducationEventReasonDescriptor (
+    SpecialEducationEventReasonDescriptorId INT NOT NULL,
+    CONSTRAINT SpecialEducationEventReasonDescriptor_PK PRIMARY KEY (SpecialEducationEventReasonDescriptorId)
+); 
+
+-- Table nmped.SpecialEducationEventTypeDescriptor --
+CREATE TABLE nmped.SpecialEducationEventTypeDescriptor (
+    SpecialEducationEventTypeDescriptorId INT NOT NULL,
+    CONSTRAINT SpecialEducationEventTypeDescriptor_PK PRIMARY KEY (SpecialEducationEventTypeDescriptorId)
+); 
+
 -- Table nmped.SpecialEducationLevelOfIntegrationDescriptor --
 CREATE TABLE nmped.SpecialEducationLevelOfIntegrationDescriptor (
     SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,
     CONSTRAINT SpecialEducationLevelOfIntegrationDescriptor_PK PRIMARY KEY (SpecialEducationLevelOfIntegrationDescriptorId)
+); 
+
+-- Table nmped.SpecialEducationNonComplianceReasonDescriptor --
+CREATE TABLE nmped.SpecialEducationNonComplianceReasonDescriptor (
+    SpecialEducationNonComplianceReasonDescriptorId INT NOT NULL,
+    CONSTRAINT SpecialEducationNonComplianceReasonDescriptor_PK PRIMARY KEY (SpecialEducationNonComplianceReasonDescriptorId)
 ); 
 
 -- Table nmped.SpecialProgramCodeDescriptor --
@@ -234,4 +252,26 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (
     CONSTRAINT StudentSpecialEducationProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc --
+CREATE TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    EventDate DATE NOT NULL,
+    SpecialEducationEventTypeDescriptorId INT NOT NULL,
+    SpecialEducationEventReasonDescriptorId INT NULL,
+    SpecialEducationNonComplianceReasonDescriptorId INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 

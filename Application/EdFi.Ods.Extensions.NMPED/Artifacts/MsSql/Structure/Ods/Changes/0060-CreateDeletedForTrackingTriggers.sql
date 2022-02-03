@@ -141,24 +141,6 @@ ALTER TABLE [nmped].[ProgramIntensityDescriptor] ENABLE TRIGGER [nmped_ProgramIn
 GO
 
 
-CREATE TRIGGER [nmped].[nmped_SerivceSettingDescriptor_TR_DeleteTracking] ON [nmped].[SerivceSettingDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_nmped].[SerivceSettingDescriptor](SerivceSettingDescriptorId, Id, ChangeVersion)
-    SELECT  d.SerivceSettingDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.SerivceSettingDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [nmped].[SerivceSettingDescriptor] ENABLE TRIGGER [nmped_SerivceSettingDescriptor_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [nmped].[nmped_ServiceProviderTypeDescriptor_TR_DeleteTracking] ON [nmped].[ServiceProviderTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -174,6 +156,60 @@ END
 GO
 
 ALTER TABLE [nmped].[ServiceProviderTypeDescriptor] ENABLE TRIGGER [nmped_ServiceProviderTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_ServiceSettingDescriptor_TR_DeleteTracking] ON [nmped].[ServiceSettingDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[ServiceSettingDescriptor](ServiceSettingDescriptorId, Id, ChangeVersion)
+    SELECT  d.ServiceSettingDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ServiceSettingDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[ServiceSettingDescriptor] ENABLE TRIGGER [nmped_ServiceSettingDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_SpecialEducationEventReasonDescriptor_TR_DeleteTracking] ON [nmped].[SpecialEducationEventReasonDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[SpecialEducationEventReasonDescriptor](SpecialEducationEventReasonDescriptorId, Id, ChangeVersion)
+    SELECT  d.SpecialEducationEventReasonDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SpecialEducationEventReasonDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[SpecialEducationEventReasonDescriptor] ENABLE TRIGGER [nmped_SpecialEducationEventReasonDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_SpecialEducationEventTypeDescriptor_TR_DeleteTracking] ON [nmped].[SpecialEducationEventTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[SpecialEducationEventTypeDescriptor](SpecialEducationEventTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.SpecialEducationEventTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SpecialEducationEventTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[SpecialEducationEventTypeDescriptor] ENABLE TRIGGER [nmped_SpecialEducationEventTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -195,6 +231,24 @@ ALTER TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] ENABLE TRIGGE
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_SpecialEducationNonComplianceReasonDescriptor_TR_DeleteTracking] ON [nmped].[SpecialEducationNonComplianceReasonDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[SpecialEducationNonComplianceReasonDescriptor](SpecialEducationNonComplianceReasonDescriptorId, Id, ChangeVersion)
+    SELECT  d.SpecialEducationNonComplianceReasonDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.SpecialEducationNonComplianceReasonDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[SpecialEducationNonComplianceReasonDescriptor] ENABLE TRIGGER [nmped_SpecialEducationNonComplianceReasonDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_SpecialProgramCodeDescriptor_TR_DeleteTracking] ON [nmped].[SpecialProgramCodeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -210,6 +264,23 @@ END
 GO
 
 ALTER TABLE [nmped].[SpecialProgramCodeDescriptor] ENABLE TRIGGER [nmped_SpecialProgramCodeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_DeleteTracking] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent](BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ENABLE TRIGGER [nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_DeleteTracking]
 GO
 
 

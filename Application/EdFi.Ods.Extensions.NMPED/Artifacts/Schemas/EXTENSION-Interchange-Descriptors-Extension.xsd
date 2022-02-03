@@ -195,9 +195,12 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="ParticipationInformationDescriptor" type="EXTENSION-ParticipationInformationDescriptor" />
         <xs:element name="ProgramDeliveryMethodDescriptor" type="EXTENSION-ProgramDeliveryMethodDescriptor" />
         <xs:element name="ProgramIntensityDescriptor" type="EXTENSION-ProgramIntensityDescriptor" />
-        <xs:element name="SerivceSettingDescriptor" type="EXTENSION-SerivceSettingDescriptor" />
         <xs:element name="ServiceProviderTypeDescriptor" type="EXTENSION-ServiceProviderTypeDescriptor" />
+        <xs:element name="ServiceSettingDescriptor" type="EXTENSION-ServiceSettingDescriptor" />
+        <xs:element name="SpecialEducationEventReasonDescriptor" type="EXTENSION-SpecialEducationEventReasonDescriptor" />
+        <xs:element name="SpecialEducationEventTypeDescriptor" type="EXTENSION-SpecialEducationEventTypeDescriptor" />
         <xs:element name="SpecialEducationLevelOfIntegrationDescriptor" type="EXTENSION-SpecialEducationLevelOfIntegrationDescriptor" />
+        <xs:element name="SpecialEducationNonComplianceReasonDescriptor" type="EXTENSION-SpecialEducationNonComplianceReasonDescriptor" />
         <xs:element name="SpecialProgramCodeDescriptor" type="EXTENSION-SpecialProgramCodeDescriptor" />
       </xs:choice>
     </xs:complexType>
