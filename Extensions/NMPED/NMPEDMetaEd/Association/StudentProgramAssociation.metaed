@@ -4,7 +4,7 @@ Association EdFi.StudentProgramAssociation additions
       is optional collection
   descriptor ParticipationInformation
       documentation "Indicates the program participation information."
-      is required
+      is optional
     descriptor ProgramIntensity
         documentation "Indicates the program Intensity."
-        is required
+        is optional

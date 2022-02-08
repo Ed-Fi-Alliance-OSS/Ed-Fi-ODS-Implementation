@@ -3,7 +3,7 @@ descriptor SpecialProgramCode
     documentation "The special program code the student is in.
                   D = Dual Credit Course
                   C = Concurrent Enrollment Course"
-    is required
+    is optional
 string AlternateCreditCourseCode
   documentation "ALTERNATE CREDIT COURSE CODE"
   is optional
