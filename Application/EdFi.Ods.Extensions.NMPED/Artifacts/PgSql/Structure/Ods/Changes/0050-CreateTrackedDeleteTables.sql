@@ -1,3 +1,11 @@
+CREATE TABLE tracked_deletes_nmped.AnnualReviewDelayReasonDescriptor
+(
+       AnnualReviewDelayReasonDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT AnnualReviewDelayReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.ClassPeriodDescriptor
 (
        ClassPeriodDescriptorId INT NOT NULL,
@@ -6,12 +14,60 @@ CREATE TABLE tracked_deletes_nmped.ClassPeriodDescriptor
        CONSTRAINT ClassPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.DentalExaminationVerificationCodeDescriptor
+(
+       DentalExaminationVerificationCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT DentalExaminationVerificationCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.DigitalEquityInternetAccessTypeDescriptor
+(
+       DigitalEquityInternetAccessTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT DigitalEquityInternetAccessTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.DigitalEquityInternetPerformanceCodeDescriptor
+(
+       DigitalEquityInternetPerformanceCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT DigitalEquityInternetPerformanceCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor
+(
+       DigitalEquityPrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor
+(
+       DigitalEquityPrimaryLearningDeviceTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.DirectCertificationStatusDescriptor
 (
        DirectCertificationStatusDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT DirectCertificationStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.GenderIdentityDescriptor
+(
+       GenderIdentityDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT GenderIdentityDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.IndustryCredentialDescriptor
@@ -44,6 +100,14 @@ CREATE TABLE tracked_deletes_nmped.ParticipationInformationDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT ParticipationInformationDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.PlannedPostGraduateActivityDescriptor
+(
+       PlannedPostGraduateActivityDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT PlannedPostGraduateActivityDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor
@@ -118,6 +182,43 @@ CREATE TABLE tracked_deletes_nmped.SpecialProgramCodeDescriptor
        CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.StaffDevelopment
+(
+       EducationOrganizationId INT NOT NULL,
+       StaffUSI INT NOT NULL,
+       StartDate DATE NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StaffDevelopment_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StaffDevelopmentActivityCodeDescriptor
+(
+       StaffDevelopmentActivityCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StaffDevelopmentActivityCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StaffDevelopmentPurposeCodeDescriptor
+(
+       StaffDevelopmentPurposeCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StaffDevelopmentPurposeCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StaffEducationOrganizationDigitalEquity
+(
+       EducationOrganizationId INT NOT NULL,
+       SchoolYear SMALLINT NOT NULL,
+       StaffUSI INT NOT NULL,
+       StartDate DATE NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StaffEducationOrganizationDigitalEquity_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
 (
        BeginDate DATE NOT NULL,
@@ -129,5 +230,13 @@ CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.TriennialReviewDelayReasonDescriptor
+(
+       TriennialReviewDelayReasonDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT TriennialReviewDelayReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 

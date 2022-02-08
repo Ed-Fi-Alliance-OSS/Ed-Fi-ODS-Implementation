@@ -9,6 +9,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "AnnualReviewDelayReasonDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "AnnualReviewDelayReasonDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "ClassPeriodDescriptor"
       },
       "aggregateEntityNames": [
@@ -21,12 +33,84 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "DentalExaminationVerificationCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "DentalExaminationVerificationCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetAccessTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "DigitalEquityInternetAccessTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetPerformanceCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "DigitalEquityInternetPerformanceCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "DirectCertificationStatusDescriptor"
       },
       "aggregateEntityNames": [
         {
           "schema": "nmped",
           "name": "DirectCertificationStatusDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "GenderIdentityDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "GenderIdentityDescriptor"
         }
       ]
     },
@@ -75,6 +159,18 @@
         {
           "schema": "nmped",
           "name": "ParticipationInformationDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "PlannedPostGraduateActivityDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "PlannedPostGraduateActivityDescriptor"
         }
       ]
     },
@@ -189,12 +285,72 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "StaffDevelopment"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StaffDevelopment"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentActivityCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StaffDevelopmentActivityCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentPurposeCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StaffDevelopmentPurposeCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StaffEducationOrganizationDigitalEquity"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
       },
       "aggregateEntityNames": [
         {
           "schema": "nmped",
           "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "TriennialReviewDelayReasonDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "TriennialReviewDelayReasonDescriptor"
         }
       ]
     }
@@ -214,6 +370,31 @@
     }
   ],
   "entityDefinitions": [
+    {
+      "schema": "nmped",
+      "name": "AnnualReviewDelayReasonDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "AnnualReviewDelayReasonDescriptor_PK",
+          "identifyingPropertyNames": [
+            "AnnualReviewDelayReasonDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "AnnualReviewDelayReasonDescriptor_PK",
+            "postgreSql": "AnnualReviewDelayReasonDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The annual review delay reason.",
+      "tableNames": {
+        "sqlServer": "AnnualReviewDelayReasonDescriptor",
+        "postgreSql": "AnnualReviewDelayReasonDescriptor"
+      }
+    },
     {
       "schema": "nmped",
       "name": "ClassPeriodDescriptor",
@@ -237,6 +418,131 @@
       "tableNames": {
         "sqlServer": "ClassPeriodDescriptor",
         "postgreSql": "ClassPeriodDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "DentalExaminationVerificationCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "DentalExaminationVerificationCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "DentalExaminationVerificationCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DentalExaminationVerificationCodeDescriptor_PK",
+            "postgreSql": "DentalExaminationVerificationCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The code of the dental examination performed.",
+      "tableNames": {
+        "sqlServer": "DentalExaminationVerificationCodeDescriptor",
+        "postgreSql": "DentalExaminationVerificationCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "DigitalEquityInternetAccessTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "DigitalEquityInternetAccessTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "DigitalEquityInternetAccessTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DigitalEquityInternetAccessTypeDescriptor_PK",
+            "postgreSql": "DigitalEquityInternetAccessTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The digital equity internet access type.",
+      "tableNames": {
+        "sqlServer": "DigitalEquityInternetAccessTypeDescriptor",
+        "postgreSql": "DigitalEquityInternetAccessTypeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "DigitalEquityInternetPerformanceCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "DigitalEquityInternetPerformanceCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "DigitalEquityInternetPerformanceCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptor_PK",
+            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The digital equity internet performance code.",
+      "tableNames": {
+        "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptor",
+        "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK",
+          "identifyingPropertyNames": [
+            "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The digital equity primary leanring device access.",
+      "tableNames": {
+        "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptor",
+        "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The digital equity primary leaning device type.",
+      "tableNames": {
+        "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptor",
+        "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
       }
     },
     {
@@ -391,6 +697,31 @@
       "tableNames": {
         "sqlServer": "DisciplineIncidentExtension",
         "postgreSql": "DisciplineIncidentExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "GenderIdentityDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "GenderIdentityDescriptor_PK",
+          "identifyingPropertyNames": [
+            "GenderIdentityDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "GenderIdentityDescriptor_PK",
+            "postgreSql": "GenderIdentityDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The gender the person identifies with.",
+      "tableNames": {
+        "sqlServer": "GenderIdentityDescriptor",
+        "postgreSql": "GenderIdentityDescriptor"
       }
     },
     {
@@ -661,6 +992,31 @@
     },
     {
       "schema": "nmped",
+      "name": "PlannedPostGraduateActivityDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "PlannedPostGraduateActivityDescriptor_PK",
+          "identifyingPropertyNames": [
+            "PlannedPostGraduateActivityDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "PlannedPostGraduateActivityDescriptor_PK",
+            "postgreSql": "PlannedPostGraduateActivityDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The planned post graduate activity.",
+      "tableNames": {
+        "sqlServer": "PlannedPostGraduateActivityDescriptor",
+        "postgreSql": "PlannedPostGraduateActivityDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "ProgramDeliveryMethodDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -886,6 +1242,215 @@
     },
     {
       "schema": "nmped",
+      "name": "StaffDevelopment",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "ActivityHours",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The hours the activity took.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ActivityHours",
+            "postgreSql": "ActivityHours"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The date the staff development ended.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EndDate",
+            "postgreSql": "EndDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "StaffCreditsEarned",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The credits earned by the staff.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffCreditsEarned",
+            "postgreSql": "StaffCreditsEarned"
+          }
+        },
+        {
+          "propertyName": "StartDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The date the staff development started.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StartDate",
+            "postgreSql": "StartDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StaffDevelopment_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StaffUSI",
+            "StartDate"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffDevelopment_PK",
+            "postgreSql": "StaffDevelopment_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StaffDevelopment_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_StaffDevelopment_Id",
+            "postgreSql": "UX_62d69c_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The development activities a staff has accomplished.",
+      "tableNames": {
+        "sqlServer": "StaffDevelopment",
+        "postgreSql": "StaffDevelopment"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StaffDevelopmentActivityCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "StaffDevelopmentActivityCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "StaffDevelopmentActivityCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffDevelopmentActivityCodeDescriptor_PK",
+            "postgreSql": "StaffDevelopmentActivityCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This descriptor describes the staff development activity code.",
+      "tableNames": {
+        "sqlServer": "StaffDevelopmentActivityCodeDescriptor",
+        "postgreSql": "StaffDevelopmentActivityCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StaffDevelopmentPurposeCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "StaffDevelopmentPurposeCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "StaffDevelopmentPurposeCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffDevelopmentPurposeCodeDescriptor_PK",
+            "postgreSql": "StaffDevelopmentPurposeCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "This descriptor describes the staff development purpose.",
+      "tableNames": {
+        "sqlServer": "StaffDevelopmentPurposeCodeDescriptor",
+        "postgreSql": "StaffDevelopmentPurposeCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "StaffEducationOrganizationAssignmentAssociationExtension",
       "locallyDefinedProperties": [
         {
@@ -945,6 +1510,166 @@
       "tableNames": {
         "sqlServer": "StaffEducationOrganizationAssignmentAssociationExtension",
         "postgreSql": "StaffEducationOrganizationAssignmentAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StaffEducationOrganizationDigitalEquity",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "EndDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The date the digital equity ended.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EndDate",
+            "postgreSql": "EndDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "InternetAccessInResidence",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates if there is Internet access in the staff's residece.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "InternetAccessInResidence",
+            "postgreSql": "InternetAccessInResidence"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "SchoolProvidedDevice",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates whether the school provides a device or not.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolProvidedDevice",
+            "postgreSql": "SchoolProvidedDevice"
+          }
+        },
+        {
+          "propertyName": "StartDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The date the digital equity started.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StartDate",
+            "postgreSql": "StartDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StaffEducationOrganizationDigitalEquity_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StaffUSI",
+            "StartDate"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StaffEducationOrganizationDigitalEquity_PK",
+            "postgreSql": "StaffEducationOrganizationDigitalEquity_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StaffEducationOrganizationDigitalEquity_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_StaffEducationOrganizationDigitalEquity_Id",
+            "postgreSql": "UX_f6e59f_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The staff digital equity.",
+      "tableNames": {
+        "sqlServer": "StaffEducationOrganizationDigitalEquity",
+        "postgreSql": "StaffEducationOrganizationDigitalEquity"
       }
     },
     {
@@ -1179,6 +1904,49 @@
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationExtension",
         "postgreSql": "StudentEducationOrganizationAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentExtension_PK",
+          "identifyingPropertyNames": [
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentExtension_PK",
+            "postgreSql": "StudentExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "StudentExtension",
+        "postgreSql": "StudentExtension"
       }
     },
     {
@@ -1550,9 +2318,94 @@
         "sqlServer": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent",
         "postgreSql": "StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc"
       }
+    },
+    {
+      "schema": "nmped",
+      "name": "TriennialReviewDelayReasonDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "TriennialReviewDelayReasonDescriptor_PK",
+          "identifyingPropertyNames": [
+            "TriennialReviewDelayReasonDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "TriennialReviewDelayReasonDescriptor_PK",
+            "postgreSql": "TriennialReviewDelayReasonDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The triennial review reason.",
+      "tableNames": {
+        "sqlServer": "TriennialReviewDelayReasonDescriptor",
+        "postgreSql": "TriennialReviewDelayReasonDescriptor"
+      }
     }
   ],
   "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_AnnualReviewDelayReasonDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "AnnualReviewDelayReasonDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "AnnualReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "AnnualReviewDelayReasonDescriptorId",
+            "postgreSql": "AnnualReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_AnnualReviewDelayReasonDescriptor_Descriptor",
+        "postgreSql": "FK_d77238_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
     {
       "fullName": {
         "schema": "nmped",
@@ -1610,6 +2463,306 @@
       "constraintNames": {
         "sqlServer": "FK_ClassPeriodDescriptor_Descriptor",
         "postgreSql": "FK_650c70_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DentalExaminationVerificationCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DentalExaminationVerificationCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DentalExaminationVerificationCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DentalExaminationVerificationCodeDescriptorId",
+            "postgreSql": "DentalExaminationVerificationCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DentalExaminationVerificationCodeDescriptor_Descriptor",
+        "postgreSql": "FK_e307f3_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DigitalEquityInternetAccessTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetAccessTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetAccessTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetAccessTypeDescriptorId",
+            "postgreSql": "DigitalEquityInternetAccessTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DigitalEquityInternetAccessTypeDescriptor_Descriptor",
+        "postgreSql": "FK_cce424_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DigitalEquityInternetPerformanceCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetPerformanceCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetPerformanceCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptorId",
+            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DigitalEquityInternetPerformanceCodeDescriptor_Descriptor",
+        "postgreSql": "FK_cb8342_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DigitalEquityPrimaryLearningDeviceAccessDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DigitalEquityPrimaryLearningDeviceAccessDescriptor_Descriptor",
+        "postgreSql": "FK_d8dfb7_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_DigitalEquityPrimaryLearningDeviceTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_DigitalEquityPrimaryLearningDeviceTypeDescriptor_Descriptor",
+        "postgreSql": "FK_e765ac_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -1765,6 +2918,66 @@
         "sqlServer": "FK_DisciplineIncidentExtension_DisciplineIncident",
         "postgreSql": "FK_cde8b8_DisciplineIncident"
       }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_GenderIdentityDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "GenderIdentityDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "GenderIdentityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "GenderIdentityDescriptorId",
+            "postgreSql": "GenderIdentityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_GenderIdentityDescriptor_Descriptor",
+        "postgreSql": "FK_a8ac4d_Descriptor"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -2123,6 +3336,66 @@
       "constraintNames": {
         "sqlServer": "FK_ParticipationInformationDescriptor_Descriptor",
         "postgreSql": "FK_2ffea1_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_PlannedPostGraduateActivityDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "PlannedPostGraduateActivityDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PlannedPostGraduateActivityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "PlannedPostGraduateActivityDescriptorId",
+            "postgreSql": "PlannedPostGraduateActivityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_PlannedPostGraduateActivityDescriptor_Descriptor",
+        "postgreSql": "FK_9a4e56_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -2669,6 +3942,366 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StaffDevelopment_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopment_EducationOrganization",
+        "postgreSql": "FK_62d69c_EducationOrganization"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffDevelopment_Staff"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopment_Staff",
+        "postgreSql": "FK_62d69c_Staff"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffDevelopment_StaffDevelopmentActivityCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentActivityCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentActivityCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentActivityCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentActivityCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentActivityCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The staff development activity code.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentActivityCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentActivityCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopment_StaffDevelopmentActivityCodeDescriptor",
+        "postgreSql": "FK_62d69c_StaffDevelopmentActivityCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffDevelopment_StaffDevelopmentPurposeCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentPurposeCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentPurposeCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentPurposeCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentPurposeCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentPurposeCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The staff development purpose code.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentPurposeCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentPurposeCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopment_StaffDevelopmentPurposeCodeDescriptor",
+        "postgreSql": "FK_62d69c_StaffDevelopmentPurposeCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffDevelopmentActivityCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentActivityCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentActivityCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentActivityCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentActivityCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopmentActivityCodeDescriptor_Descriptor",
+        "postgreSql": "FK_14238c_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffDevelopmentPurposeCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffDevelopmentPurposeCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffDevelopmentPurposeCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StaffDevelopmentPurposeCodeDescriptorId",
+            "postgreSql": "StaffDevelopmentPurposeCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffDevelopmentPurposeCodeDescriptor_Descriptor",
+        "postgreSql": "FK_5a46c7_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StaffEducationOrganizationAssignmentAssociationExtension_StaffEducationOrganizationAssignmentAssociation"
       },
       "cardinality": "OneToOneExtension",
@@ -2826,6 +4459,426 @@
         "sqlServer": "FK_StaffEducationOrganizationAssignmentAssociationExtension_StaffEducationOrganizationAssignmentAssociation",
         "postgreSql": "FK_6ea356_StaffEducationOrganizationAssignmentAssociation"
       }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetAccessTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetAccessTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetAccessTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetAccessTypeDescriptorId",
+            "postgreSql": "DigitalEquityInternetAccessTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetAccessTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Internet access type.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetAccessTypeDescriptorId",
+            "postgreSql": "DigitalEquityInternetAccessTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetAccessTypeDescriptor",
+        "postgreSql": "FK_f6e59f_DigitalEquityInternetAccessTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetPerformanceCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityInternetPerformanceCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetPerformanceCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptorId",
+            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityInternetPerformanceCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Internet performance code.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptorId",
+            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetPerformanceCodeDescriptor",
+        "postgreSql": "FK_f6e59f_DigitalEquityInternetPerformanceCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Defines the primary learning device access.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceAccessDescriptor",
+        "postgreSql": "FK_f6e59f_DigitalEquityPrimaryLearningDeviceAccessDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The primary learning device type.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
+            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceTypeDescriptor",
+        "postgreSql": "FK_f6e59f_DigitalEquityPrimaryLearningDeviceTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_EducationOrganization",
+        "postgreSql": "FK_f6e59f_EducationOrganization"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_SchoolYearType"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "SchoolYearType"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Key for School Year",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The school year the digital equity event took place.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_SchoolYearType",
+        "postgreSql": "FK_f6e59f_SchoolYearType"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationDigitalEquity_Staff"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Staff"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationDigitalEquity"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StaffUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a staff.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StaffUSI",
+            "postgreSql": "StaffUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_Staff",
+        "postgreSql": "FK_f6e59f_Staff"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -3647,6 +5700,66 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAssociationExtension_DentalExaminationVerificationCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "DentalExaminationVerificationCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DentalExaminationVerificationCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DentalExaminationVerificationCodeDescriptorId",
+            "postgreSql": "DentalExaminationVerificationCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "DentalExaminationVerificationCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This code for the dental examination performed.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DentalExaminationVerificationCodeDescriptorId",
+            "postgreSql": "DentalExaminationVerificationCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAssociationExtension_DentalExaminationVerificationCodeDescriptor",
+        "postgreSql": "FK_2c2930_DentalExaminationVerificationCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentEducationOrganizationAssociationExtension_StudentEducationOrganizationAssociation"
       },
       "cardinality": "OneToOneExtension",
@@ -3735,6 +5848,125 @@
       "constraintNames": {
         "sqlServer": "FK_StudentEducationOrganizationAssociationExtension_StudentEducationOrganizationAssociation",
         "postgreSql": "FK_2c2930_StudentEducationOrganizationAssociation"
+      }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentExtension_GenderIdentityDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "GenderIdentityDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "GenderIdentityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GenderIdentityDescriptorId",
+            "postgreSql": "GenderIdentityDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "GenderIdentityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates the gender the student identifies with.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GenderIdentityDescriptorId",
+            "postgreSql": "GenderIdentityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentExtension_GenderIdentityDescriptor",
+        "postgreSql": "FK_f25437_GenderIdentityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentExtension_Student"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentExtension_Student",
+        "postgreSql": "FK_f25437_Student"
       }
     },
     {
@@ -4991,6 +7223,126 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationExtension_AnnualReviewDelayReasonDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "AnnualReviewDelayReasonDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "AnnualReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AnnualReviewDelayReasonDescriptorId",
+            "postgreSql": "AnnualReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "AnnualReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The annual review delay reason.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AnnualReviewDelayReasonDescriptorId",
+            "postgreSql": "AnnualReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_AnnualReviewDelayReasonDescriptor",
+        "postgreSql": "FK_3da84f_AnnualReviewDelayReasonDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationExtension_PlannedPostGraduateActivityDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "PlannedPostGraduateActivityDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "PlannedPostGraduateActivityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PlannedPostGraduateActivityDescriptorId",
+            "postgreSql": "PlannedPostGraduateActivityDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "PlannedPostGraduateActivityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The planned post graduate activity.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "PlannedPostGraduateActivityDescriptorId",
+            "postgreSql": "PlannedPostGraduateActivityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_PlannedPostGraduateActivityDescriptor",
+        "postgreSql": "FK_3da84f_PlannedPostGraduateActivityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentSpecialEducationProgramAssociationExtension_SpecialEducationLevelOfIntegrationDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -5276,6 +7628,66 @@
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_StudentSpecialEducationProgramAssociation",
         "postgreSql": "FK_3da84f_StudentSpecialEducationProgramAssociation"
       }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationExtension_TriennialReviewDelayReasonDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TriennialReviewDelayReasonDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TriennialReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TriennialReviewDelayReasonDescriptorId",
+            "postgreSql": "TriennialReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TriennialReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The triennual review delay reason.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TriennialReviewDelayReasonDescriptorId",
+            "postgreSql": "TriennialReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_TriennialReviewDelayReasonDescriptor",
+        "postgreSql": "FK_3da84f_TriennialReviewDelayReasonDescriptor"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -5684,6 +8096,66 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_StudentSpecialEducationProgramAssociation",
         "postgreSql": "FK_c2cadc_StudentSpecialEducationProgramAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_TriennialReviewDelayReasonDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TriennialReviewDelayReasonDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TriennialReviewDelayReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "TriennialReviewDelayReasonDescriptorId",
+            "postgreSql": "TriennialReviewDelayReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TriennialReviewDelayReasonDescriptor_Descriptor",
+        "postgreSql": "FK_ec98b9_Descriptor"
       },
       "potentiallyLogical": false
     }

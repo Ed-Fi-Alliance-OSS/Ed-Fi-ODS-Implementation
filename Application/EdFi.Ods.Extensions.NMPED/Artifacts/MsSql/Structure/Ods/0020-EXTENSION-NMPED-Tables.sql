@@ -1,8 +1,62 @@
+-- Table [nmped].[AnnualReviewDelayReasonDescriptor] --
+CREATE TABLE [nmped].[AnnualReviewDelayReasonDescriptor] (
+    [AnnualReviewDelayReasonDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [AnnualReviewDelayReasonDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [AnnualReviewDelayReasonDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[ClassPeriodDescriptor] --
 CREATE TABLE [nmped].[ClassPeriodDescriptor] (
     [ClassPeriodDescriptorId] [INT] NOT NULL,
     CONSTRAINT [ClassPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
         [ClassPeriodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[DentalExaminationVerificationCodeDescriptor] --
+CREATE TABLE [nmped].[DentalExaminationVerificationCodeDescriptor] (
+    [DentalExaminationVerificationCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DentalExaminationVerificationCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DentalExaminationVerificationCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[DigitalEquityInternetAccessTypeDescriptor] --
+CREATE TABLE [nmped].[DigitalEquityInternetAccessTypeDescriptor] (
+    [DigitalEquityInternetAccessTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DigitalEquityInternetAccessTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DigitalEquityInternetAccessTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[DigitalEquityInternetPerformanceCodeDescriptor] --
+CREATE TABLE [nmped].[DigitalEquityInternetPerformanceCodeDescriptor] (
+    [DigitalEquityInternetPerformanceCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DigitalEquityInternetPerformanceCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DigitalEquityInternetPerformanceCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[DigitalEquityPrimaryLearningDeviceAccessDescriptor] --
+CREATE TABLE [nmped].[DigitalEquityPrimaryLearningDeviceAccessDescriptor] (
+    [DigitalEquityPrimaryLearningDeviceAccessDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DigitalEquityPrimaryLearningDeviceAccessDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[DigitalEquityPrimaryLearningDeviceTypeDescriptor] --
+CREATE TABLE [nmped].[DigitalEquityPrimaryLearningDeviceTypeDescriptor] (
+    [DigitalEquityPrimaryLearningDeviceTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [DigitalEquityPrimaryLearningDeviceTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -33,6 +87,15 @@ CREATE TABLE [nmped].[DisciplineIncidentExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[DisciplineIncidentExtension] ADD CONSTRAINT [DisciplineIncidentExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[GenderIdentityDescriptor] --
+CREATE TABLE [nmped].[GenderIdentityDescriptor] (
+    [GenderIdentityDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [GenderIdentityDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [GenderIdentityDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [nmped].[IndustryCredentialDescriptor] --
@@ -85,6 +148,15 @@ CREATE TABLE [nmped].[ParticipationInformationDescriptor] (
     [ParticipationInformationDescriptorId] [INT] NOT NULL,
     CONSTRAINT [ParticipationInformationDescriptor_PK] PRIMARY KEY CLUSTERED (
         [ParticipationInformationDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[PlannedPostGraduateActivityDescriptor] --
+CREATE TABLE [nmped].[PlannedPostGraduateActivityDescriptor] (
+    [PlannedPostGraduateActivityDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PlannedPostGraduateActivityDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PlannedPostGraduateActivityDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -170,6 +242,52 @@ CREATE TABLE [nmped].[SpecialProgramCodeDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[StaffDevelopment] --
+CREATE TABLE [nmped].[StaffDevelopment] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [StartDate] [DATE] NOT NULL,
+    [EndDate] [DATE] NULL,
+    [StaffDevelopmentActivityCodeDescriptorId] [INT] NOT NULL,
+    [StaffDevelopmentPurposeCodeDescriptorId] [INT] NULL,
+    [ActivityHours] [INT] NOT NULL,
+    [StaffCreditsEarned] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StaffDevelopment_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [StaffUSI] ASC,
+        [StartDate] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffDevelopment] ADD CONSTRAINT [StaffDevelopment_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [nmped].[StaffDevelopment] ADD CONSTRAINT [StaffDevelopment_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [nmped].[StaffDevelopment] ADD CONSTRAINT [StaffDevelopment_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [nmped].[StaffDevelopmentActivityCodeDescriptor] --
+CREATE TABLE [nmped].[StaffDevelopmentActivityCodeDescriptor] (
+    [StaffDevelopmentActivityCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [StaffDevelopmentActivityCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [StaffDevelopmentActivityCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[StaffDevelopmentPurposeCodeDescriptor] --
+CREATE TABLE [nmped].[StaffDevelopmentPurposeCodeDescriptor] (
+    [StaffDevelopmentPurposeCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [StaffDevelopmentPurposeCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [StaffDevelopmentPurposeCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] --
 CREATE TABLE [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] (
     [BeginDate] [DATE] NOT NULL,
@@ -187,6 +305,38 @@ CREATE TABLE [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] 
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] ADD CONSTRAINT [StaffEducationOrganizationAssignmentAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StaffEducationOrganizationDigitalEquity] --
+CREATE TABLE [nmped].[StaffEducationOrganizationDigitalEquity] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [StartDate] [DATE] NOT NULL,
+    [EndDate] [DATE] NULL,
+    [DigitalEquityPrimaryLearningDeviceTypeDescriptorId] [INT] NOT NULL,
+    [SchoolProvidedDevice] [BIT] NOT NULL,
+    [DigitalEquityPrimaryLearningDeviceAccessDescriptorId] [INT] NOT NULL,
+    [DigitalEquityInternetAccessTypeDescriptorId] [INT] NOT NULL,
+    [DigitalEquityInternetPerformanceCodeDescriptorId] [INT] NOT NULL,
+    [InternetAccessInResidence] [BIT] NOT NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StaffEducationOrganizationDigitalEquity_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [SchoolYear] ASC,
+        [StaffUSI] ASC,
+        [StartDate] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ADD CONSTRAINT [StaffEducationOrganizationDigitalEquity_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ADD CONSTRAINT [StaffEducationOrganizationDigitalEquity_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ADD CONSTRAINT [StaffEducationOrganizationDigitalEquity_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [nmped].[StaffExtension] --
@@ -257,6 +407,7 @@ CREATE TABLE [nmped].[StudentEducationOrganizationAssociationExtension] (
     [StudentUSI] [INT] NOT NULL,
     [YearsInUSSchool] [DATE] NULL,
     [Grade09Entry] [DATE] NULL,
+    [DentalExaminationVerificationCodeDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -265,6 +416,19 @@ CREATE TABLE [nmped].[StudentEducationOrganizationAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] ADD CONSTRAINT [StudentEducationOrganizationAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
+-- Table [nmped].[StudentExtension] --
+CREATE TABLE [nmped].[StudentExtension] (
+    [StudentUSI] [INT] NOT NULL,
+    [GenderIdentityDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StudentExtension_PK] PRIMARY KEY CLUSTERED (
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StudentExtension] ADD CONSTRAINT [StudentExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentProgramAssociationExtension] --
@@ -373,6 +537,9 @@ CREATE TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] (
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [SpecialEducationLevelOfIntegrationDescriptorId] [INT] NOT NULL,
+    [AnnualReviewDelayReasonDescriptorId] [INT] NULL,
+    [TriennialReviewDelayReasonDescriptorId] [INT] NULL,
+    [PlannedPostGraduateActivityDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSpecialEducationProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
@@ -418,5 +585,14 @@ GO
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [nmped].[TriennialReviewDelayReasonDescriptor] --
+CREATE TABLE [nmped].[TriennialReviewDelayReasonDescriptor] (
+    [TriennialReviewDelayReasonDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [TriennialReviewDelayReasonDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [TriennialReviewDelayReasonDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 

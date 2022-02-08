@@ -1,7 +1,43 @@
+-- Table nmped.AnnualReviewDelayReasonDescriptor --
+CREATE TABLE nmped.AnnualReviewDelayReasonDescriptor (
+    AnnualReviewDelayReasonDescriptorId INT NOT NULL,
+    CONSTRAINT AnnualReviewDelayReasonDescriptor_PK PRIMARY KEY (AnnualReviewDelayReasonDescriptorId)
+); 
+
 -- Table nmped.ClassPeriodDescriptor --
 CREATE TABLE nmped.ClassPeriodDescriptor (
     ClassPeriodDescriptorId INT NOT NULL,
     CONSTRAINT ClassPeriodDescriptor_PK PRIMARY KEY (ClassPeriodDescriptorId)
+); 
+
+-- Table nmped.DentalExaminationVerificationCodeDescriptor --
+CREATE TABLE nmped.DentalExaminationVerificationCodeDescriptor (
+    DentalExaminationVerificationCodeDescriptorId INT NOT NULL,
+    CONSTRAINT DentalExaminationVerificationCodeDescriptor_PK PRIMARY KEY (DentalExaminationVerificationCodeDescriptorId)
+); 
+
+-- Table nmped.DigitalEquityInternetAccessTypeDescriptor --
+CREATE TABLE nmped.DigitalEquityInternetAccessTypeDescriptor (
+    DigitalEquityInternetAccessTypeDescriptorId INT NOT NULL,
+    CONSTRAINT DigitalEquityInternetAccessTypeDescriptor_PK PRIMARY KEY (DigitalEquityInternetAccessTypeDescriptorId)
+); 
+
+-- Table nmped.DigitalEquityInternetPerformanceCodeDescriptor --
+CREATE TABLE nmped.DigitalEquityInternetPerformanceCodeDescriptor (
+    DigitalEquityInternetPerformanceCodeDescriptorId INT NOT NULL,
+    CONSTRAINT DigitalEquityInternetPerformanceCodeDescriptor_PK PRIMARY KEY (DigitalEquityInternetPerformanceCodeDescriptorId)
+); 
+
+-- Table nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor --
+CREATE TABLE nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor (
+    DigitalEquityPrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
+    CONSTRAINT DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK PRIMARY KEY (DigitalEquityPrimaryLearningDeviceAccessDescriptorId)
+); 
+
+-- Table nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor --
+CREATE TABLE nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (
+    DigitalEquityPrimaryLearningDeviceTypeDescriptorId INT NOT NULL,
+    CONSTRAINT DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK PRIMARY KEY (DigitalEquityPrimaryLearningDeviceTypeDescriptorId)
 ); 
 
 -- Table nmped.DirectCertificationStatusDescriptor --
@@ -23,6 +59,12 @@ CREATE TABLE nmped.DisciplineIncidentExtension (
     CONSTRAINT DisciplineIncidentExtension_PK PRIMARY KEY (IncidentIdentifier, SchoolId)
 ); 
 ALTER TABLE nmped.DisciplineIncidentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.GenderIdentityDescriptor --
+CREATE TABLE nmped.GenderIdentityDescriptor (
+    GenderIdentityDescriptorId INT NOT NULL,
+    CONSTRAINT GenderIdentityDescriptor_PK PRIMARY KEY (GenderIdentityDescriptorId)
+); 
 
 -- Table nmped.IndustryCredentialDescriptor --
 CREATE TABLE nmped.IndustryCredentialDescriptor (
@@ -61,6 +103,12 @@ ALTER TABLE nmped.NMPEDService ALTER COLUMN LastModifiedDate SET DEFAULT current
 CREATE TABLE nmped.ParticipationInformationDescriptor (
     ParticipationInformationDescriptorId INT NOT NULL,
     CONSTRAINT ParticipationInformationDescriptor_PK PRIMARY KEY (ParticipationInformationDescriptorId)
+); 
+
+-- Table nmped.PlannedPostGraduateActivityDescriptor --
+CREATE TABLE nmped.PlannedPostGraduateActivityDescriptor (
+    PlannedPostGraduateActivityDescriptorId INT NOT NULL,
+    CONSTRAINT PlannedPostGraduateActivityDescriptor_PK PRIMARY KEY (PlannedPostGraduateActivityDescriptorId)
 ); 
 
 -- Table nmped.ProgramDeliveryMethodDescriptor --
@@ -117,6 +165,38 @@ CREATE TABLE nmped.SpecialProgramCodeDescriptor (
     CONSTRAINT SpecialProgramCodeDescriptor_PK PRIMARY KEY (SpecialProgramCodeDescriptorId)
 ); 
 
+-- Table nmped.StaffDevelopment --
+CREATE TABLE nmped.StaffDevelopment (
+    EducationOrganizationId INT NOT NULL,
+    StaffUSI INT NOT NULL,
+    StartDate DATE NOT NULL,
+    EndDate DATE NULL,
+    StaffDevelopmentActivityCodeDescriptorId INT NOT NULL,
+    StaffDevelopmentPurposeCodeDescriptorId INT NULL,
+    ActivityHours INT NOT NULL,
+    StaffCreditsEarned INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StaffDevelopment_PK PRIMARY KEY (EducationOrganizationId, StaffUSI, StartDate)
+); 
+ALTER TABLE nmped.StaffDevelopment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StaffDevelopment ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StaffDevelopment ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StaffDevelopmentActivityCodeDescriptor --
+CREATE TABLE nmped.StaffDevelopmentActivityCodeDescriptor (
+    StaffDevelopmentActivityCodeDescriptorId INT NOT NULL,
+    CONSTRAINT StaffDevelopmentActivityCodeDescriptor_PK PRIMARY KEY (StaffDevelopmentActivityCodeDescriptorId)
+); 
+
+-- Table nmped.StaffDevelopmentPurposeCodeDescriptor --
+CREATE TABLE nmped.StaffDevelopmentPurposeCodeDescriptor (
+    StaffDevelopmentPurposeCodeDescriptorId INT NOT NULL,
+    CONSTRAINT StaffDevelopmentPurposeCodeDescriptor_PK PRIMARY KEY (StaffDevelopmentPurposeCodeDescriptorId)
+); 
+
 -- Table nmped.StaffEducationOrganizationAssignmentAssociationExtension --
 CREATE TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension (
     BeginDate DATE NOT NULL,
@@ -128,6 +208,29 @@ CREATE TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension (
     CONSTRAINT StaffEducationOrganizationAssignmentAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
 ); 
 ALTER TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StaffEducationOrganizationDigitalEquity --
+CREATE TABLE nmped.StaffEducationOrganizationDigitalEquity (
+    EducationOrganizationId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    StaffUSI INT NOT NULL,
+    StartDate DATE NOT NULL,
+    EndDate DATE NULL,
+    DigitalEquityPrimaryLearningDeviceTypeDescriptorId INT NOT NULL,
+    SchoolProvidedDevice BOOLEAN NOT NULL,
+    DigitalEquityPrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
+    DigitalEquityInternetAccessTypeDescriptorId INT NOT NULL,
+    DigitalEquityInternetPerformanceCodeDescriptorId INT NOT NULL,
+    InternetAccessInResidence BOOLEAN NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StaffEducationOrganizationDigitalEquity_PK PRIMARY KEY (EducationOrganizationId, SchoolYear, StaffUSI, StartDate)
+); 
+ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StaffExtension --
 CREATE TABLE nmped.StaffExtension (
@@ -175,10 +278,20 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     StudentUSI INT NOT NULL,
     YearsInUSSchool DATE NULL,
     Grade09Entry DATE NULL,
+    DentalExaminationVerificationCodeDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentExtension --
+CREATE TABLE nmped.StudentExtension (
+    StudentUSI INT NOT NULL,
+    GenderIdentityDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentExtension_PK PRIMARY KEY (StudentUSI)
+); 
+ALTER TABLE nmped.StudentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentProgramAssociationExtension --
 CREATE TABLE nmped.StudentProgramAssociationExtension (
@@ -248,6 +361,9 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
     SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,
+    AnnualReviewDelayReasonDescriptorId INT NULL,
+    TriennialReviewDelayReasonDescriptorId INT NULL,
+    PlannedPostGraduateActivityDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSpecialEducationProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
@@ -274,4 +390,10 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2ca
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.TriennialReviewDelayReasonDescriptor --
+CREATE TABLE nmped.TriennialReviewDelayReasonDescriptor (
+    TriennialReviewDelayReasonDescriptorId INT NOT NULL,
+    CONSTRAINT TriennialReviewDelayReasonDescriptor_PK PRIMARY KEY (TriennialReviewDelayReasonDescriptorId)
+); 
 

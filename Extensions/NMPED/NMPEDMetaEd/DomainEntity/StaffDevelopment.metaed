@@ -1,0 +1,26 @@
+Domain Entity StaffDevelopment
+    documentation "The development activities a staff has accomplished."
+domain entity EdFi.Staff
+    documentation "A reference to the Student."
+    is part of identity
+domain entity EdFi.EducationOrganization
+    documentation "A reference to the Education Organization representing the context of the student information."
+    is part of identity
+date StartDate
+    documentation "The date the staff development started."
+    is part of identity
+date EndDate
+    documentation "The date the staff development ended."
+    is optional
+descriptor StaffDevelopmentActivityCode
+    documentation "The staff development activity code."
+    is required
+descriptor StaffDevelopmentPurposeCode
+    documentation "The staff development purpose code."
+    is optional
+integer ActivityHours
+    documentation "The hours the activity took."
+    is required
+integer StaffCreditsEarned
+  documentation "The credits earned by the staff."
+  is optional

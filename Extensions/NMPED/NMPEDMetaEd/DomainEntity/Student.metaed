@@ -1,0 +1,4 @@
+Domain Entity EdFi.Student additions
+    descriptor GenderIdentity
+        documentation "Indicates the gender the student identifies with."
+        is optional

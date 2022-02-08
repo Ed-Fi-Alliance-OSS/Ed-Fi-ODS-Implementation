@@ -1,10 +1,31 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <AggregateExtensions logicalSchema="NMPED" schema="nmped">
+  <Aggregate root="AnnualReviewDelayReasonDescriptor">
+    <Entity table="AnnualReviewDelayReasonDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="ClassPeriodDescriptor">
     <Entity table="ClassPeriodDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="DentalExaminationVerificationCodeDescriptor">
+    <Entity table="DentalExaminationVerificationCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="DigitalEquityInternetAccessTypeDescriptor">
+    <Entity table="DigitalEquityInternetAccessTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="DigitalEquityInternetPerformanceCodeDescriptor">
+    <Entity table="DigitalEquityInternetPerformanceCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="DigitalEquityPrimaryLearningDeviceAccessDescriptor">
+    <Entity table="DigitalEquityPrimaryLearningDeviceAccessDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="DigitalEquityPrimaryLearningDeviceTypeDescriptor">
+    <Entity table="DigitalEquityPrimaryLearningDeviceTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="DirectCertificationStatusDescriptor">
     <Entity table="DirectCertificationStatusDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="GenderIdentityDescriptor">
+    <Entity table="GenderIdentityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="IndustryCredentialDescriptor">
     <Entity table="IndustryCredentialDescriptor" isA="Descriptor" schema="nmped"/>
@@ -17,6 +38,9 @@
   </Aggregate>
   <Aggregate root="ParticipationInformationDescriptor">
     <Entity table="ParticipationInformationDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="PlannedPostGraduateActivityDescriptor">
+    <Entity table="PlannedPostGraduateActivityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
@@ -45,8 +69,23 @@
   <Aggregate root="SpecialProgramCodeDescriptor">
     <Entity table="SpecialProgramCodeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="StaffDevelopment">
+    <Entity table="StaffDevelopment" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StaffDevelopmentActivityCodeDescriptor">
+    <Entity table="StaffDevelopmentActivityCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StaffDevelopmentPurposeCodeDescriptor">
+    <Entity table="StaffDevelopmentPurposeCodeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StaffEducationOrganizationDigitalEquity">
+    <Entity table="StaffEducationOrganizationDigitalEquity" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
     <Entity table="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="TriennialReviewDelayReasonDescriptor">
+    <Entity table="TriennialReviewDelayReasonDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <AggregateExtension root="StudentProgramAssociation">
     <Entity table="StudentProgramAssociationNMPEDService" schema="nmped"/>

@@ -1,0 +1,35 @@
+Domain Entity StaffEducationOrganizationDigitalEquity
+    documentation "The staff digital equity."
+domain entity EdFi.Staff
+    documentation "A reference to the Student."
+    is part of identity
+domain entity EdFi.EducationOrganization
+    documentation "A reference to the Education Organization representing the context of the student information."
+    is part of identity
+enumeration EdFi.SchoolYear
+    documentation "The school year the digital equity event took place."
+    is part of identity
+date StartDate
+    documentation "The date the digital equity started."
+    is part of identity
+date EndDate
+    documentation "The date the digital equity ended."
+    is optional
+descriptor DigitalEquityPrimaryLearningDeviceType
+    documentation "The primary learning device type."
+    is required
+bool SchoolProvidedDevice
+    documentation "Indicates whether the school provides a device or not."
+    is required
+descriptor DigitalEquityPrimaryLearningDeviceAccess
+    documentation "Defines the primary learning device access."
+    is required
+descriptor DigitalEquityInternetAccessType
+    documentation "Internet access type."
+    is required
+descriptor DigitalEquityInternetPerformanceCode
+    documentation "Internet performance code."
+    is required
+bool InternetAccessInResidence
+    documentation "Indicates if there is Internet access in the staff's residece."
+    is required
