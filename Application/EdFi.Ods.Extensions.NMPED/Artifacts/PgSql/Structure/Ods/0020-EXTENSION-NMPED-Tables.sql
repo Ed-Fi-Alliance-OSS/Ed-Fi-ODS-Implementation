@@ -197,18 +197,6 @@ CREATE TABLE nmped.StaffDevelopmentPurposeCodeDescriptor (
     CONSTRAINT StaffDevelopmentPurposeCodeDescriptor_PK PRIMARY KEY (StaffDevelopmentPurposeCodeDescriptorId)
 ); 
 
--- Table nmped.StaffEducationOrganizationAssignmentAssociationExtension --
-CREATE TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension (
-    BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    StaffClassificationDescriptorId INT NOT NULL,
-    StaffUSI INT NOT NULL,
-    FullTimeEquivalency DECIMAL(5, 4) NOT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffEducationOrganizationAssignmentAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
-); 
-ALTER TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
 -- Table nmped.StaffEducationOrganizationDigitalEquity --
 CREATE TABLE nmped.StaffEducationOrganizationDigitalEquity (
     EducationOrganizationId INT NOT NULL,
@@ -235,8 +223,8 @@ ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ALTER COLUMN LastModif
 -- Table nmped.StaffExtension --
 CREATE TABLE nmped.StaffExtension (
     StaffUSI INT NOT NULL,
-    HighestCompletedLevelOfEducationInstitutionDescriptorId INT NOT NULL,
-    BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId INT NOT NULL,
+    HighestCompletedLevelOfEducationInstitutionDescriptorId INT NULL,
+    BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 ); 
@@ -250,11 +238,23 @@ CREATE TABLE nmped.StaffSectionAssociationExtension (
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     StaffUSI INT NOT NULL,
-    ClassPeriodDescriptorId INT NOT NULL,
+    ClassPeriodDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffSectionAssociationExtension_PK PRIMARY KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
 ); 
 ALTER TABLE nmped.StaffSectionAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentAwardLanguageDescriptor --
+CREATE TABLE nmped.StudentAwardLanguageDescriptor (
+    StudentAwardLanguageDescriptorId INT NOT NULL,
+    CONSTRAINT StudentAwardLanguageDescriptor_PK PRIMARY KEY (StudentAwardLanguageDescriptorId)
+); 
+
+-- Table nmped.StudentAwardTypeDescriptor --
+CREATE TABLE nmped.StudentAwardTypeDescriptor (
+    StudentAwardTypeDescriptorId INT NOT NULL,
+    CONSTRAINT StudentAwardTypeDescriptor_PK PRIMARY KEY (StudentAwardTypeDescriptorId)
+); 
 
 -- Table nmped.StudentCTEProgramAssociationExtension --
 CREATE TABLE nmped.StudentCTEProgramAssociationExtension (
@@ -276,13 +276,30 @@ ALTER TABLE nmped.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate 
 CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     EducationOrganizationId INT NOT NULL,
     StudentUSI INT NOT NULL,
-    YearsInUSSchool DATE NULL,
     Grade09Entry DATE NULL,
     DentalExaminationVerificationCodeDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentEducationOrganizationAward --
+CREATE TABLE nmped.StudentEducationOrganizationAward (
+    AwardDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    StudentAwardLanguageDescriptorId INT NOT NULL,
+    StudentAwardTypeDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentEducationOrganizationAward_PK PRIMARY KEY (AwardDate, EducationOrganizationId, SchoolYear, StudentAwardLanguageDescriptorId, StudentAwardTypeDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentExtension --
 CREATE TABLE nmped.StudentExtension (
@@ -301,8 +318,8 @@ CREATE TABLE nmped.StudentProgramAssociationExtension (
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
-    ParticipationInformationDescriptorId INT NOT NULL,
-    ProgramIntensityDescriptorId INT NOT NULL,
+    ParticipationInformationDescriptorId INT NULL,
+    ProgramIntensityDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
@@ -345,7 +362,7 @@ CREATE TABLE nmped.StudentSectionAssociationExtension (
     SectionIdentifier VARCHAR(255) NOT NULL,
     SessionName VARCHAR(60) NOT NULL,
     StudentUSI INT NOT NULL,
-    SpecialProgramCodeDescriptorId INT NOT NULL,
+    SpecialProgramCodeDescriptorId INT NULL,
     AlternateCreditCourseCode VARCHAR(60) NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSectionAssociationExtension_PK PRIMARY KEY (BeginDate, LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StudentUSI)

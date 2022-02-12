@@ -81,6 +81,15 @@
   <Aggregate root="StaffEducationOrganizationDigitalEquity">
     <Entity table="StaffEducationOrganizationDigitalEquity" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="StudentAwardLanguageDescriptor">
+    <Entity table="StudentAwardLanguageDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StudentAwardTypeDescriptor">
+    <Entity table="StudentAwardTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="StudentEducationOrganizationAward">
+    <Entity table="StudentEducationOrganizationAward" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
     <Entity table="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent" schema="nmped"/>
   </Aggregate>

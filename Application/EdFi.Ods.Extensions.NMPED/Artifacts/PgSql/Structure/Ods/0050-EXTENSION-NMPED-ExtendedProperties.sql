@@ -127,14 +127,6 @@ COMMENT ON COLUMN nmped.StaffDevelopmentActivityCodeDescriptor.StaffDevelopmentA
 COMMENT ON TABLE nmped.StaffDevelopmentPurposeCodeDescriptor IS 'This descriptor describes the staff development purpose.';
 COMMENT ON COLUMN nmped.StaffDevelopmentPurposeCodeDescriptor.StaffDevelopmentPurposeCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [nmped].[StaffEducationOrganizationAssignmentAssociationExtension] --
-COMMENT ON TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension IS '';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.BeginDate IS 'Month, day, and year of the start or effective date of a staff member''s employment, contract, or relationship with the LEA.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.StaffClassificationDescriptorId IS 'The titles of employment, official status, or rank of education staff.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationAssignmentAssociationExtension.FullTimeEquivalency IS 'The full time equivalency.';
-
 -- Extended Properties [nmped].[StaffEducationOrganizationDigitalEquity] --
 COMMENT ON TABLE nmped.StaffEducationOrganizationDigitalEquity IS 'The staff digital equity.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
@@ -165,6 +157,14 @@ COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SessionName IS 'The ide
 COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.ClassPeriodDescriptorId IS 'Indicates the Class Period of this section.';
 
+-- Extended Properties [nmped].[StudentAwardLanguageDescriptor] --
+COMMENT ON TABLE nmped.StudentAwardLanguageDescriptor IS 'The award language codes.';
+COMMENT ON COLUMN nmped.StudentAwardLanguageDescriptor.StudentAwardLanguageDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[StudentAwardTypeDescriptor] --
+COMMENT ON TABLE nmped.StudentAwardTypeDescriptor IS 'The award type.';
+COMMENT ON COLUMN nmped.StudentAwardTypeDescriptor.StudentAwardTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[StudentCTEProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentCTEProgramAssociationExtension IS '';
 COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
@@ -185,9 +185,17 @@ COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.CredentialEarnedDa
 COMMENT ON TABLE nmped.StudentEducationOrganizationAssociationExtension IS '';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.YearsInUSSchool IS 'This field holds the date when a student entered a US school.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Grade09Entry IS 'This field holds the date when a student entered the ninth grade.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.DentalExaminationVerificationCodeDescriptorId IS 'This code for the dental examination performed.';
+
+-- Extended Properties [nmped].[StudentEducationOrganizationAward] --
+COMMENT ON TABLE nmped.StudentEducationOrganizationAward IS 'The awards a student has earned at a education organization.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.AwardDate IS 'The date the student got awarded.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.SchoolYear IS 'The school year the student earned the award.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardLanguageDescriptorId IS 'The language for the award.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardTypeDescriptorId IS 'The type of award.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [nmped].[StudentExtension] --
 COMMENT ON TABLE nmped.StudentExtension IS '';

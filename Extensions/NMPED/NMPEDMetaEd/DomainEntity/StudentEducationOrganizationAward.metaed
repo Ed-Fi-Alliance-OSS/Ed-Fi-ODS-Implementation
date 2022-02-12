@@ -1,0 +1,20 @@
+Domain Entity StudentEducationOrganizationAward
+  documentation "The awards a student has earned at a education organization."
+  domain entity EdFi.Student
+      documentation "A reference to the Student."
+      is part of identity
+  domain entity EdFi.EducationOrganization
+      documentation "A reference to the Education Organization representing the context of the student information."
+      is part of identity
+  enumeration EdFi.SchoolYear
+      documentation "The school year the student earned the award."
+      is part of identity
+  descriptor StudentAwardType
+      documentation "The type of award."
+      is part of identity
+  descriptor StudentAwardLanguage
+      documentation "The language for the award."
+      is part of identity
+  date AwardDate
+      documentation "The date the student got awarded."
+      is part of identity

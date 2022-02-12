@@ -265,7 +265,7 @@
     <xs:complexContent>
       <xs:extension base="Staff">
         <xs:sequence>
-          <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType">
+          <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the Highest Completed Level Of Education Institution.</xs:documentation>
               <xs:appinfo>
@@ -273,12 +273,62 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType">
+          <xs:element name="BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the Baccalaureate Level Of Education Institution.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
               </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentEducationOrganizationAward">
+    <xs:annotation>
+      <xs:documentation>The awards a student has earned at a education organization.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolYear" type="SchoolYearType">
+            <xs:annotation>
+              <xs:documentation>The school year the student earned the award.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentAwardType" type="EXTENSION-StudentAwardTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The type of award.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-StudentAwardTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentAwardLanguage" type="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The language for the award.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-StudentAwardLanguageDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AwardDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date the student got awarded.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -622,6 +672,28 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentAwardLanguageDescriptor">
+    <xs:annotation>
+      <xs:documentation>The award language codes.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentAwardTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The award type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-TriennialReviewDelayReasonDescriptor">
     <xs:annotation>
       <xs:documentation>The triennial review reason.</xs:documentation>
@@ -636,25 +708,6 @@
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
-  <xs:complexType name="EXTENSION-StaffEducationOrganizationAssignmentAssociationExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="StaffEducationOrganizationAssignmentAssociation">
-        <xs:sequence>
-          <xs:element name="FullTimeEquivalency" type="EXTENSION-FullTimeEquivalency">
-            <xs:annotation>
-              <xs:documentation>The full time equivalency.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StaffSectionAssociationExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -665,7 +718,7 @@
     <xs:complexContent>
       <xs:extension base="StaffSectionAssociation">
         <xs:sequence>
-          <xs:element name="ClassPeriod" type="EXTENSION-ClassPeriodDescriptorReferenceType">
+          <xs:element name="ClassPeriod" type="EXTENSION-ClassPeriodDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the Class Period of this section.</xs:documentation>
               <xs:appinfo>
@@ -726,11 +779,6 @@
     <xs:complexContent>
       <xs:extension base="StudentEducationOrganizationAssociation">
         <xs:sequence>
-          <xs:element name="YearsInUSSchool" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>This field holds the date when a student entered a US school.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="Grade09Entry" type="xs:date" minOccurs="0">
             <xs:annotation>
               <xs:documentation>This field holds the date when a student entered the ninth grade.</xs:documentation>
@@ -763,7 +811,7 @@
               <xs:documentation>The New Mexico Service extension.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ParticipationInformation" type="EXTENSION-ParticipationInformationDescriptorReferenceType">
+          <xs:element name="ParticipationInformation" type="EXTENSION-ParticipationInformationDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the program participation information.</xs:documentation>
               <xs:appinfo>
@@ -771,7 +819,7 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ProgramIntensity" type="EXTENSION-ProgramIntensityDescriptorReferenceType">
+          <xs:element name="ProgramIntensity" type="EXTENSION-ProgramIntensityDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the program Intensity.</xs:documentation>
               <xs:appinfo>
@@ -819,7 +867,7 @@
     <xs:complexContent>
       <xs:extension base="StudentSectionAssociation">
         <xs:sequence>
-          <xs:element name="SpecialProgramCode" type="EXTENSION-SpecialProgramCodeDescriptorReferenceType">
+          <xs:element name="SpecialProgramCode" type="EXTENSION-SpecialProgramCodeDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>The special program code the student is in.
                                 D = Dual Credit Course
@@ -1016,6 +1064,71 @@
           <xs:element name="StaffEducationOrganizationDigitalEquityIdentity" type="EXTENSION-StaffEducationOrganizationDigitalEquityIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a StaffEducationOrganizationDigitalEquity.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentEducationOrganizationAwardIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a StudentEducationOrganizationAward.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the Student.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SchoolYear" type="SchoolYearType">
+        <xs:annotation>
+          <xs:documentation>The school year the student earned the award.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StudentAwardType" type="EXTENSION-StudentAwardTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The type of award.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-StudentAwardTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StudentAwardLanguage" type="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The language for the award.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-StudentAwardLanguageDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AwardDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date the student got awarded.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentEducationOrganizationAwardReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a StudentEducationOrganizationAward. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="StudentEducationOrganizationAwardIdentity" type="EXTENSION-StudentEducationOrganizationAwardIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a StudentEducationOrganizationAward.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1275,6 +1388,24 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The award language codes.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-StudentAwardTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The award type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-TriennialReviewDelayReasonDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The triennial review reason.</xs:documentation>
@@ -1347,16 +1478,4 @@
   <xs:annotation>
     <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
   </xs:annotation>
-  <xs:simpleType name="EXTENSION-FullTimeEquivalency">
-    <xs:annotation>
-      <xs:documentation>The full time equivalency.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Simple</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="xs:decimal">
-      <xs:totalDigits value="5" />
-      <xs:fractionDigits value="4" />
-    </xs:restriction>
-  </xs:simpleType>
 </xs:schema>

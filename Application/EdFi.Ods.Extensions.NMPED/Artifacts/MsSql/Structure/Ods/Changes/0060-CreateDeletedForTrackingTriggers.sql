@@ -481,6 +481,59 @@ ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ENABLE TRIGGER [nm
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_StudentAwardLanguageDescriptor_TR_DeleteTracking] ON [nmped].[StudentAwardLanguageDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentAwardLanguageDescriptor](StudentAwardLanguageDescriptorId, Id, ChangeVersion)
+    SELECT  d.StudentAwardLanguageDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.StudentAwardLanguageDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[StudentAwardLanguageDescriptor] ENABLE TRIGGER [nmped_StudentAwardLanguageDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_StudentAwardTypeDescriptor_TR_DeleteTracking] ON [nmped].[StudentAwardTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentAwardTypeDescriptor](StudentAwardTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.StudentAwardTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.StudentAwardTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[StudentAwardTypeDescriptor] ENABLE TRIGGER [nmped_StudentAwardTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_StudentEducationOrganizationAward_TR_DeleteTracking] ON [nmped].[StudentEducationOrganizationAward] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentEducationOrganizationAward](AwardDate, EducationOrganizationId, SchoolYear, StudentAwardLanguageDescriptorId, StudentAwardTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    SELECT  AwardDate, EducationOrganizationId, SchoolYear, StudentAwardLanguageDescriptorId, StudentAwardTypeDescriptorId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[StudentEducationOrganizationAward] ENABLE TRIGGER [nmped_StudentEducationOrganizationAward_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_DeleteTracking] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

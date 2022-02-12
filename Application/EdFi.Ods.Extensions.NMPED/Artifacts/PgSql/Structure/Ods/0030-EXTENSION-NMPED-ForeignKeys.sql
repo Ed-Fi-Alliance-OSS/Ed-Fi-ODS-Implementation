@@ -169,11 +169,6 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE nmped.StaffEducationOrganizationAssignmentAssociationExtension ADD CONSTRAINT FK_6ea356_StaffEducationOrganizationAssignmentAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
-REFERENCES edfi.StaffEducationOrganizationAssignmentAssociation (BeginDate, EducationOrganizationId, StaffClassificationDescriptorId, StaffUSI)
-ON DELETE CASCADE
-;
-
 ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ADD CONSTRAINT FK_f6e59f_DigitalEquityInternetAccessTypeDescriptor FOREIGN KEY (DigitalEquityInternetAccessTypeDescriptorId)
 REFERENCES nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId)
 ;
@@ -255,6 +250,16 @@ ON DELETE CASCADE
 ON UPDATE CASCADE
 ;
 
+ALTER TABLE nmped.StudentAwardLanguageDescriptor ADD CONSTRAINT FK_a303e9_Descriptor FOREIGN KEY (StudentAwardLanguageDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.StudentAwardTypeDescriptor ADD CONSTRAINT FK_ead1b6_Descriptor FOREIGN KEY (StudentAwardTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.StudentCTEProgramAssociationExtension ADD CONSTRAINT FK_1020a1_IndustryCredentialDescriptor FOREIGN KEY (IndustryCredentialDescriptorId)
 REFERENCES nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorId)
 ;
@@ -285,6 +290,41 @@ ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAIN
 REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId, StudentUSI)
 ON DELETE CASCADE
 ;
+
+ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_EducationOrganization FOREIGN KEY (EducationOrganizationId)
+REFERENCES edfi.EducationOrganization (EducationOrganizationId)
+;
+
+CREATE INDEX FK_4d41c1_EducationOrganization
+ON nmped.StudentEducationOrganizationAward (EducationOrganizationId ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_SchoolYearType FOREIGN KEY (SchoolYear)
+REFERENCES edfi.SchoolYearType (SchoolYear)
+;
+
+CREATE INDEX FK_4d41c1_SchoolYearType
+ON nmped.StudentEducationOrganizationAward (SchoolYear ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_4d41c1_Student
+ON nmped.StudentEducationOrganizationAward (StudentUSI ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_StudentAwardLanguageDescriptor FOREIGN KEY (StudentAwardLanguageDescriptorId)
+REFERENCES nmped.StudentAwardLanguageDescriptor (StudentAwardLanguageDescriptorId)
+;
+
+CREATE INDEX FK_4d41c1_StudentAwardLanguageDescriptor
+ON nmped.StudentEducationOrganizationAward (StudentAwardLanguageDescriptorId ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_StudentAwardTypeDescriptor FOREIGN KEY (StudentAwardTypeDescriptorId)
+REFERENCES nmped.StudentAwardTypeDescriptor (StudentAwardTypeDescriptorId)
+;
+
+CREATE INDEX FK_4d41c1_StudentAwardTypeDescriptor
+ON nmped.StudentEducationOrganizationAward (StudentAwardTypeDescriptorId ASC);
 
 ALTER TABLE nmped.StudentExtension ADD CONSTRAINT FK_f25437_GenderIdentityDescriptor FOREIGN KEY (GenderIdentityDescriptorId)
 REFERENCES nmped.GenderIdentityDescriptor (GenderIdentityDescriptorId)

@@ -192,6 +192,32 @@ CREATE TABLE [tracked_deletes_nmped].[StaffEducationOrganizationDigitalEquity]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StaffEducationOrganizationDigitalEquity PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[StudentAwardLanguageDescriptor]
+(
+       StudentAwardLanguageDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentAwardLanguageDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[StudentAwardTypeDescriptor]
+(
+       StudentAwardTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentAwardTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[StudentEducationOrganizationAward]
+(
+       AwardDate [DATE] NOT NULL,
+       EducationOrganizationId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
+       StudentAwardLanguageDescriptorId [INT] NOT NULL,
+       StudentAwardTypeDescriptorId [INT] NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentEducationOrganizationAward PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
 (
        BeginDate [DATE] NOT NULL,

@@ -4,5 +4,7 @@ CREATE INDEX IF NOT EXISTS UX_62d69c_ChangeVersion ON nmped.StaffDevelopment(Cha
 
 CREATE INDEX IF NOT EXISTS UX_f6e59f_ChangeVersion ON nmped.StaffEducationOrganizationDigitalEquity(ChangeVersion);
 
+CREATE INDEX IF NOT EXISTS UX_4d41c1_ChangeVersion ON nmped.StudentEducationOrganizationAward(ChangeVersion);
+
 CREATE INDEX IF NOT EXISTS UX_c2cadc_ChangeVersion ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc(ChangeVersion);
 

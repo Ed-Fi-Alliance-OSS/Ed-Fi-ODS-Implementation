@@ -212,6 +212,8 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="SpecialProgramCodeDescriptor" type="EXTENSION-SpecialProgramCodeDescriptor" />
         <xs:element name="StaffDevelopmentActivityCodeDescriptor" type="EXTENSION-StaffDevelopmentActivityCodeDescriptor" />
         <xs:element name="StaffDevelopmentPurposeCodeDescriptor" type="EXTENSION-StaffDevelopmentPurposeCodeDescriptor" />
+        <xs:element name="StudentAwardLanguageDescriptor" type="EXTENSION-StudentAwardLanguageDescriptor" />
+        <xs:element name="StudentAwardTypeDescriptor" type="EXTENSION-StudentAwardTypeDescriptor" />
         <xs:element name="TriennialReviewDelayReasonDescriptor" type="EXTENSION-TriennialReviewDelayReasonDescriptor" />
       </xs:choice>
     </xs:complexType>

@@ -333,6 +333,42 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "StudentAwardLanguageDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StudentAwardLanguageDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "StudentAwardTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StudentAwardTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StudentEducationOrganizationAward"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
       },
       "aggregateEntityNames": [
@@ -1451,69 +1487,6 @@
     },
     {
       "schema": "nmped",
-      "name": "StaffEducationOrganizationAssignmentAssociationExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "FullTimeEquivalency",
-          "propertyType": {
-            "dbType": "Decimal",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 4,
-            "isNullable": false
-          },
-          "description": "The full time equivalency.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "FullTimeEquivalency",
-            "postgreSql": "FullTimeEquivalency"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffEducationOrganizationAssignmentAssociationExtension_PK",
-          "identifyingPropertyNames": [
-            "BeginDate",
-            "EducationOrganizationId",
-            "StaffClassificationDescriptorId",
-            "StaffUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffEducationOrganizationAssignmentAssociationExtension_PK",
-            "postgreSql": "StaffEducationOrganizationAssignmentAssociationExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "",
-      "tableNames": {
-        "sqlServer": "StaffEducationOrganizationAssignmentAssociationExtension",
-        "postgreSql": "StaffEducationOrganizationAssignmentAssociationExtension"
-      }
-    },
-    {
-      "schema": "nmped",
       "name": "StaffEducationOrganizationDigitalEquity",
       "locallyDefinedProperties": [
         {
@@ -1765,6 +1738,56 @@
     },
     {
       "schema": "nmped",
+      "name": "StudentAwardLanguageDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "StudentAwardLanguageDescriptor_PK",
+          "identifyingPropertyNames": [
+            "StudentAwardLanguageDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAwardLanguageDescriptor_PK",
+            "postgreSql": "StudentAwardLanguageDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The award language codes.",
+      "tableNames": {
+        "sqlServer": "StudentAwardLanguageDescriptor",
+        "postgreSql": "StudentAwardLanguageDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentAwardTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "StudentAwardTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "StudentAwardTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentAwardTypeDescriptor_PK",
+            "postgreSql": "StudentAwardTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The award type.",
+      "tableNames": {
+        "sqlServer": "StudentAwardTypeDescriptor",
+        "postgreSql": "StudentAwardTypeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "StudentCTEProgramAssociationExtension",
       "locallyDefinedProperties": [
         {
@@ -1865,23 +1888,6 @@
             "sqlServer": "Grade09Entry",
             "postgreSql": "Grade09Entry"
           }
-        },
-        {
-          "propertyName": "YearsInUSSchool",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "This field holds the date when a student entered a US school.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "YearsInUSSchool",
-            "postgreSql": "YearsInUSSchool"
-          }
         }
       ],
       "identifiers": [
@@ -1904,6 +1910,117 @@
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationExtension",
         "postgreSql": "StudentEducationOrganizationAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentEducationOrganizationAward",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "AwardDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The date the student got awarded.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AwardDate",
+            "postgreSql": "AwardDate"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentEducationOrganizationAward_PK",
+          "identifyingPropertyNames": [
+            "AwardDate",
+            "EducationOrganizationId",
+            "SchoolYear",
+            "StudentAwardLanguageDescriptorId",
+            "StudentAwardTypeDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentEducationOrganizationAward_PK",
+            "postgreSql": "StudentEducationOrganizationAward_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StudentEducationOrganizationAward_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_StudentEducationOrganizationAward_Id",
+            "postgreSql": "UX_4d41c1_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The awards a student has earned at a education organization.",
+      "tableNames": {
+        "sqlServer": "StudentEducationOrganizationAward",
+        "postgreSql": "StudentEducationOrganizationAward"
       }
     },
     {
@@ -4302,167 +4419,6 @@
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationAssignmentAssociationExtension_StaffEducationOrganizationAssignmentAssociation"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StaffEducationOrganizationAssignmentAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "StaffClassificationDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The titles of employment, official status, or rank of education staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffClassificationDescriptorId",
-            "postgreSql": "StaffClassificationDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationAssignmentAssociationExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Month, day, and year of the start or effective date of a staff member's employment, contract, or relationship with the LEA.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "StaffClassificationDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The titles of employment, official status, or rank of education staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffClassificationDescriptorId",
-            "postgreSql": "StaffClassificationDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationAssignmentAssociationExtension_StaffEducationOrganizationAssignmentAssociation",
-        "postgreSql": "FK_6ea356_StaffEducationOrganizationAssignmentAssociation"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
         "name": "FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetAccessTypeDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -4921,7 +4877,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "Indicates the Highest Completed Level Of Education Institution.",
           "isIdentifying": false,
@@ -4933,7 +4889,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor",
         "postgreSql": "FK_d7b81a_LevelOfEducationInstitutionDescriptor"
@@ -4981,7 +4937,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "Indicates the Baccalaureate Level Of Education Institution.",
           "isIdentifying": false,
@@ -4993,7 +4949,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor1",
         "postgreSql": "FK_d7b81a_LevelOfEducationInstitutionDescriptor1"
@@ -5100,7 +5056,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "Indicates the Class Period of this section.",
           "isIdentifying": false,
@@ -5112,7 +5068,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StaffSectionAssociationExtension_ClassPeriodDescriptor",
         "postgreSql": "FK_2dc783_ClassPeriodDescriptor"
@@ -5347,6 +5303,126 @@
         "sqlServer": "FK_StaffSectionAssociationExtension_StaffSectionAssociation",
         "postgreSql": "FK_2dc783_StaffSectionAssociation"
       }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentAwardLanguageDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentAwardLanguageDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardLanguageDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentAwardLanguageDescriptorId",
+            "postgreSql": "StudentAwardLanguageDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAwardLanguageDescriptor_Descriptor",
+        "postgreSql": "FK_a303e9_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentAwardTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentAwardTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentAwardTypeDescriptorId",
+            "postgreSql": "StudentAwardTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentAwardTypeDescriptor_Descriptor",
+        "postgreSql": "FK_ead1b6_Descriptor"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -5853,6 +5929,306 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAward_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAward_EducationOrganization",
+        "postgreSql": "FK_4d41c1_EducationOrganization"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAward_SchoolYearType"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "SchoolYearType"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Key for School Year",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The school year the student earned the award.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAward_SchoolYearType",
+        "postgreSql": "FK_4d41c1_SchoolYearType"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAward_Student"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAward_Student",
+        "postgreSql": "FK_4d41c1_Student"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAward_StudentAwardLanguageDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentAwardLanguageDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardLanguageDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentAwardLanguageDescriptorId",
+            "postgreSql": "StudentAwardLanguageDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardLanguageDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The language for the award.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentAwardLanguageDescriptorId",
+            "postgreSql": "StudentAwardLanguageDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAward_StudentAwardLanguageDescriptor",
+        "postgreSql": "FK_4d41c1_StudentAwardLanguageDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAward_StudentAwardTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentAwardTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentAwardTypeDescriptorId",
+            "postgreSql": "StudentAwardTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAward"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentAwardTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of award.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentAwardTypeDescriptorId",
+            "postgreSql": "StudentAwardTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAward_StudentAwardTypeDescriptor",
+        "postgreSql": "FK_4d41c1_StudentAwardTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentExtension_GenderIdentityDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -6010,7 +6386,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "Indicates the program participation information.",
           "isIdentifying": false,
@@ -6022,7 +6398,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StudentProgramAssociationExtension_ParticipationInformationDescriptor",
         "postgreSql": "FK_0c120d_ParticipationInformationDescriptor"
@@ -6070,7 +6446,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "Indicates the program Intensity.",
           "isIdentifying": false,
@@ -6082,7 +6458,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StudentProgramAssociationExtension_ProgramIntensityDescriptor",
         "postgreSql": "FK_0c120d_ProgramIntensityDescriptor"
@@ -6938,7 +7314,7 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": false
+            "isNullable": true
           },
           "description": "The special program code the student is in.                  D = Dual Credit Course                  C = Concurrent Enrollment Course",
           "isIdentifying": false,
@@ -6950,7 +7326,7 @@
         }
       ],
       "isIdentifying": false,
-      "isRequired": true,
+      "isRequired": false,
       "constraintNames": {
         "sqlServer": "FK_StudentSectionAssociationExtension_SpecialProgramCodeDescriptor",
         "postgreSql": "FK_a77484_SpecialProgramCodeDescriptor"

@@ -373,6 +373,47 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StaffEducationOrganizationDigitalEquity 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StaffEducationOrganizationDigitalEquity_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.StudentAwardLanguageDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentAwardLanguageDescriptor(StudentAwardLanguageDescriptorId, Id, ChangeVersion)
+    SELECT OLD.StudentAwardLanguageDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.StudentAwardLanguageDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentAwardLanguageDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentAwardLanguageDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.StudentAwardTypeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentAwardTypeDescriptor(StudentAwardTypeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.StudentAwardTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.StudentAwardTypeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentAwardTypeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentAwardTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.StudentEducationOrganizationAward_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentEducationOrganizationAward(AwardDate, EducationOrganizationId, SchoolYear, StudentAwardLanguageDescriptorId, StudentAwardTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.AwardDate, OLD.EducationOrganizationId, OLD.SchoolYear, OLD.StudentAwardLanguageDescriptorId, OLD.StudentAwardTypeDescriptorId, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentEducationOrganizationAward 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentEducationOrganizationAward_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec_c2cadc_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

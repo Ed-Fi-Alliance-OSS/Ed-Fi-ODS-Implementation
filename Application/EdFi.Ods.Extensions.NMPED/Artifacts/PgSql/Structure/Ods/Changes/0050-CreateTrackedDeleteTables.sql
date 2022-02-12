@@ -219,6 +219,35 @@ CREATE TABLE tracked_deletes_nmped.StaffEducationOrganizationDigitalEquity
        CONSTRAINT StaffEducationOrganizationDigitalEquity_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.StudentAwardLanguageDescriptor
+(
+       StudentAwardLanguageDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentAwardLanguageDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StudentAwardTypeDescriptor
+(
+       StudentAwardTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentAwardTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.StudentEducationOrganizationAward
+(
+       AwardDate DATE NOT NULL,
+       EducationOrganizationId INT NOT NULL,
+       SchoolYear SMALLINT NOT NULL,
+       StudentAwardLanguageDescriptorId INT NOT NULL,
+       StudentAwardTypeDescriptorId INT NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentEducationOrganizationAward_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
 (
        BeginDate DATE NOT NULL,
