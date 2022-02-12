@@ -90,6 +90,9 @@
   <Aggregate root="StudentEducationOrganizationAward">
     <Entity table="StudentEducationOrganizationAward" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="StudentSchoolAggregateSectionAttendance">
+    <Entity table="StudentSchoolAggregateSectionAttendance" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
     <Entity table="StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent" schema="nmped"/>
   </Aggregate>

@@ -339,6 +339,26 @@ CREATE TABLE nmped.StudentProgramAssociationNMPEDService (
 ); 
 ALTER TABLE nmped.StudentProgramAssociationNMPEDService ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table nmped.StudentSchoolAggregateSectionAttendance --
+CREATE TABLE nmped.StudentSchoolAggregateSectionAttendance (
+    BeginDate DATE NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    StudentUSI INT NOT NULL,
+    EndDate DATE NULL,
+    NumberOfScheduledPeriods INT NULL,
+    NumberOfPeriodsAttended INT NULL,
+    NumberOfPeriodsExcused INT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentSchoolAggregateSectionAttendance_PK PRIMARY KEY (BeginDate, SchoolId, SchoolYear, StudentUSI)
+); 
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
 -- Table nmped.StudentSchoolFoodServiceProgramAssociationExtension --
 CREATE TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension (
     BeginDate DATE NOT NULL,

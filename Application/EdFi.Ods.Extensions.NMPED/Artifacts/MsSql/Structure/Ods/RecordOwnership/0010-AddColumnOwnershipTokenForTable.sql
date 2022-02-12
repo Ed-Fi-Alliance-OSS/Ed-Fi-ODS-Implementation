@@ -6,5 +6,7 @@ ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ADD [CreatedByOwne
 
 ALTER TABLE [nmped].[StudentEducationOrganizationAward] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
+
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ADD [CreatedByOwnershipTokenId] SMALLINT NULL;
 

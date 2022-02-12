@@ -6,5 +6,7 @@ ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ADD CreatedByOwnership
 
 ALTER TABLE nmped.StudentEducationOrganizationAward ADD CreatedByOwnershipTokenId SMALLINT NULL;
 
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ADD CreatedByOwnershipTokenId SMALLINT NULL;
+
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ADD CreatedByOwnershipTokenId SMALLINT NULL;
 

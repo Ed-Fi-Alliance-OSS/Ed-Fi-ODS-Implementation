@@ -248,6 +248,17 @@ CREATE TABLE tracked_deletes_nmped.StudentEducationOrganizationAward
        CONSTRAINT StudentEducationOrganizationAward_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.StudentSchoolAggregateSectionAttendance
+(
+       BeginDate DATE NOT NULL,
+       SchoolId INT NOT NULL,
+       SchoolYear SMALLINT NOT NULL,
+       StudentUSI INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT StudentSchoolAggregateSectionAttendance_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
 (
        BeginDate DATE NOT NULL,

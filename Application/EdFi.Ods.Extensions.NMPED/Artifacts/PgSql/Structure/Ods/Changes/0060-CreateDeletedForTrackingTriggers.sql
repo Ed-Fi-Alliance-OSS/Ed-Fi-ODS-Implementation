@@ -414,6 +414,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentEducationOrganizationAward 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentEducationOrganizationAward_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.StudentSchoolAggregateSectionAttendance_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentSchoolAggregateSectionAttendance(BeginDate, SchoolId, SchoolYear, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.BeginDate, OLD.SchoolId, OLD.SchoolYear, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentSchoolAggregateSectionAttendance 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentSchoolAggregateSectionAttendance_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec_c2cadc_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

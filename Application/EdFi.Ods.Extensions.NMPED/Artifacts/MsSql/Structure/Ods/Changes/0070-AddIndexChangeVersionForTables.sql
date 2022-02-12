@@ -23,6 +23,12 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSchoolAggregateSectionAttendance') AND name = N'UX_StudentSchoolAggregateSectionAttendance_ChangeVersion')
+    CREATE INDEX [UX_StudentSchoolAggregateSectionAttendance_ChangeVersion] ON [nmped].[StudentSchoolAggregateSectionAttendance] ([ChangeVersion] ASC)
+    GO
+COMMIT
+
+BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent') AND name = N'UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion')
     CREATE INDEX [UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([ChangeVersion] ASC)
     GO

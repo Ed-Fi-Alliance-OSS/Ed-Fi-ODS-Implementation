@@ -223,6 +223,17 @@ COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ProgramTypeDescrip
 COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
 COMMENT ON COLUMN nmped.StudentProgramAssociationNMPEDService.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
+-- Extended Properties [nmped].[StudentSchoolAggregateSectionAttendance] --
+COMMENT ON TABLE nmped.StudentSchoolAggregateSectionAttendance IS 'The student''s aggregate section attendance.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.BeginDate IS 'The begin date.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.SchoolYear IS 'The school year the student earned the award.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.EndDate IS 'The end date.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.NumberOfScheduledPeriods IS 'The number of scheduled periods.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.NumberOfPeriodsAttended IS 'The number of periods attended.';
+COMMENT ON COLUMN nmped.StudentSchoolAggregateSectionAttendance.NumberOfPeriodsExcused IS 'The number of periods excused.';
+
 -- Extended Properties [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension IS '';
 COMMENT ON COLUMN nmped.StudentSchoolFoodServiceProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';

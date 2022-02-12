@@ -372,6 +372,27 @@ ON DELETE CASCADE
 CREATE INDEX FK_548f61_StudentProgramAssociation
 ON nmped.StudentProgramAssociationNMPEDService (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
 
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ADD CONSTRAINT FK_7a0db5_School FOREIGN KEY (SchoolId)
+REFERENCES edfi.School (SchoolId)
+;
+
+CREATE INDEX FK_7a0db5_School
+ON nmped.StudentSchoolAggregateSectionAttendance (SchoolId ASC);
+
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ADD CONSTRAINT FK_7a0db5_SchoolYearType FOREIGN KEY (SchoolYear)
+REFERENCES edfi.SchoolYearType (SchoolYear)
+;
+
+CREATE INDEX FK_7a0db5_SchoolYearType
+ON nmped.StudentSchoolAggregateSectionAttendance (SchoolYear ASC);
+
+ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance ADD CONSTRAINT FK_7a0db5_Student FOREIGN KEY (StudentUSI)
+REFERENCES edfi.Student (StudentUSI)
+;
+
+CREATE INDEX FK_7a0db5_Student
+ON nmped.StudentSchoolAggregateSectionAttendance (StudentUSI ASC);
+
 ALTER TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension ADD CONSTRAINT FK_0566bb_DirectCertificationStatusDescriptor FOREIGN KEY (DirectCertificationStatusDescriptorId)
 REFERENCES nmped.DirectCertificationStatusDescriptor (DirectCertificationStatusDescriptorId)
 ;

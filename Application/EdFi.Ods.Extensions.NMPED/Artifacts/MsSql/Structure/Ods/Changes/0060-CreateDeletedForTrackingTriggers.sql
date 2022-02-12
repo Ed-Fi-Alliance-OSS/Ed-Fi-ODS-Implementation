@@ -534,6 +534,23 @@ ALTER TABLE [nmped].[StudentEducationOrganizationAward] ENABLE TRIGGER [nmped_St
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_StudentSchoolAggregateSectionAttendance_TR_DeleteTracking] ON [nmped].[StudentSchoolAggregateSectionAttendance] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentSchoolAggregateSectionAttendance](BeginDate, SchoolId, SchoolYear, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, SchoolId, SchoolYear, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] ENABLE TRIGGER [nmped_StudentSchoolAggregateSectionAttendance_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_DeleteTracking] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

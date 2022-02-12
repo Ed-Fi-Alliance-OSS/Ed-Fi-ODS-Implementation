@@ -506,6 +506,35 @@ GO
 ALTER TABLE [nmped].[StudentProgramAssociationNMPEDService] ADD CONSTRAINT [StudentProgramAssociationNMPEDService_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [nmped].[StudentSchoolAggregateSectionAttendance] --
+CREATE TABLE [nmped].[StudentSchoolAggregateSectionAttendance] (
+    [BeginDate] [DATE] NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [EndDate] [DATE] NULL,
+    [NumberOfScheduledPeriods] [INT] NULL,
+    [NumberOfPeriodsAttended] [INT] NULL,
+    [NumberOfPeriodsExcused] [INT] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentSchoolAggregateSectionAttendance_PK] PRIMARY KEY CLUSTERED (
+        [BeginDate] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] ADD CONSTRAINT [StudentSchoolAggregateSectionAttendance_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] ADD CONSTRAINT [StudentSchoolAggregateSectionAttendance_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] ADD CONSTRAINT [StudentSchoolAggregateSectionAttendance_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
 -- Table [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --
 CREATE TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] (
     [BeginDate] [DATE] NOT NULL,

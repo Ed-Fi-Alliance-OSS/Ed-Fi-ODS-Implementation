@@ -368,6 +368,26 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationNMPEDService', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 
+-- Extended Properties [nmped].[StudentSchoolAggregateSectionAttendance] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student''s aggregate section attendance.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The begin date.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a school.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'SchoolId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student earned the award.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The end date.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'EndDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of scheduled periods.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'NumberOfScheduledPeriods'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of periods attended.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'NumberOfPeriodsAttended'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The number of periods excused.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolAggregateSectionAttendance', @level2type=N'COLUMN', @level2name=N'NumberOfPeriodsExcused'
+GO
+
 -- Extended Properties [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSchoolFoodServiceProgramAssociationExtension'
 GO

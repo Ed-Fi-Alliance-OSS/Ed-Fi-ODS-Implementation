@@ -401,6 +401,30 @@ CREATE NONCLUSTERED INDEX [FK_StudentProgramAssociationNMPEDService_StudentProgr
 ON [nmped].[StudentProgramAssociationNMPEDService] ([BeginDate] ASC, [EducationOrganizationId] ASC, [ProgramEducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC, [StudentUSI] ASC)
 GO
 
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAggregateSectionAttendance_School] FOREIGN KEY ([SchoolId])
+REFERENCES [edfi].[School] ([SchoolId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSchoolAggregateSectionAttendance_School]
+ON [nmped].[StudentSchoolAggregateSectionAttendance] ([SchoolId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAggregateSectionAttendance_SchoolYearType] FOREIGN KEY ([SchoolYear])
+REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSchoolAggregateSectionAttendance_SchoolYearType]
+ON [nmped].[StudentSchoolAggregateSectionAttendance] ([SchoolYear] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSchoolAggregateSectionAttendance] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolAggregateSectionAttendance_Student] FOREIGN KEY ([StudentUSI])
+REFERENCES [edfi].[Student] ([StudentUSI])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSchoolAggregateSectionAttendance_Student]
+ON [nmped].[StudentSchoolAggregateSectionAttendance] ([StudentUSI] ASC)
+GO
+
 ALTER TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSchoolFoodServiceProgramAssociationExtension_DirectCertificationStatusDescriptor] FOREIGN KEY ([DirectCertificationStatusDescriptorId])
 REFERENCES [nmped].[DirectCertificationStatusDescriptor] ([DirectCertificationStatusDescriptorId])
 GO

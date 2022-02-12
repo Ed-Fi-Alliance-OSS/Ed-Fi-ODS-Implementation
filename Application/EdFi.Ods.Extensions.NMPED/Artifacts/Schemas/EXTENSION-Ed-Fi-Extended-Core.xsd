@@ -357,6 +357,60 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSchoolAggregateSectionAttendance">
+    <xs:annotation>
+      <xs:documentation>The student's aggregate section attendance.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="SchoolReference" type="SchoolReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the School.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolYear" type="SchoolYearType">
+            <xs:annotation>
+              <xs:documentation>The school year the student earned the award.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The begin date.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The end date.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NumberOfScheduledPeriods" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of scheduled periods.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NumberOfPeriodsAttended" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of periods attended.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NumberOfPeriodsExcused" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of periods excused.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent">
     <xs:annotation>
       <xs:documentation>This is documentation.</xs:documentation>
@@ -1129,6 +1183,55 @@
           <xs:element name="StudentEducationOrganizationAwardIdentity" type="EXTENSION-StudentEducationOrganizationAwardIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a StudentEducationOrganizationAward.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSchoolAggregateSectionAttendanceIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a StudentSchoolAggregateSectionAttendance.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="SchoolReference" type="SchoolReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the School.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the Student.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SchoolYear" type="SchoolYearType">
+        <xs:annotation>
+          <xs:documentation>The school year the student earned the award.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="BeginDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The begin date.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSchoolAggregateSectionAttendanceReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a StudentSchoolAggregateSectionAttendance. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="StudentSchoolAggregateSectionAttendanceIdentity" type="EXTENSION-StudentSchoolAggregateSectionAttendanceIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a StudentSchoolAggregateSectionAttendance.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>

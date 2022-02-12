@@ -218,6 +218,16 @@ CREATE TABLE [tracked_deletes_nmped].[StudentEducationOrganizationAward]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentEducationOrganizationAward PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[StudentSchoolAggregateSectionAttendance]
+(
+       BeginDate [DATE] NOT NULL,
+       SchoolId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentSchoolAggregateSectionAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
 (
        BeginDate [DATE] NOT NULL,
