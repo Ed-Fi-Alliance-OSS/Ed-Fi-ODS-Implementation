@@ -1,0 +1,22 @@
+Domain Entity LocalEducationAgencyTransportation
+    documentation "The local education agency transportation."
+domain entity EdFi.LocalEducationAgency
+    documentation "A reference to the local education agency."
+    is part of identity
+descriptor TransportationCategory
+    documentation "The first category of the district transportation."
+    is part of identity
+    role name CategoryDescriptor01
+descriptor TransportationCategory
+    documentation "The second category of the district transportation."
+    is part of identity
+    role name CategoryDescriptor02
+descriptor TransportationSetCode
+    documentation "The transportation set code."
+    is part of identity
+descriptor TransportationPrimaryMeasureType
+    documentation "The primary measure type."
+    is part of identity
+integer Count
+  documentation "The count for the measure."
+  is required

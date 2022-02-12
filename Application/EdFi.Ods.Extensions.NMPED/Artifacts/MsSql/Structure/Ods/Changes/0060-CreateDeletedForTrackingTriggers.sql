@@ -196,6 +196,41 @@ ALTER TABLE [nmped].[LevelOfEducationInstitutionDescriptor] ENABLE TRIGGER [nmpe
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_LocalEducationAgencyTransportation_TR_DeleteTracking] ON [nmped].[LocalEducationAgencyTransportation] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[LocalEducationAgencyTransportation](CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId, Id, ChangeVersion)
+    SELECT  CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] ENABLE TRIGGER [nmped_LocalEducationAgencyTransportation_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_MileageTypeDescriptor_TR_DeleteTracking] ON [nmped].[MileageTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[MileageTypeDescriptor](MileageTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.MileageTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.MileageTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[MileageTypeDescriptor] ENABLE TRIGGER [nmped_MileageTypeDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_NMPEDService_TR_DeleteTracking] ON [nmped].[NMPEDService] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -282,6 +317,24 @@ END
 GO
 
 ALTER TABLE [nmped].[ProgramIntensityDescriptor] ENABLE TRIGGER [nmped_ProgramIntensityDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_RoadTypeDescriptor_TR_DeleteTracking] ON [nmped].[RoadTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[RoadTypeDescriptor](RoadTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.RoadTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.RoadTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[RoadTypeDescriptor] ENABLE TRIGGER [nmped_RoadTypeDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -568,6 +621,60 @@ ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationPr
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_TransportationCategoryDescriptor_TR_DeleteTracking] ON [nmped].[TransportationCategoryDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[TransportationCategoryDescriptor](TransportationCategoryDescriptorId, Id, ChangeVersion)
+    SELECT  d.TransportationCategoryDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.TransportationCategoryDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[TransportationCategoryDescriptor] ENABLE TRIGGER [nmped_TransportationCategoryDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_TransportationPrimaryMeasureTypeDescriptor_TR_DeleteTracking] ON [nmped].[TransportationPrimaryMeasureTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[TransportationPrimaryMeasureTypeDescriptor](TransportationPrimaryMeasureTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.TransportationPrimaryMeasureTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.TransportationPrimaryMeasureTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[TransportationPrimaryMeasureTypeDescriptor] ENABLE TRIGGER [nmped_TransportationPrimaryMeasureTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_TransportationSetCodeDescriptor_TR_DeleteTracking] ON [nmped].[TransportationSetCodeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[TransportationSetCodeDescriptor](TransportationSetCodeDescriptorId, Id, ChangeVersion)
+    SELECT  d.TransportationSetCodeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.TransportationSetCodeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[TransportationSetCodeDescriptor] ENABLE TRIGGER [nmped_TransportationSetCodeDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_TriennialReviewDelayReasonDescriptor_TR_DeleteTracking] ON [nmped].[TriennialReviewDelayReasonDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -583,6 +690,130 @@ END
 GO
 
 ALTER TABLE [nmped].[TriennialReviewDelayReasonDescriptor] ENABLE TRIGGER [nmped_TriennialReviewDelayReasonDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleBodyManufacturerDescriptor_TR_DeleteTracking] ON [nmped].[VehicleBodyManufacturerDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleBodyManufacturerDescriptor](VehicleBodyManufacturerDescriptorId, Id, ChangeVersion)
+    SELECT  d.VehicleBodyManufacturerDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.VehicleBodyManufacturerDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[VehicleBodyManufacturerDescriptor] ENABLE TRIGGER [nmped_VehicleBodyManufacturerDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleChassisManufacturerDescriptor_TR_DeleteTracking] ON [nmped].[VehicleChassisManufacturerDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleChassisManufacturerDescriptor](VehicleChassisManufacturerDescriptorId, Id, ChangeVersion)
+    SELECT  d.VehicleChassisManufacturerDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.VehicleChassisManufacturerDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[VehicleChassisManufacturerDescriptor] ENABLE TRIGGER [nmped_VehicleChassisManufacturerDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleFuelTypeDescriptor_TR_DeleteTracking] ON [nmped].[VehicleFuelTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleFuelTypeDescriptor](VehicleFuelTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.VehicleFuelTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.VehicleFuelTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[VehicleFuelTypeDescriptor] ENABLE TRIGGER [nmped_VehicleFuelTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleMileage_TR_DeleteTracking] ON [nmped].[VehicleMileage] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleMileage](LocalEducationAgencyId, MileageTypeDescriptorId, ReportingDate, RoadTypeDescriptorId, VehicleId, VehicleRouteDescriptorId, Id, ChangeVersion)
+    SELECT  LocalEducationAgencyId, MileageTypeDescriptorId, ReportingDate, RoadTypeDescriptorId, VehicleId, VehicleRouteDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[VehicleMileage] ENABLE TRIGGER [nmped_VehicleMileage_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleRouteDescriptor_TR_DeleteTracking] ON [nmped].[VehicleRouteDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleRouteDescriptor](VehicleRouteDescriptorId, Id, ChangeVersion)
+    SELECT  d.VehicleRouteDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.VehicleRouteDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[VehicleRouteDescriptor] ENABLE TRIGGER [nmped_VehicleRouteDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleSnapshot_TR_DeleteTracking] ON [nmped].[VehicleSnapshot] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleSnapshot](LocalEducationAgencyId, SchoolYear, VehicleId, VehicleIdentificationNumber, Id, ChangeVersion)
+    SELECT  LocalEducationAgencyId, SchoolYear, VehicleId, VehicleIdentificationNumber, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] ENABLE TRIGGER [nmped_VehicleSnapshot_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_VehicleTypeDescriptor_TR_DeleteTracking] ON [nmped].[VehicleTypeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[VehicleTypeDescriptor](VehicleTypeDescriptorId, Id, ChangeVersion)
+    SELECT  d.VehicleTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.VehicleTypeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[VehicleTypeDescriptor] ENABLE TRIGGER [nmped_VehicleTypeDescriptor_TR_DeleteTracking]
 GO
 
 

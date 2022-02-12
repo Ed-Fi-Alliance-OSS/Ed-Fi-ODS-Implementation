@@ -75,6 +75,24 @@ CREATE TABLE [tracked_deletes_nmped].[LevelOfEducationInstitutionDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_LevelOfEducationInstitutionDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[LocalEducationAgencyTransportation]
+(
+       CategoryDescriptor01TransportationCategoryDescriptorId [INT] NOT NULL,
+       CategoryDescriptor02TransportationCategoryDescriptorId [INT] NOT NULL,
+       LocalEducationAgencyId [INT] NOT NULL,
+       TransportationPrimaryMeasureTypeDescriptorId [INT] NOT NULL,
+       TransportationSetCodeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_LocalEducationAgencyTransportation PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[MileageTypeDescriptor]
+(
+       MileageTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_MileageTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[NMPEDService]
 (
        ServiceDescriptorId [INT] NOT NULL,
@@ -109,6 +127,13 @@ CREATE TABLE [tracked_deletes_nmped].[ProgramIntensityDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_ProgramIntensityDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[RoadTypeDescriptor]
+(
+       RoadTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_RoadTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[ServiceProviderTypeDescriptor]
 (
@@ -240,10 +265,88 @@ CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationS
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[TransportationCategoryDescriptor]
+(
+       TransportationCategoryDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_TransportationCategoryDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[TransportationPrimaryMeasureTypeDescriptor]
+(
+       TransportationPrimaryMeasureTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_TransportationPrimaryMeasureTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[TransportationSetCodeDescriptor]
+(
+       TransportationSetCodeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_TransportationSetCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[TriennialReviewDelayReasonDescriptor]
 (
        TriennialReviewDelayReasonDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TriennialReviewDelayReasonDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleBodyManufacturerDescriptor]
+(
+       VehicleBodyManufacturerDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleBodyManufacturerDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleChassisManufacturerDescriptor]
+(
+       VehicleChassisManufacturerDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleChassisManufacturerDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleFuelTypeDescriptor]
+(
+       VehicleFuelTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleFuelTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleMileage]
+(
+       LocalEducationAgencyId [INT] NOT NULL,
+       MileageTypeDescriptorId [INT] NOT NULL,
+       ReportingDate [DATE] NOT NULL,
+       RoadTypeDescriptorId [INT] NOT NULL,
+       VehicleId [NVARCHAR](255) NOT NULL,
+       VehicleRouteDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleMileage PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleRouteDescriptor]
+(
+       VehicleRouteDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleRouteDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleSnapshot]
+(
+       LocalEducationAgencyId [INT] NOT NULL,
+       SchoolYear [SMALLINT] NOT NULL,
+       VehicleId [NVARCHAR](255) NOT NULL,
+       VehicleIdentificationNumber [NVARCHAR](21) NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleSnapshot PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[VehicleTypeDescriptor]
+(
+       VehicleTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_VehicleTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )

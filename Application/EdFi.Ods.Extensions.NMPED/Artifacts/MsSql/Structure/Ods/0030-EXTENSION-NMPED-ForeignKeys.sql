@@ -58,6 +58,51 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_LocalEducationAgency] FOREIGN KEY ([LocalEducationAgencyId])
+REFERENCES [edfi].[LocalEducationAgency] ([LocalEducationAgencyId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_LocalEducationAgency]
+ON [nmped].[LocalEducationAgencyTransportation] ([LocalEducationAgencyId] ASC)
+GO
+
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor] FOREIGN KEY ([CategoryDescriptor01TransportationCategoryDescriptorId])
+REFERENCES [nmped].[TransportationCategoryDescriptor] ([TransportationCategoryDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor]
+ON [nmped].[LocalEducationAgencyTransportation] ([CategoryDescriptor01TransportationCategoryDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor1] FOREIGN KEY ([CategoryDescriptor02TransportationCategoryDescriptorId])
+REFERENCES [nmped].[TransportationCategoryDescriptor] ([TransportationCategoryDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor1]
+ON [nmped].[LocalEducationAgencyTransportation] ([CategoryDescriptor02TransportationCategoryDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor] FOREIGN KEY ([TransportationPrimaryMeasureTypeDescriptorId])
+REFERENCES [nmped].[TransportationPrimaryMeasureTypeDescriptor] ([TransportationPrimaryMeasureTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor]
+ON [nmped].[LocalEducationAgencyTransportation] ([TransportationPrimaryMeasureTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationSetCodeDescriptor] FOREIGN KEY ([TransportationSetCodeDescriptorId])
+REFERENCES [nmped].[TransportationSetCodeDescriptor] ([TransportationSetCodeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationSetCodeDescriptor]
+ON [nmped].[LocalEducationAgencyTransportation] ([TransportationSetCodeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[MileageTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_MileageTypeDescriptor_Descriptor] FOREIGN KEY ([MileageTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [nmped].[NMPEDService] WITH CHECK ADD CONSTRAINT [FK_NMPEDService_ServiceDescriptor] FOREIGN KEY ([ServiceDescriptorId])
 REFERENCES [edfi].[ServiceDescriptor] ([ServiceDescriptorId])
 GO
@@ -94,6 +139,11 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [nmped].[ProgramIntensityDescriptor] WITH CHECK ADD CONSTRAINT [FK_ProgramIntensityDescriptor_Descriptor] FOREIGN KEY ([ProgramIntensityDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[RoadTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_RoadTypeDescriptor_Descriptor] FOREIGN KEY ([RoadTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -517,7 +567,127 @@ ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationPr
 REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 GO
 
+ALTER TABLE [nmped].[TransportationCategoryDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationCategoryDescriptor_Descriptor] FOREIGN KEY ([TransportationCategoryDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[TransportationPrimaryMeasureTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationPrimaryMeasureTypeDescriptor_Descriptor] FOREIGN KEY ([TransportationPrimaryMeasureTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[TransportationSetCodeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationSetCodeDescriptor_Descriptor] FOREIGN KEY ([TransportationSetCodeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [nmped].[TriennialReviewDelayReasonDescriptor] WITH CHECK ADD CONSTRAINT [FK_TriennialReviewDelayReasonDescriptor_Descriptor] FOREIGN KEY ([TriennialReviewDelayReasonDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[VehicleBodyManufacturerDescriptor] WITH CHECK ADD CONSTRAINT [FK_VehicleBodyManufacturerDescriptor_Descriptor] FOREIGN KEY ([VehicleBodyManufacturerDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[VehicleChassisManufacturerDescriptor] WITH CHECK ADD CONSTRAINT [FK_VehicleChassisManufacturerDescriptor_Descriptor] FOREIGN KEY ([VehicleChassisManufacturerDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[VehicleFuelTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_VehicleFuelTypeDescriptor_Descriptor] FOREIGN KEY ([VehicleFuelTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[VehicleMileage] WITH CHECK ADD CONSTRAINT [FK_VehicleMileage_LocalEducationAgency] FOREIGN KEY ([LocalEducationAgencyId])
+REFERENCES [edfi].[LocalEducationAgency] ([LocalEducationAgencyId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleMileage_LocalEducationAgency]
+ON [nmped].[VehicleMileage] ([LocalEducationAgencyId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleMileage] WITH CHECK ADD CONSTRAINT [FK_VehicleMileage_MileageTypeDescriptor] FOREIGN KEY ([MileageTypeDescriptorId])
+REFERENCES [nmped].[MileageTypeDescriptor] ([MileageTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleMileage_MileageTypeDescriptor]
+ON [nmped].[VehicleMileage] ([MileageTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleMileage] WITH CHECK ADD CONSTRAINT [FK_VehicleMileage_RoadTypeDescriptor] FOREIGN KEY ([RoadTypeDescriptorId])
+REFERENCES [nmped].[RoadTypeDescriptor] ([RoadTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleMileage_RoadTypeDescriptor]
+ON [nmped].[VehicleMileage] ([RoadTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleMileage] WITH CHECK ADD CONSTRAINT [FK_VehicleMileage_VehicleRouteDescriptor] FOREIGN KEY ([VehicleRouteDescriptorId])
+REFERENCES [nmped].[VehicleRouteDescriptor] ([VehicleRouteDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleMileage_VehicleRouteDescriptor]
+ON [nmped].[VehicleMileage] ([VehicleRouteDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleRouteDescriptor] WITH CHECK ADD CONSTRAINT [FK_VehicleRouteDescriptor_Descriptor] FOREIGN KEY ([VehicleRouteDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_LocalEducationAgency] FOREIGN KEY ([LocalEducationAgencyId])
+REFERENCES [edfi].[LocalEducationAgency] ([LocalEducationAgencyId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_LocalEducationAgency]
+ON [nmped].[VehicleSnapshot] ([LocalEducationAgencyId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_SchoolYearType] FOREIGN KEY ([SchoolYear])
+REFERENCES [edfi].[SchoolYearType] ([SchoolYear])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_SchoolYearType]
+ON [nmped].[VehicleSnapshot] ([SchoolYear] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_VehicleBodyManufacturerDescriptor] FOREIGN KEY ([VehicleBodyManufacturerDescriptorId])
+REFERENCES [nmped].[VehicleBodyManufacturerDescriptor] ([VehicleBodyManufacturerDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_VehicleBodyManufacturerDescriptor]
+ON [nmped].[VehicleSnapshot] ([VehicleBodyManufacturerDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_VehicleChassisManufacturerDescriptor] FOREIGN KEY ([VehicleChassisManufacturerDescriptorId])
+REFERENCES [nmped].[VehicleChassisManufacturerDescriptor] ([VehicleChassisManufacturerDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_VehicleChassisManufacturerDescriptor]
+ON [nmped].[VehicleSnapshot] ([VehicleChassisManufacturerDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_VehicleFuelTypeDescriptor] FOREIGN KEY ([VehicleFuelTypeDescriptorId])
+REFERENCES [nmped].[VehicleFuelTypeDescriptor] ([VehicleFuelTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_VehicleFuelTypeDescriptor]
+ON [nmped].[VehicleSnapshot] ([VehicleFuelTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleSnapshot] WITH CHECK ADD CONSTRAINT [FK_VehicleSnapshot_VehicleTypeDescriptor] FOREIGN KEY ([VehicleTypeDescriptorId])
+REFERENCES [nmped].[VehicleTypeDescriptor] ([VehicleTypeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_VehicleSnapshot_VehicleTypeDescriptor]
+ON [nmped].[VehicleSnapshot] ([VehicleTypeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[VehicleTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_VehicleTypeDescriptor_Descriptor] FOREIGN KEY ([VehicleTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO

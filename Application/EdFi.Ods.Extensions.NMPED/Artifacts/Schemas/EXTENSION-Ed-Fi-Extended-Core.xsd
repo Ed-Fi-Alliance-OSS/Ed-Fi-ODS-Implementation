@@ -46,6 +46,62 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-LocalEducationAgencyTransportation">
+    <xs:annotation>
+      <xs:documentation>The local education agency transportation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the local education agency.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CategoryDescriptor01TransportationCategory" type="EXTENSION-TransportationCategoryDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The first category of the district transportation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-TransportationCategoryDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CategoryDescriptor02TransportationCategory" type="EXTENSION-TransportationCategoryDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The second category of the district transportation.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-TransportationCategoryDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TransportationSetCode" type="EXTENSION-TransportationSetCodeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The transportation set code.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-TransportationSetCodeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TransportationPrimaryMeasureType" type="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The primary measure type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-TransportationPrimaryMeasureTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Count" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The count for the measure.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-NMPEDService">
     <xs:annotation>
       <xs:documentation>The student's program service information.</xs:documentation>
@@ -459,6 +515,180 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleMileage">
+    <xs:annotation>
+      <xs:documentation>The vehicle's mileage.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the local education agency.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleId" type="EXTENSION-VehicleId">
+            <xs:annotation>
+              <xs:documentation>The unique identifier for the vehicle.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleRoute" type="EXTENSION-VehicleRouteDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The vehicle's route.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-VehicleRouteDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReportingDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The vehicle's mileage reporting date.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RoadType" type="EXTENSION-RoadTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The road type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-RoadTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MileageType" type="EXTENSION-MileageTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The mileage type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-MileageTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="DailyMileage" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The daily mileage.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleSnapshot">
+    <xs:annotation>
+      <xs:documentation>The local education agency transportation vehicle snapshot.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the local education agency.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleId" type="EXTENSION-VehicleId">
+            <xs:annotation>
+              <xs:documentation>The unique identifier for the vehicle.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolYear" type="SchoolYearType">
+            <xs:annotation>
+              <xs:documentation>The school year reference.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleIdentificationNumber" type="EXTENSION-VehicleIdentificationNumber">
+            <xs:annotation>
+              <xs:documentation>The vehicle VIN number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LicensePlateNumber" type="EXTENSION-LicensePlateNumber">
+            <xs:annotation>
+              <xs:documentation>The vehicle's license number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ManufacturerYear" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The year the vehicle was manufactured.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleBodyManufacturer" type="EXTENSION-VehicleBodyManufacturerDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The vehicle's body manufacturer.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-VehicleBodyManufacturerDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleChassisManufacturer" type="EXTENSION-VehicleChassisManufacturerDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The vehicle's hassis manufacturer.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-VehicleChassisManufacturerDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GrossVehicleWeightRating" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The vehicle's gross weight raiting.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleFuelType" type="EXTENSION-VehicleFuelTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The vehicle's fuel type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-VehicleFuelTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialLiftEquipmentIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the vehicle has special lift equipment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SeatingCapacity" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The vehicle's seating capacity.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RegisteredOwnerCode" type="EXTENSION-RegisteredOwnerCode">
+            <xs:annotation>
+              <xs:documentation>The vehicle's registered owner.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OdometerMileage" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The vehicle's odometer mileage.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OdometerReadingDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The vehicle's odometer reading date.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NumberOfDaysInUse" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>The vehicle's number of days in use.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleUseIndicator" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Indicates if the vehicle is in use.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="VehicleType" type="EXTENSION-VehicleTypeDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The vehicle's type.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-VehicleTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Descriptors =====</xs:documentation>
   </xs:annotation>
@@ -583,6 +813,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-MileageTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The mileage type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-ParticipationInformationDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
@@ -619,6 +860,17 @@
   <xs:complexType name="EXTENSION-ProgramIntensityDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Intensity.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-RoadTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The road type.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -748,9 +1000,97 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-TransportationCategoryDescriptor">
+    <xs:annotation>
+      <xs:documentation>The transportation category type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-TransportationPrimaryMeasureTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The primary measure type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-TransportationSetCodeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The transportation set codes.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-TriennialReviewDelayReasonDescriptor">
     <xs:annotation>
       <xs:documentation>The triennial review reason.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleBodyManufacturerDescriptor">
+    <xs:annotation>
+      <xs:documentation>The body manufacturer.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleChassisManufacturerDescriptor">
+    <xs:annotation>
+      <xs:documentation>The chassis manufacturer.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleFuelTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The vehicle's fuel type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleRouteDescriptor">
+    <xs:annotation>
+      <xs:documentation>The transportation route.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The vehicle's type.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -994,6 +1334,72 @@
   <xs:annotation>
     <xs:documentation>===== Extended Reference Types =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-LocalEducationAgencyTransportationIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a LocalEducationAgencyTransportation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the local education agency.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CategoryDescriptor01TransportationCategory" type="EXTENSION-TransportationCategoryDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The first category of the district transportation.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-TransportationCategoryDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="CategoryDescriptor02TransportationCategory" type="EXTENSION-TransportationCategoryDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The second category of the district transportation.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-TransportationCategoryDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportationSetCode" type="EXTENSION-TransportationSetCodeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The transportation set code.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-TransportationSetCodeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TransportationPrimaryMeasureType" type="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The primary measure type.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-TransportationPrimaryMeasureTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-LocalEducationAgencyTransportationReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a LocalEducationAgencyTransportation. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="LocalEducationAgencyTransportationIdentity" type="EXTENSION-LocalEducationAgencyTransportationIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a LocalEducationAgencyTransportation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-NMPEDServiceIdentityType">
     <xs:annotation>
       <xs:documentation>Identity of a NMPEDService.</xs:documentation>
@@ -1272,6 +1678,123 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleMileageIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a VehicleMileage.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the local education agency.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleId" type="EXTENSION-VehicleId">
+        <xs:annotation>
+          <xs:documentation>The unique identifier for the vehicle.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleRoute" type="EXTENSION-VehicleRouteDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The vehicle's route.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-VehicleRouteDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ReportingDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The vehicle's mileage reporting date.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="RoadType" type="EXTENSION-RoadTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The road type.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-RoadTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="MileageType" type="EXTENSION-MileageTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The mileage type.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-MileageTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleMileageReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a VehicleMileage. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="VehicleMileageIdentity" type="EXTENSION-VehicleMileageIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a VehicleMileage.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleSnapshotIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a VehicleSnapshot.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="LocalEducationAgencyReference" type="LocalEducationAgencyReferenceType">
+        <xs:annotation>
+          <xs:documentation>A reference to the local education agency.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleId" type="EXTENSION-VehicleId">
+        <xs:annotation>
+          <xs:documentation>The unique identifier for the vehicle.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SchoolYear" type="SchoolYearType">
+        <xs:annotation>
+          <xs:documentation>The school year reference.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="VehicleIdentificationNumber" type="EXTENSION-VehicleIdentificationNumber">
+        <xs:annotation>
+          <xs:documentation>The vehicle VIN number.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-VehicleSnapshotReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a VehicleSnapshot. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="VehicleSnapshotIdentity" type="EXTENSION-VehicleSnapshotIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a VehicleSnapshot.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:annotation>
     <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
   </xs:annotation>
@@ -1374,6 +1897,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-MileageTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The mileage type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ParticipationInformationDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
@@ -1404,6 +1936,15 @@
   <xs:simpleType name="EXTENSION-ProgramIntensityDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Intensity.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RoadTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The road type.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1509,9 +2050,81 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-TransportationCategoryDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The transportation category type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The primary measure type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-TransportationSetCodeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The transportation set codes.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-TriennialReviewDelayReasonDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The triennial review reason.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleBodyManufacturerDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The body manufacturer.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleChassisManufacturerDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The chassis manufacturer.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleFuelTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The vehicle's fuel type.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleRouteDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The transportation route.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The vehicle's type.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -1567,6 +2180,28 @@
       <xs:maxLength value="60" />
     </xs:restriction>
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-LicensePlateNumber">
+    <xs:annotation>
+      <xs:documentation>The vehicle's license number.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="7" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-RegisteredOwnerCode">
+    <xs:annotation>
+      <xs:documentation>The vehicle's registered owner.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+    </xs:restriction>
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ServiceProviderName">
     <xs:annotation>
       <xs:documentation>The name of the service provider.</xs:documentation>
@@ -1576,6 +2211,28 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleId">
+    <xs:annotation>
+      <xs:documentation>The unique identifier for the vehicle.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-VehicleIdentificationNumber">
+    <xs:annotation>
+      <xs:documentation>The vehicle VIN number.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="21" />
     </xs:restriction>
   </xs:simpleType>
   <xs:annotation>

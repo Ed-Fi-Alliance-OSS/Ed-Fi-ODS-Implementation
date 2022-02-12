@@ -1,3 +1,6 @@
+ALTER TABLE nmped.LocalEducationAgencyTransportation
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
 ALTER TABLE nmped.NMPEDService
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
@@ -14,5 +17,11 @@ ALTER TABLE nmped.StudentSchoolAggregateSectionAttendance
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
+ALTER TABLE nmped.VehicleMileage
+ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
+
+ALTER TABLE nmped.VehicleSnapshot
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 

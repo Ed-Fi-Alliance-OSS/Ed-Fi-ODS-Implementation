@@ -199,10 +199,12 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="GenderIdentityDescriptor" type="EXTENSION-GenderIdentityDescriptor" />
         <xs:element name="IndustryCredentialDescriptor" type="EXTENSION-IndustryCredentialDescriptor" />
         <xs:element name="LevelOfEducationInstitutionDescriptor" type="EXTENSION-LevelOfEducationInstitutionDescriptor" />
+        <xs:element name="MileageTypeDescriptor" type="EXTENSION-MileageTypeDescriptor" />
         <xs:element name="ParticipationInformationDescriptor" type="EXTENSION-ParticipationInformationDescriptor" />
         <xs:element name="PlannedPostGraduateActivityDescriptor" type="EXTENSION-PlannedPostGraduateActivityDescriptor" />
         <xs:element name="ProgramDeliveryMethodDescriptor" type="EXTENSION-ProgramDeliveryMethodDescriptor" />
         <xs:element name="ProgramIntensityDescriptor" type="EXTENSION-ProgramIntensityDescriptor" />
+        <xs:element name="RoadTypeDescriptor" type="EXTENSION-RoadTypeDescriptor" />
         <xs:element name="ServiceProviderTypeDescriptor" type="EXTENSION-ServiceProviderTypeDescriptor" />
         <xs:element name="ServiceSettingDescriptor" type="EXTENSION-ServiceSettingDescriptor" />
         <xs:element name="SpecialEducationEventReasonDescriptor" type="EXTENSION-SpecialEducationEventReasonDescriptor" />
@@ -214,7 +216,15 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="StaffDevelopmentPurposeCodeDescriptor" type="EXTENSION-StaffDevelopmentPurposeCodeDescriptor" />
         <xs:element name="StudentAwardLanguageDescriptor" type="EXTENSION-StudentAwardLanguageDescriptor" />
         <xs:element name="StudentAwardTypeDescriptor" type="EXTENSION-StudentAwardTypeDescriptor" />
+        <xs:element name="TransportationCategoryDescriptor" type="EXTENSION-TransportationCategoryDescriptor" />
+        <xs:element name="TransportationPrimaryMeasureTypeDescriptor" type="EXTENSION-TransportationPrimaryMeasureTypeDescriptor" />
+        <xs:element name="TransportationSetCodeDescriptor" type="EXTENSION-TransportationSetCodeDescriptor" />
         <xs:element name="TriennialReviewDelayReasonDescriptor" type="EXTENSION-TriennialReviewDelayReasonDescriptor" />
+        <xs:element name="VehicleBodyManufacturerDescriptor" type="EXTENSION-VehicleBodyManufacturerDescriptor" />
+        <xs:element name="VehicleChassisManufacturerDescriptor" type="EXTENSION-VehicleChassisManufacturerDescriptor" />
+        <xs:element name="VehicleFuelTypeDescriptor" type="EXTENSION-VehicleFuelTypeDescriptor" />
+        <xs:element name="VehicleRouteDescriptor" type="EXTENSION-VehicleRouteDescriptor" />
+        <xs:element name="VehicleTypeDescriptor" type="EXTENSION-VehicleTypeDescriptor" />
       </xs:choice>
     </xs:complexType>
   </xs:element>

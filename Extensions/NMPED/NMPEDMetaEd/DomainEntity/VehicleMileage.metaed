@@ -1,0 +1,24 @@
+Domain Entity VehicleMileage
+    documentation "The vehicle's mileage."
+domain entity EdFi.LocalEducationAgency
+    documentation "A reference to the local education agency."
+    is part of identity
+string VehicleId
+    documentation "The unique identifier for the vehicle."
+    is part of identity
+    max length 255
+descriptor VehicleRoute
+    documentation "The vehicle's route."
+    is part of identity
+date ReportingDate
+    documentation "The vehicle's mileage reporting date."
+    is part of identity
+descriptor RoadType
+  documentation "The road type."
+  is part of identity
+descriptor MileageType
+  documentation "The mileage type."
+  is part of identity
+integer DailyMileage
+  documentation "The daily mileage."
+  is required

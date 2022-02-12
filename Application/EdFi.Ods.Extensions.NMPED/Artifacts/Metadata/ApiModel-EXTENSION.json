@@ -141,6 +141,30 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "LocalEducationAgencyTransportation"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "MileageTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "MileageTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "NMPEDService"
       },
       "aggregateEntityNames": [
@@ -195,6 +219,18 @@
         {
           "schema": "nmped",
           "name": "ProgramIntensityDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "RoadTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "RoadTypeDescriptor"
         }
       ]
     },
@@ -393,12 +429,132 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "TransportationCategoryDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "TransportationCategoryDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "TransportationPrimaryMeasureTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "TransportationPrimaryMeasureTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "TransportationSetCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "TransportationSetCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "TriennialReviewDelayReasonDescriptor"
       },
       "aggregateEntityNames": [
         {
           "schema": "nmped",
           "name": "TriennialReviewDelayReasonDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleBodyManufacturerDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleBodyManufacturerDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleChassisManufacturerDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleChassisManufacturerDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleFuelTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleFuelTypeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleMileage"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleMileage"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleRouteDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleRouteDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleSnapshot"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "VehicleTypeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "VehicleTypeDescriptor"
         }
       ]
     }
@@ -824,6 +980,141 @@
     },
     {
       "schema": "nmped",
+      "name": "LocalEducationAgencyTransportation",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "Count",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The count for the measure.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Count",
+            "postgreSql": "Count"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "LocalEducationAgencyTransportation_PK",
+          "identifyingPropertyNames": [
+            "CategoryDescriptor01TransportationCategoryDescriptorId",
+            "CategoryDescriptor02TransportationCategoryDescriptorId",
+            "LocalEducationAgencyId",
+            "TransportationPrimaryMeasureTypeDescriptorId",
+            "TransportationSetCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "LocalEducationAgencyTransportation_PK",
+            "postgreSql": "LocalEducationAgencyTransportation_PK"
+          }
+        },
+        {
+          "identifierName": "UX_LocalEducationAgencyTransportation_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_LocalEducationAgencyTransportation_Id",
+            "postgreSql": "UX_a13cc7_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The local education agency transportation.",
+      "tableNames": {
+        "sqlServer": "LocalEducationAgencyTransportation",
+        "postgreSql": "LocalEducationAgencyTransportation"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "MileageTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "MileageTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "MileageTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "MileageTypeDescriptor_PK",
+            "postgreSql": "MileageTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The mileage type.",
+      "tableNames": {
+        "sqlServer": "MileageTypeDescriptor",
+        "postgreSql": "MileageTypeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "NMPEDService",
       "locallyDefinedProperties": [
         {
@@ -1111,6 +1402,31 @@
       "tableNames": {
         "sqlServer": "ProgramIntensityDescriptor",
         "postgreSql": "ProgramIntensityDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "RoadTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "RoadTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "RoadTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "RoadTypeDescriptor_PK",
+            "postgreSql": "RoadTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The road type.",
+      "tableNames": {
+        "sqlServer": "RoadTypeDescriptor",
+        "postgreSql": "RoadTypeDescriptor"
       }
     },
     {
@@ -2627,6 +2943,81 @@
     },
     {
       "schema": "nmped",
+      "name": "TransportationCategoryDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "TransportationCategoryDescriptor_PK",
+          "identifyingPropertyNames": [
+            "TransportationCategoryDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "TransportationCategoryDescriptor_PK",
+            "postgreSql": "TransportationCategoryDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The transportation category type.",
+      "tableNames": {
+        "sqlServer": "TransportationCategoryDescriptor",
+        "postgreSql": "TransportationCategoryDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "TransportationPrimaryMeasureTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "TransportationPrimaryMeasureTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "TransportationPrimaryMeasureTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "TransportationPrimaryMeasureTypeDescriptor_PK",
+            "postgreSql": "TransportationPrimaryMeasureTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The primary measure type.",
+      "tableNames": {
+        "sqlServer": "TransportationPrimaryMeasureTypeDescriptor",
+        "postgreSql": "TransportationPrimaryMeasureTypeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "TransportationSetCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "TransportationSetCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "TransportationSetCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "TransportationSetCodeDescriptor_PK",
+            "postgreSql": "TransportationSetCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The transportation set codes.",
+      "tableNames": {
+        "sqlServer": "TransportationSetCodeDescriptor",
+        "postgreSql": "TransportationSetCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "TriennialReviewDelayReasonDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -2648,6 +3039,572 @@
       "tableNames": {
         "sqlServer": "TriennialReviewDelayReasonDescriptor",
         "postgreSql": "TriennialReviewDelayReasonDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleBodyManufacturerDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "VehicleBodyManufacturerDescriptor_PK",
+          "identifyingPropertyNames": [
+            "VehicleBodyManufacturerDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleBodyManufacturerDescriptor_PK",
+            "postgreSql": "VehicleBodyManufacturerDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The body manufacturer.",
+      "tableNames": {
+        "sqlServer": "VehicleBodyManufacturerDescriptor",
+        "postgreSql": "VehicleBodyManufacturerDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleChassisManufacturerDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "VehicleChassisManufacturerDescriptor_PK",
+          "identifyingPropertyNames": [
+            "VehicleChassisManufacturerDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleChassisManufacturerDescriptor_PK",
+            "postgreSql": "VehicleChassisManufacturerDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The chassis manufacturer.",
+      "tableNames": {
+        "sqlServer": "VehicleChassisManufacturerDescriptor",
+        "postgreSql": "VehicleChassisManufacturerDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleFuelTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "VehicleFuelTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "VehicleFuelTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleFuelTypeDescriptor_PK",
+            "postgreSql": "VehicleFuelTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The vehicle's fuel type.",
+      "tableNames": {
+        "sqlServer": "VehicleFuelTypeDescriptor",
+        "postgreSql": "VehicleFuelTypeDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleMileage",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "DailyMileage",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The daily mileage.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "DailyMileage",
+            "postgreSql": "DailyMileage"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "ReportingDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's mileage reporting date.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ReportingDate",
+            "postgreSql": "ReportingDate"
+          }
+        },
+        {
+          "propertyName": "VehicleId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The unique identifier for the vehicle.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleId",
+            "postgreSql": "VehicleId"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "UX_VehicleMileage_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_VehicleMileage_Id",
+            "postgreSql": "UX_190006_Id"
+          }
+        },
+        {
+          "identifierName": "VehicleMileage_PK",
+          "identifyingPropertyNames": [
+            "LocalEducationAgencyId",
+            "MileageTypeDescriptorId",
+            "ReportingDate",
+            "RoadTypeDescriptorId",
+            "VehicleId",
+            "VehicleRouteDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleMileage_PK",
+            "postgreSql": "VehicleMileage_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The vehicle's mileage.",
+      "tableNames": {
+        "sqlServer": "VehicleMileage",
+        "postgreSql": "VehicleMileage"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleRouteDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "VehicleRouteDescriptor_PK",
+          "identifyingPropertyNames": [
+            "VehicleRouteDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleRouteDescriptor_PK",
+            "postgreSql": "VehicleRouteDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The transportation route.",
+      "tableNames": {
+        "sqlServer": "VehicleRouteDescriptor",
+        "postgreSql": "VehicleRouteDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleSnapshot",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "GrossVehicleWeightRating",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's gross weight raiting.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GrossVehicleWeightRating",
+            "postgreSql": "GrossVehicleWeightRating"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "LicensePlateNumber",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 7,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's license number.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LicensePlateNumber",
+            "postgreSql": "LicensePlateNumber"
+          }
+        },
+        {
+          "propertyName": "ManufacturerYear",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The year the vehicle was manufactured.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ManufacturerYear",
+            "postgreSql": "ManufacturerYear"
+          }
+        },
+        {
+          "propertyName": "NumberOfDaysInUse",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's number of days in use.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NumberOfDaysInUse",
+            "postgreSql": "NumberOfDaysInUse"
+          }
+        },
+        {
+          "propertyName": "OdometerMileage",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's odometer mileage.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "OdometerMileage",
+            "postgreSql": "OdometerMileage"
+          }
+        },
+        {
+          "propertyName": "OdometerReadingDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's odometer reading date.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "OdometerReadingDate",
+            "postgreSql": "OdometerReadingDate"
+          }
+        },
+        {
+          "propertyName": "RegisteredOwnerCode",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 20,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's registered owner.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RegisteredOwnerCode",
+            "postgreSql": "RegisteredOwnerCode"
+          }
+        },
+        {
+          "propertyName": "SeatingCapacity",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's seating capacity.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SeatingCapacity",
+            "postgreSql": "SeatingCapacity"
+          }
+        },
+        {
+          "propertyName": "SpecialLiftEquipmentIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates whether the vehicle has special lift equipment.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialLiftEquipmentIndicator",
+            "postgreSql": "SpecialLiftEquipmentIndicator"
+          }
+        },
+        {
+          "propertyName": "VehicleId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 255,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The unique identifier for the vehicle.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleId",
+            "postgreSql": "VehicleId"
+          }
+        },
+        {
+          "propertyName": "VehicleIdentificationNumber",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 21,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle VIN number.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleIdentificationNumber",
+            "postgreSql": "VehicleIdentificationNumber"
+          }
+        },
+        {
+          "propertyName": "VehicleUseIndicator",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates if the vehicle is in use.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleUseIndicator",
+            "postgreSql": "VehicleUseIndicator"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "UX_VehicleSnapshot_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_VehicleSnapshot_Id",
+            "postgreSql": "UX_e45f18_Id"
+          }
+        },
+        {
+          "identifierName": "VehicleSnapshot_PK",
+          "identifyingPropertyNames": [
+            "LocalEducationAgencyId",
+            "SchoolYear",
+            "VehicleId",
+            "VehicleIdentificationNumber"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleSnapshot_PK",
+            "postgreSql": "VehicleSnapshot_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The local education agency transportation vehicle snapshot.",
+      "tableNames": {
+        "sqlServer": "VehicleSnapshot",
+        "postgreSql": "VehicleSnapshot"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "VehicleTypeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "VehicleTypeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "VehicleTypeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "VehicleTypeDescriptor_PK",
+            "postgreSql": "VehicleTypeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The vehicle's type.",
+      "tableNames": {
+        "sqlServer": "VehicleTypeDescriptor",
+        "postgreSql": "VehicleTypeDescriptor"
       }
     }
   ],
@@ -3408,6 +4365,366 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_LocalEducationAgencyTransportation_LocalEducationAgency"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "LocalEducationAgency"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_LocalEducationAgencyTransportation_LocalEducationAgency",
+        "postgreSql": "FK_a13cc7_LocalEducationAgency"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationCategoryDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TransportationCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationCategoryDescriptorId",
+            "postgreSql": "TransportationCategoryDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "CategoryDescriptor01TransportationCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The first category of the district transportation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CategoryDescriptor01TransportationCategoryDescriptorId",
+            "postgreSql": "CategoryDescriptor01TransportationCategoryDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor",
+        "postgreSql": "FK_a13cc7_TransportationCategoryDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor1"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationCategoryDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TransportationCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationCategoryDescriptorId",
+            "postgreSql": "TransportationCategoryDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "CategoryDescriptor02TransportationCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The second category of the district transportation.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CategoryDescriptor02TransportationCategoryDescriptorId",
+            "postgreSql": "CategoryDescriptor02TransportationCategoryDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_LocalEducationAgencyTransportation_TransportationCategoryDescriptor1",
+        "postgreSql": "FK_a13cc7_TransportationCategoryDescriptor1"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationPrimaryMeasureTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TransportationPrimaryMeasureTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationPrimaryMeasureTypeDescriptorId",
+            "postgreSql": "TransportationPrimaryMeasureTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TransportationPrimaryMeasureTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The primary measure type.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationPrimaryMeasureTypeDescriptorId",
+            "postgreSql": "TransportationPrimaryMeasureTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor",
+        "postgreSql": "FK_a13cc7_TransportationPrimaryMeasureTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_LocalEducationAgencyTransportation_TransportationSetCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationSetCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TransportationSetCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationSetCodeDescriptorId",
+            "postgreSql": "TransportationSetCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LocalEducationAgencyTransportation"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TransportationSetCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The transportation set code.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TransportationSetCodeDescriptorId",
+            "postgreSql": "TransportationSetCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_LocalEducationAgencyTransportation_TransportationSetCodeDescriptor",
+        "postgreSql": "FK_a13cc7_TransportationSetCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_MileageTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "MileageTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "MileageTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "MileageTypeDescriptorId",
+            "postgreSql": "MileageTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_MileageTypeDescriptor_Descriptor",
+        "postgreSql": "FK_3b8662_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_NMPEDService_ServiceDescriptor"
       },
       "cardinality": "OneToOne",
@@ -3822,6 +5139,66 @@
       "constraintNames": {
         "sqlServer": "FK_ProgramIntensityDescriptor_Descriptor",
         "postgreSql": "FK_eb1e64_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_RoadTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "RoadTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "RoadTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "RoadTypeDescriptorId",
+            "postgreSql": "RoadTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_RoadTypeDescriptor_Descriptor",
+        "postgreSql": "FK_7b9eae_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -8847,6 +10224,186 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_TransportationCategoryDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationCategoryDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TransportationCategoryDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "TransportationCategoryDescriptorId",
+            "postgreSql": "TransportationCategoryDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TransportationCategoryDescriptor_Descriptor",
+        "postgreSql": "FK_8d7604_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_TransportationPrimaryMeasureTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationPrimaryMeasureTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TransportationPrimaryMeasureTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "TransportationPrimaryMeasureTypeDescriptorId",
+            "postgreSql": "TransportationPrimaryMeasureTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TransportationPrimaryMeasureTypeDescriptor_Descriptor",
+        "postgreSql": "FK_db66fe_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_TransportationSetCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "TransportationSetCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TransportationSetCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "TransportationSetCodeDescriptorId",
+            "postgreSql": "TransportationSetCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TransportationSetCodeDescriptor_Descriptor",
+        "postgreSql": "FK_6a8383_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_TriennialReviewDelayReasonDescriptor_Descriptor"
       },
       "cardinality": "OneToOneInheritance",
@@ -8901,6 +10458,906 @@
       "constraintNames": {
         "sqlServer": "FK_TriennialReviewDelayReasonDescriptor_Descriptor",
         "postgreSql": "FK_ec98b9_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleBodyManufacturerDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleBodyManufacturerDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleBodyManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "VehicleBodyManufacturerDescriptorId",
+            "postgreSql": "VehicleBodyManufacturerDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleBodyManufacturerDescriptor_Descriptor",
+        "postgreSql": "FK_cbdcf0_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleChassisManufacturerDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleChassisManufacturerDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleChassisManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "VehicleChassisManufacturerDescriptorId",
+            "postgreSql": "VehicleChassisManufacturerDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleChassisManufacturerDescriptor_Descriptor",
+        "postgreSql": "FK_05c277_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleFuelTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleFuelTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleFuelTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "VehicleFuelTypeDescriptorId",
+            "postgreSql": "VehicleFuelTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleFuelTypeDescriptor_Descriptor",
+        "postgreSql": "FK_deb373_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleMileage_LocalEducationAgency"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "LocalEducationAgency"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleMileage"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleMileage_LocalEducationAgency",
+        "postgreSql": "FK_190006_LocalEducationAgency"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleMileage_MileageTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "MileageTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "MileageTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MileageTypeDescriptorId",
+            "postgreSql": "MileageTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleMileage"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "MileageTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The mileage type.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MileageTypeDescriptorId",
+            "postgreSql": "MileageTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleMileage_MileageTypeDescriptor",
+        "postgreSql": "FK_190006_MileageTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleMileage_RoadTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "RoadTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "RoadTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RoadTypeDescriptorId",
+            "postgreSql": "RoadTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleMileage"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "RoadTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The road type.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RoadTypeDescriptorId",
+            "postgreSql": "RoadTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleMileage_RoadTypeDescriptor",
+        "postgreSql": "FK_190006_RoadTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleMileage_VehicleRouteDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleRouteDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "VehicleRouteDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleRouteDescriptorId",
+            "postgreSql": "VehicleRouteDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleMileage"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleRouteDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's route.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleRouteDescriptorId",
+            "postgreSql": "VehicleRouteDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleMileage_VehicleRouteDescriptor",
+        "postgreSql": "FK_190006_VehicleRouteDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleRouteDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleRouteDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleRouteDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "VehicleRouteDescriptorId",
+            "postgreSql": "VehicleRouteDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleRouteDescriptor_Descriptor",
+        "postgreSql": "FK_9d1881_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_LocalEducationAgency"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "LocalEducationAgency"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "LocalEducationAgencyId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to a local education agency.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LocalEducationAgencyId",
+            "postgreSql": "LocalEducationAgencyId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_LocalEducationAgency",
+        "postgreSql": "FK_e45f18_LocalEducationAgency"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_SchoolYearType"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "SchoolYearType"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Key for School Year",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SchoolYear",
+          "propertyType": {
+            "dbType": "Int16",
+            "maxLength": 0,
+            "precision": 5,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The school year reference.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SchoolYear",
+            "postgreSql": "SchoolYear"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_SchoolYearType",
+        "postgreSql": "FK_e45f18_SchoolYearType"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_VehicleBodyManufacturerDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleBodyManufacturerDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "VehicleBodyManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleBodyManufacturerDescriptorId",
+            "postgreSql": "VehicleBodyManufacturerDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleBodyManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's body manufacturer.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleBodyManufacturerDescriptorId",
+            "postgreSql": "VehicleBodyManufacturerDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_VehicleBodyManufacturerDescriptor",
+        "postgreSql": "FK_e45f18_VehicleBodyManufacturerDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_VehicleChassisManufacturerDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleChassisManufacturerDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "VehicleChassisManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleChassisManufacturerDescriptorId",
+            "postgreSql": "VehicleChassisManufacturerDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleChassisManufacturerDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's hassis manufacturer.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleChassisManufacturerDescriptorId",
+            "postgreSql": "VehicleChassisManufacturerDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_VehicleChassisManufacturerDescriptor",
+        "postgreSql": "FK_e45f18_VehicleChassisManufacturerDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_VehicleFuelTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleFuelTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "VehicleFuelTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleFuelTypeDescriptorId",
+            "postgreSql": "VehicleFuelTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleFuelTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's fuel type.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleFuelTypeDescriptorId",
+            "postgreSql": "VehicleFuelTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_VehicleFuelTypeDescriptor",
+        "postgreSql": "FK_e45f18_VehicleFuelTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleSnapshot_VehicleTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "VehicleTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleTypeDescriptorId",
+            "postgreSql": "VehicleTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleSnapshot"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The vehicle's type.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "VehicleTypeDescriptorId",
+            "postgreSql": "VehicleTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleSnapshot_VehicleTypeDescriptor",
+        "postgreSql": "FK_e45f18_VehicleTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_VehicleTypeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "VehicleTypeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "VehicleTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "VehicleTypeDescriptorId",
+            "postgreSql": "VehicleTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_VehicleTypeDescriptor_Descriptor",
+        "postgreSql": "FK_3758ad_Descriptor"
       },
       "potentiallyLogical": false
     }

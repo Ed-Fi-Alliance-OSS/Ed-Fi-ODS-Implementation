@@ -58,6 +58,46 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.LocalEducationAgencyTransportation ADD CONSTRAINT FK_a13cc7_LocalEducationAgency FOREIGN KEY (LocalEducationAgencyId)
+REFERENCES edfi.LocalEducationAgency (LocalEducationAgencyId)
+;
+
+CREATE INDEX FK_a13cc7_LocalEducationAgency
+ON nmped.LocalEducationAgencyTransportation (LocalEducationAgencyId ASC);
+
+ALTER TABLE nmped.LocalEducationAgencyTransportation ADD CONSTRAINT FK_a13cc7_TransportationCategoryDescriptor FOREIGN KEY (CategoryDescriptor01TransportationCategoryDescriptorId)
+REFERENCES nmped.TransportationCategoryDescriptor (TransportationCategoryDescriptorId)
+;
+
+CREATE INDEX FK_a13cc7_TransportationCategoryDescriptor
+ON nmped.LocalEducationAgencyTransportation (CategoryDescriptor01TransportationCategoryDescriptorId ASC);
+
+ALTER TABLE nmped.LocalEducationAgencyTransportation ADD CONSTRAINT FK_a13cc7_TransportationCategoryDescriptor1 FOREIGN KEY (CategoryDescriptor02TransportationCategoryDescriptorId)
+REFERENCES nmped.TransportationCategoryDescriptor (TransportationCategoryDescriptorId)
+;
+
+CREATE INDEX FK_a13cc7_TransportationCategoryDescriptor1
+ON nmped.LocalEducationAgencyTransportation (CategoryDescriptor02TransportationCategoryDescriptorId ASC);
+
+ALTER TABLE nmped.LocalEducationAgencyTransportation ADD CONSTRAINT FK_a13cc7_TransportationPrimaryMeasureTypeDescriptor FOREIGN KEY (TransportationPrimaryMeasureTypeDescriptorId)
+REFERENCES nmped.TransportationPrimaryMeasureTypeDescriptor (TransportationPrimaryMeasureTypeDescriptorId)
+;
+
+CREATE INDEX FK_a13cc7_TransportationPrimaryMeasureTypeDescriptor
+ON nmped.LocalEducationAgencyTransportation (TransportationPrimaryMeasureTypeDescriptorId ASC);
+
+ALTER TABLE nmped.LocalEducationAgencyTransportation ADD CONSTRAINT FK_a13cc7_TransportationSetCodeDescriptor FOREIGN KEY (TransportationSetCodeDescriptorId)
+REFERENCES nmped.TransportationSetCodeDescriptor (TransportationSetCodeDescriptorId)
+;
+
+CREATE INDEX FK_a13cc7_TransportationSetCodeDescriptor
+ON nmped.LocalEducationAgencyTransportation (TransportationSetCodeDescriptorId ASC);
+
+ALTER TABLE nmped.MileageTypeDescriptor ADD CONSTRAINT FK_3b8662_Descriptor FOREIGN KEY (MileageTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.NMPEDService ADD CONSTRAINT FK_aff4a0_ServiceDescriptor FOREIGN KEY (ServiceDescriptorId)
 REFERENCES edfi.ServiceDescriptor (ServiceDescriptorId)
 ;
@@ -92,6 +132,11 @@ ON DELETE CASCADE
 ;
 
 ALTER TABLE nmped.ProgramIntensityDescriptor ADD CONSTRAINT FK_eb1e64_Descriptor FOREIGN KEY (ProgramIntensityDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.RoadTypeDescriptor ADD CONSTRAINT FK_7b9eae_Descriptor FOREIGN KEY (RoadTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
@@ -476,7 +521,117 @@ ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cad
 REFERENCES edfi.StudentSpecialEducationProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ;
 
+ALTER TABLE nmped.TransportationCategoryDescriptor ADD CONSTRAINT FK_8d7604_Descriptor FOREIGN KEY (TransportationCategoryDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.TransportationPrimaryMeasureTypeDescriptor ADD CONSTRAINT FK_db66fe_Descriptor FOREIGN KEY (TransportationPrimaryMeasureTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.TransportationSetCodeDescriptor ADD CONSTRAINT FK_6a8383_Descriptor FOREIGN KEY (TransportationSetCodeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.TriennialReviewDelayReasonDescriptor ADD CONSTRAINT FK_ec98b9_Descriptor FOREIGN KEY (TriennialReviewDelayReasonDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.VehicleBodyManufacturerDescriptor ADD CONSTRAINT FK_cbdcf0_Descriptor FOREIGN KEY (VehicleBodyManufacturerDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.VehicleChassisManufacturerDescriptor ADD CONSTRAINT FK_05c277_Descriptor FOREIGN KEY (VehicleChassisManufacturerDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.VehicleFuelTypeDescriptor ADD CONSTRAINT FK_deb373_Descriptor FOREIGN KEY (VehicleFuelTypeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.VehicleMileage ADD CONSTRAINT FK_190006_LocalEducationAgency FOREIGN KEY (LocalEducationAgencyId)
+REFERENCES edfi.LocalEducationAgency (LocalEducationAgencyId)
+;
+
+CREATE INDEX FK_190006_LocalEducationAgency
+ON nmped.VehicleMileage (LocalEducationAgencyId ASC);
+
+ALTER TABLE nmped.VehicleMileage ADD CONSTRAINT FK_190006_MileageTypeDescriptor FOREIGN KEY (MileageTypeDescriptorId)
+REFERENCES nmped.MileageTypeDescriptor (MileageTypeDescriptorId)
+;
+
+CREATE INDEX FK_190006_MileageTypeDescriptor
+ON nmped.VehicleMileage (MileageTypeDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleMileage ADD CONSTRAINT FK_190006_RoadTypeDescriptor FOREIGN KEY (RoadTypeDescriptorId)
+REFERENCES nmped.RoadTypeDescriptor (RoadTypeDescriptorId)
+;
+
+CREATE INDEX FK_190006_RoadTypeDescriptor
+ON nmped.VehicleMileage (RoadTypeDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleMileage ADD CONSTRAINT FK_190006_VehicleRouteDescriptor FOREIGN KEY (VehicleRouteDescriptorId)
+REFERENCES nmped.VehicleRouteDescriptor (VehicleRouteDescriptorId)
+;
+
+CREATE INDEX FK_190006_VehicleRouteDescriptor
+ON nmped.VehicleMileage (VehicleRouteDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleRouteDescriptor ADD CONSTRAINT FK_9d1881_Descriptor FOREIGN KEY (VehicleRouteDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_LocalEducationAgency FOREIGN KEY (LocalEducationAgencyId)
+REFERENCES edfi.LocalEducationAgency (LocalEducationAgencyId)
+;
+
+CREATE INDEX FK_e45f18_LocalEducationAgency
+ON nmped.VehicleSnapshot (LocalEducationAgencyId ASC);
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_SchoolYearType FOREIGN KEY (SchoolYear)
+REFERENCES edfi.SchoolYearType (SchoolYear)
+;
+
+CREATE INDEX FK_e45f18_SchoolYearType
+ON nmped.VehicleSnapshot (SchoolYear ASC);
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_VehicleBodyManufacturerDescriptor FOREIGN KEY (VehicleBodyManufacturerDescriptorId)
+REFERENCES nmped.VehicleBodyManufacturerDescriptor (VehicleBodyManufacturerDescriptorId)
+;
+
+CREATE INDEX FK_e45f18_VehicleBodyManufacturerDescriptor
+ON nmped.VehicleSnapshot (VehicleBodyManufacturerDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_VehicleChassisManufacturerDescriptor FOREIGN KEY (VehicleChassisManufacturerDescriptorId)
+REFERENCES nmped.VehicleChassisManufacturerDescriptor (VehicleChassisManufacturerDescriptorId)
+;
+
+CREATE INDEX FK_e45f18_VehicleChassisManufacturerDescriptor
+ON nmped.VehicleSnapshot (VehicleChassisManufacturerDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_VehicleFuelTypeDescriptor FOREIGN KEY (VehicleFuelTypeDescriptorId)
+REFERENCES nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId)
+;
+
+CREATE INDEX FK_e45f18_VehicleFuelTypeDescriptor
+ON nmped.VehicleSnapshot (VehicleFuelTypeDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleSnapshot ADD CONSTRAINT FK_e45f18_VehicleTypeDescriptor FOREIGN KEY (VehicleTypeDescriptorId)
+REFERENCES nmped.VehicleTypeDescriptor (VehicleTypeDescriptorId)
+;
+
+CREATE INDEX FK_e45f18_VehicleTypeDescriptor
+ON nmped.VehicleSnapshot (VehicleTypeDescriptorId ASC);
+
+ALTER TABLE nmped.VehicleTypeDescriptor ADD CONSTRAINT FK_3758ad_Descriptor FOREIGN KEY (VehicleTypeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;

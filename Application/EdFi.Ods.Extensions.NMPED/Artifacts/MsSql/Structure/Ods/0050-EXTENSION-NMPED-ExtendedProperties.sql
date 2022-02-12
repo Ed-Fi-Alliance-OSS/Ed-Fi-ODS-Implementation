@@ -82,6 +82,28 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LevelOfEducationInstitutionDescriptor', @level2type=N'COLUMN', @level2name=N'LevelOfEducationInstitutionDescriptorId'
 GO
 
+-- Extended Properties [nmped].[LocalEducationAgencyTransportation] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local education agency transportation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The first category of the district transportation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'CategoryDescriptor01TransportationCategoryDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The second category of the district transportation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'CategoryDescriptor02TransportationCategoryDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a local education agency.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'LocalEducationAgencyId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary measure type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'TransportationPrimaryMeasureTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation set code.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'TransportationSetCodeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The count for the measure.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'Count'
+GO
+
+-- Extended Properties [nmped].[MileageTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The mileage type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MileageTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MileageTypeDescriptor', @level2type=N'COLUMN', @level2name=N'MileageTypeDescriptorId'
+GO
+
 -- Extended Properties [nmped].[NMPEDService] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The student''s program service information.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'NMPEDService'
 GO
@@ -126,6 +148,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the Program Intensity.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ProgramIntensityDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'ProgramIntensityDescriptor', @level2type=N'COLUMN', @level2name=N'ProgramIntensityDescriptorId'
+GO
+
+-- Extended Properties [nmped].[RoadTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The road type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'RoadTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'RoadTypeDescriptor', @level2type=N'COLUMN', @level2name=N'RoadTypeDescriptorId'
 GO
 
 -- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
@@ -487,9 +515,115 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education non compliance reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationNonComplianceReasonDescriptorId'
 GO
 
+-- Extended Properties [nmped].[TransportationCategoryDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation category type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationCategoryDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationCategoryDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationCategoryDescriptorId'
+GO
+
+-- Extended Properties [nmped].[TransportationPrimaryMeasureTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary measure type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationPrimaryMeasureTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationPrimaryMeasureTypeDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationPrimaryMeasureTypeDescriptorId'
+GO
+
+-- Extended Properties [nmped].[TransportationSetCodeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation set codes.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationSetCodeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationSetCodeDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationSetCodeDescriptorId'
+GO
+
 -- Extended Properties [nmped].[TriennialReviewDelayReasonDescriptor] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The triennial review reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TriennialReviewDelayReasonDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TriennialReviewDelayReasonDescriptor', @level2type=N'COLUMN', @level2name=N'TriennialReviewDelayReasonDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleBodyManufacturerDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The body manufacturer.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleBodyManufacturerDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleBodyManufacturerDescriptor', @level2type=N'COLUMN', @level2name=N'VehicleBodyManufacturerDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleChassisManufacturerDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The chassis manufacturer.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleChassisManufacturerDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleChassisManufacturerDescriptor', @level2type=N'COLUMN', @level2name=N'VehicleChassisManufacturerDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleFuelTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s fuel type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleFuelTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleFuelTypeDescriptor', @level2type=N'COLUMN', @level2name=N'VehicleFuelTypeDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleMileage] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s mileage.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a local education agency.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'LocalEducationAgencyId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The mileage type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'MileageTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s mileage reporting date.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'ReportingDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The road type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'RoadTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the vehicle.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'VehicleId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s route.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'VehicleRouteDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The daily mileage.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleMileage', @level2type=N'COLUMN', @level2name=N'DailyMileage'
+GO
+
+-- Extended Properties [nmped].[VehicleRouteDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation route.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleRouteDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleRouteDescriptor', @level2type=N'COLUMN', @level2name=N'VehicleRouteDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleSnapshot] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The local education agency transportation vehicle snapshot.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a local education agency.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'LocalEducationAgencyId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year reference.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The unique identifier for the vehicle.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle VIN number.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleIdentificationNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s license number.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'LicensePlateNumber'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The year the vehicle was manufactured.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'ManufacturerYear'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s body manufacturer.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleBodyManufacturerDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s hassis manufacturer.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleChassisManufacturerDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s gross weight raiting.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'GrossVehicleWeightRating'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s fuel type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleFuelTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether the vehicle has special lift equipment.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'SpecialLiftEquipmentIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s seating capacity.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'SeatingCapacity'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s registered owner.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'RegisteredOwnerCode'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s odometer mileage.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'OdometerMileage'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s odometer reading date.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'OdometerReadingDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s number of days in use.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'NumberOfDaysInUse'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates if the vehicle is in use.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleUseIndicator'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleSnapshot', @level2type=N'COLUMN', @level2name=N'VehicleTypeDescriptorId'
+GO
+
+-- Extended Properties [nmped].[VehicleTypeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The vehicle''s type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleTypeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'VehicleTypeDescriptor', @level2type=N'COLUMN', @level2name=N'VehicleTypeDescriptorId'
 GO
 

@@ -1,0 +1,60 @@
+Domain Entity VehicleSnapshot
+    documentation "The local education agency transportation vehicle snapshot."
+domain entity EdFi.LocalEducationAgency
+    documentation "A reference to the local education agency."
+    is part of identity
+string VehicleId
+    documentation "The unique identifier for the vehicle."
+    is part of identity
+    max length 255
+enumeration EdFi.SchoolYear
+    documentation "The school year reference."
+    is part of identity
+string VehicleIdentificationNumber
+    documentation "The vehicle VIN number."
+    is part of identity
+    max length 21
+string LicensePlateNumber
+    documentation "The vehicle's license number."
+    is required
+    max length 7
+integer ManufacturerYear
+    documentation "The year the vehicle was manufactured."
+    is required
+descriptor VehicleBodyManufacturer
+    documentation "The vehicle's body manufacturer."
+    is required
+descriptor VehicleChassisManufacturer
+    documentation "The vehicle's hassis manufacturer."
+    is required
+integer GrossVehicleWeightRating
+    documentation "The vehicle's gross weight raiting."
+    is required
+descriptor VehicleFuelType
+    documentation "The vehicle's fuel type."
+    is required
+bool SpecialLiftEquipmentIndicator
+    documentation "Indicates whether the vehicle has special lift equipment."
+    is required
+integer SeatingCapacity
+    documentation "The vehicle's seating capacity."
+    is required
+string RegisteredOwnerCode
+    documentation "The vehicle's registered owner."
+    is required
+    max length 20
+integer OdometerMileage
+    documentation "The vehicle's odometer mileage."
+    is required
+date OdometerReadingDate
+    documentation "The vehicle's odometer reading date."
+    is required
+integer NumberOfDaysInUse
+    documentation "The vehicle's number of days in use."
+    is required
+bool VehicleUseIndicator
+    documentation "Indicates if the vehicle is in use."
+    is required
+descriptor VehicleType
+    documentation "The vehicle's type."
+    is required

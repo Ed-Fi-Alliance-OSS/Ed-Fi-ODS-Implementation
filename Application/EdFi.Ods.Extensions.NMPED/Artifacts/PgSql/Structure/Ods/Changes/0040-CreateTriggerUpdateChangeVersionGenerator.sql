@@ -1,3 +1,6 @@
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.LocalEducationAgencyTransportation
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.NMPEDService
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
@@ -14,5 +17,11 @@ CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.StudentSchoolAggregate
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.VehicleMileage
+    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
+
+CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.VehicleSnapshot
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 

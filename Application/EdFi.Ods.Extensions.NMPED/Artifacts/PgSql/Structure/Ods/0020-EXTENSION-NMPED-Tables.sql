@@ -78,6 +78,30 @@ CREATE TABLE nmped.LevelOfEducationInstitutionDescriptor (
     CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (LevelOfEducationInstitutionDescriptorId)
 ); 
 
+-- Table nmped.LocalEducationAgencyTransportation --
+CREATE TABLE nmped.LocalEducationAgencyTransportation (
+    CategoryDescriptor01TransportationCategoryDescriptorId INT NOT NULL,
+    CategoryDescriptor02TransportationCategoryDescriptorId INT NOT NULL,
+    LocalEducationAgencyId INT NOT NULL,
+    TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
+    TransportationSetCodeDescriptorId INT NOT NULL,
+    Count INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT LocalEducationAgencyTransportation_PK PRIMARY KEY (CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId)
+); 
+ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.MileageTypeDescriptor --
+CREATE TABLE nmped.MileageTypeDescriptor (
+    MileageTypeDescriptorId INT NOT NULL,
+    CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (MileageTypeDescriptorId)
+); 
+
 -- Table nmped.NMPEDService --
 CREATE TABLE nmped.NMPEDService (
     ServiceDescriptorId INT NOT NULL,
@@ -121,6 +145,12 @@ CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
 CREATE TABLE nmped.ProgramIntensityDescriptor (
     ProgramIntensityDescriptorId INT NOT NULL,
     CONSTRAINT ProgramIntensityDescriptor_PK PRIMARY KEY (ProgramIntensityDescriptorId)
+); 
+
+-- Table nmped.RoadTypeDescriptor --
+CREATE TABLE nmped.RoadTypeDescriptor (
+    RoadTypeDescriptorId INT NOT NULL,
+    CONSTRAINT RoadTypeDescriptor_PK PRIMARY KEY (RoadTypeDescriptorId)
 ); 
 
 -- Table nmped.ServiceProviderTypeDescriptor --
@@ -428,9 +458,106 @@ ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cad
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
+-- Table nmped.TransportationCategoryDescriptor --
+CREATE TABLE nmped.TransportationCategoryDescriptor (
+    TransportationCategoryDescriptorId INT NOT NULL,
+    CONSTRAINT TransportationCategoryDescriptor_PK PRIMARY KEY (TransportationCategoryDescriptorId)
+); 
+
+-- Table nmped.TransportationPrimaryMeasureTypeDescriptor --
+CREATE TABLE nmped.TransportationPrimaryMeasureTypeDescriptor (
+    TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
+    CONSTRAINT TransportationPrimaryMeasureTypeDescriptor_PK PRIMARY KEY (TransportationPrimaryMeasureTypeDescriptorId)
+); 
+
+-- Table nmped.TransportationSetCodeDescriptor --
+CREATE TABLE nmped.TransportationSetCodeDescriptor (
+    TransportationSetCodeDescriptorId INT NOT NULL,
+    CONSTRAINT TransportationSetCodeDescriptor_PK PRIMARY KEY (TransportationSetCodeDescriptorId)
+); 
+
 -- Table nmped.TriennialReviewDelayReasonDescriptor --
 CREATE TABLE nmped.TriennialReviewDelayReasonDescriptor (
     TriennialReviewDelayReasonDescriptorId INT NOT NULL,
     CONSTRAINT TriennialReviewDelayReasonDescriptor_PK PRIMARY KEY (TriennialReviewDelayReasonDescriptorId)
+); 
+
+-- Table nmped.VehicleBodyManufacturerDescriptor --
+CREATE TABLE nmped.VehicleBodyManufacturerDescriptor (
+    VehicleBodyManufacturerDescriptorId INT NOT NULL,
+    CONSTRAINT VehicleBodyManufacturerDescriptor_PK PRIMARY KEY (VehicleBodyManufacturerDescriptorId)
+); 
+
+-- Table nmped.VehicleChassisManufacturerDescriptor --
+CREATE TABLE nmped.VehicleChassisManufacturerDescriptor (
+    VehicleChassisManufacturerDescriptorId INT NOT NULL,
+    CONSTRAINT VehicleChassisManufacturerDescriptor_PK PRIMARY KEY (VehicleChassisManufacturerDescriptorId)
+); 
+
+-- Table nmped.VehicleFuelTypeDescriptor --
+CREATE TABLE nmped.VehicleFuelTypeDescriptor (
+    VehicleFuelTypeDescriptorId INT NOT NULL,
+    CONSTRAINT VehicleFuelTypeDescriptor_PK PRIMARY KEY (VehicleFuelTypeDescriptorId)
+); 
+
+-- Table nmped.VehicleMileage --
+CREATE TABLE nmped.VehicleMileage (
+    LocalEducationAgencyId INT NOT NULL,
+    MileageTypeDescriptorId INT NOT NULL,
+    ReportingDate DATE NOT NULL,
+    RoadTypeDescriptorId INT NOT NULL,
+    VehicleId VARCHAR(255) NOT NULL,
+    VehicleRouteDescriptorId INT NOT NULL,
+    DailyMileage INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT VehicleMileage_PK PRIMARY KEY (LocalEducationAgencyId, MileageTypeDescriptorId, ReportingDate, RoadTypeDescriptorId, VehicleId, VehicleRouteDescriptorId)
+); 
+ALTER TABLE nmped.VehicleMileage ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.VehicleMileage ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.VehicleMileage ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.VehicleRouteDescriptor --
+CREATE TABLE nmped.VehicleRouteDescriptor (
+    VehicleRouteDescriptorId INT NOT NULL,
+    CONSTRAINT VehicleRouteDescriptor_PK PRIMARY KEY (VehicleRouteDescriptorId)
+); 
+
+-- Table nmped.VehicleSnapshot --
+CREATE TABLE nmped.VehicleSnapshot (
+    LocalEducationAgencyId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    VehicleId VARCHAR(255) NOT NULL,
+    VehicleIdentificationNumber VARCHAR(21) NOT NULL,
+    LicensePlateNumber VARCHAR(7) NOT NULL,
+    ManufacturerYear INT NOT NULL,
+    VehicleBodyManufacturerDescriptorId INT NOT NULL,
+    VehicleChassisManufacturerDescriptorId INT NOT NULL,
+    GrossVehicleWeightRating INT NOT NULL,
+    VehicleFuelTypeDescriptorId INT NOT NULL,
+    SpecialLiftEquipmentIndicator BOOLEAN NOT NULL,
+    SeatingCapacity INT NOT NULL,
+    RegisteredOwnerCode VARCHAR(20) NOT NULL,
+    OdometerMileage INT NOT NULL,
+    OdometerReadingDate DATE NOT NULL,
+    NumberOfDaysInUse INT NOT NULL,
+    VehicleUseIndicator BOOLEAN NOT NULL,
+    VehicleTypeDescriptorId INT NOT NULL,
+    Discriminator VARCHAR(128) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT VehicleSnapshot_PK PRIMARY KEY (LocalEducationAgencyId, SchoolYear, VehicleId, VehicleIdentificationNumber)
+); 
+ALTER TABLE nmped.VehicleSnapshot ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.VehicleSnapshot ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.VehicleSnapshot ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.VehicleTypeDescriptor --
+CREATE TABLE nmped.VehicleTypeDescriptor (
+    VehicleTypeDescriptorId INT NOT NULL,
+    CONSTRAINT VehicleTypeDescriptor_PK PRIMARY KEY (VehicleTypeDescriptorId)
 ); 
 

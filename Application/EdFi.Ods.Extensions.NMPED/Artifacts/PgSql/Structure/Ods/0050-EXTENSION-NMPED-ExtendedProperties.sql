@@ -52,6 +52,19 @@ COMMENT ON COLUMN nmped.IndustryCredentialDescriptor.IndustryCredentialDescripto
 COMMENT ON TABLE nmped.LevelOfEducationInstitutionDescriptor IS 'Indicates the Level of Education Institution';
 COMMENT ON COLUMN nmped.LevelOfEducationInstitutionDescriptor.LevelOfEducationInstitutionDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[LocalEducationAgencyTransportation] --
+COMMENT ON TABLE nmped.LocalEducationAgencyTransportation IS 'The local education agency transportation.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.CategoryDescriptor01TransportationCategoryDescriptorId IS 'The first category of the district transportation.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.CategoryDescriptor02TransportationCategoryDescriptorId IS 'The second category of the district transportation.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.TransportationPrimaryMeasureTypeDescriptorId IS 'The primary measure type.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.TransportationSetCodeDescriptorId IS 'The transportation set code.';
+COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.Count IS 'The count for the measure.';
+
+-- Extended Properties [nmped].[MileageTypeDescriptor] --
+COMMENT ON TABLE nmped.MileageTypeDescriptor IS 'The mileage type.';
+COMMENT ON COLUMN nmped.MileageTypeDescriptor.MileageTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[NMPEDService] --
 COMMENT ON TABLE nmped.NMPEDService IS 'The student''s program service information.';
 COMMENT ON COLUMN nmped.NMPEDService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
@@ -79,6 +92,10 @@ COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDes
 -- Extended Properties [nmped].[ProgramIntensityDescriptor] --
 COMMENT ON TABLE nmped.ProgramIntensityDescriptor IS 'This descriptor describes the Program Intensity.';
 COMMENT ON COLUMN nmped.ProgramIntensityDescriptor.ProgramIntensityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[RoadTypeDescriptor] --
+COMMENT ON TABLE nmped.RoadTypeDescriptor IS 'The road type.';
+COMMENT ON COLUMN nmped.RoadTypeDescriptor.RoadTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
 COMMENT ON TABLE nmped.ServiceProviderTypeDescriptor IS 'The type of the service provider.';
@@ -293,7 +310,70 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.SpecialEducationEventReasonDescriptorId IS 'The special education event reason.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc.SpecialEducationNonComplianceReasonDescriptorId IS 'The special education non compliance reason.';
 
+-- Extended Properties [nmped].[TransportationCategoryDescriptor] --
+COMMENT ON TABLE nmped.TransportationCategoryDescriptor IS 'The transportation category type.';
+COMMENT ON COLUMN nmped.TransportationCategoryDescriptor.TransportationCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[TransportationPrimaryMeasureTypeDescriptor] --
+COMMENT ON TABLE nmped.TransportationPrimaryMeasureTypeDescriptor IS 'The primary measure type.';
+COMMENT ON COLUMN nmped.TransportationPrimaryMeasureTypeDescriptor.TransportationPrimaryMeasureTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[TransportationSetCodeDescriptor] --
+COMMENT ON TABLE nmped.TransportationSetCodeDescriptor IS 'The transportation set codes.';
+COMMENT ON COLUMN nmped.TransportationSetCodeDescriptor.TransportationSetCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[TriennialReviewDelayReasonDescriptor] --
 COMMENT ON TABLE nmped.TriennialReviewDelayReasonDescriptor IS 'The triennial review reason.';
 COMMENT ON COLUMN nmped.TriennialReviewDelayReasonDescriptor.TriennialReviewDelayReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[VehicleBodyManufacturerDescriptor] --
+COMMENT ON TABLE nmped.VehicleBodyManufacturerDescriptor IS 'The body manufacturer.';
+COMMENT ON COLUMN nmped.VehicleBodyManufacturerDescriptor.VehicleBodyManufacturerDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[VehicleChassisManufacturerDescriptor] --
+COMMENT ON TABLE nmped.VehicleChassisManufacturerDescriptor IS 'The chassis manufacturer.';
+COMMENT ON COLUMN nmped.VehicleChassisManufacturerDescriptor.VehicleChassisManufacturerDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[VehicleFuelTypeDescriptor] --
+COMMENT ON TABLE nmped.VehicleFuelTypeDescriptor IS 'The vehicle''s fuel type.';
+COMMENT ON COLUMN nmped.VehicleFuelTypeDescriptor.VehicleFuelTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[VehicleMileage] --
+COMMENT ON TABLE nmped.VehicleMileage IS 'The vehicle''s mileage.';
+COMMENT ON COLUMN nmped.VehicleMileage.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
+COMMENT ON COLUMN nmped.VehicleMileage.MileageTypeDescriptorId IS 'The mileage type.';
+COMMENT ON COLUMN nmped.VehicleMileage.ReportingDate IS 'The vehicle''s mileage reporting date.';
+COMMENT ON COLUMN nmped.VehicleMileage.RoadTypeDescriptorId IS 'The road type.';
+COMMENT ON COLUMN nmped.VehicleMileage.VehicleId IS 'The unique identifier for the vehicle.';
+COMMENT ON COLUMN nmped.VehicleMileage.VehicleRouteDescriptorId IS 'The vehicle''s route.';
+COMMENT ON COLUMN nmped.VehicleMileage.DailyMileage IS 'The daily mileage.';
+
+-- Extended Properties [nmped].[VehicleRouteDescriptor] --
+COMMENT ON TABLE nmped.VehicleRouteDescriptor IS 'The transportation route.';
+COMMENT ON COLUMN nmped.VehicleRouteDescriptor.VehicleRouteDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[VehicleSnapshot] --
+COMMENT ON TABLE nmped.VehicleSnapshot IS 'The local education agency transportation vehicle snapshot.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.SchoolYear IS 'The school year reference.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleId IS 'The unique identifier for the vehicle.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleIdentificationNumber IS 'The vehicle VIN number.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.LicensePlateNumber IS 'The vehicle''s license number.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.ManufacturerYear IS 'The year the vehicle was manufactured.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleBodyManufacturerDescriptorId IS 'The vehicle''s body manufacturer.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleChassisManufacturerDescriptorId IS 'The vehicle''s hassis manufacturer.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.GrossVehicleWeightRating IS 'The vehicle''s gross weight raiting.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleFuelTypeDescriptorId IS 'The vehicle''s fuel type.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.SpecialLiftEquipmentIndicator IS 'Indicates whether the vehicle has special lift equipment.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.SeatingCapacity IS 'The vehicle''s seating capacity.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.RegisteredOwnerCode IS 'The vehicle''s registered owner.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.OdometerMileage IS 'The vehicle''s odometer mileage.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.OdometerReadingDate IS 'The vehicle''s odometer reading date.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.NumberOfDaysInUse IS 'The vehicle''s number of days in use.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleUseIndicator IS 'Indicates if the vehicle is in use.';
+COMMENT ON COLUMN nmped.VehicleSnapshot.VehicleTypeDescriptorId IS 'The vehicle''s type.';
+
+-- Extended Properties [nmped].[VehicleTypeDescriptor] --
+COMMENT ON TABLE nmped.VehicleTypeDescriptor IS 'The vehicle''s type.';
+COMMENT ON COLUMN nmped.VehicleTypeDescriptor.VehicleTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 

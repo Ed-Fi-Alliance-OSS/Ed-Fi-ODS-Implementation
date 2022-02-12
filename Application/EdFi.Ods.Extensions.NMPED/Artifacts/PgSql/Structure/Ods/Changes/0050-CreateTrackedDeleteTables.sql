@@ -86,6 +86,26 @@ CREATE TABLE tracked_deletes_nmped.LevelOfEducationInstitutionDescriptor
        CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.LocalEducationAgencyTransportation
+(
+       CategoryDescriptor01TransportationCategoryDescriptorId INT NOT NULL,
+       CategoryDescriptor02TransportationCategoryDescriptorId INT NOT NULL,
+       LocalEducationAgencyId INT NOT NULL,
+       TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
+       TransportationSetCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT LocalEducationAgencyTransportation_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.MileageTypeDescriptor
+(
+       MileageTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.NMPEDService
 (
        ServiceDescriptorId INT NOT NULL,
@@ -124,6 +144,14 @@ CREATE TABLE tracked_deletes_nmped.ProgramIntensityDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT ProgramIntensityDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.RoadTypeDescriptor
+(
+       RoadTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT RoadTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.ServiceProviderTypeDescriptor
@@ -272,11 +300,99 @@ CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec
        CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.TransportationCategoryDescriptor
+(
+       TransportationCategoryDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT TransportationCategoryDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.TransportationPrimaryMeasureTypeDescriptor
+(
+       TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT TransportationPrimaryMeasureTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.TransportationSetCodeDescriptor
+(
+       TransportationSetCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT TransportationSetCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.TriennialReviewDelayReasonDescriptor
 (
        TriennialReviewDelayReasonDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TriennialReviewDelayReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleBodyManufacturerDescriptor
+(
+       VehicleBodyManufacturerDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleBodyManufacturerDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleChassisManufacturerDescriptor
+(
+       VehicleChassisManufacturerDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleChassisManufacturerDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleFuelTypeDescriptor
+(
+       VehicleFuelTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleFuelTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleMileage
+(
+       LocalEducationAgencyId INT NOT NULL,
+       MileageTypeDescriptorId INT NOT NULL,
+       ReportingDate DATE NOT NULL,
+       RoadTypeDescriptorId INT NOT NULL,
+       VehicleId VARCHAR(255) NOT NULL,
+       VehicleRouteDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleMileage_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleRouteDescriptor
+(
+       VehicleRouteDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleRouteDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleSnapshot
+(
+       LocalEducationAgencyId INT NOT NULL,
+       SchoolYear SMALLINT NOT NULL,
+       VehicleId VARCHAR(255) NOT NULL,
+       VehicleIdentificationNumber VARCHAR(21) NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleSnapshot_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.VehicleTypeDescriptor
+(
+       VehicleTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT VehicleTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 

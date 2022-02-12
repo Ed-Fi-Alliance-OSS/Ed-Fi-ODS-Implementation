@@ -1,3 +1,13 @@
+CREATE TRIGGER [nmped].[nmped_LocalEducationAgencyTransportation_TR_UpdateChangeVersion] ON [nmped].[LocalEducationAgencyTransportation] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [nmped].[LocalEducationAgencyTransportation]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [nmped].[LocalEducationAgencyTransportation] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [nmped].[nmped_NMPEDService_TR_UpdateChangeVersion] ON [nmped].[NMPEDService] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -54,6 +64,26 @@ BEGIN
     UPDATE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [nmped].[nmped_VehicleMileage_TR_UpdateChangeVersion] ON [nmped].[VehicleMileage] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [nmped].[VehicleMileage]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [nmped].[VehicleMileage] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
+CREATE TRIGGER [nmped].[nmped_VehicleSnapshot_TR_UpdateChangeVersion] ON [nmped].[VehicleSnapshot] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [nmped].[VehicleSnapshot]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [nmped].[VehicleSnapshot] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO
