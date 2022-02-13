@@ -1,4 +1,5 @@
-/*LEA Inserts*/
+/* LEA Inserts */
+
 INSERT INTO [edfi].[LocalEducationAgency]
            ([LocalEducationAgencyId]
            ,[LocalEducationAgencyCategoryDescriptorId])
@@ -1692,6 +1693,12 @@ VALUES
 (35581001, 35581000) 
 
 /*Grade Level Inserts*/
+/* - To be reviewed as we get an error when it runs
+
+The statement has been terminated.
+2022-02-12 18:26:45,708 [1] ERROR SqlServerUpgradeEngineFactory - System.Data.SqlClient.SqlException (0x80131904): Cannot insert the value NULL into column 'GradeLevelDescriptorId', table 'EdFi_Ods_Populated_Template_Test.edfi.SchoolGradeLevel'; column does not allow nulls. INSERT fails.
+Cannot insert the value NULL into column 'GradeLevelDescriptorId', table 'EdFi_Ods_Populated_Template_Test.edfi.SchoolGradeLevel'; column does not allow nulls. INSERT fails.
+
 INSERT INTO edfi.SchoolGradeLevel (SchoolID, GradeLevelDescriptorID)
 VALUES
 (35001001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
@@ -10845,7 +10852,7 @@ VALUES
 (35581001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/GradeLevelDescriptor' AND CodeValue = '07')),
 (35581001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/GradeLevelDescriptor' AND CodeValue = '08')),
 (35001593, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/GradeLevelDescriptor' AND CodeValue = '12'))
-
+*/
 
 /*Ed Org Category*/
 INSERT INTO [edfi].[EducationOrganizationCategory]
