@@ -1164,10 +1164,12 @@ INSERT INTO edfi.AcademicSubjectDescriptor(AcademicSubjectDescriptorID) values (
 
 
 ------ Addition of NMPED VALUES
-/* to be reviewed 
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/TribalAffiliationDescriptor'
-DELETE FROM edfi.TribalAffiliationDescriptor
+/* 
+  The state has an authorized catalog for Tribal Affiliation so we are cleaning up the Ed-Fi ones and inserting the NMPED descriptors.
+  -- Note that Descriptor tables have Cascade on Delete so we only need to delete the parent edfi.Descriptor table.
 */
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/TribalAffiliationDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/TribalAffiliationDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/TribalAffiliationDescriptor', '0', 'Not Applicable', 'Not Applicable');
@@ -1267,10 +1269,12 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 -- Language
-/* To be reviewed
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LanguageDescriptor'
-DELETE FROM edfi.LanguageDescriptor
+/* 
+  The state has an authorized catalog for language so we are cleaning up the Ed-Fi ones and inserting the NMPED language descriptors.
+  -- Note that Descriptor tables have Cascade on Delete so we only need to delete the parent edfi.Descriptor table.
 */
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/LanguageDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LanguageDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/LanguageDescriptor', '0', 'eng', 'English');
@@ -1674,10 +1678,12 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --Behavior
-/* To be reviewed 
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/BehaviorDescriptor'
-DELETE FROM edfi.BehaviorDescriptor
+/* 
+  The state has an authorized catalog for behavior so we are cleaning up the Ed-Fi ones and inserting the NMPED language descriptors.
+  -- Note that Descriptor tables have Cascade on Delete so we only need to delete the parent edfi.Descriptor table.
 */
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/BehaviorDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/BehaviorDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/BehaviorDescriptor', '1', 'Assault/battery with firearm', 'Assault/battery with firearm');
@@ -1825,10 +1831,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --SeparationReasonDescription
-/* To be reviewed...
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SeparationReasonDescriptor'
-DELETE FROM edfi.SeparationReasonDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SeparationReasonDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/SeparationReasonDescriptor', '1', 'Left NM and teaching in other state', 'Left NM and teaching in other state');
@@ -1913,10 +1917,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --StaffClassificationDescriptor
-/* To be reviewed 
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/StaffClassificationDescriptor'
-DELETE FROM edfi.StaffClassificationDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/StaffClassificationDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/StaffClassificationDescriptor', '10', 'Superintendent', 'Superintendent - Administrators');
@@ -2596,11 +2598,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --Disability Descriptor
-
-/* To be reviewd
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DisabilityDescriptor'
-DELETE FROM edfi.DisabilityDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DisabilityDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/DisabilityDescriptor', 'AU', 'Autism', 'Autism');
@@ -2655,10 +2654,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.DisabilityDescriptor (DisabilityDescriptorid) values (@@IDENTITY);
 
 --EntryTypeDescriptor
-/* To be reviewd
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/EntryTypeDescriptor'
-DELETE FROM edfi.EntryTypeDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/EntryTypeDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/EntryTypeDescriptor', 'E1', 'E1', 'Initial enrollment for current school year any school - Student enrolled at this school for the first time during the current school year including a student who attended this same school the last school year and returns this school year.
@@ -2687,10 +2684,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --SpecialEducationSettingDescriptor
-/* To be reviewd
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SpecialEducationSettingDescriptor'
-DELETE FROM edfi.SpecialEducationSettingDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SpecialEducationSettingDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/SpecialEducationSettingDescriptor', 'RC80', 'RC80', 'Inside Regular Class 80% or more of day');
@@ -2765,10 +2760,8 @@ Do not include students who received education programs at the facility, but do 
 
 
 --DisciplineDescriptor
-/* To be reviewd
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DisciplineDescriptor'
-DELETE FROM edfi.DisciplineDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DisciplineDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/DisciplineDescriptor', '1', '1', 'Arrest/referral to justice system');
@@ -2816,10 +2809,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --SpecialEducationProgramServiceDescriptor
-/* To be reviewd 
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SpecialEducationProgramServiceDescriptor'
-DELETE FROM edfi.SpecialEducationProgramServiceDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SpecialEducationProgramServiceDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/SpecialEducationProgramServiceDescriptor', 'AU', 'AU', 'Audiologist');
@@ -2894,10 +2885,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.SpecialEducationProgramServiceDescriptor (SpecialEducationProgramServiceDescriptorid) values (@@IDENTITY);
 
 --ServiceDescriptor
-/* To be reviewd 
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/ServiceDescriptor'
-DELETE FROM edfi.ServiceDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/ServiceDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/ServiceDescriptor', 'CSP-CCR', 'CSP-CCR', 'Intentional addition to or expansion of College and Career Readiness opportunities supported by community school partners.');
@@ -3070,10 +3059,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --ExitWithdrawTypeDescriptor
-/*To be reviwed...
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/ExitWithdrawTypeDescriptor'
-DELETE FROM edfi.ExitWithdrawTypeDescriptor
-*/
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/ExitWithdrawTypeDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/ExitWithdrawTypeDescriptor', 'W1', 'W1', 'Student has transferred out to another PED District or State Charter. (Do not use it if a student transfers within the district, please use W19 for transfers within the district.) For a list of authorized PED Charters please run the Schools from Location Snapshot report.');
@@ -3151,9 +3138,15 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values ('uri://nmped.org/ExitWithdrawTypeDescriptor', 'D3', 'D3', 'Disregard - “No shows” – Student who was enrolled but who did not attend school. If a student was enrolled (in any fashion), was not withdrawn, and does not attend the school, use this code with no E/W codes.');
         INSERT INTO edfi.ExitWithdrawTypeDescriptor (ExitWithdrawTypeDescriptorid) values (@@IDENTITY);
 
-/* To be reviewd */
-DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/CourseLevelCharacteristicDescriptor' AND Descriptorid in ('642', '649')
-DELETE FROM Edfi.CourseLevelCharacteristicDescriptor WHERE CourseLevelCharacteristicDescriptorid in ('642', '649')
+---- Course Level Characteristics
+/* 
+	Removing complexity and following the state code values by merging Basic and General into one descriptor Basic/General.
+*/
+DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/CourseLevelCharacteristicDescriptor' AND CodeValue in ('Basic', 'General');
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Basic/General','Basic/General','Basic/General');
+	INSERT INTO edfi.CourseLevelCharacteristicDescriptor (CourseLevelCharacteristicDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Special Education','Special Education','Special Education');
@@ -3181,11 +3174,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/ProgramTypeDescriptor','MENTEE','MENTEE','MENTEE');
 	INSERT INTO edfi.ProgramTypeDescriptor (ProgramTypeDescriptorId) values (@@IDENTITY);
 
-/* To be reviewed... I am sure the intent is not to delete all ed-fi descriptors.
-Probably just ensure that these extensions are in place.
+---- Race Descriptor
 DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/RaceDescriptor'
-DELETE FROM Edfi.RaceDescriptor
-*/
+DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://nmped.org/RaceDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/RaceDescriptor','C','Caucasian','Caucasian');
@@ -3207,15 +3198,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/RaceDescriptor','P','Native Hawaiian or Other Pacific Islander','Native Hawaiian or Other Pacific Islander');
 	INSERT INTO edfi.RaceDescriptor (RaceDescriptorid) values (@@IDENTITY);
 
-/* Note: Lets discuss the intent of these scripts...
-Doug fixed but lets discuss.
-*/
--- Delete the descriptor entries in the child table.
--- Then delete in the main descriptor table. 
--- Note that if we do this the Descriptor Ids might change.
-DELETE FROM edfi.LevelOfEducationDescriptor WHERE 
-	LevelOfEducationDescriptorId in 
-	(SELECT DescriptorId FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LevelOfEducationDescriptor');
+
+---- Level of Education
+DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/LevelOfEducationDescriptor';
 DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LevelOfEducationDescriptor';
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -3242,9 +3227,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/LevelOfEducationDescriptor','N','Non-Degree','Non-Degree');
 	INSERT INTO edfi.LevelOfEducationDescriptor (LevelOfEducationDescriptorid) values (@@IDENTITY);
 
-/* Must be reviewed I am sure the intention is not to delete all ed-fi base descriptors.
+---- EmploymentStatusDescriptor
 DELETE FROM Edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/EmploymentStatusDescriptor'
-DELETE FROM Edfi.EmploymentStatusDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/EmploymentStatusDescriptor','C','Certified Personnel','Certified Personnel');
@@ -3258,12 +3242,14 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/EmploymentStatusDescriptor','R','Contracted Related Service Provider','Contracted Related Service Provider');
 	INSERT INTO edfi.EmploymentStatusDescriptor (EmploymentStatusDescriptorid) values (@@IDENTITY);
 
+---- VisaDescriptor
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/VisaDescriptor','TEMPVISA','Temporary Work Visa','Temporary Work Visa');
 	INSERT INTO edfi.VisaDescriptor (VisaDescriptorid) values (@@IDENTITY);
 
-DELETE FROM edfi.MediumOfInstructionDescriptor
+---- MediumOfInstructionDescriptor
 DELETE FROM edfi.Descriptor WHERE namespace = 'uri://ed-fi.org/MediumOfInstructionDescriptor'
+DELETE FROM edfi.Descriptor WHERE namespace = 'uri://nmped.org/MediumOfInstructionDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/MediumOfInstructionDescriptor','FF','Face-To-Face','Face-To-Face');
@@ -3281,8 +3267,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/MediumOfInstructionDescriptor','CB','Computer-based','Computer-based');
 	INSERT INTO edfi.MediumOfInstructionDescriptor (MediumOfInstructionDescriptorid) values (@@IDENTITY);
 
-DELETE FROM edfi.EducationalEnvironmentDescriptor
+---- EducationalEnvironmentDescriptor
 DELETE FROM edfi.Descriptor WHERE namespace = 'uri://ed-fi.org/EducationalEnvironmentDescriptor'
+DELETE FROM edfi.Descriptor WHERE namespace = 'uri://nmped.org/EducationalEnvironmentDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/EducationalEnvironmentDescriptor','APLUS','APlus','APlus');
@@ -3328,8 +3315,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/EducationalEnvironmentDescriptor','OTHER','OTHER','OTHER');
 	INSERT INTO edfi.EducationalEnvironmentDescriptor (EducationalEnvironmentDescriptorid) values (@@IDENTITY);
 
+---- AttendanceEventCategoryDescriptor
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/AttendanceEventCategoryDescriptor'
-DELETE FROM edfi.AttendanceEventCategoryDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/AttendanceEventCategoryDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','K5PATTD','Attended K5P','Attended K5P');
@@ -3366,12 +3354,10 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','EFDCO','Excused Full Day Absence Religious or Cultural Observance','Excused Full Day Absence Religious or Cultural Observance');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
-*/
-/* Note: Doug took this out as I do not see where its being used on the extensions.
-I reviewed the staff digital equity but I did not find it.
 
+---- PrimaryLearningDeviceAwayFromSchoolDescriptor
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/PrimaryLearningDeviceAwayFromSchoolDescriptor'
-DELETE FROM edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/PrimaryLearningDeviceAwayFromSchoolDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/PrimaryLearningDeviceAwayFromSchoolDescriptor','01','Chromebook','Chromebook');
@@ -3412,9 +3398,10 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/PrimaryLearningDeviceAwayFromSchoolDescriptor','10','No Device','No Device');
 	INSERT INTO edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor (PrimaryLearningDeviceAwayFromSchoolDescriptorid) values (@@IDENTITY);
-*/
+
+---- DigitalEquityPrimaryLearningDeviceTypeDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
-DELETE FROM nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','Y','Yes','Yes, the student''s primary learning device is provided by their school.');
@@ -3424,6 +3411,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','N','No','No, the student''s primary learning device is a personal device.');
 	INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (DigitalEquityPrimaryLearningDeviceTypeDescriptorid) values (@@IDENTITY);
 
+---- DigitalEquityPrimaryLearningDeviceAccessDescriptor
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityPrimaryLearningDeviceAccessDescriptor'
 DELETE FROM nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor
 
@@ -3819,4 +3807,50 @@ SET CodeValue = 'J1Visa' WHERE Namespace = 'uri://ed-fi.org/VisaDescriptor' AND 
 UPDATE edfi.Descriptor
 SET ShortDescription = 'J1Visa' WHERE Namespace = 'uri://ed-fi.org/VisaDescriptor' AND CodeValue = 'J1Visa'
 
+-- *** TRANSPORTATION Descriptors***
+-- Vehicle Fuel Type
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/VehicleFuelType'
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'ALT', 'Alternative fuel', 'Alternative fuel');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'ULG', 'Unleaded gasoline', 'Unleaded gasoline');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'DIE', 'Diesel', 'Diesel');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'DYD', 'Dyed diesel', 'Dyed diesel');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+
+-- Vehicle Body Manufaturer
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/vehicleBodyManufacturer'
+DELETE FROM nmped.SpecialEducationEventReasonDescriptor
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'ALT', 'Alternative fuel', 'Alternative fuel');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/VehicleFuelType', 'ULG', 'Unleaded gasoline', 'Unleaded gasoline');
+        INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
+--		"AMT = Amtram
+--BLU = Bluebird
+--CE3 = CE300
+--CHV = Chevy
+--COL = Collins
+--FOR = Ford
+--FRE = Freightliner
+--GEN = GENE
+--GMC = GMC
+--IC = IC
+--INT = International
+--MID = Mid Bus
+--OTH = Other
+--THO = Thomas
+--VI = Vision"
+ 
