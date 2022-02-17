@@ -16,6 +16,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
             builder.RegisterType<UpdateAdminDatabaseTask>()
                 .As<IExternalTask>();
 
+            builder.RegisterType<UpdateSecurityDatabaseTask>()
+                .As<IExternalTask>();
+
             builder.RegisterType<DefaultApplicationCreator>()
                 .As<IDefaultApplicationCreator>();
         }

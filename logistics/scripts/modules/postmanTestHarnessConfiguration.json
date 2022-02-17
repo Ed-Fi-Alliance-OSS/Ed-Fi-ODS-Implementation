@@ -878,20 +878,24 @@
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
-      "Email": "RecordOwnership@ed-fi.org",
-      "VendorName": "Record Ownership",
+      "Email": "OwnershipBased@ed-fi.org",
+      "VendorName": "Ownership Based Test",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
-          "ClaimSetName": "Ed-Fi Sandbox",
+          "ClaimSetName": "Ownership Based Test",
           "ApiClients": [
             {
               "ApiClientName": "255901-A",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [ 255901 ],
+              "OwnershipToken": "OwnershipToken_One",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_One" ]
             },
             {
               "ApiClientName": "255901-B",
-              "LocalEducationOrganizations": [ 255901 ]
+              "LocalEducationOrganizations": [ 255901 ],
+              "OwnershipToken": "OwnershipToken_Two",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_One", "OwnershipToken_Two" ]
             }
           ]
         }
