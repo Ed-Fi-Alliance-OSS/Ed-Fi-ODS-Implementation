@@ -10,4 +10,5 @@ graph](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/graphs/con
 New contributors should add their name and e-mail address or link to GitHub
 profile to this file with their first pull request.
 
-* [Google Cloud](https://cloud.google.com/) / [Innive](https://innive.com/)
+* **[Google Cloud](https://cloud.google.com/) / [Innive](https://innive.com/)
+* **[Jim McKay](https://github.com/jamessmckay)**

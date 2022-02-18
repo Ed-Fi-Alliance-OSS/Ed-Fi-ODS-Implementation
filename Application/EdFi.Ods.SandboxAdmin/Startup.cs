@@ -245,7 +245,6 @@ namespace EdFi.Ods.SandboxAdmin
 
             app.UseAuthorization();
 
-            app.UseHangfireServer();
             var backgroundJob = Container.Resolve<IBackgroundJobService>();
             backgroundJob.Configure();
 
