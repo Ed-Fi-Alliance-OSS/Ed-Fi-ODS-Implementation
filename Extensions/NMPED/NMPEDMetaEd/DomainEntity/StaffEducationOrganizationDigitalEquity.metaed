@@ -1,33 +1,33 @@
 Domain Entity StaffEducationOrganizationDigitalEquity
-    documentation "The staff digital equity."
+    documentation "Digital Equity measures for staff."
 domain entity EdFi.Staff
-    documentation "A reference to the Student."
+    documentation "A reference to the Staff."
     is part of identity
 domain entity EdFi.EducationOrganization
-    documentation "A reference to the Education Organization representing the context of the student information."
+    documentation "A reference to the Education Organization representing the context of the staff information."
     is part of identity
 enumeration EdFi.SchoolYear
-    documentation "The school year the digital equity event took place."
+    documentation "The school year the digital equity information is being recorded for."
     is part of identity
 date StartDate
-    documentation "The date the digital equity started."
+    documentation "The date the digital equity record started."
     is part of identity
 date EndDate
-    documentation "The date the digital equity ended."
+    documentation "The date the digital equity record ended."
     is optional
-descriptor DigitalEquityPrimaryLearningDeviceType
-    documentation "The primary learning device type."
+descriptor EdFi.PrimaryLearningDeviceAwayFromSchool
+    documentation "The primary learning device type used most often by staff to complete schoolwork at home."
     is required
-bool SchoolProvidedDevice
+descriptor EdFi.PrimaryLearningDeviceProvider
     documentation "Indicates whether the school provides a device or not."
     is required
-descriptor DigitalEquityPrimaryLearningDeviceAccess
+descriptor EdFi.PrimaryLearningDeviceAccess
     documentation "Defines the primary learning device access."
     is required
-descriptor DigitalEquityInternetAccessType
+descriptor EdFi.InternetAccessTypeInResidence
     documentation "Internet access type."
     is required
-descriptor DigitalEquityInternetPerformanceCode
+descriptor EdFi.InternetPerformanceInResidence
     documentation "Internet performance code."
     is required
 bool InternetAccessInResidence

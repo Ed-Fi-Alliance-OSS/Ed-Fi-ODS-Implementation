@@ -14,9 +14,6 @@ descriptor TransportationCategory
 descriptor TransportationSetCode
     documentation "The transportation set code."
     is part of identity
-descriptor TransportationPrimaryMeasureType
-    documentation "The primary measure type."
-    is part of identity
 integer Count
   documentation "The count for the measure."
   is required

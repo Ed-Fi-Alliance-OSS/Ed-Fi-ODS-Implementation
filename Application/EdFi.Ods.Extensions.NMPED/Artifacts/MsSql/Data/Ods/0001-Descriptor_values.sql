@@ -77,256 +77,260 @@ values ('uri://nmped.org/ProgramDeliveryMethodDescriptor','IS','Industry Standar
 INSERT INTO nmped.ProgramDeliveryMethodDescriptor (ProgramDeliveryMethodDescriptorId) values (@@IDENTITY);
 
 /* IndustryCredentialDescriptor */
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','1','Autodesk Certification','Autodesk Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/IndustryCredentialDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/IndustryCredentialDescriptor'
+DELETE FROM nmped.IndustryCredentialDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','4','Adobe Certified Professional','Adobe Certified Professional');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '001', 'Autodesk Certification', 'Autodesk Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','6','Automotive Technician','Automotive Technician');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '004', 'Adobe Certified Professional', 'Adobe Certified Professional');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','7','C++ Certified Associate Programmer','C++ Certified Associate Programmer');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '006', 'Automotive Technician', 'Automotive Technician');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','9','Network Certification','Network Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '007', 'C++ Certified Associate Programmer', 'C++ Certified Associate Programmer');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','15','Microsoft Certification','Microsoft Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '009', 'Network Certification', 'Network Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','16','Certified Landscape Technician (CLT)','Certified Landscape Technician (CLT)');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '015', 'Microsoft Certification', 'Microsoft Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','17','Medical Assistant','Medical Assistant');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '016', 'Certified Landscape Technician (CLT)', 'Certified Landscape Technician (CLT)');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','19','Novell Administrator','Novell Administrator');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '017', 'Medical Assistant', 'Medical Assistant');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','20','Certified Nurse Aide (CNA)','Certified Nurse Aide (CNA)');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '019', 'Novell Administrator', 'Novell Administrator');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','26','Certified Veterinary Assistant','Certified Veterinary Assistant');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '020', 'Certified Nurse Aide (CNA)', 'Certified Nurse Aide (CNA)');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','27','Child Development Associate Certification','Child Development Associate Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '026', 'Certified Veterinary Assistant', 'Certified Veterinary Assistant');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','28','CMI Custodial Technician','CMI Custodial Technician');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '027', 'Child Development Associate Certification', 'Child Development Associate Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','31','Corel Certifications','Corel Certifications');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '028', 'CMI Custodial Technician', 'CMI Custodial Technician');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','33','Cosmetology License','Cosmetology License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '031', 'Corel Certifications', 'Corel Certifications');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','36','Dental Assistant License','Dental Assistant License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '033', 'Cosmetology License', 'Cosmetology License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','39','Educational Assistant/Paraprofessional','Educational Assistant/Paraprofessional');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '036', 'Dental Assistant License', 'Dental Assistant License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','42','Emergency Medical Dispatcher (EMD)','Emergency Medical Dispatcher (EMD)');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '039', 'Educational Assistant/Paraprofessional', 'Educational Assistant/Paraprofessional');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','43','Emergency Medical Technician (EMT)','Emergency Medical Technician (EMT)');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '042', 'Emergency Medical Dispatcher (EMD)', 'Emergency Medical Dispatcher (EMD)');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','44','Environmental Technician','Environmental Technician');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '043', 'Emergency Medical Technician (EMT)', 'Emergency Medical Technician (EMT)');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','47','Internet Core Computing - IC3','Internet Core Computing - IC3');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '044', 'Environmental Technician', 'Environmental Technician');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','51','Licensed Vocational Nurse (LVN)','Licensed Vocational Nurse (LVN)');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '047', 'Internet Core Computing - IC3', 'Internet Core Computing - IC3');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','53','Hotel & lodging certification','Hotel & lodging certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '051', 'Licensed Vocational Nurse (LVN)', 'Licensed Vocational Nurse (LVN)');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','57','Licensed Massage Therapist','Licensed Massage Therapist');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '053', 'Hotel & lodging certification', 'Hotel & lodging certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','74','Oracle Certification','Oracle Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '057', 'Licensed Massage Therapist', 'Licensed Massage Therapist');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','75','OSHA Certification','OSHA Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '074', 'Oracle Certification', 'Oracle Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','77','Pesticide Applicators Certification','Pesticide Applicators Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '075', 'OSHA Certification', 'OSHA Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','78','Pharmacy Technician (CPhT) License','Pharmacy Technician (CPhT) License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '077', 'Pesticide Applicators Certification', 'Pesticide Applicators Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','79','Phlebotomy Technician (CPT) License','Phlebotomy Technician (CPT) License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '078', 'Pharmacy Technician (CPhT) License', 'Pharmacy Technician (CPhT) License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','83','Real Estate License','Real Estate License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '079', 'Phlebotomy Technician (CPT) License', 'Phlebotomy Technician (CPT) License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','84','EPA certification','EPA certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '083', 'Real Estate License', 'Real Estate License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','87','SABRE System Certification','SABRE System Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '084', 'EPA certification', 'EPA certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','90','ServSafe Certification','ServSafe Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '087', 'SABRE System Certification', 'SABRE System Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','97','NCCER Certifications','NCCER Certifications');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '090', 'ServSafe Certification', 'ServSafe Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','100','CompTIA Certification','CompTIA Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '097', 'NCCER Certifications', 'NCCER Certifications');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','103','S/P2 Certification','S/P2 Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '100', 'CompTIA Certification', 'CompTIA Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','105','First Aid/CPR','First Aid/CPR');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '103', 'S/P2 Certification', 'S/P2 Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','107','A*S*K Business Institute Certifications','A*S*K Business Institute Certifications');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '105', 'First Aid/CPR', 'First Aid/CPR');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','108','ACT National Career Readiness Certificate','ACT National Career Readiness Certificate');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '107', 'A*S*K Business Institute Certifications', 'A*S*K Business Institute Certifications');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','109','NOCTI Certification','NOCTI Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '108', 'ACT National Career Readiness Certificate', 'ACT National Career Readiness Certificate');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','111','Food Handler Certification','Food Handler Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '109', 'NOCTI Certification', 'NOCTI Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','112','Welding Certification','Welding Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '111', 'Food Handler Certification', 'Food Handler Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','115','Career Readiness Certification','Career Readiness Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '112', 'Welding Certification', 'Welding Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','116','DECA School Based Enterprise Individual Certification','DECA School Based Enterprise Individual Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '115', 'Career Readiness Certification', 'Career Readiness Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','117','Detention Officer Certification','Detention Officer Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '116', 'DECA School Based Enterprise Individual Certification', 'DECA School Based Enterprise Individual Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','119','Floriculture','Floriculture');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '117', 'Detention Officer Certification', 'Detention Officer Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','129','Early Care Education and Family Support','Early Care Education and Family Support');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '119', 'Floriculture', 'Floriculture');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','132','Police Explorer Certification','Police Explorer Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '129', 'Early Care Education and Family Support', 'Early Care Education and Family Support');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','133','Prostart','Prostart');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '132', 'Police Explorer Certification', 'Police Explorer Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','139','Sustainability for Biofuels','Sustainability for Biofuels');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '133', 'Prostart', 'Prostart');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','143','Wildland Firefighting','Wildland Firefighting');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '139', 'Sustainability for Biofuels', 'Sustainability for Biofuels');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','148','Precision Certification','Precision Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '143', 'Wildland Firefighting', 'Wildland Firefighting');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','174','NC3 Certification','NC3 Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '148', 'Precision Certification', 'Precision Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','175','WordPress web certification','WordPress web certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '174', 'NC3 Certification', 'NC3 Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','176','FEMA certification','FEMA certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '175', 'WordPress web certification', 'WordPress web certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','177','Automated External Defibrillator (AED) Certification','Automated External Defibrillator (AED) Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '176', 'FEMA certification', 'FEMA certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','178','Licensed Practical Nurse (LPN) License','Licensed Practical Nurse (LPN) License');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '177', 'Automated External Defibrillator (AED) Certification', 'Automated External Defibrillator (AED) Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','179','Python Certification','Python Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '178', 'Licensed Practical Nurse (LPN) License', 'Licensed Practical Nurse (LPN) License');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','180','Unity Certification','Unity Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '179', 'Python Certification', 'Python Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','181','Automotive Career Exploration','Automotive Career Exploration');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '180', 'Unity Certification', 'Unity Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','182','Plate Glass certification','Plate Glass certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '181', 'Automotive Career Exploration', 'Automotive Career Exploration');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/IndustryCredentialDescriptor','183','Pro-Cut Certification','Pro-Cut Certification');
-INSERT INTO nmped.IndustryCredentialDescriptor(IndustryCredentialDescriptorId) values (@@IDENTITY);
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '182', 'Plate Glass certification', 'Plate Glass certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '183', 'Pro-Cut Certification', 'Pro-Cut Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
 /* LevelOfEducationInstitution */
-/*PUBLISH DELETES*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','00','Non-Degree','Non-Degree');
@@ -1180,43 +1184,43 @@ DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/TribalAffiliation
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/TribalAffiliationDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '0', 'Not Applicable', 'Not Applicable');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '00', 'Not Applicable', 'Not Applicable');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '1', 'Acoma', 'Acoma');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '01', 'Acoma', 'Acoma');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '2', 'Cochiti', 'Cochiti');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '02', 'Cochiti', 'Cochiti');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '3', 'Isleta', 'Isleta');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '03', 'Isleta', 'Isleta');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '4', 'Jemez', 'Jemez');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '04', 'Jemez', 'Jemez');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '5', 'Jicarilla Apache', 'Jicarilla Apache');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '05', 'Jicarilla Apache', 'Jicarilla Apache');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '6', 'Laguna', 'Laguna');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '06', 'Laguna', 'Laguna');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '7', 'Mescalero Apache', 'Mescalero Apache');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '07', 'Mescalero Apache', 'Mescalero Apache');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '8', 'Nambe', 'Nambe');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '08', 'Nambe', 'Nambe');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/TribalAffiliationDescriptor', '9', 'Navajo', 'Navajo');
+        values ('uri://nmped.org/TribalAffiliationDescriptor', '09', 'Navajo', 'Navajo');
         INSERT INTO edfi.TribalAffiliationDescriptor (TribalAffiliationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -1285,43 +1289,43 @@ DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/LanguageDescripto
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LanguageDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '0', 'eng', 'English');
+        values ('uri://nmped.org/LanguageDescriptor', '00', 'eng', 'English');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '1', 'spa', 'Spanish');
+        values ('uri://nmped.org/LanguageDescriptor', '01', 'spa', 'Spanish');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '2', 'vie', 'Vietnamese');
+        values ('uri://nmped.org/LanguageDescriptor', '02', 'vie', 'Vietnamese');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '3', 'hmn', 'Hmong; Mong');
+        values ('uri://nmped.org/LanguageDescriptor', '03', 'hmn', 'Hmong; Mong');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '4', 'chi (B) zho (T)', 'Chinese (Cantonese or Mandarin, also includes Chaozhou, Lahu, Taiwanese, Teochew, and Toishanese)');
+        values ('uri://nmped.org/LanguageDescriptor', '04', 'chi (B) zho (T)', 'Chinese (Cantonese or Mandarin, also includes Chaozhou, Lahu, Taiwanese, Teochew, and Toishanese)');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '5', 'khm', 'Cambodian - Khmer');
+        values ('uri://nmped.org/LanguageDescriptor', '05', 'khm', 'Cambodian - Khmer');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '6', 'kor', 'Korean');
+        values ('uri://nmped.org/LanguageDescriptor', '06', 'kor', 'Korean');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '7', 'lao', 'Laotian (includes Khmu)');
+        values ('uri://nmped.org/LanguageDescriptor', '07', 'lao', 'Laotian (includes Khmu)');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '8', 'nav', 'Navajo; Navaho (Diné)');
+        values ('uri://nmped.org/LanguageDescriptor', '08', 'nav', 'Navajo; Navaho (Diné)');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/LanguageDescriptor', '9', 'tgl', 'Tagalog');
+        values ('uri://nmped.org/LanguageDescriptor', '09', 'tgl', 'Tagalog');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -1843,39 +1847,39 @@ DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SeparationReasonD
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SeparationReasonDescriptor'
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '1', 'Left NM and teaching in other state', 'Left NM and teaching in other state');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '01', 'Left NM and teaching in other state', 'Left NM and teaching in other state');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '2', 'Left for reasons other than retirement', 'Left for reasons other than retirement');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '02', 'Left for reasons other than retirement', 'Left for reasons other than retirement');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '3', 'Left to teach in private school in NM', 'Left to teach in private school in NM');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '03', 'Left to teach in private school in NM', 'Left to teach in private school in NM');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '4', 'Went to other public/charter NM district', 'Went to other public/charter NM district');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '04', 'Went to other public/charter NM district', 'Went to other public/charter NM district');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '5', 'Took non-teaching position in district', 'Took non-teaching position in district');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '05', 'Took non-teaching position in district', 'Took non-teaching position in district');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '6', 'Died', 'Died');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '06', 'Died', 'Died');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '7', 'Retired', 'Retired');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '07', 'Retired', 'Retired');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '8', 'Personal Reasons', 'Personal Reasons');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '08', 'Personal Reasons', 'Personal Reasons');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SeparationReasonDescriptor', '9', 'Non-Renewal of Contract', 'Non-Renewal of Contract');
+        values ('uri://nmped.org/SeparationReasonDescriptor', '09', 'Non-Renewal of Contract', 'Non-Renewal of Contract');
         INSERT INTO edfi.SeparationReasonDescriptor (SeparationReasonDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -1989,15 +1993,15 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '1', 'Nurse (LPN)', 'Nurse (LPN) - Healthcare');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '01', 'Nurse (LPN)', 'Nurse (LPN) - Healthcare');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '3', 'Healthcare Assistant', 'Healthcare Assistant - Healthcare');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '03', 'Healthcare Assistant', 'Healthcare Assistant - Healthcare');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '7', 'Special Education Healthcare Asst.', 'Special Education Healthcare Asst. - Healthcare');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '07', 'Special Education Healthcare Asst.', 'Special Education Healthcare Asst. - Healthcare');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -2017,7 +2021,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '2', 'Generic Support Staff without a specific code', 'Generic code for other Support Staff without a specific code in this category - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '02', 'Generic Support Staff without a specific code', 'Generic code for other Support Staff without a specific code in this category - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -2137,23 +2141,23 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '4', 'ROTC Instructor', 'ROTC Instructor - Other Personnel');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '04', 'ROTC Instructor', 'ROTC Instructor - Other Personnel');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '5', 'Drivers Education', 'Drivers Education - Other Personnel');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '05', 'Drivers Education', 'Drivers Education - Other Personnel');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '6', 'In School Suspension', 'In School Suspension - Other Personnel');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '06', 'In School Suspension', 'In School Suspension - Other Personnel');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '8', 'Social Worker, General Education', 'Social Worker, General Education - Other Personnel');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '08', 'Social Worker, General Education', 'Social Worker, General Education - Other Personnel');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '9', 'Technology Coordinator', 'Technology Coordinator - Other Personnel');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '09', 'Technology Coordinator', 'Technology Coordinator - Other Personnel');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -3412,29 +3416,29 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/PrimaryLearningDeviceAwayFromSchoolDescriptor','10','No Device','No Device');
 	INSERT INTO edfi.PrimaryLearningDeviceAwayFromSchoolDescriptor (PrimaryLearningDeviceAwayFromSchoolDescriptorid) values (@@IDENTITY);
 
----- DigitalEquityPrimaryLearningDeviceTypeDescriptor
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
+-- ---- DigitalEquityPrimaryLearningDeviceTypeDescriptor
+-- DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
+-- DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor'
+
+-- INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	-- values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','Y','Yes','Yes, the student''s primary learning device is provided by their school.');
+	-- INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (DigitalEquityPrimaryLearningDeviceTypeDescriptorid) values (@@IDENTITY);
+
+-- INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	-- values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','N','No','No, the student''s primary learning device is a personal device.');
+	-- INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (DigitalEquityPrimaryLearningDeviceTypeDescriptorid) values (@@IDENTITY);
+
+---- Primary Learning Device Access Descriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/PrimaryLearningDeviceAccessDescriptor'
+DELETE FROM edfi.PrimaryLearningDeviceAccessDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','Y','Yes','Yes, the student''s primary learning device is provided by their school.');
-	INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (DigitalEquityPrimaryLearningDeviceTypeDescriptorid) values (@@IDENTITY);
+	values ('uri://nmped.org/PrimaryLearningDeviceAccessDescriptor','DEDICATED','DEDICATED','The student''s primary learning device is not shared with anyone else in the household.');
+	INSERT INTO edfi.PrimaryLearningDeviceAccessDescriptor (PrimaryLearningDeviceAccessDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceTypeDescriptor','N','No','No, the student''s primary learning device is a personal device.');
-	INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor (DigitalEquityPrimaryLearningDeviceTypeDescriptorid) values (@@IDENTITY);
-
----- DigitalEquityPrimaryLearningDeviceAccessDescriptor
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityPrimaryLearningDeviceAccessDescriptor'
-DELETE FROM nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceAccessDescriptor','DEDICATED','DEDICATED','The student''s primary learning device is not shared with anyone else in the household.');
-	INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor (DigitalEquityPrimaryLearningDeviceAccessDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/DigitalEquityPrimaryLearningDeviceAccessDescriptor','SHARED','SHARED','The student''s primary learning device is also used by others in the household.');
-	INSERT INTO nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor (DigitalEquityPrimaryLearningDeviceAccessDescriptorid) values (@@IDENTITY);
+	values ('uri://nmped.org/PrimaryLearningDeviceAccessDescriptor','SHARED','SHARED','The student''s primary learning device is also used by others in the household.');
+	INSERT INTO edfi.PrimaryLearningDeviceAccessDescriptor (PrimaryLearningDeviceAccessDescriptorid) values (@@IDENTITY);
 	
 /* Note: Doug changed this to be a boolean value in the extension instead of a simple Yes|No Descriptor.
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/InternetAccessDescriptor'
@@ -3450,65 +3454,67 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 */
 
 --TODO: Look this over. Should these namespaces match the control tables?
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor'
-DELETE FROM nmped.DigitalEquityInternetAccessTypeDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/InternetAccessTypeInResidenceDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/InternetAccessTypeInResidenceDescriptor'
+DELETE FROM edfi.InternetAccessTypeInResidenceDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','01','Fiber','Fiber');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','02','Cable','Cable');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','03','DSL','DSL');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','04','Microwave','Microwave');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','05','Satellite','Satellite');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','06','Dial-up','Dial-up');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','07','Personal Hotspot','Personal Hotspot');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','08','School Provided Hotspot','School Provided Hotspot');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','09','Unknown','Unknown');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor','10','None','None');
-	INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor (DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 
 
 --TODO: Look this over. Should these namespaces match the control tables?
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DigitalEquityInternetPerformanceCodeDescriptor'
-DELETE FROM nmped.DigitalEquityInternetPerformanceCodeDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/InternetPerformanceInResidenceDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/InternetPerformanceInResidenceDescriptor'
+DELETE FROM edfi.InternetPerformanceInResidenceDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetPerformanceInResidenceDescriptor','01','Yes','Yes, With No Issues (The student can reliably stream video on their primary learning device without interruption.)');
-	INSERT INTO nmped.DigitalEquityInternetPerformanceCodeDescriptor (DigitalEquityInternetPerformanceCodeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetPerformanceInResidenceDescriptor (InternetPerformanceInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetPerformanceInResidenceDescriptor','02','Yes, But Not Consistent','Yes, But Not Consistent (The student can stream video on their primary learning device, but there are interruptions or issues with video quality.)');
-	INSERT INTO nmped.DigitalEquityInternetPerformanceCodeDescriptor (DigitalEquityInternetPerformanceCodeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetPerformanceInResidenceDescriptor (InternetPerformanceInResidenceDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/InternetPerformanceInResidenceDescriptor','03','No','No (The student cannot reliably stream video on their primary learning device.)');
-	INSERT INTO nmped.DigitalEquityInternetPerformanceCodeDescriptor (DigitalEquityInternetPerformanceCodeDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetPerformanceInResidenceDescriptor (InternetPerformanceInResidenceDescriptorId) values (@@IDENTITY);
 
 
 
@@ -4032,3 +4038,412 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
  */
  
+
+--Dental Examination Verification Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/DentalExaminationVerificationCodeDescriptor','EXAM','Exam Received','Exam Received');
+	INSERT INTO nmped.DentalExaminationVerificationCodeDescriptor(DentalExaminationVerificationCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/DentalExaminationVerificationCodeDescriptor','WAIVER','Signed Waiver','Signed Waiver');
+	INSERT INTO nmped.DentalExaminationVerificationCodeDescriptor (DentalExaminationVerificationCodeDescriptorId) values (@@IDENTITY);
+
+
+--Digital Equity Internet Access Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '01', 'Fiber','Fiber');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '02', 'Cable','Cable');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '03', 'DSL','DSL');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '04', 'Microwave','Microwave');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '05', 'Satellite','Satellite');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '06', 'Dial-up','Dial-up');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '07', 'Person Hotspot','Person Hotspot');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '08', 'School Provided Hotspot','School Provided Hotspot');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '09', 'Unknown','Unknown');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/DigitalEquityInternetAccessTypeDescriptor', '10', 'None','None');
+        INSERT INTO nmped.DigitalEquityInternetAccessTypeDescriptor(DigitalEquityInternetAccessTypeDescriptorId) values (@@IDENTITY);
+
+
+----ExpectedDiplomaTypeDescriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/ExpectedDiplomaTypeDescriptor', '3', 'Modified Option','Modified Option');
+        INSERT INTO nmped.ExpectedDiplomaTypeDescriptor(ExpectedDiplomaTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/ExpectedDiplomaTypeDescriptor', '4', 'Ability Option','Ability Option');
+        INSERT INTO nmped.ExpectedDiplomaTypeDescriptor(ExpectedDiplomaTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/ExpectedDiplomaTypeDescriptor', '5', 'Standard Option','Standard Option');
+        INSERT INTO nmped.ExpectedDiplomaTypeDescriptor(ExpectedDiplomaTypeDescriptorId) values (@@IDENTITY);
+
+
+----Planned Post Graduate Activity Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PlannedPostGraduateActivityDescriptor', '01', 'Attend college/university','Attend college/university');
+        INSERT INTO nmped.PlannedPostGraduateActivityDescriptor(PlannedPostGraduateActivityDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PlannedPostGraduateActivityDescriptor', '02', 'Attend junior college','Attend junior college');
+        INSERT INTO nmped.PlannedPostGraduateActivityDescriptor(PlannedPostGraduateActivityDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PlannedPostGraduateActivityDescriptor', '03', 'Attend trade school.','Attend trade school.');
+        INSERT INTO nmped.PlannedPostGraduateActivityDescriptor(PlannedPostGraduateActivityDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PlannedPostGraduateActivityDescriptor', '04', 'Work','Work');
+        INSERT INTO nmped.PlannedPostGraduateActivityDescriptor(PlannedPostGraduateActivityDescriptorId) values (@@IDENTITY);
+
+----Road Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/RoadTypeDescriptor', 'PAV', 'Paved','Paved');
+        INSERT INTO nmped.RoadTypeDescriptor(RoadTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/RoadTypeDescriptor', 'UPV', 'Unpaved','Unpaved');
+        INSERT INTO nmped.RoadTypeDescriptor(RoadTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/RoadTypeDescriptor', 'UIM', 'Unimproved','Unimproved');
+        INSERT INTO nmped.RoadTypeDescriptor(RoadTypeDescriptorId) values (@@IDENTITY);
+
+--Special Education Event Reason Descriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SpecialEducationEventReasonDescriptor'
+DELETE FROM nmped.SpecialEducationEventReasonDescriptor
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '1', 'Returned to regular education (no longer receiving special education)', 'Returned to regular education (no longer receiving special education)');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '4', 'Reached Maximum Age', 'Reached Maximum Age');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '5', 'Died WD', 'Died WD');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '6', 'Student has transferred out to another PED District or State Charter.', 'Student has transferred out to another PED District or State Charter.');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '8', 'Dropped Out ', 'Dropped Out ');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '9', 'Graduated with Diploma on Standard Option (FAPE ends)', 'Graduated with Diploma on Standard Option (FAPE ends)');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '10', 'Graduated with Diploma on Modified Option (Does not end FAPE)', 'Graduated with Diploma on Modified Option (Does not end FAPE)');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '11', 'Graduated with Diploma on Ability Option (Does not end FAPE)', 'Graduated with Diploma on Ability Option (Does not end FAPE)');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
+
+----Special Education NonCompliance Reason Descriptor
+
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SpecialEducationNonComplianceReasonDescriptor'
+DELETE FROM nmped.SpecialEducationNonComplianceReasonDescriptor
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '7', '7', 'Student Died WD');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '14', '14', 'Withdrawal from Part C by Parent prior to child’s third birthday. (Indicator 12 only)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '18', '18', 'Part C referred child less than 90 days before the child’s 3rd birthday');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '20', '20', 'Student moved out of the school district''s educational jurisdiction');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '21', '21', 'Student graduated before IEP corrected.');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '22', '22', 'Student dropped out of school before IEP corrected.');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '30', '30', 'No service provider available to complete evaluation (Use for Indicator 11)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '31', '31', 'Evaluation scheduling issues/ Difficulty scheduling IEP with parent/ Evaluation delays (Use for Indicator 11 or 12)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '32', '32', '60th day/3rd birthday on weekend, holiday or during other school closure (Use for Indicator 11 or 12)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '33', '33', 'Parent request delay in IEP meeting (Use for Indicator 12)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationNonComplianceReasonDescriptor', '34', '34', 'Parent request delay in completion of evaluation (Indicator 11 only)');
+        INSERT INTO nmped.SpecialEducationNonComplianceReasonDescriptor (SpecialEducationNonComplianceReasonDescriptorid) values (@@IDENTITY);
+
+----Student Award Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StudentAwardTypeDescriptor', 'TLC', 'Tribal Language Proficiency Certification','Tribal Language Proficiency Certification');
+        INSERT INTO nmped.StudentAwardTypeDescriptor(StudentAwardTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StudentAwardTypeDescriptor', 'CA', '4 units of Credit and an Assessment','4 units of Credit and an Assessment');
+        INSERT INTO nmped.StudentAwardTypeDescriptor(StudentAwardTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StudentAwardTypeDescriptor', 'CPP', '4 Units of Credit and an Alternative Process Portfolio','4 Units of Credit and an Alternative Process Portfolio');
+        INSERT INTO nmped.StudentAwardTypeDescriptor(StudentAwardTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StudentAwardTypeDescriptor', 'APP', 'Assessment and Alternative Process Portfolio','Assessment and Alternative Process Portfolio');
+        INSERT INTO nmped.StudentAwardTypeDescriptor(StudentAwardTypeDescriptorId) values (@@IDENTITY);
+
+----Vehicle Chassis Manufacturer Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'AMT', 'Amtram','Amtram');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'BLU', 'Bluebird','Bluebird');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'CE3', 'CE300','CE300');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'CHV', 'Chevy','Chevy');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'COL', 'Collins','Collins');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'FOR', 'Ford','Ford');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'FRE', 'Freightliner','Freightliner');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'GEN', 'GENE','GENE');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'GMC', 'GMC','GMC');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'IC', 'IC','IC');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'INT', 'International','International');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'MID', 'Mid Bus','Mid Bus');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'OTH', 'Other','Other');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'THO', 'Thomas','Thomas');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleChassisManufacturerDescriptor', 'VI', 'Vision','Vision');
+        INSERT INTO nmped.VehicleChassisManufacturerDescriptor(VehicleChassisManufacturerDescriptorId) values (@@IDENTITY);
+
+----Vehicle Route Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'RTF', 'Regular to and from','Regular to and from');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'COF', 'Contract feeder','Contract feeder');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'SEO', 'Special education only','Special education only');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'KGO', 'Kindergarten only','Kindergarten only');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'VCO', 'Vocational only','Vocational only');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', '34Y', '3-4 year old D.D. only','3-4 year old D.D. only');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleRouteDescriptor', 'ACT', 'Activity Bus','Activity Bus');
+        INSERT INTO nmped.VehicleRouteDescriptor(VehicleRouteDescriptorId) values (@@IDENTITY);
+
+---- Annual Review Delay Reason Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/AnnualReviewDelayReasonDescriptor', '01', 'Parent request IEP date after IEP due','Parent request IEP date after IEP due');
+        INSERT INTO nmped.AnnualReviewDelayReasonDescriptor(AnnualReviewDelayReasonDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/AnnualReviewDelayReasonDescriptor', '02', 'Unable to schedule IEP meeting with parent(s).','Unable to schedule IEP meeting with parent(s).');
+        INSERT INTO nmped.AnnualReviewDelayReasonDescriptor(AnnualReviewDelayReasonDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/AnnualReviewDelayReasonDescriptor', '03', 'Internal scheduling conflicts within LEA.','Internal scheduling conflicts within LEA.');
+        INSERT INTO nmped.AnnualReviewDelayReasonDescriptor(AnnualReviewDelayReasonDescriptorId) values (@@IDENTITY);
+
+---- Triennial Review Delay Reason Descriptor
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TriennialReviewDelayReasonDescriptor', '01', 'Additional data needs to be gathered.','Additional data needs to be gathered.');
+        INSERT INTO nmped.TriennialReviewDelayReasonDescriptor(TriennialReviewDelayReasonDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TriennialReviewDelayReasonDescriptor', '02', 'Shortage of or no related service staff available to conduct evaluation.','Shortage of or no related service staff available to conduct evaluation.');
+        INSERT INTO nmped.TriennialReviewDelayReasonDescriptor(TriennialReviewDelayReasonDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TriennialReviewDelayReasonDescriptor', '03', 'Internal scheduling conflicts within LEA.','Internal scheduling conflicts within LEA.');
+        INSERT INTO nmped.TriennialReviewDelayReasonDescriptor(TriennialReviewDelayReasonDescriptorId) values (@@IDENTITY);
+
+---- Vehicle Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleTypeDescriptor', 'BUS', 'BUS','BUS');
+        INSERT INTO nmped.VehicleTypeDescriptor(VehicleTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/VehicleTypeDescriptor', 'SUV', 'SUV','SUV');
+        INSERT INTO nmped.VehicleTypeDescriptor(VehicleTypeDescriptorId) values (@@IDENTITY);
+
+----Transportation Set Code Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationSetCodeDescriptor', 'ELIGSTUDNOTSTARS', 'ELIGSTUDNOTSTARS','ELIGSTUDNOTSTARS');
+        INSERT INTO nmped.TransportationSetCodeDescriptor(TransportationSetCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationSetCodeDescriptor', 'FEEDER', 'FEEDER','FEEDER');
+        INSERT INTO nmped.TransportationSetCodeDescriptor(TransportationSetCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationSetCodeDescriptor', 'PROJSTUDENTS', 'PROJSTUDENTS','PROJSTUDENTS');
+        INSERT INTO nmped.TransportationSetCodeDescriptor(TransportationSetCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationSetCodeDescriptor', 'K5PMILEAGE', 'K5PMILEAGE','K5PMILEAGE');
+        INSERT INTO nmped.TransportationSetCodeDescriptor(TransportationSetCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationSetCodeDescriptor', 'ELTPMILEAGE', 'ELTPMILEAGE','ELTPMILEAGE');
+        INSERT INTO nmped.TransportationSetCodeDescriptor(TransportationSetCodeDescriptorId) values (@@IDENTITY);
+
+--Transportation Category Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'Bus Transportation', 'Bus Transportation','Bus Transportation');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'ELIGSTUDNOTSTARS', 'ELIGSTUDNOTSTARS','ELIGSTUDNOTSTARS');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'FEEDER', 'FEEDER','FEEDER');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'PROJSTUDENTS', 'PROJSTUDENTS','PROJSTUDENTS');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'K5PMILEAGE', 'K5PMILEAGE','K5PMILEAGE');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/TransportationCategoryDescriptor', 'ELTPMILEAGE', 'ELTPMILEAGE','ELTPMILEAGE');
+        INSERT INTO nmped.TransportationCategoryDescriptor(TransportationCategoryDescriptorId) values (@@IDENTITY);
+
+----Mileage Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/MileageTypeDescriptor', 'LRT', 'Live Route','Live Route');
+        INSERT INTO nmped.MileageTypeDescriptor(MileageTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/MileageTypeDescriptor', 'EDH', 'Essential Dead Head','Essential Dead Head');
+        INSERT INTO nmped.MileageTypeDescriptor(MileageTypeDescriptorId) values (@@IDENTITY);
+
+----PreK Class Type Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PreKClassTypeDescriptor', 'AM ', 'Morning Program for PreK ONLY','Morning Program for PreK ONLY');
+        INSERT INTO nmped.PreKClassTypeDescriptor(PreKClassTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PreKClassTypeDescriptor', 'PM', 'Afternoon Program for PreK ONLY','Afternoon Program for PreK ONLY');
+        INSERT INTO nmped.PreKClassTypeDescriptor(PreKClassTypeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/PreKClassTypeDescriptor', 'FD', 'Full Day Program for PreK ONLY','Full Day Program for PreK ONLY');
+        INSERT INTO nmped.PreKClassTypeDescriptor(PreKClassTypeDescriptorId) values (@@IDENTITY);
+
+----Staff Development Activity Code Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentActivityCodeDescriptor', 'ELTP', 'Extended Learning Time Program','Extended Learning Time Program');
+        INSERT INTO nmped.StaffDevelopmentActivityCodeDescriptor(StaffDevelopmentActivityCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentActivityCodeDescriptor', 'MENTOR', 'Mentor','Mentor');
+        INSERT INTO nmped.StaffDevelopmentActivityCodeDescriptor(StaffDevelopmentActivityCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentActivityCodeDescriptor', 'MENTEE', 'Mentee','Mentee');
+        INSERT INTO nmped.StaffDevelopmentActivityCodeDescriptor(StaffDevelopmentActivityCodeDescriptorId) values (@@IDENTITY);
+
+----Staff Development Purpose Code Descriptor
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '01', 'Left NM and teaching in other state','Left NM and teaching in other state');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '02', 'Left for reasons other than retirement','Left for reasons other than retirement');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '03', 'Left to teach in private school in NM','Left to teach in private school in NM');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '04', 'Went to other public/charter NM district','Went to other public/charter NM district');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '05', 'Took non-teaching position in district','Took non-teaching position in district');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '06', 'Died','Died');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '07', 'Retired','Retired');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '08', 'Personal Reasons','Personal Reasons');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '09', 'Non-Renewal of Contract','Non-Renewal of Contract');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '10', 'Non-Renewal of Teaching License','Non-Renewal of Teaching License');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '11', 'Discharged prior to end of contract','Discharged prior to end of contract');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '12', 'Resigned prior to completion of contract','Resigned prior to completion of contract');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '13', 'Reduction in force/staff','Reduction in force/staff');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '14', 'Leave of absence (i.e. Permanent leave of absence due to illness or another reason)','Leave of absence (i.e. Permanent leave of absence due to illness or another reason)');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '15', 'Military Service','Military Service');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '16', 'Teaching in Another Country','Teaching in Another Country');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '17', 'Peace Corps/ACTION','Peace Corps/ACTION');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '18', 'Completion of Short Term Contract','Completion of Short Term Contract');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '19', 'Left to teach in BIE (Bureau of Indian Education) school in NM','Left to teach in BIE (Bureau of Indian Education) school in NM');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StaffDevelopmentPurposeCodeDescriptor', '99', 'Unknown Reason','Unknown Reason');
+        INSERT INTO nmped.StaffDevelopmentPurposeCodeDescriptor(StaffDevelopmentPurposeCodeDescriptorId) values (@@IDENTITY);

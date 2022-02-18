@@ -12,9 +12,10 @@ Domain Entity StudentEducationOrganizationAward
   descriptor StudentAwardType
       documentation "The type of award."
       is part of identity
-  descriptor StudentAwardLanguage
-      documentation "The language for the award."
+  descriptor EdFi.Language
+      documentation " The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded."
       is part of identity
+      role name StudentAwardLanguage
   date AwardDate
       documentation "The date the student got awarded."
       is part of identity
