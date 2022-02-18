@@ -12,7 +12,7 @@ $implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Nam
 $env:toolsPath = $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-minimal-template.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-populated-template.psm1')
+#Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/create-populated-template.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/build-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-teamcity.psm1')
@@ -30,7 +30,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
 
-Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
+#Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
 
 Set-DeploymentSettingsFiles @(
@@ -147,7 +147,7 @@ function Initialize-DevelopmentEnvironment {
         $script:result += Reset-TestSecurityDatabase
 
         if (-not ($NoDeploy)) {
-            $script:result += Reset-TestPopulatedTemplateDatabase
+            #$script:result += Reset-TestPopulatedTemplateDatabase
 
             $params = @{
                 InstallType   = $InstallType
@@ -338,7 +338,7 @@ function Reset-TestSecurityDatabase {
     }
 }
 
-Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateDatabase
+#Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateDatabase
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {

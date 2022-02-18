@@ -56,7 +56,8 @@ function Initialize-DeploymentEnvironment {
         [Alias('OdsYears')]
         [string[]] $OdsTokens,
 
-        [ValidateSet("minimal", "populated")]
+        #[ValidateSet("minimal", "populated")]
+		[ValidateSet("minimal")]
         [string] $OdsDatabaseTemplateName,
 
         [Alias('Transient')]
@@ -133,7 +134,7 @@ function Initialize-DeploymentEnvironment {
         else {
             $script:result += Remove-SandboxDatabases
             $script:result += Reset-MinimalTemplateDatabase
-            $script:result += Reset-PopulatedTemplateDatabase
+            #$script:result += Reset-PopulatedTemplateDatabase
         }
     }
 
