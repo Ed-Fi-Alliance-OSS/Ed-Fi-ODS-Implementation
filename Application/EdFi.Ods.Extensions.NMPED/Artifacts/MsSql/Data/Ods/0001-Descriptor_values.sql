@@ -4006,6 +4006,8 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values ('uri://nmped.org/VehicleBodyManufacturer', 'VI', 'Vision', 'Vision');
         INSERT INTO nmped.VehicleBodyManufacturerDescriptor (VehicleBodyManufacturerDescriptorId) values (@@IDENTITY);
 
+/* 
+Duplicate Inserts
 -- Vehicle Fuel Type
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/VehicleFuelType', 'ALT', 'Alternative fuel', 'Alternative fuel');
@@ -4014,5 +4016,5 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/VehicleFuelType', 'ULG', 'Unleaded gasoline', 'Unleaded gasoline');
         INSERT INTO nmped.VehicleFuelTypeDescriptor (VehicleFuelTypeDescriptorId) values (@@IDENTITY);
-
+ */
  
