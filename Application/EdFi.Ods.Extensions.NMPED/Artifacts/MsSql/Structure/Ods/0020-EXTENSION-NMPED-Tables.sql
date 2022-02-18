@@ -7,15 +7,6 @@ CREATE TABLE [nmped].[AnnualReviewDelayReasonDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [nmped].[ClassPeriodDescriptor] --
-CREATE TABLE [nmped].[ClassPeriodDescriptor] (
-    [ClassPeriodDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [ClassPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [ClassPeriodDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
 -- Table [nmped].[DentalExaminationVerificationCodeDescriptor] --
 CREATE TABLE [nmped].[DentalExaminationVerificationCodeDescriptor] (
     [DentalExaminationVerificationCodeDescriptorId] [INT] NOT NULL,
@@ -89,6 +80,15 @@ GO
 ALTER TABLE [nmped].[DisciplineIncidentExtension] ADD CONSTRAINT [DisciplineIncidentExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
+-- Table [nmped].[ExpectedDiplomaTypeDescriptor] --
+CREATE TABLE [nmped].[ExpectedDiplomaTypeDescriptor] (
+    [ExpectedDiplomaTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ExpectedDiplomaTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ExpectedDiplomaTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[GenderIdentityDescriptor] --
 CREATE TABLE [nmped].[GenderIdentityDescriptor] (
     [GenderIdentityDescriptorId] [INT] NOT NULL,
@@ -153,6 +153,15 @@ CREATE TABLE [nmped].[MileageTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[NMPEDClassPeriodDescriptor] --
+CREATE TABLE [nmped].[NMPEDClassPeriodDescriptor] (
+    [NMPEDClassPeriodDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [NMPEDClassPeriodDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [NMPEDClassPeriodDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[NMPEDService] --
 CREATE TABLE [nmped].[NMPEDService] (
     [ServiceDescriptorId] [INT] NOT NULL,
@@ -198,6 +207,15 @@ CREATE TABLE [nmped].[PlannedPostGraduateActivityDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[PreKClassTypeDescriptor] --
+CREATE TABLE [nmped].[PreKClassTypeDescriptor] (
+    [PreKClassTypeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PreKClassTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PreKClassTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
 -- Table [nmped].[ProgramDeliveryMethodDescriptor] --
 CREATE TABLE [nmped].[ProgramDeliveryMethodDescriptor] (
     [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
@@ -223,6 +241,28 @@ CREATE TABLE [nmped].[RoadTypeDescriptor] (
         [RoadTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
+GO
+
+-- Table [nmped].[SectionExtension] --
+CREATE TABLE [nmped].[SectionExtension] (
+    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
+    [SchoolId] [INT] NOT NULL,
+    [SchoolYear] [SMALLINT] NOT NULL,
+    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
+    [SessionName] [NVARCHAR](60) NOT NULL,
+    [NMPEDClassPeriodDescriptorId] [INT] NOT NULL,
+    [PreKClassTypeDescriptorId] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [SectionExtension_PK] PRIMARY KEY CLUSTERED (
+        [LocalCourseCode] ASC,
+        [SchoolId] ASC,
+        [SchoolYear] ASC,
+        [SectionIdentifier] ASC,
+        [SessionName] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[SectionExtension] ADD CONSTRAINT [SectionExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[ServiceProviderTypeDescriptor] --
@@ -378,29 +418,6 @@ CREATE TABLE [nmped].[StaffExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StaffExtension] ADD CONSTRAINT [StaffExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [nmped].[StaffSectionAssociationExtension] --
-CREATE TABLE [nmped].[StaffSectionAssociationExtension] (
-    [LocalCourseCode] [NVARCHAR](60) NOT NULL,
-    [SchoolId] [INT] NOT NULL,
-    [SchoolYear] [SMALLINT] NOT NULL,
-    [SectionIdentifier] [NVARCHAR](255) NOT NULL,
-    [SessionName] [NVARCHAR](60) NOT NULL,
-    [StaffUSI] [INT] NOT NULL,
-    [ClassPeriodDescriptorId] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StaffSectionAssociationExtension_PK] PRIMARY KEY CLUSTERED (
-        [LocalCourseCode] ASC,
-        [SchoolId] ASC,
-        [SchoolYear] ASC,
-        [SectionIdentifier] ASC,
-        [SessionName] ASC,
-        [StaffUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [nmped].[StaffSectionAssociationExtension] ADD CONSTRAINT [StaffSectionAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[StudentAwardLanguageDescriptor] --
@@ -642,6 +659,7 @@ CREATE TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] (
     [AnnualReviewDelayReasonDescriptorId] [INT] NULL,
     [TriennialReviewDelayReasonDescriptorId] [INT] NULL,
     [PlannedPostGraduateActivityDescriptorId] [INT] NULL,
+    [ExpectedDiplomaTypeDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSpecialEducationProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,

@@ -6,14 +6,6 @@ CREATE TABLE tracked_deletes_nmped.AnnualReviewDelayReasonDescriptor
        CONSTRAINT AnnualReviewDelayReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.ClassPeriodDescriptor
-(
-       ClassPeriodDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT ClassPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.DentalExaminationVerificationCodeDescriptor
 (
        DentalExaminationVerificationCodeDescriptorId INT NOT NULL,
@@ -62,6 +54,14 @@ CREATE TABLE tracked_deletes_nmped.DirectCertificationStatusDescriptor
        CONSTRAINT DirectCertificationStatusDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.ExpectedDiplomaTypeDescriptor
+(
+       ExpectedDiplomaTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT ExpectedDiplomaTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.GenderIdentityDescriptor
 (
        GenderIdentityDescriptorId INT NOT NULL,
@@ -106,6 +106,14 @@ CREATE TABLE tracked_deletes_nmped.MileageTypeDescriptor
        CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.NMPEDClassPeriodDescriptor
+(
+       NMPEDClassPeriodDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT NMPEDClassPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.NMPEDService
 (
        ServiceDescriptorId INT NOT NULL,
@@ -128,6 +136,14 @@ CREATE TABLE tracked_deletes_nmped.PlannedPostGraduateActivityDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT PlannedPostGraduateActivityDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.PreKClassTypeDescriptor
+(
+       PreKClassTypeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT PreKClassTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor

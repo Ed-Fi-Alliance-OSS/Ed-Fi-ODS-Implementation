@@ -5,13 +5,6 @@ CREATE TABLE [tracked_deletes_nmped].[AnnualReviewDelayReasonDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_AnnualReviewDelayReasonDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-CREATE TABLE [tracked_deletes_nmped].[ClassPeriodDescriptor]
-(
-       ClassPeriodDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_ClassPeriodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 CREATE TABLE [tracked_deletes_nmped].[DentalExaminationVerificationCodeDescriptor]
 (
        DentalExaminationVerificationCodeDescriptorId [INT] NOT NULL,
@@ -54,6 +47,13 @@ CREATE TABLE [tracked_deletes_nmped].[DirectCertificationStatusDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_DirectCertificationStatusDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[ExpectedDiplomaTypeDescriptor]
+(
+       ExpectedDiplomaTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ExpectedDiplomaTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[GenderIdentityDescriptor]
 (
        GenderIdentityDescriptorId [INT] NOT NULL,
@@ -93,6 +93,13 @@ CREATE TABLE [tracked_deletes_nmped].[MileageTypeDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_MileageTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[NMPEDClassPeriodDescriptor]
+(
+       NMPEDClassPeriodDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_NMPEDClassPeriodDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[NMPEDService]
 (
        ServiceDescriptorId [INT] NOT NULL,
@@ -113,6 +120,13 @@ CREATE TABLE [tracked_deletes_nmped].[PlannedPostGraduateActivityDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_PlannedPostGraduateActivityDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[PreKClassTypeDescriptor]
+(
+       PreKClassTypeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_PreKClassTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[ProgramDeliveryMethodDescriptor]
 (

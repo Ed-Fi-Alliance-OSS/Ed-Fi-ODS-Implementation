@@ -3,9 +3,6 @@
   <Aggregate root="AnnualReviewDelayReasonDescriptor">
     <Entity table="AnnualReviewDelayReasonDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
-  <Aggregate root="ClassPeriodDescriptor">
-    <Entity table="ClassPeriodDescriptor" isA="Descriptor" schema="nmped"/>
-  </Aggregate>
   <Aggregate root="DentalExaminationVerificationCodeDescriptor">
     <Entity table="DentalExaminationVerificationCodeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
@@ -24,6 +21,9 @@
   <Aggregate root="DirectCertificationStatusDescriptor">
     <Entity table="DirectCertificationStatusDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="ExpectedDiplomaTypeDescriptor">
+    <Entity table="ExpectedDiplomaTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="GenderIdentityDescriptor">
     <Entity table="GenderIdentityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
@@ -39,6 +39,9 @@
   <Aggregate root="MileageTypeDescriptor">
     <Entity table="MileageTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="NMPEDClassPeriodDescriptor">
+    <Entity table="NMPEDClassPeriodDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="NMPEDService">
     <Entity table="NMPEDService" schema="nmped"/>
   </Aggregate>
@@ -47,6 +50,9 @@
   </Aggregate>
   <Aggregate root="PlannedPostGraduateActivityDescriptor">
     <Entity table="PlannedPostGraduateActivityDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="PreKClassTypeDescriptor">
+    <Entity table="PreKClassTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>

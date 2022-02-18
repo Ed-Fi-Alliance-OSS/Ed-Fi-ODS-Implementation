@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.0-a" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.0-a" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.1-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.1-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
   <xs:include schemaLocation="Ed-Fi-Core.xsd" />
   <xs:annotation>
-    <xs:documentation>===== Ed-Fi 3.3.0-a Extensions =====</xs:documentation>
+    <xs:documentation>===== Ed-Fi 3.3.1-b Extensions =====</xs:documentation>
   </xs:annotation>
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
@@ -164,6 +164,36 @@
           <xs:element name="ServiceDuration" type="xs:int" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the duration of the service.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-SectionExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Section">
+        <xs:sequence>
+          <xs:element name="NMPEDClassPeriod" type="EXTENSION-NMPEDClassPeriodDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Indicates the type of class period for this section.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-NMPEDClassPeriodDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PreKClassType" type="EXTENSION-PreKClassTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicated the type of Pre-K participation for this section.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-PreKClassTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -703,17 +733,6 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-ClassPeriodDescriptor">
-    <xs:annotation>
-      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-DentalExaminationVerificationCodeDescriptor">
     <xs:annotation>
       <xs:documentation>The code of the dental examination performed.</xs:documentation>
@@ -780,6 +799,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-ExpectedDiplomaTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The option determined and indicated in the student's IEP.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-GenderIdentityDescriptor">
     <xs:annotation>
       <xs:documentation>The gender the person identifies with.</xs:documentation>
@@ -824,6 +854,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-NMPEDClassPeriodDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-ParticipationInformationDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
@@ -838,6 +879,17 @@
   <xs:complexType name="EXTENSION-PlannedPostGraduateActivityDescriptor">
     <xs:annotation>
       <xs:documentation>The planned post graduate activity.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PreKClassTypeDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the method of Pre-K Participation.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -1102,28 +1154,6 @@
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
-  <xs:complexType name="EXTENSION-StaffSectionAssociationExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Association</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="StaffSectionAssociation">
-        <xs:sequence>
-          <xs:element name="ClassPeriod" type="EXTENSION-ClassPeriodDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the Class Period of this section.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ClassPeriodDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentCTEProgramAssociationExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -1324,6 +1354,14 @@
               <xs:documentation>The planned post graduate activity.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-PlannedPostGraduateActivityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ExpectedDiplomaType" type="EXTENSION-ExpectedDiplomaTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The option determined and indicated in a student's IEP</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ExpectedDiplomaTypeDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -1807,15 +1845,6 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
-  <xs:simpleType name="EXTENSION-ClassPeriodDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
   <xs:simpleType name="EXTENSION-DentalExaminationVerificationCodeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The code of the dental examination performed.</xs:documentation>
@@ -1870,6 +1899,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ExpectedDiplomaTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The option determined and indicated in the student's IEP.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-GenderIdentityDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The gender the person identifies with.</xs:documentation>
@@ -1906,6 +1944,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-NMPEDClassPeriodDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-ParticipationInformationDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Program Participation Information.</xs:documentation>
@@ -1918,6 +1965,15 @@
   <xs:simpleType name="EXTENSION-PlannedPostGraduateActivityDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The planned post graduate activity.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-PreKClassTypeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the method of Pre-K Participation.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

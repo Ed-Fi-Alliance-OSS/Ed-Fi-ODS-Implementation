@@ -2,10 +2,6 @@
 COMMENT ON TABLE nmped.AnnualReviewDelayReasonDescriptor IS 'The annual review delay reason.';
 COMMENT ON COLUMN nmped.AnnualReviewDelayReasonDescriptor.AnnualReviewDelayReasonDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [nmped].[ClassPeriodDescriptor] --
-COMMENT ON TABLE nmped.ClassPeriodDescriptor IS 'This descriptor describes the Class Period.';
-COMMENT ON COLUMN nmped.ClassPeriodDescriptor.ClassPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
 -- Extended Properties [nmped].[DentalExaminationVerificationCodeDescriptor] --
 COMMENT ON TABLE nmped.DentalExaminationVerificationCodeDescriptor IS 'The code of the dental examination performed.';
 COMMENT ON COLUMN nmped.DentalExaminationVerificationCodeDescriptor.DentalExaminationVerificationCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -40,6 +36,10 @@ COMMENT ON COLUMN nmped.DisciplineIncidentExtension.GangRelatedIndicator IS 'An 
 COMMENT ON COLUMN nmped.DisciplineIncidentExtension.HateCrimeRelatedIndicator IS 'An indication of whether or not this discipline incident is hate crime related or not.';
 COMMENT ON COLUMN nmped.DisciplineIncidentExtension.SeriousBodilyInjuryIndicator IS 'An indication of whether or not this discipline incident is serious bodily injury related or not.';
 
+-- Extended Properties [nmped].[ExpectedDiplomaTypeDescriptor] --
+COMMENT ON TABLE nmped.ExpectedDiplomaTypeDescriptor IS 'The option determined and indicated in the student''s IEP.';
+COMMENT ON COLUMN nmped.ExpectedDiplomaTypeDescriptor.ExpectedDiplomaTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[GenderIdentityDescriptor] --
 COMMENT ON TABLE nmped.GenderIdentityDescriptor IS 'The gender the person identifies with.';
 COMMENT ON COLUMN nmped.GenderIdentityDescriptor.GenderIdentityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -65,6 +65,10 @@ COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.Count IS 'The count f
 COMMENT ON TABLE nmped.MileageTypeDescriptor IS 'The mileage type.';
 COMMENT ON COLUMN nmped.MileageTypeDescriptor.MileageTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[NMPEDClassPeriodDescriptor] --
+COMMENT ON TABLE nmped.NMPEDClassPeriodDescriptor IS 'This descriptor describes the Class Period.';
+COMMENT ON COLUMN nmped.NMPEDClassPeriodDescriptor.NMPEDClassPeriodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[NMPEDService] --
 COMMENT ON TABLE nmped.NMPEDService IS 'The student''s program service information.';
 COMMENT ON COLUMN nmped.NMPEDService.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
@@ -85,6 +89,10 @@ COMMENT ON COLUMN nmped.ParticipationInformationDescriptor.ParticipationInformat
 COMMENT ON TABLE nmped.PlannedPostGraduateActivityDescriptor IS 'The planned post graduate activity.';
 COMMENT ON COLUMN nmped.PlannedPostGraduateActivityDescriptor.PlannedPostGraduateActivityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[PreKClassTypeDescriptor] --
+COMMENT ON TABLE nmped.PreKClassTypeDescriptor IS 'This descriptor describes the method of Pre-K Participation.';
+COMMENT ON COLUMN nmped.PreKClassTypeDescriptor.PreKClassTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
 COMMENT ON TABLE nmped.ProgramDeliveryMethodDescriptor IS 'This descriptor describes the delivery method for the student''s program.';
 COMMENT ON COLUMN nmped.ProgramDeliveryMethodDescriptor.ProgramDeliveryMethodDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
@@ -96,6 +104,16 @@ COMMENT ON COLUMN nmped.ProgramIntensityDescriptor.ProgramIntensityDescriptorId 
 -- Extended Properties [nmped].[RoadTypeDescriptor] --
 COMMENT ON TABLE nmped.RoadTypeDescriptor IS 'The road type.';
 COMMENT ON COLUMN nmped.RoadTypeDescriptor.RoadTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[SectionExtension] --
+COMMENT ON TABLE nmped.SectionExtension IS '';
+COMMENT ON COLUMN nmped.SectionExtension.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
+COMMENT ON COLUMN nmped.SectionExtension.SchoolId IS 'The identifier assigned to a school.';
+COMMENT ON COLUMN nmped.SectionExtension.SchoolYear IS 'The identifier for the school year.';
+COMMENT ON COLUMN nmped.SectionExtension.SectionIdentifier IS 'The local identifier assigned to a section.';
+COMMENT ON COLUMN nmped.SectionExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
+COMMENT ON COLUMN nmped.SectionExtension.NMPEDClassPeriodDescriptorId IS 'Indicates the type of class period for this section.';
+COMMENT ON COLUMN nmped.SectionExtension.PreKClassTypeDescriptorId IS 'Indicated the type of Pre-K participation for this section.';
 
 -- Extended Properties [nmped].[ServiceProviderTypeDescriptor] --
 COMMENT ON TABLE nmped.ServiceProviderTypeDescriptor IS 'The type of the service provider.';
@@ -163,16 +181,6 @@ COMMENT ON TABLE nmped.StaffExtension IS '';
 COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Highest Completed Level Of Education Institution.';
 COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId IS 'Indicates the Baccalaureate Level Of Education Institution.';
-
--- Extended Properties [nmped].[StaffSectionAssociationExtension] --
-COMMENT ON TABLE nmped.StaffSectionAssociationExtension IS '';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.LocalCourseCode IS 'The local code assigned by the School that identifies the course offering provided for the instruction of students.';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SchoolId IS 'The identifier assigned to a school.';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SchoolYear IS 'The identifier for the school year.';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SectionIdentifier IS 'The local identifier assigned to a section.';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.SessionName IS 'The identifier for the calendar for the academic session (e.g., 2010/11, 2011 Summer).';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN nmped.StaffSectionAssociationExtension.ClassPeriodDescriptorId IS 'Indicates the Class Period of this section.';
 
 -- Extended Properties [nmped].[StudentAwardLanguageDescriptor] --
 COMMENT ON TABLE nmped.StudentAwardLanguageDescriptor IS 'The award language codes.';
@@ -296,6 +304,7 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.Speci
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.AnnualReviewDelayReasonDescriptorId IS 'The annual review delay reason.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.TriennialReviewDelayReasonDescriptorId IS 'The triennual review delay reason.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.PlannedPostGraduateActivityDescriptorId IS 'The planned post graduate activity.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.ExpectedDiplomaTypeDescriptorId IS 'The option determined and indicated in a student''s IEP';
 
 -- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc] --
 COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc IS 'This is documentation.';

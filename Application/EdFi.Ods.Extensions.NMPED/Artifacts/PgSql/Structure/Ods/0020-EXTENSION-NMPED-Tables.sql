@@ -4,12 +4,6 @@ CREATE TABLE nmped.AnnualReviewDelayReasonDescriptor (
     CONSTRAINT AnnualReviewDelayReasonDescriptor_PK PRIMARY KEY (AnnualReviewDelayReasonDescriptorId)
 ); 
 
--- Table nmped.ClassPeriodDescriptor --
-CREATE TABLE nmped.ClassPeriodDescriptor (
-    ClassPeriodDescriptorId INT NOT NULL,
-    CONSTRAINT ClassPeriodDescriptor_PK PRIMARY KEY (ClassPeriodDescriptorId)
-); 
-
 -- Table nmped.DentalExaminationVerificationCodeDescriptor --
 CREATE TABLE nmped.DentalExaminationVerificationCodeDescriptor (
     DentalExaminationVerificationCodeDescriptorId INT NOT NULL,
@@ -60,6 +54,12 @@ CREATE TABLE nmped.DisciplineIncidentExtension (
 ); 
 ALTER TABLE nmped.DisciplineIncidentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table nmped.ExpectedDiplomaTypeDescriptor --
+CREATE TABLE nmped.ExpectedDiplomaTypeDescriptor (
+    ExpectedDiplomaTypeDescriptorId INT NOT NULL,
+    CONSTRAINT ExpectedDiplomaTypeDescriptor_PK PRIMARY KEY (ExpectedDiplomaTypeDescriptorId)
+); 
+
 -- Table nmped.GenderIdentityDescriptor --
 CREATE TABLE nmped.GenderIdentityDescriptor (
     GenderIdentityDescriptorId INT NOT NULL,
@@ -102,6 +102,12 @@ CREATE TABLE nmped.MileageTypeDescriptor (
     CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (MileageTypeDescriptorId)
 ); 
 
+-- Table nmped.NMPEDClassPeriodDescriptor --
+CREATE TABLE nmped.NMPEDClassPeriodDescriptor (
+    NMPEDClassPeriodDescriptorId INT NOT NULL,
+    CONSTRAINT NMPEDClassPeriodDescriptor_PK PRIMARY KEY (NMPEDClassPeriodDescriptorId)
+); 
+
 -- Table nmped.NMPEDService --
 CREATE TABLE nmped.NMPEDService (
     ServiceDescriptorId INT NOT NULL,
@@ -135,6 +141,12 @@ CREATE TABLE nmped.PlannedPostGraduateActivityDescriptor (
     CONSTRAINT PlannedPostGraduateActivityDescriptor_PK PRIMARY KEY (PlannedPostGraduateActivityDescriptorId)
 ); 
 
+-- Table nmped.PreKClassTypeDescriptor --
+CREATE TABLE nmped.PreKClassTypeDescriptor (
+    PreKClassTypeDescriptorId INT NOT NULL,
+    CONSTRAINT PreKClassTypeDescriptor_PK PRIMARY KEY (PreKClassTypeDescriptorId)
+); 
+
 -- Table nmped.ProgramDeliveryMethodDescriptor --
 CREATE TABLE nmped.ProgramDeliveryMethodDescriptor (
     ProgramDeliveryMethodDescriptorId INT NOT NULL,
@@ -152,6 +164,20 @@ CREATE TABLE nmped.RoadTypeDescriptor (
     RoadTypeDescriptorId INT NOT NULL,
     CONSTRAINT RoadTypeDescriptor_PK PRIMARY KEY (RoadTypeDescriptorId)
 ); 
+
+-- Table nmped.SectionExtension --
+CREATE TABLE nmped.SectionExtension (
+    LocalCourseCode VARCHAR(60) NOT NULL,
+    SchoolId INT NOT NULL,
+    SchoolYear SMALLINT NOT NULL,
+    SectionIdentifier VARCHAR(255) NOT NULL,
+    SessionName VARCHAR(60) NOT NULL,
+    NMPEDClassPeriodDescriptorId INT NOT NULL,
+    PreKClassTypeDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT SectionExtension_PK PRIMARY KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName)
+); 
+ALTER TABLE nmped.SectionExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.ServiceProviderTypeDescriptor --
 CREATE TABLE nmped.ServiceProviderTypeDescriptor (
@@ -259,20 +285,6 @@ CREATE TABLE nmped.StaffExtension (
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 ); 
 ALTER TABLE nmped.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table nmped.StaffSectionAssociationExtension --
-CREATE TABLE nmped.StaffSectionAssociationExtension (
-    LocalCourseCode VARCHAR(60) NOT NULL,
-    SchoolId INT NOT NULL,
-    SchoolYear SMALLINT NOT NULL,
-    SectionIdentifier VARCHAR(255) NOT NULL,
-    SessionName VARCHAR(60) NOT NULL,
-    StaffUSI INT NOT NULL,
-    ClassPeriodDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffSectionAssociationExtension_PK PRIMARY KEY (LocalCourseCode, SchoolId, SchoolYear, SectionIdentifier, SessionName, StaffUSI)
-); 
-ALTER TABLE nmped.StaffSectionAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentAwardLanguageDescriptor --
 CREATE TABLE nmped.StudentAwardLanguageDescriptor (
@@ -431,6 +443,7 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (
     AnnualReviewDelayReasonDescriptorId INT NULL,
     TriennialReviewDelayReasonDescriptorId INT NULL,
     PlannedPostGraduateActivityDescriptorId INT NULL,
+    ExpectedDiplomaTypeDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSpecialEducationProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
