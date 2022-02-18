@@ -1,0 +1,7 @@
+Domain Entity EdFi.Section additions
+    descriptor NMPEDClassPeriod
+        documentation "Indicates the type of class period for this section."
+        is required
+    descriptor PreKClassType
+        documentation "Indicated the type of Pre-K participation for this section."
+        is optional
