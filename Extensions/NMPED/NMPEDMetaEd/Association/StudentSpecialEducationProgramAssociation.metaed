@@ -16,3 +16,6 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
     descriptor PlannedPostGraduateActivity
         documentation "The planned post graduate activity."
         is optional
+    descriptor ExpectedDiplomaType
+        documentation "The option determined and indicated in a student's IEP"
+        is optional

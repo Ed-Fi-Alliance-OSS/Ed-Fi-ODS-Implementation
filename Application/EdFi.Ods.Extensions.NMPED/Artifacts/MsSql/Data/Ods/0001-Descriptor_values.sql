@@ -711,46 +711,50 @@ values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','51','Outside US
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 
-/* ClassPeriodDescriptor */
+/* NMPEDClassPeriodDescriptor */
+/*Changed from ClassPeriod, due to moving it from StaffSection to Section and section already having a ClassPeriod field being used in a different way*/
+
+/* Removing these 3 for PreK and moving it to ProgramTypes
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','AM','Morning Program for PreK ONLY','Morning Program for PreK ONLY');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','AM','Morning Program for PreK ONLY','Morning Program for PreK ONLY');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','PM','Afternoon Program for PreK ONLY','Afternoon Program for PreK ONLY');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','PM','Afternoon Program for PreK ONLY','Afternoon Program for PreK ONLY');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','FD','Full Day Program for PreK ONLY','Full Day Program for PreK ONLY');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','FD','Full Day Program for PreK ONLY','Full Day Program for PreK ONLY');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','SEM','Semester','Semester');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','SEM','Semester','Semester');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','TRI','Trimester','Trimester');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','TRI','Trimester','Trimester');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','YR','Year-long','Year-long');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','YR','Year-long','Year-long');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','BLK','Block Scheduling','Block Scheduling');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','BLK','Block Scheduling','Block Scheduling');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','QTR','Quarter','Quarter');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','QTR','Quarter','Quarter');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','SP','Self-paced','Self-paced');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','SP','Self-paced','Self-paced');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ClassPeriodDescriptor','PO','Pull-out','Pull-out');
-INSERT INTO nmped.ClassPeriodDescriptor(ClassPeriodDescriptorId) values (@@IDENTITY);
+values ('uri://nmped.org/NMPEDClassPeriodDescriptor','PO','Pull-out','Pull-out');
+INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) values (@@IDENTITY);
 
 
 /* Service Provider Type Descriptor */
@@ -1038,7 +1042,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://nmped.org/ProgramTypeDescriptor','WRP','WRP','Workforce Readiness Program (used by CCRB bureau)');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
-/*Subject Area Descriptors*/INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+/*Subject Area Descriptors*/
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/AcademicSubjectDescriptor','1','Agriculture','Agriculture');
 INSERT INTO edfi.AcademicSubjectDescriptor(AcademicSubjectDescriptorID) values (@@IDENTITY);
 
