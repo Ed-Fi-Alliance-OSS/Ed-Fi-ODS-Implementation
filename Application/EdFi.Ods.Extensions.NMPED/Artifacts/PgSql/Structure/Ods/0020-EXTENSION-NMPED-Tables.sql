@@ -280,7 +280,7 @@ ALTER TABLE nmped.StaffEducationOrganizationDigitalEquity ALTER COLUMN LastModif
 CREATE TABLE nmped.StaffExtension (
     StaffUSI INT NOT NULL,
     HighestCompletedLevelOfEducationInstitutionDescriptorId INT NULL,
-    BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId INT NULL,
+    BaccalaureateLevelOfEducationInstitutionDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
 ); 

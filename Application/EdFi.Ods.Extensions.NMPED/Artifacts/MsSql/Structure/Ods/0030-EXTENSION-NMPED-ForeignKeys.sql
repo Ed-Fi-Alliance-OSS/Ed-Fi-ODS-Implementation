@@ -321,12 +321,12 @@ CREATE NONCLUSTERED INDEX [FK_StaffExtension_LevelOfEducationInstitutionDescript
 ON [nmped].[StaffExtension] ([HighestCompletedLevelOfEducationInstitutionDescriptorId] ASC)
 GO
 
-ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_LevelOfEducationInstitutionDescriptor1] FOREIGN KEY ([BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId])
+ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_LevelOfEducationInstitutionDescriptor1] FOREIGN KEY ([BaccalaureateLevelOfEducationInstitutionDescriptorId])
 REFERENCES [nmped].[LevelOfEducationInstitutionDescriptor] ([LevelOfEducationInstitutionDescriptorId])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StaffExtension_LevelOfEducationInstitutionDescriptor1]
-ON [nmped].[StaffExtension] ([BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId] ASC)
+ON [nmped].[StaffExtension] ([BaccalaureateLevelOfEducationInstitutionDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_Staff] FOREIGN KEY ([StaffUSI])

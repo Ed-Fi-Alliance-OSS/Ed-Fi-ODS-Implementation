@@ -291,9 +291,9 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Highest Completed Level Of Education Institution.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationInstitutionDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Insitution or State that conferred Highest Degree', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationInstitutionDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Baccalaureate Level Of Education Institution.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Institution or State that conferred Baccalaureate Degree.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'BaccalaureateLevelOfEducationInstitutionDescriptorId'
 GO
 
 -- Extended Properties [nmped].[StudentAwardLanguageDescriptor] --

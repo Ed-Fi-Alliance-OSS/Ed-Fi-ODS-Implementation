@@ -353,15 +353,15 @@
         <xs:sequence>
           <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Indicates the Highest Completed Level Of Education Institution.</xs:documentation>
+              <xs:documentation>Indicates the Insitution or State that conferred Highest Degree</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
+          <xs:element name="BaccalaureateLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Indicates the Baccalaureate Level Of Education Institution.</xs:documentation>
+              <xs:documentation>Indicates the Institution or State that conferred Baccalaureate Degree.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
               </xs:appinfo>

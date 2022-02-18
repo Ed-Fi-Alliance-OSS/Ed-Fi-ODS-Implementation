@@ -6954,7 +6954,7 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicates the Highest Completed Level Of Education Institution.",
+          "description": "Indicates the Insitution or State that conferred Highest Degree",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
@@ -7006,7 +7006,7 @@
       },
       "secondaryEntityProperties": [
         {
-          "propertyName": "BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId",
+          "propertyName": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
           "propertyType": {
             "dbType": "Int32",
             "maxLength": 0,
@@ -7014,12 +7014,12 @@
             "scale": 0,
             "isNullable": true
           },
-          "description": "Indicates the Baccalaureate Level Of Education Institution.",
+          "description": "Indicates the Institution or State that conferred Baccalaureate Degree.",
           "isIdentifying": false,
           "isServerAssigned": false,
           "columnNames": {
-            "sqlServer": "BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId",
-            "postgreSql": "BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId"
+            "sqlServer": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
+            "postgreSql": "BaccalaureateLevelOfEducationInstitutionDescriptorId"
           }
         }
       ],

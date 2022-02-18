@@ -179,8 +179,8 @@ COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.InternetAccessIn
 -- Extended Properties [nmped].[StaffExtension] --
 COMMENT ON TABLE nmped.StaffExtension IS '';
 COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Highest Completed Level Of Education Institution.';
-COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId IS 'Indicates the Baccalaureate Level Of Education Institution.';
+COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Insitution or State that conferred Highest Degree';
+COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateLevelOfEducationInstitutionDescriptorId IS 'Indicates the Institution or State that conferred Baccalaureate Degree.';
 
 -- Extended Properties [nmped].[StudentAwardLanguageDescriptor] --
 COMMENT ON TABLE nmped.StudentAwardLanguageDescriptor IS 'The award language codes.';

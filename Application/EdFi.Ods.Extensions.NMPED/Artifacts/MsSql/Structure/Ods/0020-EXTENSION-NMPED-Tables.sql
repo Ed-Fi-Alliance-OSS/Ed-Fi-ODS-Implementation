@@ -410,7 +410,7 @@ GO
 CREATE TABLE [nmped].[StaffExtension] (
     [StaffUSI] [INT] NOT NULL,
     [HighestCompletedLevelOfEducationInstitutionDescriptorId] [INT] NULL,
-    [BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId] [INT] NULL,
+    [BaccalaureateLevelOfEducationInstitutionDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StaffExtension_PK] PRIMARY KEY CLUSTERED (
         [StaffUSI] ASC

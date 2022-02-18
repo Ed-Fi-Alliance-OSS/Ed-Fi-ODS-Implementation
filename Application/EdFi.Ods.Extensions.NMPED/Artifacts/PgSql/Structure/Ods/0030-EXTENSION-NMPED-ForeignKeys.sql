@@ -300,12 +300,12 @@ REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitut
 CREATE INDEX FK_d7b81a_LevelOfEducationInstitutionDescriptor
 ON nmped.StaffExtension (HighestCompletedLevelOfEducationInstitutionDescriptorId ASC);
 
-ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_LevelOfEducationInstitutionDescriptor1 FOREIGN KEY (BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId)
+ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_LevelOfEducationInstitutionDescriptor1 FOREIGN KEY (BaccalaureateLevelOfEducationInstitutionDescriptorId)
 REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitutionDescriptorId)
 ;
 
 CREATE INDEX FK_d7b81a_LevelOfEducationInstitutionDescriptor1
-ON nmped.StaffExtension (BaccalaureateInstitutionDescriptorIdLevelOfEducationInstitutionDescriptorId ASC);
+ON nmped.StaffExtension (BaccalaureateLevelOfEducationInstitutionDescriptorId ASC);
 
 ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_Staff FOREIGN KEY (StaffUSI)
 REFERENCES edfi.Staff (StaffUSI)
