@@ -156,8 +156,8 @@ function Install-ToolCodeGenUtility {
 }
 
 function Test-DotNetCore {
-    $requiredMajor = 3
-    $requiredMinor = 1
+    $requiredMajor = 6
+    $requiredMinor = 0
 
     try {
         ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
