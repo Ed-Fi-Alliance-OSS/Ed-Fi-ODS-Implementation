@@ -3687,14 +3687,14 @@ DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GenderIdentityDes
 DELETE FROM nmped.GenderIdentityDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/GenderDescriptor','X','Non-Binary','Non-Binary');
-	INSERT INTO nmped.GenderIdentityDescriptor (GenderDescriptorid) values (@@IDENTITY);
+	values ('uri://nmped.org/GenderIdentityDescriptor','X','Non-Binary','Non-Binary');
+	INSERT INTO nmped.GenderIdentityDescriptor (GenderIdentityDescriptorid) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/GenderDescriptor','M','Male','Male');
-	INSERT INTO nmped.GenderIdentityDescriptor (GenderDescriptorid) values (@@IDENTITY);
+	values ('uri://nmped.org/GenderIdentityDescriptor','M','Male','Male');
+	INSERT INTO nmped.GenderIdentityDescriptor (GenderIdentityDescriptorid) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/GenderDescriptor','F','Female','Female');
-	INSERT INTO nmped.GenderIdentityDescriptor (GenderDescriptorid) values (@@IDENTITY);
+	values ('uri://nmped.org/GenderIdentityDescriptor','F','Female','Female');
+	INSERT INTO nmped.GenderIdentityDescriptor (GenderIdentityDescriptorid) values (@@IDENTITY);
 
 --edfi.DiplomaTypeDescriptor
 /* 
