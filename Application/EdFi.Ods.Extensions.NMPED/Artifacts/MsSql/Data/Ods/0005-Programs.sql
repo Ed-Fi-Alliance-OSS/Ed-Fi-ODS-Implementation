@@ -26,7 +26,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -58,7 +58,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -138,7 +138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -226,7 +226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -258,7 +258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -338,7 +338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -426,7 +426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -458,7 +458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -538,7 +538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -626,7 +626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -658,7 +658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -738,7 +738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -826,7 +826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -858,7 +858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -938,7 +938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -1026,7 +1026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -1058,7 +1058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -1138,7 +1138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -1226,7 +1226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -1258,7 +1258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -1338,7 +1338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -1426,7 +1426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -1458,7 +1458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -1538,7 +1538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -1626,7 +1626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -1658,7 +1658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -1738,7 +1738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -1826,7 +1826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -1858,7 +1858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -1938,7 +1938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -2026,7 +2026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -2058,7 +2058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -2138,7 +2138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -2226,7 +2226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -2258,7 +2258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -2338,7 +2338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -2426,7 +2426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -2458,7 +2458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -2538,7 +2538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -2626,7 +2626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -2658,7 +2658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -2738,7 +2738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -2826,7 +2826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -2858,7 +2858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -2938,7 +2938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -3026,7 +3026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -3058,7 +3058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -3138,7 +3138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -3226,7 +3226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -3258,7 +3258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -3338,7 +3338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -3426,7 +3426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -3458,7 +3458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -3538,7 +3538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -3626,7 +3626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -3658,7 +3658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -3738,7 +3738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -3826,7 +3826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -3858,7 +3858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -3938,7 +3938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -4026,7 +4026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -4058,7 +4058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -4138,7 +4138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -4226,7 +4226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -4258,7 +4258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -4338,7 +4338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -4426,7 +4426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -4458,7 +4458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -4538,7 +4538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -4626,7 +4626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -4658,7 +4658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -4738,7 +4738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -4826,7 +4826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -4858,7 +4858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -4938,7 +4938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -5026,7 +5026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -5058,7 +5058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -5138,7 +5138,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -5226,7 +5226,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -5258,7 +5258,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -5338,7 +5338,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -5426,7 +5426,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -5458,7 +5458,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -5538,7 +5538,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -5626,7 +5626,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -5658,7 +5658,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -5738,7 +5738,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -5826,7 +5826,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -5858,7 +5858,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -5938,7 +5938,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -6026,7 +6026,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -6058,7 +6058,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -6148,7 +6148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -6236,7 +6236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -6268,7 +6268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -6348,7 +6348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -6436,7 +6436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -6468,7 +6468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -6548,7 +6548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -6636,7 +6636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -6668,7 +6668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -6748,7 +6748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -6836,7 +6836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -6868,7 +6868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -6948,7 +6948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -7036,7 +7036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -7068,7 +7068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -7148,7 +7148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -7236,7 +7236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -7268,7 +7268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -7348,7 +7348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -7436,7 +7436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -7468,7 +7468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -7548,7 +7548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -7636,7 +7636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -7668,7 +7668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -7748,7 +7748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -7836,7 +7836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -7868,7 +7868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -7948,7 +7948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -8036,7 +8036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -8068,7 +8068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -8148,7 +8148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -8236,7 +8236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -8268,7 +8268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -8348,7 +8348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -8436,7 +8436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -8468,7 +8468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -8548,7 +8548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -8636,7 +8636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -8668,7 +8668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -8748,7 +8748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -8836,7 +8836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -8868,7 +8868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -8948,7 +8948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -9036,7 +9036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -9068,7 +9068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -9148,7 +9148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -9236,7 +9236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -9268,7 +9268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -9348,7 +9348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -9436,7 +9436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -9468,7 +9468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -9548,7 +9548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -9636,7 +9636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -9668,7 +9668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -9748,7 +9748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -9836,7 +9836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -9868,7 +9868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -9948,7 +9948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -10036,7 +10036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -10068,7 +10068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -10148,7 +10148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -10236,7 +10236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -10268,7 +10268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -10348,7 +10348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -10436,7 +10436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -10468,7 +10468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -10548,7 +10548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -10636,7 +10636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -10668,7 +10668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -10748,7 +10748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -10836,7 +10836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -10868,7 +10868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -10948,7 +10948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -11036,7 +11036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -11068,7 +11068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -11148,7 +11148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -11236,7 +11236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -11268,7 +11268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -11348,7 +11348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -11436,7 +11436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -11468,7 +11468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -11548,7 +11548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -11636,7 +11636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -11668,7 +11668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -11748,7 +11748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -11836,7 +11836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -11868,7 +11868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -11948,7 +11948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -12036,7 +12036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -12068,7 +12068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -12148,7 +12148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -12236,7 +12236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -12268,7 +12268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -12348,7 +12348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -12436,7 +12436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -12468,7 +12468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -12548,7 +12548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -12636,7 +12636,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -12668,7 +12668,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -12748,7 +12748,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -12836,7 +12836,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -12868,7 +12868,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -12948,7 +12948,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -13036,7 +13036,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -13068,7 +13068,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -13148,7 +13148,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -13236,7 +13236,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -13268,7 +13268,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -13348,7 +13348,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -13436,7 +13436,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -13468,7 +13468,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -13548,7 +13548,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -13646,7 +13646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -13678,7 +13678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -13758,7 +13758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -13846,7 +13846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -13878,7 +13878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -13958,7 +13958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -14046,7 +14046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -14078,7 +14078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -14158,7 +14158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -14246,7 +14246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -14278,7 +14278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -14358,7 +14358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -14446,7 +14446,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -14478,7 +14478,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -14558,7 +14558,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -14646,7 +14646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -14678,7 +14678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -14758,7 +14758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -14846,7 +14846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -14878,7 +14878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -14958,7 +14958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -15046,7 +15046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -15078,7 +15078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -15158,7 +15158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -15246,7 +15246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -15278,7 +15278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -15358,7 +15358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -15446,7 +15446,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -15478,7 +15478,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -15558,7 +15558,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -15646,7 +15646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -15678,7 +15678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -15758,7 +15758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -15846,7 +15846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -15878,7 +15878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -15958,7 +15958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -16046,7 +16046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -16078,7 +16078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -16158,7 +16158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -16246,7 +16246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -16278,7 +16278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -16358,7 +16358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -16446,7 +16446,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -16478,7 +16478,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -16558,7 +16558,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -16646,7 +16646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -16678,7 +16678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -16758,7 +16758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -16846,7 +16846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -16878,7 +16878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -16958,7 +16958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -17046,7 +17046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -17078,7 +17078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -17158,7 +17158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -17246,7 +17246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -17278,7 +17278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -17358,7 +17358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -17446,7 +17446,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -17478,7 +17478,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -17558,7 +17558,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -17646,7 +17646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -17678,7 +17678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -17758,7 +17758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -17846,7 +17846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -17878,7 +17878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -17958,7 +17958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -18046,7 +18046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -18078,7 +18078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -18158,7 +18158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -18246,7 +18246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -18278,7 +18278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -18358,7 +18358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -18446,7 +18446,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -18478,7 +18478,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -18558,7 +18558,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -18646,7 +18646,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -18678,7 +18678,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -18758,7 +18758,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -18846,7 +18846,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -18878,7 +18878,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -18958,7 +18958,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -19046,7 +19046,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -19078,7 +19078,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -19158,7 +19158,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -19246,7 +19246,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -19278,7 +19278,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -19358,7 +19358,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -19456,7 +19456,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -19488,7 +19488,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -19568,7 +19568,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -19656,7 +19656,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -19688,7 +19688,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -19768,7 +19768,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -19856,7 +19856,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -19888,7 +19888,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -19968,7 +19968,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -20056,7 +20056,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -20088,7 +20088,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -20168,7 +20168,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -20256,7 +20256,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -20288,7 +20288,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -20368,7 +20368,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -20456,7 +20456,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -20488,7 +20488,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -20568,7 +20568,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -20656,7 +20656,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -20688,7 +20688,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -20768,7 +20768,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -20856,7 +20856,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -20888,7 +20888,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -20968,7 +20968,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -21056,7 +21056,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -21088,7 +21088,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -21168,7 +21168,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -21256,7 +21256,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -21288,7 +21288,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -21368,7 +21368,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -21456,7 +21456,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -21488,7 +21488,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -21568,7 +21568,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -21666,7 +21666,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -21698,7 +21698,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -21778,7 +21778,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -21866,7 +21866,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -21898,7 +21898,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -21978,7 +21978,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -22066,7 +22066,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -22098,7 +22098,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -22178,7 +22178,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -22266,7 +22266,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -22298,7 +22298,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -22378,7 +22378,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -22466,7 +22466,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -22498,7 +22498,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -22578,7 +22578,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -22666,7 +22666,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -22698,7 +22698,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -22778,7 +22778,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -22866,7 +22866,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -22898,7 +22898,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -22978,7 +22978,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -23066,7 +23066,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -23098,7 +23098,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -23178,7 +23178,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -23266,7 +23266,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -23298,7 +23298,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -23378,7 +23378,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -23466,7 +23466,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -23498,7 +23498,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -23578,7 +23578,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -23666,7 +23666,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -23698,7 +23698,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -23778,7 +23778,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -23866,7 +23866,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -23898,7 +23898,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -23988,7 +23988,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -24076,7 +24076,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -24108,7 +24108,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -24188,7 +24188,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -24276,7 +24276,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -24308,7 +24308,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -24388,7 +24388,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -24476,7 +24476,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -24508,7 +24508,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -24588,7 +24588,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -24676,7 +24676,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -24708,7 +24708,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -24788,7 +24788,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -24876,7 +24876,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -24908,7 +24908,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -24988,7 +24988,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -25076,7 +25076,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -25108,7 +25108,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -25188,7 +25188,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -25276,7 +25276,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -25308,7 +25308,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -25388,7 +25388,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -25476,7 +25476,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -25508,7 +25508,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -25588,7 +25588,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -25676,7 +25676,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -25708,7 +25708,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -25788,7 +25788,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -25876,7 +25876,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -25908,7 +25908,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -25988,7 +25988,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -26076,7 +26076,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -26108,7 +26108,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -26188,7 +26188,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -26276,7 +26276,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -26308,7 +26308,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -26388,7 +26388,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -26476,7 +26476,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -26508,7 +26508,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -26588,7 +26588,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -26676,7 +26676,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -26708,7 +26708,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -26788,7 +26788,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -26876,7 +26876,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -26908,7 +26908,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -26988,7 +26988,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -27076,7 +27076,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Bilingual Multicultural Education Program - Participation Code 1',
+           'BEP - Participation Code 1',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
            'BEP-1',
            GETDATE(),
@@ -27108,7 +27108,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Coordinated Early Intervening Services - Participation Code 13',
+           'CEIS - Participation Code 13',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
            'CEIS-13',
            GETDATE(),
@@ -27188,7 +27188,7 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Student is participating in the NM PreK program - Participation Code 450HR',
+           'NM PreK program - Participation Code 450HR',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
            'NMPREK-450HR',
            GETDATE(),
@@ -27258,3 +27258,1908 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 );
+
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35002000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35003000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35004000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35005000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35006000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35007000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35008000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35009000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35010000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35011000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35012000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35013000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35014000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35015000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35016000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35017000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35018000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35019000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35020000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35021000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35022000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35023000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35024000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35025000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35026000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35027000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35028000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35029000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35030000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35031000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35032000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35033000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35034000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35035000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35036000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35037000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35038000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35039000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35040000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35041000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35042000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35043000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35044000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35045000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35046000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35047000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35048000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35049000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35050000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35051000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35052000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35053000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35054000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35055000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35056000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35057000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35058000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35059000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35060000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35061000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35062000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35063000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35064000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35065000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35066000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35067000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35068000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35069000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35070000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35071000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35072000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35073000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35074000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35075000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35076000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35077000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35078000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35079000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35080000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35081000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35082000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35083000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35084000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35085000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35086000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35087000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35088000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35089000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35501000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35503000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35504000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35505000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35509000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35510000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35511000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35512000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35515000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35516000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35517000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35518000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35519000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35520000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35521000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35524000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35525000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35528000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35529000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35530000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35531000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35532000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35535000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35536000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35539000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35542000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35544000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35546000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35547000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35549000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35550000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35552000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35557000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35560000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35562000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35563000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35564000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35565000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35566000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35567000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35568000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35570000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35573000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35574000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35575000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35576000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'BEP - Participation Code 2', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-2'),'BEP-2', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'BEP - Participation Code 3', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-3'),'BEP-3', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'BEP - Participation Code 4', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-4'),'BEP-4', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'BEP - Participation Code 5', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='BEP-5'),'BEP-5', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'CEIS - Participation Code 14', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='CEIS-14'),'CEIS-14', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'English Learner - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-7'),'ELL-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'English Learner - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-8'),'ELL-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'English Learner - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='ELL-9'),'ELL-9', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'NM PreK program - Participation Code 900HR', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='NMPREK-900HR'),'NMPREK-900HR', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'Title III - Participation Code 7', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-7'),'T3-7', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'Title III - Participation Code 8', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-8'),'T3-8', GETDATE(), GETDATE());
+INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35577000, 'Title III - Participation Code 9', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='T3-9'),'T3-9', GETDATE(), GETDATE());
