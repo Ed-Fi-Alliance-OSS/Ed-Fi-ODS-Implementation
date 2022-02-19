@@ -3733,7 +3733,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'NP', 'Student is not a parent','Student is not a parent');
         INSERT INTO edfi.StudentCharacteristicDescriptor(StudentCharacteristicDescriptorId) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'Section 504', 'Indication of a student who qualified as an individual under Section 504 of the Rehabilitation Act','Indication of a student who qualified as an individual under Section 504 of the Rehabilitation Act');
+        values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'Section 504', 'Individual under Section 504 of the Rehabilitation Act','Indication of a student who qualified as an individual under Section 504 of the Rehabilitation Act');
         INSERT INTO edfi.StudentCharacteristicDescriptor(StudentCharacteristicDescriptorId) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'Foreign Exchange', 'Foreign Exchange','Foreign Exchange');
