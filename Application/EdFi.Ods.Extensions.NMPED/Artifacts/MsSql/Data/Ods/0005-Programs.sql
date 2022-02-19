@@ -26,9 +26,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -58,9 +58,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -98,9 +98,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -138,9 +138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -178,9 +178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35001000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -226,9 +226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -258,9 +258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -298,9 +298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -338,9 +338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -378,9 +378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35002000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -426,9 +426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -458,9 +458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -498,9 +498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -538,9 +538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -578,9 +578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35003000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -626,9 +626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -658,9 +658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -698,9 +698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -738,9 +738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -778,9 +778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35004000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -826,9 +826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -858,9 +858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -898,9 +898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -938,9 +938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -978,9 +978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35005000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1026,9 +1026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -1058,9 +1058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -1098,9 +1098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1138,9 +1138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -1178,9 +1178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35006000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1226,9 +1226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -1258,9 +1258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -1298,9 +1298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1338,9 +1338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -1378,9 +1378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35007000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1426,9 +1426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -1458,9 +1458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -1498,9 +1498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1538,9 +1538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -1578,9 +1578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35008000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1626,9 +1626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -1658,9 +1658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -1698,9 +1698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1738,9 +1738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -1778,9 +1778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35009000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1826,9 +1826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -1858,9 +1858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -1898,9 +1898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -1938,9 +1938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -1978,9 +1978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35010000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2026,9 +2026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -2058,9 +2058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -2098,9 +2098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2138,9 +2138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -2178,9 +2178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35011000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2226,9 +2226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -2258,9 +2258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -2298,9 +2298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2338,9 +2338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -2378,9 +2378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35012000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2426,9 +2426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -2458,9 +2458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -2498,9 +2498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2538,9 +2538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -2578,9 +2578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35013000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2626,9 +2626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -2658,9 +2658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -2698,9 +2698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2738,9 +2738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -2778,9 +2778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35014000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2826,9 +2826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -2858,9 +2858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -2898,9 +2898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -2938,9 +2938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -2978,9 +2978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35015000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3026,9 +3026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -3058,9 +3058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -3098,9 +3098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3138,9 +3138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -3178,9 +3178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35016000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3226,9 +3226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -3258,9 +3258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -3298,9 +3298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3338,9 +3338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -3378,9 +3378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35017000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3426,9 +3426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -3458,9 +3458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -3498,9 +3498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3538,9 +3538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -3578,9 +3578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35018000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3626,9 +3626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -3658,9 +3658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -3698,9 +3698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3738,9 +3738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -3778,9 +3778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35019000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3826,9 +3826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -3858,9 +3858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -3898,9 +3898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -3938,9 +3938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -3978,9 +3978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35020000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4026,9 +4026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -4058,9 +4058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -4098,9 +4098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4138,9 +4138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -4178,9 +4178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35021000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4226,9 +4226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -4258,9 +4258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -4298,9 +4298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4338,9 +4338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -4378,9 +4378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35022000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4426,9 +4426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -4458,9 +4458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -4498,9 +4498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4538,9 +4538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -4578,9 +4578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35023000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4626,9 +4626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -4658,9 +4658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -4698,9 +4698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4738,9 +4738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -4778,9 +4778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35024000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4826,9 +4826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -4858,9 +4858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -4898,9 +4898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -4938,9 +4938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -4978,9 +4978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35025000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5026,9 +5026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -5058,9 +5058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -5098,9 +5098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5138,9 +5138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -5178,9 +5178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35026000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5226,9 +5226,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -5258,9 +5258,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -5298,9 +5298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5338,9 +5338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -5378,9 +5378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35027000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5426,9 +5426,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -5458,9 +5458,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -5498,9 +5498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5538,9 +5538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -5578,9 +5578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35028000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5626,9 +5626,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -5658,9 +5658,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -5698,9 +5698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5738,9 +5738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -5778,9 +5778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35029000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5826,9 +5826,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -5858,9 +5858,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -5898,9 +5898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -5938,9 +5938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -5978,9 +5978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35030000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6026,9 +6026,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -6058,9 +6058,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 );
@@ -6108,9 +6108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6148,9 +6148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -6188,9 +6188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35031000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6236,9 +6236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -6268,9 +6268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -6308,9 +6308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6348,9 +6348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -6388,9 +6388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35032000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6436,9 +6436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -6468,9 +6468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -6508,9 +6508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6548,9 +6548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -6588,9 +6588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35033000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6636,9 +6636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -6668,9 +6668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -6708,9 +6708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6748,9 +6748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -6788,9 +6788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35034000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6836,9 +6836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -6868,9 +6868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -6908,9 +6908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -6948,9 +6948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -6988,9 +6988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35035000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7036,9 +7036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -7068,9 +7068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -7108,9 +7108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7148,9 +7148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -7188,9 +7188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35036000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7236,9 +7236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -7268,9 +7268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -7308,9 +7308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7348,9 +7348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -7388,9 +7388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35037000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7436,9 +7436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -7468,9 +7468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -7508,9 +7508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7548,9 +7548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -7588,9 +7588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35038000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7636,9 +7636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -7668,9 +7668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -7708,9 +7708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7748,9 +7748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -7788,9 +7788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35039000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7836,9 +7836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -7868,9 +7868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -7908,9 +7908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -7948,9 +7948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -7988,9 +7988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35040000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8036,9 +8036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -8068,9 +8068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -8108,9 +8108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8148,9 +8148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -8188,9 +8188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35041000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8236,9 +8236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -8268,9 +8268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -8308,9 +8308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8348,9 +8348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -8388,9 +8388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35042000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8436,9 +8436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -8468,9 +8468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -8508,9 +8508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8548,9 +8548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -8588,9 +8588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35043000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8636,9 +8636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -8668,9 +8668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -8708,9 +8708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8748,9 +8748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -8788,9 +8788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35044000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8836,9 +8836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -8868,9 +8868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -8908,9 +8908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -8948,9 +8948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -8988,9 +8988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35045000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9036,9 +9036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -9068,9 +9068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -9108,9 +9108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9148,9 +9148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -9188,9 +9188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35046000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9236,9 +9236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -9268,9 +9268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -9308,9 +9308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9348,9 +9348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -9388,9 +9388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35047000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9436,9 +9436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -9468,9 +9468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -9508,9 +9508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9548,9 +9548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -9588,9 +9588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35048000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9636,9 +9636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -9668,9 +9668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -9708,9 +9708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9748,9 +9748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -9788,9 +9788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35049000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9836,9 +9836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -9868,9 +9868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -9908,9 +9908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -9948,9 +9948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -9988,9 +9988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35050000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10036,9 +10036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -10068,9 +10068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -10108,9 +10108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10148,9 +10148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -10188,9 +10188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35051000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10236,9 +10236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -10268,9 +10268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -10308,9 +10308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10348,9 +10348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -10388,9 +10388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35052000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10436,9 +10436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -10468,9 +10468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -10508,9 +10508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10548,9 +10548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -10588,9 +10588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35053000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10636,9 +10636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -10668,9 +10668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -10708,9 +10708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10748,9 +10748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -10788,9 +10788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35054000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10836,9 +10836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -10868,9 +10868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -10908,9 +10908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -10948,9 +10948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -10988,9 +10988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35055000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11036,9 +11036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -11068,9 +11068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -11108,9 +11108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11148,9 +11148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -11188,9 +11188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35056000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11236,9 +11236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -11268,9 +11268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -11308,9 +11308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11348,9 +11348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -11388,9 +11388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35057000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11436,9 +11436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -11468,9 +11468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -11508,9 +11508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11548,9 +11548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -11588,9 +11588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35058000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11636,9 +11636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -11668,9 +11668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -11708,9 +11708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11748,9 +11748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -11788,9 +11788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35059000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11836,9 +11836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -11868,9 +11868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -11908,9 +11908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -11948,9 +11948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -11988,9 +11988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35060000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12036,9 +12036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -12068,9 +12068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -12108,9 +12108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12148,9 +12148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -12188,9 +12188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35061000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12236,9 +12236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -12268,9 +12268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -12308,9 +12308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12348,9 +12348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -12388,9 +12388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35062000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12436,9 +12436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -12468,9 +12468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -12508,9 +12508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12548,9 +12548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -12588,9 +12588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35063000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12636,9 +12636,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -12668,9 +12668,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -12708,9 +12708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12748,9 +12748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -12788,9 +12788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35064000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12836,9 +12836,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -12868,9 +12868,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -12908,9 +12908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -12948,9 +12948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -12988,9 +12988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35065000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13036,9 +13036,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -13068,9 +13068,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -13108,9 +13108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13148,9 +13148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -13188,9 +13188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35066000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13236,9 +13236,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -13268,9 +13268,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -13308,9 +13308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13348,9 +13348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -13388,9 +13388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35067000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13436,9 +13436,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -13468,9 +13468,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -13508,9 +13508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13548,9 +13548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -13598,9 +13598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35068000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13646,9 +13646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -13678,9 +13678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -13718,9 +13718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13758,9 +13758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -13798,9 +13798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35069000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13846,9 +13846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -13878,9 +13878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -13918,9 +13918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -13958,9 +13958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -13998,9 +13998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35070000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14046,9 +14046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -14078,9 +14078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -14118,9 +14118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14158,9 +14158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -14198,9 +14198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35071000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14246,9 +14246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -14278,9 +14278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -14318,9 +14318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14358,9 +14358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -14398,9 +14398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35072000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14446,9 +14446,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -14478,9 +14478,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -14518,9 +14518,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14558,9 +14558,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -14598,9 +14598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35073000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14646,9 +14646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -14678,9 +14678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -14718,9 +14718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14758,9 +14758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -14798,9 +14798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35074000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14846,9 +14846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -14878,9 +14878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -14918,9 +14918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -14958,9 +14958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -14998,9 +14998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35075000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15046,9 +15046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -15078,9 +15078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -15118,9 +15118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15158,9 +15158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -15198,9 +15198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35076000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15246,9 +15246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -15278,9 +15278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -15318,9 +15318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15358,9 +15358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -15398,9 +15398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35077000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15446,9 +15446,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -15478,9 +15478,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -15518,9 +15518,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15558,9 +15558,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -15598,9 +15598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35078000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15646,9 +15646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -15678,9 +15678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -15718,9 +15718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15758,9 +15758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -15798,9 +15798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35079000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15846,9 +15846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -15878,9 +15878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -15918,9 +15918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -15958,9 +15958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -15998,9 +15998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35080000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16046,9 +16046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -16078,9 +16078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -16118,9 +16118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16158,9 +16158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -16198,9 +16198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35081000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16246,9 +16246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -16278,9 +16278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -16318,9 +16318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16358,9 +16358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -16398,9 +16398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35082000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16446,9 +16446,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -16478,9 +16478,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -16518,9 +16518,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16558,9 +16558,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -16598,9 +16598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35083000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16646,9 +16646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -16678,9 +16678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -16718,9 +16718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16758,9 +16758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -16798,9 +16798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35084000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16846,9 +16846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -16878,9 +16878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -16918,9 +16918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -16958,9 +16958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -16998,9 +16998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35085000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17046,9 +17046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -17078,9 +17078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -17118,9 +17118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17158,9 +17158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -17198,9 +17198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35086000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17246,9 +17246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -17278,9 +17278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -17318,9 +17318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17358,9 +17358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -17398,9 +17398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35087000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17446,9 +17446,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -17478,9 +17478,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -17518,9 +17518,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17558,9 +17558,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -17598,9 +17598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35088000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17646,9 +17646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -17678,9 +17678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -17718,9 +17718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17758,9 +17758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -17798,9 +17798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35089000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17846,9 +17846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -17878,9 +17878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -17918,9 +17918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -17958,9 +17958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -17998,9 +17998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35501000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18046,9 +18046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -18078,9 +18078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -18118,9 +18118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18158,9 +18158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -18198,9 +18198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35503000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18246,9 +18246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -18278,9 +18278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -18318,9 +18318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18358,9 +18358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -18398,9 +18398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35504000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18446,9 +18446,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -18478,9 +18478,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -18518,9 +18518,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18558,9 +18558,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -18598,9 +18598,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35505000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18646,9 +18646,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -18678,9 +18678,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -18718,9 +18718,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18758,9 +18758,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -18798,9 +18798,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35509000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18846,9 +18846,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -18878,9 +18878,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -18918,9 +18918,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -18958,9 +18958,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -18998,9 +18998,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35510000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19046,9 +19046,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -19078,9 +19078,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -19118,9 +19118,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19158,9 +19158,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -19198,9 +19198,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35511000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19246,9 +19246,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -19278,9 +19278,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -19318,9 +19318,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19358,9 +19358,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -19398,9 +19398,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35512000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19456,9 +19456,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -19488,9 +19488,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -19528,9 +19528,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19568,9 +19568,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -19608,9 +19608,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35515000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19656,9 +19656,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -19688,9 +19688,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -19728,9 +19728,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19768,9 +19768,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -19808,9 +19808,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35516000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19856,9 +19856,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -19888,9 +19888,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -19928,9 +19928,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -19968,9 +19968,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -20008,9 +20008,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35517000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20056,9 +20056,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -20088,9 +20088,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -20128,9 +20128,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20168,9 +20168,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -20208,9 +20208,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35518000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20256,9 +20256,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -20288,9 +20288,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -20328,9 +20328,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20368,9 +20368,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -20408,9 +20408,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35519000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20456,9 +20456,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -20488,9 +20488,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -20528,9 +20528,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20568,9 +20568,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -20608,9 +20608,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35520000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20656,9 +20656,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -20688,9 +20688,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -20728,9 +20728,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20768,9 +20768,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -20808,9 +20808,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35521000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20856,9 +20856,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -20888,9 +20888,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -20928,9 +20928,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -20968,9 +20968,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -21008,9 +21008,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35524000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21056,9 +21056,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -21088,9 +21088,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -21128,9 +21128,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21168,9 +21168,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -21208,9 +21208,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35525000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21256,9 +21256,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -21288,9 +21288,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -21328,9 +21328,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21368,9 +21368,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -21408,9 +21408,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35528000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21456,9 +21456,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -21488,9 +21488,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -21528,9 +21528,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21568,9 +21568,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35529000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -21618,9 +21618,9 @@ INSERT INTO [edfi].[Program]
      VALUES
            
 (          35529000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21666,9 +21666,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -21698,9 +21698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -21738,9 +21738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21778,9 +21778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -21818,9 +21818,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35530000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21866,9 +21866,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -21898,9 +21898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -21938,9 +21938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -21978,9 +21978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -22018,9 +22018,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35531000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22066,9 +22066,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -22098,9 +22098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -22138,9 +22138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22178,9 +22178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -22218,9 +22218,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35532000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22266,9 +22266,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -22298,9 +22298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -22338,9 +22338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22378,9 +22378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -22418,9 +22418,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35535000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22466,9 +22466,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -22498,9 +22498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -22538,9 +22538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22578,9 +22578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -22618,9 +22618,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35536000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22666,9 +22666,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -22698,9 +22698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -22738,9 +22738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22778,9 +22778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -22818,9 +22818,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35539000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22866,9 +22866,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -22898,9 +22898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -22938,9 +22938,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -22978,9 +22978,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -23018,9 +23018,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35542000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23066,9 +23066,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -23098,9 +23098,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -23138,9 +23138,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23178,9 +23178,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -23218,9 +23218,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35544000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23266,9 +23266,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -23298,9 +23298,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -23338,9 +23338,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23378,9 +23378,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -23418,9 +23418,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35546000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23466,9 +23466,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -23498,9 +23498,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -23538,9 +23538,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23578,9 +23578,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -23618,9 +23618,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35547000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23666,9 +23666,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -23698,9 +23698,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -23738,9 +23738,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23778,9 +23778,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -23818,9 +23818,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35549000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23866,9 +23866,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -23898,9 +23898,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 );
@@ -23948,9 +23948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -23988,9 +23988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -24028,9 +24028,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35550000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24076,9 +24076,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -24108,9 +24108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -24148,9 +24148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24188,9 +24188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -24228,9 +24228,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35552000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24276,9 +24276,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -24308,9 +24308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -24348,9 +24348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24388,9 +24388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -24428,9 +24428,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35557000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24476,9 +24476,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -24508,9 +24508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -24548,9 +24548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24588,9 +24588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -24628,9 +24628,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35560000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24676,9 +24676,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -24708,9 +24708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -24748,9 +24748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24788,9 +24788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -24828,9 +24828,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35562000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24876,9 +24876,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -24908,9 +24908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -24948,9 +24948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -24988,9 +24988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -25028,9 +25028,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35563000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25076,9 +25076,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -25108,9 +25108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -25148,9 +25148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25188,9 +25188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -25228,9 +25228,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35564000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25276,9 +25276,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -25308,9 +25308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -25348,9 +25348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25388,9 +25388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -25428,9 +25428,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35565000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25476,9 +25476,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -25508,9 +25508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -25548,9 +25548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25588,9 +25588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -25628,9 +25628,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35566000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25676,9 +25676,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -25708,9 +25708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -25748,9 +25748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25788,9 +25788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -25828,9 +25828,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35567000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25876,9 +25876,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -25908,9 +25908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -25948,9 +25948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -25988,9 +25988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -26028,9 +26028,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35568000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26076,9 +26076,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -26108,9 +26108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -26148,9 +26148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26188,9 +26188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -26228,9 +26228,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35570000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26276,9 +26276,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -26308,9 +26308,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -26348,9 +26348,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26388,9 +26388,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -26428,9 +26428,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35573000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26476,9 +26476,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -26508,9 +26508,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -26548,9 +26548,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26588,9 +26588,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -26628,9 +26628,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35574000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26676,9 +26676,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -26708,9 +26708,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -26748,9 +26748,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26788,9 +26788,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -26828,9 +26828,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35575000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26876,9 +26876,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -26908,9 +26908,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -26948,9 +26948,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -26988,9 +26988,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -27028,9 +27028,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35576000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
@@ -27076,9 +27076,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Bilingual Multicultural Education Program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP'),
-           'BEP',
+           'Bilingual Multicultural Education Program - Participation Code 1',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='BEP-1'),
+           'BEP-1',
            GETDATE(),
            GETDATE()
 ),
@@ -27108,9 +27108,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Coordinated Early Intervening Services',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS'),
-           'CEIS',
+           'Coordinated Early Intervening Services - Participation Code 13',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='CEIS-13'),
+           'CEIS-13',
            GETDATE(),
            GETDATE()
 ),
@@ -27148,9 +27148,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'English Learner',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL'),
-           'ELL',
+           'English Learner - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='ELL-6'),
+           'ELL-6',
            GETDATE(),
            GETDATE()
 ),
@@ -27188,9 +27188,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Student is participating in the NM PreK program',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK'),
-           'NMPREK',
+           'Student is participating in the NM PreK program - Participation Code 450HR',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='NMPREK-450HR'),
+           'NMPREK-450HR',
            GETDATE(),
            GETDATE()
 ),
@@ -27228,9 +27228,9 @@ INSERT INTO [edfi].[Program]
 ),
            
 (          35577000,
-           'Title III',
-           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3'),
-           'T3',
+           'Title III - Participation Code 6',
+           (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='T3-6'),
+           'T3-6',
            GETDATE(),
            GETDATE()
 ),
