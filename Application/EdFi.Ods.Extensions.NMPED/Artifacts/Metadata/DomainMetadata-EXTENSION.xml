@@ -39,6 +39,9 @@
   <Aggregate root="MileageTypeDescriptor">
     <Entity table="MileageTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="MilitaryFamilyDescriptor">
+    <Entity table="MilitaryFamilyDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="NMPEDClassPeriodDescriptor">
     <Entity table="NMPEDClassPeriodDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
@@ -53,6 +56,9 @@
   </Aggregate>
   <Aggregate root="PreKClassTypeDescriptor">
     <Entity table="PreKClassTypeDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
+  <Aggregate root="PrimaryAreaOfExceptionalityDescriptor">
+    <Entity table="PrimaryAreaOfExceptionalityDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="ProgramDeliveryMethodDescriptor">
     <Entity table="ProgramDeliveryMethodDescriptor" isA="Descriptor" schema="nmped"/>
@@ -113,9 +119,6 @@
   </Aggregate>
   <Aggregate root="TransportationCategoryDescriptor">
     <Entity table="TransportationCategoryDescriptor" isA="Descriptor" schema="nmped"/>
-  </Aggregate>
-  <Aggregate root="TransportationPrimaryMeasureTypeDescriptor">
-    <Entity table="TransportationPrimaryMeasureTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="TransportationSetCodeDescriptor">
     <Entity table="TransportationSetCodeDescriptor" isA="Descriptor" schema="nmped"/>

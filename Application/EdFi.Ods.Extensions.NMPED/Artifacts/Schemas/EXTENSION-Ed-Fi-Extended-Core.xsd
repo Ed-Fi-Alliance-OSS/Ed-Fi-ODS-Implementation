@@ -85,14 +85,6 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="TransportationPrimaryMeasureType" type="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>The primary measure type.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-TransportationPrimaryMeasureTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="Count" type="xs:int">
             <xs:annotation>
               <xs:documentation>The count for the measure.</xs:documentation>
@@ -262,7 +254,7 @@
   </xs:complexType>
   <xs:complexType name="EXTENSION-StaffEducationOrganizationDigitalEquity">
     <xs:annotation>
-      <xs:documentation>The staff digital equity.</xs:documentation>
+      <xs:documentation>Digital Equity measures for staff.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Domain Entity</ann:TypeGroup>
       </xs:appinfo>
@@ -272,63 +264,66 @@
         <xs:sequence>
           <xs:element name="StaffReference" type="StaffReferenceType">
             <xs:annotation>
-              <xs:documentation>A reference to the Student.</xs:documentation>
+              <xs:documentation>A reference to the Staff.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
             <xs:annotation>
-              <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+              <xs:documentation>A reference to the Education Organization representing the context of the staff information.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="SchoolYear" type="SchoolYearType">
             <xs:annotation>
-              <xs:documentation>The school year the digital equity event took place.</xs:documentation>
+              <xs:documentation>The school year the digital equity information is being recorded for.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="StartDate" type="xs:date">
             <xs:annotation>
-              <xs:documentation>The date the digital equity started.</xs:documentation>
+              <xs:documentation>The date the digital equity record started.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EndDate" type="xs:date" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The date the digital equity ended.</xs:documentation>
+              <xs:documentation>The date the digital equity record ended.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DigitalEquityPrimaryLearningDeviceType" type="EXTENSION-DigitalEquityPrimaryLearningDeviceTypeDescriptorReferenceType">
+          <xs:element name="PrimaryLearningDeviceAwayFromSchool" type="PrimaryLearningDeviceAwayFromSchoolDescriptorReferenceType">
             <xs:annotation>
-              <xs:documentation>The primary learning device type.</xs:documentation>
+              <xs:documentation>The primary learning device type used most often by staff to complete schoolwork at home.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-DigitalEquityPrimaryLearningDeviceTypeDescriptor</ann:Descriptor>
+                <ann:Descriptor>PrimaryLearningDeviceAwayFromSchoolDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="SchoolProvidedDevice" type="xs:boolean">
+          <xs:element name="PrimaryLearningDeviceProvider" type="PrimaryLearningDeviceProviderDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>Indicates whether the school provides a device or not.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceProviderDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DigitalEquityPrimaryLearningDeviceAccess" type="EXTENSION-DigitalEquityPrimaryLearningDeviceAccessDescriptorReferenceType">
+          <xs:element name="PrimaryLearningDeviceAccess" type="PrimaryLearningDeviceAccessDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>Defines the primary learning device access.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-DigitalEquityPrimaryLearningDeviceAccessDescriptor</ann:Descriptor>
+                <ann:Descriptor>PrimaryLearningDeviceAccessDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DigitalEquityInternetAccessType" type="EXTENSION-DigitalEquityInternetAccessTypeDescriptorReferenceType">
+          <xs:element name="InternetAccessTypeInResidence" type="InternetAccessTypeInResidenceDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>Internet access type.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-DigitalEquityInternetAccessTypeDescriptor</ann:Descriptor>
+                <ann:Descriptor>InternetAccessTypeInResidenceDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="DigitalEquityInternetPerformanceCode" type="EXTENSION-DigitalEquityInternetPerformanceCodeDescriptorReferenceType">
+          <xs:element name="InternetPerformanceInResidence" type="InternetPerformanceInResidenceDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>Internet performance code.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-DigitalEquityInternetPerformanceCodeDescriptor</ann:Descriptor>
+                <ann:Descriptor>InternetPerformanceInResidenceDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -404,11 +399,11 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="StudentAwardLanguage" type="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
+          <xs:element name="StudentAwardLanguageLanguage" type="LanguageDescriptorReferenceType">
             <xs:annotation>
-              <xs:documentation>The language for the award.</xs:documentation>
+              <xs:documentation> The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded.</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-StudentAwardLanguageDescriptor</ann:Descriptor>
+                <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -854,6 +849,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-MilitaryFamilyDescriptor">
+    <xs:annotation>
+      <xs:documentation>Military Family Status</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-NMPEDClassPeriodDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
@@ -890,6 +896,17 @@
   <xs:complexType name="EXTENSION-PreKClassTypeDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the method of Pre-K Participation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-PrimaryAreaOfExceptionalityDescriptor">
+    <xs:annotation>
+      <xs:documentation>Primary Area of exceptionality indicator</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -1063,17 +1080,6 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-TransportationPrimaryMeasureTypeDescriptor">
-    <xs:annotation>
-      <xs:documentation>The primary measure type.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-TransportationSetCodeDescriptor">
     <xs:annotation>
       <xs:documentation>The transportation set codes.</xs:documentation>
@@ -1216,6 +1222,22 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="BEPProgramLanguageLanguage" type="LanguageDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Language for students participating in BEP</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MilitaryFamily" type="EXTENSION-MilitaryFamilyDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicator to identify the military stuats of the student's family</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-MilitaryFamilyDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1265,7 +1287,7 @@
     <xs:complexContent>
       <xs:extension base="StudentSchoolFoodServiceProgramAssociation">
         <xs:sequence>
-          <xs:element name="DirectCertificationStatus" type="EXTENSION-DirectCertificationStatusDescriptorReferenceType">
+          <xs:element name="DirectCertificationStatus" type="EXTENSION-DirectCertificationStatusDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identifies the Direct Certification Status of a student. This does not apply to all students in the district.
                                     Valid values:
@@ -1365,6 +1387,24 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="BrailleInstruction" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indication for student need for braille instruction.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AlernateInstruction" type="xs:boolean">
+            <xs:annotation>
+              <xs:documentation>Indication of whether the special education student is entitled to take alternate assessment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryAreaOfExceptionality" type="EXTENSION-PrimaryAreaOfExceptionalityDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Identification of a studen's Primary Exceptionality</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-PrimaryAreaOfExceptionalityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1406,14 +1446,6 @@
           <xs:documentation>The transportation set code.</xs:documentation>
           <xs:appinfo>
             <ann:Descriptor>EXTENSION-TransportationSetCodeDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-      <xs:element name="TransportationPrimaryMeasureType" type="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>The primary measure type.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>EXTENSION-TransportationPrimaryMeasureTypeDescriptor</ann:Descriptor>
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
@@ -1529,22 +1561,22 @@
     <xs:sequence>
       <xs:element name="StaffReference" type="StaffReferenceType">
         <xs:annotation>
-          <xs:documentation>A reference to the Student.</xs:documentation>
+          <xs:documentation>A reference to the Staff.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
         <xs:annotation>
-          <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+          <xs:documentation>A reference to the Education Organization representing the context of the staff information.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="SchoolYear" type="SchoolYearType">
         <xs:annotation>
-          <xs:documentation>The school year the digital equity event took place.</xs:documentation>
+          <xs:documentation>The school year the digital equity information is being recorded for.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="StartDate" type="xs:date">
         <xs:annotation>
-          <xs:documentation>The date the digital equity started.</xs:documentation>
+          <xs:documentation>The date the digital equity record started.</xs:documentation>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -1599,11 +1631,11 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
-      <xs:element name="StudentAwardLanguage" type="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
+      <xs:element name="StudentAwardLanguageLanguage" type="LanguageDescriptorReferenceType">
         <xs:annotation>
-          <xs:documentation>The language for the award.</xs:documentation>
+          <xs:documentation> The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded.</xs:documentation>
           <xs:appinfo>
-            <ann:Descriptor>EXTENSION-StudentAwardLanguageDescriptor</ann:Descriptor>
+            <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
           </xs:appinfo>
         </xs:annotation>
       </xs:element>
@@ -1944,6 +1976,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-MilitaryFamilyDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Military Family Status</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-NMPEDClassPeriodDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the Class Period.</xs:documentation>
@@ -1974,6 +2015,15 @@
   <xs:simpleType name="EXTENSION-PreKClassTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the method of Pre-K Participation.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-PrimaryAreaOfExceptionalityDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Primary Area of exceptionality indicator</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -2109,15 +2159,6 @@
   <xs:simpleType name="EXTENSION-TransportationCategoryDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The transportation category type.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
-  <xs:simpleType name="EXTENSION-TransportationPrimaryMeasureTypeDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>The primary measure type.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

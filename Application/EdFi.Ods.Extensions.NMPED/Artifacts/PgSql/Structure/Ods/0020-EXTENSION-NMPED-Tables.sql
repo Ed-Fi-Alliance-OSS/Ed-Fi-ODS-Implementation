@@ -83,14 +83,13 @@ CREATE TABLE nmped.LocalEducationAgencyTransportation (
     CategoryDescriptor01TransportationCategoryDescriptorId INT NOT NULL,
     CategoryDescriptor02TransportationCategoryDescriptorId INT NOT NULL,
     LocalEducationAgencyId INT NOT NULL,
-    TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
     TransportationSetCodeDescriptorId INT NOT NULL,
     Count INT NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,
     Id UUID NOT NULL,
-    CONSTRAINT LocalEducationAgencyTransportation_PK PRIMARY KEY (CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId)
+    CONSTRAINT LocalEducationAgencyTransportation_PK PRIMARY KEY (CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationSetCodeDescriptorId)
 ); 
 ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN Id SET DEFAULT gen_random_uuid();
@@ -100,6 +99,12 @@ ALTER TABLE nmped.LocalEducationAgencyTransportation ALTER COLUMN LastModifiedDa
 CREATE TABLE nmped.MileageTypeDescriptor (
     MileageTypeDescriptorId INT NOT NULL,
     CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (MileageTypeDescriptorId)
+); 
+
+-- Table nmped.MilitaryFamilyDescriptor --
+CREATE TABLE nmped.MilitaryFamilyDescriptor (
+    MilitaryFamilyDescriptorId INT NOT NULL,
+    CONSTRAINT MilitaryFamilyDescriptor_PK PRIMARY KEY (MilitaryFamilyDescriptorId)
 ); 
 
 -- Table nmped.NMPEDClassPeriodDescriptor --
@@ -145,6 +150,12 @@ CREATE TABLE nmped.PlannedPostGraduateActivityDescriptor (
 CREATE TABLE nmped.PreKClassTypeDescriptor (
     PreKClassTypeDescriptorId INT NOT NULL,
     CONSTRAINT PreKClassTypeDescriptor_PK PRIMARY KEY (PreKClassTypeDescriptorId)
+); 
+
+-- Table nmped.PrimaryAreaOfExceptionalityDescriptor --
+CREATE TABLE nmped.PrimaryAreaOfExceptionalityDescriptor (
+    PrimaryAreaOfExceptionalityDescriptorId INT NOT NULL,
+    CONSTRAINT PrimaryAreaOfExceptionalityDescriptor_PK PRIMARY KEY (PrimaryAreaOfExceptionalityDescriptorId)
 ); 
 
 -- Table nmped.ProgramDeliveryMethodDescriptor --
@@ -260,11 +271,11 @@ CREATE TABLE nmped.StaffEducationOrganizationDigitalEquity (
     StaffUSI INT NOT NULL,
     StartDate DATE NOT NULL,
     EndDate DATE NULL,
-    DigitalEquityPrimaryLearningDeviceTypeDescriptorId INT NOT NULL,
-    SchoolProvidedDevice BOOLEAN NOT NULL,
-    DigitalEquityPrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
-    DigitalEquityInternetAccessTypeDescriptorId INT NOT NULL,
-    DigitalEquityInternetPerformanceCodeDescriptorId INT NOT NULL,
+    PrimaryLearningDeviceAwayFromSchoolDescriptorId INT NOT NULL,
+    PrimaryLearningDeviceProviderDescriptorId INT NOT NULL,
+    PrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
+    InternetAccessTypeInResidenceDescriptorId INT NOT NULL,
+    InternetPerformanceInResidenceDescriptorId INT NOT NULL,
     InternetAccessInResidence BOOLEAN NOT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -320,6 +331,8 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     StudentUSI INT NOT NULL,
     Grade09Entry DATE NULL,
     DentalExaminationVerificationCodeDescriptorId INT NULL,
+    BEPProgramLanguageDescriptorId INT NULL,
+    MilitaryFamilyDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
@@ -409,7 +422,7 @@ CREATE TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension (
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
-    DirectCertificationStatusDescriptorId INT NOT NULL,
+    DirectCertificationStatusDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSchoolFoodServiceProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
@@ -444,6 +457,9 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (
     TriennialReviewDelayReasonDescriptorId INT NULL,
     PlannedPostGraduateActivityDescriptorId INT NULL,
     ExpectedDiplomaTypeDescriptorId INT NULL,
+    BrailleInstruction BOOLEAN NULL,
+    AlernateInstruction BOOLEAN NOT NULL,
+    PrimaryAreaOfExceptionalityDescriptorId INT NOT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentSpecialEducationProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
@@ -475,12 +491,6 @@ ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cad
 CREATE TABLE nmped.TransportationCategoryDescriptor (
     TransportationCategoryDescriptorId INT NOT NULL,
     CONSTRAINT TransportationCategoryDescriptor_PK PRIMARY KEY (TransportationCategoryDescriptorId)
-); 
-
--- Table nmped.TransportationPrimaryMeasureTypeDescriptor --
-CREATE TABLE nmped.TransportationPrimaryMeasureTypeDescriptor (
-    TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
-    CONSTRAINT TransportationPrimaryMeasureTypeDescriptor_PK PRIMARY KEY (TransportationPrimaryMeasureTypeDescriptorId)
 ); 
 
 -- Table nmped.TransportationSetCodeDescriptor --

@@ -121,7 +121,6 @@ CREATE TABLE [nmped].[LocalEducationAgencyTransportation] (
     [CategoryDescriptor01TransportationCategoryDescriptorId] [INT] NOT NULL,
     [CategoryDescriptor02TransportationCategoryDescriptorId] [INT] NOT NULL,
     [LocalEducationAgencyId] [INT] NOT NULL,
-    [TransportationPrimaryMeasureTypeDescriptorId] [INT] NOT NULL,
     [TransportationSetCodeDescriptorId] [INT] NOT NULL,
     [Count] [INT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -132,7 +131,6 @@ CREATE TABLE [nmped].[LocalEducationAgencyTransportation] (
         [CategoryDescriptor01TransportationCategoryDescriptorId] ASC,
         [CategoryDescriptor02TransportationCategoryDescriptorId] ASC,
         [LocalEducationAgencyId] ASC,
-        [TransportationPrimaryMeasureTypeDescriptorId] ASC,
         [TransportationSetCodeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
@@ -149,6 +147,15 @@ CREATE TABLE [nmped].[MileageTypeDescriptor] (
     [MileageTypeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [MileageTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
         [MileageTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[MilitaryFamilyDescriptor] --
+CREATE TABLE [nmped].[MilitaryFamilyDescriptor] (
+    [MilitaryFamilyDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [MilitaryFamilyDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [MilitaryFamilyDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -212,6 +219,15 @@ CREATE TABLE [nmped].[PreKClassTypeDescriptor] (
     [PreKClassTypeDescriptorId] [INT] NOT NULL,
     CONSTRAINT [PreKClassTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
         [PreKClassTypeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+-- Table [nmped].[PrimaryAreaOfExceptionalityDescriptor] --
+CREATE TABLE [nmped].[PrimaryAreaOfExceptionalityDescriptor] (
+    [PrimaryAreaOfExceptionalityDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [PrimaryAreaOfExceptionalityDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [PrimaryAreaOfExceptionalityDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
@@ -381,11 +397,11 @@ CREATE TABLE [nmped].[StaffEducationOrganizationDigitalEquity] (
     [StaffUSI] [INT] NOT NULL,
     [StartDate] [DATE] NOT NULL,
     [EndDate] [DATE] NULL,
-    [DigitalEquityPrimaryLearningDeviceTypeDescriptorId] [INT] NOT NULL,
-    [SchoolProvidedDevice] [BIT] NOT NULL,
-    [DigitalEquityPrimaryLearningDeviceAccessDescriptorId] [INT] NOT NULL,
-    [DigitalEquityInternetAccessTypeDescriptorId] [INT] NOT NULL,
-    [DigitalEquityInternetPerformanceCodeDescriptorId] [INT] NOT NULL,
+    [PrimaryLearningDeviceAwayFromSchoolDescriptorId] [INT] NOT NULL,
+    [PrimaryLearningDeviceProviderDescriptorId] [INT] NOT NULL,
+    [PrimaryLearningDeviceAccessDescriptorId] [INT] NOT NULL,
+    [InternetAccessTypeInResidenceDescriptorId] [INT] NOT NULL,
+    [InternetPerformanceInResidenceDescriptorId] [INT] NOT NULL,
     [InternetAccessInResidence] [BIT] NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -469,6 +485,8 @@ CREATE TABLE [nmped].[StudentEducationOrganizationAssociationExtension] (
     [StudentUSI] [INT] NOT NULL,
     [Grade09Entry] [DATE] NULL,
     [DentalExaminationVerificationCodeDescriptorId] [INT] NULL,
+    [BEPProgramLanguageDescriptorId] [INT] NULL,
+    [MilitaryFamilyDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentEducationOrganizationAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
@@ -606,7 +624,7 @@ CREATE TABLE [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] (
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [DirectCertificationStatusDescriptorId] [INT] NOT NULL,
+    [DirectCertificationStatusDescriptorId] [INT] NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSchoolFoodServiceProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
@@ -660,6 +678,9 @@ CREATE TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] (
     [TriennialReviewDelayReasonDescriptorId] [INT] NULL,
     [PlannedPostGraduateActivityDescriptorId] [INT] NULL,
     [ExpectedDiplomaTypeDescriptorId] [INT] NULL,
+    [BrailleInstruction] [BIT] NULL,
+    [AlernateInstruction] [BIT] NOT NULL,
+    [PrimaryAreaOfExceptionalityDescriptorId] [INT] NOT NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     CONSTRAINT [StudentSpecialEducationProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
@@ -712,15 +733,6 @@ CREATE TABLE [nmped].[TransportationCategoryDescriptor] (
     [TransportationCategoryDescriptorId] [INT] NOT NULL,
     CONSTRAINT [TransportationCategoryDescriptor_PK] PRIMARY KEY CLUSTERED (
         [TransportationCategoryDescriptorId] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-
--- Table [nmped].[TransportationPrimaryMeasureTypeDescriptor] --
-CREATE TABLE [nmped].[TransportationPrimaryMeasureTypeDescriptor] (
-    [TransportationPrimaryMeasureTypeDescriptorId] [INT] NOT NULL,
-    CONSTRAINT [TransportationPrimaryMeasureTypeDescriptor_PK] PRIMARY KEY CLUSTERED (
-        [TransportationPrimaryMeasureTypeDescriptorId] ASC
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO

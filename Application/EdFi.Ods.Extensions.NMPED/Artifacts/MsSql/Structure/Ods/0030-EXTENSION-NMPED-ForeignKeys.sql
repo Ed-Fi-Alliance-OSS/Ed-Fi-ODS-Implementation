@@ -82,14 +82,6 @@ CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationC
 ON [nmped].[LocalEducationAgencyTransportation] ([CategoryDescriptor02TransportationCategoryDescriptorId] ASC)
 GO
 
-ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor] FOREIGN KEY ([TransportationPrimaryMeasureTypeDescriptorId])
-REFERENCES [nmped].[TransportationPrimaryMeasureTypeDescriptor] ([TransportationPrimaryMeasureTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_LocalEducationAgencyTransportation_TransportationPrimaryMeasureTypeDescriptor]
-ON [nmped].[LocalEducationAgencyTransportation] ([TransportationPrimaryMeasureTypeDescriptorId] ASC)
-GO
-
 ALTER TABLE [nmped].[LocalEducationAgencyTransportation] WITH CHECK ADD CONSTRAINT [FK_LocalEducationAgencyTransportation_TransportationSetCodeDescriptor] FOREIGN KEY ([TransportationSetCodeDescriptorId])
 REFERENCES [nmped].[TransportationSetCodeDescriptor] ([TransportationSetCodeDescriptorId])
 GO
@@ -99,6 +91,11 @@ ON [nmped].[LocalEducationAgencyTransportation] ([TransportationSetCodeDescripto
 GO
 
 ALTER TABLE [nmped].[MileageTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_MileageTypeDescriptor_Descriptor] FOREIGN KEY ([MileageTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[MilitaryFamilyDescriptor] WITH CHECK ADD CONSTRAINT [FK_MilitaryFamilyDescriptor_Descriptor] FOREIGN KEY ([MilitaryFamilyDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -139,6 +136,11 @@ ON DELETE CASCADE
 GO
 
 ALTER TABLE [nmped].[PreKClassTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_PreKClassTypeDescriptor_Descriptor] FOREIGN KEY ([PreKClassTypeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[PrimaryAreaOfExceptionalityDescriptor] WITH CHECK ADD CONSTRAINT [FK_PrimaryAreaOfExceptionalityDescriptor_Descriptor] FOREIGN KEY ([PrimaryAreaOfExceptionalityDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
@@ -257,44 +259,52 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetAccessTypeDescriptor] FOREIGN KEY ([DigitalEquityInternetAccessTypeDescriptorId])
-REFERENCES [nmped].[DigitalEquityInternetAccessTypeDescriptor] ([DigitalEquityInternetAccessTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetAccessTypeDescriptor]
-ON [nmped].[StaffEducationOrganizationDigitalEquity] ([DigitalEquityInternetAccessTypeDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetPerformanceCodeDescriptor] FOREIGN KEY ([DigitalEquityInternetPerformanceCodeDescriptorId])
-REFERENCES [nmped].[DigitalEquityInternetPerformanceCodeDescriptor] ([DigitalEquityInternetPerformanceCodeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityInternetPerformanceCodeDescriptor]
-ON [nmped].[StaffEducationOrganizationDigitalEquity] ([DigitalEquityInternetPerformanceCodeDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceAccessDescriptor] FOREIGN KEY ([DigitalEquityPrimaryLearningDeviceAccessDescriptorId])
-REFERENCES [nmped].[DigitalEquityPrimaryLearningDeviceAccessDescriptor] ([DigitalEquityPrimaryLearningDeviceAccessDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceAccessDescriptor]
-ON [nmped].[StaffEducationOrganizationDigitalEquity] ([DigitalEquityPrimaryLearningDeviceAccessDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceTypeDescriptor] FOREIGN KEY ([DigitalEquityPrimaryLearningDeviceTypeDescriptorId])
-REFERENCES [nmped].[DigitalEquityPrimaryLearningDeviceTypeDescriptor] ([DigitalEquityPrimaryLearningDeviceTypeDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_DigitalEquityPrimaryLearningDeviceTypeDescriptor]
-ON [nmped].[StaffEducationOrganizationDigitalEquity] ([DigitalEquityPrimaryLearningDeviceTypeDescriptorId] ASC)
-GO
-
 ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
 
 CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_EducationOrganization]
 ON [nmped].[StaffEducationOrganizationDigitalEquity] ([EducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_InternetAccessTypeInResidenceDescriptor] FOREIGN KEY ([InternetAccessTypeInResidenceDescriptorId])
+REFERENCES [edfi].[InternetAccessTypeInResidenceDescriptor] ([InternetAccessTypeInResidenceDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_InternetAccessTypeInResidenceDescriptor]
+ON [nmped].[StaffEducationOrganizationDigitalEquity] ([InternetAccessTypeInResidenceDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_InternetPerformanceInResidenceDescriptor] FOREIGN KEY ([InternetPerformanceInResidenceDescriptorId])
+REFERENCES [edfi].[InternetPerformanceInResidenceDescriptor] ([InternetPerformanceInResidenceDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_InternetPerformanceInResidenceDescriptor]
+ON [nmped].[StaffEducationOrganizationDigitalEquity] ([InternetPerformanceInResidenceDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAccessDescriptor] FOREIGN KEY ([PrimaryLearningDeviceAccessDescriptorId])
+REFERENCES [edfi].[PrimaryLearningDeviceAccessDescriptor] ([PrimaryLearningDeviceAccessDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAccessDescriptor]
+ON [nmped].[StaffEducationOrganizationDigitalEquity] ([PrimaryLearningDeviceAccessDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAwayFromSchoolDescriptor] FOREIGN KEY ([PrimaryLearningDeviceAwayFromSchoolDescriptorId])
+REFERENCES [edfi].[PrimaryLearningDeviceAwayFromSchoolDescriptor] ([PrimaryLearningDeviceAwayFromSchoolDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAwayFromSchoolDescriptor]
+ON [nmped].[StaffEducationOrganizationDigitalEquity] ([PrimaryLearningDeviceAwayFromSchoolDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceProviderDescriptor] FOREIGN KEY ([PrimaryLearningDeviceProviderDescriptorId])
+REFERENCES [edfi].[PrimaryLearningDeviceProviderDescriptor] ([PrimaryLearningDeviceProviderDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceProviderDescriptor]
+ON [nmped].[StaffEducationOrganizationDigitalEquity] ([PrimaryLearningDeviceProviderDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationDigitalEquity_SchoolYearType] FOREIGN KEY ([SchoolYear])
@@ -373,6 +383,22 @@ CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationExtension_D
 ON [nmped].[StudentEducationOrganizationAssociationExtension] ([DentalExaminationVerificationCodeDescriptorId] ASC)
 GO
 
+ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_LanguageDescriptor] FOREIGN KEY ([BEPProgramLanguageDescriptorId])
+REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationExtension_LanguageDescriptor]
+ON [nmped].[StudentEducationOrganizationAssociationExtension] ([BEPProgramLanguageDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_MilitaryFamilyDescriptor] FOREIGN KEY ([MilitaryFamilyDescriptorId])
+REFERENCES [nmped].[MilitaryFamilyDescriptor] ([MilitaryFamilyDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationExtension_MilitaryFamilyDescriptor]
+ON [nmped].[StudentEducationOrganizationAssociationExtension] ([MilitaryFamilyDescriptorId] ASC)
+GO
+
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_StudentEducationOrganizationAssociation] FOREIGN KEY ([EducationOrganizationId], [StudentUSI])
 REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizationId], [StudentUSI])
 ON DELETE CASCADE
@@ -384,6 +410,14 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAward_EducationOrganization]
 ON [nmped].[StudentEducationOrganizationAward] ([EducationOrganizationId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentEducationOrganizationAward] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAward_LanguageDescriptor] FOREIGN KEY ([StudentAwardLanguageDescriptorId])
+REFERENCES [edfi].[LanguageDescriptor] ([LanguageDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAward_LanguageDescriptor]
+ON [nmped].[StudentEducationOrganizationAward] ([StudentAwardLanguageDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[StudentEducationOrganizationAward] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAward_SchoolYearType] FOREIGN KEY ([SchoolYear])
@@ -400,14 +434,6 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAward_Student]
 ON [nmped].[StudentEducationOrganizationAward] ([StudentUSI] ASC)
-GO
-
-ALTER TABLE [nmped].[StudentEducationOrganizationAward] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAward_StudentAwardLanguageDescriptor] FOREIGN KEY ([StudentAwardLanguageDescriptorId])
-REFERENCES [nmped].[StudentAwardLanguageDescriptor] ([StudentAwardLanguageDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAward_StudentAwardLanguageDescriptor]
-ON [nmped].[StudentEducationOrganizationAward] ([StudentAwardLanguageDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[StudentEducationOrganizationAward] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAward_StudentAwardTypeDescriptor] FOREIGN KEY ([StudentAwardTypeDescriptorId])
@@ -544,6 +570,14 @@ CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationExtension
 ON [nmped].[StudentSpecialEducationProgramAssociationExtension] ([PlannedPostGraduateActivityDescriptorId] ASC)
 GO
 
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationExtension_PrimaryAreaOfExceptionalityDescriptor] FOREIGN KEY ([PrimaryAreaOfExceptionalityDescriptorId])
+REFERENCES [nmped].[PrimaryAreaOfExceptionalityDescriptor] ([PrimaryAreaOfExceptionalityDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationExtension_PrimaryAreaOfExceptionalityDescriptor]
+ON [nmped].[StudentSpecialEducationProgramAssociationExtension] ([PrimaryAreaOfExceptionalityDescriptorId] ASC)
+GO
+
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationExtension_SpecialEducationLevelOfIntegrationDescriptor] FOREIGN KEY ([SpecialEducationLevelOfIntegrationDescriptorId])
 REFERENCES [nmped].[SpecialEducationLevelOfIntegrationDescriptor] ([SpecialEducationLevelOfIntegrationDescriptorId])
 GO
@@ -594,11 +628,6 @@ REFERENCES [edfi].[StudentSpecialEducationProgramAssociation] ([BeginDate], [Edu
 GO
 
 ALTER TABLE [nmped].[TransportationCategoryDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationCategoryDescriptor_Descriptor] FOREIGN KEY ([TransportationCategoryDescriptorId])
-REFERENCES [edfi].[Descriptor] ([DescriptorId])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [nmped].[TransportationPrimaryMeasureTypeDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationPrimaryMeasureTypeDescriptor_Descriptor] FOREIGN KEY ([TransportationPrimaryMeasureTypeDescriptorId])
 REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO

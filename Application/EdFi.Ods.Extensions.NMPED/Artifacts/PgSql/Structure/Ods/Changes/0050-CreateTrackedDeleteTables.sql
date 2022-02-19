@@ -91,7 +91,6 @@ CREATE TABLE tracked_deletes_nmped.LocalEducationAgencyTransportation
        CategoryDescriptor01TransportationCategoryDescriptorId INT NOT NULL,
        CategoryDescriptor02TransportationCategoryDescriptorId INT NOT NULL,
        LocalEducationAgencyId INT NOT NULL,
-       TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
        TransportationSetCodeDescriptorId INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
@@ -104,6 +103,14 @@ CREATE TABLE tracked_deletes_nmped.MileageTypeDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT MileageTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.MilitaryFamilyDescriptor
+(
+       MilitaryFamilyDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT MilitaryFamilyDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.NMPEDClassPeriodDescriptor
@@ -144,6 +151,14 @@ CREATE TABLE tracked_deletes_nmped.PreKClassTypeDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT PreKClassTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.PrimaryAreaOfExceptionalityDescriptor
+(
+       PrimaryAreaOfExceptionalityDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT PrimaryAreaOfExceptionalityDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.ProgramDeliveryMethodDescriptor
@@ -322,14 +337,6 @@ CREATE TABLE tracked_deletes_nmped.TransportationCategoryDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT TransportationCategoryDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.TransportationPrimaryMeasureTypeDescriptor
-(
-       TransportationPrimaryMeasureTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT TransportationPrimaryMeasureTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.TransportationSetCodeDescriptor

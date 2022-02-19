@@ -91,8 +91,6 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The second cat
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to a local education agency.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'LocalEducationAgencyId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary measure type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'TransportationPrimaryMeasureTypeDescriptorId'
-GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation set code.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'TransportationSetCodeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The count for the measure.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'LocalEducationAgencyTransportation', @level2type=N'COLUMN', @level2name=N'Count'
@@ -102,6 +100,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The mileage type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MileageTypeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MileageTypeDescriptor', @level2type=N'COLUMN', @level2name=N'MileageTypeDescriptorId'
+GO
+
+-- Extended Properties [nmped].[MilitaryFamilyDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Military Family Status', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MilitaryFamilyDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'MilitaryFamilyDescriptor', @level2type=N'COLUMN', @level2name=N'MilitaryFamilyDescriptorId'
 GO
 
 -- Extended Properties [nmped].[NMPEDClassPeriodDescriptor] --
@@ -148,6 +152,12 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This descriptor describes the method of Pre-K Participation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'PreKClassTypeDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'PreKClassTypeDescriptor', @level2type=N'COLUMN', @level2name=N'PreKClassTypeDescriptorId'
+GO
+
+-- Extended Properties [nmped].[PrimaryAreaOfExceptionalityDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Primary Area of exceptionality indicator', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'PrimaryAreaOfExceptionalityDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'PrimaryAreaOfExceptionalityDescriptor', @level2type=N'COLUMN', @level2name=N'PrimaryAreaOfExceptionalityDescriptorId'
 GO
 
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
@@ -261,27 +271,27 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique ident
 GO
 
 -- Extended Properties [nmped].[StaffEducationOrganizationDigitalEquity] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The staff digital equity.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Digital Equity measures for staff.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the digital equity event took place.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'SchoolYear'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the digital equity information is being recorded for.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'StaffUSI'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the digital equity started.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'StartDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the digital equity record started.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'StartDate'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the digital equity ended.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'EndDate'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the digital equity record ended.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'EndDate'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary learning device type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'DigitalEquityPrimaryLearningDeviceTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary learning device type used most often by staff to complete schoolwork at home.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAwayFromSchoolDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether the school provides a device or not.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'SchoolProvidedDevice'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates whether the school provides a device or not.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceProviderDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Defines the primary learning device access.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'DigitalEquityPrimaryLearningDeviceAccessDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Defines the primary learning device access.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'PrimaryLearningDeviceAccessDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Internet access type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'DigitalEquityInternetAccessTypeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Internet access type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'InternetAccessTypeInResidenceDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Internet performance code.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'DigitalEquityInternetPerformanceCodeDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Internet performance code.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'InternetPerformanceInResidenceDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates if there is Internet access in the staff''s residece.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationDigitalEquity', @level2type=N'COLUMN', @level2name=N'InternetAccessInResidence'
 GO
@@ -345,6 +355,10 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This field hol
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This code for the dental examination performed.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'DentalExaminationVerificationCodeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Language for students participating in BEP', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'BEPProgramLanguageDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator to identify the military stuats of the student''s family', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'MilitaryFamilyDescriptorId'
+GO
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The awards a student has earned at a education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward'
@@ -355,7 +369,7 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The school year the student earned the award.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'SchoolYear'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The language for the award.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'StudentAwardLanguageDescriptorId'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N' The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'StudentAwardLanguageDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of award.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'StudentAwardTypeDescriptorId'
 GO
@@ -504,6 +518,12 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The planned po
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The option determined and indicated in a student''s IEP', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'ExpectedDiplomaTypeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indication for student need for braille instruction.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'BrailleInstruction'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indication of whether the special education student is entitled to take alternate assessment.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'AlernateInstruction'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Identification of a studen''s Primary Exceptionality', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'PrimaryAreaOfExceptionalityDescriptorId'
+GO
 
 -- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This is documentation.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent'
@@ -533,12 +553,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The transportation category type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationCategoryDescriptor'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationCategoryDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationCategoryDescriptorId'
-GO
-
--- Extended Properties [nmped].[TransportationPrimaryMeasureTypeDescriptor] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The primary measure type.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationPrimaryMeasureTypeDescriptor'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'TransportationPrimaryMeasureTypeDescriptor', @level2type=N'COLUMN', @level2name=N'TransportationPrimaryMeasureTypeDescriptorId'
 GO
 
 -- Extended Properties [nmped].[TransportationSetCodeDescriptor] --

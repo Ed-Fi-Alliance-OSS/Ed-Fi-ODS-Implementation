@@ -156,8 +156,8 @@ CREATE FUNCTION tracked_deletes_nmped.LocalEducationAgencyTransportation_TR_DelT
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_nmped.LocalEducationAgencyTransportation(CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.CategoryDescriptor01TransportationCategoryDescriptorId, OLD.CategoryDescriptor02TransportationCategoryDescriptorId, OLD.LocalEducationAgencyId, OLD.TransportationPrimaryMeasureTypeDescriptorId, OLD.TransportationSetCodeDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_nmped.LocalEducationAgencyTransportation(CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationSetCodeDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.CategoryDescriptor01TransportationCategoryDescriptorId, OLD.CategoryDescriptor02TransportationCategoryDescriptorId, OLD.LocalEducationAgencyId, OLD.TransportationSetCodeDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;
@@ -178,6 +178,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.MileageTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.MileageTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.MilitaryFamilyDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.MilitaryFamilyDescriptor(MilitaryFamilyDescriptorId, Id, ChangeVersion)
+    SELECT OLD.MilitaryFamilyDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.MilitaryFamilyDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.MilitaryFamilyDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.MilitaryFamilyDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.NMPEDClassPeriodDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -247,6 +261,20 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.PreKClassTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.PreKClassTypeDescriptor_TR_DelTrkg();
+
+CREATE FUNCTION tracked_deletes_nmped.PrimaryAreaOfExceptionalityDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.PrimaryAreaOfExceptionalityDescriptor(PrimaryAreaOfExceptionalityDescriptorId, Id, ChangeVersion)
+    SELECT OLD.PrimaryAreaOfExceptionalityDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.PrimaryAreaOfExceptionalityDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.PrimaryAreaOfExceptionalityDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.PrimaryAreaOfExceptionalityDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.ProgramDeliveryMethodDescriptor_TR_DelTrkg()
     RETURNS trigger AS
@@ -522,20 +550,6 @@ $BODY$ LANGUAGE plpgsql;
 
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.TransportationCategoryDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.TransportationCategoryDescriptor_TR_DelTrkg();
-
-CREATE FUNCTION tracked_deletes_nmped.TransportationPrimaryMeasureTypeDescriptor_TR_DelTrkg()
-    RETURNS trigger AS
-$BODY$
-BEGIN
-    INSERT INTO tracked_deletes_nmped.TransportationPrimaryMeasureTypeDescriptor(TransportationPrimaryMeasureTypeDescriptorId, Id, ChangeVersion)
-    SELECT OLD.TransportationPrimaryMeasureTypeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
-    FROM edfi.Descriptor WHERE DescriptorId = OLD.TransportationPrimaryMeasureTypeDescriptorId;
-    RETURN NULL;
-END;
-$BODY$ LANGUAGE plpgsql;
-
-CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.TransportationPrimaryMeasureTypeDescriptor 
-    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.TransportationPrimaryMeasureTypeDescriptor_TR_DelTrkg();
 
 CREATE FUNCTION tracked_deletes_nmped.TransportationSetCodeDescriptor_TR_DelTrkg()
     RETURNS trigger AS

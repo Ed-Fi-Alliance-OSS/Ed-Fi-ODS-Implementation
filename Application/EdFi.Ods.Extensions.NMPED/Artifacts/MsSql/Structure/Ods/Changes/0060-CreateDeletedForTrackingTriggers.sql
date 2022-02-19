@@ -203,8 +203,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_nmped].[LocalEducationAgencyTransportation](CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId, Id, ChangeVersion)
-    SELECT  CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationPrimaryMeasureTypeDescriptorId, TransportationSetCodeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_nmped].[LocalEducationAgencyTransportation](CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationSetCodeDescriptorId, Id, ChangeVersion)
+    SELECT  CategoryDescriptor01TransportationCategoryDescriptorId, CategoryDescriptor02TransportationCategoryDescriptorId, LocalEducationAgencyId, TransportationSetCodeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO
@@ -228,6 +228,24 @@ END
 GO
 
 ALTER TABLE [nmped].[MileageTypeDescriptor] ENABLE TRIGGER [nmped_MileageTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_MilitaryFamilyDescriptor_TR_DeleteTracking] ON [nmped].[MilitaryFamilyDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[MilitaryFamilyDescriptor](MilitaryFamilyDescriptorId, Id, ChangeVersion)
+    SELECT  d.MilitaryFamilyDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.MilitaryFamilyDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[MilitaryFamilyDescriptor] ENABLE TRIGGER [nmped_MilitaryFamilyDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -317,6 +335,24 @@ END
 GO
 
 ALTER TABLE [nmped].[PreKClassTypeDescriptor] ENABLE TRIGGER [nmped_PreKClassTypeDescriptor_TR_DeleteTracking]
+GO
+
+
+CREATE TRIGGER [nmped].[nmped_PrimaryAreaOfExceptionalityDescriptor_TR_DeleteTracking] ON [nmped].[PrimaryAreaOfExceptionalityDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[PrimaryAreaOfExceptionalityDescriptor](PrimaryAreaOfExceptionalityDescriptorId, Id, ChangeVersion)
+    SELECT  d.PrimaryAreaOfExceptionalityDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.PrimaryAreaOfExceptionalityDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[PrimaryAreaOfExceptionalityDescriptor] ENABLE TRIGGER [nmped_PrimaryAreaOfExceptionalityDescriptor_TR_DeleteTracking]
 GO
 
 
@@ -672,24 +708,6 @@ END
 GO
 
 ALTER TABLE [nmped].[TransportationCategoryDescriptor] ENABLE TRIGGER [nmped_TransportationCategoryDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [nmped].[nmped_TransportationPrimaryMeasureTypeDescriptor_TR_DeleteTracking] ON [nmped].[TransportationPrimaryMeasureTypeDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_nmped].[TransportationPrimaryMeasureTypeDescriptor](TransportationPrimaryMeasureTypeDescriptorId, Id, ChangeVersion)
-    SELECT  d.TransportationPrimaryMeasureTypeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.TransportationPrimaryMeasureTypeDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [nmped].[TransportationPrimaryMeasureTypeDescriptor] ENABLE TRIGGER [nmped_TransportationPrimaryMeasureTypeDescriptor_TR_DeleteTracking]
 GO
 
 

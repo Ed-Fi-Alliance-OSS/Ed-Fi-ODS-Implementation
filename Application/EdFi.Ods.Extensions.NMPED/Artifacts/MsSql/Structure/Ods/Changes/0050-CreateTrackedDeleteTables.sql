@@ -80,7 +80,6 @@ CREATE TABLE [tracked_deletes_nmped].[LocalEducationAgencyTransportation]
        CategoryDescriptor01TransportationCategoryDescriptorId [INT] NOT NULL,
        CategoryDescriptor02TransportationCategoryDescriptorId [INT] NOT NULL,
        LocalEducationAgencyId [INT] NOT NULL,
-       TransportationPrimaryMeasureTypeDescriptorId [INT] NOT NULL,
        TransportationSetCodeDescriptorId [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
@@ -92,6 +91,13 @@ CREATE TABLE [tracked_deletes_nmped].[MileageTypeDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_MileageTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[MilitaryFamilyDescriptor]
+(
+       MilitaryFamilyDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_MilitaryFamilyDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[NMPEDClassPeriodDescriptor]
 (
@@ -127,6 +133,13 @@ CREATE TABLE [tracked_deletes_nmped].[PreKClassTypeDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_PreKClassTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[PrimaryAreaOfExceptionalityDescriptor]
+(
+       PrimaryAreaOfExceptionalityDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_PrimaryAreaOfExceptionalityDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[ProgramDeliveryMethodDescriptor]
 (
@@ -285,13 +298,6 @@ CREATE TABLE [tracked_deletes_nmped].[TransportationCategoryDescriptor]
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_TransportationCategoryDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[TransportationPrimaryMeasureTypeDescriptor]
-(
-       TransportationPrimaryMeasureTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_TransportationPrimaryMeasureTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[TransportationSetCodeDescriptor]
 (

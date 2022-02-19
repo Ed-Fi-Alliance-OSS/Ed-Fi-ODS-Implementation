@@ -57,13 +57,16 @@ COMMENT ON TABLE nmped.LocalEducationAgencyTransportation IS 'The local educatio
 COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.CategoryDescriptor01TransportationCategoryDescriptorId IS 'The first category of the district transportation.';
 COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.CategoryDescriptor02TransportationCategoryDescriptorId IS 'The second category of the district transportation.';
 COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.LocalEducationAgencyId IS 'The identifier assigned to a local education agency.';
-COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.TransportationPrimaryMeasureTypeDescriptorId IS 'The primary measure type.';
 COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.TransportationSetCodeDescriptorId IS 'The transportation set code.';
 COMMENT ON COLUMN nmped.LocalEducationAgencyTransportation.Count IS 'The count for the measure.';
 
 -- Extended Properties [nmped].[MileageTypeDescriptor] --
 COMMENT ON TABLE nmped.MileageTypeDescriptor IS 'The mileage type.';
 COMMENT ON COLUMN nmped.MileageTypeDescriptor.MileageTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[MilitaryFamilyDescriptor] --
+COMMENT ON TABLE nmped.MilitaryFamilyDescriptor IS 'Military Family Status';
+COMMENT ON COLUMN nmped.MilitaryFamilyDescriptor.MilitaryFamilyDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[NMPEDClassPeriodDescriptor] --
 COMMENT ON TABLE nmped.NMPEDClassPeriodDescriptor IS 'This descriptor describes the Class Period.';
@@ -92,6 +95,10 @@ COMMENT ON COLUMN nmped.PlannedPostGraduateActivityDescriptor.PlannedPostGraduat
 -- Extended Properties [nmped].[PreKClassTypeDescriptor] --
 COMMENT ON TABLE nmped.PreKClassTypeDescriptor IS 'This descriptor describes the method of Pre-K Participation.';
 COMMENT ON COLUMN nmped.PreKClassTypeDescriptor.PreKClassTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
+
+-- Extended Properties [nmped].[PrimaryAreaOfExceptionalityDescriptor] --
+COMMENT ON TABLE nmped.PrimaryAreaOfExceptionalityDescriptor IS 'Primary Area of exceptionality indicator';
+COMMENT ON COLUMN nmped.PrimaryAreaOfExceptionalityDescriptor.PrimaryAreaOfExceptionalityDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[ProgramDeliveryMethodDescriptor] --
 COMMENT ON TABLE nmped.ProgramDeliveryMethodDescriptor IS 'This descriptor describes the delivery method for the student''s program.';
@@ -163,17 +170,17 @@ COMMENT ON TABLE nmped.StaffDevelopmentPurposeCodeDescriptor IS 'This descriptor
 COMMENT ON COLUMN nmped.StaffDevelopmentPurposeCodeDescriptor.StaffDevelopmentPurposeCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[StaffEducationOrganizationDigitalEquity] --
-COMMENT ON TABLE nmped.StaffEducationOrganizationDigitalEquity IS 'The staff digital equity.';
+COMMENT ON TABLE nmped.StaffEducationOrganizationDigitalEquity IS 'Digital Equity measures for staff.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.SchoolYear IS 'The school year the digital equity event took place.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.SchoolYear IS 'The school year the digital equity information is being recorded for.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.StartDate IS 'The date the digital equity started.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.EndDate IS 'The date the digital equity ended.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.DigitalEquityPrimaryLearningDeviceTypeDescriptorId IS 'The primary learning device type.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.SchoolProvidedDevice IS 'Indicates whether the school provides a device or not.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.DigitalEquityPrimaryLearningDeviceAccessDescriptorId IS 'Defines the primary learning device access.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.DigitalEquityInternetAccessTypeDescriptorId IS 'Internet access type.';
-COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.DigitalEquityInternetPerformanceCodeDescriptorId IS 'Internet performance code.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.StartDate IS 'The date the digital equity record started.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.EndDate IS 'The date the digital equity record ended.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.PrimaryLearningDeviceAwayFromSchoolDescriptorId IS 'The primary learning device type used most often by staff to complete schoolwork at home.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.PrimaryLearningDeviceProviderDescriptorId IS 'Indicates whether the school provides a device or not.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.PrimaryLearningDeviceAccessDescriptorId IS 'Defines the primary learning device access.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.InternetAccessTypeInResidenceDescriptorId IS 'Internet access type.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.InternetPerformanceInResidenceDescriptorId IS 'Internet performance code.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationDigitalEquity.InternetAccessInResidence IS 'Indicates if there is Internet access in the staff''s residece.';
 
 -- Extended Properties [nmped].[StaffExtension] --
@@ -212,13 +219,15 @@ COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Educati
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Grade09Entry IS 'This field holds the date when a student entered the ninth grade.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.DentalExaminationVerificationCodeDescriptorId IS 'This code for the dental examination performed.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.BEPProgramLanguageDescriptorId IS 'Language for students participating in BEP';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.MilitaryFamilyDescriptorId IS 'Indicator to identify the military stuats of the student''s family';
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAward IS 'The awards a student has earned at a education organization.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.AwardDate IS 'The date the student got awarded.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.EducationOrganizationId IS 'The identifier assigned to an education organization.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.SchoolYear IS 'The school year the student earned the award.';
-COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardLanguageDescriptorId IS 'The language for the award.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardLanguageDescriptorId IS ' The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardTypeDescriptorId IS 'The type of award.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
@@ -305,6 +314,9 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.Annua
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.TriennialReviewDelayReasonDescriptorId IS 'The triennual review delay reason.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.PlannedPostGraduateActivityDescriptorId IS 'The planned post graduate activity.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.ExpectedDiplomaTypeDescriptorId IS 'The option determined and indicated in a student''s IEP';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.BrailleInstruction IS 'Indication for student need for braille instruction.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.AlernateInstruction IS 'Indication of whether the special education student is entitled to take alternate assessment.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.PrimaryAreaOfExceptionalityDescriptorId IS 'Identification of a studen''s Primary Exceptionality';
 
 -- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc] --
 COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc IS 'This is documentation.';
@@ -322,10 +334,6 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio
 -- Extended Properties [nmped].[TransportationCategoryDescriptor] --
 COMMENT ON TABLE nmped.TransportationCategoryDescriptor IS 'The transportation category type.';
 COMMENT ON COLUMN nmped.TransportationCategoryDescriptor.TransportationCategoryDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
-
--- Extended Properties [nmped].[TransportationPrimaryMeasureTypeDescriptor] --
-COMMENT ON TABLE nmped.TransportationPrimaryMeasureTypeDescriptor IS 'The primary measure type.';
-COMMENT ON COLUMN nmped.TransportationPrimaryMeasureTypeDescriptor.TransportationPrimaryMeasureTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmped].[TransportationSetCodeDescriptor] --
 COMMENT ON TABLE nmped.TransportationSetCodeDescriptor IS 'The transportation set codes.';
