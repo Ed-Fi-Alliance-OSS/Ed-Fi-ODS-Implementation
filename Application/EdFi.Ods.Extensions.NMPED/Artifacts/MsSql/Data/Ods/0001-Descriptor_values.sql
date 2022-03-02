@@ -942,6 +942,11 @@ INSERT INTO edfi.SchoolCategoryDescriptor(SchoolCategoryDescriptorID) values (@@
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/ProgramTypeDescriptor'
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/ProgramTypeDescriptor'
 
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/ProgramTypeDescriptor','Student School Food Service','Student School Food Service','Child qualifying for Student School Food Service');
+INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','Special Education','Special Education','Child qualifying for Special Education Services');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
