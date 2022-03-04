@@ -3690,6 +3690,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	Removing complexity and following the state code values
 */
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/LimitedEnglishProficiencyDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/LimitedEnglishProficiencyDescriptor'
 
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
