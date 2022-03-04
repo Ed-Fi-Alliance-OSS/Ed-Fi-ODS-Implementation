@@ -3795,18 +3795,18 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 /* 
 	Adding values to match the state reporting method
 */
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DiplomaLevelDescriptor'
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DiplomaLevelDescriptor'
-DELETE FROM edfi.DiplomaLevelDescriptor
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DiplomaTypeDescriptor'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/DiplomaTypeDescriptor'
+DELETE FROM edfi.DiplomaTypeDescriptor
 
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/DiplomaTypeDescriptor','1','Diploma of Excellence without ADC.','Diploma of Excellence without an Alternate Demonstration of Competency (ADC).');
-	INSERT INTO edfi.DiplomaLevelDescriptor (DiplomaLevelDescriptorid) values (@@IDENTITY);
+	INSERT INTO edfi.DiplomaTypeDescriptor (DiplomaTypeDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/DiplomaTypeDescriptor','2','Certificate of Course Work Completed.','Certificate of Course Work Completed (May include students in special education if they are on a continuing or transition IEP. Does NOT end student’s right to FAPE.)');
-	INSERT INTO edfi.DiplomaLevelDescriptor (DiplomaLevelDescriptorid) values (@@IDENTITY);
+	INSERT INTO edfi.DiplomaTypeDescriptor (DiplomaTypeDescriptorid) values (@@IDENTITY);
 
 --Special Education Event Type Descriptor
 /* 
