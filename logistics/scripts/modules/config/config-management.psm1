@@ -43,8 +43,8 @@ function Get-DefaultSubtypes {
 function Get-RepositoryArtifactPaths {
     $filePaths = @()
 
-    Get-RepositoryNames | ForEach-Object { $filePaths += (Get-RepositoryRoot $_) }
     $filePaths += (Get-RepositoryResolvedPath("Application\EdFi.Ods.Standard")).Path
+    Get-RepositoryNames | ForEach-Object { $filePaths += (Get-RepositoryRoot $_) }
 
     return $filePaths
 }
