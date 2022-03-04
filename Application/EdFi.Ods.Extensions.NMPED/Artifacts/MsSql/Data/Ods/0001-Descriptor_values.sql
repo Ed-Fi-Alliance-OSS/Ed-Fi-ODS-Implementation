@@ -948,6 +948,11 @@ values ('uri://nmped.org/ProgramTypeDescriptor','Student School Food Service','S
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/ProgramTypeDescriptor','English Proficiency','English Proficiency','Child qualifying for English Proficiency');
+INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','Special Education','Special Education','Child qualifying for Special Education Services');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
