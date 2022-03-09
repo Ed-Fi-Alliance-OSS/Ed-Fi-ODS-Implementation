@@ -117,9 +117,62 @@ function Get-NuGetPackage {
     return Resolve-Path $outputDirectory/$PackageName.$PackageVersion* | Select-Object -Last 1
 }
 
+function Publish-LocalNugetPackage {
+    [CmdletBinding()]
+    param (
+        [string]
+        $NugetFeed = "LocalNugetFeed",
+
+        [string]
+        [Parameter(Mandatory = $true)]
+        $PathToProjOrSln,
+
+        [string]
+        [Parameter(Mandatory = $true)]
+        $PackageVersion,
+
+        [string]
+        [Parameter(Mandatory = $true)]
+        $PackageName
+    )
+
+    $parameters  = @(
+        "restore",$PathToProjOrSln
+    )
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    dotnet $parameters | Out-Host
+    Write-Host
+
+    $parameters  = @(
+        "build",$PathToProjOrSln,
+        "--configuration","release",
+        "--no-restore",""
+    )
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    dotnet $parameters | Out-Host
+    Write-Host
+
+    $parameters  = @(
+        "pack",$PathToProjOrSln,
+        "--configuration","release",
+        "--output=$NugetFeed",
+        "--no-build","",
+        "-p:PackageVersion=$PackageVersion",
+        "-p:NoWarn=NU5123"
+        "-p:PackageId=$PackageName"
+    )
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    dotnet $parameters | Out-Host
+    Write-Host
+}
+
 $exports = @(
     "Install-NuGetCli"
     "Get-NuGetPackage"
+    "Publish-LocalNugetPackage"
 )
 
 Export-ModuleMember -Function $exports
