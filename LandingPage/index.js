@@ -142,6 +142,19 @@ const search = async (state) => {
   return state
 }
 
+const createCautionSections = () => {
+
+    const caution = document.querySelector('#cautionTemplate').innerHTML
+
+    const div = document.createElement('div')
+    div.setAttribute('id', `caution`)
+    div.innerHTML = caution
+
+    const sections = document.querySelector('#sections')
+    sections.appendChild(div)
+
+}
+
 const createSections = (state) => {
   state.forEach((s) => {
     if (document.querySelector(`#suite${s.version.suite}`) != null) return
@@ -275,7 +288,7 @@ const init = (configs = getConfigs()) => {
     const state = states.map((s) => s.versions.map((v) => ({ version: v, config: s.config }))).flat()
     state.sort((x, y) => sortVersions(x.version, y.version))
     console.log(state)
-
+    createCautionSections()
     createSections(state)
     createVersionRows(state)
 
