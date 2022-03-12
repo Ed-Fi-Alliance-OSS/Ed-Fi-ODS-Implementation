@@ -103,14 +103,11 @@ p {
   margin-inline-end: 0px;
 }
 
-blockquote {
-  border-left: 0px;
-}
-
-em {
+.caution {
   font-style: italic;
   color: #3b4151;
   font-family: sans-serif;
   font-size: 14px;
+  border-left: 0px;
 }
 
