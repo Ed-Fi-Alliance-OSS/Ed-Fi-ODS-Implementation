@@ -94,3 +94,23 @@ a:hover {
     opacity: 1;
   }
 }
+
+p {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+blockquote {
+  border-left: 0px;
+}
+
+em {
+  font-style: italic;
+  color: #3b4151;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
