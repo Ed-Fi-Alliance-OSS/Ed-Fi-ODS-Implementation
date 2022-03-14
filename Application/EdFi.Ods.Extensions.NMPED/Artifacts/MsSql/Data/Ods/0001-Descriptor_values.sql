@@ -801,6 +801,21 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://nmped.org/ServiceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');
 INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
 
+/* Calendar Event Descriptor */
+--DECLARE @@IDENTITY AS Integer;
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/CalendarEventDescriptor','ELTP','ELTP Day/Hours','ELTP Day/Hours');
+INSERT INTO edfi.CalendarEventDescriptor(CalendarEventDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/CalendarEventDescriptor','K5P','K5 Plus Day/Hours','K5 Plus Day/Hours');
+INSERT INTO edfi.CalendarEventDescriptor(CalendarEventDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/CalendarEventDescriptor','ELTP+K5P','Both ELTP and K5P Day','Both ELTP and K5P Day');
+INSERT INTO edfi.CalendarEventDescriptor(CalendarEventDescriptorId) values (@@IDENTITY);
+
+
 /* Program Intensity Descriptor */
 --DECLARE @@IDENTITY AS Integer;
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -3406,6 +3421,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/AttendanceEventCategoryDescriptor'
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/AttendanceEventCategoryDescriptor'
 
+/* Removing These due to changing to using negative attendance and calendar entries
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','K5PATTD','Attended K5P','Attended K5P');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
@@ -3420,6 +3436,18 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','ELTPABS','Absent ELTP','Absent ELTP');
+	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
+*/
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Unexcused Absence','Unexcused Absence','Unexcused Absence');
+	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Tardy','Tardy','Tardy');
+	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
+	
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Excused Absence','Excused Absence','Excused Absence');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
