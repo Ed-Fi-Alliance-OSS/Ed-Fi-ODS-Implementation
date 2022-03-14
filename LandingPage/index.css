@@ -34,6 +34,7 @@ a:hover {
 }
 
 /* adds the fade in animation for most elements */
+#cautionTitle,
 .section,
 .col,
 .row,
