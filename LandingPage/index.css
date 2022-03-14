@@ -95,19 +95,22 @@ a:hover {
   }
 }
 
-p {
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-}
-
 .caution {
   font-style: italic;
   color: #3b4151;
   font-family: sans-serif;
   font-size: 14px;
   border-left: 0px;
+  box-sizing: inherit;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  max-width: 1460px;
+  padding: 0 20px;
+  width: 100%;
 }
 
