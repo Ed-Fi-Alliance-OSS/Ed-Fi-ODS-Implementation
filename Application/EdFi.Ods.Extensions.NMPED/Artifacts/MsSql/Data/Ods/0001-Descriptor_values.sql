@@ -959,6 +959,10 @@ DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/ProgramTypeDescri
 
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/ProgramTypeDescriptor','Career and Technical Education','Career and Technical Education','Career and Technical Education');
+INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','Student School Food Service','Student School Food Service','Child qualifying for Student School Food Service');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
@@ -3342,6 +3346,14 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/EmploymentStatusDescriptor','R','Contracted Related Service Provider','Contracted Related Service Provider');
+	INSERT INTO edfi.EmploymentStatusDescriptor (EmploymentStatusDescriptorid) values (@@IDENTITY);
+	
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EmploymentStatusDescriptor','S','Long Term Substitute','Long Term Substitute');
+	INSERT INTO edfi.EmploymentStatusDescriptor (EmploymentStatusDescriptorid) values (@@IDENTITY);
+	
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/EmploymentStatusDescriptor','T','Short Term Substitute','Short Term Substitute');
 	INSERT INTO edfi.EmploymentStatusDescriptor (EmploymentStatusDescriptorid) values (@@IDENTITY);
 
 ---- VisaDescriptor
