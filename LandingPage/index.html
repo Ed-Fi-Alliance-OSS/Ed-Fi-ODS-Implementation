@@ -18,7 +18,7 @@ See the LICENSE and NOTICES files in the project root for more information.
     <link rel="icon" href="https://www.ed-fi.org/assets/2017/07/cropped-logo-192x192.png" sizes="192x192">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" />
-    <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="index.css?refreshcss=1" />
 
     <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js" rel="preload"></script>
     <script src="https://cdn.jsdelivr.net/npm/whatwg-fetch@3.0.0/dist/fetch.umd.min.js" rel="preload"></script>
@@ -36,6 +36,13 @@ See the LICENSE and NOTICES files in the project root for more information.
             <h6 id="progressDescription" class="center-align grey-text text-darken-1">Loading...</h6>
             <div id="errorDescription" class="center-align red-text hide"></div>
         </div>
+        <hr>
+        <div id="cautionTitle" class="valign-wrapper wrapper" style="justify-content: center; width: 100%">
+                        Note: The sandboxes provided here are for interactive documentation and demo purpose only. These
+                        sandboxes are not meant for testing integration and care must be taken not to use real student
+                        data.
+        </div>
+        <hr>
         <div id="sections" class="row hide"></div>
 
         <div id="progress">
