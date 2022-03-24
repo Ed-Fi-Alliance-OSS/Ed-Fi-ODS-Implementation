@@ -6,9 +6,11 @@ Domain Entity StudentSpecialEducationProgramAssociationSpecialEducationProgramEv
     date EventDate
         documentation "The date of the event."
         is required
+        is part of identity
     descriptor SpecialEducationEventType
         documentation "The special education event type."
         is required
+        is part of identity
     descriptor SpecialEducationEventReason
         documentation "The special education event reason."
         is optional

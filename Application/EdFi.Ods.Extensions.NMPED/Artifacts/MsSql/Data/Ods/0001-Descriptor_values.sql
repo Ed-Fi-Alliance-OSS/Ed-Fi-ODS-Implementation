@@ -2602,7 +2602,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '0', 'Homebound Instructor (Regular Education)', 'Homebound Instructor (Regular Education) - Teachers');
+        values ('uri://nmped.org/StaffClassificationDescriptor', '00', 'Homebound Instructor (Regular Education)', 'Homebound Instructor (Regular Education) - Teachers');
         INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
