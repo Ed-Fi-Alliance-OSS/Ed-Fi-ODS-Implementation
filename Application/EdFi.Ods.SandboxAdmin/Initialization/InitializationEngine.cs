@@ -160,6 +160,7 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
         public void RebuildSandboxes()
         {
+            List<string> resetSandboxKeys = new List<string>();
             try
             {
                 foreach (var user in _users)
@@ -168,7 +169,13 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
                     foreach (var sandbox in user.Value.Sandboxes.Where(x => x.Value.Refresh))
                     {
+                        if (resetSandboxKeys.Contains(sandbox.Key))
+                        {
+                            continue;
+                        }
+
                         _log.Debug($"Resetting sandbox {sandbox.Key} for {clientProfile.Vendor.VendorName}");
+                        resetSandboxKeys.Add(sandbox.Key);
                         _clientCreator.ResetSandboxClient(sandbox.Key, sandbox.Value, clientProfile);
                     }
                 }
