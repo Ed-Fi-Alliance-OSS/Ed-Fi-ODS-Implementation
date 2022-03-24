@@ -169,13 +169,12 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
                     foreach (var sandbox in user.Value.Sandboxes.Where(x => x.Value.Refresh))
                     {
-                        _log.Debug($"Resetting sandbox {sandbox.Key} for {clientProfile.Vendor.VendorName}");
-
                         if (resetSandboxKeys.Contains(sandbox.Key))
                         {
                             continue;
                         }
 
+                        _log.Debug($"Resetting sandbox {sandbox.Key} for {clientProfile.Vendor.VendorName}");
                         resetSandboxKeys.Add(sandbox.Key);
                         _clientCreator.ResetSandboxClient(sandbox.Key, sandbox.Value, clientProfile);
                     }
