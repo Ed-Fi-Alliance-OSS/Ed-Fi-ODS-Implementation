@@ -901,6 +901,25 @@
         }
       ],
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
+      "Email": "MultipleAuthorizationStrategyBased@ed-fi.org",
+      "VendorName": "Multiple Authorization Strategy Based Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901-C",
+              "LocalEducationOrganizations": [ 255901 ],
+              "OwnershipToken": "MultipleAuthorizationStrategyBasedTest",
+              "ApiClientOwnershipTokens": [ "MultipleAuthorizationStrategyBasedTest" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     }
   ]
 }

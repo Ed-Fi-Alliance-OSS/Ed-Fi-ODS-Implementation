@@ -18,6 +18,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             _logger.Debug($"Loading RecordOwnershipData in Security Database.");
             _securityRepository.LoadRecordOwnershipData();
+
+            _logger.Debug($"Loading Get Many Resources when Multiple Authorization Strategies Data Setup in Security Database.");
+            _securityRepository.LoadMultipleAuthorizationStrategyData();
         }
     }
 }
