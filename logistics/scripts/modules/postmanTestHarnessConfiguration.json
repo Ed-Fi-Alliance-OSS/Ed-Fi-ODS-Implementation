@@ -903,8 +903,8 @@
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
-      "Email": "GetManyResourcesMultipleAuthorizationStrategies@ed-fi.org",
-      "VendorName": "Multiple Authorization Strategies Based Test",
+      "Email": "MultipleAuthorizationStrategyBased@ed-fi.org",
+      "VendorName": "Multiple Authorization Strategy Based Test",
       "Applications": [
         {
           "ApplicationName": "ODS/API",
@@ -913,14 +913,8 @@
             {
               "ApiClientName": "255901-C",
               "LocalEducationOrganizations": [ 255901 ],
-              "OwnershipToken": "OwnershipToken_Three",
-              "ApiClientOwnershipTokens": [ "OwnershipToken_Three" ]
-            },
-            {
-              "ApiClientName": "255901-D",
-              "LocalEducationOrganizations": [ 255901 ],
-              "OwnershipToken": "OwnershipToken_Four",
-              "ApiClientOwnershipTokens": [ "OwnershipToken_Three", "OwnershipToken_Four" ]
+              "OwnershipToken": "MultipleAuthorizationStrategyBasedTest",
+              "ApiClientOwnershipTokens": [ "MultipleAuthorizationStrategyBasedTest" ]
             }
           ]
         }
