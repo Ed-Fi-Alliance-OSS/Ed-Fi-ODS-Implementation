@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 15.0.28307.852
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj", "{8D7CB143-8818-47A8-89E8-702D485E8DA0}"
 EndProject
@@ -92,6 +92,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.WebApi", "EdFi.Ods.WebApi\EdFi.Ods.WebApi.csproj", "{538782E7-25DC-494D-902D-3EE2EC839DC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Api.IntegrationTests", "..\..\Ed-Fi-ODS\tests\EdFi.Ods.Api.IntegrationTests\EdFi.Ods.Api.IntegrationTests.csproj", "{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.SampleStudentTranscript", "EdFi.Ods.Extensions.SampleStudentTranscript\EdFi.Ods.Extensions.SampleStudentTranscript.csproj", "{690F5E99-C189-442E-B795-64762AE7241E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +205,10 @@ Global
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690F5E99-C189-442E-B795-64762AE7241E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690F5E99-C189-442E-B795-64762AE7241E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690F5E99-C189-442E-B795-64762AE7241E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690F5E99-C189-442E-B795-64762AE7241E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -236,6 +242,7 @@ Global
 		{A7A3038A-B1B8-47EF-82A0-8EBD97BA020A} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
 		{538782E7-25DC-494D-902D-3EE2EC839DC6} = {26FBA24F-2F1E-47EA-BDE2-EF57AE81D65D}
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
+		{690F5E99-C189-442E-B795-64762AE7241E} = {F25ED154-FB97-4F39-933B-808D1B3B6D3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}
