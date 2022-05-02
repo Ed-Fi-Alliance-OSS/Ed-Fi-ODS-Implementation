@@ -3,6 +3,9 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
+
 function Install-NuGetCli {
     <#
     .SYNOPSIS
@@ -24,6 +27,16 @@ function Install-NuGetCli {
 
         [string] $sourceNuGetExe = "https://dist.nuget.org/win-x86-commandline/v5.3.1/nuget.exe"
     )
+
+    if (!(Get-IsWindows)) {
+        try {
+            mono -V
+        }
+        catch {
+            Write-Host "ERROR:  Mono is not installed on this Unix system." -ForegroundColor Red
+            return
+        }
+    }
 
     if (-not $(Test-Path $ToolsPath)) {
         mkdir $ToolsPath | Out-Null
