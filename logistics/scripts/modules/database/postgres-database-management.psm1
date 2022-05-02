@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 
@@ -17,6 +18,20 @@ $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "12.2.0"
 
 function Test-PostgreSQLBinariesInstalled {
+    if (!(Get-IsWindows)) {
+        try {
+            psql -V
+        }
+        catch {
+            Write-Host "ERROR:  Postgres client binaries are not installed on this Unix system." -ForegroundColor Red
+            Write-Host "To install them you can run:" -ForegroundColor Red
+            Write-Host "    Ubuntu: apt-get install postgresql-client" -ForegroundColor Red
+            Write-Host "    Alpine: apk add postgresql-client" -ForegroundColor Red
+            return
+        }
+    }
+
+
     $packagePath = "$script:toolsPath/$script:packageName.$script:packageVersion"
 
     $psqlExists = (Test-Path "$packagePath/tools/psql.exe")
