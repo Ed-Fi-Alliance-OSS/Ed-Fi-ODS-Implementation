@@ -10,7 +10,6 @@ function Get-IsWindows {
     #>
 
     if (!$IsWindows) {
-        $IsUnix = $false
         $IsWindows = $true
     }
 
