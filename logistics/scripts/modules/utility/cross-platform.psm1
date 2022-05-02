@@ -9,7 +9,7 @@ function Get-IsWindows {
         returns $True
     #>
 
-    if (!$IsWindows) {
+    if ($null -eq $IsWindows) {
         $IsWindows = $true
     }
 
