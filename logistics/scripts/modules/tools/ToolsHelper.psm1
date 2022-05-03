@@ -7,6 +7,7 @@
 $ErrorActionPreference = 'Stop'
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
 
 function Get-ToolsPath {
     if (-not [string]::IsNullOrWhiteSpace($env:toolsPath)) { return $env:toolsPath }
@@ -160,15 +161,31 @@ function Test-DotNetCore {
     $requiredMinor = 0
 
     try {
-        ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
+        if (Get-IsWindows) {
+            ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
+            if ($dotnet.Version.Major -lt $requiredMajor) {
+                throw
+            }
+    
+            if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
+                throw
+            }
+        }else{
+            $runtimes = Get-DotnetRuntimes
+            foreach($dotnet in $runtimes){
+                if ($dotnet.Version.Major -lt $requiredMajor) {
+                    throw
+                }
+        
+                if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
+                    throw
+                }
+            }
 
-        if ($dotnet.Version.Major -lt $requiredMajor) {
-            throw
         }
+        
 
-        if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
-            throw
-        }
+        
     }
     catch {
         throw "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor)+, available from https://dotnet.microsoft.com/download."
