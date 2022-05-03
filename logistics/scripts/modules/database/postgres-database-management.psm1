@@ -27,7 +27,7 @@ function Test-PostgreSQLBinariesInstalled {
             Write-Host "To install them you can run:" -ForegroundColor Red
             Write-Host "    Ubuntu: apt-get install postgresql-client" -ForegroundColor Red
             Write-Host "    Alpine: apk add postgresql-client" -ForegroundColor Red
-            return
+            return $false
         }
     }
 
