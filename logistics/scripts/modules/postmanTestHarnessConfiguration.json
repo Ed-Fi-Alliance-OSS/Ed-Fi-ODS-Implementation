@@ -10,7 +10,8 @@
           "ApiClients": [
             {
               "ApiClientName": "255901",
-              "LocalEducationOrganizations": [255901]
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_255901"
             }
           ]
         }
@@ -27,7 +28,8 @@
           "ApiClients": [
             {
               "ApiClientName": "Other_Namespace",
-              "LocalEducationOrganizations": [255901]
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_Other"
             }
           ]
         }
@@ -44,7 +46,8 @@
           "ApiClients": [
             {
               "ApiClientName": "255901001",
-              "LocalEducationOrganizations": [255901001]
+              "LocalEducationOrganizations": [255901001],
+              "OwnershipToken": "OwnershipToken_Austin_255901"
             },
             {
               "ApiClientName": "255901044",
