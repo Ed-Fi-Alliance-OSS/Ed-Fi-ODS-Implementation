@@ -27,13 +27,16 @@ function Get-DotnetRuntimes {
     }
     
     $runtimeArray = @()
-    foreach($runtime in $data){
+    foreach($entry in $data){
         
-        $values =  $runtime.Split(" ",3)
+        $values =  $entry.Split(" ",3)
+        $runtime = $values[0]
+        $version = [Version]$values[1]
+        $path = $values[2] -replace '[][]',''
         $thisRuntime = [ordered]@{
-            "Runtime" = $values[0];
-            "Version" = $values[1];
-            "Path" = $values[2];
+            "Runtime" = $runtime;
+            "Version" = $version;
+            "Path" = $path;
         }
         $thisObject = [PSCustomObject]$thisRuntime
         $runtimeArray += $thisObject
