@@ -88,8 +88,8 @@ function Install-EdFiOdsWebApi {
                 Username="ods-admin"
             }
             WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi-3"
-            WebApplicationPath="EdFiOdsApi-3"
+            WebSitePath="c:\inetpub\Ed-Fi"
+            WebApplicationPath="EdFiOdsApi"
             WebSitePort=843
             CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
         }

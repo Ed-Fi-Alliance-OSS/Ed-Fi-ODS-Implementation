@@ -38,7 +38,7 @@ function Install-EdFiOdsSwaggerUI {
             ToolsPath = "C:/temp/tools"
             WebApiMetadataUrl = "https://my-server.example/EdFiOdsWebApi/metadata"
             WebApiVersionUrl = "https://my-server.example/EdFiOdsWebApi"
-            WebSitePath="c:\inetpub\Ed-Fi-3"
+            WebSitePath="c:\inetpub\Ed-Fi"
             WebApplicationPath="SwaggerUI"
         }
         PS c:\> Install-EdFiOdsSwaggerUI @parameters
