@@ -33,8 +33,7 @@ function Install-NuGetCli {
             mono -V
         }
         catch {
-            Write-Host "ERROR:  Mono is not installed on this Unix system." -ForegroundColor Red
-            return
+            throw "ERROR:  Mono is not installed on this Unix-like system."
         }
     }
 
