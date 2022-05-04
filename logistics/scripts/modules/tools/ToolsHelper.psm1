@@ -157,10 +157,30 @@ function Install-ToolCodeGenUtility {
 }
 
 function Test-DotNetCore {
-    $requiredMajor = 6
-    $requiredMinor = 0
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [int]
+        $requiredMajor = 6,
+        [Parameter()]
+        [int]
+        $requiredMinor = 0,
+        [Parameter()]
+        [int]
+        $requiredBuild = 4
+    )
 
     try {
+        $runtimes = Get-DotnetRuntimes
+        
+        $validMajor = ($runtimes | Where {$_.Runtime -eq "Microsoft.AspNetCore.App" -OR $_.Runtime -eq "Microsoft.NETCore.App"} | Where { $_.Version.Major -ge $requiredMajor} )
+        $validMinor = ($validMajor | Where { $_.Version.Minor -ge $requiredMinor})
+        
+        if ($validMinor.Count -lt 2) {
+            throw
+        }
+        
+        <#
         if (Get-IsWindows) {
             ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
             if ($dotnet.Version.Major -lt $requiredMajor) {
@@ -193,6 +213,7 @@ function Test-DotNetCore {
             }
 
         }
+        #>
         
 
         
