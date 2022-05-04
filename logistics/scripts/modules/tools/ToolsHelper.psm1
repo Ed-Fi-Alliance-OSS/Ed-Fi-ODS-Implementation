@@ -173,14 +173,32 @@ function Test-DotNetCore {
     try {
         $runtimes = Get-DotnetRuntimes
         
+        # Method 1.A | This method will false positive if eg. there are 2 versions of AspNetCore but none of NetCore
+        # Validate Both at once
         $validMajor = ($runtimes | Where {$_.Runtime -eq "Microsoft.AspNetCore.App" -OR $_.Runtime -eq "Microsoft.NETCore.App"} | Where { $_.Version.Major -ge $requiredMajor} )
         $validMinor = ($validMajor | Where { $_.Version.Minor -ge $requiredMinor})
         
         if ($validMinor.Count -lt 2) {
             throw
         }
+
+        # Method 1.B | This will check both runtimes for the specific major/minor version
+        # Validate each runtime
+        $validAsp = ($runtimes | Where {$_.Runtime -eq "Microsoft.AspNetCore.App"} | Where { $_.Version.Major -ge $requiredMajor} | Where { $_.Version.Minor -ge $requiredMinor})
+        $validCore = ($runtimes | Where {$_.Runtime -eq "Microsoft.NETCore.App"} | Where { $_.Version.Major -ge $requiredMajor} | Where { $_.Version.Minor -ge $requiredMinor})
+
+        if ($validCore.Count -lt 1) {
+            Write-Verbose "No valid runtime versions were found for: Microsoft.NETCore.App"
+            throw
+        }
+        if ($validAsp.Count -lt 1) {
+            Write-Verbose "No valid runtime versions were found for: Microsoft.AspNetCore.App"
+            throw
+        }
         
+
         <#
+        # Method 2 | Same process as before for Windows. Tests every runtime for version, doesnt check name.
         if (Get-IsWindows) {
             ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
             if ($dotnet.Version.Major -lt $requiredMajor) {
