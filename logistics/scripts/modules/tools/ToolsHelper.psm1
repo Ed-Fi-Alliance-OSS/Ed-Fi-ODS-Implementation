@@ -165,20 +165,30 @@ function Test-DotNetCore {
             ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
             if ($dotnet.Version.Major -lt $requiredMajor) {
                 throw
+            }else {
+                Write-Verbose "$($dotnet.Name) major version $($dotnet.Version.Major) is greater than or equal to the required: $requiredMajor."
             }
     
             if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
                 throw
+            }else {
+                Write-Verbose "$($dotnet.Name) minor version $($dotnet.Version.Minor) is greater than or equal to the required: $requiredMinor."
             }
         }else{
             $runtimes = Get-DotnetRuntimes
             foreach($dotnet in $runtimes){
+                Write-Verbose "$($dotnet.Runtime) is installed at version $($dotnet.Version)."
+
                 if ($dotnet.Version.Major -lt $requiredMajor) {
                     throw
+                }else {
+                    Write-Verbose "$($dotnet.Runtime) major version $($dotnet.Version.Major) is greater than or equal to the required: $requiredMajor."
                 }
         
                 if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
                     throw
+                }else {
+                    Write-Verbose "$($dotnet.Runtime) minor version $($dotnet.Version.Minor) is greater than or equal to the required: $requiredMinor."
                 }
             }
 
