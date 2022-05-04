@@ -173,16 +173,7 @@ function Test-DotNetCore {
     try {
         $runtimes = Get-DotnetRuntimes
         
-        # Method 1.A | This method will false positive if eg. there are 2 versions of AspNetCore but none of NetCore
-        # Validate Both at once
-        $validMajor = ($runtimes | Where {$_.Runtime -eq "Microsoft.AspNetCore.App" -OR $_.Runtime -eq "Microsoft.NETCore.App"} | Where { $_.Version.Major -ge $requiredMajor} )
-        $validMinor = ($validMajor | Where { $_.Version.Minor -ge $requiredMinor})
-        
-        if ($validMinor.Count -lt 2) {
-            throw
-        }
-
-        # Method 1.B | This will check both runtimes for the specific major/minor version
+        # This will check both runtimes for the specific major/minor version
         # Validate each runtime
         $validAsp = ($runtimes | Where {$_.Runtime -eq "Microsoft.AspNetCore.App"} | Where { $_.Version.Major -ge $requiredMajor} | Where { $_.Version.Minor -ge $requiredMinor})
         $validCore = ($runtimes | Where {$_.Runtime -eq "Microsoft.NETCore.App"} | Where { $_.Version.Major -ge $requiredMajor} | Where { $_.Version.Minor -ge $requiredMinor})
@@ -195,43 +186,7 @@ function Test-DotNetCore {
             Write-Verbose "No valid runtime versions were found for: Microsoft.AspNetCore.App"
             throw
         }
-        
 
-        <#
-        # Method 2 | Same process as before for Windows. Tests every runtime for version, doesnt check name.
-        if (Get-IsWindows) {
-            ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
-            if ($dotnet.Version.Major -lt $requiredMajor) {
-                throw
-            }else {
-                Write-Verbose "$($dotnet.Name) major version $($dotnet.Version.Major) is greater than or equal to the required: $requiredMajor."
-            }
-    
-            if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
-                throw
-            }else {
-                Write-Verbose "$($dotnet.Name) minor version $($dotnet.Version.Minor) is greater than or equal to the required: $requiredMinor."
-            }
-        }else{
-            $runtimes = Get-DotnetRuntimes
-            foreach($dotnet in $runtimes){
-                Write-Verbose "$($dotnet.Runtime) is installed at version $($dotnet.Version)."
-
-                if ($dotnet.Version.Major -lt $requiredMajor) {
-                    throw
-                }else {
-                    Write-Verbose "$($dotnet.Runtime) major version $($dotnet.Version.Major) is greater than or equal to the required: $requiredMajor."
-                }
-        
-                if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
-                    throw
-                }else {
-                    Write-Verbose "$($dotnet.Runtime) minor version $($dotnet.Version.Minor) is greater than or equal to the required: $requiredMinor."
-                }
-            }
-
-        }
-        #>
         
 
         
