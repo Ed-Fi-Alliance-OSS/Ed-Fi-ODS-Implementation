@@ -5,12 +5,18 @@
 
 #requires -version 5
 param (
+    # Informational version number, defaults 1.0    
     [string]
     [Parameter(Mandatory = $true)]
-    $SemanticVersion,
+    $InformationalVersion = "1.0",
 
+    # Build counter from the automation tool, defaults to 1
     [string]
-    $BuildCounter,
+    $BuildCounter = "1",
+
+    # Build incrementer to add to the build counter to offset number from TeamCity builds, defaults to 0
+    [string]
+    $BuildIncrementer = "0",
 
     [string]
     $PreReleaseLabel,
@@ -42,6 +48,6 @@ $parameters = @{
     ToolsPath             = "../../../tools"
 }
 
-if ($BuildCounter) { $parameters.Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))" }
+if ($PreReleaseLabel) { $parameters.Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))" }
 
 Invoke-CreatePackage @parameters -Verbose:$verbose
