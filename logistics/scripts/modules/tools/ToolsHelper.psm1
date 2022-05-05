@@ -188,9 +188,6 @@ function Test-DotNetCore {
             throw
         }
 
-        
-
-        
     }
     catch {
         throw "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor)+, available from https://dotnet.microsoft.com/download."
