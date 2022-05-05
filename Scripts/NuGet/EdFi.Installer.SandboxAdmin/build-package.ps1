@@ -19,12 +19,6 @@ param (
     $BuildIncrementer = "0",
 
     [string]
-    $PreReleaseLabel,
-
-    [switch]
-    $Publish,
-
-    [string]
     $NuGetFeed,
 
     [string]
@@ -38,16 +32,17 @@ $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
 Import-Module "$PSScriptRoot/../../../logistics/scripts/modules/packaging/create-package.psm1" -Force
 
+$newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+$SemanticVersion = "$InformationalVersion.$newRevision"
+
 $parameters = @{
     PackageDefinitionFile = Resolve-Path ("$PSScriptRoot/EdFi.Installer.SandboxAdmin.nuspec")
     Version               = $SemanticVersion
     OutputDirectory       = Resolve-Path $PSScriptRoot
-    Publish               = $Publish
+    Publish               = $true
     Source                = $NuGetFeed
     ApiKey                = $NuGetApiKey
     ToolsPath             = "../../../tools"
 }
-
-if ($PreReleaseLabel) { $parameters.Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))" }
 
 Invoke-CreatePackage @parameters -Verbose:$verbose
