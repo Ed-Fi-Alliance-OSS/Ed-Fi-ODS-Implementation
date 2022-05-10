@@ -24,10 +24,6 @@ function Test-PostgreSQLBinariesInstalled {
             return $true
         }
         catch {
-            Write-Host "ERROR:  Postgres client binaries are not installed on this Unix-like system." -ForegroundColor Red
-            Write-Host "To install them you can run:" -ForegroundColor Red
-            Write-Host "    Ubuntu: apt-get install postgresql-client" -ForegroundColor Red
-            Write-Host "    Alpine: apk add postgresql-client" -ForegroundColor Red
             return $false
         }
     }
@@ -67,7 +63,14 @@ function Install-PostgreSQLBinaries {
     $packagePath = Get-NuGetPackage @parameters
 
     if (-not (Test-PostgreSQLBinariesInstalled)) {
-        throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
+        if(Get-IsWindows){
+            throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
+        }else{
+            throw "ERROR:  Postgres client binaries are not installed on this Unix-like system.
+                    To install them you can run:
+                        Ubuntu: apt-get install postgresql-client
+                        Alpine: apk add postgresql-client"
+        }
     }
 }
 
