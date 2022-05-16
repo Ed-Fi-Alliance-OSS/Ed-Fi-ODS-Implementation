@@ -38,6 +38,8 @@ function Install-EdFiOdsSwaggerUI {
             ToolsPath = "C:/temp/tools"
             WebApiMetadataUrl = "https://my-server.example/EdFiOdsWebApi/metadata"
             WebApiVersionUrl = "https://my-server.example/EdFiOdsWebApi"
+            WebSitePath="c:\inetpub\Ed-Fi"
+            WebApplicationPath="SwaggerUI"
         }
         PS c:\> Install-EdFiOdsSwaggerUI @parameters
     #>
@@ -75,9 +77,9 @@ function Install-EdFiOdsSwaggerUI {
         [int]
         $WebSitePort = 443,
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SwaggerUI".
+        # Path for the web application. Default: "SwaggerUI".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\SwaggerUI", # NB: _must_ use backslash with IIS settings
+        $WebApplicationPath = "SwaggerUI", # NB: _must_ use backslash with IIS settings
 
         # Web application name. Default: "SwaggerUI".
         [string]
@@ -117,7 +119,7 @@ function Install-EdFiOdsSwaggerUI {
     $result = @()
 
     $Config = @{
-        WebApplicationPath = $WebApplicationPath
+        WebApplicationPath = (Join-Path $WebSitePath $WebApplicationPath)
         PackageName = $PackageName
         PackageVersion = $PackageVersion
         PackageSource = $PackageSource
