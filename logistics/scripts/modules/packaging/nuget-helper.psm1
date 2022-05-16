@@ -30,11 +30,10 @@ function Install-NuGetCli {
 
     if (!(Get-IsWindows)) {
         try {
-            mono -V
+            ( mono -V  | Out-Null )
         }
         catch {
-            Write-Host "ERROR:  Mono is not installed on this Unix system." -ForegroundColor Red
-            return
+            throw "ERROR:  Mono is not installed on this Unix-like system."
         }
     }
 
