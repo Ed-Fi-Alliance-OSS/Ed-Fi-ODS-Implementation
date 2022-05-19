@@ -161,13 +161,10 @@ function Test-DotNetCore {
     param (
         [Parameter()]
         [int]
-        $requiredMajor = 6,
+        $RequiredMajor = 6,
         [Parameter()]
         [int]
-        $requiredMinor = 0,
-        [Parameter()]
-        [int]
-        $requiredBuild = 4
+        $RequiredMinor = 0
     )
 
     try {
@@ -175,22 +172,26 @@ function Test-DotNetCore {
         
         # This will check both runtimes for the specific major and minor version
         # All Microsoft.AspNetCore.App runtimes with greater than or equal major and minor version
-        $validAsp = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.AspNetCore.App"} | Where-Object { $_.Version.Major -ge $requiredMajor} | Where-Object { $_.Version.Minor -ge $requiredMinor})
+        $validAsp = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.AspNetCore.App"} `
+            | Where-Object { $_.Version.Major -ge $RequiredMajor} `
+            | Where-Object { $_.Version.Minor -ge $RequiredMinor})
         # All Microsoft.NETCore.App runtimes with greater than or equal major and minor version
-        $validCore = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.NETCore.App"} | Where-Object { $_.Version.Major -ge $requiredMajor} | Where-Object { $_.Version.Minor -ge $requiredMinor})
+        $validCore = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.NETCore.App"} `
+            | Where-Object { $_.Version.Major -ge $RequiredMajor} `
+            | Where-Object { $_.Version.Minor -ge $RequiredMinor})
 
-        if ($validCore.Count -lt 1) {
+        if (($validCore | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
             Write-Verbose "No valid runtime versions were found for: Microsoft.NETCore.App"
             throw
         }
-        if ($validAsp.Count -lt 1) {
+        if (($validAsp | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
             Write-Verbose "No valid runtime versions were found for: Microsoft.AspNetCore.App"
             throw
         }
 
     }
     catch {
-        throw "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor)+, available from https://dotnet.microsoft.com/download."
+        throw "Running scripts require .NET Core SDK $($RequiredMajor).$($RequiredMinor)+, available from https://dotnet.microsoft.com/download."
     }
 }
 
