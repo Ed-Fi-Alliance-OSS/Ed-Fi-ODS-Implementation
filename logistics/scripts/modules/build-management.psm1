@@ -154,7 +154,7 @@ function New-OctopusChannel {
 
     $headers = @{ "X-Octopus-ApiKey" = $octopusApiKey }
 
-    $odsApiChannelGetUri = "$octopusServer/api/projects/$octopusProjectId/channels/"
+    $odsApiChannelGetUri = "$octopusServer/api/projects/$octopusProjectId/channels/?skip=0&take=100"
     $channelPostUri = "$octopusServer/api/channels/"
     $response = Invoke-RestMethod -Method 'Get' -Uri $odsApiChannelGetUri -Headers $headers -UseBasicParsing
     if ($response.Items.Name -contains $channelName) {

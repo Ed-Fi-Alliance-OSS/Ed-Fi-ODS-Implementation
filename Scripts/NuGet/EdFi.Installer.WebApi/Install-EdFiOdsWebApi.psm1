@@ -88,8 +88,8 @@ function Install-EdFiOdsWebApi {
                 Username="ods-admin"
             }
             WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi-3"
-            WebApplicationPath="d:/octopus/applications/staging/EdFiOdsApi-3"
+            WebSitePath="c:\inetpub\Ed-Fi"
+            WebApplicationPath="EdFiOdsApi"
             WebSitePort=843
             CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
         }
@@ -191,9 +191,9 @@ function Install-EdFiOdsWebApi {
         [int]
         $WebSitePort = 443,
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\WebApi".
+        # Directory for the web application. Default: "WebApi".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi", # NB: _must_ use backslash with IIS settings
+        $WebApplicationPath = "WebApi", # NB: _must_ use backslash with IIS settings
 
         # Web application name. Default: "WebApi".
         [string]
@@ -282,7 +282,7 @@ function Install-EdFiOdsWebApi {
     $result = @()
 
     $config = @{
-        WebApplicationPath = $WebApplicationPath
+        WebApplicationPath = (Join-Path $WebSitePath $WebApplicationPath)
         PackageName = $PackageName
         PackageVersion = $PackageVersion
         PackageSource = $PackageSource

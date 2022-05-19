@@ -45,9 +45,9 @@ function Install-EdFiOdsSandboxAdmin {
     .EXAMPLE
         PS c:\> $parameters = @{
             PackageVersion     = '5.1.0'
-            WebSitePath        = 'c:\inetpub\SandboxAdmin'
+            WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
-            WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
+            WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
             Settings           = @{
                 ConnectionStrings            = @{
@@ -121,9 +121,9 @@ function Install-EdFiOdsSandboxAdmin {
         [int]
         $WebSitePort = 443,
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SandboxAdmin".
+        # Path for the web application. Default: "SandboxAdmin".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\SandboxAdmin", # NB: _must_ use backslash with IIS settings
+        $WebApplicationPath = "SandboxAdmin", # NB: _must_ use backslash with IIS settings
 
         # Web application name. Default: "SandboxAdmin".
         [string]
@@ -146,7 +146,7 @@ function Install-EdFiOdsSandboxAdmin {
     $result = @()
 
     $config = @{
-        WebApplicationPath = $WebApplicationPath
+        WebApplicationPath = (Join-Path $WebSitePath $WebApplicationPath)
         PackageName        = $PackageName
         PackageVersion     = $PackageVersion
         PackageSource      = $PackageSource

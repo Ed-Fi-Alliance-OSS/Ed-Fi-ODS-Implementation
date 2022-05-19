@@ -219,7 +219,7 @@ function Get-DefaultTPDMTemplateSettingsByEngine {
 
 function Get-SubtypesByFeature {
     return @{
-        changeQueries               = 'changes'
+        changeQueries               = 'Changes'
         ownershipBasedAuthorization = 'RecordOwnership'
     }
 }
