@@ -5,12 +5,6 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.NMPEDService') AND name = N'UX_NMPEDService_ChangeVersion')
-    CREATE INDEX [UX_NMPEDService_ChangeVersion] ON [nmped].[NMPEDService] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StaffDevelopment') AND name = N'UX_StaffDevelopment_ChangeVersion')
     CREATE INDEX [UX_StaffDevelopment_ChangeVersion] ON [nmped].[StaffDevelopment] ([ChangeVersion] ASC)
     GO

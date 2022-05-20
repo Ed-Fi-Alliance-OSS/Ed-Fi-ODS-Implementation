@@ -86,6 +86,14 @@ CREATE TABLE tracked_deletes_nmped.LevelOfEducationInstitutionDescriptor
        CONSTRAINT LevelOfEducationInstitutionDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmped.LevelOfIntegrationDescriptor
+(
+       LevelOfIntegrationDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT LevelOfIntegrationDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmped.LocalEducationAgencyTransportation
 (
        CategoryDescriptor01TransportationCategoryDescriptorId INT NOT NULL,
@@ -119,14 +127,6 @@ CREATE TABLE tracked_deletes_nmped.NMPEDClassPeriodDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT NMPEDClassPeriodDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.NMPEDService
-(
-       ServiceDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT NMPEDService_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.ParticipationInformationDescriptor
@@ -217,14 +217,6 @@ CREATE TABLE tracked_deletes_nmped.SpecialEducationEventTypeDescriptor
        CONSTRAINT SpecialEducationEventTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.SpecialEducationLevelOfIntegrationDescriptor
-(
-       SpecialEducationLevelOfIntegrationDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT SpecialEducationLevelOfIntegrationDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor
 (
        SpecialEducationNonComplianceReasonDescriptorId INT NOT NULL,
@@ -278,14 +270,6 @@ CREATE TABLE tracked_deletes_nmped.StaffEducationOrganizationDigitalEquity
        CONSTRAINT StaffEducationOrganizationDigitalEquity_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.StudentAwardLanguageDescriptor
-(
-       StudentAwardLanguageDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StudentAwardLanguageDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.StudentAwardTypeDescriptor
 (
        StudentAwardTypeDescriptorId INT NOT NULL,
@@ -322,9 +306,11 @@ CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec
 (
        BeginDate DATE NOT NULL,
        EducationOrganizationId INT NOT NULL,
+       EventDate DATE NOT NULL,
        ProgramEducationOrganizationId INT NOT NULL,
        ProgramName VARCHAR(60) NOT NULL,
        ProgramTypeDescriptorId INT NOT NULL,
+       SpecialEducationEventTypeDescriptorId INT NOT NULL,
        StudentUSI INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,

@@ -94,74 +94,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-NMPEDService">
-    <xs:annotation>
-      <xs:documentation>The student's program service information.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ComplexObjectType">
-        <xs:sequence>
-          <xs:element name="Service" type="ServiceDescriptorReferenceType">
-            <xs:annotation>
-              <xs:documentation>Indicates the Service being provided to the student by the Program.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>ServiceDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="PrimaryIndicator" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>True if service is a primary service.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceBeginDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>First date the Student was in this option for the current school year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceEndDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Last date the Student was in this option for the current school year.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceFrequency" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the frequency of the service.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceProviderName" type="EXTENSION-ServiceProviderName" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The name of the service provider.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceProviderType" type="EXTENSION-ServiceProviderTypeDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The type of the service provider.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ServiceProviderTypeDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceSetting" type="EXTENSION-ServiceSettingDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The service setting.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-ServiceSettingDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceDuration" type="xs:int" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the duration of the service.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-SectionExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -172,7 +104,7 @@
     <xs:complexContent>
       <xs:extension base="Section">
         <xs:sequence>
-          <xs:element name="NMPEDClassPeriod" type="EXTENSION-NMPEDClassPeriodDescriptorReferenceType">
+          <xs:element name="NMPEDClassPeriod" type="EXTENSION-NMPEDClassPeriodDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the type of class period for this section.</xs:documentation>
               <xs:appinfo>
@@ -838,6 +770,17 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
+  <xs:complexType name="EXTENSION-LevelOfIntegrationDescriptor">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of Levels of Integration for Gifted and Special Education Students.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-MileageTypeDescriptor">
     <xs:annotation>
       <xs:documentation>The mileage type.</xs:documentation>
@@ -992,17 +935,6 @@
       <xs:extension base="DescriptorType" />
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptor">
-    <xs:annotation>
-      <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-SpecialEducationNonComplianceReasonDescriptor">
     <xs:annotation>
       <xs:documentation>The special education event non compliance reason.</xs:documentation>
@@ -1039,17 +971,6 @@
   <xs:complexType name="EXTENSION-StaffDevelopmentPurposeCodeDescriptor">
     <xs:annotation>
       <xs:documentation>This descriptor describes the staff development purpose.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Descriptor</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="DescriptorType" />
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StudentAwardLanguageDescriptor">
-    <xs:annotation>
-      <xs:documentation>The award language codes.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -1222,14 +1143,6 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="BEPProgramLanguageLanguage" type="LanguageDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Language for students participating in BEP</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="MilitaryFamily" type="EXTENSION-MilitaryFamilyDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicator to identify the military stuats of the student's family</xs:documentation>
@@ -1252,11 +1165,6 @@
     <xs:complexContent>
       <xs:extension base="StudentProgramAssociation">
         <xs:sequence>
-          <xs:element name="NMPEDServiceReference" type="EXTENSION-NMPEDServiceReferenceType" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The New Mexico Service extension.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="ParticipationInformation" type="EXTENSION-ParticipationInformationDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Indicates the program participation information.</xs:documentation>
@@ -1270,6 +1178,14 @@
               <xs:documentation>Indicates the program Intensity.</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-ProgramIntensityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BEPProgramLanguageLanguage" type="LanguageDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Language for students participating in BEP</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LanguageDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -1342,7 +1258,7 @@
     <xs:complexContent>
       <xs:extension base="StudentSpecialEducationProgramAssociation">
         <xs:sequence>
-          <xs:element name="SpecialEducationLevelOfIntegration" type="EXTENSION-SpecialEducationLevelOfIntegrationDescriptorReferenceType">
+          <xs:element name="SpecialEducationLevelOfIntegrationLevelOfIntegration" type="EXTENSION-LevelOfIntegrationDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>This field holds the level of integration that represents the amount of special education service.
                                       Valid values are:
@@ -1351,7 +1267,7 @@
                                       3 = 50% of the day or more, but not a full day (extensive or 'C')
                                       4 = Up to a full day or program 3Y/4Y (maximum or 'D')</xs:documentation>
               <xs:appinfo>
-                <ann:Descriptor>EXTENSION-SpecialEducationLevelOfIntegrationDescriptor</ann:Descriptor>
+                <ann:Descriptor>EXTENSION-LevelOfIntegrationDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
@@ -1464,43 +1380,6 @@
           <xs:element name="LocalEducationAgencyTransportationIdentity" type="EXTENSION-LocalEducationAgencyTransportationIdentityType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Identity of a LocalEducationAgencyTransportation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-NMPEDServiceIdentityType">
-    <xs:annotation>
-      <xs:documentation>Identity of a NMPEDService.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Identity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element name="Service" type="ServiceDescriptorReferenceType">
-        <xs:annotation>
-          <xs:documentation>Indicates the Service being provided to the student by the Program.</xs:documentation>
-          <xs:appinfo>
-            <ann:Descriptor>ServiceDescriptor</ann:Descriptor>
-          </xs:appinfo>
-        </xs:annotation>
-      </xs:element>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-NMPEDServiceReferenceType">
-    <xs:annotation>
-      <xs:documentation>Provides alternative references for a NMPEDService. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="ReferenceType">
-        <xs:sequence>
-          <xs:element name="NMPEDServiceIdentity" type="EXTENSION-NMPEDServiceIdentityType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Identity of a NMPEDService.</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -1725,6 +1604,19 @@
       <xs:element name="StudentSpecialEducationProgramAssociationReference" type="StudentSpecialEducationProgramAssociationReferenceType">
         <xs:annotation>
           <xs:documentation>The student program association.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EventDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date of the event.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="SpecialEducationEventType" type="EXTENSION-SpecialEducationEventTypeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>The special education event type.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-SpecialEducationEventTypeDescriptor</ann:Descriptor>
+          </xs:appinfo>
         </xs:annotation>
       </xs:element>
     </xs:sequence>
@@ -1967,6 +1859,15 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
+  <xs:simpleType name="EXTENSION-LevelOfIntegrationDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>This descriptor describes the type of Levels of Integration for Gifted and Special Education Students.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
   <xs:simpleType name="EXTENSION-MileageTypeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The mileage type.</xs:documentation>
@@ -2093,15 +1994,6 @@
     </xs:annotation>
     <xs:restriction base="DescriptorReferenceType" />
   </xs:simpleType>
-  <xs:simpleType name="EXTENSION-SpecialEducationLevelOfIntegrationDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>This descriptor describes the type of Levels of Integration.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
   <xs:simpleType name="EXTENSION-SpecialEducationNonComplianceReasonDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>The special education event non compliance reason.</xs:documentation>
@@ -2132,15 +2024,6 @@
   <xs:simpleType name="EXTENSION-StaffDevelopmentPurposeCodeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>This descriptor describes the staff development purpose.</xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:restriction base="DescriptorReferenceType" />
-  </xs:simpleType>
-  <xs:simpleType name="EXTENSION-StudentAwardLanguageDescriptorReferenceType">
-    <xs:annotation>
-      <xs:documentation>The award language codes.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>
@@ -2231,6 +2114,51 @@
   <xs:annotation>
     <xs:documentation>===== Common Types =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-ServiceExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="Service">
+        <xs:sequence>
+          <xs:element name="ServiceFrequency" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServiceDuration" type="xs:int">
+            <xs:annotation>
+              <xs:documentation>Number of days the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) service was offered during the reporting period. A one to two digit number not to exceed the number of days within the reporting period. A one to two digit number.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServiceProviderName" type="EXTENSION-ServiceProviderName" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Name of Community Service Provider Entity.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServiceProviderType" type="EXTENSION-ServiceProviderTypeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Provide the role of the individual who is providing the service for Expanded and Enriched Learning Time and Opportunities (EELTO).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ServiceProviderTypeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServiceSetting" type="EXTENSION-ServiceSettingDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>A description of when the service occurs. Required for Community School Programs (CSP) if the service occurred outside of the instructional day.  Otherwise value should not be populated.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ServiceSettingDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-SpecialEducationProgramServiceExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -2243,17 +2171,39 @@
         <xs:sequence>
           <xs:element name="IntegratedServicesStatus" type="xs:boolean" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The status of the integrated service.</xs:documentation>
+              <xs:documentation>A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="ServiceDuration" type="xs:int" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The service duration.</xs:documentation>
+              <xs:documentation>Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly.</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="StaffUSI" type="xs:int" minOccurs="0">
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentCharacteristicExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Common</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StudentCharacteristic">
+        <xs:sequence>
+          <xs:element name="GiftedLevelOfIntegrationLevelOfIntegration" type="EXTENSION-LevelOfIntegrationDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>The Staff Unique State Identifier</xs:documentation>
+              <xs:documentation>This field holds the level of integration that represents the amount of service for GIFTED characteristic students only
+                                  Valid values are:
+                                  1 = Less than 10% of the day (minimum or 'A')
+                                  2 = 11% to 49% of the day (moderate or 'B')
+                                  3 = 50% of the day or more, but not a full day (extensive or 'C')
+                                  4 = Up to a full day or program 3Y/4Y (maximum or 'D')</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-LevelOfIntegrationDescriptor</ann:Descriptor>
+              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -2301,7 +2251,7 @@
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-ServiceProviderName">
     <xs:annotation>
-      <xs:documentation>The name of the service provider.</xs:documentation>
+      <xs:documentation>Name of Community Service Provider Entity.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>

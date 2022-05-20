@@ -1,9 +1,6 @@
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.LocalEducationAgencyTransportation
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 
-CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.NMPEDService
-    FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
-
 CREATE TRIGGER UpdateChangeVersion BEFORE UPDATE ON nmped.StaffDevelopment
     FOR EACH ROW EXECUTE PROCEDURE changes.UpdateChangeVersion();
 

@@ -1,7 +1,5 @@
 CREATE INDEX IF NOT EXISTS UX_a13cc7_ChangeVersion ON nmped.LocalEducationAgencyTransportation(ChangeVersion);
 
-CREATE INDEX IF NOT EXISTS UX_aff4a0_ChangeVersion ON nmped.NMPEDService(ChangeVersion);
-
 CREATE INDEX IF NOT EXISTS UX_62d69c_ChangeVersion ON nmped.StaffDevelopment(ChangeVersion);
 
 CREATE INDEX IF NOT EXISTS UX_f6e59f_ChangeVersion ON nmped.StaffEducationOrganizationDigitalEquity(ChangeVersion);

@@ -33,6 +33,9 @@
   <Aggregate root="LevelOfEducationInstitutionDescriptor">
     <Entity table="LevelOfEducationInstitutionDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="LevelOfIntegrationDescriptor">
+    <Entity table="LevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="LocalEducationAgencyTransportation">
     <Entity table="LocalEducationAgencyTransportation" schema="nmped"/>
   </Aggregate>
@@ -44,9 +47,6 @@
   </Aggregate>
   <Aggregate root="NMPEDClassPeriodDescriptor">
     <Entity table="NMPEDClassPeriodDescriptor" isA="Descriptor" schema="nmped"/>
-  </Aggregate>
-  <Aggregate root="NMPEDService">
-    <Entity table="NMPEDService" schema="nmped"/>
   </Aggregate>
   <Aggregate root="ParticipationInformationDescriptor">
     <Entity table="ParticipationInformationDescriptor" isA="Descriptor" schema="nmped"/>
@@ -81,9 +81,6 @@
   <Aggregate root="SpecialEducationEventTypeDescriptor">
     <Entity table="SpecialEducationEventTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
-  <Aggregate root="SpecialEducationLevelOfIntegrationDescriptor">
-    <Entity table="SpecialEducationLevelOfIntegrationDescriptor" isA="Descriptor" schema="nmped"/>
-  </Aggregate>
   <Aggregate root="SpecialEducationNonComplianceReasonDescriptor">
     <Entity table="SpecialEducationNonComplianceReasonDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
@@ -101,9 +98,6 @@
   </Aggregate>
   <Aggregate root="StaffEducationOrganizationDigitalEquity">
     <Entity table="StaffEducationOrganizationDigitalEquity" schema="nmped"/>
-  </Aggregate>
-  <Aggregate root="StudentAwardLanguageDescriptor">
-    <Entity table="StudentAwardLanguageDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
   <Aggregate root="StudentAwardTypeDescriptor">
     <Entity table="StudentAwardTypeDescriptor" isA="Descriptor" schema="nmped"/>
@@ -147,7 +141,4 @@
   <Aggregate root="VehicleTypeDescriptor">
     <Entity table="VehicleTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
-  <AggregateExtension root="StudentProgramAssociation">
-    <Entity table="StudentProgramAssociationNMPEDService" schema="nmped"/>
-  </AggregateExtension>
 </AggregateExtensions>

@@ -196,6 +196,24 @@ ALTER TABLE [nmped].[LevelOfEducationInstitutionDescriptor] ENABLE TRIGGER [nmpe
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_LevelOfIntegrationDescriptor_TR_DeleteTracking] ON [nmped].[LevelOfIntegrationDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[LevelOfIntegrationDescriptor](LevelOfIntegrationDescriptorId, Id, ChangeVersion)
+    SELECT  d.LevelOfIntegrationDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.LevelOfIntegrationDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmped].[LevelOfIntegrationDescriptor] ENABLE TRIGGER [nmped_LevelOfIntegrationDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_LocalEducationAgencyTransportation_TR_DeleteTracking] ON [nmped].[LocalEducationAgencyTransportation] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -264,23 +282,6 @@ END
 GO
 
 ALTER TABLE [nmped].[NMPEDClassPeriodDescriptor] ENABLE TRIGGER [nmped_NMPEDClassPeriodDescriptor_TR_DeleteTracking]
-GO
-
-
-CREATE TRIGGER [nmped].[nmped_NMPEDService_TR_DeleteTracking] ON [nmped].[NMPEDService] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_nmped].[NMPEDService](ServiceDescriptorId, Id, ChangeVersion)
-    SELECT  ServiceDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-END
-GO
-
-ALTER TABLE [nmped].[NMPEDService] ENABLE TRIGGER [nmped_NMPEDService_TR_DeleteTracking]
 GO
 
 
@@ -482,24 +483,6 @@ ALTER TABLE [nmped].[SpecialEducationEventTypeDescriptor] ENABLE TRIGGER [nmped_
 GO
 
 
-CREATE TRIGGER [nmped].[nmped_SpecialEducationLevelOfIntegrationDescriptor_TR_DeleteTracking] ON [nmped].[SpecialEducationLevelOfIntegrationDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_nmped].[SpecialEducationLevelOfIntegrationDescriptor](SpecialEducationLevelOfIntegrationDescriptorId, Id, ChangeVersion)
-    SELECT  d.SpecialEducationLevelOfIntegrationDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.SpecialEducationLevelOfIntegrationDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [nmped].[SpecialEducationLevelOfIntegrationDescriptor] ENABLE TRIGGER [nmped_SpecialEducationLevelOfIntegrationDescriptor_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [nmped].[nmped_SpecialEducationNonComplianceReasonDescriptor_TR_DeleteTracking] ON [nmped].[SpecialEducationNonComplianceReasonDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -606,24 +589,6 @@ ALTER TABLE [nmped].[StaffEducationOrganizationDigitalEquity] ENABLE TRIGGER [nm
 GO
 
 
-CREATE TRIGGER [nmped].[nmped_StudentAwardLanguageDescriptor_TR_DeleteTracking] ON [nmped].[StudentAwardLanguageDescriptor] AFTER DELETE AS
-BEGIN
-    IF @@rowcount = 0 
-        RETURN
-
-    SET NOCOUNT ON
-
-    INSERT INTO [tracked_deletes_nmped].[StudentAwardLanguageDescriptor](StudentAwardLanguageDescriptorId, Id, ChangeVersion)
-    SELECT  d.StudentAwardLanguageDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM    deleted d
-            INNER JOIN edfi.Descriptor b ON d.StudentAwardLanguageDescriptorId = b.DescriptorId
-END
-GO
-
-ALTER TABLE [nmped].[StudentAwardLanguageDescriptor] ENABLE TRIGGER [nmped_StudentAwardLanguageDescriptor_TR_DeleteTracking]
-GO
-
-
 CREATE TRIGGER [nmped].[nmped_StudentAwardTypeDescriptor_TR_DeleteTracking] ON [nmped].[StudentAwardTypeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 
@@ -683,8 +648,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent](BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, ChangeVersion)
-    SELECT  BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent](BeginDate, EducationOrganizationId, EventDate, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationEventTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, EducationOrganizationId, EventDate, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationEventTypeDescriptorId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO

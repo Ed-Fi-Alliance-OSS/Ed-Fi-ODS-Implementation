@@ -1,9 +1,6 @@
 ALTER TABLE nmped.LocalEducationAgencyTransportation
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
-ALTER TABLE nmped.NMPEDService
-ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
-
 ALTER TABLE nmped.StaffDevelopment
 ADD ChangeVersion BIGINT DEFAULT nextval('changes.ChangeVersionSequence') NOT NULL;
 
