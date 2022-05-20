@@ -943,9 +943,10 @@ values ('uri://nmped.org/ProgramTypeDescriptor','4Y','4Y','Child participating i
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ProgramTypeDescriptor','BEP-1','BEP Participation Code 1','Bilingual Multicultural Education Program - Participation Code 1');
+values ('uri://nmped.org/ProgramTypeDescriptor','BEP','BEP','Bilingual Multicultural Education Program');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','BEP-2','BEP Participation Code 2','Bilingual Multicultural Education Program - Participation Code 2');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
@@ -961,6 +962,7 @@ INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTI
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','BEP-5','BEP Participation Code 5','Bilingual Multicultural Education Program - Participation Code 5');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','BSCE','BSCE','Bus Services Vocational Ed/Concurrent Enrollment');
@@ -975,12 +977,14 @@ values ('uri://nmped.org/ProgramTypeDescriptor','BUSA','BUSA','Bus Services for 
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ProgramTypeDescriptor','CEIS-13','CEIS Participation Code 13','Coordinated Early Intervening Services - Participation Code 13');
+values ('uri://nmped.org/ProgramTypeDescriptor','CEIS','CEIS','Coordinated Early Intervening Services');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','CEIS-14','CEIS Participation Code 14','Coordinated Early Intervening Services - Participation Code 14');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','CSDA','CSDA','Charter school student participating in a district activity');
@@ -999,9 +1003,10 @@ values ('uri://nmped.org/ProgramTypeDescriptor','EELTO','EELTO','Expanded and En
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ProgramTypeDescriptor','ELL-6','ELL Participation Code 6','English Learner - Participation Code 6');
+values ('uri://nmped.org/ProgramTypeDescriptor','ELL','ELL','English Learner');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','ELL-7','ELL Participation Code 7','English Learner - Participation Code 7');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
@@ -1013,6 +1018,7 @@ INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTI
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','ELL-9','ELL Participation Code 9','English Learner - Participation Code 9');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','ELTP','ELTP','Extended Learning Time Program');
@@ -1031,12 +1037,14 @@ values ('uri://nmped.org/ProgramTypeDescriptor','HSDA','HSDA','Home school stude
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ProgramTypeDescriptor','NMPREK-450HR','NMPREK Participation Code 450HR','Student is participating in the NM PreK program - Participation Code 450HR');
+values ('uri://nmped.org/ProgramTypeDescriptor','NMPREK','NMPREK','Student is participating in the NM PreK program');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','NMPREK-900HR','NMPREK Participation Code 900HR','Student is participating in the NM PreK program - Participation Code 900HR');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','T1A','T1A','Title I Part A');
@@ -1055,9 +1063,10 @@ values ('uri://nmped.org/ProgramTypeDescriptor','T1APR','T1APR','Title I Part A 
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/ProgramTypeDescriptor','T3-6','T3 Participation Code 6','Title III -  Participation Code 6');
+values ('uri://nmped.org/ProgramTypeDescriptor','T3','T3','Title III');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','T3-7','T3 Participation Code 7','Title III -  Participation Code 7');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
@@ -1069,6 +1078,7 @@ INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTI
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','T3-9','T3 Participation Code 9','Title III -  Participation Code 9');
 INSERT INTO edfi.ProgramTypeDescriptor(ProgramTypeDescriptorID) values (@@IDENTITY);
+*/
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ProgramTypeDescriptor','T7','T7','Title VII');
@@ -3403,10 +3413,12 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Unexcused Absence','Unexcused Absence','Unexcused Absence');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
 
+/*
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Tardy','Tardy','Tardy');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
-	
+*/
+
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Excused Absence','Excused Absence','Excused Absence');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
