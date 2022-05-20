@@ -1,0 +1,7 @@
+Common EdFi.SpecialEducationProgramService additions
+  bool IntegratedServicesStatus
+      documentation "A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment."
+      is optional
+  integer ServiceDuration
+      documentation "Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly."
+      is optional
