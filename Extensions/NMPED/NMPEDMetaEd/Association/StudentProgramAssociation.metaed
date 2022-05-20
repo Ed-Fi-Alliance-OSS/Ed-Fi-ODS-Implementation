@@ -8,3 +8,7 @@ Association EdFi.StudentProgramAssociation additions
     descriptor ProgramIntensity
         documentation "Indicates the program Intensity."
         is optional
+    descriptor EdFi.Language
+        documentation "Language for students participating in BEP"
+        is optional
+        role name BEPProgramLanguage

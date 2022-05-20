@@ -1,21 +1,21 @@
-/* SpecialEducationLevelOfIntegration TEST  */
-/*IF NOT EXISTS (SELECT * FROM edfi.Descriptor WHERE [Namespace]='uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor')
+/* LevelOfIntegration */
+/*IF NOT EXISTS (SELECT * FROM edfi.Descriptor WHERE [Namespace]='uri://nmped.org/LevelOfIntegrationDescriptor')
 BEGIN*/
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor','1','1 = Less than 10% of the day (minimum or "A")','1 = Less than 10% of the day (minimum or "A")');
-	INSERT INTO nmped.SpecialEducationLevelOfIntegrationDescriptor (SpecialEducationLevelOfIntegrationDescriptorId) values (@@IDENTITY);
+	values ('uri://nmped.org/LevelOfIntegrationDescriptor','1','1 = Less than 10% of the day (minimum or "A")','1 = Less than 10% of the day (minimum or "A")');
+	INSERT INTO nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId) values (@@IDENTITY);
 
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor','2','2 = 11% to 49% of the day (moderate or "B")','2 = 11% to 49% of the day (moderate or "B")');
-	INSERT INTO nmped.SpecialEducationLevelOfIntegrationDescriptor (SpecialEducationLevelOfIntegrationDescriptorId) values (@@IDENTITY);
+	values ('uri://nmped.org/LevelOfIntegrationDescriptor','2','2 = 11% to 49% of the day (moderate or "B")','2 = 11% to 49% of the day (moderate or "B")');
+	INSERT INTO nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId) values (@@IDENTITY);
 
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor','3','3 = 50% of the day or more, but not a full day (extensive or "C")','3 = 50% of the day or more, but not a full day (extensive or "C")');
-	INSERT INTO nmped.SpecialEducationLevelOfIntegrationDescriptor (SpecialEducationLevelOfIntegrationDescriptorId) values (@@IDENTITY);
+	values ('uri://nmped.org/LevelOfIntegrationDescriptor','3','3 = 50% of the day or more, but not a full day (extensive or "C")','3 = 50% of the day or more, but not a full day (extensive or "C")');
+	INSERT INTO nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId) values (@@IDENTITY);
 
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/SpecialEducationLevelOfIntegrationDescriptor','4','4 = Up to a full day or program 3Y/4Y (maximum or "D")','4 = Up to a full day or program 3Y/4Y (maximum or "D")');
-	INSERT INTO nmped.SpecialEducationLevelOfIntegrationDescriptor (SpecialEducationLevelOfIntegrationDescriptorId) values (@@IDENTITY);
+	values ('uri://nmped.org/LevelOfIntegrationDescriptor','4','4 = Up to a full day or program 3Y/4Y (maximum or "D")','4 = Up to a full day or program 3Y/4Y (maximum or "D")');
+	INSERT INTO nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId) values (@@IDENTITY);
 /*END;*/
 
 /* EducationOrganizationCategoryDescriptor */
@@ -437,7 +437,7 @@ values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','79','University
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','80','Western Governor�s University�','Western Governor�s University�');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','80','Western Governor''s University','Western Governor''s University');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -449,7 +449,7 @@ values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','82','ITT Techni
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','83','Webster University � Albuquerque','Webster University � Albuquerque');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','83','Webster University - Albuquerque','Webster University - Albuquerque');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -465,251 +465,203 @@ values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','86','Fort Lewis
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AA','Armed Forces Americas - AA','Armed Forces Americas - AA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','01','Alabama - AL','Alabama - AL');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AE','Armed Forces Canada - AE','Armed Forces Canada - AE');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','02','Alaska - AK','Alaska - AK');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AK','Alaska - AK','Alaska - AK');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','03','Arizona - AZ','Arizona - AZ');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AL','Alabama - AL','Alabama - AL');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','04','Arkansas - AR','Arkansas - AR');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AP','Armed Forces Pacific - AP','Armed Forces Pacific - AP');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','05','California - CA','California - CA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AR','Arkansas - AR','Arkansas - AR');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','06','Colorado - CO','Colorado - CO');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AS','American Samoa - AS','American Samoa - AS');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','07','Connecticut - CT','Connecticut - CT');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','AZ','Arizona - AZ','Arizona - AZ');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','08','Delaware - DE','Delaware - DE');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','CA','California - CA','California - CA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','09','District of Columbia - DC','District of Columbia - DC');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','CO','Colorado - CO','Colorado - CO');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','10','Florida - FL','Florida - FL');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','CT','Connecticut - CT','Connecticut - CT');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','11','Georgia - GA','Georgia - GA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','DC','District of Columbia - DC','District of Columbia - DC');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','12','Hawaii - HI','Hawaii - HI');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','DE','Delaware - DE','Delaware - DE');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','13','Idaho - ID','Idaho - ID');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','FL','Florida - FL','Florida - FL');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','14','Illinois - IL','Illinois - IL');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','FM','Federated States of Micronesia - FM','Federated States of Micronesia - FM');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','15','Indiana - IN','Indiana - IN');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','GA','Georgia - GA','Georgia - GA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','16','Iowa - IA','Iowa - IA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','GU','Guam - GU','Guam - GU');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','17','Kansas - KS','Kansas - KS');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','HI','Hawaii - HI','Hawaii - HI');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','18','Kentucky - KY','Kentucky - KY');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','IA','Iowa - IA','Iowa - IA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','19','Louisiana - LA','Louisiana - LA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','ID','Idaho - ID','Idaho - ID');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','20','Maine - ME','Maine - ME');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','IL','Illinois - IL','Illinois - IL');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','21','Maryland - MD','Maryland - MD');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','IN','Indiana - IN','Indiana - IN');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','22','Massachusetts - MA','Massachusetts - MA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','KS','Kansas - KS','Kansas - KS');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','23','Michigan - MI','Michigan - MI');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','KY','Kentucky - KY','Kentucky - KY');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','24','Minnesota - MN','Minnesota - MN');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','LA','Louisiana - LA','Louisiana - LA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','25','Mississippi - MS','Mississippi - MS');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MA','Massachusetts - MA','Massachusetts - MA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','26','Missouri - MO','Missouri - MO');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MD','Maryland - MD','Maryland - MD');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','27','Montana - MT','Montana - MT');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','ME','Maine - ME','Maine - ME');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','28','Nebraska - NE','Nebraska - NE');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MH','Marshall Islands - MH','Marshall Islands - MH');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','29','Nevada - NV','Nevada - NV');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MI','Michigan - MI','Michigan - MI');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','30','New Hampshire - NH','New Hampshire - NH');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MN','Minnesota - MN','Minnesota - MN');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','31','New Jersey - NJ','New Jersey - NJ');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MO','Missouri - MO','Missouri - MO');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','32','New York - NY','New York - NY');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MP','Northern Mariana Islands - MP','Northern Mariana Islands - MP');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','33','North Carolina - NC','North Carolina - NC');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MS','Mississippi - MS','Mississippi - MS');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','34','North Dakota - ND','North Dakota - ND');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','MT','Montana - MT','Montana - MT');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','35','Ohio - OH','Ohio - OH');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NC','North Carolina - NC','North Carolina - NC');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','36','Oklahoma - OK','Oklahoma - OK');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','ND','North Dakota - ND','North Dakota - ND');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','37','Oregon - OR','Oregon - OR');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NE','Nebraska - NE','Nebraska - NE');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','38','Pennsylvania - PA','Pennsylvania - PA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NH','New Hampshire - NH','New Hampshire - NH');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','39','Rhode Island - RI','Rhode Island - RI');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NJ','New Jersey - NJ','New Jersey - NJ');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','40','South Carolina - SC','South Carolina - SC');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NM','New Mexico - NM','New Mexico - NM');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','41','South Dakota - SD','South Dakota - SD');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NV','Nevada - NV','Nevada - NV');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','42','Tennessee - TN','Tennessee - TN');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','NY','New York - NY','New York - NY');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','43','Texas - TX','Texas - TX');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','OH','Ohio - OH','Ohio - OH');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','44','Utah - UT','Utah - UT');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','OK','Oklahoma - OK','Oklahoma - OK');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','45','Vermont - VT','Vermont - VT');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','OR','Oregon - OR','Oregon - OR');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','46','Virginia - VA','Virginia - VA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','PA','Pennsylvania - PA','Pennsylvania - PA');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','47','Washington - WA','Washington - WA');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','PR','Puerto Rico - PR','Puerto Rico - PR');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','48','West Virginia - WV','West Virginia - WV');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','PW','Palau - PW','Palau - PW');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','49','Wisconsin - WI','Wisconsin - WI');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','RI','Rhode Island - RI','Rhode Island - RI');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','SC','South Carolina - SC','South Carolina - SC');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','SD','South Dakota - SD','South Dakota - SD');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','TN','Tennessee - TN','Tennessee - TN');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','TX','Texas - TX','Texas - TX');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','UT','Utah - UT','Utah - UT');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','VA','Virginia - VA','Virginia - VA');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','VI','Virgin Islands - VI','Virgin Islands - VI');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','VT','Vermont - VT','Vermont - VT');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','WA','Washington - WA','Washington - WA');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','WI','Wisconsin - WI','Wisconsin - WI');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','WV','West Virginia - WV','West Virginia - WV');
-INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','WY','Wyoming - WY','Wyoming - WY');
+values ('uri://nmped.org/LevelOfEducationInstitutionDescriptor','50','Wyoming - WY','Wyoming - WY');
 INSERT INTO nmped.LevelOfEducationInstitutionDescriptor(LevelOfEducationInstitutionDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -3249,11 +3201,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Special Education','Special Education','Special Education');
 	INSERT INTO edfi.CourseLevelCharacteristicDescriptor (CourseLevelCharacteristicDescriptorId) values (@@IDENTITY);
 
-
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Elective','Elective','Elective');
 	INSERT INTO edfi.CourseLevelCharacteristicDescriptor (CourseLevelCharacteristicDescriptorId) values (@@IDENTITY);
-
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Lab Component','Lab Component','Lab Component');
@@ -3261,7 +3211,6 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Basic/General','Basic/General','Basic/General');
-
 	INSERT INTO edfi.CourseLevelCharacteristicDescriptor (CourseLevelCharacteristicDescriptorId) values (@@IDENTITY);
 
 ----Program Type Descriptor
@@ -3803,6 +3752,9 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         INSERT INTO edfi.StudentCharacteristicDescriptor(StudentCharacteristicDescriptorId) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'Displaced Homemaker', 'Displaced Homemaker','Displaced Homemaker');
+        INSERT INTO edfi.StudentCharacteristicDescriptor(StudentCharacteristicDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values  ('uri://nmped.org/StudentCharacteristicDescriptor', 'Home Schooled', 'Home Schooled','Home Schooled');
         INSERT INTO edfi.StudentCharacteristicDescriptor(StudentCharacteristicDescriptorId) values (@@IDENTITY);
 
 

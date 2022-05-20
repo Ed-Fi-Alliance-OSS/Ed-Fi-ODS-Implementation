@@ -5,11 +5,6 @@ Association EdFi.StudentEducationOrganizationAssociation additions
     descriptor DentalExaminationVerificationCode
         documentation "This code for the dental examination performed."
         is optional
-    descriptor EdFi.Language
-        documentation "Language for students participating in BEP"
-        is optional
-        role name BEPProgramLanguage
     descriptor MilitaryFamily
         documentation "Indicator to identify the military stuats of the student's family"
         is optional
-        
