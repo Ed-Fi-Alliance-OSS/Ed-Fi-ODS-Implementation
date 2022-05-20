@@ -1,0 +1,17 @@
+Common EdFi.Service additions
+  integer ServiceFrequency
+    documentation "Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number."
+      is required
+  integer ServiceDuration
+      documentation "Number of days the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) service was offered during the reporting period. A one to two digit number not to exceed the number of days within the reporting period. A one to two digit number."
+      is required
+  string ServiceProviderName
+    documentation "Name of Community Service Provider Entity."
+    is optional
+    max length 255
+  descriptor ServiceProviderType
+    documentation "Provide the role of the individual who is providing the service for Expanded and Enriched Learning Time and Opportunities (EELTO)."
+    is optional
+  descriptor ServiceSetting
+    documentation "A description of when the service occurs. Required for Community School Programs (CSP) if the service occurred outside of the instructional day.  Otherwise value should not be populated."
+    is optional
