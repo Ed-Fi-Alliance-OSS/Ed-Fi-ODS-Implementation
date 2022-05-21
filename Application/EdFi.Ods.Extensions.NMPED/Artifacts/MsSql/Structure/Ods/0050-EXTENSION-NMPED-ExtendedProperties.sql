@@ -330,6 +330,23 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator to identify the military stuats of the student''s family', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'MilitaryFamilyDescriptorId'
 GO
 
+-- Extended Properties [nmped].[StudentEducationOrganizationAssociationStudentCharacteristicExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This collection provides extended fields to record LevelOfIntegration for Gifted Students', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationStudentCharacteristicExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationStudentCharacteristicExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The characteristic designated for the Student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationStudentCharacteristicExtension', @level2type=N'COLUMN', @level2name=N'StudentCharacteristicDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationStudentCharacteristicExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This field holds the level of integration that represents the amount of service for GIFTED characteristic students only
+                    Valid values are:
+                    1 = Less than 10% of the day (minimum or ''A'')
+                    2 = 11% to 49% of the day (moderate or ''B'')
+                    3 = 50% of the day or more, but not a full day (extensive or ''C'')
+                    4 = Up to a full day or program 3Y/4Y (maximum or ''D'')', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationStudentCharacteristicExtension', @level2type=N'COLUMN', @level2name=N'GiftedLevelOfIntegrationDescriptorId'
+GO
+
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The awards a student has earned at a education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward'
 GO
@@ -374,6 +391,34 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the program Intensity.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'ProgramIntensityDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Language for students participating in BEP', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationExtension', @level2type=N'COLUMN', @level2name=N'BEPProgramLanguageDescriptorId'
+GO
+
+-- Extended Properties [nmped].[StudentProgramAssociationServiceExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This collection provides extended fields to record Program Services Fact Template data', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Service being provided to the student by the Program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceFrequency'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Number of days the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) service was offered during the reporting period. A one to two digit number not to exceed the number of days within the reporting period. A one to two digit number.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceDuration'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Name of Community Service Provider Entity.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceProviderName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Provide the role of the individual who is providing the service for Expanded and Enriched Learning Time and Opportunities (EELTO).', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceProviderTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A description of when the service occurs. Required for Community School Programs (CSP) if the service occurred outside of the instructional day.  Otherwise value should not be populated.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentProgramAssociationServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceSettingDescriptorId'
 GO
 
 -- Extended Properties [nmped].[StudentSchoolAggregateSectionAttendance] --
@@ -501,6 +546,28 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education event reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationEventReasonDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The special education non compliance reason.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent', @level2type=N'COLUMN', @level2name=N'SpecialEducationNonComplianceReasonDescriptorId'
+GO
+
+-- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This collection provides extended fields to record Special Education Services Fact Template Data.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'BeginDate'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramEducationOrganizationId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramName'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'ProgramTypeDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the service being provided to the student by the Special Education Program.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'SpecialEducationProgramServiceDescriptorId'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'IntegratedServicesStatus'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension', @level2type=N'COLUMN', @level2name=N'ServiceDuration'
 GO
 
 -- Extended Properties [nmped].[TransportationCategoryDescriptor] --

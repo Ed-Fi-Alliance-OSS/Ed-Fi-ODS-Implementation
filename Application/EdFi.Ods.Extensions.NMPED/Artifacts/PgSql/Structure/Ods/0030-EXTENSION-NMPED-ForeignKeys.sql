@@ -347,6 +347,18 @@ REFERENCES edfi.StudentEducationOrganizationAssociation (EducationOrganizationId
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 ADD CONSTRAINT FK_fc9b44_LevelOfIntegrationDescriptor FOREIGN KEY (GiftedLevelOfIntegrationDescriptorId)
+REFERENCES nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId)
+;
+
+CREATE INDEX FK_fc9b44_LevelOfIntegrationDescriptor
+ON nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 (GiftedLevelOfIntegrationDescriptorId ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 ADD CONSTRAINT FK_fc9b44_StudentEducationOrganizationAssociationStudentCharacteristic FOREIGN KEY (EducationOrganizationId, StudentCharacteristicDescriptorId, StudentUSI)
+REFERENCES edfi.StudentEducationOrganizationAssociationStudentCharacteristic (EducationOrganizationId, StudentCharacteristicDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
 ALTER TABLE nmped.StudentEducationOrganizationAward ADD CONSTRAINT FK_4d41c1_EducationOrganization FOREIGN KEY (EducationOrganizationId)
 REFERENCES edfi.EducationOrganization (EducationOrganizationId)
 ;
@@ -417,6 +429,25 @@ ON nmped.StudentProgramAssociationExtension (ProgramIntensityDescriptorId ASC);
 
 ALTER TABLE nmped.StudentProgramAssociationExtension ADD CONSTRAINT FK_0c120d_StudentProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.StudentProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
+
+ALTER TABLE nmped.StudentProgramAssociationServiceExtension ADD CONSTRAINT FK_beb1a6_ServiceProviderTypeDescriptor FOREIGN KEY (ServiceProviderTypeDescriptorId)
+REFERENCES nmped.ServiceProviderTypeDescriptor (ServiceProviderTypeDescriptorId)
+;
+
+CREATE INDEX FK_beb1a6_ServiceProviderTypeDescriptor
+ON nmped.StudentProgramAssociationServiceExtension (ServiceProviderTypeDescriptorId ASC);
+
+ALTER TABLE nmped.StudentProgramAssociationServiceExtension ADD CONSTRAINT FK_beb1a6_ServiceSettingDescriptor FOREIGN KEY (ServiceSettingDescriptorId)
+REFERENCES nmped.ServiceSettingDescriptor (ServiceSettingDescriptorId)
+;
+
+CREATE INDEX FK_beb1a6_ServiceSettingDescriptor
+ON nmped.StudentProgramAssociationServiceExtension (ServiceSettingDescriptorId ASC);
+
+ALTER TABLE nmped.StudentProgramAssociationServiceExtension ADD CONSTRAINT FK_beb1a6_StudentProgramAssociationService FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, ServiceDescriptorId, StudentUSI)
+REFERENCES edfi.StudentProgramAssociationService (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, ServiceDescriptorId, StudentUSI)
 ON DELETE CASCADE
 ;
 
@@ -540,6 +571,11 @@ REFERENCES edfi.StudentSpecialEducationProgramAssociation (BeginDate, EducationO
 
 CREATE INDEX FK_c2cadc_StudentSpecialEducationProgramAssociation
 ON nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
+
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 ADD CONSTRAINT FK_e4dfb8_StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationProgramServiceDescriptorId, StudentUSI)
+REFERENCES edfi.StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9 (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationProgramServiceDescriptorId, StudentUSI)
+ON DELETE CASCADE
+;
 
 ALTER TABLE nmped.TransportationCategoryDescriptor ADD CONSTRAINT FK_8d7604_Descriptor FOREIGN KEY (TransportationCategoryDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)

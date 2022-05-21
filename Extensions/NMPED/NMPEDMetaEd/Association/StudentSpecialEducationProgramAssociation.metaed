@@ -29,3 +29,6 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
     descriptor PrimaryAreaOfExceptionality
         documentation "Identification of a studen's Primary Exceptionality"
         is required
+      common extension EdFi.SpecialEducationProgramService
+            documentation "This collection provides extended fields to record Special Education Services Fact Template Data."
+            is optional collection

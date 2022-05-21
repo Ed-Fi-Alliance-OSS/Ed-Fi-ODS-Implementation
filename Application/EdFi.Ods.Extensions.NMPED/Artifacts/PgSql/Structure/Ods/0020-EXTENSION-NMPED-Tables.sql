@@ -310,6 +310,17 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
 ); 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
+-- Table nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 --
+CREATE TABLE nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 (
+    EducationOrganizationId INT NOT NULL,
+    StudentCharacteristicDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    GiftedLevelOfIntegrationDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentEducationOrganizationAssociationStudentChar_fc9b44_PK PRIMARY KEY (EducationOrganizationId, StudentCharacteristicDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table nmped.StudentEducationOrganizationAward --
 CREATE TABLE nmped.StudentEducationOrganizationAward (
     AwardDate DATE NOT NULL,
@@ -352,6 +363,25 @@ CREATE TABLE nmped.StudentProgramAssociationExtension (
     CONSTRAINT StudentProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentProgramAssociationServiceExtension --
+CREATE TABLE nmped.StudentProgramAssociationServiceExtension (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    ServiceDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    ServiceFrequency INT NOT NULL,
+    ServiceDuration INT NOT NULL,
+    ServiceProviderName VARCHAR(255) NULL,
+    ServiceProviderTypeDescriptorId INT NULL,
+    ServiceSettingDescriptorId INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentProgramAssociationServiceExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, ServiceDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentProgramAssociationServiceExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentSchoolAggregateSectionAttendance --
 CREATE TABLE nmped.StudentSchoolAggregateSectionAttendance (
@@ -445,6 +475,22 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2ca
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 --
+CREATE TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 (
+    BeginDate DATE NOT NULL,
+    EducationOrganizationId INT NOT NULL,
+    ProgramEducationOrganizationId INT NOT NULL,
+    ProgramName VARCHAR(60) NOT NULL,
+    ProgramTypeDescriptorId INT NOT NULL,
+    SpecialEducationProgramServiceDescriptorId INT NOT NULL,
+    StudentUSI INT NOT NULL,
+    IntegratedServicesStatus BOOLEAN NULL,
+    ServiceDuration INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_e4dfb8_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationProgramServiceDescriptorId, StudentUSI)
+); 
+ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.TransportationCategoryDescriptor --
 CREATE TABLE nmped.TransportationCategoryDescriptor (
