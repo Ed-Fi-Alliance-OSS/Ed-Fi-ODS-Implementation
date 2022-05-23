@@ -27,9 +27,11 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
     $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
-    $config.appSettingsFiles = @(
-        (Join-Path $config.outputFolder "appsettings.json"),
-        (Join-Path $config.outputFolder "appsettings.development.json")
+    $config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/")
+	
+	$config.appSettingsFiles = @(
+        (Join-Path $config.appSettingsFolder "appsettings.json"),
+        (Join-Path $config.appSettingsFolder "appsettings.development.json")
     )
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
 
