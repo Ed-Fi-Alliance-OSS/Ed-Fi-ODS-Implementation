@@ -33,7 +33,12 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
         (Join-Path $config.appSettingsFolder "appsettings.json"),
         (Join-Path $config.appSettingsFolder "appsettings.development.json")
     )
-    $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
+	
+	$sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
+	$destinationAppSettings = Join-Path $config.outputFolder "appsettings.json"
+	Copy-Item $sourceAppSettings -Destination $destinationAppSettings
+    
+	$config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
 
     $config.apiUrlBase = "http://localhost:8765"
     $config.apiClientNameBootstrap = "BulkLoadClientBootstrap"
