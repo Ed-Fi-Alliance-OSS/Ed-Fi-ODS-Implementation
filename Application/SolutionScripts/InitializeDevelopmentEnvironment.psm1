@@ -363,6 +363,8 @@ function Invoke-CodeGen {
         [String] $RepositoryRoot
     )
 
+    Write-Host  '$RepositoryRoot 1' -ForegroundColor Magenta $RepositoryRoot
+
     Install-CodeGenUtility
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
@@ -372,13 +374,14 @@ function Invoke-CodeGen {
 
         $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
         
+        Write-Host  '$RepositoryRoot 2' -ForegroundColor Magenta $RepositoryRoot
 
         if ([string]::IsNullOrEmpty($RepositoryRoot)) {
             $RepositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
         }
 
         Write-Host 'Semalai' -ForegroundColor Green
-        Write-Host -ForegroundColor Magenta $RepositoryRoot
+        Write-Host  '$RepositoryRoot 3' -ForegroundColor Magenta $RepositoryRoot
 
         $parameters = @(
             "-r", $RepositoryRoot,
