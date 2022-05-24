@@ -377,6 +377,9 @@ function Invoke-CodeGen {
             $RepositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
         }
 
+        Write-Host 'Semalai' -ForegroundColor Green
+        Write-Host -ForegroundColor Magenta $RepositoryRoot
+
         $parameters = @(
             "-r", $RepositoryRoot,
             "-e", $Engine
