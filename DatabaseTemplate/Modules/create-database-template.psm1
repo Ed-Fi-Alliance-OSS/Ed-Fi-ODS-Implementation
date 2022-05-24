@@ -27,7 +27,10 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
     $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
-    $config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/")
+    
+	# Since not all features are enabled by default for database templates, an appsettings.json specifically intended for database generation is copied to
+	# the Integration Test Harness output folder to overwrite the appsettings.json file otherwise used by the Integration Test Harness
+	$config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/")
 	
 	$sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
     $destinationAppSettings = Join-Path $config.outputFolder "appsettings.json"
