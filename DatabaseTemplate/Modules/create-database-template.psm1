@@ -29,15 +29,15 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
     $config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/")
 	
-    $config.appSettingsFiles = @(
-        (Join-Path $config.appSettingsFolder "appsettings.json"),
-        (Join-Path $config.appSettingsFolder "appsettings.development.json")
-    )
-	
-    $sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
+	$sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
     $destinationAppSettings = Join-Path $config.outputFolder "appsettings.json"
     Copy-Item $sourceAppSettings -Destination $destinationAppSettings
-    
+	
+    $config.appSettingsFiles = @(
+        (Join-Path $config.outputFolder "appsettings.json"),
+        (Join-Path $config.outputFolder "appsettings.development.json")
+    )
+	       
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
 
     $config.apiUrlBase = "http://localhost:8765"
