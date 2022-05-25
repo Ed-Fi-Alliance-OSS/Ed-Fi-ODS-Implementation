@@ -362,8 +362,6 @@ function Invoke-CodeGen {
         [string[]] $ExtensionPaths
     )
 
-
-
     Install-CodeGenUtility
 
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
