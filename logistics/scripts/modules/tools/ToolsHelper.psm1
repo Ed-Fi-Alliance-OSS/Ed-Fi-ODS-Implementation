@@ -170,12 +170,12 @@ function Test-DotNetCore {
     try {
         $runtimes = Get-DotnetRuntimes
         
-        # This will check both runtimes for the specific major and minor version
-        # All Microsoft.AspNetCore.App runtimes with greater than or equal major and minor version
+        # This will check both runtimes for the specific major and greater than or equal to minor version
+        # All Microsoft.AspNetCore.App runtimes equal to major and greater than or equal to minor version
         $validAsp = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.AspNetCore.App"} `
             | Where-Object { $_.Version.Major -eq $RequiredMajor} `
             | Where-Object { $_.Version.Minor -ge $RequiredMinor})
-        # All Microsoft.NETCore.App runtimes with greater than or equal major and minor version
+        # All Microsoft.NETCore.App runtimes equal to major and greater than or equal to minor version
         $validCore = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.NETCore.App"} `
             | Where-Object { $_.Version.Major -eq $RequiredMajor} `
             | Where-Object { $_.Version.Minor -ge $RequiredMinor})
