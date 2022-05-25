@@ -372,13 +372,12 @@ function Invoke-CodeGen {
         }
 
         $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
-        
-        $RepositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
+        $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
         Write-Host  '$RepositoryRoot' -ForegroundColor Magenta $RepositoryRoot
 
         $parameters = @(
-            "-r", $RepositoryRoot,
+            "-r", $repositoryRoot,
             "-e", $Engine
         )
         if ($IncludePlugins) {
