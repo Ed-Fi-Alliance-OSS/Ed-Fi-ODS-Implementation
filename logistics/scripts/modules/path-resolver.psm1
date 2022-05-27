@@ -57,22 +57,20 @@ $invertedRepositoryNames = $repositoryNames.Clone()
 #Then trims the end of the $path off at that point and returns the path. (does include $itemName)
 #in the value returned.
 function Get-AncestorItemPath ([string]$path, [string]$itemName) {
-    #Remove Case Sensitivity
-    $path = $path.ToLower()
-    $itemName = $itemName.ToLower()
-
-    $pos = $path.LastIndexOf("\$itemName\")
+    $dirChar = [IO.Path]::DirectorySeparatorChar
+    $pos = $path.LastIndexOf("$($dirChar)$itemName$($dirChar)", [System.StringComparison]::OrdinalIgnoreCase)
 
     if ($pos -lt 0) {
-        if ($path.EndsWith("\$itemName")) {
-            $pos = $path.LastIndexOf("\$itemName")
+        if ($path.EndsWith("$($dirChar)$itemName", [System.StringComparison]::OrdinalIgnoreCase)) {
+            $pos = $path.LastIndexOf("$($dirChar)$itemName", [System.StringComparison]::OrdinalIgnoreCase)
         }
         else {
             throw "Unable to locate '$itemName' in path '$path'."
         }
     }
 
-    $newPath = $path.Substring(0, $pos) + "\$itemName"
+    # Using Join-Path to be more Unix-friendly
+    $newPath = Join-Path -Path $path.Substring(0, $pos) -ChildPath "$($dirChar)$itemName"
     return (Resolve-Path $newPath)
 }
 
