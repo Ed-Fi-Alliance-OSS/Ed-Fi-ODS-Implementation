@@ -1,12 +1,8 @@
 name: EdFi.Installer.WebApi Manually triggered build
 
 on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
+  pull_request:
+    branches: [main]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
