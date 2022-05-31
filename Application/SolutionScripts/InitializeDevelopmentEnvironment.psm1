@@ -379,7 +379,7 @@ function Invoke-CodeGen {
         Write-Host  '$RepositoryRoot' -ForegroundColor Magenta $RepositoryRoot
 
         $parameters = @(
-            "-r", $RepositoryRoot.ToLower(),
+            "-r", $RepositoryRoot,
             "-e", $Engine
         )
         if ($IncludePlugins) {
