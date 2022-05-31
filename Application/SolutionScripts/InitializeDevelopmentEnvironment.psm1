@@ -359,7 +359,8 @@ function Invoke-CodeGen {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
         [switch] $IncludePlugins,
-        [string[]] $ExtensionPaths
+        [string[]] $ExtensionPaths,
+        [String] $RepositoryRoot
     )
 
     Install-CodeGenUtility
@@ -370,10 +371,15 @@ function Invoke-CodeGen {
         }
 
         $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
-        $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
+        if ([string]::IsNullOrEmpty($RepositoryRoot)) {
+            $RepositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
+        }
+
+        Write-Host  '$RepositoryRoot 2' -ForegroundColor Magenta $RepositoryRoot
+        
         $parameters = @(
-            "-r", $repositoryRoot,
+            "-r", $RepositoryRoot,
             "-e", $Engine
         )
         if ($IncludePlugins) {
