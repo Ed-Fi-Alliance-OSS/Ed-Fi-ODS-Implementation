@@ -15,25 +15,25 @@ function Export-BacPac {
         if sqlpackage.exe is not found.
 
     .PARAMETER sqlPackagePath
-        An absolute path to the folder to execute sqlpackage.exe from: e.g.C:\sqlpackage\
+        An absolute path to the folder to execute sqlpackage.exe from: e.g.C:/sqlpackage/
 
     .PARAMETER database
         Database to export.
 
     .PARAMETER artifactOutput
-        An absolute path to the output file. e.g. c:\tmp\artifacts\edfi_security.bacpac
+        An absolute path to the output file. e.g. c:/tmp/artifacts/edfi_security.bacpac
 
     .PARAMETER server
         The sql server to connect to. (Defaulted to locahost).
 
     .EXAMPLE
-        PS> Export-BacPac -database edfi_security -sqlPackagePath C:\sqlpackage\ -artifactOutput c:\tmp\artifacts\edfi_security.bacpac
+        PS> Export-BacPac -database edfi_security -sqlPackagePath C:/sqlpackage/ -artifactOutput c:/tmp/artifacts/edfi_security.bacpac
     #>
     [CmdletBinding()]
     param(
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "Path to the sqlpackage.exe is required.\n\rExample: c:\sqlpackage"
+            HelpMessage = "Path to the sqlpackage.exe is required.\n\rExample: c:/sqlpackage"
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
@@ -48,7 +48,7 @@ function Export-BacPac {
 
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "Full name of the artifact to export is required.\n\rExample: .\edfi_admin.bacpac"
+            HelpMessage = "Full name of the artifact to export is required.\n\rExample: ./edfi_admin.bacpac"
         )]
         [ValidateNotNullOrEmpty()]
         [string] $artifactOutput,
