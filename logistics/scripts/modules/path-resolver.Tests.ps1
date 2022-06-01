@@ -1,7 +1,7 @@
 # in file Get-Planet.Tests.ps1
 BeforeAll { 
-    Import-Module ./utility/cross-platform.psm1
-    Import-Module ./path-resolver.psm1
+    Import-Module "$PSScriptRoot/utility/cross-platform.psm1"
+    Import-Module -Force -Scope Global ($PSCommandPath.Replace('.tests.ps1', '.psm1'))
     if(Get-IsWindows){
         mkdir "$($pwd.Path)/Application" -Force
         mkdir "$($pwd.Path)/Application/EdFi.Ods.Extensions.Tests" -Force
