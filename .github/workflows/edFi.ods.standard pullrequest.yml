@@ -32,14 +32,13 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-      run: |
-          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
-          echo github.base_ref: ${{ github.base_ref }}
-          echo github.head_ref: ${{ github.head_ref }}
-          echo github.ref: ${{ github.ref }}    
     - name: CodeGen
       shell: pwsh
       run: |
+          echo github.base_ref: ${{ github.base_ref }}
+          echo github.head_ref: ${{ github.head_ref }}
+          echo github.ref: ${{ github.ref }}    
+
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
