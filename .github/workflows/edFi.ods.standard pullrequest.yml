@@ -16,46 +16,18 @@ jobs:
     runs-on: windows-latest
  
     steps:
-    - name: Setup .NET
-      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
-      with:
-        dotnet-version: 6.0.x
-    - name: Support longpaths
-      run: git config --system core.longpaths true
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
-          ref: ${{ env.CURRENT_BRANCH }}
     - name: Checkout Ed-Fi-ODS
       id: branch-name
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-      - name: Running on the default branch.
+    - name: Running on the default branch.
         if: steps.branch-name.outputs.is_default == 'true'
         run: |
           echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
-      - name: Running on a pull request branch.
+    - name: Running on a pull request branch.
         if: steps.branch-name.outputs.is_default == 'false'
         run: |
           echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"   
-    - name: CodeGen
-      shell: pwsh
-      run: |
-          $ErrorActionPreference = 'Stop'
-          $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
-    - name: build
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-      shell: pwsh
-    - name: test
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-      shell: pwsh
+    
