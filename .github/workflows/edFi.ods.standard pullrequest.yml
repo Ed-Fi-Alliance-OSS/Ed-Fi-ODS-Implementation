@@ -31,6 +31,9 @@ jobs:
     - name: Checkout Ed-Fi-ODS
       id: branch-name
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
       - name: Running on the default branch.
         if: steps.branch-name.outputs.is_default == 'true'
         run: |
