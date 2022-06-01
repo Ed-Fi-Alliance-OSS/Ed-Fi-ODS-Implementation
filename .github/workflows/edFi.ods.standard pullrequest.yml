@@ -15,7 +15,20 @@ jobs:
     runs-on: windows-latest
  
     steps:
-    
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5.2
+      - name: Running on the default branch.
+        if: steps.branch-name.outputs.is_default == 'true'
+        run: |
+          echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
+      - name: Running on a pull request branch.
+        if: steps.branch-name.outputs.is_default == 'false'
+        run: |
+          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"
+          echo github.base_ref: ${{ github.base_ref }}
+          echo github.head_ref: ${{ github.head_ref }}
+          echo github.ref: ${{ github.ref }} 
     - name: Setup .NET
       uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
       with:
@@ -32,11 +45,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-     - name: Echo out branch values
-        run: | 
-          echo github.base_ref: ${{ github.base_ref }}
-          echo github.head_ref: ${{ github.head_ref }}
-          echo github.ref: ${{ github.ref }}            
+          
     - name: CodeGen
       shell: pwsh
       run: |
