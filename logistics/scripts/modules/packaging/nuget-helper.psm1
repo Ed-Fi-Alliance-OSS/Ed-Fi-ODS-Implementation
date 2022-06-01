@@ -57,8 +57,13 @@ function Install-NuGetCli {
     }
 
     # Add the tools directory to the path if not already there
-    if (-not ($env:PATH.Contains($ToolsPath))) {
-        $env:PATH = "$ToolsPath;$env:PATH"
+    if (-not ($ENV:PATH.Contains($ToolsPath))) {
+        if(Get-IsWindows){
+            $ENV:PATH = "$ToolsPath;$ENV:PATH"
+        }else {
+            $ENV:PATH = "$($ENV:PATH):$ToolsPath"
+        }
+        
     }
 
     return $nuget
@@ -126,7 +131,7 @@ function Get-NuGetPackage {
     Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
     & "$ToolsPath/nuget" $parameters | Out-Null
 
-    return Resolve-Path $outputDirectory/$PackageName.$PackageVersion* | Select-Object -Last 1
+    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
 }
 
 $exports = @(
