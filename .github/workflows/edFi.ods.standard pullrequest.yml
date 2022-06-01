@@ -8,6 +8,7 @@ env:
   INFORMATIONAL_VERSION: "6.0"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
 
 jobs:
   build:
@@ -27,18 +28,16 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+          ref: ${{ env.CURRENT_BRANCH }}
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+          ref: ${{ env.CURRENT_BRANCH }}
     - name: CodeGen
       shell: pwsh
       run: |
-          echo github.base_ref: ${{ github.base_ref }}
-          echo github.head_ref: ${{ github.head_ref }}
-          echo github.ref: ${{ github.ref }}    
-
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
