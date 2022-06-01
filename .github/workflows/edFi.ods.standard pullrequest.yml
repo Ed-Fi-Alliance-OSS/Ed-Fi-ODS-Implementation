@@ -24,10 +24,12 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Running on the default branch.
         if: steps.branch-name.outputs.is_default == 'true'
+        shell: pwsh
         run: |
           echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
     - name: Running on a pull request branch.
         if: steps.branch-name.outputs.is_default == 'false'
+        shell: pwsh
         run: |
           echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"   
     
