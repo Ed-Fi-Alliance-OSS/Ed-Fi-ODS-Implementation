@@ -28,7 +28,9 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: List Branch in  Ed-Fi-ODS          
-      run: git ls-remote --heads origin main |  wc -l
+      run: |
+        git  remote add origin https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        git  ls-remote --heads origin main |  wc -l
           
 
     
