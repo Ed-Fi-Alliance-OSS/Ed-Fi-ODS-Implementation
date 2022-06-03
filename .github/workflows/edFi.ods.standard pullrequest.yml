@@ -28,11 +28,11 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: List Branch in  Ed-Fi-ODS
+    - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
       run: |
-        echo "git ls-remote --heads origin main |  wc -l"
-        echo "is_pull_request_branch=$(git ls-remote --heads origin main |  wc -l)" >> $GITHUB_ENV        
+        git ls-remote --heads origin main |  wc -l
+        echo "is_pull_request_branch=$(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)" >> $GITHUB_ENV
         echo "is_pull_request_branch value is ${{ env.is_pull_request_branch }}"
     - name: Checkout pull request branch
       if: ${{ env.is_pull_request_branch == '1' }}
