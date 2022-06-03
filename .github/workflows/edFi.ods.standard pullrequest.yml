@@ -33,8 +33,9 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Pull Request branch Exists in ODS Implementation Repo 
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2         
+    - name: checkout
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name : Pull Request branch Exists in ODS Implementation Repo          
       run: |
           echo ${{ git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l }}
     
