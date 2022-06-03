@@ -29,9 +29,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: List Branch in  Ed-Fi-ODS          
       run: |
-        git --version
-        git init D:\a\Ed-Fi-ODS-Implementation\Ed-Fi-ODS-Implementation\Ed-Fi-ODS
-        git remote add origin https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        git branch -a | grep -v ‘remotes’
         git ls-remote --heads origin main |  wc -l
           
 
