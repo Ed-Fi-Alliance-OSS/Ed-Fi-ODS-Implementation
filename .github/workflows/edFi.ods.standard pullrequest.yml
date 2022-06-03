@@ -27,9 +27,9 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: List Branch in  Ed-Fi-ODS          
+    - name: List Branch in  Ed-Fi-ODS
       run: |
-        git branch -a | grep -v ‘remotes’
+        git branch -a 
         git ls-remote --heads origin main |  wc -l
           
 
