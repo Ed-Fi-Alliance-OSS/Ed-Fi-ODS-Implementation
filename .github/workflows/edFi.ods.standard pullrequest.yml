@@ -33,7 +33,7 @@ jobs:
       shell: bash
       run: |
         git branch -a 
-        echo "is_pull_request_branch=$(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)" >> $GITHUB_ENV
+        echo "is_pull_request_branch=$(git ls-remote --heads origin main |  wc -l)" >> $GITHUB_ENV
         echo "is_pull_request_branch value is ${{ env.is_pull_request_branch }}"
     - name: Checkout pull request branch
       if: ${{ env.is_pull_request_branch == '1' }}
