@@ -30,10 +30,11 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
+      shell: bash
       run: |
         git branch -a 
         echo "is_pull_request_branch=$(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)" >> $GITHUB_ENV
-        echo "is_pull_request_branch value is ${{ env.is_pull_request_branch }}"
+        echo "is_pull_request_branch value is $(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)"
     - name: Checkout pull request branch
       if: ${{ env.is_pull_request_branch == '1' }}
       run: git checkout ${{ env.CURRENT_BRANCH }}
