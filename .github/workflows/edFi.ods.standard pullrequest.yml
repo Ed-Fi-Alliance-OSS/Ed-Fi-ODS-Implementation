@@ -28,20 +28,11 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
           ref: ${{ env.CURRENT_BRANCH }}
-    - name: Get branch name
-      id: branch-name
-      uses: tj-actions/branch-names@v5.2 
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Running on the default branch.
-      if: steps.branch-name.outputs.is_default == 'true'
       run: |
-          echo "Running on default: ${{ steps.branch-name.outputs.current_branch }}"
-    - name: Running on a pull request branch.
-      if: steps.branch-name.outputs.is_default == 'false'
-      run: |
-          echo "Running on pr: ${{ steps.branch-name.outputs.current_branch }}"   
+          echo ${{ git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l }}
     
