@@ -33,6 +33,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+    - name: Pull Request branch Exists in ODS Implementation Repo          
       run: |
           echo ${{ git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l }}
     
