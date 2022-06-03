@@ -30,7 +30,7 @@ jobs:
     - name: List Branch in  Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
       run: |
-        echo "is_pull_request_branch=$(echo git ls-remote --heads origin main |  wc -l)" >> $GITHUB_ENV        
+        echo "is_pull_request_branch=$(git ls-remote --heads origin main |  wc -l)" >> $GITHUB_ENV        
         echo "${{ env.is_pull_request_branch }}"
     - name: Checkout pull request branch
       if: ${{ env.is_pull_request_branch == 1 }}
