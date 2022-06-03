@@ -9,6 +9,7 @@ env:
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  is_pull_request_branch: 
 
 jobs:
   build:
@@ -33,7 +34,7 @@ jobs:
         echo "is_pull_request_branch=$(git ls-remote --heads origin main |  wc -l)" >> $GITHUB_ENV        
         echo "${{ env.is_pull_request_branch }}"
     - name: Checkout pull request branch
-      if: ${{ env.is_pull_request_branch == 1 }}
+      if: ${{ $(git ls-remote --heads origin main |  wc -l) == 1 }}
       run: git checkout ${{ env.CURRENT_BRANCH }}
 
           
