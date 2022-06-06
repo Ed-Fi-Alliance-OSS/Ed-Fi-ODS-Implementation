@@ -32,10 +32,10 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-      $is_pull_request_branch =git ls-remote --heads origin main | Select-String -Pattern 'refs/heads/main' -SimpleMatch -Quiet | Out-String
-      if ($is_pull_request_branch -eq 'True') {
-        git checkout ${{ env.CURRENT_BRANCH }
-      }
+          $is_pull_request_branch =git ls-remote --heads origin main | Select-String -Pattern 'refs/heads/main' -SimpleMatch -Quiet | Out-String
+          if ($is_pull_request_branch -eq 'True') {
+            git checkout ${{ env.CURRENT_BRANCH }}
+          }
 
           
 
