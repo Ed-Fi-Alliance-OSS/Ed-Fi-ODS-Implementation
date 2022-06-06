@@ -34,6 +34,7 @@ jobs:
           if ($is_pull_request_branch -eq 'True') {
             Write-Host "pull request branch "+ ${{ env.CURRENT_BRANCH }} +"exists" -fore GREEN
             git checkout ${{ env.CURRENT_BRANCH }}
+          }
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
