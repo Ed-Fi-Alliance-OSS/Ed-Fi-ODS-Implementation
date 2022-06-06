@@ -32,7 +32,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-          $patternName = 'refs/heads/' +  ${{ env.CURRENT_BRANCH }}
+          $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
           Write-Host "Pattern Name is " $patternName -fore GREEN
           $is_pull_request_branch = 'False'
           $is_pull_request_branch =git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet | Out-String
