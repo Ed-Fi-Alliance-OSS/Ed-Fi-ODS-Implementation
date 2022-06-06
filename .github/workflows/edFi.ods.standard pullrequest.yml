@@ -23,15 +23,6 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
           ref: ${{ env.CURRENT_BRANCH }}
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: bash
-      run: |
-        echo "is_pull_request_branch=$(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)" >> $GITHUB_ENV
-        echo "is_pull_request_branch value is ${{ env.IS_PULL_REQUEST_BRANCH }}"
-    - name: Checkout pull request branch Ed-Fi-ODS-Implementation
-      if: ${{ env.is_pull_request_branch == '1' }}
-      run: git checkout ${{ env.CURRENT_BRANCH }}          
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
@@ -39,13 +30,12 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
-      shell: bash
+      shell: pwsh
       run: |
-        echo "is_pull_request_branch=$(git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} |  wc -l)" >> $GITHUB_ENV
-        echo "is_pull_request_branch value is ${{ env.IS_PULL_REQUEST_BRANCH }}"
-    - name: Checkout pull request branch
-      if: ${{ env.is_pull_request_branch == '1' }}
-      run: git checkout ${{ env.CURRENT_BRANCH }}
+      $is_pull_request_branch =git ls-remote --heads origin main | Select-String -Pattern 'refs/heads/main' -SimpleMatch -Quiet | Out-String
+      if ($is_pull_request_branch -eq 'True') {
+        git checkout ${{ env.CURRENT_BRANCH }
+      }
 
           
 
