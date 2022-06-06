@@ -39,7 +39,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-          ref: main      
+          ref: main
     - name: CodeGen
       shell: pwsh
       run: |
