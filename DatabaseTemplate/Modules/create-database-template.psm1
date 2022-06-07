@@ -38,7 +38,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 	
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
-        (Join-Path $config.outputFolder "appsettings.development.json")
+        (Join-Path $config.outputFolder "appsettings.Development.json")
     )
 	       
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"

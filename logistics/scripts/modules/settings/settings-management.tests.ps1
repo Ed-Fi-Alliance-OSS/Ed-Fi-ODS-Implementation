@@ -164,7 +164,7 @@ Describe 'Get-MergedSettings' {
         $appSettings = "TestDrive:\appSettings.json"
         Set-Content $appSettings -value '{ "object": { "array": [ 0, 1, 2 ] }, "property": "value" }'
 
-        $developmentAppSettings =  "TestDrive:\appSettings.development.json"
+        $developmentAppSettings =  "TestDrive:\appSettings.Development.json"
         Set-Content $developmentAppSettings -value '{ "object": { "array": [ 0 ], "newProperty": "value" }, "property": "newValue" }'
 
         $appSettingsFiles = @(
