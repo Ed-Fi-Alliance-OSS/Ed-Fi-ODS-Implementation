@@ -1,8 +1,12 @@
 name: PostgreSQL.Binaries Manually triggered build
 
 on:
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
 
 env:
   INFORMATIONAL_VERSION: "12.2"
