@@ -35,7 +35,7 @@ Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTempl
 
 Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json",
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.Development.json",
     (Get-RepositoryResolvedPath 'configuration.packages.json')
 )
 
@@ -222,7 +222,7 @@ function Get-RandomString {
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     <#
     .description
-        Generates appsettings.development.json for the following projects:
+        Generates appsettings.Development.json for the following projects:
             EdFi.Ods.WebApi
             EdFi.Ods.Api.IntegrationTestHarness
             EdFi.Ods.SandboxAdmin.Web
