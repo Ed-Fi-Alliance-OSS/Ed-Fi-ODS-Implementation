@@ -55,7 +55,7 @@ $settings = @{
 
 $newSettingsFiles = @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.Development.json"
 )
 
 New-DevelopmentAppSettings $settings
