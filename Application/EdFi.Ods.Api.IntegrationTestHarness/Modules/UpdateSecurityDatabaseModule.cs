@@ -4,20 +4,22 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Api.ExternalTasks;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
 {
-    public class UpdateAdminDatabaseModule : Module
+    public class UpdateSecurityDatabaseModule : Module
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.RegisterType<UpdateAdminDatabaseTask>()
+            builder.RegisterType<UpdateSecurityDatabaseTask>()
                 .As<IExternalTask>();
 
-            builder.RegisterType<DefaultApplicationCreator>()
-                .As<IDefaultApplicationCreator>();
+            builder.RegisterType<PostmanSecurityMetadataInitializer>()
+                .As<IPostmanSecurityMetadataInitializer>();
+
+            builder.RegisterType<UpdateSecurityDatabaseTask>()
+                .As<IExternalTask>();
         }
     }
 }
