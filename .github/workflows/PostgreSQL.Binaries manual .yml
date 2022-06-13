@@ -9,8 +9,8 @@ on:
         default: 'warning'
 
 env:
-  INFORMATIONAL_VERSION: "12.2"
-  BUILD_INCREMENTER: "450"
+  INFORMATIONAL_VERSION: "13.7"
+  BUILD_INCREMENTER: "5"
   CONFIGURATION: "Release"
   SCRIPT_BUILD_POSTGRES_BINARIES: "Ed-Fi-ODS-Implementation/logistics/scripts/modules/postgres-binaries/build-postgres-binaries.psm1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
