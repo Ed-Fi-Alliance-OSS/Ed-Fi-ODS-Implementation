@@ -17,9 +17,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
 
             builder.RegisterType<PostmanSecurityMetadataInitializer>()
                 .As<IPostmanSecurityMetadataInitializer>();
-
-            builder.RegisterType<UpdateSecurityDatabaseTask>()
-                .As<IExternalTask>();
         }
     }
 }
