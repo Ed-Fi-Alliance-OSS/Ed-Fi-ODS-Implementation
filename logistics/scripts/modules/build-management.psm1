@@ -202,16 +202,4 @@ function New-OctopusChannel {
     if (Test-TeamCityVersion) { Write-Host "##teamcity[setParameter name='octopus.release.channel' value='$channelName']" }
 }
 
-function Select-NodeVersion {
-    param(
-        [string] $version
-    )
-
-    nvm install $version
-    nvm use $version
-    Start-Sleep -Seconds 1
-    node --version
-    npm version
-}
-
 Export-ModuleMember -function * -Alias *
