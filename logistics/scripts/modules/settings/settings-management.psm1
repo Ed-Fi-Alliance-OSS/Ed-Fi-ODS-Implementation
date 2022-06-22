@@ -219,7 +219,7 @@ function Get-DefaultTPDMTemplateSettingsByEngine {
 
 function Get-SubtypesByFeature {
     return @{
-        changeQueries               = 'changes'
+        changeQueries               = 'Changes'
         ownershipBasedAuthorization = 'RecordOwnership'
     }
 }
@@ -550,7 +550,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
-        $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.development.json"
+        $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.Development.json"
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
         $newSettingsFiles += $newDevelopmentSettingsPath
     }

@@ -23,7 +23,7 @@ function Get-AvailableFeatures {
         },
         @{
             featureName = "changeQueries";
-            subTypeName = "changes"
+            subTypeName = "Changes"
         },
         @{
             featureName = "ownershipBasedAuthorization";

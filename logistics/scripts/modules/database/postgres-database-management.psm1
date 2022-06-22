@@ -7,6 +7,7 @@ $ErrorActionPreference = "Stop"
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
 
@@ -14,9 +15,19 @@ $script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
 $script:packageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
 $script:packageName = "PostgreSQL.Binaries"
-$script:packageVersion = "12.2.0"
+$script:packageVersion = "13.7.1"
 
 function Test-PostgreSQLBinariesInstalled {
+    if (!(Get-IsWindows)) {
+        try {
+            (psql -V | Out-Null)
+            return $true
+        }
+        catch {
+            return $false
+        }
+    }
+
     $packagePath = "$script:toolsPath/$script:packageName.$script:packageVersion"
 
     $psqlExists = (Test-Path "$packagePath/tools/psql.exe")
@@ -52,7 +63,14 @@ function Install-PostgreSQLBinaries {
     $packagePath = Get-NuGetPackage @parameters
 
     if (-not (Test-PostgreSQLBinariesInstalled)) {
-        throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
+        if(Get-IsWindows){
+            throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
+        }else{
+            throw "ERROR:  Postgres client binaries are not installed on this Unix-like system.
+                    To install them you can run:
+                        Ubuntu: apt-get install postgresql-client
+                        Alpine: apk add postgresql-client"
+        }
     }
 }
 
