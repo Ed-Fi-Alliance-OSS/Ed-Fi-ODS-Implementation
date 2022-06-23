@@ -69,7 +69,7 @@ function Invoke-Restore-ApiSdk-Packages {
     $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 
     $params = @{
-        SolutionPath = "$(Get-RepositoryResolvedPath "\Utilities\SdkGen\EdFi.SdkGen.Console\bin\$buildConfiguration\**\.\csharp\EdFi.OdsApi.Sdk.sln")"
+        SolutionPath = "$(Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/./csharp/EdFi.OdsApi.Sdk.sln")"
         ToolsPath = $toolsPath
     }
     Restore-Packages @params
