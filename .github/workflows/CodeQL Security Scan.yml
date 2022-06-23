@@ -40,35 +40,35 @@ jobs:
         with:
           languages: ${{ matrix.language }}
       - name: Setup .NET
-          uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
-          with:
-            dotnet-version: 6.0.x
-        - name: Support longpaths
-          run: git config --system core.longpaths true
-        - name: Checkout Ed-Fi-ODS-Implementation
-          uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-          with:
-              repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-              path: Ed-Fi-ODS-Implementation/
-              ref: main
-        - name: Checkout Ed-Fi-ODS
-          uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-          with:
-              repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-              path: Ed-Fi-ODS/
-              ref: main
-        - name: CodeGen
-          shell: pwsh
-          working-directory: ./Ed-Fi-ODS-Implementation/
-          run: |
+        uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # v2.1.0
+        with:
+          dotnet-version: 6.0.x
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+            path: Ed-Fi-ODS-Implementation/
+            ref: main
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+            path: Ed-Fi-ODS/
+            ref: main
+      - name: CodeGen
+        shell: pwsh
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
               . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
               Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
-        - name: build
-          shell: pwsh        
-          working-directory: ./Ed-Fi-ODS-Implementation/
-          run: |
+      - name: build
+        shell: pwsh        
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
               initdev -UsePlugins
