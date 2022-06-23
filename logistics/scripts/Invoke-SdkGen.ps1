@@ -31,6 +31,7 @@ $error.Clear()
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/load-path-resolver.ps1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Initialize-PowershellForDevelopment.ps1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
 
 function Invoke-SdkGen {
     $script:result = @()
@@ -48,6 +49,8 @@ function Invoke-SdkGen {
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
+
+        $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $buildConfiguration }
     }
 
     Test-Error
@@ -55,6 +58,20 @@ function Invoke-SdkGen {
     $script:result += New-TaskResult -name '-' -duration '-'
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
     return $script:result | Format-Table
+}
+
+function Invoke-Restore-ApiSdk-Packages {
+    Param(
+        [string] $buildConfiguration = "Debug"
+    )
+    $implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Name
+    $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
+
+    $params = @{
+        SolutionPath = "$(Get-RepositoryResolvedPath "\Utilities\SdkGen\EdFi.SdkGen.Console\bin\$buildConfiguration\**\.\csharp\EdFi.OdsApi.Sdk.sln")"
+        ToolsPath = $toolsPath
+    }
+    Restore-Packages @params
 }
 
 Invoke-SdkGen
