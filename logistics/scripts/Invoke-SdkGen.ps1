@@ -32,13 +32,14 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Initialize-PowershellForDevelopment.ps1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-teamcity.psm1')
 
 function Invoke-SdkGen {
     $script:result = @()
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
-    $buildConfiguration = "Debug"
-    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+    $teamcityParameters = Get-TeamCityParameters
+    $buildConfiguration = Get-ValueOrDefault $teamcityParameters['msbuild.buildConfiguration'] 'Debug'
     
     $elapsed = Use-StopWatch {
         try {
