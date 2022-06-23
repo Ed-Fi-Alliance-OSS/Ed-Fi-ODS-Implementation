@@ -63,14 +63,6 @@ jobs:
         run: |
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
-              . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-              Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
-      - name: build
-        shell: pwsh        
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        run: |
-              $ErrorActionPreference = 'Stop'
-              $PSVersionTable
-              initdev -UsePlugins
+              .\build.teamcity.ps1
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@1fae5bf71b0ecdc7d0a2ef0d0c28409d99693966  # v2.9.2
