@@ -51,7 +51,7 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
 
-        $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $buildConfiguration }
+        $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages }
     }
 
     Test-Error
@@ -62,14 +62,11 @@ function Invoke-SdkGen {
 }
 
 function Invoke-Restore-ApiSdk-Packages {
-    Param(
-        [string] $buildConfiguration = "Debug"
-    )
     $implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Name
     $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
 
     $params = @{
-        SolutionPath = "$(Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/./csharp/EdFi.OdsApi.Sdk.sln")"
+        SolutionPath = "$(Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/./csharp/EdFi.OdsApi.Sdk.sln")"
         ToolsPath = $toolsPath
     }
     Restore-Packages @params
