@@ -9,12 +9,7 @@ on:
   pull_request:
     branches:
       - main
-    paths:
-      - 'src/**'
-  push:
-    branches:
-      - main
-
+      
 jobs:
   analyze:
     name: Analyze Code
