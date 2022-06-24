@@ -33,6 +33,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Initialize-Power
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/create-package.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-teamcity.psm1')
 
 function Invoke-SdkGen {
@@ -92,7 +93,9 @@ function Invoke-Pack-ApiSdk {
         copyright     = Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.copyright'] 'Copyright ©Ed-Fi Alliance, LLC. 2020'
     }
 
-    $nugetOutput = (Join-Path Resolve-Path $PSScriptRoot Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] "NugetPackages")
+    $nugetOutputParameter = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] "NugetPackages"
+    $scriptRoot = Resolve-Path $PSScriptRoot
+    $nugetOutput = (Join-Path $scriptRoot $nugetOutputParameter)
 
     $parameters = @{
         PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/./csharp/EdFi.OdsApi.Sdk.nuspec")
