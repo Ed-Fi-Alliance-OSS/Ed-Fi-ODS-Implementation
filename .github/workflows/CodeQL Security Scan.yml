@@ -57,18 +57,14 @@ jobs:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
             path: Ed-Fi-ODS/
             ref: main
-      - name: Init-Dev
+      - name: CodeGen
         shell: pwsh
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
               . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-              
-              Invoke-NewDevelopmentAppSettings
-              Install-Plugins              
               Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
-              Invoke-RebuildSolution
       - name: build
         shell: pwsh
         working-directory: ./Ed-Fi-ODS-Implementation/
