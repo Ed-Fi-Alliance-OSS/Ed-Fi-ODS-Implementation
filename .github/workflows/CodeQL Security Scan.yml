@@ -64,10 +64,7 @@ jobs:
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
               . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-              Invoke-NewDevelopmentAppSettings
-              Install-CodeGenUtility
-              Install-Plugins
-              Invoke-CodeGen -Engine SQLServer  -RepositoryRoot $env:GITHUB_WORKSPACE/
+              Initialize-DevelopmentEnvironment
       - name: build
         shell: pwsh      
         working-directory: ./Ed-Fi-ODS-Implementation/
