@@ -64,10 +64,13 @@ jobs:
               $ErrorActionPreference = 'Stop'
               $PSVersionTable
               . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+              
+              Invoke-NewDevelopmentAppSettings
+              Install-Plugins              
               Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
-              Initialize-DevelopmentEnvironment -ExcludeCodeGen -NoDeploy -UsePlugins
+              Invoke-RebuildSolution
       - name: build
-        shell: pwsh      
+        shell: pwsh
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |
              .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
