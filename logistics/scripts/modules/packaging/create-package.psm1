@@ -65,7 +65,14 @@ function Invoke-CreatePackage {
 
         # Path to download and store nuget.exe if not already present in the path.
         [string]
-        $ToolsPath
+        $ToolsPath,
+
+        # Additional Properties to pass to nuget.exe
+        [string[]]
+        $Properties = @(),
+
+        [string]
+        $AdditionalParameters
     )
 
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
@@ -79,6 +86,8 @@ function Invoke-CreatePackage {
         OutputDirectory       = $OutputDirectory
         NuGet                 = $nuget
         Verbose               = $verbose
+        Properties            = $Properties
+        AdditionalParameters  = $AdditionalParameters
     }
     New-Package @parameters
 
@@ -132,7 +141,10 @@ function New-Package {
 
         [string]
         [Parameter(Mandatory = $true)]
-        $NuGet
+        $NuGet,
+
+        [string]
+        $AdditionalParameters
     )
 
     $parameters = @(
@@ -154,6 +166,10 @@ function New-Package {
     if ($Verbose) {
         $parameters += "-Verbosity"
         $parameters += "detailed"
+    }
+
+    if($AdditionalParameters) {
+        $parameters += $AdditionalParameters
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
