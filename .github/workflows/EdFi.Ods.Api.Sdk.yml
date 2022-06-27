@@ -3,6 +3,12 @@ name: EdFi.Ods.Api.Sdk, TestSdk, SdkGen
 on:
   repository_dispatch:
     types: [sdk-test]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
 
 env:
   INFORMATIONAL_VERSION: "6.0"
@@ -56,12 +62,10 @@ jobs:
             git checkout ${{ env.CURRENT_BRANCH }}
           }
     - name: Restore Nuget Packages for SdkGen
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 restore -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln
+        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 restore -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln
       shell: pwsh
     - name: Build SdkGen
-      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration ${{ env.CONFIGURATION }}
+        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration ${{ env.CONFIGURATION }}
       shell: pwsh
