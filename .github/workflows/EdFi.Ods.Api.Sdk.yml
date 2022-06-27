@@ -2,7 +2,7 @@ name: EdFi.Ods.Api.Sdk, TestSdk, SdkGen
 
 on:
   repository_dispatch:
-    types: [on-demand-test]
+    types: [sdk-test]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
