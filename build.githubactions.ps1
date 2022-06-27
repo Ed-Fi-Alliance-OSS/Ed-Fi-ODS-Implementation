@@ -133,6 +133,12 @@ function Pack {
     }
 }
 
+function Restore {
+    Invoke-Execute {
+        dotnet restore $Solution
+    }
+}
+
 function Publish {
     Invoke-Execute {
 
@@ -183,6 +189,7 @@ function Invoke-Pack {
 Invoke-Main {
     switch ($Command) {
         Clean { Invoke-Clean }
+        Restore {Invoke-Restore }
         Build { Invoke-Build }
         Test { Invoke-Tests }
         Pack { Invoke-Pack }
