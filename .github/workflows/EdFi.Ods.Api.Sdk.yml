@@ -63,9 +63,9 @@ jobs:
           }
     - name: Restore Nuget Packages for SdkGen
       run: |
-        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 restore -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln
+        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 restore -Solution ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln
       shell: pwsh
     - name: Build SdkGen
       run: |
-        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration ${{ env.CONFIGURATION }}
+        .\Ed-Fi-ODS-Implementation\build.githubactions.ps1 compile -Solution ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration ${{ env.CONFIGURATION }}
       shell: pwsh
