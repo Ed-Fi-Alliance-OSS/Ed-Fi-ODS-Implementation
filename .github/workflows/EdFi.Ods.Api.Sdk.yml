@@ -56,12 +56,12 @@ jobs:
             git checkout ${{ env.CURRENT_BRANCH }}
           }
     - name: Restore Nuget Packages for SdkGen
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-Implementation/
       run: |
-        .\build.githubactions.ps1 restore -Solution ./Utilities/SdkGen/EdFi.SdkGen.sln
+        .\build.githubactions.ps1 restore -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln
       shell: pwsh
     - name: Build SdkGen
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-Implementation/
       run: |
-        .\build.githubactions.ps1 compile -Solution ./Utilities/SdkGen/EdFi.SdkGen.sln -Configuration Release
+        .\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration Release
       shell: pwsh
