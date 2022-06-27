@@ -63,5 +63,5 @@ jobs:
     - name: Build SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration Release
+        .\build.githubactions.ps1 compile -Solution ../Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln -Configuration ${{ env.CONFIGURATION }}
       shell: pwsh

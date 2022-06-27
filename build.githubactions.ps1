@@ -174,6 +174,10 @@ function Invoke-Build {
     Invoke-Step { Compile }
 }
 
+function Invoke-Restore {
+    Invoke-Step { Restore }
+}
+
 function Invoke-Publish {
     Invoke-Step { Publish }
 }
