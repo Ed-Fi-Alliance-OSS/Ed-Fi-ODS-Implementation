@@ -72,7 +72,7 @@ jobs:
     - name: Package SdkGen
       if: success()
       run: |
-        Copy-Item -Path './Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/${{ env.CONFIGURATION }}/' -Destination ./EdFi.SdkGen/Console
+        Copy-Item -Path './Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/${{ env.CONFIGURATION }}/' -Destination ./EdFi.SdkGen.Console
         Compress-Archive -Path ./EdFi.SdkGen.Console -DestinationPath EdFi.SdkGen.zip
     - name: Upload SdkGen Package as Artifact
       if: success()
