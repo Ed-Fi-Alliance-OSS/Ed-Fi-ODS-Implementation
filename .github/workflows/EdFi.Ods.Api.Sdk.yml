@@ -74,6 +74,7 @@ jobs:
       run: |
         Copy-Item -Path './Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/${{ env.CONFIGURATION }}/' -Destination ./EdFi.SdkGen.Console
         Compress-Archive -Path ./EdFi.SdkGen.Console -DestinationPath EdFi.SdkGen.zip
+        ls
     - name: Upload SdkGen Package as Artifact
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
