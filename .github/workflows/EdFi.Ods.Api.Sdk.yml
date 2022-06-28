@@ -73,7 +73,7 @@ jobs:
       if: success()
       run: |
         Copy-Item -Path './Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/${{ env.CONFIGURATION }}/' -Destination ./EdFi.SdkGen/Console
-        Compress-Archive -Path ./EdFi.SdkGen/Console -DestinationPath EdFi.SdkGen.zip
+        Compress-Archive -Path ./EdFi.SdkGen.Console -DestinationPath EdFi.SdkGen.zip
     - name: Upload SdkGen Package as Artifact
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
@@ -81,3 +81,9 @@ jobs:
         name: EdFi.SdkGen
         path: ./EdFi.SdkGen.zip
         if-no-files-found: error
+    - name: Run SdkGen Console
+      if: success()
+      working-directory: ./EdFi.SdkGen.Console/net6.0
+      run: |
+        .\EdFi.SdkGen.Console.exe -m "https://api-stage.ed-fi.org/v6.0/api/metadata" -v "5.4.0" --core-only
+      shell: pwsh
