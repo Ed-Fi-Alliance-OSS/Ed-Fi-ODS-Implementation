@@ -53,7 +53,7 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
 
-        $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/./csharp/EdFi.OdsApi.Sdk.sln")
+        $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln")
         $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
         $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
         $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters }
@@ -70,8 +70,7 @@ function Invoke-Restore-ApiSdk-Packages {
     param (
         [string] $sdkSolutionFile
     )
-    $implementationRepo = Get-Item "$PSScriptRoot/../.." | Select-Object -Expand Name
-    $toolsPath = (Join-Path (Get-RepositoryRoot $implementationRepo) 'tools')
+    $toolsPath = (Join-Path (Get-RepositoryRoot "ed-fi-ods-implementation") 'tools')
 
     $params = @{
         SolutionPath = $sdkSolutionFile
@@ -87,9 +86,7 @@ function Invoke-Pack-ApiSdk {
 
     )
 
-    $nugetOutputParameter = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] "NugetPackages"
-    $scriptRoot = Resolve-Path $PSScriptRoot
-    $nugetOutput = (Join-Path $scriptRoot $nugetOutputParameter)
+    $nugetOutput = Get-ValueOrDefault $teamCityParameters['%nuget.pack.output%'] 'NugetPackages'
 
     $parameters = @{
         PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
