@@ -86,12 +86,6 @@ function Invoke-Pack-ApiSdk {
         [string[]] $teamCityParameters = @()
 
     )
-    $nugetProperties = @(
-        "configuration=$buildConfiguration",
-        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.authors'] 'authors=Ed-Fi Alliance')",
-        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.owners'] 'owners=Ed-Fi Alliance')",
-        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.copyright'] 'copyright=Copyright ©Ed-Fi Alliance, LLC. 2020')"
-    )
 
     $nugetOutputParameter = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] "NugetPackages"
     $scriptRoot = Resolve-Path $PSScriptRoot
@@ -103,8 +97,7 @@ function Invoke-Pack-ApiSdk {
         OutputDirectory       = $nugetOutput
         Publish               = $false
         ToolsPath             = "../../../tools"
-        Properties            = $nugetProperties
-        #AdditionalParameters  = Get-ValueOrDefault $teamCityParameters['nuget.pack.parameters'] '-NoPackageAnalysis -NoDefaultExcludes'
+        Properties            = @("configuration=$buildConfiguration")
     }
     
     Invoke-CreatePackage @parameters -Verbose:$verbose
