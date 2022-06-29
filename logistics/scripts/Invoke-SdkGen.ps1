@@ -86,25 +86,25 @@ function Invoke-Pack-ApiSdk {
         [string[]] $teamCityParameters = @()
 
     )
-    $nugetProperties = @{
-        configuration = $buildConfiguration
-        authors       = Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.authors'] 'Ed-Fi Alliance'
-        owners        = Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.owners'] 'Ed-Fi Alliance'
-        copyright     = Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.copyright'] 'Copyright ©Ed-Fi Alliance, LLC. 2020'
-    }
+    $nugetProperties = @(
+        "configuration=$buildConfiguration",
+        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.authors'] 'authors=Ed-Fi Alliance')",
+        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.owners'] 'owners=Ed-Fi Alliance')",
+        "$(Get-ValueOrDefault $teamCityParameters['nuget.pack.properties.copyright'] 'copyright=Copyright ©Ed-Fi Alliance, LLC. 2020')"
+    )
 
     $nugetOutputParameter = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] "NugetPackages"
     $scriptRoot = Resolve-Path $PSScriptRoot
     $nugetOutput = (Join-Path $scriptRoot $nugetOutputParameter)
 
     $parameters = @{
-        PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/./csharp/EdFi.OdsApi.Sdk.nuspec")
+        PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
         Version               = Get-ValueOrDefault $teamCityParameters['version'] '0.0.0'
         OutputDirectory       = $nugetOutput
         Publish               = $false
         ToolsPath             = "../../../tools"
         Properties            = $nugetProperties
-        AdditionalParameters  = Get-ValueOrDefault $teamCityParameters['nuget.pack.parameters'] '-NoPackageAnalysis -NoDefaultExcludes'
+        #AdditionalParameters  = Get-ValueOrDefault $teamCityParameters['nuget.pack.parameters'] '-NoPackageAnalysis -NoDefaultExcludes'
     }
     
     Invoke-CreatePackage @parameters -Verbose:$verbose
