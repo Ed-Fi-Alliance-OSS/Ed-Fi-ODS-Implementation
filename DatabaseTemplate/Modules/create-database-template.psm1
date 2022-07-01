@@ -299,8 +299,6 @@ function Invoke-LoadBootstrapData {
         [hashtable] $config
     )
 
-    if ($config.noValidation) { Write-Host "LoadBootstrapData skipped."; return }
-
     $params = @{
         apiKey                      = $config.apiBootstrapKey
         apiSecret                   = $config.apiBootstrapSecret
