@@ -47,7 +47,9 @@ function Invoke-SdkGen {
         try {
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
+            $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['%SdkCliVersion%'] '5.4.0'
+            $arguements = @("-v",$sdkCliVersion,"--core-only")
+            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguements }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
@@ -59,20 +61,21 @@ function Invoke-SdkGen {
         $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters }
         
         $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
-        $apiMetadataUrl = ($apiUrl + "/metadata")
         try {
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['%SdkCliVersion%'] '5.4.0'
-            $arguements = @("-v",$sdkCliVersion,"--core-only")
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguements }
+            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
 
-        #TODO: Need to find better way of doing this
-        # $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
-        # (Get-Content $nuspecFile).Replace("EdFi.Suite3.OdsApi.Sdk","EdFi.Suite3.OdsApi.TestSdk")  | Set-Content $nuspecFile
+        Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk"
+        $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
+        $suffix = Get-ValueOrDefault $teamCityParameters['%odsapi.package.suffix%'] ".Suite3"        
+        (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
+            $_.replace("<id>EdFi$suffix.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk</id>").replace("<title>EdFi$suffix.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk</title>")
+         } | Set-Content -Path $nuspecFile
+        
         $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
         $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
         $script:result += Invoke-Task "Pack-ApiTestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters "0.0.11" }
@@ -114,7 +117,7 @@ function Invoke-Pack-ApiSdk {
         OutputDirectory       = $nugetOutput
         Publish               = $false
         ToolsPath             = "../../../tools"
-        Properties            = @("configuration=$buildConfiguration")
+        Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright ©Ed-Fi Alliance, LLC. 2020")
     }
     
     Invoke-CreatePackage @parameters -Verbose:$verbose
