@@ -21,7 +21,8 @@
 param(
     [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
-    [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path
+    [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path,
+    [Boolean] $generateSdkPackages = $false
 )
 
 $ErrorActionPreference = 'Stop'
@@ -38,17 +39,18 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 
 function Invoke-SdkGen {
     $script:result = @()
+    Write-Host "GenerateSdkPackages: $GenerateSdkPackages"
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
     $teamCityParameters = Get-TeamCityParameters
     $buildConfiguration = Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'
-    $version = Get-ValueOrDefault $teamCityParameters['%version%'] '0.0.0'
+    $version = Get-ValueOrDefault $teamCityParameters['version'] '0.0.0'
     
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['%SdkCliVersion%'] '5.4.0'
+            $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '5.4.0'
             $arguements = @("-v",$sdkCliVersion,"--core-only")
             $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguements }
         }
@@ -56,36 +58,38 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
 
-        $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln")
-        $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
-        $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
+        if($generateSdkPackages){
+            $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln")
+            $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
+            $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
 
-        $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
-        $suffix = Get-ValueOrDefault $teamCityParameters['%odsapi.package.suffix%'] ".Suite3"
-        Write-Host "Updating package id and title to EdFi$suffix.OdsApi.Sdk"
-        (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
-            $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk</title>")
-         } | Set-Content -Path $nuspecFile
+            $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
+            $suffix = Get-ValueOrDefault $teamCityParameters['odsapi.package.suffix'] ".Suite3"
+            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.Sdk"
+            (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
+                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.Sdk</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk</title>")
+            } | Set-Content -Path $nuspecFile
 
-        $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
-        
-        $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
-        try {
-            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
+            $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
+            
+            $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
+            try {
+                $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
+                $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
+            }
+            finally {
+                $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
+            }
+
+            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk"
+            (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
+                $_.replace("<id>EdFi$suffix.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk</id>").replace("<title>EdFi$suffix.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk</title>")
+            } | Set-Content -Path $nuspecFile
+            
+            $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
+            $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
+            $script:result += Invoke-Task "Pack-ApiTestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
         }
-        finally {
-            $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
-        }
-
-        Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk"
-        (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
-            $_.replace("<id>EdFi$suffix.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk</id>").replace("<title>EdFi$suffix.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk</title>")
-         } | Set-Content -Path $nuspecFile
-        
-        $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
-        $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
-        $script:result += Invoke-Task "Pack-ApiTestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
     }
 
     Test-Error
@@ -116,7 +120,7 @@ function Invoke-Pack-ApiSdk {
 
     )
 
-    $nugetOutput = Get-ValueOrDefault $teamCityParameters['%nuget.pack.output%'] 'NugetPackages'
+    $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
 
     $parameters = @{
         PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
