@@ -268,7 +268,7 @@ function ClientsViewModel() {
         var auth = { Client_id: mydata.Key.toString(), Response_type: "code" };
         $.support.cors = true;
 
-        var token = { Client_id: mydata.Key, Client_secret: mydata.Secret, Grant_type: "client_credentials" };
+        var token = { Client_id: mydata.Key, Client_secret: mydata.Secret, grant_type: "client_credentials" };
         $.post(EdFiAdmin.Urls.oauth + "token/", token, function (d, e) {
             self.tokenDialog.show({
                 message: (d.Access_token || d.access_token),
