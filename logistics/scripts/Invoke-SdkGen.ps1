@@ -48,6 +48,7 @@ function Invoke-SdkGen {
     
     $elapsed = Use-StopWatch {
         try {
+            $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
             $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '5.4.0'
@@ -135,7 +136,13 @@ function Invoke-Pack-ApiSdk {
 }
 
 function Invoke-Clean-SdkGen-Output {
-    Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse
+    try {
+        Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse
+    }
+    catch {
+        # catching if this call throws, which just means the path does not exist so sdkgen has not been run yet
+    }
+    
 }
 
 Invoke-SdkGen
