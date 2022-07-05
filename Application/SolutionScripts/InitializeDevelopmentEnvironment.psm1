@@ -458,7 +458,7 @@ function Invoke-SdkGen {
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "/logistics/scripts/Invoke-SdkGen.ps1") -generateSdkPackages $GenerateSdkPackages
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateSdkPackages $GenerateSdkPackages
     }
 }
 

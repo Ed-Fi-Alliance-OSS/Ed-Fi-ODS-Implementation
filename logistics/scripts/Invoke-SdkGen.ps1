@@ -39,7 +39,6 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 
 function Invoke-SdkGen {
     $script:result = @()
-    Write-Host "GenerateSdkPackages: $GenerateSdkPackages"
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
     $teamCityParameters = Get-TeamCityParameters

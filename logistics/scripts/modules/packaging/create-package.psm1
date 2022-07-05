@@ -87,7 +87,6 @@ function Invoke-CreatePackage {
         NuGet                 = $nuget
         Verbose               = $verbose
         Properties            = $Properties
-        AdditionalParameters  = $AdditionalParameters
     }
     New-Package @parameters
 
@@ -141,10 +140,7 @@ function New-Package {
 
         [string]
         [Parameter(Mandatory = $true)]
-        $NuGet,
-
-        [string]
-        $AdditionalParameters
+        $NuGet
     )
 
     $parameters = @(
@@ -166,10 +162,6 @@ function New-Package {
     if ($Verbose) {
         $parameters += "-Verbosity"
         $parameters += "detailed"
-    }
-
-    if($AdditionalParameters) {
-        $parameters += $AdditionalParameters
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
