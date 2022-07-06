@@ -128,8 +128,14 @@ function Get-NuGetPackage {
         $parameters += $PackageVersion
     }
     
-    Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
-    & "$ToolsPath/nuget" $parameters | Out-Null
+    if(Get-IsWindows){
+        Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
+        & "$ToolsPath/nuget" $parameters | Out-Null
+    }else {
+        Write-Host -ForegroundColor Magenta "mono $ToolsPath/nuget.exe $parameters"
+        & mono "$ToolsPath/nuget.exe" $parameters | Out-Null
+    }
+    
 
     return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
 }
