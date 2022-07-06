@@ -57,8 +57,14 @@ function Export-BacPac {
         [string] $server = "."
     )
 
-    $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
-
+    if (!(Test-SqlPackage)) {
+        $toolsPath = (get-item $sqlPackagePath).parent.FullName
+        $binary = Install-SqlPackage $toolsPath
+    }
+    if(Test-Path $binary){
+        $executable = $binary
+    }
+    
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
     }
