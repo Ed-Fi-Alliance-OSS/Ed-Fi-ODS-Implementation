@@ -38,7 +38,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 	
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
-        (Join-Path $config.outputFolder "appsettings.development.json")
+        (Join-Path $config.outputFolder "appsettings.Development.json")
     )
 	       
     $config.appSettings = Get-MergedAppSettings $config.appSettingsFiles "Application/EdFi.Ods.Api.IntegrationTestHarness"
@@ -66,7 +66,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.database = (Get-DatabaseTypes).Ods
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
     $config.databaseConnectionString = (Get-ConnectionStringBuildersFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
-    $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_deletes_edfi')
+    $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_changes_edfi')
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
 

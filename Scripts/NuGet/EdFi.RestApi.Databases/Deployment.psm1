@@ -155,7 +155,7 @@ function Set-DeploymentSettingsFiles([string[]] $DeploymentSettingsFiles) {
     .parameter DeploymentSettingsFiles
         The full path to the settings files
         when using initdev this uses
-            appsettings.json, appsettings.development.json, appsettings.user.json from the EdFi.Ods.WebApi project
+            appsettings.json, appsettings.Development.json, appsettings.user.json from the EdFi.Ods.WebApi project
         when using EdFi.RestApi.Databases for deployment this uses
             Ed-Fi-ODS-Implementation\Scripts\NuGet\EdFi.RestApi.Databases\configuration.json
     #>

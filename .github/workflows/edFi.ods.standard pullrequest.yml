@@ -8,18 +8,13 @@ env:
   INFORMATIONAL_VERSION: "6.0"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
+  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  is_pull_request_branch: 
 
 jobs:
   build:
-
     runs-on: windows-latest
- 
     steps:
-    
-    - name: Setup .NET
-      uses: actions/setup-dotnet@9211491ffb35dd6a6657ca4f45d43dfe6e97c829 # v2
-      with:
-        dotnet-version: 6.0.x
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -27,20 +22,47 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-          ref: ODS-5353
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+          $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+          Write-Host "Pattern Name is " $patternName -fore GREEN
+          $is_pull_request_branch = 'False'
+          $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+          Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
+          if ($is_pull_request_branch -eq $true) {
+            Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+            git fetch origin ${{ env.CURRENT_BRANCH }}
+            git checkout ${{ env.CURRENT_BRANCH }}
+          }
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-          ref: ODS-5353
-    - name: CodeGen
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+          $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
+          Write-Host "Pattern Name is " $patternName -fore GREEN
+          $is_pull_request_branch = 'False'
+          $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
+          Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
+          if ($is_pull_request_branch -eq $true) {
+            Write-Host "pull request branch "+ ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+            git fetch origin ${{ env.CURRENT_BRANCH }}
+            git checkout ${{ env.CURRENT_BRANCH }}
+          }
+    - name: CodeGen    
+      working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Invoke-CodeGen -Engine SQLServer
+          Invoke-CodeGen -Engine SQLServer -RepositoryRoot $env:GITHUB_WORKSPACE
     - name: build
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -50,4 +72,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
-      shell: pwsh
+      shell: pwsh     
+
+          
+
+    

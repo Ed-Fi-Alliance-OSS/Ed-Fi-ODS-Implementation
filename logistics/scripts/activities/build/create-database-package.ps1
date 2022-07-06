@@ -50,7 +50,7 @@ $tasks = [ordered] @{
 
         $settingsFiles = @(
             "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-            "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
+            "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.Development.json"
         )
 
         New-DevelopmentAppSettings $settings
@@ -72,7 +72,7 @@ $tasks = [ordered] @{
 
         $settingsFiles = @(
             "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-            "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json"
+            "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.Development.json"
         )
 
         New-DevelopmentAppSettings $settings

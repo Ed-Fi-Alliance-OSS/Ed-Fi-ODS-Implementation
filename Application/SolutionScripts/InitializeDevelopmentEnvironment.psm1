@@ -35,7 +35,7 @@ Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTempl
 
 Set-DeploymentSettingsFiles @(
     "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.json",
-    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.development.json",
+    "$(Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi')/appsettings.Development.json",
     (Get-RepositoryResolvedPath 'configuration.packages.json')
 )
 
@@ -222,7 +222,7 @@ function Get-RandomString {
 function Invoke-NewDevelopmentAppSettings([hashtable] $Settings = @{ }) {
     <#
     .description
-        Generates appsettings.development.json for the following projects:
+        Generates appsettings.Development.json for the following projects:
             EdFi.Ods.WebApi
             EdFi.Ods.Api.IntegrationTestHarness
             EdFi.Ods.SandboxAdmin.Web
@@ -359,7 +359,8 @@ function Invoke-CodeGen {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
         [switch] $IncludePlugins,
-        [string[]] $ExtensionPaths
+        [string[]] $ExtensionPaths,
+        [String] $RepositoryRoot
     )
 
     Install-CodeGenUtility
@@ -370,12 +371,13 @@ function Invoke-CodeGen {
         }
 
         $codeGen = (Join-Path $toolsPath 'EdFi.Ods.CodeGen')
-        $repositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
 
-        Write-Host  '$RepositoryRoot' -ForegroundColor Magenta $repositoryRoot
+        if ([string]::IsNullOrEmpty($RepositoryRoot)) {
+            $RepositoryRoot = (Get-RepositoryRoot $implementationRepo).Replace($implementationRepo, '')
+        }
 
         $parameters = @(
-            "-r", $repositoryRoot,
+            "-r", $RepositoryRoot.ToLower(),
             "-e", $Engine
         )
         if ($IncludePlugins) {
