@@ -1,4 +1,5 @@
-# in file Get-Planet.Tests.ps1
+#  TO DO
+# use new-item instead of mkdir
 BeforeAll { 
     Import-Module "$PSScriptRoot/utility/cross-platform.psm1"
     Import-Module -Force -Scope Global ($PSCommandPath.Replace('.tests.ps1', '.psm1'))
