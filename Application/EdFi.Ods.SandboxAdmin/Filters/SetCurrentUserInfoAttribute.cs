@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -33,16 +33,16 @@ namespace EdFi.Ods.SandboxAdmin.Filters
             get { return _securityServiceLocator(); }
         }
 
-        public override void OnActionExecuted(ActionExecutedContext filterContext)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
-            if (filterContext.HttpContext.Request.IsAjaxRequest())
+            if (context.HttpContext.Request.IsAjaxRequest())
             {
                 return;
             }
 
             string currentUserName = _httpContextAccessor.HttpContext.User?.Identity?.Name;
             var userLookup = SecurityService.GetCurrentUser(currentUserName);
-            ((Controller)(filterContext.Controller)).ViewBag.UserLookup = userLookup;
+            ((Controller) (context.Controller)).ViewBag.UserLookup = userLookup;
         }
     }
 }

@@ -117,7 +117,13 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 {
                     Directory.CreateDirectory(smtpClient.PickupDirectoryLocation);
                 }
-                catch { }
+#pragma warning disable S2486 // Generic exceptions should not be ignored
+                catch
+                {
+                    // TODO ODS-5492: it would be preferable to have a logger and at least record a message that
+                    // the error occurred.
+                }
+#pragma warning restore S2486 // Generic exceptions should not be ignored
             }
 
             return smtpClient;

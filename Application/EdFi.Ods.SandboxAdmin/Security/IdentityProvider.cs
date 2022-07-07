@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 namespace EdFi.Ods.SandboxAdmin.Security
@@ -63,7 +62,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
             return await _userManager.FindByEmailAsync(userEmail);
         }
 
-        public async Task<bool> Login(string userEmail, string password, bool isPersistent = false)
+        public async Task<bool> Login(string userEmail, string password, bool isPersistent)
         {
             var identityUser = await _userManager.FindByEmailAsync(userEmail);
 

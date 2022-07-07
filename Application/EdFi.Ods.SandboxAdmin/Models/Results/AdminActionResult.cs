@@ -23,10 +23,12 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
             get { return !string.IsNullOrEmpty(Message); }
         }
 
-        public string[] FailingFields
-        {
-            get { return _failingFields.ToArray(); }
-        }
+        // SF: I agree with this recommendation from SonarSource. However, I am nervous
+        // that this isn't being falgged as unused, yet changing to a method isn't
+        // breaking anything. Would need to test this thoroughly. Might prefer to
+        // make an exception and leave this alone. For more information, see 
+        // https://rules.sonarsource.com/csharp/RSPEC-2365
+        public string[] GetFailingFields() => _failingFields.ToArray();
 
         public bool Success { get; set; }
 
@@ -35,7 +37,7 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
         public TResult WithMessage(string message)
         {
             Message = message;
-            return (TResult)this;
+            return (TResult) this;
         }
 
         public TResult AddFailingField<T>(Expression<Func<TModel, T>> field)
@@ -44,7 +46,7 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
                 field.MemberName()
                      .ToLower());
 
-            return (TResult)this;
+            return (TResult) this;
         }
     }
 }

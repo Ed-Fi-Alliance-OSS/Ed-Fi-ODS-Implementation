@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -48,12 +48,10 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 return PasswordResetResult.BadUsername;
             }
 
-            if (!await _identityProvider.VerifyUserEmailConfirmed(userEmail))
+            if (!await _identityProvider.VerifyUserEmailConfirmed(userEmail)
+                 && !await _identityProvider.VerifyUserPassword(userEmail, secret))
             {
-                if (!await _identityProvider.VerifyUserPassword(userEmail, secret))
-                {
-                    return PasswordResetResult.Expired(userEmail);
-                }
+                return PasswordResetResult.Expired(userEmail);
             }
 
             return PasswordResetResult.Successful;

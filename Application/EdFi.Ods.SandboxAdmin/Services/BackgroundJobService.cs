@@ -1,4 +1,9 @@
-﻿using Hangfire;
+// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using Hangfire;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
@@ -33,14 +38,11 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var id3 = BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());
             BackgroundJob.ContinueJobWith(id3, () => _engine.UpdateClientWithLEAIdsFromPopulatedSandbox());
 
-            foreach (var user in _users)
+            // refresh existing sandboxes periodically
+            if (_users.Any(x => x.Value.Sandboxes.Any(s => s.Value.Refresh)))
             {
-                // refresh existing sandboxes periodically
-                if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
-                {
-                    // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                    RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), TimeZoneInfo.Local);
-                }
+                // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
+                RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), TimeZoneInfo.Local);
             }
         }
     }

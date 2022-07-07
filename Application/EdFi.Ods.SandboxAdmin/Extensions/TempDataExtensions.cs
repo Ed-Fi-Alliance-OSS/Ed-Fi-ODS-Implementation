@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -37,7 +37,7 @@ namespace EdFi.Ods.SandboxAdmin.Extensions
 
         public static string GetErrorMessage(this ITempDataDictionary tempData)
         {
-            return (string)tempData[ErrorKey];
+            return (string) tempData[ErrorKey];
         }
 
         public static void SetFlag(this ITempDataDictionary tempData, string key)

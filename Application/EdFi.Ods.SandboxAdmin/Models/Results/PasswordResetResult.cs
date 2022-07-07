@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -15,25 +15,26 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
 
     public class PasswordResetResult : AdminActionResult<PasswordResetResult, PasswordResetModel>
     {
-        public static PasswordResetResult Successful = new PasswordResetResult
+        public static PasswordResetResult Successful { get; set; } = new PasswordResetResult
         {
             Success = true
         };
-        public static PasswordResetResult BadUsername = new PasswordResetResult
+
+        public static PasswordResetResult BadUsername { get; set; } = new PasswordResetResult
         {
             Success = false,
             ResetStatus = PasswordResetStatus.BadUsername,
-            Message =
-                                                                "We are having some trouble looking up your account.  Please enter your email address to send a verification link."
+            Message = "We are having some trouble looking up your account.  Please enter your email address to send a verification link."
         };
-        public static PasswordResetResult BadPassword = new PasswordResetResult
+
+        public static PasswordResetResult BadPassword { get; set; } = new PasswordResetResult
         {
             Success = false,
             ResetStatus = PasswordResetStatus.BadPassword,
             Message = "The password you entered is invalid."
         }
-                                                       .AddFailingField(x => x.Password)
-                                                       .AddFailingField(x => x.ConfirmPassword);
+            .AddFailingField(x => x.Password)
+            .AddFailingField(x => x.ConfirmPassword);
 
         public PasswordResetStatus ResetStatus { get; private set; }
 
