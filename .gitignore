@@ -107,8 +107,6 @@ DatabaseTemplate/*
 
 # .Net Tools
 tools/*
-Ed-Fi-Db-Deploy.log
-EdFi\.CodeGen\.log
 downloads/
 reports/
 
@@ -123,3 +121,7 @@ environment.json
 
 # Sandbox Admin
 /**/SandboxAdminLog*
+
+# Log output
+*.sarif
+*.log
