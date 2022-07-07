@@ -22,7 +22,7 @@ namespace EdFi.Ods.SwaggerUI
     {
         private readonly bool _useReverseProxyHeaders;
         private readonly string _pathBase;
-        private string _routePrefix;
+        private readonly string _routePrefix;
         private const string DefaultRoutePrefix = "swagger";
 
         public Startup(IConfiguration configuration)
