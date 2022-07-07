@@ -41,7 +41,7 @@ Describe 'Get-CorePath' {
     It 'Returns an ODS Core path' {
         $getCorePath = Get-CorePath
         Test-Path $getCorePath.Path | Should -Be $true
-        $getCorePath.Path | Should -BeLike "*Ed-Fi-ODS/" 
+        $getCorePath.Path | Should -BeLike "*Ed-Fi-ODS" 
     }
 }
 Describe 'Get-RepositoryResolvedPath' {
