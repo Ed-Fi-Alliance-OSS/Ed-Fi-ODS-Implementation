@@ -214,7 +214,7 @@ function Install-SqlPackage {
     )
     
     if (-not $(Test-Path $ToolsPath)) {
-        mkdir $ToolsPath | Out-Null
+        New-Item $ToolsPath -ItemType Directory  | Out-Null
     }
     $ToolsPath = Resolve-Path $ToolsPath | Select -ExpandProperty Path
     $zipFile =  (Join-Path $ToolsPath "sqlpackage.zip")
@@ -222,21 +222,15 @@ function Install-SqlPackage {
     if (Get-IsWindows) {
         $sqlbinary = (Join-Path $unzipDir "sqlpackage.exe")
         $pkgSrc = "https://aka.ms/sqlpackage-windows"
-        $ProgressPreference = 'SilentlyContinue'
-        Invoke-WebRequest $pkgSrc -OutFile $zipFile
-        $ProgressPreference = 'Continue'
-        
     }else{
         $sqlbinary = (Join-Path $unzipDir "sqlpackage")
         $pkgSrc = "https://aka.ms/sqlpackage-linux"
-        if(!(which unzip)){
-            throw "Unzip must be present to install sqlpackage"
-            #apt install unzip -y -qq > /dev/null
-        }
-        wget -q $pkgSrc -O $zipFile
     }
-    unzip -q $zipFile -d $unzipDir
-    rm $zipFile
+    $ProgressPreference = 'SilentlyContinue'
+    Invoke-WebRequest $pkgSrc -OutFile $zipFile
+    $ProgressPreference = 'Continue'
+    Expand-Archive -Path $zipFile -DestinationPath $unzipDir
+    Remove-Item $zipFile -Force
     if (-not ($ENV:PATH.Contains($unzipDir))) {
         if(Get-IsWindows){
             $ENV:PATH = "$env:PATH;$unzipDir"
