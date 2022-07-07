@@ -117,9 +117,10 @@ dotnet_diagnostic.IDE0008.severity=none # IDE0008: Use explicit type
 csharp_style_var_elsewhere = false:none
 csharp_style_var_for_built_in_types = false:suggestion
 
-# IDE0065: placement of using statements
+# Using statements
 csharp_using_directive_placement=outside_namespace:warning
-dotnet_diagnostic.IDE0065.severity=warning
+dotnet_diagnostic.IDE0065.severity=warning # placement of using statements
+dotnet_diagnostic.IDE0005.severity=warning # Remove unnecessary using directives
 
 # Lower the priority
 dotnet_diagnostic.S4136.severity=suggestion # Method overloads should be grouped together
