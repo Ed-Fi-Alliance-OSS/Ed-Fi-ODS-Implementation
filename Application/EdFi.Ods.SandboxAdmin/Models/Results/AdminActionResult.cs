@@ -23,12 +23,10 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
             get { return !string.IsNullOrEmpty(Message); }
         }
 
-        // SF: I agree with this recommendation from SonarSource. However, I am nervous
-        // that this isn't being falgged as unused, yet changing to a method isn't
-        // breaking anything. Would need to test this thoroughly. Might prefer to
-        // make an exception and leave this alone. For more information, see 
-        // https://rules.sonarsource.com/csharp/RSPEC-2365
-        public string[] GetFailingFields() => _failingFields.ToArray();
+        // Properties should not make collection or array copies - cannot change because of downstream impact
+#pragma warning disable S2365 
+        public string[] FailingFields => _failingFields.ToArray();
+#pragma warning restore S2365 // Properties should not make collection or array copies
 
         public bool Success { get; set; }
 
