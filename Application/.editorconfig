@@ -125,6 +125,7 @@ dotnet_diagnostic.IDE0005.severity=warning # Remove unnecessary using directives
 # Lower the priority
 dotnet_diagnostic.S4136.severity=suggestion # Method overloads should be grouped together
 dotnet_diagnostic.S1135.severity=suggestion # Complete TODO comments
+dotnet_diagnostic.S112.severity=suggestion # 'System.Exception' should not be thrown by user code.
 
 
 [**/tests/**/*.cs]

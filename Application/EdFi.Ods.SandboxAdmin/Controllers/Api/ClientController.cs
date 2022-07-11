@@ -103,8 +103,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                     currentException = currentException.InnerException;
                 }
 
-                // This is not an ideal exception type, but it is better than a plain Exception
-                throw new InvalidOperationException(string.Format("Unhandled exception with these messages: {0}", message));
+                throw new Exception(string.Format("Unhandled exception with these messages: {0}", message));
             }
         }
 
