@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -18,6 +18,7 @@ using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Provisioners;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using System.Text;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {
@@ -92,12 +93,12 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             {
                 var currentException = e;
                 var counter = 0;
-                var message = string.Empty;
+                var message = new StringBuilder();
 
                 while (currentException != null)
                 {
                     Trace.TraceError("{0}: {1}", currentException.Message, currentException.StackTrace);
-                    message += string.Format("{0}:{1}", counter, currentException.Message);
+                    message.AppendLine($"{counter}:{currentException.Message}");
                     counter++;
                     currentException = currentException.InnerException;
                 }
@@ -170,7 +171,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 }
             }
 
-            return StatusCode((int)HttpStatusCode.NotAcceptable);
+            return StatusCode((int) HttpStatusCode.NotAcceptable);
         }
 
         [HttpPut("{id}")]

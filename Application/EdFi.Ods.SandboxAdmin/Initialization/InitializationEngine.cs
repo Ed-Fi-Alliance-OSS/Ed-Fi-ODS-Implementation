@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -163,7 +163,26 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
             List<string> resetSandboxKeys = new List<string>();
             try
             {
+                // The code analyzer wants to change to the following, which I do not like due to the
+                // "database style" of Linq. We should decide if we want to disable or keep this rule.
+                // More info: https://rules.sonarsource.com/csharp/RSPEC-3267
+#pragma warning disable S125 // Sections of code should not be commented out
+                /*
+                foreach (var (clientProfile, sandbox) in from user in _users
+                                                            let clientProfile = _clientAppRepo.GetUser(user.Value.Email)
+                                                            from sandbox in user.Value.Sandboxes.Where(x => x.Value.Refresh)
+                                                            select (clientProfile, sandbox))
+                {
+                    if (resetSandboxKeys.Contains(sandbox.Key))
+                    {
+                        continue;
+                    }
+                */
+#pragma warning restore S125 // Sections of code should not be commented out
+
+#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
                 foreach (var user in _users)
+#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
                 {
                     var clientProfile = _clientAppRepo.GetUser(user.Value.Email);
 

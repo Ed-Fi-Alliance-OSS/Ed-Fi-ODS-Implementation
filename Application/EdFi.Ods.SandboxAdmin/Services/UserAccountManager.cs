@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -72,9 +72,9 @@ namespace EdFi.Ods.SandboxAdmin.Services
                .AddFailingField(x => x.Email);
         }
 
-        public async Task<bool> Login(string userEmail, string password, bool isPersistent = false)
+        public async Task<bool> Login(string userName, string password, bool isPersistent)
         {
-            return await _identityProvider.Login(userEmail, password, isPersistent);
+            return await _identityProvider.Login(userName, password, isPersistent);
         }
 
         public async Task<PasswordResetResult> ResetPassword(PasswordResetModel model)
@@ -215,7 +215,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
             try
             {
-                bool success = await _identityProvider.CreateUser(model.Name, model.Email, randomPassword);
+                _ = await _identityProvider.CreateUser(model.Name, model.Email, randomPassword);
 
                 string confirmationSecret = await _identityProvider.GenerateEmailConfirmationToken(model.Email);
 

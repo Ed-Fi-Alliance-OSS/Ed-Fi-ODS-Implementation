@@ -64,7 +64,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
             }
 
             // Failed Model Validation
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return Json(BuildJsonResponseFromModelState());
         }
 
@@ -245,7 +245,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
             return View(
                 new PasswordResetCompletViewModel
                 {
-                    Message = (string)message
+                    Message = (string) message
                 });
         }
 
@@ -296,7 +296,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
                 }
 
                 //Failed Login
-                Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                Response.StatusCode = (int) HttpStatusCode.Unauthorized;
 
                 return Json(
                     new
@@ -307,7 +307,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers
             }
 
             // Failed Model Validation
-            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+            Response.StatusCode = (int) HttpStatusCode.BadRequest;
             return Json(BuildJsonResponseFromModelState());
         }
 

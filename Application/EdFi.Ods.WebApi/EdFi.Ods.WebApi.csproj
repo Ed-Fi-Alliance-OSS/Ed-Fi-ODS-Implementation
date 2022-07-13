@@ -24,17 +24,26 @@
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.0.3" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="6.0.14" />
-    <PackageReference  Include="FluentValidation" Version="10.4.0" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.19.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.Csharp.CodeStyle" Version="4.2.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.41.0.50478">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
   </ItemGroup>
 

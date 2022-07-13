@@ -6,7 +6,6 @@
 using System;
 using log4net;
 using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore.Internal;
 
 namespace EdFi.Ods.Sandbox.Admin.Extensions
 {

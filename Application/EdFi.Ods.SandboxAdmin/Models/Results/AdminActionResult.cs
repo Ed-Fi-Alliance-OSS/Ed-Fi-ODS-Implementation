@@ -23,10 +23,10 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
             get { return !string.IsNullOrEmpty(Message); }
         }
 
-        public string[] FailingFields
-        {
-            get { return _failingFields.ToArray(); }
-        }
+        // Properties should not make collection or array copies - cannot change because of downstream impact
+#pragma warning disable S2365 
+        public string[] FailingFields => _failingFields.ToArray();
+#pragma warning restore S2365 // Properties should not make collection or array copies
 
         public bool Success { get; set; }
 
@@ -35,7 +35,7 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
         public TResult WithMessage(string message)
         {
             Message = message;
-            return (TResult)this;
+            return (TResult) this;
         }
 
         public TResult AddFailingField<T>(Expression<Func<TModel, T>> field)
@@ -44,7 +44,7 @@ namespace EdFi.Ods.SandboxAdmin.Models.Results
                 field.MemberName()
                      .ToLower());
 
-            return (TResult)this;
+            return (TResult) this;
         }
     }
 }
