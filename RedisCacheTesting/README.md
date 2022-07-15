@@ -30,9 +30,7 @@ To bring the environment down:
 This will stop the services and remove them.
 
 ## Running the apps
-Launch redis-commander for viewing the state of redis
-
-[Redis-Commander](http://localhost:8081/)
+Launch your local instance of redis-commander, by default at [http://localhost:8081](http://localhost:8081/), to view the current state of redis.
 
 Configure local dev Ed-Fi API development environment to use redis for external caching
 
