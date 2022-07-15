@@ -32,7 +32,7 @@ This will stop the services and remove them.
 ## Running the apps
 Launch your local instance of redis-commander, by default at [http://localhost:8081](http://localhost:8081/), to view the current state of redis.
 
-Configure local dev Ed-Fi API development environment to use redis for external caching
+Configure local dev Ed-Fi API development environment to use redis for external caching.
 
 In appsettings.json, update the caching section similar to the following:
 ```
