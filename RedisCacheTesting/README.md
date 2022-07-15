@@ -34,6 +34,38 @@ Launch redis-commander for viewing the state of redis
 
 [Redis-Commander](http://localhost:8081/)
 
-Configure local dev Ed-Fi API development environment to use external caching
+Configure local dev Ed-Fi API development environment to use redis for external caching
 
-[How to use an External Cache Provider for the Ed-Fi Api](https://techdocs.ed-fi.org/pages/viewpage.action?spaceKey=ODSAPIS3V60&title=How+To%3A+Use+an+External+Cache+Provider+for+the+Ed-Fi+API)
+In appsettings.json, update the caching section similar to the following:
+```
+"Caching": {
+    "ExternalCacheProvider": "Redis",
+    "Redis":{
+        "Configuration": "localhost",    
+        "Password": "",
+    },
+    "SQLServer":{
+        "ConnectionString": "",    
+        "SchemaName": "",
+        "TableName": "",
+    },
+    "Descriptors": {
+        "UseExternalCache": true,
+        "AbsoluteExpirationSeconds": 1800
+    },
+    "PersonUniqueIdToUsi": {
+        "UseExternalCache": true,
+        "AbsoluteExpirationSeconds": 0,
+        "SlidingExpirationSeconds": 14400,
+        "SuppressStudentCache": false,
+        "SuppressStaffCache": false,
+        "SuppressParentCache": false
+    },
+    "ApiClientDetails":{
+        "UseExternalCache": true
+    },
+    "Security": {
+        "AbsoluteExpirationMinutes": 10
+    }
+}
+```
