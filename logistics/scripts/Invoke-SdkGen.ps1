@@ -52,8 +52,8 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
             $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
-            $arguements = @("-v",$sdkCliVersion,"--core-only")
-            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguements }
+            $arguments = @("-v",$sdkCliVersion,"--core-only")
+            $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }

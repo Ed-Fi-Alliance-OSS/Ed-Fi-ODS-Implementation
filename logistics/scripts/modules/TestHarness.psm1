@@ -82,6 +82,7 @@ function Invoke-SdkGenConsole {
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
     $argumentList = @('-m', $apiMetadataUrl) + $arguments
+    Write-Host "EdFi.SdkGen.Console argumentList "$argumentList -ForegroundColor Green
     Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
 }
 
