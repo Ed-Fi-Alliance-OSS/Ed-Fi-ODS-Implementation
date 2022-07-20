@@ -26,6 +26,8 @@ Describe 'Select-CumulativeRepositoryResolvedItems' {
 }
 Describe 'Select-SupportingArtifactResolvedSources' {
     It 'Returns a valid Extension directory' {
+        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
+        Set-Location $implRoot
         $SupportingArtifactResolvedSources = Select-SupportingArtifactResolvedSources
         $SupportingArtifactResolvedSources.Name | Should -Be "EdFi.Ods.Extensions.Tests"
     }
@@ -41,7 +43,7 @@ Describe 'Get-CorePath' {
     It 'Returns an ODS Core path' {
         $getCorePath = Get-CorePath
         Test-Path $getCorePath.Path | Should -Be $true
-        $getCorePath.Path | Should -BeLike "*Ed-Fi-ODS" 
+        $getCorePath.Path.TrimEnd([IO.Path]::DirectorySeparatorChar) | Should -BeLike "*Ed-Fi-ODS"
     }
 }
 Describe 'Get-RepositoryResolvedPath' {
@@ -63,14 +65,18 @@ Describe 'Get-RepositoryNames' {
 }
 Describe 'Get-RepositoryNameFromPath' {
     It 'Returns valid and reachable repository root from a path within' {
-        $getRepositoryNamePath = Get-RepositoryNameFromPath .
+        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
+        Set-Location $implRoot
+        $getRepositoryNamePath = Get-RepositoryNameFromPath (Join-Path $implRoot logistics)
         $getRepositoryNamePath | Should -Be "Ed-Fi-ODS-Implementation"
     }
 }
 
 Describe 'Format-ArrayByRepositories' {
     It 'Returns an array of paths' {
-        $repoArray = Format-ArrayByRepositories $pwd.Path, "$($pwd.Path)/tasks"
+        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
+        Set-Location $implRoot
+        $repoArray = Format-ArrayByRepositories @("$($pwd.Path)/logistics/modules/", "$($pwd.Path)/logistics/scripts/modules/")
         # When you use a pipe, PowerShell "unrolls" the collection and 
         #   pipes in one element at a time, breaking our array check
         # Use PowerShell's unary comma operator to wrap the collection in a one-element array
@@ -80,5 +86,5 @@ Describe 'Format-ArrayByRepositories' {
 
 
 AfterAll {
-    rm "$($pwd.Path)/Application" -R
+    Remove-Item "$($pwd.Path)/Application/EdFi.Ods.Extensions.Tests" -Recurse -Force
 }
