@@ -49,6 +49,7 @@ function Install-EdFiOdsSandboxAdmin {
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
+            IsCustomLogin      = $false
             Settings           = @{
                 ConnectionStrings            = @{
                     EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
@@ -136,7 +137,11 @@ function Install-EdFiOdsSandboxAdmin {
 
         # Optional hashtable containing appSettings override values.
         [hashtable]
-        $Settings = @{ OAuthUrl = "https://localhost/EdFiOdsWebApi" }
+        $Settings = @{ OAuthUrl = "https://localhost/EdFiOdsWebApi" },
+        
+        # Prompts user to enter custom login username (used with Integrated Security)
+        [switch]
+        $IsCustomLogin
     )
 
     Write-InvocationInfo $MyInvocation
@@ -158,6 +163,7 @@ function Install-EdFiOdsSandboxAdmin {
         WebApplicationName = $WebApplicationName
         Engine             = $Engine
         Settings           = $Settings
+        IsCustomLogin      = $IsCustomLogin
     }
 
     $elapsed = Use-StopWatch {
@@ -337,6 +343,17 @@ function Convert-ConnectionStringtoDatabaseConnectionInfo {
         $useIntegratedSecurity = $true
     }
     
+    if($ConnectionString.Replace(" ","").ToLower().Contains("trusted_connection=true")) {
+        $useIntegratedSecurity = $true
+    }
+    
+    # Integrated security in the "Windows Users" sense is not applicable on a Linux like server and is not a standard connection string entry in postgres
+    # The equivalent way to identify a postgresql connection string that is using "Passwordless" integrated security would be checking for a config with a postgres engine 
+    # and with no password in the connection string
+    if($Config.MergedSettings.ApiSettings.Engine.ToLower() -eq "postgresql"   -and -Not $ConnectionString.Replace(" ","").ToLower().Contains("password=")) {
+        $useIntegratedSecurity = $true
+    }
+    
     $dbConnectionInfo = @{
         UseIntegratedSecurity = $useIntegratedSecurity
         Engine                = $Config.MergedSettings.ApiSettings.Engine
@@ -360,9 +377,15 @@ function New-SqlLogins {
         $odsDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Admin)
         $securityDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Security)
 
-        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName
-        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName
-        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName
+        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+        
+        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+        
+        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
+        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+        
+        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
     }
 }
 

@@ -273,7 +273,11 @@ function Install-EdFiOdsWebApi {
 
         # Turns off display of script run-time duration.
         [switch]
-        $NoDuration
+        $NoDuration,
+        
+        # Prompts user to enter custom login username (used with Integrated Security)
+        [switch]
+        $IsCustomLogin
     )
     Write-InvocationInfo $MyInvocation
 
@@ -304,6 +308,7 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
+        IsCustomLogin = $IsCustomLogin
     }
 
     $elapsed = Use-StopWatch {
@@ -539,13 +544,13 @@ function New-SqlLogins {
 
         if($Config.usingSharedCredentials)
         {
-            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
         }
         else
         {
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
         }
     }
 }
