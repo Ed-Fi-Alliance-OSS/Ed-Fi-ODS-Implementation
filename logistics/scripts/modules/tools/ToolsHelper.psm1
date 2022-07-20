@@ -195,15 +195,6 @@ function Test-DotNetCore {
     }
 }
 
-function Test-SqlPackage {
-    try {
-        ( sqlpackage -version | Out-Null )
-        return $true
-    }
-    catch {
-        return $false
-    }
-}
 # TO DO: split into windows and unix install functions
 # document the need for unzip and wget
 function Install-SqlPackage {

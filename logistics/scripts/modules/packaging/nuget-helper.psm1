@@ -58,12 +58,7 @@ function Install-NuGetCli {
 
     # Add the tools directory to the path if not already there
     if (-not ($ENV:PATH.Contains($ToolsPath))) {
-        if(Get-IsWindows){
-            $ENV:PATH = "$ToolsPath;$ENV:PATH"
-        }else {
-            $ENV:PATH = "$($ENV:PATH):$ToolsPath"
-        }
-        
+        $ENV:PATH = "$ToolsPath$([IO.Path]::PathSeparator)$ENV:PATH"
     }
 
     return $nuget

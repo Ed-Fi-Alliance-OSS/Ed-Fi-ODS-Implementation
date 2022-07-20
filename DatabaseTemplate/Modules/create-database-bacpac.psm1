@@ -8,14 +8,14 @@ $ErrorActionPreference = "Stop"
 function Export-BacPac {
         <#
     .SYNOPSIS
-        Exports a database using sqlpackage.exe.
+        Exports a database using the sqlpackage executable .
 
     .DESCRIPTION
-        Exports the specific database using the sqlpackage.exe application. The server is defaulted to local host. An exception will be thrown
-        if sqlpackage.exe is not found.
+        Exports the specific database using the sqlpackage executable. The server is defaulted to local host. An exception will be thrown
+        if the sqlpackage executable is not found.
 
     .PARAMETER sqlPackagePath
-        An absolute path to the folder to execute sqlpackage.exe from: e.g.C:/sqlpackage/
+        An absolute path to the folder to execute sqlpackage executable from: e.g.C:/sqlpackage/
 
     .PARAMETER database
         Database to export.
@@ -57,13 +57,13 @@ function Export-BacPac {
         [string] $server = "."
     )
 
-    if (!(Test-SqlPackage)) {
-        $toolsPath = (get-item $sqlPackagePath).parent.FullName
-        $binary = Install-SqlPackage $toolsPath
+    if(Get-IsWindows){
+        $executableName = "sqlpackage.exe"
+    }else {
+        $executableName = "sqlpackage"
     }
-    if(Test-Path $binary){
-        $executable = $binary
-    }
+    
+    $executable = Join-Path $sqlPackagePath $executableName
     
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."

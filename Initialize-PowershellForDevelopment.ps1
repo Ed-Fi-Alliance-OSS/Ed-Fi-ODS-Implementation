@@ -17,7 +17,6 @@ function Find-BlockedFiles {
         Internet = 3
     }
 
-
     ForEach ($repository in Get-RepositoryNames) {
         $zoneIdentifierFiles = Get-ChildItem -Path $PSScriptRoot\..\$repository -recurse -Include *.ps1, *.psm1 |
             Select-Object -Expand FullName | Get-Item -Stream "Zone.Identifier" -ErrorAction SilentlyContinue |
