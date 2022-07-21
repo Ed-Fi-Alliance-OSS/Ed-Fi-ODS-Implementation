@@ -20,7 +20,7 @@ env:
   AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN : "******"
   SCRIPT_PROMOTE_PACKAGES_VIEW : "Prerelease"
   SCRIPT_PROMOTE_PACKAGES.WHATIF : "$true"
-  SCRIPT_PROMOTE_PACKAGES : "Ed-Fi-ODS-Implementation\logistics\scripts\activities\build\promote-packages.ps1"
+  SCRIPT_PROMOTE_PACKAGES : "Ed-Fi-ODS-Implementation/logistics/scripts/activities/build/promote-packages.ps1"
 
 jobs:
   build:
