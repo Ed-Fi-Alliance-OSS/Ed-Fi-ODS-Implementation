@@ -114,7 +114,7 @@ Function Invoke-PromotePackages {
             protocolType = "NuGet"
         }
     }
-
+<#
     $parameters = @{
         Method      = "POST"
         ContentType = "application/json"
@@ -122,13 +122,15 @@ Function Invoke-PromotePackages {
         URI         = "$PackagesURL/nuget/packagesBatch?api-version=5.0-preview.1"
         Body        = ConvertTo-Json $Body -Depth 10
     }
-
+#>
     $parameters | Out-Host
     $parameters.URI | Out-Host
     $parameters.Body | Out-Host
 
     if ($PSCmdlet.ShouldProcess($PackagesURL)) {
-        $response = Invoke-WebRequest @parameters
+        ##$response = Invoke-WebRequest @parameters
+        $response = Invoke-RestMethod -Uri $"$PackagesURL/nuget/packagesBatch?api-version=5.0-preview.1" -Headers @{Authorization = $Password}   -ContentType "application/json" -Method POST -Body (ConvertTo-Json $body -Depth 10)     
+        
         $response | ConvertTo-Json -Depth 10 | Out-Host
     }
 
