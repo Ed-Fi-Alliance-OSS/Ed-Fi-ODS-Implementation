@@ -67,8 +67,8 @@ Describe 'Get-RepositoryNameFromPath' {
     It 'Returns valid and reachable repository root from a path within' {
         $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
         Set-Location $implRoot
-        $getRepositoryNamePath = Get-RepositoryNameFromPath (Join-Path $implRoot logistics)
-        $getRepositoryNamePath | Should -Be "Ed-Fi-ODS-Implementation"
+        $getRepositoryNamePath = Get-RepositoryNameFromPath (Join-Path $implRoot Artifacts)
+        $getRepositoryNamePath | Should -BeLike "Ed-Fi-ODS*"
     }
 }
 
@@ -76,7 +76,7 @@ Describe 'Format-ArrayByRepositories' {
     It 'Returns an array of paths' {
         $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
         Set-Location $implRoot
-        $repoArray = Format-ArrayByRepositories @("$($pwd.Path)/logistics/modules/", "$($pwd.Path)/logistics/scripts/modules/")
+        $repoArray = Format-ArrayByRepositories @("$($pwd.Path)/Artifacts", "$($pwd.Path)/Artifacts/MsSql")
         # When you use a pipe, PowerShell "unrolls" the collection and 
         #   pipes in one element at a time, breaking our array check
         # Use PowerShell's unary comma operator to wrap the collection in a one-element array
