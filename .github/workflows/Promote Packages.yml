@@ -20,7 +20,6 @@ env:
   AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN : "******"
   SCRIPT_PROMOTE_PACKAGES_VIEW : "Prerelease"
   SCRIPT_PROMOTE_PACKAGES.WHATIF :  ${{ true }}
-  SCRIPT_PROMOTE_PACKAGES : "./logistics/scripts/activities/build/promote-packages.ps1"
 
 jobs:
   build:
@@ -54,4 +53,4 @@ jobs:
           View        = "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
           WhatIf      = $true
         }
-        & "${{ env.SCRIPT_PROMOTE_PACKAGES }}" -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}"    -Username "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"     -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN }}" -AsPlainText -Force) -View "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}" -WhatIf $true 
+         ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"     -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN }}" -AsPlainText -Force) -View "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}" -WhatIf $true
