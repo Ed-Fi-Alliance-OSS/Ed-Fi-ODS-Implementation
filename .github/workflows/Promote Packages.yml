@@ -55,6 +55,6 @@ jobs:
           Username    = "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"  
           Password    = (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN }}" -AsPlainText -Force)
           View        = "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
-          WhatIf      = ${{ env.SCRIPT_PROMOTE_PACKAGES_WHATIF }}
+          WhatIf      = "${{ env.SCRIPT_PROMOTE_PACKAGES_WHATIF }}"
         }
         "${{ env.SCRIPT_PROMOTE_PACKAGES }}" @parameters
