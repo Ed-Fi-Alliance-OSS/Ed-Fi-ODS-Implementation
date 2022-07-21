@@ -19,8 +19,8 @@ env:
   AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME : "EdFiBuildAgent@chrismoffattedfi.onmicrosoft.com"
   AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN : "******"
   SCRIPT_PROMOTE_PACKAGES_VIEW : "Prerelease"
-  SCRIPT_PROMOTE_PACKAGES.WHATIF : "$true"
-  SCRIPT_PROMOTE_PACKAGES : "./logistics/scripts/activities/build/promote-packages.ps1"
+  SCRIPT_PROMOTE_PACKAGES.WHATIF :  ${{ true }}
+  SCRIPT_PROMOTE_PACKAGES : "/logistics/scripts/activities/build/promote-packages.ps1"
 
 jobs:
   build:
@@ -49,12 +49,13 @@ jobs:
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
+
         $parameters = @{
           FeedsURL    = "${{ env.AZURE_ARTIFACTS_API_FEEDS }}"
           PackagesURL = "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}"  
           Username    = "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"  
           Password    = (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN }}" -AsPlainText -Force)
           View        = "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
-          WhatIf      = "${{ env.SCRIPT_PROMOTE_PACKAGES_WHATIF }}"
+          WhatIf      = ${{ env.SCRIPT_PROMOTE_PACKAGES.WHATIF }}
         }
-        "${{ env.SCRIPT_PROMOTE_PACKAGES }}" @parameters
+        & "${{ env.SCRIPT_PROMOTE_PACKAGES }}" @parameters
