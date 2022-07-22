@@ -31,7 +31,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             // add vendors and sandboxes
             var id2 = BackgroundJob.Enqueue(() => _engine.CreateVendors());
             var id3 = BackgroundJob.ContinueJobWith(id2, () => _engine.CreateSandboxes());
-            BackgroundJob.ContinueJobWith(id3, () => _engine.UpdateClientWithLEAIdsFromPopulatedSandbox());
 
             foreach (var user in _users)
             {

@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
+using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
@@ -65,15 +66,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
-            var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user);
-
-            ProvisionSandbox(client);
-
-            var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key);
-
-            _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, client.Application.ApplicationId);
-
-            return client;
+            return ResetSandboxClient(sandboxName, sandboxOptions, user);
         }
 
         public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
@@ -82,9 +75,12 @@ namespace EdFi.Ods.Sandbox.Admin.Services
 
             ProvisionSandbox(client);
 
-            var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key);
+            var edOrgIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key)
+                .Concat(_templateDatabaseLeaQuery.GetCommunityProviderIds(client.Key))
+                .Distinct()
+                .ToList();
 
-            _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, client.Application.ApplicationId);
+            _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, client.Application.ApplicationId);
 
             return client;
         }
