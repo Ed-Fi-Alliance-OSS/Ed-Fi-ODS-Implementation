@@ -83,9 +83,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     var application = _clientAppRepo.CreateApplicationForVendor(
                         user.Vendor.VendorId, app.ApplicationName, app.ClaimSetName);
 
-                    var leaIds = app.ApiClients.SelectMany(s => s.LocalEducationOrganizations).Distinct().ToList();
+                    var edOrgIds = app.ApiClients.SelectMany(s => s.LocalEducationOrganizations).Distinct().ToList();
 
-                    _defaultApplicationCreator.AddLeaIdsToApplication(leaIds, application.ApplicationId);
+                    _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, application.ApplicationId);
 
                     foreach (var client in app.ApiClients)
                     {
@@ -115,7 +115,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 Key = "ApiSecret_" + client.ApiClientName
                             });
 
-                        _clientAppRepo.AddLeaIdsToApiClient(
+                        _clientAppRepo.AddEdOrgIdsToApiClient(
                             user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
                             application.ApplicationId);
 

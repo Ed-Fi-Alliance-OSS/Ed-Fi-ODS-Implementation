@@ -25,13 +25,16 @@ namespace EdFi.Ods.SandboxAdmin.Services
         }
 
         public int[] GetLocalEducationAgencyIds(string sandboxKey)
-            => GetLocalEducationAgencyIdsAsync(sandboxKey).GetResultSafely();
+            => GetEdOrgIdsAsync(sandboxKey, "LocalEducationAgency").GetResultSafely();
 
-        public async Task<int[]> GetLocalEducationAgencyIdsAsync(string sandboxKey)
+        public int[] GetCommunityProviderIds(string sandboxKey)
+            => GetEdOrgIdsAsync(sandboxKey, "CommunityProvider").GetResultSafely();
+
+        private async Task<int[]> GetEdOrgIdsAsync(string sandboxKey, string table)
         {
             using (var conn = CreateConnection(_databaseNameBuilder.TemplateSandboxNameForKey(sandboxKey)))
             {
-                var results = await conn.QueryAsync<int>(@"select LocalEducationAgencyId from edfi.LocalEducationAgency")
+                var results = await conn.QueryAsync<int>($"select {table}Id from edfi.{table}")
                     .ConfigureAwait(false);
 
                 return results.ToArray();
