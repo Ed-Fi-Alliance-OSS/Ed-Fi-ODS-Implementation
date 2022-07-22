@@ -8,17 +8,18 @@ name: Promote Packages
 on:
   pull_request:
     branches:
-      - main      
+      - main 
+on:           
   workflow_call:
     inputs:
       promote_packages_view:
-          description: 'choose promote packages view for Azure Artifacts'
-           options: 
+        description: 'choose promote packages view for Azure Artifacts'
+        options:
             - Prerelease
             - Release
-          default: 'Prerelease'
-          required: false
-          type: choice
+        default: 'Prerelease'
+        required: false
+        type: choice
 env:
   AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   AZURE_ARTIFACT_USER_NAME: ${{ secrets.AZURE_ARTIFACTS_USER_NAME }}  
