@@ -6,8 +6,18 @@
 name: Promote Packages
 
 on:
-  pull_request:
-    branches: [main]      
+  workflow_dispatch:
+    inputs:
+      promote_packages_view:
+        description: ''select promote packages view for Azure Artifacts'
+        required: true
+        default: 'Prerelease'
+        type: choice
+        options:
+        - Prerelease
+        - Release
+        - Local
+      
 env:
   AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   AZURE_ARTIFACT_USER_NAME: ${{ secrets.AZURE_ARTIFACTS_USER_NAME }}  
@@ -37,4 +47,4 @@ jobs:
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
-        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "Prerelease"
+        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}"
