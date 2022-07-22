@@ -6,12 +6,10 @@
 name: Promote Packages
 
 on:
-  pull_request:
-    branches:
-      - main 
+  workflow_dispatch:
     inputs:
       promote_packages_view:
-        description: 'choose promote packages view for Azure Artifacts'
+        description: ''select promote packages view for Azure Artifacts'
         required: true
         default: 'Prerelease'
         type: choice
