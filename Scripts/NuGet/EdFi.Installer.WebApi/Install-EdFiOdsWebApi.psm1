@@ -275,9 +275,16 @@ function Install-EdFiOdsWebApi {
         [switch]
         $NoDuration,
         
-        # Prompts user to enter custom login username (used with Integrated Security)
+        # Prompts user to enter an alternate username to be used for SQL Login
+        # To use for SQL Server:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    The application pool identity used by WebAPI needs to be updated to use the same Windows username 
+        # To user for Postgres:
+        #    UsedIntegratedSecurity must be set to true or no provide password
+        #    The username provided must be mapped to use passwordless authentication
         [switch]
-        $IsCustomLogin
+        $UseAlternateUserName 
     )
     Write-InvocationInfo $MyInvocation
 
@@ -308,7 +315,7 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
-        IsCustomLogin = $IsCustomLogin
+        UseAlternateUserName  = $UseAlternateUserName 
     }
 
     $elapsed = Use-StopWatch {
@@ -544,13 +551,13 @@ function New-SqlLogins {
 
         if($Config.usingSharedCredentials)
         {
-            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
         else
         {
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
-            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
     }
 }

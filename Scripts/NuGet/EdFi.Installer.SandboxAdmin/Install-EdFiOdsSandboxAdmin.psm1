@@ -49,7 +49,7 @@ function Install-EdFiOdsSandboxAdmin {
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
-            IsCustomLogin      = $false
+            UseAlternateUserName       = $false
             Settings           = @{
                 ConnectionStrings            = @{
                     EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
@@ -139,9 +139,16 @@ function Install-EdFiOdsSandboxAdmin {
         [hashtable]
         $Settings = @{ OAuthUrl = "https://localhost/EdFiOdsWebApi" },
         
-        # Prompts user to enter custom login username (used with Integrated Security)
+        # Prompts user to enter an alternate username to be used for SQL Login
+        # To use for SQL Server:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    The application pool identity used by the Sandbox Admin app needs to be updated to use the same Windows username 
+        # To user for Postgres:
+        #    UsedIntegratedSecurity must be set to true or no provide password
+        #    The username provided must be mapped to use passwordless authentication
         [switch]
-        $IsCustomLogin
+        $UseAlternateUserName 
     )
 
     Write-InvocationInfo $MyInvocation
@@ -163,7 +170,7 @@ function Install-EdFiOdsSandboxAdmin {
         WebApplicationName = $WebApplicationName
         Engine             = $Engine
         Settings           = $Settings
-        IsCustomLogin      = $IsCustomLogin
+        UseAlternateUserName       = $UseAlternateUserName 
     }
 
     $elapsed = Use-StopWatch {
@@ -377,15 +384,15 @@ function New-SqlLogins {
         $odsDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Admin)
         $securityDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Security)
 
-        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
         
-        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         
-        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
-        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
+        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         
-        if ($Config.IsCustomLogin) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.IsCustomLogin
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
     }
 }
 
