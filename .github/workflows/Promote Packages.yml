@@ -12,7 +12,8 @@ on:
 
 env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  AZURE_ARTIFACT_USER_NAME: ${{ secrets.AZURE_ARTIFACTS_USER_NAME }}  
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   AZURE_ARTIFACTS_API_FEEDS : "https://feeds.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
   AZURE_ARTIFACTS_API_PACKAGING : "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
@@ -39,6 +40,9 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh          
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
@@ -48,9 +52,9 @@ jobs:
         $parameters = @{
           FeedsURL    = "${{ env.AZURE_ARTIFACTS_API_FEEDS }}"
           PackagesURL = "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}"  
-          Username    = "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"  
-          Password    = (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_NUGET_KEY }}" -AsPlainText -Force)
+          Username    = "${{ env.AZURE_ARTIFACT_USER_NAME }}"  
+          Password    = (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force)
           View        = "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
           WhatIf      = $true
         }
-         ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_USERNAME }}"     -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACTS_EDFI_BUILD_AGENT_ACCESSTOKEN }}" -AsPlainText -Force) -View "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
+         ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"     -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
