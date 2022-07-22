@@ -12,7 +12,7 @@ on:
     inputs:
       promote_packages_view:
         description: 'choose promote packages view for Azure Artifacts'
-        required: false
+        required: true
         default: 'Prerelease'
         type: choice
         options:
@@ -24,7 +24,6 @@ env:
   AZURE_ARTIFACT_USER_NAME: ${{ secrets.AZURE_ARTIFACTS_USER_NAME }}  
   AZURE_ARTIFACTS_API_FEEDS : "https://feeds.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
   AZURE_ARTIFACTS_API_PACKAGING : "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
-  SCRIPT_PROMOTE_PACKAGES_VIEW : ${{ inputs.promote_packages_view }} 
 
 jobs:
   build:
@@ -49,4 +48,4 @@ jobs:
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
-        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ env.SCRIPT_PROMOTE_PACKAGES_VIEW }}"
+        ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}"
