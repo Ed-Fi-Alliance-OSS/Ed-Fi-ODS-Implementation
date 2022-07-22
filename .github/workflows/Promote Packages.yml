@@ -9,7 +9,6 @@ on:
   pull_request:
     branches:
       - main 
-on:           
   workflow_call:
     inputs:
       promote_packages_view:
