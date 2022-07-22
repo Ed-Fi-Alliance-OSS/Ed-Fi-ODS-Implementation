@@ -14,8 +14,8 @@ on:
       promote_packages_view:
         description: 'choose promote packages view for Azure Artifacts'
         options:
-            - Prerelease
-            - Release
+        - Prerelease
+        - Release
         default: 'Prerelease'
         required: false
         type: choice
