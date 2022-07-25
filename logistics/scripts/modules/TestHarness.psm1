@@ -74,12 +74,15 @@ function Get-SdkGenExecutable {
 function Invoke-SdkGenConsole {
     Param(
         [Parameter(Mandatory = $true)] [string] $apiMetadataUrl,
-        [string] $buildConfiguration = "Debug"
+        [string] $buildConfiguration = "Debug",
+        [string[]] $arguments = @("-p","-c","-i")
+
     )
     
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
-    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList @('-m', $apiMetadataUrl, '-p', '-c', '-i') -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
+    $argumentList = @('-m', $apiMetadataUrl) + $arguments
+    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
 }
 
 function Start-TestHarness {

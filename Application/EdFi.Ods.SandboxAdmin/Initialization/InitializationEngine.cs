@@ -27,8 +27,6 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
         void CreateSandboxes();
 
         void RebuildSandboxes();
-
-        void UpdateClientWithLEAIdsFromPopulatedSandbox();
     }
 
     public class InitializationEngine : IInitializationEngine
@@ -183,23 +181,6 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
             catch (Exception ex)
             {
                 _log.Error(ex);
-            }
-        }
-
-        public void UpdateClientWithLEAIdsFromPopulatedSandbox()
-        {
-            foreach (var user in _users)
-            {
-                var clientProfile = _clientAppRepo.GetUser(user.Value.Email);
-
-                // look through all the sandboxes that are populated so we can get the lea ids from the created sandbox.
-                // note our current template process has the populated data with lea's installed in it.
-                foreach (var apiClient in clientProfile.ApiClients)
-                {
-                    var leaIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(apiClient.Key).ToList();
-
-                    _applicationCreator.AddLeaIdsToApplication(leaIds, apiClient.Application.ApplicationId);
-                }
             }
         }
     }
