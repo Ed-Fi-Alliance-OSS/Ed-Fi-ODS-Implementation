@@ -44,6 +44,9 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
+      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
+      with:
+        dotnet-version: 6.0.x
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
