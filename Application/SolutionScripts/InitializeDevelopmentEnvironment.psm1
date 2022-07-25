@@ -438,11 +438,20 @@ function Invoke-PesterTests {
             Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
         }
 
-        $params = @{
-            Output = 'Detailed'
-            CI     = $true
+        $config = @{
+            Run = @{
+                Exit = $true
+            }
+            TestResult = @{ 
+                Enabled = $true
+                OutputPath  = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/PesterTestResults.xml"
+            }
+            Output = @{
+                Verbosity = "Detailed"
+            }
         }
-        Invoke-Pester @params
+
+        Invoke-Pester -Configuration $config
     }
 }
 
