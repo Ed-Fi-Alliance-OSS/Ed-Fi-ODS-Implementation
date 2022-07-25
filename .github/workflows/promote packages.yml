@@ -9,7 +9,7 @@ on:
   workflow_dispatch:
     inputs:
       promote_packages_view:
-        description: ''select promote packages view for Azure Artifacts'
+        description: 'select promote packages view for Azure Artifacts'
         required: true
         default: 'Prerelease'
         type: choice
