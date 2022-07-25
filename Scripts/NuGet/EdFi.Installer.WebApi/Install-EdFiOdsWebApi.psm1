@@ -281,8 +281,9 @@ function Install-EdFiOdsWebApi {
         #    The username provided must be a valid Windows user
         #    The application pool identity used by WebAPI needs to be updated to use the same Windows username 
         # To user for Postgres:
-        #    UsedIntegratedSecurity must be set to true or no provide password
-        #    The username provided must be mapped to use passwordless authentication
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    pg_ident.conf map needs to be updated to use the username provided
         [switch]
         $UseAlternateUserName 
     )

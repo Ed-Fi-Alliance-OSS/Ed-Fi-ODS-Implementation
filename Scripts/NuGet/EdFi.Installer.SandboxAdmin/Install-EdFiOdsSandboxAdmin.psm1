@@ -354,13 +354,6 @@ function Convert-ConnectionStringtoDatabaseConnectionInfo {
         $useIntegratedSecurity = $true
     }
     
-    # Integrated security in the "Windows Users" sense is not applicable on a Linux like server and is not a standard connection string entry in postgres
-    # The equivalent way to identify a postgresql connection string that is using "Passwordless" integrated security would be checking for a config with a postgres engine 
-    # and with no password in the connection string
-    if($Config.MergedSettings.ApiSettings.Engine.ToLower() -eq "postgresql"   -and -Not $ConnectionString.Replace(" ","").ToLower().Contains("password=")) {
-        $useIntegratedSecurity = $true
-    }
-    
     $dbConnectionInfo = @{
         UseIntegratedSecurity = $useIntegratedSecurity
         Engine                = $Config.MergedSettings.ApiSettings.Engine
