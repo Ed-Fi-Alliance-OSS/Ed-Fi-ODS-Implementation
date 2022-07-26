@@ -1,16 +1,6 @@
-#  TO DO
-# use new-item instead of mkdir
 BeforeAll { 
     Import-Module "$PSScriptRoot/utility/cross-platform.psm1"
     Import-Module -Force -Scope Global ($PSCommandPath.Replace('.tests.ps1', '.psm1'))
-    if(Get-IsWindows){
-        mkdir "$($pwd.Path)/Application" -Force
-        mkdir "$($pwd.Path)/Application/EdFi.Ods.Extensions.Tests" -Force
-    }else{
-        mkdir "$($pwd.Path)/Application" -p
-        mkdir "$($pwd.Path)/Application/EdFi.Ods.Extensions.Tests" -p
-    }
-    
 }
 Describe 'Select-RepositoryResolvedFiles' {
     It 'Returns a valid and reachable path' {

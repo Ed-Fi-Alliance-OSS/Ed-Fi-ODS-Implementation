@@ -33,7 +33,7 @@ function Export-BacPac {
     param(
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "Path to the sqlpackage.exe is required.\n\rExample: c:/sqlpackage"
+            HelpMessage = "Path to the sqlpackage executable is required.\n\rExample: c:\sqlpackage"
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]

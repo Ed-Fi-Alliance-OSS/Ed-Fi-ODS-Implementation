@@ -195,46 +195,6 @@ function Test-DotNetCore {
     }
 }
 
-# TO DO: split into windows and unix install functions
-# document the need for unzip and wget
-function Install-SqlPackage {
-    [CmdletBinding()]
-    Param(
-        [Parameter(Mandatory = $true)]
-        [string] $ToolsPath
-    )
-    
-    if (-not $(Test-Path $ToolsPath)) {
-        New-Item $ToolsPath -ItemType Directory  | Out-Null
-    }
-    $ToolsPath = Resolve-Path $ToolsPath | Select -ExpandProperty Path
-    $zipFile =  (Join-Path $ToolsPath "sqlpackage.zip")
-    $unzipDir = (Join-Path $ToolsPath "sqlpackage")
-    if (Get-IsWindows) {
-        $sqlbinary = (Join-Path $unzipDir "sqlpackage.exe")
-        $pkgSrc = "https://aka.ms/sqlpackage-windows"
-    }else{
-        $sqlbinary = (Join-Path $unzipDir "sqlpackage")
-        $pkgSrc = "https://aka.ms/sqlpackage-linux"
-    }
-    $ProgressPreference = 'SilentlyContinue'
-    Invoke-WebRequest $pkgSrc -OutFile $zipFile
-    $ProgressPreference = 'Continue'
-    Expand-Archive -Path $zipFile -DestinationPath $unzipDir
-    Remove-Item $zipFile -Force
-    if (-not ($ENV:PATH.Contains($unzipDir))) {
-        if(Get-IsWindows){
-            $ENV:PATH = "$env:PATH;$unzipDir"
-            
-        }else {
-            chmod a+x $sqlbinary
-            $ENV:PATH = "$($ENV:PATH):$unzipDir"
-        }
-    }
-    
-    return $sqlbinary
-}
-
 function Invoke-DbDeploy {
     <#
     .DESCRIPTION
