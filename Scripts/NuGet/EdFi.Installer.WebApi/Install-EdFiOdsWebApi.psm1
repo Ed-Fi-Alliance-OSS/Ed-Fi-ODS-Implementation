@@ -273,7 +273,19 @@ function Install-EdFiOdsWebApi {
 
         # Turns off display of script run-time duration.
         [switch]
-        $NoDuration
+        $NoDuration,
+        
+        # Prompts user to enter an alternate username to be used for SQL Login
+        # To use for SQL Server:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    The application pool identity used by WebAPI needs to be updated to use the same Windows username 
+        # To user for Postgres:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    pg_ident.conf map needs to be updated to use the username provided
+        [switch]
+        $UseAlternateUserName 
     )
     Write-InvocationInfo $MyInvocation
 
@@ -304,6 +316,7 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
+        UseAlternateUserName  = $UseAlternateUserName 
     }
 
     $elapsed = Use-StopWatch {
@@ -539,13 +552,18 @@ function New-SqlLogins {
 
         if($Config.usingSharedCredentials)
         {
-            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
         else
         {
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
+            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
     }
 }
