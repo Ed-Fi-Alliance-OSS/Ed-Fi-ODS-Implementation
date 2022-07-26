@@ -24,14 +24,6 @@ Describe 'Select-CumulativeRepositoryResolvedItems' {
         Test-Path $RepositoryFiles.FullName | Should -Be $true
     }
 }
-Describe 'Select-SupportingArtifactResolvedSources' {
-    It 'Returns a valid Extension directory' {
-        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
-        Set-Location $implRoot
-        $SupportingArtifactResolvedSources = Select-SupportingArtifactResolvedSources
-        $SupportingArtifactResolvedSources.Name | Should -Be "EdFi.Ods.Extensions.Tests"
-    }
-}
 
 Describe 'Get-RootPath' {
     It 'Returns a valid and reachable Root path' {
@@ -63,26 +55,9 @@ Describe 'Get-RepositoryNames' {
         Get-RepositoryNames | Should -Not -BeNullOrEmpty
     }
 }
-Describe 'Get-RepositoryNameFromPath' {
-    It 'Returns valid and reachable repository root from a path within' {
-        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
-        Set-Location $implRoot
-        $getRepositoryNamePath = Get-RepositoryNameFromPath (Join-Path $implRoot Artifacts)
-        $getRepositoryNamePath | Should -BeLike "Ed-Fi-ODS*"
-    }
-}
 
-Describe 'Format-ArrayByRepositories' {
-    It 'Returns an array of paths' {
-        $implRoot = Get-RepositoryRoot | where-Object {$_ -like "*Implementation"}
-        Set-Location $implRoot
-        $repoArray = Format-ArrayByRepositories @("$($pwd.Path)/Artifacts", "$($pwd.Path)/Artifacts/MsSql")
-        # When you use a pipe, PowerShell "unrolls" the collection and 
-        #   pipes in one element at a time, breaking our array check
-        # Use PowerShell's unary comma operator to wrap the collection in a one-element array
-        ,$repoArray | Should -BeOfType [System.Array]
-    }
-}
+
+
 
 
 AfterAll {
