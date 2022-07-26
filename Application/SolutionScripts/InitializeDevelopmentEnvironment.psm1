@@ -435,8 +435,16 @@ function Invoke-PesterTests {
 
         if ($null -eq $pester) {
             Write-Host "Installing Pester"
-            Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.0.0 -Force -SkipPublisherCheck | Out-Null
+            Install-Module -Name Pester -Scope CurrentUser -MinimumVersion 5.3.3 -Force -SkipPublisherCheck | Out-Null
         }
+
+        $reports = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reportsNUnit"
+
+        if (Test-Path $reports) {
+            Remove-Item -Path $reports -Force -Recurse
+        }
+
+        New-Item -ItemType Directory -Force -Path $reports
 
         $config = @{
             Run = @{
@@ -444,7 +452,7 @@ function Invoke-PesterTests {
             }
             TestResult = @{ 
                 Enabled = $true
-                OutputPath  = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/PesterTestResults.xml"
+                OutputPath  = $reports + "/PesterTestResults.xml"
             }
             Output = @{
                 Verbosity = "Detailed"
