@@ -45,11 +45,3 @@ Describe 'Get-RepositoryNames' {
         Get-RepositoryNames | Should -Not -BeNullOrEmpty
     }
 }
-
-
-
-
-
-AfterAll {
-    Remove-Item "$($pwd.Path)/Application/EdFi.Ods.Extensions.Tests" -Recurse -Force
-}
