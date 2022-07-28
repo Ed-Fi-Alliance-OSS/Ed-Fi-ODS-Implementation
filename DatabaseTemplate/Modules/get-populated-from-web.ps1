@@ -27,8 +27,8 @@ if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell
     Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
 }
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
 Write-host "Downloading file from $sourceUrl..."
@@ -40,7 +40,7 @@ Write-host "Download complete."
 if (Test-Path $global:templateDatabaseFolder) { Remove-Item -Force -Recurse -Path $global:templateDatabaseFolder | Out-Null }
 New-Item -Path $global:templateDatabaseFolder -ItemType "Directory" | Out-Null
 
-if (-not (Test-Path "$global:templateFolder\$fileName")) {
+if (-not (Test-Path "$global:templateFolder/$fileName")) {
     Write-Warning "Populated Template source file '$fileName' not found."
     exit 0
 }

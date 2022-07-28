@@ -32,8 +32,8 @@ if (Test-Path $finalBackupFilePath) {
     return $finalBackupFilePath
 }
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
 Write-Host "Downloading file from $sourceUrl..."
