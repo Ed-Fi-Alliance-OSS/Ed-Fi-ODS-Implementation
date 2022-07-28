@@ -41,6 +41,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
         /// <param name="sessionFactory"></param>
         /// <param name="apiKeyContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
+        /// <param name="dataManagementRequestContextProvider"></param>
         public OwnershipInitializationCreateEntityDecorator(
             ICreateEntity<T> next,
             IAuthorizationContextProvider authorizationContextProvider,
@@ -51,7 +52,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport)
+            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
+            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -61,7 +63,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
                 securityRepository,
                 sessionFactory,
                 apiKeyContextProvider,
-                viewBasedSingleItemAuthorizationQuerySupport)
+                viewBasedSingleItemAuthorizationQuerySupport,
+                dataManagementRequestContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
