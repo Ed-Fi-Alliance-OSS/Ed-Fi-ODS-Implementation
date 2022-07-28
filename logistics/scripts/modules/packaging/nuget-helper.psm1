@@ -3,8 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 function Install-NuGetCli {
     <#
@@ -57,8 +57,8 @@ function Install-NuGetCli {
     }
 
     # Add the tools directory to the path if not already there
-    if (-not ($env:PATH.Contains($ToolsPath))) {
-        $env:PATH = "$ToolsPath;$env:PATH"
+    if (-not ($ENV:PATH.Contains($ToolsPath))) {
+        $ENV:PATH = "$ToolsPath$([IO.Path]::PathSeparator)$ENV:PATH"
     }
 
     return $nuget
@@ -71,7 +71,7 @@ function Get-NuGetPackage {
     .DESCRIPTION
         Uses nuget command line to download a NuGet package and unzip it into an output
         directory. Uses the Ed-Fi Azure Artifacts package feed by default. Default output directory
-        is .\downloads.
+        is ./downloads.
     .PARAMETER packageName
         Alias "applicationId". Name of the package to download.
     .PARAMETER packageVersion
@@ -80,14 +80,14 @@ function Get-NuGetPackage {
     .PARAMETER toolsPath
         The path in which to find the NuGet command line client.
     .PARAMETER outputDirectory
-        The path into which the package is unzipped. Defaults to ".\downloads".
+        The path into which the package is unzipped. Defaults to "./downloads".
     .PARAMETER packageSource
         The NuGet package source. Defaults to "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json".
     .EXAMPLE
         $parameters = @{
             packageName = "EdFi.Suite3.Ods.WebApi"
             packageVersion = "5.0.0-b11661"
-            toolsPath = ".\tools"
+            toolsPath = "./tools"
         }
         Get-NuGetPackage @parameters
     #>
@@ -106,7 +106,7 @@ function Get-NuGetPackage {
         $ToolsPath,
 
         [string]
-        $OutputDirectory = '.\downloads',
+        $OutputDirectory = './downloads',
 
         [string]
         $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -123,10 +123,16 @@ function Get-NuGetPackage {
         $parameters += $PackageVersion
     }
     
-    Write-Host -ForegroundColor Magenta "$ToolsPath\nuget $parameters"
-    & "$ToolsPath\nuget" $parameters | Out-Null
+    if(Get-IsWindows){
+        Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
+        & "$ToolsPath/nuget" $parameters | Out-Null
+    }else {
+        Write-Host -ForegroundColor Magenta "mono $ToolsPath/nuget.exe $parameters"
+        & mono "$ToolsPath/nuget.exe" $parameters | Out-Null
+    }
+    
 
-    return Resolve-Path $outputDirectory/$PackageName.$PackageVersion* | Select-Object -Last 1
+    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
 }
 
 $exports = @(

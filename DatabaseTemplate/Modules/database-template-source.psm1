@@ -5,10 +5,10 @@
 
 #requires -modules "path-resolver"
 
-$databaseTemplateFolder = Resolve-Path "$PSScriptRoot\..\"
-$databaseTemplateScriptFolder = "$databaseTemplateFolder\Scripts"
-$databaseTemplateModulesFolder = "$databaseTemplateFolder\Modules"
-$databaseTemplateDatabaseFolder = "$databaseTemplateFolder\Database"
+$databaseTemplateFolder = Resolve-Path "$PSScriptRoot/../"
+$databaseTemplateScriptFolder = "$databaseTemplateFolder/Scripts"
+$databaseTemplateModulesFolder = "$databaseTemplateFolder/Modules"
+$databaseTemplateDatabaseFolder = "$databaseTemplateFolder/Database"
 $databasePopulatedTemplateScriptConfigKey = "PopulatedTemplateScript"
 $databaseMinimalTemplateScriptConfigKey = "MinimalTemplateScript"
 

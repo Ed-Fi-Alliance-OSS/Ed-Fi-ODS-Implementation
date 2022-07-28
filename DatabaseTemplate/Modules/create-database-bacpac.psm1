@@ -8,32 +8,32 @@ $ErrorActionPreference = "Stop"
 function Export-BacPac {
         <#
     .SYNOPSIS
-        Exports a database using sqlpackage.exe.
+        Exports a database using the sqlpackage executable .
 
     .DESCRIPTION
-        Exports the specific database using the sqlpackage.exe application. The server is defaulted to local host. An exception will be thrown
-        if sqlpackage.exe is not found.
+        Exports the specific database using the sqlpackage executable. The server is defaulted to local host. An exception will be thrown
+        if the sqlpackage executable is not found.
 
     .PARAMETER sqlPackagePath
-        An absolute path to the folder to execute sqlpackage.exe from: e.g.C:\sqlpackage\
+        An absolute path to the folder to execute sqlpackage executable from: e.g.C:/sqlpackage/
 
     .PARAMETER database
         Database to export.
 
     .PARAMETER artifactOutput
-        An absolute path to the output file. e.g. c:\tmp\artifacts\edfi_security.bacpac
+        An absolute path to the output file. e.g. c:/tmp/artifacts/edfi_security.bacpac
 
     .PARAMETER server
         The sql server to connect to. (Defaulted to locahost).
 
     .EXAMPLE
-        PS> Export-BacPac -database edfi_security -sqlPackagePath C:\sqlpackage\ -artifactOutput c:\tmp\artifacts\edfi_security.bacpac
+        PS> Export-BacPac -database edfi_security -sqlPackagePath C:/sqlpackage/ -artifactOutput c:/tmp/artifacts/edfi_security.bacpac
     #>
     [CmdletBinding()]
     param(
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "Path to the sqlpackage.exe is required.\n\rExample: c:\sqlpackage"
+            HelpMessage = "Path to the sqlpackage executable is required.\n\rExample: c:\sqlpackage"
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
@@ -48,7 +48,7 @@ function Export-BacPac {
 
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "Full name of the artifact to export is required.\n\rExample: .\edfi_admin.bacpac"
+            HelpMessage = "Full name of the artifact to export is required.\n\rExample: ./edfi_admin.bacpac"
         )]
         [ValidateNotNullOrEmpty()]
         [string] $artifactOutput,
@@ -57,8 +57,14 @@ function Export-BacPac {
         [string] $server = "."
     )
 
-    $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
-
+    if(Get-IsWindows){
+        $executableName = "sqlpackage.exe"
+    }else {
+        $executableName = "sqlpackage"
+    }
+    
+    $executable = Join-Path $sqlPackagePath $executableName
+    
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
     }

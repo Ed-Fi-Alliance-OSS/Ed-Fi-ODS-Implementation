@@ -6,10 +6,13 @@
 #Requires -Version 5.0
 
 Import-Module -Force -Scope Global "$PSScriptRoot\logistics\scripts\modules\path-resolver.psm1"
+Import-Module -Force -Scope Global "$PSScriptRoot\logistics\scripts\modules\utility\cross-platform.psm1"
 $global:SolutionScriptsDir = Resolve-Path "$PSScriptRoot\Application\SolutionScripts"
 
 function Find-BlockedFiles {
-
+    if (!(Get-IsWindows)) {
+        return
+    }
     enum ZoneIdentifiers {
         Internet = 3
     }

@@ -38,7 +38,7 @@ param(
 
 #Resolve if overrides or defaults are required
 if ($null -eq $repositoryNames) {
-    $repositoryNames = @('Ed-Fi-ODS', (Get-Item "$PSScriptRoot\..\..\..").Name)
+    $repositoryNames = @('Ed-Fi-ODS', (Get-Item "$PSScriptRoot/../../..").Name)
 }
 if ([string]::IsNullOrWhiteSpace($env:PathResolverRepositoryOverride)) {
     Write-Host "Using repositories: $($repositoryNames -join ', ')"
@@ -121,7 +121,7 @@ function Get-RepositoryNameFromPath ($path) {
     else {
         $fullname = (Resolve-Path $path).Path
     }
-    #TODO:Enhance this logic so that it handles "C:\projects\Ed-Fi-Core" (no trailing slash) as an input
+    #TODO:Enhance this logic so that it handles "C:/projects/Ed-Fi-Core" (no trailing slash) as an input
     foreach ($repoName in $repositoryNames) {
         $repoRoot = "$(Get-RepositoryRoot $repoName)\"
         $escRegex = [Regex]::Escape($repoRoot.tolower())
@@ -137,7 +137,7 @@ function Get-RootPath {
     #Look up from this script's location to find the highest level common named folder.
     $logisticsBasePath = Get-AncestorItemPath $PSScriptRoot "logistics"
     #Jump up two levels to get the root.
-    return Resolve-Path "$logisticsBasePath\..\..\"
+    return Resolve-Path "$logisticsBasePath/../../"
 }
 
 #Using the Root path for the repositories, return back the path for the $repositoryName specified.
@@ -188,26 +188,26 @@ Return paths to specified files, checking all repositories, and including only t
 
 For example, in a system with three repositories, laid out like this:
 
-    \Ed-Fi-Core
-        \1234.txt
-        \qwer.txt
-    \Ed-Fi-Plugins
-        \qwer.txt
-        \asdf.txt
-    \Ed-Fi-Apps
-        \asdf.txt
-        \zxcv.txt
+    /Ed-Fi-Core
+        /1234.txt
+        /qwer.txt
+    /Ed-Fi-Plugins
+        /qwer.txt
+        /asdf.txt
+    /Ed-Fi-Apps
+        /asdf.txt
+        /zxcv.txt
 
 Seraching for zxcv.txt or asdf.txt returns the version in Ed-Fi-Apps; searching for qwer.txt returns the version in Ed-Fi-Plugins, and searching for 1234.txt returns the version in Ed-Fi-Core.
 
 .Parameter PathSuffix
-The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <most specific repository>\logistics.
+The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <most specific repository>/logistics.
 #>
 function Get-RepositoryResolvedPath ([string]$pathSuffix) {
     foreach ($repositoryName in $invertedRepositoryNames) {
         $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-        If (Test-Path "$repositoryPath\$pathSuffix") {
-            return Resolve-Path "$repositoryPath\$pathSuffix"
+        If (Test-Path "$repositoryPath/$pathSuffix") {
+            return Resolve-Path "$repositoryPath/$pathSuffix"
         }
     }
     $errorMsg = "$pathSuffix was not found in the following repositories:`r`n{0}" -f ($invertedRepositoryNames -join "`r`n")
@@ -227,7 +227,7 @@ For example, if there are four repositories: Ed-Fi-ODS-Implementation, Ed-Fi-ODS
 This is useful when dot-sourcing or importing core scripts in an extension, so that the parent repository functionality can be inherited if it exists.
 
 .Parameter PathSuffix
-The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <next most general repository>\logistics.
+The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <next most general repository>/logistics.
 #>
 function Get-CorePath ([string]$pathSuffix) {
     #If you don't pass me a path I'm going to use the old look up logic
@@ -243,7 +243,7 @@ function Get-CorePath ([string]$pathSuffix) {
             #I'm just throwing here since any other response is really a hack.
             throw "Core path lookups are not supported in single repository implementations."
         }
-        $callingPath = if ($MyInvocation.ScriptName) { $MyInvocation.ScriptName }else { "$((Get-Location).Path)\" }
+        $callingPath = if ($MyInvocation.ScriptName) { $MyInvocation.ScriptName }else { "$((Get-Location).Path)/" }
         $callingRepo = Get-RepositoryNameFromPath $callingPath
         $checkedRepos = @()
         $notCheckedRepos = @()
@@ -259,8 +259,8 @@ function Get-CorePath ([string]$pathSuffix) {
             elseif ($i -gt $callingRepoIndex) {
                 $checkedRepos += $repositoryName
                 $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-                if (Test-Path "$repositoryPath\$pathSuffix") {
-                    return Resolve-Path "$repositoryPath\$pathSuffix"
+                if (Test-Path "$repositoryPath/$pathSuffix") {
+                    return Resolve-Path "$repositoryPath/$pathSuffix"
                 }
             }
         }
@@ -286,7 +286,7 @@ For example, if there are three repositories: Ed-Fi-Core, Ed-Fi-Plugins, and Ed-
 This is useful when dot-sourcing or importing core scripts in an extension, so that the core functionality can be inherited if it exists, but it will not cause an infinite loop by attempting to import itself.
 
 .Parameter PathSuffix
-The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <most general repository>\logistics.
+The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in <most general repository>/logistics.
 #>
 function Get-CorePathLegacy ([string]$pathSuffix) {
     #This has been switched to a dynamic lookup so that not every "core" repo has to have every folder.
@@ -304,8 +304,8 @@ function Get-CorePathLegacy ([string]$pathSuffix) {
         if ($repositoryName -eq $implementationRepo) { continue; }
         $checkedRepos += $repositoryName
         $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-        If (Test-Path "$repositoryPath\$pathSuffix") {
-            return Resolve-Path "$repositoryPath\$pathSuffix"
+        If (Test-Path "$repositoryPath/$pathSuffix") {
+            return Resolve-Path "$repositoryPath/$pathSuffix"
         }
     }
     $errorMsg = "$pathSuffix was not found in the following repositories:`r`n{0}" -f ($checkedRepos -join "`r`n")
@@ -322,7 +322,7 @@ Iterate over all the repository paths, going from most specific to least. If the
 NOTE: The indexing utilized looks at the relative paths from the repository root when determining if a file has previously been selected.
 
 .Parameter PathSuffix
-The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in '<repository roots>\logistics'.
+The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find files in '<repository roots>/logistics'.
 
 .Parameter Filter
 Use a Get-ChildItem when selecting files, such as '*.sql'.
@@ -342,8 +342,8 @@ function Select-RepositoryResolvedFiles {
     foreach ($repositoryName in $invertedRepositoryNames) {
         $outputHolder = @()
         $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-        If (Test-Path "$repositoryPath\$pathSuffix") {
-            $repositoryResolvedPath = Resolve-Path "$repositoryPath\$pathSuffix"
+        If (Test-Path "$repositoryPath/$pathSuffix") {
+            $repositoryResolvedPath = Resolve-Path "$repositoryPath/$pathSuffix"
             #Select all the files in the path that match the pattern where they are not listed in the index
             $outputHolder += gci -recurse:$recurse $repositoryResolvedPath -filter $filter | where { if (($namesTypes.Keys -contains ($_.FullName -Replace [regex]::Escape("$repositoryPath"), "")) -and ($namesTypes[($_.FullName -Replace [regex]::Escape("$repositoryPath"), "")] -eq $_.GetType())) { $false } else { $true } }
             #Add new files to index
@@ -365,7 +365,7 @@ listing, aggregate, and return the resulting items.
 
 .Parameter PathSuffix
 The path suffix to append to the repository path. E.g. if $pathSuffix is 'logistics', find items in
-'C:\path\to\Ed-Fi-Core\logistics'.
+'C:/path/to/Ed-Fi-Core/logistics'.
 
 .Parameter Filter
 Use a Get-ChildItem filter when selecting items, such as '*.sql'.
@@ -386,8 +386,8 @@ function Select-CumulativeRepositoryResolvedItems {
     $output = @()
     foreach ($repositoryName in $repositoryNames) {
         $repositoryPath = Get-RootBasedRepositoryPath $repositoryName
-        If (Test-Path "$repositoryPath\$pathSuffix") {
-            $repositoryResolvedPath = Resolve-Path "$repositoryPath\$pathSuffix"
+        If (Test-Path "$repositoryPath/$pathSuffix") {
+            $repositoryResolvedPath = Resolve-Path "$repositoryPath/$pathSuffix"
             #Select all the items in the path that match the pattern
             $output += Get-ChildItem $repositoryResolvedPath -filter $filter -recurse:$recurse -directory:$directory
         }
@@ -405,7 +405,7 @@ listing, aggregate, and return the result.
 
 .Parameter PathSuffix
 The path suffix to append to the repository path. E.g. if $pathSuffix is 'Application', find directories in
-'C:\Projects\Ed-Fi-ODS-Implementation\Application\'.
+'C:/Projects/Ed-Fi-ODS-Implementation/Application/'.
 
 .Parameter Filter
 Use a Get-ChildItem filter when selecting directories, such as 'EdFi.Ods.Extensions.*'.
@@ -414,10 +414,10 @@ Use a Get-ChildItem filter when selecting directories, such as 'EdFi.Ods.Extensi
 Select directories recursively.
 
 .EXAMPLE
-PS C:\> Select-SupportingArtifactResolvedSources "Application" -filter "EdFi.Ods.Extensions.*"
+PS C:/> Select-SupportingArtifactResolvedSources "Application" -filter "EdFi.Ods.Extensions.*"
 
 
-    Directory: C:\Projects\Ed-Fi-ODS-Implementation\Application
+    Directory: C:/Projects/Ed-Fi-ODS-Implementation/Application
 
 
 Mode                LastWriteTime         Length Name
@@ -449,20 +449,20 @@ A list of project names to exclude from the results
 
 .EXAMPLE
 -------------------------- EXAMPLE 1 --------------------------
-PS C:\> Select-ExtensionArtifactResolvedName EdFi.Ods.Extensions.GrandBend
+PS C:/> Select-ExtensionArtifactResolvedName EdFi.Ods.Extensions.GrandBend
 GrandBend
 
 -------------------------- EXAMPLE 2 --------------------------
-PS C:\> Select-ExtensionArtifactResolvedName C:\Projects\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.GrandBend
+PS C:/> Select-ExtensionArtifactResolvedName C:/Projects/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Extensions.GrandBend
 GrandBend
 
 -------------------------- EXAMPLE 3 --------------------------
-PS C:\> Select-SupportingArtifactResolvedSources | Select-ExtensionArtifactResolvedName
+PS C:/> Select-SupportingArtifactResolvedSources | Select-ExtensionArtifactResolvedName
 GrandBend
 Sample
 
 -------------------------- EXAMPLE 4 --------------------------
-PS C:\> Select-SupportingArtifactResolvedSources | Select-ExtensionArtifactResolvedName -exclude "Sample"
+PS C:/> Select-SupportingArtifactResolvedSources | Select-ExtensionArtifactResolvedName -exclude "Sample"
 GrandBend
 
 #>
@@ -498,14 +498,14 @@ function Select-SupportingArtifactSubTypeFiles {
         $resolvedSubtypes = @("*")
 
         foreach ($subType in $subTypes) {
-            $resolvedSubTypes += @("${subType}\*")
+            $resolvedSubTypes += @("${subType}/*")
         }
     }
 
     if (Test-Path $source) {
         foreach ($subType in $resolvedSubTypes) {
-            if (Test-Path "$source\$subType\") {
-                $output += Get-ChildItem "$source\$subType\" -filter $filter -recurse:$recurse
+            if (Test-Path "$source/$subType/") {
+                $output += Get-ChildItem "$source/$subType/" -filter $filter -recurse:$recurse
             }
         }
     }
@@ -548,10 +548,10 @@ Use a Get-ChildItem filter when selecting items, such as '*.sql'.
 Use a Get-ChildItem recurse when selecting items.
 
 .EXAMPLE
-PS C:\> Select-SupportingArtifactResolvedFiles -artifactType "Database" -scriptType "Structure" -scriptTypeName "EdFi" -artifactSources GrandBend,Sample -filter "*.sql"
+PS C:/> Select-SupportingArtifactResolvedFiles -artifactType "Database" -scriptType "Structure" -scriptTypeName "EdFi" -artifactSources GrandBend,Sample -filter "*.sql"
 
 
-    Directory: C:\Projects\Ed-Fi-Ods\Database\Structure\EdFi
+    Directory: C:/Projects/Ed-Fi-Ods/Database/Structure/EdFi
 
 
 Mode                LastWriteTime         Length Name
@@ -578,7 +578,7 @@ Mode                LastWriteTime         Length Name
 -a----         3/5/2018   5:13 PM           4017 1025-Create-Update-PostSecondaryInstitution-Auth-Views.sql
 
 
-    Directory: C:\Projects\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.GrandBend\SupportingArtifacts\Database\Structure\EdFi
+    Directory: C:/Projects/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Extensions.GrandBend/SupportingArtifacts/Database/Structure/EdFi
 
 
 Mode                LastWriteTime         Length Name
@@ -586,7 +586,7 @@ Mode                LastWriteTime         Length Name
 -a----         3/7/2018   1:29 PM          10084 1000-EdFi_Ods_GrandBend.sql
 
 
-    Directory: C:\Projects\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.Sample\SupportingArtifacts\Database\Structure\EdFi
+    Directory: C:/Projects/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Extensions.Sample/SupportingArtifacts/Database/Structure/EdFi
 
 
 Mode                LastWriteTime         Length Name
@@ -608,11 +608,11 @@ function Select-SupportingArtifactResolvedFiles {
     foreach ($repositoryName in Get-RepositoryNames) {
         $repositoryPath = $(Get-RepositoryRoot $repositoryName)
 
-        $repositorySource = "$repositoryPath\$artifactType\$scriptType\$scriptTypeName"
+        $repositorySource = "$repositoryPath/$artifactType/$scriptType/$scriptTypeName"
         $output += Select-SupportingArtifactSubTypeFiles $repositorySource $subTypes -filter $filter -recurse:$recurse
 
         foreach ($artifactSource in $artifactSources) {
-            $extensionSource = "$repositoryPath\Application\EdFi.Ods.Extensions.$artifactSource\Artifacts\$scriptType\$scriptTypeName"
+            $extensionSource = "$repositoryPath/Application/EdFi.Ods.Extensions.$artifactSource/Artifacts/$scriptType/$scriptTypeName"
             $output += Select-SupportingArtifactSubTypeFiles $extensionSource $subTypes -filter $filter -recurse:$recurse
         }
     }
@@ -624,11 +624,11 @@ if (-not ($script:folders)) {
     $script:folders = @{ }
     #This is used in remote web deployments to find this path resolver and CANNOT be a delegate.
     $folders.core = Get-CorePath
-    $folders.scripts = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics\scripts\$($args[0])") }
+    $folders.scripts = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics/scripts/$($args[0])") }
     $folders.base = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "$($args[0])") }
-    $folders.tools = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "tools\$($args[0])") }
-    $folders.modules = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics\scripts\modules\$($args[0])") }
-    $folders.activities = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics\scripts\activities\$($args[0])") }
+    $folders.tools = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "tools/$($args[0])") }
+    $folders.modules = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics/scripts/modules/$($args[0])") }
+    $folders.activities = [System.Func[Object, Object]] { return (Get-RepositoryResolvedPath "logistics/scripts/activities/$($args[0])") }
 }
 
 #Set aliases to maintain previous functionality
