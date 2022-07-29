@@ -81,19 +81,15 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-
-        if (Test-Path 'Ed-Fi-ODS-Implementation/build.teamcity.ps1') {
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            $params = @{
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        $params = @{
                 ProjectPath           = 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
                 PackageId             = 'EdFi.Suite3.Ods.WebApi.Prerelease'
                 Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
                 Properties            = (Get-DefaultNuGetProperties)
                 OutputDirectory       = 'Ed-Fi-ODS-Implementation/packages'
-            }
-            New-WebPackage @params
-
-            ## Write-Host "##teamcity[publishArtifacts 'Ed-Fi-ODS-Implementation/packages']"
         }
+        New-WebPackage @params
+        Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh      
