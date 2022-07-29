@@ -40,7 +40,7 @@ param(
     
     [String] $PackageVersion = '0.0.0',
     
-    [String] $PackageOutput = "$PSScriptRoot/packages",
+    [String] $PackageOutput = "$PSScriptRoot\packages",
     
     [String] $SwaggerUIId = 'EdFi.Suite3.Ods.SwaggerUI',
     
