@@ -30,9 +30,8 @@ $params = @{
     SwaggerUIId         = 'EdFi.Suite3.Ods.SwaggerUI'
     WebApiId            = 'EdFi.Suite3.Ods.WebApi'
     DatabasesId         = 'EdFi.Suite3.Ods.RestApi.Databases'
+    RepositoryRoot      =  ''
 }
-
-#Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
 
 Write-FlatHashtable $params
 $result = Initialize-DevelopmentEnvironment @params

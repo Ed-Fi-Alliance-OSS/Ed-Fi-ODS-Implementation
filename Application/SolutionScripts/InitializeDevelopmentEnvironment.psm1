@@ -107,7 +107,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $GenerateSdkPackages,
 
-        [switch] $UsePlugins
+        [switch] $UsePlugins,
+
+        [String] $RepositoryRoot
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -142,7 +144,7 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
-        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen }
+        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
             $script:result += Invoke-RebuildSolution
