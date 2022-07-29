@@ -32,7 +32,7 @@ $params = @{
     DatabasesId         = 'EdFi.Suite3.Ods.RestApi.Databases'
 }
 
-Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
+#Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
 
 Write-FlatHashtable $params
 $result = Initialize-DevelopmentEnvironment @params
