@@ -7,17 +7,14 @@ param(
     [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
     [string] $InstallType = 'Sandbox',
 
-    [Alias('OdsYears')]
-    [string[]] $OdsTokens =@(),
+    [string[]] $OdsTokens = @(),
 
     [ValidateSet('SQLServer', 'PostgreSQL')]
     [String] $Engine = 'SQLServer',
 
-    [Alias('NoCompile')]
     [switch] $NoRebuild = $false,
 
-    [Alias('NoCodeGen')]
-    [switch] $ExcludeCodeGen = $false,
+    [switch] $NoCodeGen = $false,
 
     [switch] $NoDeploy = $false,
 
@@ -60,9 +57,9 @@ $ErrorActionPreference = 'Stop'
 # Build and Test
 $params = @{
     InstallType         = $InstallType
-    OdsTokens           = $OdsTokens
+    OdsTokens           = @()
     Engine              = $Engine
-    NoCodeGen           = $ExcludeCodeGen
+    NoCodeGen           = $NoCodeGen
     NoRebuild           = $NoRebuild
     NoDeploy            = $NoDeploy
     RunPester           = $RunPester
