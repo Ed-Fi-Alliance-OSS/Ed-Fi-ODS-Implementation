@@ -86,7 +86,37 @@ jobs:
             RefreshEnv.cmd
             Update-SessionEnvironment
         }
-      shell: pwsh      
+      shell: pwsh
+    - name: install sql-server-express
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        choco install sql-server-express -y --params=`"'/IgnorePendingReboot'`" --execution-timeout=$installTimeout
+          #Name of your SQL Server Alias
+          $AliasName = "."
+
+          #These are the two Registry locations for the SQL Alias 
+          $x86 = "HKLM:\Software\Microsoft\MSSQLServer\Client\ConnectTo"
+          $x64 = "HKLM:\Software\Wow6432Node\Microsoft\MSSQLServer\Client\ConnectTo"
+          
+          #if the ConnectTo key doesn't exists, create it.
+          if ((test-path -path $x86) -ne $True)
+          {
+              New-Item $x86
+          }
+          
+          if ((test-path -path $x64) -ne $True)
+          {
+              New-Item $x64
+          }
+          
+          #Define SQL Alias 
+          $NamedPipeAliasName = 'DBNMPNTW,\\.\PIPE\MSSQL$SQLEXPRESS\sql\query'
+          
+          #Create TCP/IP Aliases
+          New-ItemProperty -Path $x86 -Name $AliasName -PropertyType String -Value $NamedPipeAliasName
+          New-ItemProperty -Path $x64 -Name $AliasName -PropertyType String -Value $NamedPipeAliasName
+          Set-ItemProperty -Path 'HKLM:\SOFTWARE\Microsoft\Microsoft SQL Server\MSSQL15.SQLEXPRESS\MSSQLServer' -Name LoginMode -Value 2 -Force
+      shell: pwsh   
     - name: build InitDev
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
