@@ -153,10 +153,12 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
-        $BuildCounter =${{ github.run_number }}
-        $BuildIncrementer =${{ env.BUILD_INCREMENTER}}
-        $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
-        .\build.github.ps1 -PackageVersion '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.$newRevision' -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen
+
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
+        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen
       shell: pwsh
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
