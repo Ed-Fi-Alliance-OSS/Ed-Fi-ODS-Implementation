@@ -2,6 +2,55 @@
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
+[CmdLetBinding()]
+param(
+    [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
+    [string] $InstallType = 'Sandbox',
+
+    [Alias('OdsYears')]
+    [string[]] $OdsTokens,
+
+    [ValidateSet('SQLServer', 'PostgreSQL')]
+    [String] $Engine = 'SQLServer',
+
+    [Alias('NoCompile')]
+    [switch] $NoRebuild = $false,
+
+    [Alias('NoCodeGen')]
+    [switch] $ExcludeCodeGen = $false,
+
+    [switch] $NoDeploy = $false,
+
+    [switch] $RunPester,
+
+    [switch] $RunDotnetTest,
+
+    [switch] $RunPostman,
+
+    [switch] $RunSmokeTest,
+
+    [switch] $RunSdkGen,
+
+    [switch] $GenerateSdkPackages = $false,
+
+    [switch] $UsePlugins = $false,
+
+    [switch] $NoPackaging = $false,
+
+    [String] $RepositoryRoot,
+
+    [String] $SandboxAdminId = 'EdFi.Suite3.Ods.SandboxAdmin',
+    
+    [String] $PackageVersion = '0.0.0',
+    
+    [String] $PackageOutput = "$PSScriptRoot/packages",
+    
+    [String] $SwaggerUIId = 'EdFi.Suite3.Ods.SwaggerUI',
+    
+    [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
+    
+    [String] $DatabasesId = 'EdFi.Suite3.Ods.RestApi.Databases'
+)
 
 $ErrorActionPreference = 'Stop'
 
@@ -10,27 +59,27 @@ $ErrorActionPreference = 'Stop'
 
 # Build and Test
 $params = @{
-    InstallType         = 'Sandbox'
-    OdsTokens           = @()
-    Engine              = 'SQLServer'
-    NoCodeGen           = $false
-    NoRebuild           = $false
-    NoDeploy            = $false
-    RunPester           = $true
-    RunDotnetTest       = $true
-    RunPostman          = $true
-    RunSmokeTest        = $true
-    UsePlugins          = $false
-    RunSdkGen           = $true
-    GenerateSdkPackages = $false
-    NoPackaging         = $false
-    SandboxAdminId      = 'EdFi.Suite3.Ods.SandboxAdmin'
-    PackageVersion      = '0.0.0'
-    PackageOutput       = "$PSScriptRoot/packages"
-    SwaggerUIId         = 'EdFi.Suite3.Ods.SwaggerUI'
-    WebApiId            = 'EdFi.Suite3.Ods.WebApi'
-    DatabasesId         = 'EdFi.Suite3.Ods.RestApi.Databases'
-    RepositoryRoot      =  ''
+    InstallType         =  $InstallType
+    OdsTokens           = $OdsTokens
+    Engine              = $Engine
+    NoCodeGen           = $NoCodeGen
+    NoRebuild           = $NoRebuild
+    NoDeploy            = $NoDeploy
+    RunPester           = $RunPester
+    RunDotnetTest       = $RunDotnetTest
+    RunPostman          = $RunPostman
+    RunSmokeTest        = $RunSmokeTest
+    UsePlugins          = $UsePlugins
+    RunSdkGen           = $RunSdkGen
+    GenerateSdkPackages = $GenerateSdkPackages
+    NoPackaging         = $NoPackaging
+    SandboxAdminId      = $SandboxAdminId
+    PackageVersion      = $PackageVersion
+    PackageOutput       = $PackageOutput
+    SwaggerUIId         = $SwaggerUIId
+    WebApiId            = $WebApiId
+    DatabasesId         = $DatabasesId
+    RepositoryRoot      = $RepositoryRoot
 }
 
 Write-FlatHashtable $params
