@@ -384,10 +384,15 @@ Function Get-Server {
         }
     }
 
+     Write-Host "sql_server" $sql_server
+     Write-Host "username" $username
+     Write-Host "password" $password
+     Write-Host "csb" $csb
 
     if ($username) {
         # Initialize Server instance using standard security
         # Write-Host "Connecting to SQL Server using standard security for user '$username'..."
+        Write-Host "Connecting to SQL Server using standard security for user '$username'..."
 
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
         $s.ConnectionContext.LoginSecure = $false
@@ -397,7 +402,7 @@ Function Get-Server {
     else {
         # Initialize Server instance using integrated security
         # Write-Host "Connecting to SQL Server using integrated security..."
-
+        Write-Host "Connecting to SQL Server using integrated security..."     
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
     }
 
