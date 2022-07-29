@@ -71,6 +71,22 @@ jobs:
       run: |
         .\build.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/SdkGen/EdFi.SdkGen.sln" 
       shell: pwsh
+    - name: Install-PreRequisites Chocolatey
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = "Stop"
+        if (Get-Command "choco.exe" -ErrorAction SilentlyContinue){
+            Write-Host "Chocolatey is already installed. Setting choco command."
+        } else {
+            Write-Host "Installing Chocolatey..."
+            Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+            $ChocoCmd = Get-Command "choco.exe" -ErrorAction SilentlyContinue
+            $ChocolateyInstall = Convert-Path "$($ChocoCmd.Path)\..\.."
+            Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
+            RefreshEnv.cmd
+            Update-SessionEnvironment
+        }
+      shell: pwsh      
     - name: build InitDev
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
