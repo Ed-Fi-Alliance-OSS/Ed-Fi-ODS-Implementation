@@ -148,12 +148,12 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
         
       shell: pwsh      
-    - name: Execute InitDev
+    - name: Execute ODS/API InitDev, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
         Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
-        .\build.github.ps1 -InstallType 'Sandbox' -Engine 'SQLServer' -RunPostman $false  -RunSmokeTest  $false -UsePlugins  $true -PackageVersion '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.${{ github.run_number }}' -RepositoryRoot $env:GITHUB_WORKSPACE
+        .\build.github.ps1 -InstallType 'Sandbox' -Engine 'SQLServer' -UsePlugins  $true -RunSdkGen $true -PackageVersion '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.${{ github.run_number }}' -RepositoryRoot $env:GITHUB_WORKSPACE
       shell: pwsh
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/

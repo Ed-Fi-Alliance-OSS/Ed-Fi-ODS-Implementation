@@ -8,7 +8,7 @@ param(
     [string] $InstallType = 'Sandbox',
 
     [Alias('OdsYears')]
-    [string[]] $OdsTokens,
+    [string[]] $OdsTokens =@(),
 
     [ValidateSet('SQLServer', 'PostgreSQL')]
     [String] $Engine = 'SQLServer',
@@ -25,9 +25,9 @@ param(
 
     [switch] $RunDotnetTest,
 
-    [switch] $RunPostman,
+    [switch] $RunPostman = $false,
 
-    [switch] $RunSmokeTest,
+    [switch] $RunSmokeTest = $false,
 
     [switch] $RunSdkGen,
 
@@ -59,10 +59,10 @@ $ErrorActionPreference = 'Stop'
 
 # Build and Test
 $params = @{
-    InstallType         =  $InstallType
+    InstallType         = $InstallType
     OdsTokens           = $OdsTokens
     Engine              = $Engine
-    NoCodeGen           = $NoCodeGen
+    NoCodeGen           = $ExcludeCodeGen
     NoRebuild           = $NoRebuild
     NoDeploy            = $NoDeploy
     RunPester           = $RunPester
