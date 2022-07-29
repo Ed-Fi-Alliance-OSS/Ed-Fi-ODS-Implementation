@@ -41,41 +41,41 @@ $noPackaging   = $params.NoPackaging
 
 if (-not $noPackaging) {
     # Package
-    $params = @{
+    $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SandboxAdmin)
-        PackageId       = @params.SandboxAdminId
-        Version         = @params.PackageVersion
+        PackageId       = $params.SandboxAdminId
+        Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = @params.PackageOutput
+        OutputDirectory = $params.PackageOutput
     }
-    $result += New-WebPackage @params
+    $result += New-WebPackage @parameters
 
-    $params = @{
+    $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SwaggerUI)
-        PackageId       = @params.SwaggerUIId
-        Version         = @params.PackageVersion
+        PackageId       = $params.SwaggerUIId
+        Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = @params.PackageOutput
+        OutputDirectory = $params.PackageOutput
     }
     $result += New-WebPackage @params
 
-    $params = @{
+    $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
-        PackageId       = @params.WebApiId
-        Version         = @params.PackageVersion
+        PackageId       = $params.WebApiId
+        Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = @params.PackageOutput
+        OutputDirectory = $params.PackageOutput
     }
-    $result += New-WebPackage @params
+    $result += New-WebPackage @parameters
 
-    $params = @{
+    $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases)
-        PackageId       = @params.DatabasesId
-        Version         = @params.PackageVersion
+        PackageId       = $params.DatabasesId
+        Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = @params.PackageOutput
+        OutputDirectory = $params.PackageOutput
     }
-    $result += New-DatabasesPackage @params
+    $result += New-DatabasesPackage @parameters
 
     $result | Format-Table
 
