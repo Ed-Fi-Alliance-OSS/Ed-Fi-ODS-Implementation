@@ -102,7 +102,7 @@ if (-not $noPackaging) {
         Properties      = (Get-DefaultNuGetProperties)
         OutputDirectory = $params.PackageOutput
     }
-    $result += New-WebPackage @params
+    $result += New-WebPackage @parameters
 
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
