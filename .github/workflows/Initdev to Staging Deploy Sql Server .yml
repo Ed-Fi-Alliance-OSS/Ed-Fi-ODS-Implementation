@@ -70,9 +70,9 @@ jobs:
          dotnet restore EdFi.SdkGen.sln
       shell: pwsh
     - name: Build EdFi.SdkGen
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-            .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/SdkGen/EdFi.SdkGen.sln"
+           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/SdkGen/EdFi.SdkGen.sln"
       shell: pwsh
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/
