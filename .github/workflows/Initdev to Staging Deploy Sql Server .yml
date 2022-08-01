@@ -140,6 +140,32 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
+    - name: Execute ODS/API InitDev, Unit Test, Package
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
+        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -RunDotnetTest -RunPester
+      shell: pwsh
+    - name: Create EdF.Ods.WebApi.Prerelease for Staging
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        $params = @{
+                ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
+                PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
+                PackageId             = 'EdFi.Suite3.Ods.WebApi.Prerelease'
+                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
+                Properties            = (Get-DefaultNuGetProperties)
+                OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
+        }
+        New-WebPackage @params
+        Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
+      shell: pwsh
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
       run: |
@@ -199,32 +225,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.OdsApi.Sdk"
-      shell: pwsh
-    - name: Execute ODS/API InitDev, Unit Test, Package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -RunDotnetTest -RunPester
-      shell: pwsh
-    - name: Create EdF.Ods.WebApi.Prerelease for Staging
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        $params = @{
-                ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
-                PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
-                PackageId             = 'EdFi.Suite3.Ods.WebApi.Prerelease'
-                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
-                Properties            = (Get-DefaultNuGetProperties)
-                OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
-        }
-        New-WebPackage @params
-        Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh
     - name: ODS/API InitDev, Integration Test
       working-directory: ./Ed-Fi-ODS-Implementation/
