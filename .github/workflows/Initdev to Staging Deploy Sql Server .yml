@@ -152,8 +152,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
-
         [int]$BuildCounter =  "${{ github.run_number }}"
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
@@ -166,8 +164,8 @@ jobs:
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         $params = @{
-                ProjectPath           = 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
-                PackageDefinitionFile = 'Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
+                ProjectPath           = '/Application/EdFi.Ods.WebApi'
+                PackageDefinitionFile = '/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
                 PackageId             = 'EdFi.Suite3.Ods.WebApi.Prerelease'
                 Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
                 Properties            = (Get-DefaultNuGetProperties)
@@ -175,4 +173,15 @@ jobs:
         }
         New-WebPackage @params
         Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
-      shell: pwsh      
+      shell: pwsh
+    - name: ODS/API InitDev, Integration Test
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
+        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -RunPostman -NoPackaging -RunPester
+      shell: pwsh
+

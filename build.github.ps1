@@ -18,15 +18,15 @@ param(
 
     [switch] $NoDeploy = $false,
 
-    [switch] $RunPester,
+    [switch] $RunPester = $false,
 
-    [switch] $RunDotnetTest,
+    [switch] $RunDotnetTest = $false,
 
     [switch] $RunPostman = $false,
 
     [switch] $RunSmokeTest = $false,
 
-    [switch] $RunSdkGen,
+    [switch] $RunSdkGen = $false,
 
     [switch] $GenerateSdkPackages = $false,
 
