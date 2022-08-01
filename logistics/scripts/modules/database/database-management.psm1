@@ -392,6 +392,7 @@ Function Get-Server {
     else {
         # Initialize Server instance using integrated security
         # Write-Host "Connecting to SQL Server using integrated security..."
+        
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
     }
 
