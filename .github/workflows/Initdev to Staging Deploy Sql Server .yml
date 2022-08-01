@@ -74,11 +74,25 @@ jobs:
       run: |
            .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
       shell: pwsh
+    - name: Start-TestHarness
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |           
+            $ErrorActionPreference = 'Stop'
+            $PSVersionTable
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            Start-TestHarness
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/
       run: |
-           EdFi.SdkGen.Console.exe -m "https://api-stage.ed-fi.org/v6.0/api/metadata?sdk=true" -v "5.4.0" --core-only
-      shell: cmd  
+           EdFi.SdkGen.Console.exe -m "http://localhost:8765/metadata?sdk=true" -v "5.4.0" --core-only
+      shell: cmd
+    - name: Stop-TestHarness
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |           
+            $ErrorActionPreference = 'Stop'
+            $PSVersionTable
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+            Stop-TestHarness
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/csharp/
       run: |
