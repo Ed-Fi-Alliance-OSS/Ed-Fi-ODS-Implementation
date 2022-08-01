@@ -69,14 +69,14 @@ jobs:
     - name: Build EdFi.SdkGen
       working-directory: ./Ed-Fi-ODS/
       run: |
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/SdkGen/EdFi.SdkGen.sln" 
+        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "Utilities/SdkGen/EdFi.SdkGen.sln"
       shell: pwsh
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
          mkdir net6.0
          cd net6.0
-        -m "https://api-stage.ed-fi.org/v6.0/api/metadata?sdk=true" -v "5.4.0" --core-only
+        EdFi.SdkGen.Console.exe -m "https://api-stage.ed-fi.org/v6.0/api/metadata?sdk=true" -v "5.4.0" --core-only
       shell: cmd  
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS-Implementation/net6.0/csharp/
