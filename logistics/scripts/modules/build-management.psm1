@@ -24,14 +24,9 @@ function Remove-EdFiSQLServerDatabases {
 
     $connectionStrings = (Get-ConnectionStringBuildersFromSettings (Get-DefaultConnectionStringsByEngine)['SqlServer'])
 
-    Write-Host "connectionStrings" $connectionStrings
-
     $master = (Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Master]
     $ods = (Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods]
 
-    Write-Host "master" $master
-    Write-Host "ods" $ods
-    
     $sqlServer = Get-Server $connectionStrings[$master]
     $connectionString = (Get-DbConnectionStringBuilderFromTemplate -templateCSB $connectionStrings[$ods] -replacementTokens "*")
 

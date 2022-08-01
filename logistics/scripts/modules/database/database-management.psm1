@@ -367,11 +367,6 @@ Function Get-Server {
 
     Use-SqlServerModule
 
-     Write-Host "sql_server" $sql_server
-     Write-Host "username" $username
-     Write-Host "password" $password
-     Write-Host "csb" $csb
-
     if ($PsCmdlet.ParameterSetName -eq "csb") {
         $csb = Convert-CommonDbCSBtoSqlCSB $csb
         $sql_server = $csb.DataSource
@@ -384,10 +379,6 @@ Function Get-Server {
         }
     }
 
-     Write-Host "sql_server" $sql_server
-     Write-Host "username" $username
-     Write-Host "password" $password
-     Write-Host "csb" $csb
 
     if ($username) {
         # Initialize Server instance using standard security
