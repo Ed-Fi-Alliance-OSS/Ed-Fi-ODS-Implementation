@@ -177,7 +177,7 @@ jobs:
         Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh
     - name: Start-TestHarness & Run EdFi SdkGen Console Exe to generate C# SDK code
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/
       run: |           
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
