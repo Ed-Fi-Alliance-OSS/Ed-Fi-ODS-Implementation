@@ -64,6 +64,16 @@ jobs:
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
            }
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
+      run: |
+         dotnet restore EdFi.SdkGen.sln
+      shell: pwsh
+    - name: Build EdFi.SdkGen
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
+      shell: pwsh
     - name: Install-PreRequisites Chocolatey
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -165,16 +175,6 @@ jobs:
         }
         New-WebPackage @params
         Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
-      shell: pwsh
-    - name: Restore NuGet packages
-      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
-      run: |
-         dotnet restore EdFi.SdkGen.sln
-      shell: pwsh
-    - name: Build EdFi.SdkGen
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
       shell: pwsh
     - name: Start-TestHarness & Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/
