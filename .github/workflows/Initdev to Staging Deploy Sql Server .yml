@@ -193,9 +193,9 @@ jobs:
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             Stop-TestHarness
     - name: Restore NuGet packages
-      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/csharp/
+      working-directory: ./Ed-Fi-ODS/
       run: |
-           dotnet restore EdFi.OdsApi.Sdk.sln
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
