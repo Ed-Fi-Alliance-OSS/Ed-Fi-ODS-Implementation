@@ -80,7 +80,7 @@ jobs:
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+            initdev -Engine SQLServer -UsePlugins
             Start-TestHarness -apiUrl "http://localhost:8765" -configurationFile  "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/postmanTestHarnessConfiguration.json" -environmentFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/"
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/
