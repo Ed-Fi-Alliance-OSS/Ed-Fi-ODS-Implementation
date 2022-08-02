@@ -7,7 +7,9 @@ name: Initdev to Staging Deploy Sql Server  Pull request
 
 on:
   pull_request:
-    branches: [main]
+   branches: [main]
+  push:
+   branches: [main]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
