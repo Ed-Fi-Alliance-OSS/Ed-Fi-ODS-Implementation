@@ -79,10 +79,13 @@ jobs:
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"        
-        $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+        $newRevision = ($BuildCounter) + ($BuildIncrementer)
         $InformationalVersion = ${{ env.INFORMATIONAL_VERSION }}
-        $version = "$InformationalVersion.$newRevision"
+        $version = "${{ env.INFORMATIONAL_VERSION }}" + "."+ "$newRevision"
         $packageOutput = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\NugetPackages"
+        Write-Host  "version" $version
+        Write-Host  "newRevision" $newRevision
+        Write-Host  "InformationalVersion" $InformationalVersion         
         dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
       shell: pwsh      
     - name: Publish EdFi.SdkGen nuget package
