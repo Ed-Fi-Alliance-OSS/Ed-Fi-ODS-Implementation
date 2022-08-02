@@ -87,7 +87,10 @@ jobs:
         Write-Host  "newRevision" $newRevision
         Write-Host  "InformationalVersion" $InformationalVersion         
         dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
-      shell: pwsh      
+      shell: pwsh
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
     - name: Publish EdFi.SdkGen nuget package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -193,3 +196,17 @@ jobs:
         New-WebPackage @params
         Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh
+    - name: Upload EdFi.SdkGen Package
+      if: success()
+      uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
+      with:
+        name: NuGetPackages
+        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/**=>EdFi.SdkGen.zip!/EdFi.SdkGen.Console
+        if-no-files-found: error
+    - name: Upload Package
+      if: success()
+      uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
+      with:
+        name: NuGetPackages
+        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/**=>EdFi.SdkGen.zip!/EdFi.SdkGen.Console
+        if-no-files-found: error        
