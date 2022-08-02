@@ -101,7 +101,7 @@ jobs:
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: EdFi.SdkGen.zip Artifacts
+        name: EdFi.SdkGen.zip.Artifacts
         path: |
           $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/*   
     - name: Setup Sql Server Connection String
@@ -135,10 +135,9 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
     - name: Download EdFi.SdkGen Artifacts
-      working-directory: ./Ed-Fi-ODS-Implementation/net6.0/     
       uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3.0.0
       with:
-        name: EdFi.SdkGen.zip Artifacts  
+        name: EdFi.SdkGen.zip.Artifacts  
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/net6.0/
       run: |           
