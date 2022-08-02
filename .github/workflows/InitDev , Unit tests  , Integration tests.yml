@@ -77,7 +77,14 @@ jobs:
     - name: Pack EdFi.SdkGen Nuget
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -PackageName  "EdFi.SdkGen"
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"        
+        $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+        $InformationalVersion = ${{ env.INFORMATIONAL_VERSION }}
+        $version = "$InformationalVersion.$newRevision"
+        $packageOutput = "$PSScriptRoot\NugetPackages"
+        $packagePath = "$packageOutput\$PackageName.$version.nupkg"
+        dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
       shell: pwsh      
     - name: Publish EdFi.SdkGen nuget package
       working-directory: ./Ed-Fi-ODS-Implementation/
