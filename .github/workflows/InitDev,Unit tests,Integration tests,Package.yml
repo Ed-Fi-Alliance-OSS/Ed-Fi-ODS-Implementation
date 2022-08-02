@@ -126,7 +126,7 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
-    - name: Start-TestHarness & Run EdFi SdkGen Console Exe to generate C# SDK code & Stop-TestHarness
+    - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
             $ErrorActionPreference = 'Stop'
@@ -134,18 +134,20 @@ jobs:
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE
             Start-TestHarness -apiUrl "http://localhost:8765" -configurationFile  "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/postmanTestHarnessConfiguration.json" -environmentFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/"
+            mkdir net6.0
+            cd net6.0
             cmd /c "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/EdFi.SdkGen.Console.exe" -m "http://localhost:8765/metadata?sdk=true" -v "5.4.0" --core-only
             Stop-TestHarness
       shell: pwsh
     - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
       working-directory: ./Ed-Fi-ODS/
       run: |
-           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/./csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/./csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/./csharp/EdFi.OdsApi.Sdk.sln"
+           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/./csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
@@ -160,7 +162,7 @@ jobs:
             [int]$newRevision =  $BuildCounter + $BuildIncrementer
             [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
             $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
-            $NuspecFilePath = '$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec'
+            $NuspecFilePath = '$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec'
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
@@ -194,19 +196,18 @@ jobs:
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
         }
         New-WebPackage @params
-        Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh
     - name: Upload EdFi.SdkGen Package
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: NuGetPackages
+        name: EdFi.SdkGenPackage
         path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/**=>EdFi.SdkGen.zip!/EdFi.SdkGen.Console
         if-no-files-found: error
-    - name: Upload Package
+    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases Package
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: NuGetPackages
-        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/**=>EdFi.SdkGen.zip!/EdFi.SdkGen.Console
+        name: SandboxAdmin,SwaggerUI,WebApi,DatabasesPackages
+        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
         if-no-files-found: error        
