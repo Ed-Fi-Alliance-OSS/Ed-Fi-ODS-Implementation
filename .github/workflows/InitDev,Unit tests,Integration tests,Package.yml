@@ -201,13 +201,13 @@ jobs:
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: EdFi.SdkGenPackage
-        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/**=>EdFi.SdkGen.zip!/EdFi.SdkGen.Console
-        if-no-files-found: error
-    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases Package
+        name: EdFi.SdkGen.zip Artifacts
+        path: |
+          $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/*
+    - name: Upload EdFi.SdkGen Package
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: SandboxAdmin,SwaggerUI,WebApi,DatabasesPackages
-        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
-        if-no-files-found: error        
+        name: NugetPackages Artifacts
+        path: |
+          $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
