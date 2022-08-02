@@ -74,22 +74,6 @@ jobs:
       run: |
            .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
       shell: pwsh
-    - name: Install-PreRequisites Chocolatey
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = "Stop"
-        if (Get-Command "choco.exe" -ErrorAction SilentlyContinue){
-            Write-Host "Chocolatey is already installed. Setting choco command."
-        } else {
-            Write-Host "Installing Chocolatey..."
-            Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072;Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
-            $ChocoCmd = Get-Command "choco.exe" -ErrorAction SilentlyContinue
-            $ChocolateyInstall = Convert-Path "$($ChocoCmd.Path)\..\.."
-            Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-            RefreshEnv.cmd
-            Update-SessionEnvironment
-        }
-      shell: pwsh
     - name: Install Sql Server Express
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -206,6 +190,16 @@ jobs:
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -RunPostman -NoPackaging -RunPester -RunSmokeTest
       shell: pwsh
+    - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
+      shell: pwsh
+    - name: Build EdFi.Ods.Api.Sdk Solution
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
+      shell: pwsh
     - name: Build EdFi.LoadTools Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -229,8 +223,7 @@ jobs:
                 apiKey = "smoke"
                 apiSecret = "smokeSecret"
                 apiNamespaceUri = "http://edfi.org"
-                D:\BuildAgent\work\61f3b7a75e940828\Ed-Fi-ODS\Utilities\DataLoading\EdFi.SmokeTest.Console\bin\Release\net6.0\publish\EdFi.SmokeTest.Console.dll
-                smokeTestDll = "./EdFi.Suite3.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
+                smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll"
                 smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
                 testSets = @("NonDestructiveApi", "NonDestructiveSdk")
             }
