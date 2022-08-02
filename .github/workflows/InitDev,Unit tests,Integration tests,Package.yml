@@ -68,6 +68,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
       run: |
          dotnet restore EdFi.SdkGen.sln
+         Write-Host  "GITHUB_WORKSPACE" $env:GITHUB_WORKSPACE
       shell: pwsh
     - name: Build EdFi.SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
