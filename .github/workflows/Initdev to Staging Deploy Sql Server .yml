@@ -140,7 +140,7 @@ jobs:
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            initdev -Engine SQLServer -UsePlugins
+            initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE
             Start-TestHarness -apiUrl "http://localhost:8765" -configurationFile  "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/postmanTestHarnessConfiguration.json" -environmentFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/"
             cmd /c "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/EdFi.SdkGen.Console.exe" -m "http://localhost:8765/metadata?sdk=true" -v "5.4.0" --core-only
             Stop-TestHarness
@@ -185,12 +185,28 @@ jobs:
       run: |
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
-    - name: ODS/API Smoke Test using run-smoke-tests.ps1
+    - name: ODS/API Smoke Test using Test Harness via run-smoke-tests.ps1
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
            $ErrorActionPreference = 'Stop'
            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
+      shell: pwsh
+    - name: ODS/API Smoke Test Year-Specific using Test Harness via run-smoke-tests.ps1
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |           
+           $ErrorActionPreference = 'Stop'
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+           initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE -InstallType "YearSpecific"
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
+      shell: pwsh
+    - name: ODS/API Smoke Test Shared Instance using Test Harness via run-smoke-tests.ps1
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |           
+           $ErrorActionPreference = 'Stop'
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+           initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE -InstallType "SharedInstance"
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
       shell: pwsh
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
