@@ -101,9 +101,8 @@ jobs:
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: EdFi.SdkGen.zip.Artifacts
-        path: |
-          $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
+        name: Artifacts
+        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -211,6 +210,5 @@ jobs:
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: NugetPackages Artifacts
-        path: |
-          $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+        name: Artifacts
+        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
