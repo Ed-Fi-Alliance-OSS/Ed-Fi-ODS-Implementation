@@ -177,7 +177,7 @@ jobs:
         Write-Host "publishArtifacts 'Ed-Fi-ODS-Implementation/packages'"
       shell: pwsh
     - name: Start-TestHarness & Run EdFi SdkGen Console Exe to generate C# SDK code
-      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
@@ -192,15 +192,15 @@ jobs:
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             Stop-TestHarness
-    - name: Restore NuGet packages
+    - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
       working-directory: ./Ed-Fi-ODS/
       run: |
-           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\SdkGen\EdFi.SdkGen.Console\bin\Release\net6.0\csharp\EdFi.OdsApi.Sdk.sln"
+           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
