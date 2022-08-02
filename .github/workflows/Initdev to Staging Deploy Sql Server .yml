@@ -186,13 +186,11 @@ jobs:
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
     - name: ODS/API Smoke Test using run-smoke-tests.ps1
-      working-directory: ./Ed-Fi-ODS-Implementation/logistics/scripts/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
-            $ErrorActionPreference = 'Stop'
-            $PSVersionTable
-            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1            
-            Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
-          .\run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
+           $ErrorActionPreference = 'Stop'
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
       shell: pwsh
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
