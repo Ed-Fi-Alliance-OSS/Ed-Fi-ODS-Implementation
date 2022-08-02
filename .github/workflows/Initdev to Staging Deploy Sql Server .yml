@@ -220,8 +220,8 @@ jobs:
             Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
             $params = @{
                 apiUrlBase = "http://localhost:8765/"
-                apiKey = "smoke"
-                apiSecret = "smokeSecret"
+                apiKey = $null
+                apiSecret = $null
                 apiNamespaceUri = "http://edfi.org"
                 smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll"
                 smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
