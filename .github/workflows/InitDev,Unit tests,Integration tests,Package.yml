@@ -103,7 +103,7 @@ jobs:
       with:
         name: EdFi.SdkGen.zip.Artifacts
         path: |
-          $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/*   
+          $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
