@@ -164,14 +164,6 @@ jobs:
       run: |
            .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
-    - name: Replace PackageId & PackageTitle
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
-           $_.replace('<id>EdFi.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.Sdk</id>').replace('<title>EdFi.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.Sdk</title>')
-           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
-           Write-Host "Updating package id to EdFi.Suite3.OdsApi.Sdk"
-      shell: pwsh
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
       with:
