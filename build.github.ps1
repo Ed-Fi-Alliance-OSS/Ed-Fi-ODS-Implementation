@@ -123,6 +123,5 @@ if (-not $noPackaging) {
     $result += New-DatabasesPackage @parameters
 
     $result | Format-Table
-
-    if (Test-TeamCityVersion) { Write-Host "##teamcity[publishArtifacts '$PSScriptRoot/packages,*.log']" }
+    
 }
