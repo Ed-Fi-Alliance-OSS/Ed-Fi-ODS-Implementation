@@ -58,13 +58,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-          Write-Host  "GITHUB_REF" ${{ github.base_ref }}  
-          Write-Host  "GITHUB_REF_NAME"  ${{ github.ref_name }} 
-          Write-Host  "GITHUB_HEAD_REF"   ${{ github.head_ref }}                  
-          Write-Host  "GITHUB_REF" ${{ env.GITHUB_REF }}
-          Write-Host  "GITHUB_REF_NAME" ${{ env.GITHUB_REF_NAME }}        
-          Write-Host  "GITHUB_HEAD_REF" ${{ env.GITHUB_HEAD_REF }} 
-          Write-Host  "CURRENT_BRANCH" ${GITHUB_REF##*/}
            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
            Write-Host "Pattern Name is " $patternName -fore GREEN
            $is_pull_request_branch = 'False'
@@ -75,10 +68,6 @@ jobs:
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
            }
-    - name: Extract branch name
-      shell: bash
-      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-      id: extract_branch           
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
       run: |
@@ -112,7 +101,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.SdkGen"
         mkdir net6.0
-        Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/"
       shell: pwsh
     - name: Upload EdFi.SdkGen Artifacts
       if: success()
@@ -198,8 +186,6 @@ jobs:
             [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
             $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
             $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
-            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/"
-            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
