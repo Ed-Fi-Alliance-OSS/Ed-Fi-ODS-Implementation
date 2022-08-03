@@ -278,7 +278,7 @@ jobs:
       with:
         name: EdFi.Ods.Api.TestSdk.NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/
-    - name: Download EdFi.Ods.Api.TestSdk Artifacts
+    - name: Download Upload SandboxAdmin,SwaggerUI,WebApi,Databases NugetPackages.Artifacts
       uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3.0.0
       with:
         name: NugetPackages.Artifacts
