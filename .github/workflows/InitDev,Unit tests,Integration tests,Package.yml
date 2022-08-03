@@ -57,13 +57,13 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
-          Write-Host  "GITHUB_REF" $GITHUB_REF
-          Write-Host  "GITHUB_REF_NAME" $GITHUB_REF_NAME          
-          Write-Host  "GITHUB_HEAD_REF" $GITHUB_HEAD_REF                    
+          Write-Host  "GITHUB_REF" ${{ github.base_ref }}  
+          Write-Host  "GITHUB_REF_NAME"  ${{ github.ref_name }} 
+          Write-Host  "GITHUB_HEAD_REF"   ${{ github.head_ref }}                  
           Write-Host  "GITHUB_REF" ${{ env.GITHUB_REF }}
           Write-Host  "GITHUB_REF_NAME" ${{ env.GITHUB_REF_NAME }}        
           Write-Host  "GITHUB_HEAD_REF" ${{ env.GITHUB_HEAD_REF }} 
-          Write-Host  "CURRENT_BRANCH" ${{ env.CURRENT_BRANCH }}     
+          Write-Host  "CURRENT_BRANCH" ${GITHUB_REF##*/}
            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
            Write-Host "Pattern Name is " $patternName -fore GREEN
            $is_pull_request_branch = 'False'
@@ -74,6 +74,10 @@ jobs:
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
            }
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch           
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
       run: |
