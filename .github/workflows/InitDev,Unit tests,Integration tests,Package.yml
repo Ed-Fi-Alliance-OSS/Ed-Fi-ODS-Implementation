@@ -57,6 +57,13 @@ jobs:
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
+          Write-Host  "GITHUB_REF" $GITHUB_REF
+          Write-Host  "GITHUB_REF_NAME" $GITHUB_REF_NAME          
+          Write-Host  "GITHUB_HEAD_REF" $GITHUB_HEAD_REF                    
+          Write-Host  "GITHUB_REF" ${{ env.GITHUB_REF }}
+          Write-Host  "GITHUB_REF_NAME" ${{ env.GITHUB_REF_NAME }}        
+          Write-Host  "GITHUB_HEAD_REF" ${{ env.GITHUB_HEAD_REF }} 
+          Write-Host  "CURRENT_BRANCH" ${{ env.CURRENT_BRANCH }}     
            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
            Write-Host "Pattern Name is " $patternName -fore GREEN
            $is_pull_request_branch = 'False'
