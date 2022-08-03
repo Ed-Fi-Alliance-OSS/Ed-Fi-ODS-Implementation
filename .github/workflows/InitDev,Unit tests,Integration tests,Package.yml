@@ -210,9 +210,9 @@ jobs:
         }
         New-WebPackage @params
       shell: pwsh
-    - name: Upload  SandboxAdmin,SwaggerUI,WebApi,Databases NugetPackages
+    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases NugetPackages
       if: success()
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
-        name: Artifacts
-        path: $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
