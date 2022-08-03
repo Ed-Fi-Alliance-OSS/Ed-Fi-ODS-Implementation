@@ -55,7 +55,7 @@ param(
     [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
     [switch] $noRebuild,
-    [string] $buildConfiguration = "Debug",
+    [string] $buildConfiguration = "Debug"
     
 )
 
