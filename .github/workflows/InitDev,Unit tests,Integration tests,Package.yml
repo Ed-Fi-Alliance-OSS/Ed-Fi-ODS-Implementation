@@ -104,7 +104,7 @@ jobs:
       uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
       with:
         name: EdFi.SdkGen.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/*
+        path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -176,6 +176,7 @@ jobs:
             $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
             $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
             Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/"
+            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
