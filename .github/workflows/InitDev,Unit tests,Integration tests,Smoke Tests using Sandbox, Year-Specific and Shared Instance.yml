@@ -314,24 +314,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName  "EdFi.Suite3.SmokeTest.Console"
       shell: pwsh
-    - name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           $ErrorActionPreference = 'Stop'
-           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-           Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
-           $params = @{
-                apiUrlBase = "http://localhost:8765"
-                apiKey = Get-RandomString
-                apiSecret = Get-RandomString
-                apiNamespaceUri = "http://edfi.org"
-                smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
-                smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
-                testSets = @("NonDestructiveApi", "NonDestructiveSdk")
-           }
-           Write-Host $params
-           Invoke-SmokeTestClient -config $params
-      shell: pwsh
     - name: ODS/API Smoke Test for Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
