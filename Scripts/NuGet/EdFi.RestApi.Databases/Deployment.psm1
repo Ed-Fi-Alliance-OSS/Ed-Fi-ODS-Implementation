@@ -118,11 +118,11 @@ function Initialize-DeploymentEnvironment {
     Set-DeploymentSettings $settings | Out-Null
 
     Write-FlatHashtable (Get-DeploymentSettings)
-
+    
     $script:result = @()
 
     $elapsed = Use-StopWatch {
-        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
+        if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder) -and -not (Test-TaskAlreadyInvoked("Install-Plugins"))) { $script:result += Install-Plugins }
 
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
