@@ -272,18 +272,18 @@ jobs:
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.OdsApi.TestSdk"
       shell: pwsh
     - name: Extract EdFi.Suite3.OdsApi.TestSdk nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS-Implementation/NugetPackages/
       run: |          
            Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.OdsApi.TestSdk*.nupkg -NewName EdFi.Suite3.OdsApi.TestSdk.zip
-           Expand-Archive -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/
+           Expand-Archive -Path EdFi.Suite3.OdsApi.TestSdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/
            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/"
       shell: pwsh        
     - name: Extract EdFi.Suite3.RestApi.Databases nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS-Implementation/NugetPackages/
       run: |
            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"          
            Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.RestApi.Databases.*.nupkg -NewName EdFi.Suite3.RestApi.Databases.zip
-           Expand-Archive -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.RestApi.Databases.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.RestApi.Databases/
+           Expand-Archive -Path EdFi.Suite3.RestApi.Databases.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.RestApi.Databases/
            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.RestApi.Databases/"
       shell: pwsh        
     - name: Build EdFi.LoadTools Solution for Smoke Test Sandbox
@@ -309,10 +309,10 @@ jobs:
            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll" -buildConfiguration "Release"
       shell: pwsh
     - name: Extract EdFi.Suite3.OdsApi.TestSdk nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS-Implementation/NugetPackages/
       run: |     
            Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.OdsApi.Sdk*.nupkg -NewName EdFi.Suite3.OdsApi.Sdk.zip
-           Expand-Archive -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/
+           Expand-Archive -Path EdFi.Suite3.OdsApi.Sdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/
            Get-ChildItem -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/"
       shell: pwsh
     - name: Build EdFi.LoadTools Solution for Smoke Test YearSpecific
