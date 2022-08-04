@@ -345,7 +345,8 @@ jobs:
            $ErrorActionPreference = 'Stop'
            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
            initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE -InstallType "YearSpecific"           
-           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1  -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll" -noRebuild  -buildConfiguration "Release"      shell: pwsh
+           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1  -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk")  -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll" -smokeTestExe "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll" -noRebuild  -buildConfiguration "Release"
+      shell: pwsh
     - name: ODS/API Smoke Test for Shared Instance
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
