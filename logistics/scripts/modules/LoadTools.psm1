@@ -62,6 +62,9 @@ function Invoke-SmokeTestClient {
     Write-HashtableInfo $config
 
     $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+    Write-Host -ForegroundColor Magenta "Start of smokeTestExecutableOrDll"    
+    Write-Host -ForegroundColor Magenta "smokeTestExecutableOrDll"  $smokeTestExecutableOrDll   
+    Write-Host -ForegroundColor Magenta "End of smokeTestExecutableOrDll"
     $smokeTestSdkDll = (Get-ChildItem -Recurse $config.smokeTestDll).FullName
     $testSetDependsOnSdk = ($config.testSets -contains 'NonDestructiveSdk') -or ($config.testSets -contains 'DestructiveSdk')
 
