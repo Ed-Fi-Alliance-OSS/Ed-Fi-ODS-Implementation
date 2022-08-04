@@ -63,9 +63,9 @@ function Invoke-SmokeTestClient {
 
     Write-Host -ForegroundColor Magenta "config smoketestexecutable " $config.smokeTestExecutable
     Write-Host -ForegroundColor Magenta "GetChildItem"
-    Get-ChildItem -Recurse $config.smokeTestExecutable
-    Write-Host -ForegroundColor Magenta "EdFi DLL versions:"
-    Get-ChildItem -Filter EdFi*.dll -Recurse | Select-Object -ExpandProperty VersionInfo | Format-List
+    Write-Host (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+    Write-Host -ForegroundColor Magenta "EdFi DLL versions in Ed-Fi-ODS\Utilities\DataLoading\EdFi.SmokeTest.Console\bin\Release\net6.0 :"
+    Get-ChildItem -Path ..\Ed-Fi-ODS\Utilities\DataLoading\EdFi.SmokeTest.Console\bin\Release\net6.0 -Filter EdFi*.dll -Recurse | Select-Object -ExpandProperty VersionInfo | Format-List
     $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
     Write-Host -ForegroundColor Magenta "Start of smokeTestExecutableOrDll"    
     Write-Host -ForegroundColor Magenta "smokeTestExecutableOrDll"  $smokeTestExecutableOrDll   
