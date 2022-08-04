@@ -306,42 +306,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName  "EdFi.Suite3.SmokeTest.Console"
       shell: pwsh
-		- name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
-        $config = @{ }
-        $config.apiUrlBase ="http://localhost:8765"
-        $config.apiKey = "smoke"
-        $config.apiSecret = "smokeSecret"
-        $config.apiClientNameSandbox = "ODS/API"
-        $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
-        $config.testHarnessJsonConfigLEAs = @()
-        $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
-        $config.buildConfiguration = $buildConfiguration
-        $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Add-RandomKeySecret -config $config
-        $params = @{
-          apiUrl                = $config.apiUrlBase
-          configurationFilePath = $config.bulkLoadTempJsonConfig
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Start-TestHarness @params
-        $params = @{
-            apiUrlBase = "http://localhost:8765"
-            apiKey = "smoke"
-            apiSecret = "smokeSecret"
-            apiNamespaceUri = "http://edfi.org"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
-            smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
-            testSets = @("NonDestructiveApi", "NonDestructiveSdk")
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Invoke-SmokeTestClient -config $params
-        Stop-TestHarness
-      shell: pwsh
     - name: Extract EdFi.Suite3.OdsApi.Sdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
