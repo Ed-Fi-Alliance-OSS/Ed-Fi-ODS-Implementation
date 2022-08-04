@@ -306,6 +306,13 @@ jobs:
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName  "EdFi.Suite3.SmokeTest.Console"
       shell: pwsh
+    - name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"        
+      shell: pwsh      
     - name: Extract EdFi.Suite3.OdsApi.Sdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
