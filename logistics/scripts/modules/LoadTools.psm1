@@ -63,16 +63,16 @@ function Invoke-SmokeTestClient {
 
     Write-Host -ForegroundColor Magenta "config smoketestexecutable " $config.smokeTestExecutable
     Write-Host -ForegroundColor Magenta "GetChildItem"
-    Write-Host (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+    Write-Host (Get-ChildItem $config.smokeTestExecutable).FullName
     Write-Host -ForegroundColor Magenta "EdFi DLL versions in Ed-Fi-ODS\Utilities\DataLoading\EdFi.SmokeTest.Console\bin\Release\net6.0 :"
     Get-ChildItem -Path ..\Ed-Fi-ODS\Utilities\DataLoading\EdFi.SmokeTest.Console\bin\Release\net6.0 -Filter EdFi*.dll -Recurse | Select-Object -ExpandProperty VersionInfo | Format-List
     Write-Host -ForegroundColor Magenta "EdFi.LoadTools DLL versions everywhere :"
     Get-ChildItem -Path ..\ -Filter EdFi.LoadTools.dll -Recurse | Select-Object -ExpandProperty VersionInfo | Format-List
-    $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+    $smokeTestExecutableOrDll = (Get-ChildItem $config.smokeTestExecutable).FullName
     Write-Host -ForegroundColor Magenta "Start of smokeTestExecutableOrDll"    
     Write-Host -ForegroundColor Magenta "smokeTestExecutableOrDll"  $smokeTestExecutableOrDll   
     Write-Host -ForegroundColor Magenta "End of smokeTestExecutableOrDll"
-    $smokeTestSdkDll = (Get-ChildItem -Recurse $config.smokeTestDll).FullName
+    $smokeTestSdkDll = (Get-ChildItem $config.smokeTestDll).FullName
     $testSetDependsOnSdk = ($config.testSets -contains 'NonDestructiveSdk') -or ($config.testSets -contains 'DestructiveSdk')
 
     if (-not (Test-Path $smokeTestExecutableOrDll)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutableOrDll not found." }
