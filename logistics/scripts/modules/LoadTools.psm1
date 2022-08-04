@@ -61,6 +61,9 @@ function Invoke-SmokeTestClient {
 
     Write-HashtableInfo $config
 
+    Write-Host -ForegroundColor Magenta "config smoketestexecutable " $config.smokeTestExecutable
+    Write-Host -ForegroundColor Magenta "GetChildItem"
+    Get-ChildItem -Recurse $config.smokeTestExecutable
     $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
     Write-Host -ForegroundColor Magenta "Start of smokeTestExecutableOrDll"    
     Write-Host -ForegroundColor Magenta "smokeTestExecutableOrDll"  $smokeTestExecutableOrDll   
