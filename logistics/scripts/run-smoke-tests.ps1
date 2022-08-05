@@ -100,7 +100,7 @@ function Get-SmokeTestConfiguration {
 
     $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
 
-    $config.buildConfiguration =  "Debug"
+    $config.buildConfiguration = "Debug"
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_exe)) { $config.msbuild_exe = $env:msbuild_exe }
 
