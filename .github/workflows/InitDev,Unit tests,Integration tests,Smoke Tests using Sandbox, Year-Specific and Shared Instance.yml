@@ -326,6 +326,8 @@ jobs:
         $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
         Start-TestHarness @params
 
+        Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
+
         $params = @{
             apiUrlBase = "http://localhost:8765"
             apiKey = "smoke"
