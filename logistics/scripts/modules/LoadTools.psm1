@@ -61,8 +61,21 @@ function Invoke-SmokeTestClient {
 
     Write-HashtableInfo $config
 
-    $smokeTestExecutableOrDll = (Get-ChildItem $config.smokeTestExecutable).FullName
+    Write-Host -ForegroundColor Magenta "smoketestexecutable recurse find: "
+    Get-ChildItem -Recurse $config.smokeTestExecutable
+    Write-Host -ForegroundColor Magenta "smoketestexecutable not recurse  find: "
+    Get-ChildItem $config.smokeTestExecutable
+    $smokeTestExecutableOrDll = (Get-ChildItem -Recurse $config.smokeTestExecutable).FullName
+
+    Write-Host "smokeTestExecutable: " + $smokeTestExecutableOrDll
+
+    Write-Host -ForegroundColor Magenta "smoketestdll recurse find: "
+    Get-ChildItem -Recurse $config.smokeTestDll
+    Write-Host -ForegroundColor Magenta "smokeTestdll not recurse  find: "
+    Get-ChildItem $config.smokeTestDll
     $smokeTestSdkDll = (Get-ChildItem -Recurse $config.smokeTestDll).FullName
+    Write-Host "smoketestSdkDll: " $smokeTestSdkDll
+
     $testSetDependsOnSdk = ($config.testSets -contains 'NonDestructiveSdk') -or ($config.testSets -contains 'DestructiveSdk')
 
     if (-not (Test-Path $smokeTestExecutableOrDll)) { throw [System.IO.FileNotFoundException] "$smokeTestExecutableOrDll not found." }
