@@ -1,4 +1,4 @@
-﻿﻿<!-- HTML for static distribution bundle build -->
+<!-- HTML for static distribution bundle build -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -80,6 +80,30 @@
                 configObject.presets = [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset];
                 configObject.layout = "StandaloneLayout";
 
+                configObject.plugins = [function UrlParamDisablePlugin() {
+                    return {
+                        statePlugins: {
+                            spec: {
+                                wrapActions: {
+                                    // Workaround listed in https://github.com/swagger-api/swagger-ui/security/advisories/GHSA-qrmm-w75w-3wpx
+                                    // Remove ?url and ?configUrl parameters from loading an external URLs.
+                                    updateUrl: (oriAction) => (payload) => {
+                                        const url = new URL(window.location.href)
+                                        if (url.searchParams.has('configUrl')) {
+                                            url.searchParams.delete('configUrl')
+                                            window.location.replace(url.toString())
+                                        }
+                                        if (url.searchParams.has('url')) {
+                                            url.searchParams.delete('url')
+                                            window.location.replace(url.toString())
+                                        }
+                                        return oriAction(payload)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }];
                 // Begin Swagger UI call region
 
                 const ui = SwaggerUIBundle(configObject);
