@@ -39,9 +39,6 @@
     .PARAMETER noRebuild
     Disables the rebuild of the load tools solution
 
-    .PARAMETER buildConfiguration
-    run the build in Debug or Release mode  of the load tools solution
-
     .EXAMPLE
     PS> run-smoke-tests.ps1
 #>
@@ -54,9 +51,7 @@ param(
     [string[]] $testSets = @("NonDestructiveApi"),
     [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
-    [switch] $noRebuild,
-    [string] $buildConfiguration = "Debug"
-    
+    [switch] $noRebuild
 )
 
 $ErrorActionPreference = 'Stop'
@@ -105,7 +100,7 @@ function Get-SmokeTestConfiguration {
 
     $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
 
-    $config.buildConfiguration = $buildConfiguration
+    $config.buildConfiguration =  "Debug"
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_exe)) { $config.msbuild_exe = $env:msbuild_exe }
 
