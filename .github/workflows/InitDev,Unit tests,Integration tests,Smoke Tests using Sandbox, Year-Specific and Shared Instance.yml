@@ -106,7 +106,7 @@ jobs:
       shell: pwsh
     - name: Upload EdFi.SdkGen Artifacts
       if: success()
-      uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: EdFi.SdkGen.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
@@ -141,7 +141,7 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
     - name: Download EdFi.SdkGen Artifacts
-      uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3.0.0
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         name: EdFi.SdkGen.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
@@ -460,7 +460,7 @@ jobs:
       shell: pwsh
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.Suite3.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.Suite3.SmokeTest.Console NugetPackages
       if: success()
-      uses: actions/upload-artifact@6673cd052c4cd6fcf4b4e6e60ea986c889389535 # v3.0.0
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
