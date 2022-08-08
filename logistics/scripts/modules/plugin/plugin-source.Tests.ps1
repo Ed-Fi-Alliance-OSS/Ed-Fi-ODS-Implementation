@@ -32,9 +32,7 @@ Describe 'Remove-Plugins' {
     It "Removes plugin"{
         $settings = Get-EdFiDeveloperPluginSettings
         $pfolder = Get-PluginFolderFromSettings $settings
-        Write-Host $pfolder
         Remove-Plugins $settings
-
         $plugchilds = Get-ChildItem $pfolder
         foreach ($plugchild in $plugchilds) {
             Test-Path $plugchild -PathType container | Should -Be $false
