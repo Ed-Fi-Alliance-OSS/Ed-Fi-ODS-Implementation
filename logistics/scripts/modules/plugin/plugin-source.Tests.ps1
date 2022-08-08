@@ -28,6 +28,20 @@ Describe 'Get-PluginScriptsFromSettings' {
     }
 }
 
+Describe 'Remove-Plugins' {
+    It "Removes plugin"{
+        $settings = Get-EdFiDeveloperPluginSettings
+        $pfolder = Get-PluginFolderFromSettings $settings
+        Write-Host $pfolder
+        Remove-Plugins $settings
+
+        $plugchilds = Get-ChildItem $pfolder
+        foreach ($plugchild in $plugchilds) {
+            Test-Path $plugchild -PathType container | Should -Be $false
+        }
+    }
+}
+
 Describe 'Get-Plugins' {
     It "Gets plugin"{
         $settings = Get-EdFiDeveloperPluginSettings
@@ -36,19 +50,6 @@ Describe 'Get-Plugins' {
             Test-Path $plug | Should -Be $true
             Get-Item $plug | Should -BeOfType System.IO.DirectoryInfo
         }
-    }
-}
-
-Describe 'Remove-Plugins' {
-    It "Removes plugin"{
-   <#     $settings = Get-EdFiDeveloperPluginSettings
-        $pfolder = Get-PluginFolderFromSettings $settings
-        Remove-Plugins $settings
-        $plugchilds = Get-ChildItem $pfolder
-        foreach ($plugchild in $plugchilds) {
-            Test-Path $plugchild -PathType container | Should -Be $false
-        } 
-#>
     }
 }
 
