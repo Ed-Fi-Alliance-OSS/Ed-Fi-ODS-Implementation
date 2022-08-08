@@ -296,11 +296,6 @@ jobs:
       run: |
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
-    - name: EdFi.Suite3.SmokeTest.Console Pack for Smoke Test Sandbox
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName  "EdFi.Suite3.SmokeTest.Console"
-      shell: pwsh
     - name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
