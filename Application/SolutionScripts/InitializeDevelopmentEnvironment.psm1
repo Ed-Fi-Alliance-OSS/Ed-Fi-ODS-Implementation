@@ -140,6 +140,7 @@ function Initialize-DevelopmentEnvironment {
             $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
         }
 
+        $global:InvokedTasks = $null
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
