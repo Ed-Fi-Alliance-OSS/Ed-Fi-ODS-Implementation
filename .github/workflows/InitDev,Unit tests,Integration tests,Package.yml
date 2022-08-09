@@ -151,9 +151,9 @@ jobs:
             Stop-TestHarness
       shell: pwsh
     - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/
       run: |
-           dotnet restore "./net6.0/csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -163,9 +163,9 @@ jobs:
     - name: Replace PackageId & PackageTitle for EdFi.Ods.Api.Sdk
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           (Get-Content -path "./net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
+           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
            $_.replace('<id>EdFi.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.Sdk</id>').replace('<title>EdFi.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.Sdk</title>')
-           } | Set-Content -Path "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
       shell: pwsh      
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
@@ -179,8 +179,8 @@ jobs:
             [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
             [int]$newRevision =  $BuildCounter + $BuildIncrementer
             [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-            $packageOutput = "./NugetPackages"
-            $NuspecFilePath = "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+            $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+            $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
@@ -204,7 +204,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        ./Initialize-PowershellForDevelopment.ps1
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
@@ -221,4 +221,3 @@ jobs:
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
-      

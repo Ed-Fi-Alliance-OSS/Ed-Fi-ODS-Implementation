@@ -88,7 +88,7 @@ jobs:
         $newRevision = ($BuildCounter) + ($BuildIncrementer)
         $InformationalVersion = ${{ env.INFORMATIONAL_VERSION }}
         $version = "${{ env.INFORMATIONAL_VERSION }}" + "."+ "$newRevision"
-        $packageOutput = "./NugetPackages"
+        $packageOutput = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\NugetPackages"
         dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
       shell: pwsh
     - name: Install-credential-handler
@@ -153,9 +153,9 @@ jobs:
             Stop-TestHarness
       shell: pwsh
     - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS/
       run: |
-           dotnet restore "./net6.0/csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -165,9 +165,9 @@ jobs:
     - name: Replace PackageId & PackageTitle for EdFi.Ods.Api.Sdk
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           (Get-Content -path "./net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
+           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
            $_.replace('<id>EdFi.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.Sdk</id>').replace('<title>EdFi.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.Sdk</title>')
-           } | Set-Content -Path "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
       shell: pwsh      
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
@@ -181,8 +181,8 @@ jobs:
             [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
             [int]$newRevision =  $BuildCounter + $BuildIncrementer
             [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-            $packageOutput = "./NugetPackages"
-            $NuspecFilePath = "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+            $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+            $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
@@ -209,14 +209,14 @@ jobs:
         [int]$BuildCounter =  "${{ github.run_number }}"
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        ./Initialize-PowershellForDevelopment.ps1
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
                 PackageId             = 'EdFi.Suite3.Ods.WebApi.Prerelease'
                 Version               = "${{ env.VERSION_MAJOR}}" + "." + "${{ env.VERSION_MINOR}}" + $newRevision.ToString()
                 Properties            = (Get-DefaultNuGetProperties)
-                OutputDirectory       = './packages'
+                OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
         }
         New-WebPackage @params
       shell: pwsh
@@ -233,7 +233,7 @@ jobs:
     - name: Restore NuGet packages for EdFi.Ods.Api.TestSdk
       working-directory: ./Ed-Fi-ODS/
       run: |            
-           dotnet restore "./Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.TestSdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -243,9 +243,9 @@ jobs:
     - name: Replace PackageId & PackageTitle for EdFi.Ods.Api.TestSdk
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           (Get-Content -path "./net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
+           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
            $_.replace('<id>EdFi.Suite3.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.TestSdk</id>').replace('<title>EdFi.Suite3.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.TestSdk</title>')
-           } | Set-Content -Path "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
       shell: pwsh
     - name: EdFi.Ods.Api.TestSdk Pack
       working-directory: ./Ed-Fi-ODS-Implementation
@@ -255,8 +255,8 @@ jobs:
             [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
             [int]$newRevision =  $BuildCounter + $BuildIncrementer
             [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-            $packageOutput = "./NugetPackages"
-            $NuspecFilePath = "./net6.0/EdFi.OdsApi.Sdk.nuspec"
+            $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+            $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
             nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
@@ -269,16 +269,16 @@ jobs:
     - name: Extract EdFi.Suite3.OdsApi.TestSdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path ./NugetPackages/EdFi.Suite3.OdsApi.TestSdk*.nupkg  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path ./EdFi.Suite3.OdsApi.TestSdk*.nupkg -NewName EdFi.Suite3.OdsApi.TestSdk.zip
-           Expand-Archive -Path EdFi.Suite3.OdsApi.TestSdk.zip -DestinationPath ./EdFi.Suite3.OdsApi.TestSdk/
+           Copy-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.OdsApi.TestSdk*.nupkg  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk*.nupkg -NewName EdFi.Suite3.OdsApi.TestSdk.zip
+           Expand-Archive -Path EdFi.Suite3.OdsApi.TestSdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.TestSdk/
       shell: pwsh        
     - name: Extract EdFi.Suite3.Ods.RestApi.Databases nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path ./NugetPackages/EdFi.Suite3.Ods.RestApi.Databases*.nupkg  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path ./EdFi.Suite3.Ods.RestApi.Databases*.nupkg -NewName EdFi.Suite3.Ods.RestApi.Databases.zip
-           Expand-Archive -Path EdFi.Suite3.Ods.RestApi.Databases.zip -DestinationPath ./EdFi.Suite3.Ods.RestApi.Databases/
+           Copy-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.RestApi.Databases*.nupkg  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.Ods.RestApi.Databases*.nupkg -NewName EdFi.Suite3.Ods.RestApi.Databases.zip
+           Expand-Archive -Path EdFi.Suite3.Ods.RestApi.Databases.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.Ods.RestApi.Databases/
       shell: pwsh        
     - name: Build EdFi.LoadTools Solution for Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -286,16 +286,16 @@ jobs:
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
       shell: pwsh
     - name: LoadTools Test Execution for Smoke Test Sandbox
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           dotnet test "./Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
+           dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
     - name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        ./Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "./logistics/scripts/modules/loadtools.psm1"
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
         $config = @{ }
         $config.apiUrlBase ="http://localhost:8765"
         $config.apiKey = "smoke"
@@ -315,10 +315,7 @@ jobs:
         $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
         Start-TestHarness @params
 
-        
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
-        }
+        Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
 
         $params = @{
             apiUrlBase = "http://localhost:8765"
@@ -336,9 +333,9 @@ jobs:
     - name: Extract EdFi.Suite3.OdsApi.Sdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path ./NugetPackages/EdFi.Suite3.OdsApi.Sdk*.nupkg  -Destination "."
-           Rename-Item -Path ./EdFi.Suite3.OdsApi.Sdk*.nupkg -NewName EdFi.Suite3.OdsApi.Sdk.zip
-           Expand-Archive -Path ./EdFi.Suite3.OdsApi.Sdk.zip -DestinationPath ./EdFi.Suite3.OdsApi.Sdk/
+           Copy-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.OdsApi.Sdk*.nupkg  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk*.nupkg -NewName EdFi.Suite3.OdsApi.Sdk.zip
+           Expand-Archive -Path EdFi.Suite3.OdsApi.Sdk.zip -DestinationPath $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.Suite3.OdsApi.Sdk/
       shell: pwsh
     - name: Build EdFi.LoadTools Solution for Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -346,9 +343,9 @@ jobs:
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
       shell: pwsh
     - name: LoadTools Test Execution for Smoke Test YearSpecific
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           dotnet test "./Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
+           dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
     - name: EdFi.Suite3.SmokeTest.Console Pack for Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -359,8 +356,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
-        ./Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "./logistics/scripts/modules/loadtools.psm1"
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'YearSpecific'
@@ -391,9 +388,7 @@ jobs:
         $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
         Start-TestHarness @params
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
-        }
+        Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
 
         $params = @{
             apiUrlBase = "http://localhost:8765"
@@ -413,8 +408,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
-        ./Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "./logistics/scripts/modules/loadtools.psm1"
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'SharedInstance'
