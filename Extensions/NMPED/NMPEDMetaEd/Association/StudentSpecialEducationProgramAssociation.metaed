@@ -23,12 +23,12 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
     bool BrailleInstruction
         documentation "Indication for student need for braille instruction."
         is optional
-    bool AlernateInstruction
+    bool AlternateInstruction
         documentation "Indication of whether the special education student is entitled to take alternate assessment."
         is required
     descriptor PrimaryAreaOfExceptionality
         documentation "Identification of a studen's Primary Exceptionality"
         is required
-      common extension EdFi.SpecialEducationProgramService
-            documentation "This collection provides extended fields to record Special Education Services Fact Template Data."
-            is optional collection
+    common extension EdFi.SpecialEducationProgramService
+        documentation "This collection provides extended fields to record Special Education Services Fact Template Data."
+        is optional collection

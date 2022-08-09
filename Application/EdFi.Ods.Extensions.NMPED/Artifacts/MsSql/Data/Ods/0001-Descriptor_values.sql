@@ -330,6 +330,10 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values ('uri://nmped.org/IndustryCredentialDescriptor', '183', 'Pro-Cut Certification', 'Pro-Cut Certification');
         INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/IndustryCredentialDescriptor', '184', 'FAA Remote Pilot Certification', 'FAA Remote Pilot Certification');
+        INSERT INTO nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorid) values (@@IDENTITY);
+
 /* LevelOfEducationInstitution */
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -1735,7 +1739,13 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values ('uri://nmped.org/LanguageDescriptor', '101', 'lns', 'Lamnso');
         INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/LanguageDescriptor', '102', 'gle', 'Irish');
+        INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/LanguageDescriptor', '103', 'wel(B), cym(T)', 'Welsh');
+        INSERT INTO edfi.LanguageDescriptor (LanguageDescriptorid) values (@@IDENTITY);
 --Behavior
 /* 
   The state has an authorized catalog for behavior so we are cleaning up the Ed-Fi ones and inserting the NMPED language descriptors.
@@ -3114,6 +3124,10 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/ServiceDescriptor', 'EELTO-TUTORING', 'EELTO-TUTORING', 'High-Yield Learning Activities provide youth with fun experiences that are hands-on, interactive, varied and intentional such as, Legos, Chess, Monopoly, Scrabble, Jeopardy, etc. Tutoring services (ideally project based and must meet the above criteria in approach).');
         INSERT INTO edfi.ServiceDescriptor (ServiceDescriptorid) values (@@IDENTITY);
+		
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/ServiceDescriptor', 'EELTO-ASPROGRAMS', 'EELTO-ASPROGRAMS', 'After-school programs for ELTP which consist of a variety of  Expanded and Enriched Learning Time and Opportunities such as: College and Career Readiness, Civic Leadership, Family Literacy, Fine Arts, Health wellness, Language Culture, Performing Arts, Social Emotion Services, STEM-STEAM, Tutoring, Youth Leadership, and Workforce.');
+        INSERT INTO edfi.ServiceDescriptor (ServiceDescriptorid) values (@@IDENTITY);		
 
 
 
@@ -4504,7 +4518,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
         values  ('uri://nmped.org/PrimaryAreaOfExceptionalityDescriptor', 'G', 'Gifted Only','Gifted Only or Gifted as primary and disability as secondary as indicated in the IEP.');
         INSERT INTO nmped.PrimaryAreaOfExceptionalityDescriptor(PrimaryAreaOfExceptionalityDescriptorId) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values  ('uri://nmped.org/PrimaryAreasOfExceptionalityDescriptor', 'SE', 'Disability Only','Disability Only or Disability as primary and Gifted as secondary as indicated in the IEP.');
+        values  ('uri://nmped.org/PrimaryAreaOfExceptionalityDescriptor', 'SE', 'Disability Only','Disability Only or Disability as primary and Gifted as secondary as indicated in the IEP.');
         INSERT INTO nmped.PrimaryAreaOfExceptionalityDescriptor(PrimaryAreaOfExceptionalityDescriptorId) values (@@IDENTITY);
 	
 		

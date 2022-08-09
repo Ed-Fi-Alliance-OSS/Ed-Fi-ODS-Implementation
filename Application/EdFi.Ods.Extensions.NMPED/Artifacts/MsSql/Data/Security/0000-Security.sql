@@ -125,7 +125,7 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('serviceSettingDescriptor','serviceSettingDescriptor','http://ed-fi.org/ods/identity/claims/nmped/serviceSettingDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventReasonDescriptor','specialEducationEventReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventTypeDescriptor','specialEducationEventTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('specialEducationLevelOfIntegrationDescriptor','specialEducationLevelOfIntegrationDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationLevelOfIntegrationDescriptor',@DescriptorsClaimId,@ApplicationId),
+('levelOfIntegrationDescriptor','levelOfIntegrationDescriptor','http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationNonComplianceReasonDescriptor','specialEducationNonComplianceReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationNonComplianceReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialProgramCodeDescriptor','specialProgramCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialProgramCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('staffDevelopmentActivityCodeDescriptor','staffDevelopmentActivityCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/staffDevelopmentActivityCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
