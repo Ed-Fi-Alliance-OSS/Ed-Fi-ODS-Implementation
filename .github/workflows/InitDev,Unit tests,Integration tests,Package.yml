@@ -140,11 +140,11 @@ jobs:
         name: EdFi.SdkGen.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./Ed-Fi-ODS-Implementation/net6.0/
       run: |           
             $ErrorActionPreference = 'Stop'
             $PSVersionTable
-            ./Initialize-PowershellForDevelopment.ps1
+            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE
             Start-TestHarness -apiUrl "http://localhost:8765" -configurationFile  "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/postmanTestHarnessConfiguration.json" -environmentFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/"
             cmd /c "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/EdFi.SdkGen.Console.exe" -m "http://localhost:8765/metadata?sdk=true" -v "5.4.0" --core-only
@@ -153,7 +153,7 @@ jobs:
     - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           dotnet restore "/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
+           dotnet restore "./net6.0/csharp/EdFi.OdsApi.Sdk.sln"
       shell: pwsh
     - name: Build EdFi.Ods.Api.Sdk Solution
       working-directory: ./Ed-Fi-ODS-Implementation/
