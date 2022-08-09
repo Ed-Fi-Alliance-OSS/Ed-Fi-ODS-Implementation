@@ -1,0 +1,39 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: InitDev 
+
+on:
+  pull_request:
+   branches: [main]
+
+env:
+  AZURE_ARTIFACTS_FEED_URL: https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+          ref: main
+
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@v2.3.4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+          ref: main
+
+      - name: Initialize-DevelopmentEnvironment
+        shell: pwsh
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE
