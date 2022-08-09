@@ -105,7 +105,7 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: EdFi.SdkGen.Artifacts
-        path: ${{ env:GITHUB_WORKSPACE }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
+        path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -140,7 +140,7 @@ jobs:
       uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3.0.0
       with:
         name: EdFi.SdkGen.Artifacts
-        path: ${{ env:GITHUB_WORKSPACE }}/Ed-Fi-ODS-Implementation/
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
     - name: Run EdFi SdkGen Console Exe to generate C# SDK code
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
@@ -456,4 +456,4 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ env:GITHUB_WORKSPACE }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
