@@ -8,6 +8,12 @@ name: InitDev,Unit tests,Integration tests,Package Pull request
 on:
   pull_request:
    branches: [main]
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'   
 
 env:
   INFORMATIONAL_VERSION: "6.0"
