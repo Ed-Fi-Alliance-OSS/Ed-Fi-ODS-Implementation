@@ -72,7 +72,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
       run: |
          dotnet restore EdFi.SdkGen.sln
-         Write-Host  "GITHUB_WORKSPACE" $env:GITHUB_WORKSPACE
       shell: pwsh
     - name: Build EdFi.SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -83,14 +82,11 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"        
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         $newRevision = ($BuildCounter) + ($BuildIncrementer)
         $InformationalVersion = ${{ env.INFORMATIONAL_VERSION }}
         $version = "${{ env.INFORMATIONAL_VERSION }}" + "."+ "$newRevision"
         $packageOutput = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\NugetPackages"
-        Write-Host  "version" $version
-        Write-Host  "newRevision" $newRevision
-        Write-Host  "InformationalVersion" $InformationalVersion         
         dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
       shell: pwsh
     - name: Install-credential-handler
@@ -170,7 +166,6 @@ jobs:
            (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
            $_.replace('<id>EdFi.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.Sdk</id>').replace('<title>EdFi.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.Sdk</title>')
            } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
-           Write-Host "Updating package id to EdFi.Suite3.OdsApi.Sdk"
       shell: pwsh      
     - name: Use NuGet
       uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
