@@ -22,7 +22,8 @@ param(
     [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
     [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path,
-    [Boolean] $generateSdkPackages = $false
+    [Boolean] $generateSdkPackages = $false,
+    [string] $packageVersion
 )
 
 $ErrorActionPreference = 'Stop'
@@ -44,7 +45,7 @@ function Invoke-SdkGen {
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
     $teamCityParameters = Get-TeamCityParameters
     $buildConfiguration = Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'
-    $version = Get-ValueOrDefault $teamCityParameters['version'] '0.0.0'
+    $version = $packageVersion ?? (Get-ValueOrDefault $teamCityParameters['version'] '0.0.0')
     
     $elapsed = Use-StopWatch {
         try {
