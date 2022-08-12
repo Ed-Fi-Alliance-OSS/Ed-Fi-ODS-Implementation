@@ -53,13 +53,15 @@ function Invoke-Newman {
 }
 
 function Invoke-PostmanIntegrationTests {
+    $logPath = (Get-RepositoryRoot "Ed-Fi-Ods-Implementation") + "/PostmanIntegrationTestsLog.log"
+
     $script:result = @()
 
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task -name "Install-Newman" -task { Install-Newman }
             $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Write-Host }
+            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Tee-Object -FilePath $logPath | Write-Host }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
