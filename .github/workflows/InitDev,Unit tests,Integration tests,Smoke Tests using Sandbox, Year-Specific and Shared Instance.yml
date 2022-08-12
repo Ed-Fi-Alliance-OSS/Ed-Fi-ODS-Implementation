@@ -147,28 +147,28 @@ jobs:
     - name: Publish EdFi.Ods.Api.Sdk nuget package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        $packageName = "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk"
+        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk"
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName $packageName -DryRun $true
       shell: pwsh
     - name: Publish EdFi.Ods.Api.TestSdk nuget package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        $packageName = "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk"
+        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk"
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName $packageName -DryRun $true
       shell: pwsh
     - name: Extract EdFi.OdsApi.TestSdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk*.nupkg" -NewName "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk.zip"
-           Expand-Archive -Path "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk/"
+           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk.zip"
+           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk/"
       shell: pwsh        
     - name: Extract EdFi.Ods.RestApi.Databases nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi." + $env:EDFI_SUITE_NUMBER + ".Ods.RestApi.Databases*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".Ods.RestApi.Databases*.nupkg" -NewName "EdFi." + $env:EDFI_SUITE_NUMBER + ".Ods.RestApi.Databases.zip"
-           Expand-Archive -Path "EdFi." + $env:EDFI_SUITE_NUMBER + ".Ods.RestApi.Databases.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".Ods.RestApi.Databases/"
+           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases.zip"
+           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases/"
       shell: pwsh        
     - name: Build EdFi.LoadTools Solution for Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -214,7 +214,7 @@ jobs:
             apiKey = "smoke"
             apiSecret = "smokeSecret"
             apiNamespaceUri = "http://edfi.org"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
+            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")
         }
@@ -225,9 +225,9 @@ jobs:
     - name: Extract EdFi.OdsApi.Sdk nupkg
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk*.nupkg" -NewName "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk.zip"
-           Expand-Archive -Path "EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk/"
+           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
+           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk.zip"
+           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/"
       shell: pwsh
     - name: Build EdFi.LoadTools Solution for Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -242,7 +242,8 @@ jobs:
     - name: EdFi.SmokeTest.Console Pack for Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName  "EdFi." + $env:EDFI_SUITE_NUMBER + ".SmokeTest.Console"
+        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.SmokeTest.Console"
+        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName $packageName
       shell: pwsh
     - name: ODS/API Smoke Test for YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -290,7 +291,7 @@ jobs:
             apiSecret = "populatedSandboxSecret"
             apiYear = '2022'
             apiNamespaceUri = "http://edfi.org"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
+            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")
         }
@@ -337,7 +338,7 @@ jobs:
             apiKey = "populatedSandbox"
             apiSecret = "populatedSandboxSecret"
             apiNamespaceUri = "http://edfi.org"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi." + $env:EDFI_SUITE_NUMBER + ".OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
+            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")
         }
