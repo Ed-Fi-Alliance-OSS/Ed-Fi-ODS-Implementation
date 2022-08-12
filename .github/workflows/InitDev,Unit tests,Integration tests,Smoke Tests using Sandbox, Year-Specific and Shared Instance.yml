@@ -77,7 +77,7 @@ jobs:
            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
            $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
-           if($null -ne $odsBranch){
+           if($odsBranch -ne ''){
               git fetch origin $odsBranch
               git checkout $odsBranch
            } else {
