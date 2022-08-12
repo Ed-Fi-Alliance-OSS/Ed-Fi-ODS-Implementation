@@ -76,7 +76,11 @@ jobs:
            $is_pull_request_branch = 'False'
            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
-           if ($is_pull_request_branch -eq $true) {
+           $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
+           if($null -ne $odsBranch){
+              git fetch origin $odsBranch
+              git checkout $odsBranch
+           } else if ($is_pull_request_branch -eq $true) {
               Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
@@ -126,7 +130,7 @@ jobs:
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunSmokeTest -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
     - name: Upload Postman Integration Test Log
-      if: success()
+      if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: Postman Integration Test Log

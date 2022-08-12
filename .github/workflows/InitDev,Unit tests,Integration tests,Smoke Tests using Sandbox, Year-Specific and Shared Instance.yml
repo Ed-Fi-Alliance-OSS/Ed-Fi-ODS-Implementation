@@ -15,7 +15,9 @@ on:
       logLevel:
         description: 'Log level'
         required: true
-        default: 'warning'   
+        default: 'warning'
+  repository_dispatch:
+    types: [triggered-from-ods-repo]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
@@ -27,6 +29,7 @@ env:
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
   EDFI_SUITE_NUMBER: "Suite3"
 
 jobs:
@@ -72,7 +75,11 @@ jobs:
            $is_pull_request_branch = 'False'
            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
-           if ($is_pull_request_branch -eq $true) {
+           $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
+           if($null -ne $odsBranch){
+              git fetch origin $odsBranch
+              git checkout $odsBranch
+           } else if ($is_pull_request_branch -eq $true) {
               Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
