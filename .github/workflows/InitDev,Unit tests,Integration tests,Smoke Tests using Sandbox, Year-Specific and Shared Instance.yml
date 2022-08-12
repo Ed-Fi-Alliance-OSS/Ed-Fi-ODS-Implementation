@@ -76,42 +76,6 @@ jobs:
               git fetch origin ${{ env.CURRENT_BRANCH }}
               git checkout ${{ env.CURRENT_BRANCH }}
            }
-    - name: Restore NuGet packages
-      working-directory: ./Ed-Fi-ODS/Utilities/SdkGen
-      run: |
-         dotnet restore EdFi.SdkGen.sln
-      shell: pwsh
-    - name: Build EdFi.SdkGen
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
-      shell: pwsh
-    - name: Pack EdFi.SdkGen Nuget
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        $newRevision = ($BuildCounter) + ($BuildIncrementer)
-        $InformationalVersion = ${{ env.INFORMATIONAL_VERSION }}
-        $version = "${{ env.INFORMATIONAL_VERSION }}" + "."+ "$newRevision"
-        $packageOutput = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\NugetPackages"
-        dotnet pack "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln" -c  ${{ env.CONFIGURATION }}  --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId="EdFi.SdkGen"
-      shell: pwsh
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
-    - name: Publish EdFi.SdkGen nuget package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.SdkGen"
-        mkdir net6.0
-      shell: pwsh
-    - name: Upload EdFi.SdkGen Artifacts
-      if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
-      with:
-        name: EdFi.SdkGen.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -142,62 +106,6 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
-    - name: Download EdFi.SdkGen Artifacts
-      uses: actions/download-artifact@fb598a63ae348fa914e94cd0ff38f362e927b741 #v3.0.0
-      with:
-        name: EdFi.SdkGen.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
-    - name: Run EdFi SdkGen Console Exe to generate C# SDK code
-      working-directory: ./Ed-Fi-ODS-Implementation/net6.0/
-      run: |           
-            $ErrorActionPreference = 'Stop'
-            $PSVersionTable
-            . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-            initdev -Engine SQLServer -UsePlugins -RepositoryRoot $env:GITHUB_WORKSPACE
-            Start-TestHarness -apiUrl "http://localhost:8765" -configurationFile  "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/postmanTestHarnessConfiguration.json" -environmentFilePath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/"
-            cmd /c "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/net6.0/EdFi.SdkGen.Console.exe" -m "http://localhost:8765/metadata?sdk=true" -v "5.4.0" --core-only
-            Stop-TestHarness
-      shell: pwsh
-    - name: Restore NuGet packages for EdFi.OdsApi.Sdk.sln
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
-      shell: pwsh
-    - name: Build EdFi.Ods.Api.Sdk Solution
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/csharp/EdFi.OdsApi.Sdk.sln"
-      shell: pwsh
-    - name: Replace PackageId & PackageTitle for EdFi.Ods.Api.Sdk
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
-           $_.replace('<id>EdFi.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.Sdk</id>').replace('<title>EdFi.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.Sdk</title>')
-           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
-      shell: pwsh      
-    - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
-      with:
-        nuget-version: '5.x'
-    - name: EdFi.Ods.Api.Sdk Pack
-      working-directory: ./Ed-Fi-ODS-Implementation
-      shell: pwsh
-      run: |
-            [int]$BuildCounter =  "${{ github.run_number }}"
-            [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-            [int]$newRevision =  $BuildCounter + $BuildIncrementer
-            [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-            $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
-            $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
-            nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
-    - name: Publish EdFi.Ods.Api.Sdk nuget package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.OdsApi.Sdk"
-      shell: pwsh
     - name: ODS/API InitDev, Integration Test ,Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -206,7 +114,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -RunPostman -RunPester -RunSmokeTest -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunSmokeTest -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -226,46 +134,13 @@ jobs:
         }
         New-WebPackage @params
       shell: pwsh
-    - name: build.teamcity.ps1 for EdFi.Ods.Api.TestSdk
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -NoPackaging
-      shell: pwsh
-    - name: Restore NuGet packages for EdFi.Ods.Api.TestSdk
-      working-directory: ./Ed-Fi-ODS/
-      run: |            
-           dotnet restore "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
-      shell: pwsh
-    - name: Build EdFi.Ods.Api.TestSdk Solution
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"
-      shell: pwsh
-    - name: Replace PackageId & PackageTitle for EdFi.Ods.Api.TestSdk
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           (Get-Content -path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec" -Raw) | ForEach-Object {
-           $_.replace('<id>EdFi.Suite3.OdsApi.Sdk</id>','<id>EdFi.Suite3.OdsApi.TestSdk</id>').replace('<title>EdFi.Suite3.OdsApi.Sdk</title>','<title>EdFi.Suite3.OdsApi.TestSdk</title>')
-           } | Set-Content -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec
-      shell: pwsh
-    - name: EdFi.Ods.Api.TestSdk Pack
-      working-directory: ./Ed-Fi-ODS-Implementation
-      shell: pwsh
-      run: |
-            [int]$BuildCounter =  "${{ github.run_number }}"
-            [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-            [int]$newRevision =  $BuildCounter + $BuildIncrementer
-            [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-            $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
-            $NuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/net6.0/EdFi.OdsApi.Sdk.nuspec"
-            nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
+    - name: Publish EdFi.Ods.Api.Sdk nuget package
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName  "EdFi.Suite3.OdsApi.Sdk"
       shell: pwsh
     - name: Publish EdFi.Ods.Api.TestSdk nuget package
       working-directory: ./Ed-Fi-ODS-Implementation/
