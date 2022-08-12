@@ -13,7 +13,9 @@ on:
       logLevel:
         description: 'Log level'
         required: true
-        default: 'warning'   
+        default: 'warning'
+  repository_dispatch:
+    types: [triggered-from-ods-repo]
 
 env:
   INFORMATIONAL_VERSION: "6.0"
@@ -25,6 +27,7 @@ env:
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
 
 jobs:
   build:
@@ -32,6 +35,9 @@ jobs:
     runs-on: windows-latest
 
     steps:
+    - name: Output ODS branch
+      shell: pwsh
+      run: Write-Host "ods current branch ${{ env.ODS_CURRENT_BRANCH }}"
     - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
