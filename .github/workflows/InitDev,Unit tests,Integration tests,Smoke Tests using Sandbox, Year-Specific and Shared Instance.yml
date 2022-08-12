@@ -80,10 +80,12 @@ jobs:
            if($null -ne $odsBranch){
               git fetch origin $odsBranch
               git checkout $odsBranch
-           } else if ($is_pull_request_branch -eq $true) {
-              Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
-              git fetch origin ${{ env.CURRENT_BRANCH }}
-              git checkout ${{ env.CURRENT_BRANCH }}
+           } else {
+              if ($is_pull_request_branch -eq $true) {
+                Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
+                git fetch origin ${{ env.CURRENT_BRANCH }}
+                git checkout ${{ env.CURRENT_BRANCH }}
+              }
            }
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
