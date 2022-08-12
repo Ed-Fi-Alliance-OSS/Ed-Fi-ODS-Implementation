@@ -106,7 +106,7 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
-    - name: ODS/API InitDev, Integration Test ,Unit Test, Package
+    - name: ODS/API InitDev, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
@@ -116,6 +116,12 @@ jobs:
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunSmokeTest -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
+    - name: Upload Postman Integration Test Log
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Postman Integration Test Log
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
