@@ -223,7 +223,7 @@ jobs:
             apiUrlBase = "http://localhost:8765"
             apiKey = "smoke"
             apiSecret = "smokeSecret"
-            apiNamespaceUri = "http://edfi.org"
+            apiNamespaceUri = "uri://ed-fi.org/"
             smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")
@@ -300,7 +300,7 @@ jobs:
             apiKey = "populatedSandbox"
             apiSecret = "populatedSandboxSecret"
             apiYear = '2022'
-            apiNamespaceUri = "http://edfi.org"
+            apiNamespaceUri = "uri://ed-fi.org/"
             smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")
@@ -347,7 +347,7 @@ jobs:
             apiUrlBase = "http://localhost:8765"
             apiKey = "populatedSandbox"
             apiSecret = "populatedSandboxSecret"
-            apiNamespaceUri = "http://edfi.org"
+            apiNamespaceUri = "uri://ed-fi.org/"
             smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
             smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
             testSets = @("NonDestructiveApi", "NonDestructiveSdk")

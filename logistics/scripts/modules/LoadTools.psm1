@@ -85,7 +85,7 @@ function Invoke-SmokeTestClient {
     if ([string]::IsNullOrWhiteSpace($config.apiSecret)) { throw "apiSecret is required" }
     if ([string]::IsNullOrWhiteSpace($config.apiYear)) { $config.apiYear = [string]::Empty }
 
-    if ([string]::IsNullOrWhiteSpace($config.apiNamespaceUri)) { $config.apiNamespaceUri = "http://edfi.org" }
+    if ([string]::IsNullOrWhiteSpace($config.apiNamespaceUri)) { $config.apiNamespaceUri = "uri://ed-fi.org/" }
 
     if ($testSetDependsOnSdk -and -not (Test-Path $smokeTestSdkDll)) { throw [System.IO.FileNotFoundException]  "$smokeTestSdkDll not found." }
 
