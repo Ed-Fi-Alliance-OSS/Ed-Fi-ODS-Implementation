@@ -36,10 +36,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Output ODS branch
-      shell: pwsh
-      run: Write-Host "ods current branch ${{ env.ODS_CURRENT_BRANCH }}"
-    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:
@@ -118,10 +114,6 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
-    - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
-      with:
-        nuget-version: '5.x'
     - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -153,12 +145,6 @@ jobs:
         }
         New-WebPackage @params
       shell: pwsh
-    - name: Upload EdFi.SdkGen Artifacts
-      if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
-      with:
-        name: EdFi.SdkGen.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/bin/Release/
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0

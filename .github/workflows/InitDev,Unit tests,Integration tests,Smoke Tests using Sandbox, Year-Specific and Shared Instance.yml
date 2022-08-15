@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: InitDev,Unit tests,Integration tests,Smoke Tests using Sandbox, Year-Specific and Shared Instance Push Main
+name: InitDev,Unit tests,Integration tests,Package,Smoke Tests Sandbox,Year-Specific and Shared Instance Push Main
 
 on:
   pull_request:
@@ -38,7 +38,6 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:
@@ -117,7 +116,7 @@ jobs:
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
         dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
-    - name: ODS/API InitDev, Integration Test, Unit Test, Package
+    - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
@@ -125,10 +124,10 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunSmokeTest -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
     - name: Upload Postman Integration Test Log
-      if: success()
+      if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: Postman Integration Test Log
@@ -137,130 +136,56 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
                 PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
-                Version               = "${{ env.VERSION_MAJOR}}" + "." + "${{ env.VERSION_MINOR}}" + $newRevision.ToString()
+                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
                 Properties            = (Get-DefaultNuGetProperties)
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
         }
         New-WebPackage @params
       shell: pwsh
-    - name: Install-credential-handler
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
-    - name: Publish EdFi.Ods.Api.Sdk nuget package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk"
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName $packageName -DryRun $true
-      shell: pwsh
-    - name: Publish EdFi.Ods.Api.TestSdk nuget package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk"
-        .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -PackageName $packageName -DryRun $true
-      shell: pwsh
-    - name: Extract EdFi.OdsApi.TestSdk nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk.zip"
-           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk/"
-      shell: pwsh        
-    - name: Extract EdFi.Ods.RestApi.Databases nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases.zip"
-           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.Ods.RestApi.Databases/"
-      shell: pwsh        
-    - name: Build EdFi.LoadTools Solution for Smoke Test Sandbox
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |          
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
-      shell: pwsh
-    - name: LoadTools Test Execution for Smoke Test Sandbox
+    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+    - name: Unit test EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
-    - name: ODS/API Smoke Test for Sandbox using Invoke-SmokeTestClient
+    - name: ODS/API Smoke Test for Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
-        $config = @{ }
-        $config.apiUrlBase ="http://localhost:8765"
-        $config.apiKey = "smoke"
-        $config.apiSecret = "smokeSecret"
-        $config.apiClientNameSandbox = "ODS/API"
-        $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
-        $config.testHarnessJsonConfigLEAs = @()
-        $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
-        $config.buildConfiguration = $buildConfiguration
-        $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Add-RandomKeySecret -config $config
 
+        Reset-TestPopulatedTemplateDatabase
         $params = @{
-          apiUrl                = $config.apiUrlBase
-          configurationFilePath = $config.bulkLoadTempJsonConfig
+                InstallType   = 'Sandbox'
+                Engine        = 'SQLServer'
+                DropDatabases = $true
+                NoDuration    = $true
+                UsePlugins    = $UsePlugins.IsPresent
         }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Start-TestHarness @params
+        Initialize-DeploymentEnvironment @params
 
         if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
           Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
         }
-
-        $params = @{
-            apiUrlBase = "http://localhost:8765"
-            apiKey = "smoke"
-            apiSecret = "smokeSecret"
-            apiNamespaceUri = "uri://ed-fi.org/"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.TestSdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
-            smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
-            testSets = @("NonDestructiveApi", "NonDestructiveSdk")
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Invoke-SmokeTestClient -config $params
-        Stop-TestHarness
+       
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
       shell: pwsh      
-    - name: Extract EdFi.OdsApi.Sdk nupkg
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           Copy-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk*.nupkg"  -Destination "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/"
-           Rename-Item -Path "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk*.nupkg" -NewName "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk.zip"
-           Expand-Archive -Path "EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk.zip" -DestinationPath "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/"
-      shell: pwsh
-    - name: Build EdFi.LoadTools Solution for Smoke Test YearSpecific
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
-      shell: pwsh
-    - name: LoadTools Test Execution for Smoke Test YearSpecific
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-           dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
-      shell: pwsh
-    - name: EdFi.SmokeTest.Console Pack for Smoke Test YearSpecific
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $packageName = "EdFi.$env:EDFI_SUITE_NUMBER.SmokeTest.Console"
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/EdFi.SmokeTest.Console.csproj" -PackageName $packageName
-      shell: pwsh
     - name: ODS/API Smoke Test for YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
+
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'YearSpecific'
@@ -271,50 +196,15 @@ jobs:
                 UsePlugins    = $UsePlugins.IsPresent
         }
         Initialize-DeploymentEnvironment @params
-        $config = @{ }
-        $config.apiUrlBase ="http://localhost:8765"
-        $config.apiKey = "populatedSandbox"
-        $config.apiSecret = "populatedSandboxSecret"
-        $config.apiClientNameSandbox = "ODS/API"
-        $config.apiYear = '2022'
-        $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
-        $config.testHarnessJsonConfigLEAs = @()
-        $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
-        $config.buildConfiguration = $buildConfiguration
-        $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Add-RandomKeySecret -config $config
 
-        $params = @{
-          apiUrl                = $config.apiUrlBase
-          configurationFilePath = $config.bulkLoadTempJsonConfig
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Start-TestHarness @params
-
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
-        }
-
-        $params = @{
-            apiUrlBase = "http://localhost:8765"
-            apiKey = "populatedSandbox"
-            apiSecret = "populatedSandboxSecret"
-            apiYear = '2022'
-            apiNamespaceUri = "uri://ed-fi.org/"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
-            smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
-            testSets = @("NonDestructiveApi", "NonDestructiveSdk")
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Invoke-SmokeTestClient -config $params
-        Stop-TestHarness
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
       shell: pwsh
     - name: ODS/API Smoke Test for Shared Instance
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Import-Module -Force "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/modules/loadtools.psm1"
+
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'SharedInstance'
@@ -324,37 +214,8 @@ jobs:
                 UsePlugins    = $UsePlugins.IsPresent
         }
         Initialize-DeploymentEnvironment @params
-        $config = @{ }
-        $config.apiUrlBase ="http://localhost:8765"
-        $config.apiKey = "populatedSandbox"
-        $config.apiSecret = "populatedSandboxSecret"
-        $config.apiClientNameSandbox = "ODS/API"
-        $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
-        $config.testHarnessJsonConfigLEAs = @()
-        $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
-        $config.buildConfiguration = $buildConfiguration
-        $config.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Add-RandomKeySecret -config $config
-
-        $params = @{
-          apiUrl                = $config.apiUrlBase
-          configurationFilePath = $config.bulkLoadTempJsonConfig
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Start-TestHarness @params
-
-        $params = @{
-            apiUrlBase = "http://localhost:8765"
-            apiKey = "populatedSandbox"
-            apiSecret = "populatedSandboxSecret"
-            apiNamespaceUri = "uri://ed-fi.org/"
-            smokeTestDll = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/EdFi.$env:EDFI_SUITE_NUMBER.OdsApi.Sdk/lib/net6.0/EdFi.OdsApi.Sdk.dll"
-            smokeTestExecutable = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/EdFi.SmokeTest.Console.dll"
-            testSets = @("NonDestructiveApi", "NonDestructiveSdk")
-        }
-        $params.GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap
-        Invoke-SmokeTestClient -config $params
-        Stop-TestHarness
+       
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
       shell: pwsh
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
       if: success()
