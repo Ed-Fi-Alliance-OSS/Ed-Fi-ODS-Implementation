@@ -126,12 +126,14 @@ jobs:
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
-    - name: Upload Postman Integration Test Log
+    - name: Upload Postman Integration Test Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
-        name: Postman Integration Test Log
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
+        name: Postman Integration Test Logs
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -158,7 +160,7 @@ jobs:
       run: |
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
       shell: pwsh
-    - name: ODS/API Smoke Test for Sandbox
+    - name: ODS/API Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
@@ -179,8 +181,16 @@ jobs:
         }
        
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
-      shell: pwsh      
-    - name: ODS/API Smoke Test for YearSpecific
+      shell: pwsh
+    - name: Upload Smoke Test Sandbox Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Smoke Test Sandbox Logs
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+    - name: ODS/API Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
@@ -199,7 +209,15 @@ jobs:
 
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
       shell: pwsh
-    - name: ODS/API Smoke Test for Shared Instance
+    - name: Upload Smoke Test YearSpecific Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Smoke Test YearSpecific Logs
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+    - name: ODS/API Smoke Test Shared Instance
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
         $ErrorActionPreference = 'Stop'
@@ -217,6 +235,14 @@ jobs:
        
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
       shell: pwsh
+    - name: Upload Smoke Test Shared Instance Logs
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: Smoke Test Shared Instance Logs
+        path: |
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
