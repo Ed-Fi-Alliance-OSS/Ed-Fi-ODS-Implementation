@@ -149,12 +149,6 @@ jobs:
         }
         New-WebPackage @params
       shell: pwsh
-    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
-      if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
-      with:
-        name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
     - name: Unit test EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -243,3 +237,9 @@ jobs:
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
