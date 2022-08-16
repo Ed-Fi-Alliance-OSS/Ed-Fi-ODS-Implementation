@@ -28,7 +28,8 @@ $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
 function Install-Newman {
     try {
-        npm install -g newman@5.2.2 newman-reporter-teamcity@0.1.12 newman-reporter-html@1.0.5
+        npm install -g newman@5.2.2
+        npm install -g newman-reporter-teamcity@0.1.12
         newman --version
     }
     catch {
@@ -44,10 +45,10 @@ function Invoke-Newman {
     foreach ($collectionFile in $collectionFiles) {
         Write-host $script:environmentJson
         if (Test-TeamCityVersion) {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli,html --reporter-html-export newman/report.html
+            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli
         }
         else {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli,html --reporter-cli-no-success-assertions --reporter-html-export newman/report.html
+            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli
         }
     }
 }
