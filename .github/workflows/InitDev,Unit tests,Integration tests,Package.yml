@@ -159,11 +159,14 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        [int]$BuildCounter =  "${{ github.run_number }}"
+        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+        [int]$newRevision =  $BuildCounter + $BuildIncrementer
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
                 PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
-                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}. ${{ github.run_number }}'
+                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
                 Properties            = (Get-DefaultNuGetProperties)
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
         }
