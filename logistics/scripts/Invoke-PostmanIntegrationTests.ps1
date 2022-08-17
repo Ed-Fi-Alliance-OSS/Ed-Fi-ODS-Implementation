@@ -48,7 +48,7 @@ function Invoke-Newman {
             newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters 'teamcity,cli'
         }
         else {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode
         }
     }
 }
