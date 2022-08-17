@@ -107,14 +107,6 @@ jobs:
         
         Write-Host "Starting MSSQLLocalDB"
         SQLLocalDB start MSSQLLocalDB
-
-        # EdFi.Ods.WebApi
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'Plugin:Folder' '../../Plugin'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'Plugin:Scripts:0' 'tpdm'
-        
-        # EdFi.Ods.Api.IntegrationTestHarness
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Folder' '../../Plugin'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'Plugin:Scripts:0' 'tpdm'
       shell: pwsh
     - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
