@@ -117,7 +117,7 @@ jobs:
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunDotnetTest -RunSmokeTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
     - name: Parse Trx files
-      uses: NasAmin/trx-parser@2ba59ca11c1060572e96540966b730b779e0bdd0 # v0.2
+      uses: NasAmin/trx-parser@2ba59ca11c1060572e96540966b730b779e0bdd0  # v0.2
       if: always()
       id: trx-parser
       with:
