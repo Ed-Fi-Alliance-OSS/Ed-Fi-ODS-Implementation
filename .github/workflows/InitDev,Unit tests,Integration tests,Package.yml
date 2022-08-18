@@ -29,7 +29,6 @@ env:
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
   ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
   EDFI_SUITE_NUMBER: "Suite3"
-  EDFI_ODS_IMP_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
 jobs:
   build:
@@ -123,7 +122,7 @@ jobs:
       id: trx-parser
       with:
         TRX_PATH: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports
-        REPO_TOKEN: ${{ env.EDFI_ODS_IMP_TOKEN }}
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
     - name: Upload Postman Integration Test Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
