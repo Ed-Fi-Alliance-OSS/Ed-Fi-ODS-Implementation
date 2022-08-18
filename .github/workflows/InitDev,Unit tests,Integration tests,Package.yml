@@ -84,7 +84,7 @@ jobs:
                 git checkout ${{ env.CURRENT_BRANCH }}
               }
            }
-    - run: docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong(!)Password" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+    - run: docker run -m 3gb -p 1433:1433 -e 'sa_password=Passw0rd!' -e 'ACCEPT_EULA=Y' --name mssqlwin -d octopusdeploy/mssql-server-windows-express:latest
     - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
