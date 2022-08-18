@@ -84,7 +84,28 @@ jobs:
                 git checkout ${{ env.CURRENT_BRANCH }}
               }
            }
-    - run: docker run -m 3gb -p 1433:1433 -e 'sa_password=Passw0rd!' -e 'ACCEPT_EULA=Y' --name mssqlwin -d octopusdeploy/mssql-server-windows-express:latest
+    - name: Setup Sql Server Connection String
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        $ErrorActionPreference = 'Stop'
+        $PSVersionTable
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+           
+        # EdFi.Ods.WebApi
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Ods'      'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_{0}; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Admin'    'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_Admin; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Security' 'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_Security; Connection Timeout=30; Trusted_Connection=True; Persist Security Info=True; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Master'   'Server=(LocalDB)\\MSSQLLocalDB; Database=master; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
+
+        # EdFi.Ods.Api.IntegrationTestHarness
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Ods'      'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Ods_Populated_Template_Test; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Admin'    'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Admin; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Security' 'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Security; Connection Timeout=30; Trusted_Connection=True; Persist Security Info=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Master'   'Server=(LocalDB)\MSSQLLocalDB; Database=master; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        
+        Write-Host "Starting MSSQLLocalDB"
+        SQLLocalDB start MSSQLLocalDB
+      shell: pwsh
     - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
