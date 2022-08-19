@@ -60,9 +60,3 @@ Describe 'Get-PluginScriptsForPackaging' {
         }
     }
 }
-
-Describe 'Always-Failing' {
-    It "Always fails"{
-        $true | Should -Be $true
-    }
-}
