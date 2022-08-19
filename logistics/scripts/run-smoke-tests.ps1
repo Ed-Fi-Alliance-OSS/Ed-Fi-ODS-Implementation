@@ -51,7 +51,8 @@ param(
     [string[]] $testSets = @("NonDestructiveApi"),
     [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
-    [switch] $noRebuild
+    [switch] $noRebuild,
+    [string] $testHarnessLogNamePrefix
 )
 
 $ErrorActionPreference = 'Stop'
@@ -127,6 +128,7 @@ try {
         $params = @{
             apiUrl                = $config.apiUrlBase
             configurationFilePath = $config.bulkLoadTempJsonConfig
+            testHarnessLogNamePrefix = $testHarnessLogNamePrefix
         }
         Start-TestHarness @params
     }

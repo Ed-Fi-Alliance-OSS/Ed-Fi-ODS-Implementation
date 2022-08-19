@@ -118,14 +118,14 @@ jobs:
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
-    - name: Upload Postman Integration Test Logs
+    - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
-        name: Postman Integration Test Logs
+        name: Initdev logs
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -169,7 +169,12 @@ jobs:
           Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
         }
        
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+        $params = @{
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+                testHarnessLogNamePrefix = "SmokeTestSandbox"
+        }
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
       shell: pwsh
     - name: Upload Smoke Test Sandbox Logs
       if: success() || failure()
@@ -178,7 +183,7 @@ jobs:
         name: Smoke Test Sandbox Logs
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
     - name: ODS/API Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
@@ -196,7 +201,13 @@ jobs:
         }
         Initialize-DeploymentEnvironment @params
 
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -schoolYear "2022" -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+        $params = @{
+                schoolYear               = "2022"
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+                testHarnessLogNamePrefix = "SmokeTestYearSpecific"
+        }
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
       shell: pwsh
     - name: Upload Smoke Test YearSpecific Logs
       if: success() || failure()
@@ -205,7 +216,7 @@ jobs:
         name: Smoke Test YearSpecific Logs
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestYearSpecific.TestHarnessLog.log
     - name: ODS/API Smoke Test Shared Instance
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
@@ -222,7 +233,12 @@ jobs:
         }
         Initialize-DeploymentEnvironment @params
        
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 -testSets @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk") -smokeTestDll "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+        $params = @{
+                testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Debug/net6.0/EdFi.OdsApi.Sdk.dll"
+                testHarnessLogNamePrefix = "SmokeTestSharedInstance"
+        }
+        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
       shell: pwsh
     - name: Upload Smoke Test Shared Instance Logs
       if: success() || failure()
@@ -231,7 +247,7 @@ jobs:
         name: Smoke Test Shared Instance Logs
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSharedInstance.TestHarnessLog.log
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0

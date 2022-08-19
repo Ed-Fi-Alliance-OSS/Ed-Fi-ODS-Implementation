@@ -61,7 +61,7 @@ function Invoke-PostmanIntegrationTests {
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task -name "Install-Newman" -task { Install-Newman }
-            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
+            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "PostmanIntegrationTests" }
             $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Tee-Object -FilePath $logPath | Write-Host }
         }
         finally {
