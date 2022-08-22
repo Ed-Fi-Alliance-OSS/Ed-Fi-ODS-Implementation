@@ -122,8 +122,8 @@ jobs:
       with:
         name: Initdev logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log.*
     - name: Create EdF.Ods.WebApi.Prerelease for Staging
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
