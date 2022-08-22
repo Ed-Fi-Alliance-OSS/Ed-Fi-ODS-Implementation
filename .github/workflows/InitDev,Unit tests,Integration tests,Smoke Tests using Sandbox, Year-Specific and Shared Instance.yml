@@ -124,8 +124,8 @@ jobs:
       with:
         name: Initdev logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log.*
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: Unit test EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -164,8 +164,8 @@ jobs:
       with:
         name: Smoke Test Sandbox Logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log.*
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
     - name: ODS/API Smoke Test YearSpecific
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
@@ -197,8 +197,8 @@ jobs:
       with:
         name: Smoke Test YearSpecific Logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log.*
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestYearSpecific.TestHarnessLog.log
     - name: ODS/API Smoke Test Shared Instance
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |           
@@ -228,8 +228,8 @@ jobs:
       with:
         name: Smoke Test Shared Instance Logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*.log.*
+          ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSharedInstance.TestHarnessLog.log
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Database,EdFi.Ods.Api.TestSdk,EdFi.OdsApi.Sdk,EdFi.Ods.Api.TestSdk,EdFi.SmokeTest.Console NugetPackages
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0

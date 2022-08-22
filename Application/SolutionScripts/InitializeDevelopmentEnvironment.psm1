@@ -489,7 +489,7 @@ function Invoke-SdkGen {
 
 function Invoke-SmokeTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics/scripts/run-smoke-tests.ps1")
+        & (Get-RepositoryResolvedPath "logistics/scripts/run-smoke-tests.ps1") -testHarnessLogNamePrefix "SmokeTests"
     }
 }
 
