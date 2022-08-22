@@ -108,7 +108,7 @@ jobs:
         Write-Host "Starting MSSQLLocalDB"
         SQLLocalDB start MSSQLLocalDB
       shell: pwsh
-    - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
+    - name: ODS/API InitDev and SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
@@ -116,7 +116,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateSdkPackages -NoPackaging $true
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
@@ -126,24 +126,6 @@ jobs:
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
-    - name: Create EdF.Ods.WebApi.Prerelease for Staging
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        $params = @{
-                ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
-                PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
-                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
-                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
-                Properties            = (Get-DefaultNuGetProperties)
-                OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/packages'
-        }
-        New-WebPackage @params
-      shell: pwsh
     - name: Unit test EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
