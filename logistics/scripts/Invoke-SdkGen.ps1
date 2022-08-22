@@ -44,7 +44,8 @@ function Invoke-SdkGen {
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
     $teamCityParameters = Get-TeamCityParameters
-    $buildConfiguration = Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'
+    $envBuildConfiguration = $Env:CONFIGURATION;
+    $buildConfiguration = if($null -ne $envBuildConfiguration) { $envBuildConfiguration} else { Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'}
     $version = if($null -ne $packageVersion){ $packageVersion } else { (Get-ValueOrDefault $teamCityParameters['version'] '0.0.0') }
     
     $elapsed = Use-StopWatch {
