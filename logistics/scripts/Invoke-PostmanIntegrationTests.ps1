@@ -54,7 +54,11 @@ function Invoke-Newman {
 }
 
 function Invoke-PostmanIntegrationTests {
-    $logPath = (Get-RepositoryRoot "Ed-Fi-Ods-Implementation") + "/PostmanIntegrationTestsLog.log"
+    $logPath = ((Get-ChildItem "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/*")  | Select-Object -First 1).FullName
+    if ($Null -eq $logPath) {
+        $logPath = (Get-RepositoryRoot "Ed-Fi-Ods-Implementation")
+    }
+    $logPath += "/PostmanIntegrationTestsLog.log"
 
     $script:result = @()
 
