@@ -22,7 +22,8 @@ param(
     [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
     [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path,
-    [Boolean] $generateSdkPackages = $false
+    [Boolean] $generateSdkPackages = $false,
+    [string] $packageVersion
 )
 
 $ErrorActionPreference = 'Stop'
@@ -43,14 +44,15 @@ function Invoke-SdkGen {
     $sdkGenSolution = (Get-RepositoryResolvedPath "Utilities\SdkGen\EdFi.SdkGen.sln")
     $apiMetadataUrl = ($apiUrl + "/metadata?sdk=true")
     $teamCityParameters = Get-TeamCityParameters
-    $buildConfiguration = Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'
-    $version = Get-ValueOrDefault $teamCityParameters['version'] '0.0.0'
+    $envBuildConfiguration = $Env:CONFIGURATION;
+    $buildConfiguration = if($null -ne $envBuildConfiguration) { $envBuildConfiguration} else { Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'}
+    $version = if($null -ne $packageVersion){ $packageVersion } else { (Get-ValueOrDefault $teamCityParameters['version'] '0.0.0') }
     
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
-            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
+            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
             $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
             $arguments = @("-v",$sdkCliVersion,"--core-only")
             $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
@@ -79,7 +81,7 @@ function Invoke-SdkGen {
                 Write-Host "Extensions enabled, so building TestSdk"
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 try {
-                    $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
+                    $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiTestSdk" }
                     $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration }
                 }
                 finally {

@@ -76,6 +76,8 @@ function Initialize-DevelopmentEnvironment {
         Generates ApiSdk and TestSdk packages after running SdkGen
     .parameter UsePlugins
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
+    .parameter PackageVersion
+        Package version passed from CI that is used in Invoke-SdkGen
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -107,7 +109,11 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $GenerateSdkPackages,
 
-        [switch] $UsePlugins
+        [switch] $UsePlugins,
+
+        [String] $RepositoryRoot,
+
+        [string] $PackageVersion
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -143,7 +149,7 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
-        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen }
+        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
             $script:result += Invoke-RebuildSolution
@@ -175,7 +181,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateSdkPackages }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateSdkPackages $PackageVersion }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -472,17 +478,18 @@ function Invoke-PostmanIntegrationTests {
 
 function Invoke-SdkGen {
     param(
-        [Boolean] $GenerateSdkPackages
+        [Boolean] $GenerateSdkPackages,
+        [string] $PackageVersion
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateSdkPackages $GenerateSdkPackages
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateSdkPackages $GenerateSdkPackages -packageVersion $PackageVersion
     }
 }
 
 function Invoke-SmokeTests {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics/scripts/run-smoke-tests.ps1")
+        & (Get-RepositoryResolvedPath "logistics/scripts/run-smoke-tests.ps1") -testHarnessLogNamePrefix "SmokeTests"
     }
 }
 

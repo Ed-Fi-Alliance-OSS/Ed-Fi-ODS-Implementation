@@ -28,7 +28,8 @@ $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
 function Install-Newman {
     try {
-        npm install -g newman@5.2.2 newman-reporter-teamcity@0.1.12 newman-reporter-html@1.0.5
+        npm install -g newman@5.2.2
+        npm install -g newman-reporter-teamcity@0.1.12
         newman --version
     }
     catch {
@@ -44,22 +45,28 @@ function Invoke-Newman {
     foreach ($collectionFile in $collectionFiles) {
         Write-host $script:environmentJson
         if (Test-TeamCityVersion) {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli,html --reporter-html-export newman/report.html
+            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters 'teamcity,cli'
         }
         else {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters cli
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode
         }
     }
 }
 
 function Invoke-PostmanIntegrationTests {
+    $logPath = ((Get-ChildItem "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/*")  | Select-Object -First 1).FullName
+    if ($Null -eq $logPath) {
+        $logPath = (Get-RepositoryRoot "Ed-Fi-Ods-Implementation")
+    }
+    $logPath += "/PostmanIntegrationTestsLog.log"
+
     $script:result = @()
 
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task -name "Install-Newman" -task { Install-Newman }
-            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Write-Host }
+            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "PostmanIntegrationTests" }
+            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Tee-Object -FilePath $logPath | Write-Host }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
