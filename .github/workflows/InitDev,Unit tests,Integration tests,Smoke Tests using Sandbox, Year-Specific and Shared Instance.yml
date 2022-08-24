@@ -140,7 +140,7 @@ jobs:
                 Engine        = 'SQLServer'
                 DropDatabases = $true
                 NoDuration    = $true
-                UsePlugins    = $UsePlugins.IsPresent
+                UsePlugins    = $true
         }
         Initialize-DeploymentEnvironment @params
 
@@ -176,7 +176,7 @@ jobs:
                 OdsTokens     = '2022'
                 DropDatabases = $true
                 NoDuration    = $true
-                UsePlugins    = $UsePlugins.IsPresent
+                UsePlugins    = $true
         }
         Initialize-DeploymentEnvironment @params
 
@@ -208,7 +208,7 @@ jobs:
                 Engine        = 'SQLServer'
                 DropDatabases = $true
                 NoDuration    = $true
-                UsePlugins    = $UsePlugins.IsPresent
+                UsePlugins    = $true
         }
         Initialize-DeploymentEnvironment @params
        
