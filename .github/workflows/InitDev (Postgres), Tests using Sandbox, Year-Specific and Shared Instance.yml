@@ -120,7 +120,7 @@ jobs:
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'Sandbox'
-                Engine        = 'SQLServer'
+                Engine        = 'PostgreSQL'
                 DropDatabases = $true
                 NoDuration    = $true
                 UsePlugins    = $true
@@ -155,7 +155,7 @@ jobs:
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'YearSpecific'
-                Engine        = 'SQLServer'
+                Engine        = 'PostgreSQL'
                 OdsTokens     = '2022'
                 DropDatabases = $true
                 NoDuration    = $true
@@ -188,7 +188,7 @@ jobs:
         Reset-TestPopulatedTemplateDatabase
         $params = @{
                 InstallType   = 'SharedInstance'
-                Engine        = 'SQLServer'
+                Engine        = 'PostgreSQL'
                 DropDatabases = $true
                 NoDuration    = $true
                 UsePlugins    = $true
