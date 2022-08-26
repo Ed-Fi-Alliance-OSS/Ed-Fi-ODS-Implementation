@@ -58,28 +58,28 @@ $ErrorActionPreference = 'Stop'
 
 # Build and Test
 $params = @{
-    InstallType         = $InstallType
-    OdsTokens           = @()
-    Engine              = $Engine
-    NoCodeGen           = $NoCodeGen
-    NoRebuild           = $NoRebuild
-    NoDeploy            = $NoDeploy
-    RunPester           = $RunPester
-    RunDotnetTest       = $RunDotnetTest
-    RunPostman          = $RunPostman
-    RunSmokeTest        = $RunSmokeTest
-    UsePlugins          = $UsePlugins
-    RunSdkGen           = $RunSdkGen
-    GenerateApiSdkPackage = $GenerateApiSdkPackage
+    InstallType            = $InstallType
+    OdsTokens              = @()
+    Engine                 = $Engine
+    NoCodeGen              = $NoCodeGen
+    NoRebuild              = $NoRebuild
+    NoDeploy               = $NoDeploy
+    RunPester              = $RunPester
+    RunDotnetTest          = $RunDotnetTest
+    RunPostman             = $RunPostman
+    RunSmokeTest           = $RunSmokeTest
+    UsePlugins             = $UsePlugins
+    RunSdkGen              = $RunSdkGen
+    GenerateApiSdkPackage  = $GenerateApiSdkPackage
     GenerateTestSdkPackage = $GenerateTestSdkPackage
-    NoPackaging         = $NoPackaging
-    SandboxAdminId      = $SandboxAdminId
-    PackageVersion      = $PackageVersion
-    PackageOutput       = $PackageOutput
-    SwaggerUIId         = $SwaggerUIId
-    WebApiId            = $WebApiId
-    DatabasesId         = $DatabasesId
-    RepositoryRoot      = $RepositoryRoot
+    NoPackaging            = $NoPackaging
+    SandboxAdminId         = $SandboxAdminId
+    PackageVersion         = $PackageVersion
+    PackageOutput          = $PackageOutput
+    SwaggerUIId            = $SwaggerUIId
+    WebApiId               = $WebApiId
+    DatabasesId            = $DatabasesId
+    RepositoryRoot         = $RepositoryRoot
 }
 
 Write-FlatHashtable $params
