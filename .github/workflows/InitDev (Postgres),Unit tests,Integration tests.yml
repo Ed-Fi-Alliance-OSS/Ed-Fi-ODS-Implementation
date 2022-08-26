@@ -82,7 +82,7 @@ jobs:
         $pgService = Get-Service -Name postgresql*
         Set-Service -InputObject $pgService -Status running -StartupType automatic
         Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
-    - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
+    - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
