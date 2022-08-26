@@ -28,9 +28,9 @@ param(
 
     [switch] $RunSdkGen = $false,
 
-    [switch] $GenerateSdkPackages = $false,
+    [switch] $GenerateApiSdkPackage = $false,
 
-    [switch] $GenerateTestSdkPackages = $false,
+    [switch] $GenerateTestSdkPackage = $false,
 
     [switch] $UsePlugins = $false,
 
@@ -70,7 +70,7 @@ $params = @{
     RunSmokeTest        = $RunSmokeTest
     UsePlugins          = $UsePlugins
     RunSdkGen           = $RunSdkGen
-    GenerateSdkPackages = $GenerateSdkPackages
+    GenerateApiSdkPackage = $GenerateApiSdkPackage
     GenerateTestSdkPackage = $GenerateTestSdkPackage
     NoPackaging         = $NoPackaging
     SandboxAdminId      = $SandboxAdminId

@@ -22,7 +22,7 @@ param(
     [string] $configurationFile = $(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
     [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path,
-    [Boolean] $generateSdkPackages = $false,
+    [Boolean] $generateApiSdkPackage = $false,
     [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion
 )
@@ -62,7 +62,7 @@ function Invoke-SdkGen {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
         }
 
-        if($generateSdkPackages){
+        if($generateApiSdkPackage){
             $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln")
             $script:result += Invoke-Task "Restore-ApiSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
             $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }

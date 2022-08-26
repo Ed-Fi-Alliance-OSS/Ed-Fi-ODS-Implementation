@@ -26,7 +26,7 @@ $params = @{
     RunSmokeTest        = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSmokeTest'])  $true
     UsePlugins          = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.usePlugins'])    $false
     RunSdkGen           = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSdkGen'])     $true
-    GenerateSdkPackages = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.generateSdkPackages']) $true
+    GenerateApiSdkPackage = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.generateApiSdkPackage']) $true
     GenerateTestSdkPackage = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.generateTestSdkPackage']) $true
 }
 
