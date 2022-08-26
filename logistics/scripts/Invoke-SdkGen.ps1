@@ -23,6 +23,7 @@ param(
     [string] $apiUrl = "http://localhost:8765",
     [string] $environmentFilePath = (Resolve-Path -Path (Join-Path -Path $PSScriptRoot -ChildPath "modules")).Path,
     [Boolean] $generateSdkPackages = $false,
+    [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion
 )
 

@@ -30,6 +30,8 @@ param(
 
     [switch] $GenerateSdkPackages = $false,
 
+    [switch] $GenerateTestSdkPackages = $false,
+
     [switch] $UsePlugins = $false,
 
     [switch] $NoPackaging = $false,
@@ -69,6 +71,7 @@ $params = @{
     UsePlugins          = $UsePlugins
     RunSdkGen           = $RunSdkGen
     GenerateSdkPackages = $GenerateSdkPackages
+    GenerateTestSdkPackage = $GenerateTestSdkPackage
     NoPackaging         = $NoPackaging
     SandboxAdminId      = $SandboxAdminId
     PackageVersion      = $PackageVersion

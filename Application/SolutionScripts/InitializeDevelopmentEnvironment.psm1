@@ -73,7 +73,9 @@ function Initialize-DevelopmentEnvironment {
     .parameter RunSdkGen
         Runs the Invoke-SdkGen task which will build and run the sdk gen console
     .parameter GenerateSdkPackages
-        Generates ApiSdk and TestSdk packages after running SdkGen
+        Generates ApiSdk package after running SdkGen
+    .parameter GenerateTestSdkPackage
+        Generates TestSdk package after running SdkGen
     .parameter UsePlugins
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
@@ -108,6 +110,8 @@ function Initialize-DevelopmentEnvironment {
         [switch] $RunSdkGen,
 
         [switch] $GenerateSdkPackages,
+
+        [switch] $GenerateTestSdkPackage,
 
         [switch] $UsePlugins,
 
@@ -181,7 +185,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateSdkPackages $PackageVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateSdkPackages $GenerateTestSdkPackage $PackageVersion }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -479,6 +483,7 @@ function Invoke-PostmanIntegrationTests {
 function Invoke-SdkGen {
     param(
         [Boolean] $GenerateSdkPackages,
+        [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion
     )
     
