@@ -28,6 +28,7 @@ $params = @{
     RunSdkGen              = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runSdkGen'])              $true
     GenerateApiSdkPackage  = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.generateApiSdkPackage'])  $false
     GenerateTestSdkPackage = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.generateTestSdkPackage']) $false
+    PackageVersion         = Get-ValueOrDefault                    $teamcityParameters['version']                             '0.0.0'
 }
 
 Invoke-Task "Remove-EdFiDatabases" { Remove-EdFiDatabases -Force -Engine $params.Engine }
