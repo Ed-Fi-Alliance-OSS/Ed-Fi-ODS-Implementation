@@ -28,7 +28,9 @@ param(
 
     [switch] $RunSdkGen = $false,
 
-    [switch] $GenerateSdkPackages = $false,
+    [switch] $GenerateApiSdkPackage = $false,
+
+    [switch] $GenerateTestSdkPackage = $false,
 
     [switch] $UsePlugins = $false,
 
@@ -56,27 +58,28 @@ $ErrorActionPreference = 'Stop'
 
 # Build and Test
 $params = @{
-    InstallType         = $InstallType
-    OdsTokens           = @()
-    Engine              = $Engine
-    NoCodeGen           = $NoCodeGen
-    NoRebuild           = $NoRebuild
-    NoDeploy            = $NoDeploy
-    RunPester           = $RunPester
-    RunDotnetTest       = $RunDotnetTest
-    RunPostman          = $RunPostman
-    RunSmokeTest        = $RunSmokeTest
-    UsePlugins          = $UsePlugins
-    RunSdkGen           = $RunSdkGen
-    GenerateSdkPackages = $GenerateSdkPackages
-    NoPackaging         = $NoPackaging
-    SandboxAdminId      = $SandboxAdminId
-    PackageVersion      = $PackageVersion
-    PackageOutput       = $PackageOutput
-    SwaggerUIId         = $SwaggerUIId
-    WebApiId            = $WebApiId
-    DatabasesId         = $DatabasesId
-    RepositoryRoot      = $RepositoryRoot
+    InstallType            = $InstallType
+    OdsTokens              = @()
+    Engine                 = $Engine
+    NoCodeGen              = $NoCodeGen
+    NoRebuild              = $NoRebuild
+    NoDeploy               = $NoDeploy
+    RunPester              = $RunPester
+    RunDotnetTest          = $RunDotnetTest
+    RunPostman             = $RunPostman
+    RunSmokeTest           = $RunSmokeTest
+    UsePlugins             = $UsePlugins
+    RunSdkGen              = $RunSdkGen
+    GenerateApiSdkPackage  = $GenerateApiSdkPackage
+    GenerateTestSdkPackage = $GenerateTestSdkPackage
+    NoPackaging            = $NoPackaging
+    SandboxAdminId         = $SandboxAdminId
+    PackageVersion         = $PackageVersion
+    PackageOutput          = $PackageOutput
+    SwaggerUIId            = $SwaggerUIId
+    WebApiId               = $WebApiId
+    DatabasesId            = $DatabasesId
+    RepositoryRoot         = $RepositoryRoot
 }
 
 Write-FlatHashtable $params

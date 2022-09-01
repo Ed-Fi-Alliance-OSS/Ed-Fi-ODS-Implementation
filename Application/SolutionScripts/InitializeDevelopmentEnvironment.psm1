@@ -72,8 +72,10 @@ function Initialize-DevelopmentEnvironment {
         Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
     .parameter RunSdkGen
         Runs the Invoke-SdkGen task which will build and run the sdk gen console
-    .parameter GenerateSdkPackages
-        Generates ApiSdk and TestSdk packages after running SdkGen
+    .parameter GenerateApiSdkPackage
+        Generates ApiSdk package after running SdkGen
+    .parameter GenerateTestSdkPackage
+        Generates TestSdk package after running SdkGen
     .parameter UsePlugins
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
@@ -107,7 +109,9 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSdkGen,
 
-        [switch] $GenerateSdkPackages,
+        [switch] $GenerateApiSdkPackage,
+
+        [switch] $GenerateTestSdkPackage,
 
         [switch] $UsePlugins,
 
@@ -181,7 +185,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateSdkPackages $PackageVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -478,12 +482,13 @@ function Invoke-PostmanIntegrationTests {
 
 function Invoke-SdkGen {
     param(
-        [Boolean] $GenerateSdkPackages,
+        [Boolean] $GenerateApiSdkPackage,
+        [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateSdkPackages $GenerateSdkPackages -packageVersion $PackageVersion
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion
     }
 }
 
