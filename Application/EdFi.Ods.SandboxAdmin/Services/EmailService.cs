@@ -10,11 +10,13 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using EdFi.Common.Extensions;
+using log4net;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {
     public class EmailService : IEmailService
     {
+        private readonly ILog _logger = LogManager.GetLogger(typeof(EmailService));
         private readonly IRouteService _routeService;
         private readonly IConfiguration _configuration;
 
@@ -117,7 +119,10 @@ namespace EdFi.Ods.SandboxAdmin.Services
                 {
                     Directory.CreateDirectory(smtpClient.PickupDirectoryLocation);
                 }
-                catch { }
+                catch (Exception e)
+                {
+                    _logger.Error("Could not create the PickupDirectory", e);
+                }
             }
 
             return smtpClient;
