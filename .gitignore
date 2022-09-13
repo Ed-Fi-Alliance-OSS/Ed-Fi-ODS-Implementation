@@ -123,3 +123,6 @@ environment.json
 
 # Sandbox Admin
 /**/SandboxAdminLog*
+
+#Nunit Test Reports (Pester)
+reportsNUnit/

@@ -9,7 +9,7 @@ param(
 
 if ((Get-Module | Where-Object -Property Name -eq 'path-resolver')) { return }
 
-Import-Module -Force -Scope Global "$PSScriptRoot\path-resolver.psm1" -ArgumentList @(, $repositoryNames)
+Import-Module -Force -Scope Global "$PSScriptRoot/path-resolver.psm1" -ArgumentList @(, $repositoryNames)
 
 # sanity check to make sure all repositories exist
 Get-RepositoryResolvedPath

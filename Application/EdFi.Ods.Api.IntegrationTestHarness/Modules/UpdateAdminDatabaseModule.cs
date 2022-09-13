@@ -13,6 +13,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
     {
         protected override void Load(ContainerBuilder builder)
         {
+            builder.RegisterType<TestHarnessConfigurationProvider>()
+                .SingleInstance();
+
             builder.RegisterType<UpdateAdminDatabaseTask>()
                 .As<IExternalTask>();
 

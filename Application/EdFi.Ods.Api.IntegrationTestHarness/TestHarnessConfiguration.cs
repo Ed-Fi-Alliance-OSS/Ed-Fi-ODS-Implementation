@@ -10,6 +10,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
     public class TestHarnessConfiguration
     {
         public List<Vendor> Vendors { get; set; }
+        public bool EnableOwnershipBasedAuthorization { get; set; }
     }
 
     public class Vendor

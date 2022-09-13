@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using EdFi.Admin.DataAccess.Repositories;
@@ -11,60 +10,35 @@ using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using log4net;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
     public class UpdateAdminDatabaseTask : IExternalTask
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabaseTask));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly IConfiguration _configuration;
         private readonly ApiSettings _apiSettings;
-        private readonly IConfigurationRoot _configurationRoot;
-
-        private TestHarnessConfiguration _testHarnessConfiguration = new TestHarnessConfiguration();
+        private readonly TestHarnessConfiguration _testHarnessConfiguration;
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
-            IConfigurationRoot configurationRoot)
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
             _configuration = configuration;
             _apiSettings = apiSettings;
-            _configurationRoot = configurationRoot;
+            _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
         }
 
         public void Execute()
         {
-            // we are pulling command line arguments therefore we are going directly to the configuration object
-            var _configurationFilePath = _configurationRoot.GetValue<string>("configurationFilePath");
-            var _environmentFilePath = _configurationRoot.GetValue<string>("environmentFilePath");
-
             var postmanEnvironment = new PostmanEnvironment();
 
             _clientAppRepo.Reset();
-
-            if (!string.IsNullOrEmpty(_configurationFilePath))
-            {
-                _logger.Debug($"configurationPath = {_configurationFilePath}");
-
-                if (!File.Exists(_configurationFilePath))
-                {
-                    throw new Exception($"Configuration file {_configurationFilePath} does not exists.");
-                }
-
-                _testHarnessConfiguration =
-                    JsonConvert.DeserializeObject<TestHarnessConfiguration>(File.ReadAllText(_configurationFilePath));
-            }
-            else
-            {
-                _testHarnessConfiguration.Vendors = CreateDefaultVendor();
-            }
 
             foreach (var vendor in _testHarnessConfiguration.Vendors)
             {
@@ -150,7 +124,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             void CreateEnvironmentFile()
             {
-                if (!string.IsNullOrEmpty(_environmentFilePath) && new DirectoryInfo(_environmentFilePath).Exists)
+                var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
+
+                if (!string.IsNullOrEmpty(environmentFilePath) && new DirectoryInfo(environmentFilePath).Exists)
                 {
                     postmanEnvironment.Values.Add(
                         new ValueItem
@@ -181,41 +157,10 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         Formatting.Indented,
                         new JsonSerializerSettings {ContractResolver = new CamelCasePropertyNamesContractResolver()});
 
-                    var fileName = Path.Combine(_environmentFilePath, "environment.json");
+                    var fileName = Path.Combine(environmentFilePath, "environment.json");
 
                     File.WriteAllText(fileName, jsonString);
                 }
-            }
-
-            List<Vendor> CreateDefaultVendor()
-            {
-                var apiClient = new ApiClient
-                {
-                    ApiClientName = "Api",
-                    LocalEducationOrganizations = new List<int> {255901}
-                };
-
-                var application = new Application
-                {
-                    ApplicationName = "Default Application",
-                    ClaimSetName = "Ed-Fi Sandbox",
-                    ApiClients = new List<ApiClient> {apiClient}
-                };
-
-                var vendor = new Vendor
-                {
-                    Email = "test@ed-fi.org",
-                    VendorName = "Test Admin",
-                    Applications = new List<Application> {application},
-                    NamespacePrefixes = new List<string>
-                    {
-                        "uri://ed-fi.org",
-                        "uri://gbisd.edu",
-                        "uri://tpdm.ed-fi.org"
-                    }
-                };
-
-                return new List<Vendor> {vendor};
             }
 
             string GetGuid()

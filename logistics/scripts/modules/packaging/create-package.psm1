@@ -7,7 +7,7 @@
 
 $ErrorActionPreference = "Stop"
 
-Import-Module -Force -Scope Global "$PSScriptRoot\nuget-helper.psm1"
+Import-Module -Force -Scope Global "$PSScriptRoot/nuget-helper.psm1"
 
 function Invoke-CreatePackage {
     <#
@@ -165,7 +165,11 @@ function New-Package {
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
-    & $NuGet @parameters
+    if(Get-isWindows){
+        & $NuGet @parameters
+    }else {
+        mono $NuGet @parameters
+    }
 }
 
 
@@ -197,7 +201,11 @@ function Publish-PrereleasePackage {
     }
 
     Write-Host $NuGet @parameters -ForegroundColor Magenta
-    & $NuGet @parameters
+    if(Get-isWindows){
+        & $NuGet @parameters
+    }else {
+        mono $NuGet @parameters
+    }
 }
 
 Export-ModuleMember -Function Invoke-CreatePackage, New-Package

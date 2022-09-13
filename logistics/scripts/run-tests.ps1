@@ -17,7 +17,13 @@ New-Item -ItemType Directory -Force -Path $reports
 foreach ($assembly in $testAssemblies) {
     Write-Host ( "Testing assembly " + $assembly)
 
-    $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
+    if (Test-TeamCityVersion) {
+        $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
+    } else {
+        $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".trx"
+    }
 
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
+
+    Write-Host "assembly exit code: $LASTEXITCODE"
 }

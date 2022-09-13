@@ -2,7 +2,6 @@
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
-
 function Clear-Error {
     $Error.Clear()
     # artificially setting an automatic variable needs to be done at a global scope level
@@ -40,6 +39,10 @@ function Test-ErrorVariable { return ($null -ne $Error -and $Error.count -gt 0) 
 
 function Test-LastExitCodeVariable { return ($null -ne $LASTEXITCODE -and $LASTEXITCODE -ne 0) }
 
+function Test-TaskAlreadyInvoked([string] $name) {
+    if ($null -eq $global:InvokedTasks){ return $false }
+    return ($global:InvokedTasks | Where-Object Task -eq $name | Measure-Object).Count -gt 0
+}
 function Test-TeamCityVersion { return (Test-Path env:TEAMCITY_VERSION) }
 
 function Test-Error {
@@ -81,7 +84,12 @@ function Invoke-Task([string] $name, [scriptBlock] $task) {
 
     Write-TaskDuration $name $elapsed.duration
 
-    return New-TaskResult -name $name -duration $elapsed.format
+    $result = New-TaskResult -name $name -duration $elapsed.format
+    
+    if ($null -eq $global:InvokedTasks){ $global:InvokedTasks = @() }
+    $global:InvokedTasks += $result
+
+    return $result
 }
 
 function Write-HashtableInfo([hashtable] $hashtable) {
