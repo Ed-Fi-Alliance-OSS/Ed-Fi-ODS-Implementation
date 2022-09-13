@@ -1,3 +1,37 @@
+function IsCommandAvailable {
+    param (
+        [String]
+        [Parameter(Mandatory=$true)]
+        $Command,
+
+        [string[]]
+        $Arguments
+    )
+
+    try {
+        & $Command @Arguments | Out-Null
+        return $true
+    }
+    catch {
+        return $false 
+    }
+}
+
+function EnsureCommandIsAvailable {
+    param (
+        [String]
+        [Parameter(Mandatory=$true)]
+        $Command,
+
+        [string[]]
+        $Arguments
+    )
+
+    if (!(IsCommandAvailable $Command $Arguments)) {
+        throw "The next command is required by the script but it is not installed: $Command"
+    }
+}
+
 function Get-IsWindows {
     <#
     .SYNOPSIS
@@ -12,8 +46,8 @@ function Get-IsWindows {
     if ($null -eq $IsWindows) {
         # This section will only trigger when the automatic $IsWindows variable is not detected.
         # Every version of PS released on Linux contains this variable so it will always exist.
-        # $IsWindows does not exist pre PS 6, so this will create it in that case.
-        $IsWindows = $true
+        # $IsWindows does not exist pre PS 6.
+        return $true
     }
 
     return $IsWindows
@@ -46,4 +80,9 @@ function Get-DotnetRuntimes {
     }
     return $runtimeArray
 }
-Export-ModuleMember -Function "Get-IsWindows","Get-DotnetRuntimes"
+
+Export-ModuleMember -Function `
+    Get-IsWindows,
+    Get-DotnetRuntimes,
+    IsCommandAvailable,
+    EnsureCommandIsAvailable
