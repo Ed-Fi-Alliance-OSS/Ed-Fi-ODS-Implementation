@@ -23,7 +23,7 @@ param (
     [string] $fileName
 )
 
-if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
+if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") -and (Get-IsWindows)) {
     Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
 }
 
@@ -33,7 +33,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 # using WebClient is faster then Invoke-WebRequest but shows no progress
 Write-host "Downloading file from $sourceUrl..."
 $webClient = New-Object System.Net.WebClient
-$webClient.DownloadFile($sourceUrl, "$global:templateFolder\$fileName")
+$webClient.DownloadFile($sourceUrl, "$global:templateFolder/$fileName")
 
 Write-host "Download complete."
 
@@ -47,7 +47,14 @@ if (-not (Test-Path "$global:templateFolder/$fileName")) {
 
 if ($fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')) {
     Write-host "Extracting $fileName..."
-    Expand-7Zip -ArchiveFileName "$global:templateFolder\$fileName" -TargetPath "$global:templateDatabaseFolder"
-    Write-Host "Extracted to: $global:templateDatabaseFolder\$fileName" -ForegroundColor Green
+    if (Get-IsWindows){
+        Expand-7Zip -ArchiveFileName "$global:templateFolder/$fileName" -TargetPath "$global:templateDatabaseFolder"
+    }
+    else {
+        EnsureCommandIsAvailable "7z"
+        $arguments = @("x", "$global:templateFolder/$fileName", "-o$global:templateDatabaseFolder")
+        7z @arguments
+    }
+    Write-Host "Extracted to: $global:templateDatabaseFolder/$fileName" -ForegroundColor Green
 }
 if ($error.count -gt 0 -or $LASTEXITCODE -gt 0) { exit 1; }
