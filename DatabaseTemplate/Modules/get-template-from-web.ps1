@@ -61,11 +61,18 @@ else {
 Write-Host "Download complete."
 
 if ($isArchiveFile) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell")) {
+    if (-not (Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell") -and (Get-IsWindows)) {
         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
     Write-Host "Extracting $archiveBackupFilePath..."
-    Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
+    if (Get-IsWindows){
+        Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
+    }
+    else {
+        EnsureCommandIsAvailable "7z"
+        $arguments = @("x", $archiveBackupFilePath, "-o$global:templateDatabaseFolder")
+        7z @arguments
+    }
     Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
 }
 
