@@ -5,11 +5,17 @@
 
 & "$PSScriptRoot/modules/load-path-resolver.ps1"
 
+$directorySeparatorChar = [IO.Path]::DirectorySeparatorChar
+if (Get-IsWindows) {
+    # In Windows, double backslashes are needed for the filters to work
+    $directorySeparatorChar += $directorySeparatorChar
+}
+
 $testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "Ed-Fi-ODS") + "/*Tests.dll") | `
-        Where-Object { $_.FullName -match "$([IO.Path]::DirectorySeparatorChar)bin$([IO.Path]::DirectorySeparatorChar)?" `
-            -and $_.FullName -notmatch "$([IO.Path]::DirectorySeparatorChar)net48$([IO.Path]::DirectorySeparatorChar)?" `
+        Where-Object { $_.FullName -match "$($directorySeparatorChar)bin$($directorySeparatorChar)?" `
+            -and $_.FullName -notmatch "$($directorySeparatorChar)net48$($directorySeparatorChar)?" `
             -and $_.fullName -notmatch "ApprovalTests.dll" `
-            -and $_.fullName -notmatch "$([IO.Path]::DirectorySeparatorChar)ref$([IO.Path]::DirectorySeparatorChar)?" })
+            -and $_.fullName -notmatch "$($directorySeparatorChar)ref$($directorySeparatorChar)?" })
 $reports = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/"
 
 if (Test-Path $reports) {
