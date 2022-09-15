@@ -73,7 +73,7 @@ if ($package) {
     $packageFolder = "$global:templateFolder/$($package.PackageFilename -replace '.nupkg','')"
 
     Copy-Item -Force -Path "$global:templateFolder/$($package.PackageFilename)" -Destination $zipFilePath
-    if (Test-Path $zipFilePath) { Microsoft.PowerShell.Archive/Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+    if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
 
     if (Test-Path $packageFolder) {
         if (Test-Path $global:templateDatabaseFolder) { Remove-Item -Force -Recurse -Path $global:templateDatabaseFolder | Out-Null }
