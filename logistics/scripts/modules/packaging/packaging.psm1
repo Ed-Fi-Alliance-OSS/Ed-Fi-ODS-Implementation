@@ -84,7 +84,7 @@ function Add-FileToNuspec {
 
     $filesElem = $xml.GetElementsByTagName('files')[0]
     foreach ($pair in $sourceTargetPair) {
-        $resolvedTarget = $pair.target -replace '/', '\' -replace '\\\\', '\'
+        $resolvedTarget = $pair.target -replace '/', [IO.Path]::DirectorySeparatorChar -replace '\\\\', '\'
         foreach ($source in $pair.source) {
             if ((Get-Item $source).gettype() -match "DirectoryInfo") {
                 continue
@@ -125,10 +125,10 @@ function Add-RepositoryFileToNuspec {
         foreach ($repoRoot in Get-RepositoryRoot) {
             $repoName = Split-Path -leaf $repoRoot
 
-            $escRegex = [Regex]::Escape("$($repoRoot.tolower())\")
+            $escRegex = [Regex]::Escape("$($repoRoot.tolower())$([IO.Path]::DirectorySeparatorChar)")
             if ($fullname -match "^$escRegex") {
                 $relPath = $fullname -replace $escRegex, ''
-                $sourceTargetPair += @(@{ source = $fullname; target = "$repoName\$relPath" })
+                $sourceTargetPair += @(@{ source = $fullname; target = "$repoName$([IO.Path]::DirectorySeparatorChar)$relPath" })
                 $foundRepoRoot = $true
                 break
             }
