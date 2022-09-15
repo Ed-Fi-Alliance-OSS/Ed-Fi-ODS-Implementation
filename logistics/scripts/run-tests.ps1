@@ -4,6 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 & "$PSScriptRoot/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 $directorySeparatorChar = [IO.Path]::DirectorySeparatorChar
 if (Get-IsWindows) {

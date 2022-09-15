@@ -5,6 +5,7 @@
 
 & "$PSScriptRoot/../../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
 
 $script:testHarnessFolder = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")
 $script:testHarnessName = (Get-Item $script:testHarnessFolder).Name
@@ -131,6 +132,7 @@ function Start-TestHarness {
         }
         catch {
             Write-Host "Waiting for TestHarness startup at $apiUrl..."
+            Start-Sleep -s 1
         }
     }
 

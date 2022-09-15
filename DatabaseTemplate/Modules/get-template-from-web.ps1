@@ -3,6 +3,10 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
+
 <#
 .SYNOPSIS
     Downloads a backup file or zip archive containing the template backup
@@ -31,9 +35,6 @@ if (Test-Path $finalBackupFilePath) {
     Write-Host "Template found, using existing file at $finalBackupFilePath"
     return $finalBackupFilePath
 }
-
-& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
 Write-Host "Downloading file from $sourceUrl..."

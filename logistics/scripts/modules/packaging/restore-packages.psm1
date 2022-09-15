@@ -4,6 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 Import-Module -Force -Scope Global "$PSScriptRoot/nuget-helper.psm1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 function Restore-Packages {
     <#
