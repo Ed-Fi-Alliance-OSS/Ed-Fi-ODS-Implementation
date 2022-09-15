@@ -5,6 +5,8 @@
 
 $ErrorActionPreference = "Stop"
 
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
+
 function Export-BacPac {
         <#
     .SYNOPSIS
@@ -56,14 +58,8 @@ function Export-BacPac {
         [ValidateNotNullOrEmpty()]
         [string] $server = "."
     )
-
-    if(Get-IsWindows){
-        $executableName = "sqlpackage.exe"
-    }else {
-        $executableName = "sqlpackage"
-    }
     
-    $executable = Join-Path $sqlPackagePath $executableName
+    $executable = Join-Path $sqlPackagePath "sqlpackage$(GetExeExtension)"
     
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
