@@ -29,7 +29,7 @@ function Install-NuGetCli {
     )
 
     if (!(Get-IsWindows)) {
-        EnsureCommandIsAvailable "mono" "-V"
+        EnsureCommandIsAvailable "mono"
     }
 
     if (-not $(Test-Path $ToolsPath)) {

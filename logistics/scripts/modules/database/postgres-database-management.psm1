@@ -20,7 +20,7 @@ $script:packageVersion = "13.7.1"
 function Test-PostgreSQLBinariesInstalled {
     if (!(Get-IsWindows)) {
 
-        return IsCommandAvailable "psql" "-V"
+        return IsCommandAvailable "psql"
     }
 
     $packagePath = "$script:toolsPath/$script:packageName.$script:packageVersion"

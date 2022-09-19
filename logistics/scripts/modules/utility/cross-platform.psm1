@@ -11,14 +11,11 @@ function IsCommandAvailable {
     param (
         [String]
         [Parameter(Mandatory=$true)]
-        $Command,
-
-        [string[]]
-        $Arguments
+        $Command
     )
 
     try {
-        & $Command @Arguments | Out-Null
+        Get-Command $Command -ErrorAction Stop | Out-Null
         return $true
     }
     catch {
@@ -30,13 +27,10 @@ function EnsureCommandIsAvailable {
     param (
         [String]
         [Parameter(Mandatory=$true)]
-        $Command,
-
-        [string[]]
-        $Arguments
+        $Command
     )
 
-    if (!(IsCommandAvailable $Command $Arguments)) {
+    if (!(IsCommandAvailable $Command)) {
         throw "The next command is required by the script but it is not installed: $Command"
     }
 }
