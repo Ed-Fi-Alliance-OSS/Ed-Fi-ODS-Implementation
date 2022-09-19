@@ -148,7 +148,15 @@ function Install-EdFiOdsSandboxAdmin {
         #    UsedIntegratedSecurity must be set to true or no provide password
         #    The username provided must be mapped to use passwordless authentication
         [switch]
-        $UseAlternateUserName 
+        $UseAlternateUserName, 
+        
+        # Initial client key to load into the appSettings.config file. Default: Random string value.
+        [string]
+        $PrePopulatedKey,
+        
+        # Initial client secret to load into the appSettings.config file. Default: Random string value.
+        [string]
+        $PrePopulatedSecret
     )
 
     Write-InvocationInfo $MyInvocation
@@ -171,6 +179,8 @@ function Install-EdFiOdsSandboxAdmin {
         Engine             = $Engine
         Settings           = $Settings
         UseAlternateUserName       = $UseAlternateUserName 
+        PrePopulatedKey = $PrePopulatedKey
+        PrePopulatedSecret = $PrePopulatedSecret
     }
 
     $elapsed = Use-StopWatch {
@@ -234,6 +244,12 @@ function Get-DefaultConnectionStringsByEngine {
 }
 
 function Get-DefaultCredentialSettings {
+    param(
+        [string] $PrePopulatedKey,
+
+        [string] $PrePopulatedSecret
+    )
+    
     function Get-RandomString([int] $length = 20) {
         return ([char[]]([char]65..[char]90) + ([char[]]([char]97..[char]122)) + 0..9 | Sort-Object { Get-Random })[0..$length] -join ''
     }
@@ -251,8 +267,8 @@ function Get-DefaultCredentialSettings {
                 )
                 Sandboxes         = @{
                     "Populated Demonstration Sandbox" = @{
-                        Key     = Get-RandomString
-                        Secret  = Get-RandomString
+                        Key     = if ($PrePopulatedKey.Length -ne 0) {$PrePopulatedKey} else {Get-RandomString}
+                        Secret  = if ($PrePopulatedSecret.Length -ne 0) {$PrePopulatedSecret} else {Get-RandomString}
                         Type    = "Sample"
                         Refresh = "false"
                     }
@@ -301,7 +317,7 @@ function Set-AppSettings {
 
         }
 
-        $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings), $Config.Settings
+        $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings -PrepopulatedKey: $Config.PrepopulatedKey -PrepopulatedSecret: $Config.PrepopulatedSecret), $Config.Settings
         New-JsonFile $settingsPath $settings -Overwrite
 
         $Config.MergedSettings = $settings
