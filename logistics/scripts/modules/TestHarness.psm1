@@ -3,10 +3,11 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+& "$PSScriptRoot/../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
 
-$script:testHarnessFolder = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")
+$script:testHarnessFolder = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")
 $script:testHarnessName = (Get-Item $script:testHarnessFolder).Name
 
 function Add-RandomKeySecret {
@@ -55,7 +56,7 @@ function Add-RandomKeySecret {
 }
 
 function Get-TestHarnessExecutable {
-    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$($script:testHarnessName)")\bin\**\$($script:testHarnessName).exe"
+    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "/Application/$($script:testHarnessName)")/bin/**/$($script:testHarnessName)$(GetExeExtension)"
     $testHarnessExecutable = (Get-ChildItem -Recurse -Path $testHarnessExecutableFilter).FullName
 
     return $testHarnessExecutable
@@ -65,7 +66,7 @@ function Get-SdkGenExecutable {
     Param(
         [string] $buildConfiguration = "Debug"
     )
-    $sdkGenExecutableFilter = "$(Get-RepositoryResolvedPath "\Utilities\SdkGen\EdFi.SdkGen.Console\bin\$buildConfiguration\**\EdFi.SdkGen.Console.exe")"
+    $sdkGenExecutableFilter = "$(Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/EdFi.SdkGen.Console$(GetExeExtension)")"
     $sdkGenExecutable = (Get-ChildItem -Recurse -Path $sdkGenExecutableFilter).FullName
 
     return $sdkGenExecutable
@@ -131,6 +132,7 @@ function Start-TestHarness {
         }
         catch {
             Write-Host "Waiting for TestHarness startup at $apiUrl..."
+            Start-Sleep -s 1
         }
     }
 

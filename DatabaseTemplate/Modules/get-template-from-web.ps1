@@ -23,6 +23,11 @@ param (
     [Parameter(Mandatory)]
     [string] $fileName
 )
+
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
+
 $isArchiveFile = $fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')
 $archiveBackupFilePath = Join-Path $global:templateFolder $fileName
 $finalBackupFilePath = Join-Path $global:templateDatabaseFolder $fileName
@@ -31,9 +36,6 @@ if (Test-Path $finalBackupFilePath) {
     Write-Host "Template found, using existing file at $finalBackupFilePath"
     return $finalBackupFilePath
 }
-
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
 
 # using WebClient is faster then Invoke-WebRequest but shows no progress
 Write-Host "Downloading file from $sourceUrl..."
@@ -61,11 +63,18 @@ else {
 Write-Host "Download complete."
 
 if ($isArchiveFile) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell")) {
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell") {
         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
     Write-Host "Extracting $archiveBackupFilePath..."
-    Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
+    if (Get-IsWindows){
+        Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
+    }
+    else {
+        EnsureCommandIsAvailable "7z"
+        $arguments = @("x", $archiveBackupFilePath, "-o$global:templateDatabaseFolder")
+        7z @arguments
+    }
     Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
 }
 

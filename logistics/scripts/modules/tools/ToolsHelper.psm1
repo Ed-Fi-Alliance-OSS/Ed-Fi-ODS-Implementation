@@ -6,8 +6,8 @@
 #requires -version 5
 $ErrorActionPreference = 'Stop'
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 function Get-ToolsPath {
     if (-not [string]::IsNullOrWhiteSpace($env:toolsPath)) { return $env:toolsPath }
@@ -231,9 +231,9 @@ function Invoke-DbDeploy {
         Database = "ODS"
         ConnectionString = "server=localhost;database=EdFi_Ods;integrated security=sspi"
         FilePaths = @(
-            "Ed-Fi-Ods\", "Ed-Fi-ODS\Application\EdFi.Ods.Standard",
-            "C:\Source\3.x\Ed-Fi-Ods-Implementation\Application\EdFi.Ods.Extensions.GrandBend\SupportingArtifacts\Database",
-            "C:\Source\3.x\Ed-Fi-Ods-Implementation\Application\EdFi.Ods.Extensions.Sample\SupportingArtifacts\Database"
+            "Ed-Fi-Ods/", "Ed-Fi-ODS/Application/EdFi.Ods.Standard",
+            "C:/Source/3.x/Ed-Fi-Ods-Implementation/Application/EdFi.Ods.Extensions.GrandBend/SupportingArtifacts/Database",
+            "C:/Source/3.x/Ed-Fi-Ods-Implementation/Application/EdFi.Ods.Extensions.Sample/SupportingArtifacts/Database"
         )
         Features = @("Changes")
     }

@@ -29,12 +29,7 @@ function Install-NuGetCli {
     )
 
     if (!(Get-IsWindows)) {
-        try {
-            ( mono -V  | Out-Null )
-        }
-        catch {
-            throw "ERROR:  Mono is not installed on this Unix-like system."
-        }
+        EnsureCommandIsAvailable "mono"
     }
 
     if (-not $(Test-Path $ToolsPath)) {

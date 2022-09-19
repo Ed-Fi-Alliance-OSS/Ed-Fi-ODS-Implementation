@@ -8,6 +8,7 @@
 $ErrorActionPreference = "Stop"
 
 Import-Module -Force -Scope Global "$PSScriptRoot/nuget-helper.psm1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 function Invoke-CreatePackage {
     <#

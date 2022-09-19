@@ -3,8 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tasks/TaskHelper.psm1')
 
 function Get-XmlRoot {
     param(
@@ -44,15 +44,15 @@ function Invoke-XmlValidation {
         Validates xml files using the schema location defined within an xml file.
 
     .PARAMETER source
-        An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
-        Also supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\
+        An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.
+        Also supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/
     .INPUTS
         [string] Source Directory
         [string] Filter
     .OUTPUTS
         None.
     .EXAMPLE
-        PS> Validate-Xml -source "C:\edfi\Ed-Fi-Standard\v3.1\Samples\Sample XML\
+        PS> Validate-Xml -source "C:/edfi/Ed-Fi-Standard/v3.1/Samples/Sample XML/
     #>
     param(
         # The source directory where the files are located.

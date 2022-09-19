@@ -24,7 +24,7 @@
         packageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
 
-    & "$PSScriptRoot\..\Modules\get-populated-from-nuget.ps1" @params
+    & "$PSScriptRoot/../Modules/get-populated-from-nuget.ps1" @params
 #>
 
 param (
@@ -39,8 +39,8 @@ param (
     [string] $packageSource
 )
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\database-template-source.psm1")
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
 
 # Ensure we have Tls12 support
 if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12))
@@ -69,23 +69,23 @@ $package = (Save-Package @savePackageArgs)
 if ($package) {
     Write-Host "Found populated template nuget package: $($package.Name) v$($package.Version)"
 
-    $zipFilePath = "$global:templateFolder\$($package.PackageFilename -replace '.nupkg', '.zip')"
-    $packageFolder = "$global:templateFolder\$($package.PackageFilename -replace '.nupkg','')"
+    $zipFilePath = "$global:templateFolder/$($package.PackageFilename -replace '.nupkg', '.zip')"
+    $packageFolder = "$global:templateFolder/$($package.PackageFilename -replace '.nupkg','')"
 
-    Copy-Item -Force -Path "$global:templateFolder\$($package.PackageFilename)" -Destination $zipFilePath
-    if (Test-Path $zipFilePath) { Microsoft.PowerShell.Archive\Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
+    Copy-Item -Force -Path "$global:templateFolder/$($package.PackageFilename)" -Destination $zipFilePath
+    if (Test-Path $zipFilePath) { Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder }
 
     if (Test-Path $packageFolder) {
         if (Test-Path $global:templateDatabaseFolder) { Remove-Item -Force -Recurse -Path $global:templateDatabaseFolder | Out-Null }
         New-Item -Path $global:templateDatabaseFolder -ItemType 'Directory' | Out-Null
 
         $backupFilePath = Get-TemplateBackupPath $packageFolder
-        $backupFileDestinationPath = "$global:templateDatabaseFolder\$($package.Name).$($package.Version).bak"
+        $backupFileDestinationPath = "$global:templateDatabaseFolder/$($package.Name).$($package.Version).bak"
         if (($null -ne $backupFilePath) -and (Test-Path $backupFilePath)) {
             Copy-Item -Path $backupFilePath -Destination $backupFileDestinationPath
         }
         else {
-            Copy-Item -Path "$packageFolder\*" -Destination $global:templateDatabaseFolder
+            Copy-Item -Path "$packageFolder/*" -Destination $global:templateDatabaseFolder
         }
         if (Test-Path $backupFileDestinationPath) { Write-Host "Successfully added $(Split-Path $backupFileDestinationPath -Leaf) to populated template source folder" }
     }
