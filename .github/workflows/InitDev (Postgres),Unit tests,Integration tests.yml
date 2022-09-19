@@ -18,8 +18,8 @@ on:
     types: [triggered-from-ods-repo]
 
 env:
-  INFORMATIONAL_VERSION: "6.0"
-  BUILD_INCREMENTER: "1118"
+  INFORMATIONAL_VERSION: "6.1"
+  BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
   VERSION_MINOR: "0"
