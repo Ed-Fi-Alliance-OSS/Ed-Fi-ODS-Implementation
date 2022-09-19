@@ -3,10 +3,6 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
-
 <#
 .SYNOPSIS
     Downloads a zip archive containing the populated template backup
@@ -27,7 +23,11 @@ param (
     [string] $fileName
 )
 
-if (-not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") -and (Get-IsWindows)) {
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
+
+if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
     Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
 }
 

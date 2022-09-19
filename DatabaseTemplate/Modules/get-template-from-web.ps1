@@ -3,10 +3,6 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
-
 <#
 .SYNOPSIS
     Downloads a backup file or zip archive containing the template backup
@@ -27,6 +23,11 @@ param (
     [Parameter(Mandatory)]
     [string] $fileName
 )
+
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/database-template-source.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
+
 $isArchiveFile = $fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')
 $archiveBackupFilePath = Join-Path $global:templateFolder $fileName
 $finalBackupFilePath = Join-Path $global:templateDatabaseFolder $fileName
@@ -62,7 +63,7 @@ else {
 Write-Host "Download complete."
 
 if ($isArchiveFile) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell") -and (Get-IsWindows)) {
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell") {
         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
     Write-Host "Extracting $archiveBackupFilePath..."
