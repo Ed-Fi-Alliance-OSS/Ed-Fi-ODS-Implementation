@@ -231,9 +231,9 @@ function Invoke-DbDeploy {
         Database = "ODS"
         ConnectionString = "server=localhost;database=EdFi_Ods;integrated security=sspi"
         FilePaths = @(
-            "Ed-Fi-Ods\", "Ed-Fi-ODS\Application\EdFi.Ods.Standard",
-            "C:\Source\3.x\Ed-Fi-Ods-Implementation\Application\EdFi.Ods.Extensions.GrandBend\SupportingArtifacts\Database",
-            "C:\Source\3.x\Ed-Fi-Ods-Implementation\Application\EdFi.Ods.Extensions.Sample\SupportingArtifacts\Database"
+            "Ed-Fi-Ods/", "Ed-Fi-ODS/Application/EdFi.Ods.Standard",
+            "C:/Source/3.x/Ed-Fi-Ods-Implementation/Application/EdFi.Ods.Extensions.GrandBend/SupportingArtifacts/Database",
+            "C:/Source/3.x/Ed-Fi-Ods-Implementation/Application/EdFi.Ods.Extensions.Sample/SupportingArtifacts/Database"
         )
         Features = @("Changes")
     }

@@ -44,15 +44,15 @@ function Invoke-XmlValidation {
         Validates xml files using the schema location defined within an xml file.
 
     .PARAMETER source
-        An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
-        Also supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\
+        An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.
+        Also supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/
     .INPUTS
         [string] Source Directory
         [string] Filter
     .OUTPUTS
         None.
     .EXAMPLE
-        PS> Validate-Xml -source "C:\edfi\Ed-Fi-Standard\v3.1\Samples\Sample XML\
+        PS> Validate-Xml -source "C:/edfi/Ed-Fi-Standard/v3.1/Samples/Sample XML/
     #>
     param(
         # The source directory where the files are located.
