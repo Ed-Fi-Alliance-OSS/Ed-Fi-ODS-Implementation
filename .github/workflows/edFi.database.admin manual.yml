@@ -70,11 +70,11 @@ jobs:
         $pgService = Get-Service -Name postgresql*
         Set-Service -InputObject $pgService -Status running -StartupType automatic
         Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
-    - name: Install sql-server-2019 & sqlpackage
+    - name: Install sql-server-express & sqlpackage
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
-          choco install sql-server-2019  -y -o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /SkipRules=RebootRequiredCheck'" --execution-timeout=$installTimeout
+          choco install sql-server-express -y -o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE'" --execution-timeout=$installTimeout
           choco install sqlpackage
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation
