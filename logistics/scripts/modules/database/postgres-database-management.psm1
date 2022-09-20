@@ -15,7 +15,7 @@ $script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
 $script:packageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
 $script:packageName = "PostgreSQL.Binaries"
-$script:packageVersion = "13.7.1"
+$script:packageVersion = "14.5.68"
 
 function Test-PostgreSQLBinariesInstalled {
     if (!(Get-IsWindows)) {
