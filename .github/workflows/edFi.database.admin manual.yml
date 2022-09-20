@@ -65,6 +65,10 @@ jobs:
             git fetch origin ${{ env.CURRENT_BRANCH }}
             git checkout ${{ env.CURRENT_BRANCH }}
           }
+    - name: Install Sql Sever
+      uses: potatoqualitee/mssqlsuite@v1.5.1
+      with:
+          install: sqlengine, sqlpackage          
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
