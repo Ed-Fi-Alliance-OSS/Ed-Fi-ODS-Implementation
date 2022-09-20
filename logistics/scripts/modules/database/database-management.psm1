@@ -274,7 +274,6 @@ Function Backup-Database {
         $smoBackup.Action = $backupActionType
         $smoBackup.BackupSetDescription = "Full $backupActionType Backup for $databaseName"
         $smoBackup.BackupSetName = "$databaseName $backupActionType Backup"
-        $smoBackup.CompressionOption = "On"
         $smoBackup.Database = $databaseName
         $smoBackup.MediaDescription = "Disk"
         $smoBackup.Devices.AddDevice($bakFilePath, "File")
