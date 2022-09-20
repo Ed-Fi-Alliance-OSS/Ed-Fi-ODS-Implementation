@@ -83,7 +83,7 @@ $tasks = [ordered] @{
         Write-Host 'created postgres settings files:' -ForegroundColor Green
         $settingsFiles | Write-Host
 
-        $postgresSettings = Get-MergedAppSettings $settingsFiles  ((Get-ProjectTypes).WebApi)
+        $postgresSettings = Get-MergedAppSettings $settingsFiles
 
         $postgresSettings = Set-Feature -Settings $postgresSettings -FeatureName 'Extensions' -IsEnabled $false
         $postgresSettings = Set-Feature -Settings $postgresSettings -FeatureName 'ChangeQueries' -IsEnabled $true
@@ -91,9 +91,6 @@ $tasks = [ordered] @{
 
         Write-Host
         Write-FlatHashtable $postgresSettings
-
-        Write-Warning "The following settings are being overridden by the $(Split-Path -Leaf (Get-ProjectTypes).WebApi) project's user secrets:"
-        Write-FlatHashtable (Get-UserSecrets ((Get-ProjectTypes).WebApi))
 
     }
     "Reset SQLServer $DatabaseType Database"               = {
