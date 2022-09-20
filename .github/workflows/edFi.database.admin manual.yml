@@ -75,7 +75,6 @@ jobs:
       shell: pwsh
       run: |
           choco install sql-server-2019  -y --ignore-pending-reboot -o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE'" --execution-timeout=$installTimeout
-          Install-Module -Name SqlServer -MinimumVersion '21.1.18068' -Scope CurrentUser -Force -AllowClobber
           choco install sqlpackage
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation
