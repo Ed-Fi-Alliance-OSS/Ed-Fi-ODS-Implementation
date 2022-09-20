@@ -73,7 +73,9 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
-          Get-ChildItem -Path $env:GITHUB_WORKSPACE + '/_actions/potatoqualitee/mssqlsuite/v1.5.1/*.*' -Recurse -Force
+          Get-ChildItem -Path "$env:GITHUB_WORKSPACE/_actions/potatoqualitee/mssqlsuite/v1.5.1/"
+          Write-Host " GITHUB_WORKSPACE " $GITHUB_WORKSPACE          
+          Get-ChildItem -Path "D:\a\_actions\potatoqualitee\mssqlsuite\v1.5.1\" -Recurse -Force
           Write-Host " GITHUB_WORKSPACE " $GITHUB_WORKSPACE
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
