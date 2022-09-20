@@ -74,7 +74,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
-          choco install sql-server-2019  -y --ignore-pending-reboot -o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE'" --execution-timeout=$installTimeout
+          choco install sql-server-2019  -y -o -ia "'/IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /SkipRules=RebootRequiredCheck'" --execution-timeout=$installTimeout
           choco install sqlpackage
     - name: Create Admin Database 
       working-directory: ./Ed-Fi-ODS-Implementation
