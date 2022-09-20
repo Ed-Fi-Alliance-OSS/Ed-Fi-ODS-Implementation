@@ -12,7 +12,6 @@ on:
         description: 'Log level'
         required: true
         default: 'warning'
-on:
   pull_request:
     branches: [main]
 
