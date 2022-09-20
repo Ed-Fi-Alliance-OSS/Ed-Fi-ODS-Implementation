@@ -24,7 +24,7 @@ env:
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
-  VERSION_MINOR: "0"
+  VERSION_MINOR: "1"
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
   ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
   EDFI_SUITE_NUMBER: "Suite3"
