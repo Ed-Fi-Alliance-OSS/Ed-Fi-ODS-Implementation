@@ -66,7 +66,6 @@ $tasks = [ordered] @{
 
         Write-Host
         Write-FlatHashtable $sqlServerSettings
-
     }
     'New PostgreSQL Settings'                              = {
         $settings = @{ ApiSettings = @{ Engine = 'PostgreSQL' } }
@@ -88,7 +87,6 @@ $tasks = [ordered] @{
 
         Write-Host
         Write-FlatHashtable $postgresSettings
-
     }
     "Reset SQLServer $DatabaseType Database"               = {
         $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
