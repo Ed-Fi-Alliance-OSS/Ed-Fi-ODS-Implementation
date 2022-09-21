@@ -15,13 +15,13 @@ jobs:
     runs-on: windows-latest
  
     steps:
-    - name: Download artifact
-      id: download-artifact
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+    - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       uses: dawidd6/action-download-artifact@v2
       with:
-        github_token: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
         workflow: InitDev,Unit tests,Integration tests,Package.yml
         workflow_conclusion: success
+        branch: main
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
     - name: Install-credential-handler
