@@ -155,10 +155,17 @@ function Publish {
 }
 
 function Test {
+    $reports = "\reports\"
+    if (Test-Path $reports) {
+        Remove-Item -Path $reports -Force -Recurse | Out-Null
+    }
+    New-Item -ItemType Directory -Force -Path $reports | Out-Null
+    $reportName = $reports + (Get-ChildItem $project | Select-Object -ExpandProperty Name) + ".xml"
+
     if(-not $TestFilter) {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal }
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --logger "trx;LogFileName=$reportName"}
     } else {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" }
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" --logger "trx;LogFileName=$reportName"}
     }
 }
 
