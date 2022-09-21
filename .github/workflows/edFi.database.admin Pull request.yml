@@ -8,7 +8,8 @@ name: EdFi.Database.Admin Pull request build
 on:
   pull_request:
     branches: [main]
-
+    paths:
+      - '**.sql'
 
 env:
   INFORMATIONAL_VERSION: "6.1"
