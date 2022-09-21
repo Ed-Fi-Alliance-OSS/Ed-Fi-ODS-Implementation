@@ -137,19 +137,19 @@ $tasks = [ordered] @{
         Write-FlatHashtable $params
         Export-BacPac @params
     }
-    "Export PostgreSQL $DatabaseType Database to SQL File" = {
-        $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
-        $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-        $params = @{
-            databaseConnectionString = $csb
-            databaseBackupName       = $csb['database']
-            backupDirectory          = $Output
-            multipleBackups          = $true
-            engine                   = $postgresSettings.ApiSettings.Engine
-        }
-        Write-FlatHashtable $params
-        Backup-DatabaseTemplate $params
-    }
+    # "Export PostgreSQL $DatabaseType Database to SQL File" = {
+    #     $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
+    #     $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+    #     $params = @{
+    #         databaseConnectionString = $csb
+    #         databaseBackupName       = $csb['database']
+    #         backupDirectory          = $Output
+    #         multipleBackups          = $true
+    #         engine                   = $postgresSettings.ApiSettings.Engine
+    #     }
+    #     Write-FlatHashtable $params
+    #     Backup-DatabaseTemplate $params
+    # }
     'Create SQLServer Backup .nuspec'                      = {
         $name = $PackageName
         $nuspecPath = Join-Path $Output "$name.nuspec"
@@ -216,39 +216,39 @@ $tasks = [ordered] @{
         Write-Host "Created $nuspecPath" -ForegroundColor Green
         Write-Host
     }
-    'Create PostgreSQL Backup .nuspec'                     = {
-        $name = "$PackageName.PostgreSQL"
-        $nuspecPath = Join-Path $Output "$name.nuspec"
+    # 'Create PostgreSQL Backup .nuspec'                     = {
+    #     $name = "$PackageName.PostgreSQL"
+    #     $nuspecPath = Join-Path $Output "$name.nuspec"
 
-        $params = @{
-            forceOverwrite           = $true
-            nuspecPath               = $nuspecPath
-            id                       = $name
-            description              = $name
-            version                  = '$version$'
-            authors                  = '$authors$'
-            owners                   = '$owners$'
-            copyright                = '$copyright$'
-            requireLicenseAcceptance = $false
-        }
-        New-Nuspec @params
+    #     $params = @{
+    #         forceOverwrite           = $true
+    #         nuspecPath               = $nuspecPath
+    #         id                       = $name
+    #         description              = $name
+    #         version                  = '$version$'
+    #         authors                  = '$authors$'
+    #         owners                   = '$owners$'
+    #         copyright                = '$copyright$'
+    #         requireLicenseAcceptance = $false
+    #     }
+    #     New-Nuspec @params
 
-        $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
-        $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-        $databaseName = $csb['database']
-        $filesToPackage = (Get-ChildItem "$Output/$databaseName.sql" | foreach { @{ source = $_.FullName; target = '.' } })
-        $filesToPackage.source | Write-Host
+    #     $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
+    #     $csb = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+    #     $databaseName = $csb['database']
+    #     $filesToPackage = (Get-ChildItem "$Output/$databaseName.sql" | foreach { @{ source = $_.FullName; target = '.' } })
+    #     $filesToPackage.source | Write-Host
 
-        $params = @{
-            nuspecPath       = $nuspecPath
-            sourceTargetPair = $filesToPackage
-        }
-        Add-FileToNuspec @params
+    #     $params = @{
+    #         nuspecPath       = $nuspecPath
+    #         sourceTargetPair = $filesToPackage
+    #     }
+    #     Add-FileToNuspec @params
 
-        Write-Host
-        Write-Host "Created $nuspecPath" -ForegroundColor Green
-        Write-Host
-    }
+    #     Write-Host
+    #     Write-Host "Created $nuspecPath" -ForegroundColor Green
+    #     Write-Host
+    # }
 }
 
 $script:result = @()

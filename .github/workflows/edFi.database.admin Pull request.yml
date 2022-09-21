@@ -8,8 +8,6 @@ name: EdFi.Database.Admin Pull request build
 on:
   pull_request:
     branches: [main]
-    paths:
-      - '**.sql'
 
 env:
   INFORMATIONAL_VERSION: "6.1"
@@ -39,12 +37,9 @@ jobs:
       shell: pwsh
       run: |
           $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-          Write-Host "Pattern Name is " $patternName -fore GREEN
           $is_pull_request_branch = 'False'
           $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-          Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
           if ($is_pull_request_branch -eq $true) {
-            Write-Host "pull request branch "+ ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
             git fetch origin ${{ env.CURRENT_BRANCH }}
             git checkout ${{ env.CURRENT_BRANCH }}
           }          
@@ -58,12 +53,9 @@ jobs:
       shell: pwsh
       run: |
           $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-          Write-Host "Pattern Name is " $patternName -fore GREEN
           $is_pull_request_branch = 'False'
           $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-          Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
           if ($is_pull_request_branch -eq $true) {
-            Write-Host "pull request branch "+ ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
             git fetch origin ${{ env.CURRENT_BRANCH }}
             git checkout ${{ env.CURRENT_BRANCH }}
           }
@@ -103,7 +95,8 @@ jobs:
         $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Database.Admin.PostgreSQL.nuspec"
         nuget pack $AdminNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
         nuget pack $AdminBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
-        nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
+        # nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
+ 
     - name: Upload EdFi.Database.Admin Artifacts
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
