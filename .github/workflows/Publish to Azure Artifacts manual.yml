@@ -13,9 +13,8 @@ jobs:
   build:
 
     runs-on: windows-latest
- 
+
     steps:
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       uses: dawidd6/action-download-artifact@v2
       with:
@@ -31,5 +30,5 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         Get-ChildItem -Recurse "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" | Where { ! $_.PSIsContainer } | Select Name,FullName,Length
-       # dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}}
+        # dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}}
       shell: pwsh
