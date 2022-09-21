@@ -8,8 +8,7 @@ name: EdFi.Database.Admin Manually triggered build
 on:
   pull_request:
     branches: [main]
-    paths:
-      - '**.sql'
+
 
 env:
   INFORMATIONAL_VERSION: "6.1"
