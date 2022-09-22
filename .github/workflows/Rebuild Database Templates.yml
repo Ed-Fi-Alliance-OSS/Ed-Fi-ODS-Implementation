@@ -132,6 +132,7 @@ jobs:
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $version
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated package reference
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         git add ./configuration.packages.json
         git commit -m "Updating for new CodeGen version"
