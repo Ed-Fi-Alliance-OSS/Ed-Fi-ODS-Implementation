@@ -101,6 +101,9 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen/EdFi.Ods.CodeGen.csproj" -PackageName "EdFi.Suite3.Ods.CodeGen"
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
     - name: EdFi.Ods.CodeGen publish
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
