@@ -49,8 +49,7 @@ param(
     $PackageName,
 
     [string]
-    $TestFilter
-
+    $TestFilterAndOperator
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -160,12 +159,13 @@ function Test {
         Remove-Item -Path $reports -Force -Recurse | Out-Null
     }
     New-Item -ItemType Directory -Force -Path $reports | Out-Null
-    $reportName = $reports + (Get-ChildItem $project | Select-Object -ExpandProperty Name) + ".xml"
+    $reportName = $reports + (Get-ChildItem $solution | Select-Object -ExpandProperty Name) + ".xml"
 
-    if(-not $TestFilter) {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --logger "trx;LogFileName=$reportName"}
+    if(-not $TestFilterandOperator) {
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build --logger "trx;LogFileName=$reportName"}
     } else {
-        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build -v normal --filter TestCategory!~"$TestFilter" --logger "trx;LogFileName=$reportName"}
+        Write-Host "dotnet test $solution  -c $Configuration --no-build --filter $TestFilterandOperator --logger 'trx;LogFileName=$reportName'"
+        Invoke-Execute { dotnet test $solution  -c $Configuration --no-build --filter $TestFilterandOperator --logger "trx;LogFileName=$reportName"}
     }
 }
 
