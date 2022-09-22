@@ -40,6 +40,6 @@ jobs:
         Foreach-Object {
             Write-Host "nupkg full path is " $_.FullName
             $packagePath = $_.FullName
-            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}}            
+            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
         }
       shell: pwsh
