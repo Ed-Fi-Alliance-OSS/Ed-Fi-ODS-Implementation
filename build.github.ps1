@@ -48,7 +48,7 @@ param(
     
     [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
     
-    [String] $DatabasesId = 'EdFi.Suite3.Ods.RestApi.Databases'
+    [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases'
 )
 
 $ErrorActionPreference = 'Stop'
