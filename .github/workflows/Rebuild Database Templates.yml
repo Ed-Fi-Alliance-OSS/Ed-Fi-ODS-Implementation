@@ -97,10 +97,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
-    - name: EdFi.Ods.CodeGen test
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln" -TestFilterAndOperator "TestCategory!=LocalOnly"
     - name: EdFi.Ods.CodeGen pack
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
