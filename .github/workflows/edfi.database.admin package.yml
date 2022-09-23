@@ -3,12 +3,17 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: EdFi.Database.Admin Pull request build
+name: EdFi.Database.Admin Package build
 
 on:
   pull_request:
     branches: [main]
-
+  workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
 env:
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "1"
@@ -65,13 +70,11 @@ jobs:
         Set-Service -InputObject $pgService -Status running -StartupType automatic
         Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
     - name: Install sql-server-2019 & sqlpackage
-      working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
     - name: Create Admin Database 
-      working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
@@ -82,7 +85,6 @@ jobs:
       with:
         nuget-version: '5.x'
     - name: Create NuGet package
-      working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
         [int]$BuildCounter =  "${{ github.run_number }}"
