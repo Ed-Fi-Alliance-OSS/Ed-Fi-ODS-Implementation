@@ -91,10 +91,10 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
-        $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Database.Admin.nuspec"
-        $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Database.Admin.BACPAC.nuspec"
-        $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Database.Admin.PostgreSQL.nuspec"
+        $packageOutput = "$env:GITHUB_WORKSPACE/NugetPackages"
+        $AdminNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.nuspec"
+        $AdminBACPACNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.BACPAC.nuspec"
+        $AdminPostgreSQLNuspecFilePath = "$env:GITHUB_WORKSPACE/NugetPackages/EdFi.Database.Admin.PostgreSQL.nuspec"
         nuget pack $AdminNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
         nuget pack $AdminBACPACNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
         # nuget pack $AdminPostgreSQLNuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright ©Ed-Fi Alliance, LLC. 2020" -NoPackageAnalysis -NoDefaultExcludes
@@ -104,4 +104,4 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
+        path: ${{ github.workspace }}/NugetPackages/*.nupkg
