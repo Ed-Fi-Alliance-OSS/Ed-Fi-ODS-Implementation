@@ -69,8 +69,8 @@ jobs:
     - name: Download artifact
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 # v2
       with:
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         workflow: edFi.ods.common manual.yml
         workflow_conclusion: success
-        commit: ${{ env.EDFIODS_COMMITHASH }}
         branch: ${{ env.CURRENT_BRANCH }}
-        if_no_artifact_found: fail
+        commit: ${{ env.EDFIODS_COMMITHASH }}      
