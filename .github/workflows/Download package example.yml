@@ -72,5 +72,4 @@ jobs:
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         workflow: edFi.ods.common manual.yml
         workflow_conclusion: success
-        branch: ${{ env.CURRENT_BRANCH }}
         commit: ${{ env.EDFIODS_COMMITHASH }}      
