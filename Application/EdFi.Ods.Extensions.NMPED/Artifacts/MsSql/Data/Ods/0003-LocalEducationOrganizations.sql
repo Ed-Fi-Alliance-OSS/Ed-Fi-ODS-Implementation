@@ -10978,7 +10978,7 @@ VALUES
 (35023155, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 /* (35023993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35023998, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')), */
-/* (35024993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
+(35024993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35024994, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35024998, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35025015, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
@@ -11306,11 +11306,11 @@ VALUES
 (35574001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35575001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 (35577001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')), 
-(35555001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK'))*/
+(35555001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK'))
 
 
 /*Ed Org Category*/
-/*INSERT INTO [edfi].[EducationOrganizationCategory]
+INSERT INTO [edfi].[EducationOrganizationCategory]
            (EducationOrganizationId,
 		    EducationOrganizationCategoryDescriptorId
 		   )
@@ -12998,7 +12998,7 @@ INSERT INTO [edfi].[EducationOrganizationCategory]
 
 
 /*School Category*/
-/*INSERT INTO [edfi].[SchoolCategory]
+INSERT INTO [edfi].[SchoolCategory]
            ([SchoolId]
            ,[SchoolCategoryDescriptorId])
      VALUES
@@ -14541,4 +14541,4 @@ INSERT INTO [edfi].[SchoolCategory]
 (35578001, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS')),
 (35579001, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS')),
 (35580001, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'MS')),
-(35581001, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS')); */
+(35581001, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS'));
