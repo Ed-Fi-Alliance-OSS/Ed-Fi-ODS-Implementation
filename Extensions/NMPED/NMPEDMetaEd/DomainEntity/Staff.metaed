@@ -7,3 +7,6 @@ Domain Entity EdFi.Staff additions
         documentation "Indicates the Institution or State that conferred Baccalaureate Degree."
         is optional
         role name BaccalaureateLevelOfEducationInstitution
+    bool NationalCertified
+        documentation "The data is used to determine if a Staff Member is a National Board Certified Teacher."
+        is optional

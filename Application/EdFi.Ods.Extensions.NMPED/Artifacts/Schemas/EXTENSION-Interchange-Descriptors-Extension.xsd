@@ -196,15 +196,12 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="WeaponDescriptor" type="WeaponDescriptor" />
         <xs:element name="AnnualReviewDelayReasonDescriptor" type="EXTENSION-AnnualReviewDelayReasonDescriptor" />
         <xs:element name="DentalExaminationVerificationCodeDescriptor" type="EXTENSION-DentalExaminationVerificationCodeDescriptor" />
-        <xs:element name="DigitalEquityInternetAccessTypeDescriptor" type="EXTENSION-DigitalEquityInternetAccessTypeDescriptor" />
-        <xs:element name="DigitalEquityInternetPerformanceCodeDescriptor" type="EXTENSION-DigitalEquityInternetPerformanceCodeDescriptor" />
-        <xs:element name="DigitalEquityPrimaryLearningDeviceAccessDescriptor" type="EXTENSION-DigitalEquityPrimaryLearningDeviceAccessDescriptor" />
-        <xs:element name="DigitalEquityPrimaryLearningDeviceTypeDescriptor" type="EXTENSION-DigitalEquityPrimaryLearningDeviceTypeDescriptor" />
         <xs:element name="DirectCertificationStatusDescriptor" type="EXTENSION-DirectCertificationStatusDescriptor" />
         <xs:element name="ExpectedDiplomaTypeDescriptor" type="EXTENSION-ExpectedDiplomaTypeDescriptor" />
         <xs:element name="GenderIdentityDescriptor" type="EXTENSION-GenderIdentityDescriptor" />
         <xs:element name="IndustryCredentialDescriptor" type="EXTENSION-IndustryCredentialDescriptor" />
         <xs:element name="LevelOfEducationInstitutionDescriptor" type="EXTENSION-LevelOfEducationInstitutionDescriptor" />
+        <xs:element name="LevelOfIntegrationDescriptor" type="EXTENSION-LevelOfIntegrationDescriptor" />
         <xs:element name="MileageTypeDescriptor" type="EXTENSION-MileageTypeDescriptor" />
         <xs:element name="MilitaryFamilyDescriptor" type="EXTENSION-MilitaryFamilyDescriptor" />
         <xs:element name="NMPEDClassPeriodDescriptor" type="EXTENSION-NMPEDClassPeriodDescriptor" />
@@ -215,12 +212,10 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="ProgramDeliveryMethodDescriptor" type="EXTENSION-ProgramDeliveryMethodDescriptor" />
         <xs:element name="ProgramIntensityDescriptor" type="EXTENSION-ProgramIntensityDescriptor" />
         <xs:element name="RoadTypeDescriptor" type="EXTENSION-RoadTypeDescriptor" />
-        <xs:element name="ServiceProviderTypeDescriptor" type="EXTENSION-ServiceProviderTypeDescriptor" />
-        <xs:element name="ServiceSettingDescriptor" type="EXTENSION-ServiceSettingDescriptor" />
         <xs:element name="SpecialEducationEventReasonDescriptor" type="EXTENSION-SpecialEducationEventReasonDescriptor" />
         <xs:element name="SpecialEducationEventTypeDescriptor" type="EXTENSION-SpecialEducationEventTypeDescriptor" />
-        <xs:element name="LevelOfIntegrationDescriptor" type="EXTENSION-LevelOfIntegrationDescriptor" />
         <xs:element name="SpecialEducationNonComplianceReasonDescriptor" type="EXTENSION-SpecialEducationNonComplianceReasonDescriptor" />
+        <xs:element name="SpecialEducationReferralCodeDescriptor" type="EXTENSION-SpecialEducationReferralCodeDescriptor" />
         <xs:element name="SpecialProgramCodeDescriptor" type="EXTENSION-SpecialProgramCodeDescriptor" />
         <xs:element name="StaffDevelopmentActivityCodeDescriptor" type="EXTENSION-StaffDevelopmentActivityCodeDescriptor" />
         <xs:element name="StaffDevelopmentPurposeCodeDescriptor" type="EXTENSION-StaffDevelopmentPurposeCodeDescriptor" />

@@ -18,16 +18,6 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [nmped].[nmped_StaffEducationOrganizationDigitalEquity_TR_UpdateChangeVersion] ON [nmped].[StaffEducationOrganizationDigitalEquity] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [nmped].[StaffEducationOrganizationDigitalEquity]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [nmped].[StaffEducationOrganizationDigitalEquity] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
 CREATE TRIGGER [nmped].[nmped_StudentEducationOrganizationAward_TR_UpdateChangeVersion] ON [nmped].[StudentEducationOrganizationAward] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
@@ -38,22 +28,12 @@ BEGIN
 END	
 GO
 
-CREATE TRIGGER [nmped].[nmped_StudentSchoolAggregateSectionAttendance_TR_UpdateChangeVersion] ON [nmped].[StudentSchoolAggregateSectionAttendance] AFTER UPDATE AS
+CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationAssociationEvent_TR_UpdateChangeVersion] ON [nmped].[StudentSpecialEducationAssociationEvent] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;
-    UPDATE [nmped].[StudentSchoolAggregateSectionAttendance]
+    UPDATE [nmped].[StudentSpecialEducationAssociationEvent]
     SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [nmped].[StudentSchoolAggregateSectionAttendance] u
-    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
-END	
-GO
-
-CREATE TRIGGER [nmped].[nmped_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_TR_UpdateChangeVersion] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] AFTER UPDATE AS
-BEGIN
-    SET NOCOUNT ON;
-    UPDATE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
-    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
-    FROM [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] u
+    FROM [nmped].[StudentSpecialEducationAssociationEvent] u
     WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
 END	
 GO

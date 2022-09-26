@@ -32,3 +32,10 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
     common extension EdFi.SpecialEducationProgramService
         documentation "This collection provides extended fields to record Special Education Services Fact Template Data."
         is optional collection
+    descriptor SpecialEducationReferralCode
+          documentation "Required if the child was referred from Part C to B or thru Child Find."
+          is optional
+    domain entity EdFi.EducationOrganization
+          documentation "Only submit this value if the Location code is designated as an off-site"
+          is optional
+          role name ChildCountEducationOrganization

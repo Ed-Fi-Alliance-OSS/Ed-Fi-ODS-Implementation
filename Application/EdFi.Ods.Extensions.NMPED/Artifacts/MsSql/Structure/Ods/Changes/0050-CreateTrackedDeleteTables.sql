@@ -12,34 +12,6 @@ CREATE TABLE [tracked_deletes_nmped].[DentalExaminationVerificationCodeDescripto
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_DentalExaminationVerificationCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-CREATE TABLE [tracked_deletes_nmped].[DigitalEquityInternetAccessTypeDescriptor]
-(
-       DigitalEquityInternetAccessTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_DigitalEquityInternetAccessTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[DigitalEquityInternetPerformanceCodeDescriptor]
-(
-       DigitalEquityInternetPerformanceCodeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_DigitalEquityInternetPerformanceCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[DigitalEquityPrimaryLearningDeviceAccessDescriptor]
-(
-       DigitalEquityPrimaryLearningDeviceAccessDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_DigitalEquityPrimaryLearningDeviceAccessDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[DigitalEquityPrimaryLearningDeviceTypeDescriptor]
-(
-       DigitalEquityPrimaryLearningDeviceTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_DigitalEquityPrimaryLearningDeviceTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 CREATE TABLE [tracked_deletes_nmped].[DirectCertificationStatusDescriptor]
 (
        DirectCertificationStatusDescriptorId [INT] NOT NULL,
@@ -162,20 +134,6 @@ CREATE TABLE [tracked_deletes_nmped].[RoadTypeDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_RoadTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-CREATE TABLE [tracked_deletes_nmped].[ServiceProviderTypeDescriptor]
-(
-       ServiceProviderTypeDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_ServiceProviderTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[ServiceSettingDescriptor]
-(
-       ServiceSettingDescriptorId [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_ServiceSettingDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 CREATE TABLE [tracked_deletes_nmped].[SpecialEducationEventReasonDescriptor]
 (
        SpecialEducationEventReasonDescriptorId [INT] NOT NULL,
@@ -196,6 +154,13 @@ CREATE TABLE [tracked_deletes_nmped].[SpecialEducationNonComplianceReasonDescrip
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_SpecialEducationNonComplianceReasonDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
+CREATE TABLE [tracked_deletes_nmped].[SpecialEducationReferralCodeDescriptor]
+(
+       SpecialEducationReferralCodeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_SpecialEducationReferralCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[SpecialProgramCodeDescriptor]
 (
@@ -227,16 +192,6 @@ CREATE TABLE [tracked_deletes_nmped].[StaffDevelopmentPurposeCodeDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StaffDevelopmentPurposeCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-CREATE TABLE [tracked_deletes_nmped].[StaffEducationOrganizationDigitalEquity]
-(
-       EducationOrganizationId [INT] NOT NULL,
-       SchoolYear [SMALLINT] NOT NULL,
-       StaffUSI [INT] NOT NULL,
-       StartDate [DATE] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StaffEducationOrganizationDigitalEquity PRIMARY KEY CLUSTERED (ChangeVersion)
-)
 CREATE TABLE [tracked_deletes_nmped].[StudentAwardTypeDescriptor]
 (
        StudentAwardTypeDescriptorId [INT] NOT NULL,
@@ -256,17 +211,7 @@ CREATE TABLE [tracked_deletes_nmped].[StudentEducationOrganizationAward]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentEducationOrganizationAward PRIMARY KEY CLUSTERED (ChangeVersion)
 )
-CREATE TABLE [tracked_deletes_nmped].[StudentSchoolAggregateSectionAttendance]
-(
-       BeginDate [DATE] NOT NULL,
-       SchoolId [INT] NOT NULL,
-       SchoolYear [SMALLINT] NOT NULL,
-       StudentUSI [INT] NOT NULL,
-       Id uniqueidentifier NOT NULL,
-       ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StudentSchoolAggregateSectionAttendance PRIMARY KEY CLUSTERED (ChangeVersion)
-)
-CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent]
+CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationAssociationEvent]
 (
        BeginDate [DATE] NOT NULL,
        EducationOrganizationId [INT] NOT NULL,
@@ -278,7 +223,7 @@ CREATE TABLE [tracked_deletes_nmped].[StudentSpecialEducationProgramAssociationS
        StudentUSI [INT] NOT NULL,
        Id uniqueidentifier NOT NULL,
        ChangeVersion bigint NOT NULL,
-       CONSTRAINT PK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent PRIMARY KEY CLUSTERED (ChangeVersion)
+       CONSTRAINT PK_StudentSpecialEducationAssociationEvent PRIMARY KEY CLUSTERED (ChangeVersion)
 )
 CREATE TABLE [tracked_deletes_nmped].[TransportationCategoryDescriptor]
 (

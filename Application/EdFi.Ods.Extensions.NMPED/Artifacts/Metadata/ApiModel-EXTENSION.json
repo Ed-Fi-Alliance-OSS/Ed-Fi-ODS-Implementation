@@ -34,54 +34,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
-        "name": "DigitalEquityInternetAccessTypeDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "DigitalEquityInternetAccessTypeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
-        "name": "DigitalEquityInternetPerformanceCodeDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "DigitalEquityInternetPerformanceCodeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
-        "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
-        "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
         "name": "DirectCertificationStatusDescriptor"
       },
       "aggregateEntityNames": [
@@ -286,30 +238,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
-        "name": "ServiceProviderTypeDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "ServiceProviderTypeDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
-        "name": "ServiceSettingDescriptor"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "ServiceSettingDescriptor"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
         "name": "SpecialEducationEventReasonDescriptor"
       },
       "aggregateEntityNames": [
@@ -340,6 +268,18 @@
         {
           "schema": "nmped",
           "name": "SpecialEducationNonComplianceReasonDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
+        "name": "SpecialEducationReferralCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "SpecialEducationReferralCodeDescriptor"
         }
       ]
     },
@@ -394,18 +334,6 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "StaffEducationOrganizationDigitalEquity"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
         "name": "StudentAwardTypeDescriptor"
       },
       "aggregateEntityNames": [
@@ -430,24 +358,12 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
-        "name": "StudentSchoolAggregateSectionAttendance"
+        "name": "StudentSpecialEducationAssociationEvent"
       },
       "aggregateEntityNames": [
         {
           "schema": "nmped",
-          "name": "StudentSchoolAggregateSectionAttendance"
-        }
-      ]
-    },
-    {
-      "aggregateRootEntityName": {
-        "schema": "nmped",
-        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
-      },
-      "aggregateEntityNames": [
-        {
-          "schema": "nmped",
-          "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
+          "name": "StudentSpecialEducationAssociationEvent"
         }
       ]
     },
@@ -622,106 +538,6 @@
       "tableNames": {
         "sqlServer": "DentalExaminationVerificationCodeDescriptor",
         "postgreSql": "DentalExaminationVerificationCodeDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "DigitalEquityInternetAccessTypeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "DigitalEquityInternetAccessTypeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "DigitalEquityInternetAccessTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "DigitalEquityInternetAccessTypeDescriptor_PK",
-            "postgreSql": "DigitalEquityInternetAccessTypeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The digital equity internet access type.",
-      "tableNames": {
-        "sqlServer": "DigitalEquityInternetAccessTypeDescriptor",
-        "postgreSql": "DigitalEquityInternetAccessTypeDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "DigitalEquityInternetPerformanceCodeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "DigitalEquityInternetPerformanceCodeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "DigitalEquityInternetPerformanceCodeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptor_PK",
-            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The digital equity internet performance code.",
-      "tableNames": {
-        "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptor",
-        "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK",
-          "identifyingPropertyNames": [
-            "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK",
-            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The digital equity primary leanring device access.",
-      "tableNames": {
-        "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptor",
-        "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK",
-            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The digital equity primary leaning device type.",
-      "tableNames": {
-        "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptor",
-        "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
       }
     },
     {
@@ -1411,56 +1227,6 @@
     },
     {
       "schema": "nmped",
-      "name": "ServiceProviderTypeDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "ServiceProviderTypeDescriptor_PK",
-          "identifyingPropertyNames": [
-            "ServiceProviderTypeDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ServiceProviderTypeDescriptor_PK",
-            "postgreSql": "ServiceProviderTypeDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The type of the service provider.",
-      "tableNames": {
-        "sqlServer": "ServiceProviderTypeDescriptor",
-        "postgreSql": "ServiceProviderTypeDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "ServiceSettingDescriptor",
-      "locallyDefinedProperties": [],
-      "identifiers": [
-        {
-          "identifierName": "ServiceSettingDescriptor_PK",
-          "identifyingPropertyNames": [
-            "ServiceSettingDescriptorId"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "ServiceSettingDescriptor_PK",
-            "postgreSql": "ServiceSettingDescriptor_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The service setting.",
-      "tableNames": {
-        "sqlServer": "ServiceSettingDescriptor",
-        "postgreSql": "ServiceSettingDescriptor"
-      }
-    },
-    {
-      "schema": "nmped",
       "name": "SpecialEducationEventReasonDescriptor",
       "locallyDefinedProperties": [],
       "identifiers": [
@@ -1532,6 +1298,31 @@
       "tableNames": {
         "sqlServer": "SpecialEducationNonComplianceReasonDescriptor",
         "postgreSql": "SpecialEducationNonComplianceReasonDescriptor"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "SpecialEducationReferralCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "SpecialEducationReferralCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "SpecialEducationReferralCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "SpecialEducationReferralCodeDescriptor_PK",
+            "postgreSql": "SpecialEducationReferralCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Required if the child was referred from Part C to B or thru Child Find.",
+      "tableNames": {
+        "sqlServer": "SpecialEducationReferralCodeDescriptor",
+        "postgreSql": "SpecialEducationReferralCodeDescriptor"
       }
     },
     {
@@ -1646,6 +1437,40 @@
           "columnNames": {
             "sqlServer": "LastModifiedDate",
             "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "MentorIdUniqueId",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 32,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The staff ID of the mentor",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MentorIdUniqueId",
+            "postgreSql": "MentorIdUniqueId"
+          }
+        },
+        {
+          "propertyName": "MentorTraining",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This data will be used to determine whether the Mentor has completed a Mentor Training.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "MentorTraining",
+            "postgreSql": "MentorTraining"
           }
         },
         {
@@ -1770,149 +1595,6 @@
     },
     {
       "schema": "nmped",
-      "name": "StaffEducationOrganizationDigitalEquity",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "EndDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The date the digital equity record ended.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EndDate",
-            "postgreSql": "EndDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "InternetAccessInResidence",
-          "propertyType": {
-            "dbType": "Boolean",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Indicates if there is Internet access in the staff's residece.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InternetAccessInResidence",
-            "postgreSql": "InternetAccessInResidence"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        },
-        {
-          "propertyName": "StartDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The date the digital equity record started.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StartDate",
-            "postgreSql": "StartDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffEducationOrganizationDigitalEquity_PK",
-          "identifyingPropertyNames": [
-            "EducationOrganizationId",
-            "SchoolYear",
-            "StaffUSI",
-            "StartDate"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffEducationOrganizationDigitalEquity_PK",
-            "postgreSql": "StaffEducationOrganizationDigitalEquity_PK"
-          }
-        },
-        {
-          "identifierName": "UX_StaffEducationOrganizationDigitalEquity_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_StaffEducationOrganizationDigitalEquity_Id",
-            "postgreSql": "UX_f6e59f_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "Digital Equity measures for staff.",
-      "tableNames": {
-        "sqlServer": "StaffEducationOrganizationDigitalEquity",
-        "postgreSql": "StaffEducationOrganizationDigitalEquity"
-      }
-    },
-    {
-      "schema": "nmped",
       "name": "StaffExtension",
       "locallyDefinedProperties": [
         {
@@ -1930,6 +1612,23 @@
           "columnNames": {
             "sqlServer": "CreateDate",
             "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "NationalCertified",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The data is used to determine if a Staff Member is a National Board Certified Teacher.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NationalCertified",
+            "postgreSql": "NationalCertified"
           }
         }
       ],
@@ -2103,51 +1802,6 @@
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAssociationExtension",
         "postgreSql": "StudentEducationOrganizationAssociationExtension"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentEducationOrganizationAssociationStudentCharacteristicExtension_PK",
-          "identifyingPropertyNames": [
-            "EducationOrganizationId",
-            "StudentCharacteristicDescriptorId",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristicExtension_PK",
-            "postgreSql": "StudentEducationOrganizationAssociationStudentChar_fc9b44_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This collection provides extended fields to record LevelOfIntegration for Gifted Students",
-      "tableNames": {
-        "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristicExtension",
-        "postgreSql": "StudentEducationOrganizationAssociationStudentCharacteri_fc9b44"
       }
     },
     {
@@ -2354,283 +2008,6 @@
     },
     {
       "schema": "nmped",
-      "name": "StudentProgramAssociationServiceExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "ServiceDuration",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Number of days the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) service was offered during the reporting period. A one to two digit number not to exceed the number of days within the reporting period. A one to two digit number.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceDuration",
-            "postgreSql": "ServiceDuration"
-          }
-        },
-        {
-          "propertyName": "ServiceFrequency",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceFrequency",
-            "postgreSql": "ServiceFrequency"
-          }
-        },
-        {
-          "propertyName": "ServiceProviderName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 255,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Name of Community Service Provider Entity.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceProviderName",
-            "postgreSql": "ServiceProviderName"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentProgramAssociationServiceExtension_PK",
-          "identifyingPropertyNames": [
-            "BeginDate",
-            "EducationOrganizationId",
-            "ProgramEducationOrganizationId",
-            "ProgramName",
-            "ProgramTypeDescriptorId",
-            "ServiceDescriptorId",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentProgramAssociationServiceExtension_PK",
-            "postgreSql": "StudentProgramAssociationServiceExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "This collection provides extended fields to record Program Services Fact Template data",
-      "tableNames": {
-        "sqlServer": "StudentProgramAssociationServiceExtension",
-        "postgreSql": "StudentProgramAssociationServiceExtension"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "StudentSchoolAggregateSectionAttendance",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The begin date.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "EndDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The end date.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EndDate",
-            "postgreSql": "EndDate"
-          }
-        },
-        {
-          "propertyName": "Id",
-          "propertyType": {
-            "dbType": "Guid",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "Id",
-            "postgreSql": "Id"
-          }
-        },
-        {
-          "propertyName": "LastModifiedDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LastModifiedDate",
-            "postgreSql": "LastModifiedDate"
-          }
-        },
-        {
-          "propertyName": "NumberOfPeriodsAttended",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The number of periods attended.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NumberOfPeriodsAttended",
-            "postgreSql": "NumberOfPeriodsAttended"
-          }
-        },
-        {
-          "propertyName": "NumberOfPeriodsExcused",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The number of periods excused.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NumberOfPeriodsExcused",
-            "postgreSql": "NumberOfPeriodsExcused"
-          }
-        },
-        {
-          "propertyName": "NumberOfScheduledPeriods",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The number of scheduled periods.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NumberOfScheduledPeriods",
-            "postgreSql": "NumberOfScheduledPeriods"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentSchoolAggregateSectionAttendance_PK",
-          "identifyingPropertyNames": [
-            "BeginDate",
-            "SchoolId",
-            "SchoolYear",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentSchoolAggregateSectionAttendance_PK",
-            "postgreSql": "StudentSchoolAggregateSectionAttendance_PK"
-          }
-        },
-        {
-          "identifierName": "UX_StudentSchoolAggregateSectionAttendance_Id",
-          "identifyingPropertyNames": [
-            "Id"
-          ],
-          "isPrimary": false,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "UX_StudentSchoolAggregateSectionAttendance_Id",
-            "postgreSql": "UX_7a0db5_Id"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "The student's aggregate section attendance.",
-      "tableNames": {
-        "sqlServer": "StudentSchoolAggregateSectionAttendance",
-        "postgreSql": "StudentSchoolAggregateSectionAttendance"
-      }
-    },
-    {
-      "schema": "nmped",
       "name": "StudentSchoolFoodServiceProgramAssociationExtension",
       "locallyDefinedProperties": [
         {
@@ -2745,89 +2122,7 @@
     },
     {
       "schema": "nmped",
-      "name": "StudentSpecialEducationProgramAssociationExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "AlernateInstruction",
-          "propertyType": {
-            "dbType": "Boolean",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Indication of whether the special education student is entitled to take alternate assessment.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "AlernateInstruction",
-            "postgreSql": "AlernateInstruction"
-          }
-        },
-        {
-          "propertyName": "BrailleInstruction",
-          "propertyType": {
-            "dbType": "Boolean",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Indication for student need for braille instruction.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BrailleInstruction",
-            "postgreSql": "BrailleInstruction"
-          }
-        },
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentSpecialEducationProgramAssociationExtension_PK",
-          "identifyingPropertyNames": [
-            "BeginDate",
-            "EducationOrganizationId",
-            "ProgramEducationOrganizationId",
-            "ProgramName",
-            "ProgramTypeDescriptorId",
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentSpecialEducationProgramAssociationExtension_PK",
-            "postgreSql": "StudentSpecialEducationProgramAssociationExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "",
-      "tableNames": {
-        "sqlServer": "StudentSpecialEducationProgramAssociationExtension",
-        "postgreSql": "StudentSpecialEducationProgramAssociationExtension"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent",
+      "name": "StudentSpecialEducationAssociationEvent",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -2900,7 +2195,7 @@
       ],
       "identifiers": [
         {
-          "identifierName": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_PK",
+          "identifierName": "StudentSpecialEducationAssociationEvent_PK",
           "identifyingPropertyNames": [
             "BeginDate",
             "EducationOrganizationId",
@@ -2914,28 +2209,110 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_PK",
-            "postgreSql": "StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK"
+            "sqlServer": "StudentSpecialEducationAssociationEvent_PK",
+            "postgreSql": "StudentSpecialEducationAssociationEvent_PK"
           }
         },
         {
-          "identifierName": "UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_Id",
+          "identifierName": "UX_StudentSpecialEducationAssociationEvent_Id",
           "identifyingPropertyNames": [
             "Id"
           ],
           "isPrimary": false,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_Id",
-            "postgreSql": "UX_c2cadc_Id"
+            "sqlServer": "UX_StudentSpecialEducationAssociationEvent_Id",
+            "postgreSql": "UX_1d3500_Id"
           }
         }
       ],
       "isAbstract": false,
-      "description": "This is documentation.",
+      "description": "Program Events for Student Special Education associations.",
       "tableNames": {
-        "sqlServer": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent",
-        "postgreSql": "StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc"
+        "sqlServer": "StudentSpecialEducationAssociationEvent",
+        "postgreSql": "StudentSpecialEducationAssociationEvent"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentSpecialEducationProgramAssociationExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "AlternateInstruction",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indication of whether the special education student is entitled to take alternate assessment.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "AlternateInstruction",
+            "postgreSql": "AlternateInstruction"
+          }
+        },
+        {
+          "propertyName": "BrailleInstruction",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indication for student need for braille instruction.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BrailleInstruction",
+            "postgreSql": "BrailleInstruction"
+          }
+        },
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSpecialEducationProgramAssociationExtension_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "EducationOrganizationId",
+            "ProgramEducationOrganizationId",
+            "ProgramName",
+            "ProgramTypeDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentSpecialEducationProgramAssociationExtension_PK",
+            "postgreSql": "StudentSpecialEducationProgramAssociationExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "",
+      "tableNames": {
+        "sqlServer": "StudentSpecialEducationProgramAssociationExtension",
+        "postgreSql": "StudentSpecialEducationProgramAssociationExtension"
       }
     },
     {
@@ -3781,246 +3158,6 @@
       "constraintNames": {
         "sqlServer": "FK_DentalExaminationVerificationCodeDescriptor_Descriptor",
         "postgreSql": "FK_e307f3_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_DigitalEquityInternetAccessTypeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "DigitalEquityInternetAccessTypeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "DigitalEquityInternetAccessTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DigitalEquityInternetAccessTypeDescriptorId",
-            "postgreSql": "DigitalEquityInternetAccessTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_DigitalEquityInternetAccessTypeDescriptor_Descriptor",
-        "postgreSql": "FK_cce424_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_DigitalEquityInternetPerformanceCodeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "DigitalEquityInternetPerformanceCodeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "DigitalEquityInternetPerformanceCodeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DigitalEquityInternetPerformanceCodeDescriptorId",
-            "postgreSql": "DigitalEquityInternetPerformanceCodeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_DigitalEquityInternetPerformanceCodeDescriptor_Descriptor",
-        "postgreSql": "FK_cb8342_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_DigitalEquityPrimaryLearningDeviceAccessDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "DigitalEquityPrimaryLearningDeviceAccessDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId",
-            "postgreSql": "DigitalEquityPrimaryLearningDeviceAccessDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_DigitalEquityPrimaryLearningDeviceAccessDescriptor_Descriptor",
-        "postgreSql": "FK_d8dfb7_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_DigitalEquityPrimaryLearningDeviceTypeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "DigitalEquityPrimaryLearningDeviceTypeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId",
-            "postgreSql": "DigitalEquityPrimaryLearningDeviceTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_DigitalEquityPrimaryLearningDeviceTypeDescriptor_Descriptor",
-        "postgreSql": "FK_e765ac_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -5635,126 +4772,6 @@
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_ServiceProviderTypeDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "ServiceProviderTypeDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ServiceProviderTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ServiceProviderTypeDescriptorId",
-            "postgreSql": "ServiceProviderTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ServiceProviderTypeDescriptor_Descriptor",
-        "postgreSql": "FK_29f0da_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_ServiceSettingDescriptor_Descriptor"
-      },
-      "cardinality": "OneToOneInheritance",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Descriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "DescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "DescriptorId",
-            "postgreSql": "DescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "ServiceSettingDescriptor"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ServiceSettingDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "ServiceSettingDescriptorId",
-            "postgreSql": "ServiceSettingDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_ServiceSettingDescriptor_Descriptor",
-        "postgreSql": "FK_5c6df0_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
         "name": "FK_SpecialEducationEventReasonDescriptor_Descriptor"
       },
       "cardinality": "OneToOneInheritance",
@@ -5929,6 +4946,66 @@
       "constraintNames": {
         "sqlServer": "FK_SpecialEducationNonComplianceReasonDescriptor_Descriptor",
         "postgreSql": "FK_63b75c_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_SpecialEducationReferralCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "SpecialEducationReferralCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationReferralCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "SpecialEducationReferralCodeDescriptorId",
+            "postgreSql": "SpecialEducationReferralCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_SpecialEducationReferralCodeDescriptor_Descriptor",
+        "postgreSql": "FK_454a28_Descriptor"
       },
       "potentiallyLogical": false
     },
@@ -6349,486 +5426,6 @@
       "constraintNames": {
         "sqlServer": "FK_StaffDevelopmentPurposeCodeDescriptor_Descriptor",
         "postgreSql": "FK_5a46c7_Descriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_EducationOrganization"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "EducationOrganization"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_EducationOrganization",
-        "postgreSql": "FK_f6e59f_EducationOrganization"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_InternetAccessTypeInResidenceDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "InternetAccessTypeInResidenceDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "InternetAccessTypeInResidenceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InternetAccessTypeInResidenceDescriptorId",
-            "postgreSql": "InternetAccessTypeInResidenceDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "InternetAccessTypeInResidenceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Internet access type.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InternetAccessTypeInResidenceDescriptorId",
-            "postgreSql": "InternetAccessTypeInResidenceDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_InternetAccessTypeInResidenceDescriptor",
-        "postgreSql": "FK_f6e59f_InternetAccessTypeInResidenceDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_InternetPerformanceInResidenceDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "InternetPerformanceInResidenceDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "InternetPerformanceInResidenceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InternetPerformanceInResidenceDescriptorId",
-            "postgreSql": "InternetPerformanceInResidenceDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "InternetPerformanceInResidenceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Internet performance code.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "InternetPerformanceInResidenceDescriptorId",
-            "postgreSql": "InternetPerformanceInResidenceDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_InternetPerformanceInResidenceDescriptor",
-        "postgreSql": "FK_f6e59f_InternetPerformanceInResidenceDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAccessDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "PrimaryLearningDeviceAccessDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceAccessDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceAccessDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceAccessDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceAccessDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Defines the primary learning device access.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceAccessDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceAccessDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAccessDescriptor",
-        "postgreSql": "FK_f6e59f_PrimaryLearningDeviceAccessDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAwayFromSchoolDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "PrimaryLearningDeviceAwayFromSchoolDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceAwayFromSchoolDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceAwayFromSchoolDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceAwayFromSchoolDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceAwayFromSchoolDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The primary learning device type used most often by staff to complete schoolwork at home.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceAwayFromSchoolDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceAwayFromSchoolDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceAwayFromSchoolDescriptor",
-        "postgreSql": "FK_f6e59f_PrimaryLearningDeviceAwayFromSchoolDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceProviderDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "PrimaryLearningDeviceProviderDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceProviderDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceProviderDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceProviderDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "PrimaryLearningDeviceProviderDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Indicates whether the school provides a device or not.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "PrimaryLearningDeviceProviderDescriptorId",
-            "postgreSql": "PrimaryLearningDeviceProviderDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_PrimaryLearningDeviceProviderDescriptor",
-        "postgreSql": "FK_f6e59f_PrimaryLearningDeviceProviderDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_SchoolYearType"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "SchoolYearType"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Key for School Year",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The school year the digital equity information is being recorded for.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_SchoolYearType",
-        "postgreSql": "FK_f6e59f_SchoolYearType"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffEducationOrganizationDigitalEquity_Staff"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Staff"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffEducationOrganizationDigitalEquity"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffEducationOrganizationDigitalEquity_Staff",
-        "postgreSql": "FK_f6e59f_Staff"
       },
       "potentiallyLogical": false
     },
@@ -7632,194 +6229,6 @@
         "sqlServer": "FK_StudentEducationOrganizationAssociationExtension_StudentEducationOrganizationAssociation",
         "postgreSql": "FK_2c2930_StudentEducationOrganizationAssociation"
       }
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "LevelOfIntegrationDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "LevelOfIntegrationDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfIntegrationDescriptorId",
-            "postgreSql": "LevelOfIntegrationDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "GiftedLevelOfIntegrationDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "This field holds the level of integration that represents the amount of service for GIFTED characteristic students only                    Valid values are:                    1 = Less than 10% of the day (minimum or 'A')                    2 = 11% to 49% of the day (moderate or 'B')                    3 = 50% of the day or more, but not a full day (extensive or 'C')                    4 = Up to a full day or program 3Y/4Y (maximum or 'D')",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GiftedLevelOfIntegrationDescriptorId",
-            "postgreSql": "GiftedLevelOfIntegrationDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor",
-        "postgreSql": "FK_fc9b44_LevelOfIntegrationDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_StudentEducationOrganizationAssociationStudentCharacter"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentEducationOrganizationAssociationStudentCharacteristic"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the Student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "StudentCharacteristicDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The characteristic designated for the Student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentCharacteristicDescriptorId",
-            "postgreSql": "StudentCharacteristicDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_StudentEducationOrganizationAssociationStudentCharacter",
-        "postgreSql": "FK_fc9b44_StudentEducationOrganizationAssociationStudentCharacteristic"
-      },
-      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -8652,570 +7061,6 @@
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_StudentProgramAssociationServiceExtension_ServiceProviderTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "ServiceProviderTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ServiceProviderTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceProviderTypeDescriptorId",
-            "postgreSql": "ServiceProviderTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentProgramAssociationServiceExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ServiceProviderTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Provide the role of the individual who is providing the service for Expanded and Enriched Learning Time and Opportunities (EELTO).",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceProviderTypeDescriptorId",
-            "postgreSql": "ServiceProviderTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentProgramAssociationServiceExtension_ServiceProviderTypeDescriptor",
-        "postgreSql": "FK_beb1a6_ServiceProviderTypeDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentProgramAssociationServiceExtension_ServiceSettingDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "ServiceSettingDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "ServiceSettingDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceSettingDescriptorId",
-            "postgreSql": "ServiceSettingDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentProgramAssociationServiceExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "ServiceSettingDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "A description of when the service occurs. Required for Community School Programs (CSP) if the service occurred outside of the instructional day.  Otherwise value should not be populated.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceSettingDescriptorId",
-            "postgreSql": "ServiceSettingDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentProgramAssociationServiceExtension_ServiceSettingDescriptor",
-        "postgreSql": "FK_beb1a6_ServiceSettingDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentProgramAssociationServiceExtension_StudentProgramAssociationService"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentProgramAssociationService"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramEducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramEducationOrganizationId",
-            "postgreSql": "ProgramEducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        },
-        {
-          "propertyName": "ServiceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Indicates the Service being provided to the student by the Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceDescriptorId",
-            "postgreSql": "ServiceDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentProgramAssociationServiceExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramEducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramEducationOrganizationId",
-            "postgreSql": "ProgramEducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        },
-        {
-          "propertyName": "ServiceDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Indicates the Service being provided to the student by the Program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ServiceDescriptorId",
-            "postgreSql": "ServiceDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentProgramAssociationServiceExtension_StudentProgramAssociationService",
-        "postgreSql": "FK_beb1a6_StudentProgramAssociationService"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSchoolAggregateSectionAttendance_School"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "School"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSchoolAggregateSectionAttendance"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to a school.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolId",
-            "postgreSql": "SchoolId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSchoolAggregateSectionAttendance_School",
-        "postgreSql": "FK_7a0db5_School"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSchoolAggregateSectionAttendance_SchoolYearType"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "SchoolYearType"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "Key for School Year",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSchoolAggregateSectionAttendance"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SchoolYear",
-          "propertyType": {
-            "dbType": "Int16",
-            "maxLength": 0,
-            "precision": 5,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The school year the student earned the award.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SchoolYear",
-            "postgreSql": "SchoolYear"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSchoolAggregateSectionAttendance_SchoolYearType",
-        "postgreSql": "FK_7a0db5_SchoolYearType"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSchoolAggregateSectionAttendance_Student"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Student"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSchoolAggregateSectionAttendance"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSchoolAggregateSectionAttendance_Student",
-        "postgreSql": "FK_7a0db5_Student"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
         "name": "FK_StudentSchoolFoodServiceProgramAssociationExtension_DirectCertificationStatusDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -9828,6 +7673,416 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationEventReasonDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "SpecialEducationEventReasonDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationEventReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationEventReasonDescriptorId",
+            "postgreSql": "SpecialEducationEventReasonDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationAssociationEvent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationEventReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The special education event reason.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationEventReasonDescriptorId",
+            "postgreSql": "SpecialEducationEventReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationEventReasonDescriptor",
+        "postgreSql": "FK_1d3500_SpecialEducationEventReasonDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationEventTypeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "SpecialEducationEventTypeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationEventTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationEventTypeDescriptorId",
+            "postgreSql": "SpecialEducationEventTypeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationAssociationEvent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationEventTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The special education event type.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationEventTypeDescriptorId",
+            "postgreSql": "SpecialEducationEventTypeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationEventTypeDescriptor",
+        "postgreSql": "FK_1d3500_SpecialEducationEventTypeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationNonComplianceReasonDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "SpecialEducationNonComplianceReasonDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationNonComplianceReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationNonComplianceReasonDescriptorId",
+            "postgreSql": "SpecialEducationNonComplianceReasonDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationAssociationEvent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationNonComplianceReasonDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The special education non compliance reason.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationNonComplianceReasonDescriptorId",
+            "postgreSql": "SpecialEducationNonComplianceReasonDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationAssociationEvent_SpecialEducationNonComplianceReasonDescriptor",
+        "postgreSql": "FK_1d3500_SpecialEducationNonComplianceReasonDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationAssociationEvent_StudentSpecialEducationProgramAssociation"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociation"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationAssociationEvent"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationAssociationEvent_StudentSpecialEducationProgramAssociation",
+        "postgreSql": "FK_1d3500_StudentSpecialEducationProgramAssociation"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentSpecialEducationProgramAssociationExtension_AnnualReviewDelayReasonDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -9882,6 +8137,66 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_AnnualReviewDelayReasonDescriptor",
         "postgreSql": "FK_3da84f_AnnualReviewDelayReasonDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationExtension_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ChildCountEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ChildCountEducationOrganizationId",
+            "postgreSql": "ChildCountEducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_EducationOrganization",
+        "postgreSql": "FK_3da84f_EducationOrganization"
       },
       "potentiallyLogical": false
     },
@@ -10122,6 +8437,66 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_PrimaryAreaOfExceptionalityDescriptor",
         "postgreSql": "FK_3da84f_PrimaryAreaOfExceptionalityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationExtension_SpecialEducationReferralCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "SpecialEducationReferralCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationReferralCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationReferralCodeDescriptorId",
+            "postgreSql": "SpecialEducationReferralCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "SpecialEducationReferralCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Required if the child was referred from Part C to B or thru Child Find.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationReferralCodeDescriptorId",
+            "postgreSql": "SpecialEducationReferralCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_SpecialEducationReferralCodeDescriptor",
+        "postgreSql": "FK_3da84f_SpecialEducationReferralCodeDescriptor"
       },
       "potentiallyLogical": false
     },
@@ -10411,416 +8786,6 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_TriennialReviewDelayReasonDescriptor",
         "postgreSql": "FK_3da84f_TriennialReviewDelayReasonDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventReasonDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "SpecialEducationEventReasonDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationEventReasonDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationEventReasonDescriptorId",
-            "postgreSql": "SpecialEducationEventReasonDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationEventReasonDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The special education event reason.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationEventReasonDescriptorId",
-            "postgreSql": "SpecialEducationEventReasonDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventReasonDescriptor",
-        "postgreSql": "FK_c2cadc_SpecialEducationEventReasonDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventTypeDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "SpecialEducationEventTypeDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationEventTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationEventTypeDescriptorId",
-            "postgreSql": "SpecialEducationEventTypeDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationEventTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The special education event type.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationEventTypeDescriptorId",
-            "postgreSql": "SpecialEducationEventTypeDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationEventTypeDescriptor",
-        "postgreSql": "FK_c2cadc_SpecialEducationEventTypeDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationNonComplianceReasonDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "SpecialEducationNonComplianceReasonDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationNonComplianceReasonDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationNonComplianceReasonDescriptorId",
-            "postgreSql": "SpecialEducationNonComplianceReasonDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "SpecialEducationNonComplianceReasonDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The special education non compliance reason.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "SpecialEducationNonComplianceReasonDescriptorId",
-            "postgreSql": "SpecialEducationNonComplianceReasonDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_SpecialEducationNonComplianceReasonDescriptor",
-        "postgreSql": "FK_c2cadc_SpecialEducationNonComplianceReasonDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_StudentSpecialEducationProgramAssociation"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "StudentSpecialEducationProgramAssociation"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramEducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramEducationOrganizationId",
-            "postgreSql": "ProgramEducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "BeginDate",
-          "propertyType": {
-            "dbType": "Date",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BeginDate",
-            "postgreSql": "BeginDate"
-          }
-        },
-        {
-          "propertyName": "EducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "EducationOrganizationId",
-            "postgreSql": "EducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramEducationOrganizationId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The identifier assigned to an education organization.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramEducationOrganizationId",
-            "postgreSql": "ProgramEducationOrganizationId"
-          }
-        },
-        {
-          "propertyName": "ProgramName",
-          "propertyType": {
-            "dbType": "String",
-            "maxLength": 60,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramName",
-            "postgreSql": "ProgramName"
-          }
-        },
-        {
-          "propertyName": "ProgramTypeDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "The type of program.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "ProgramTypeDescriptorId",
-            "postgreSql": "ProgramTypeDescriptorId"
-          }
-        },
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_StudentSpecialEducationProgramAssociation",
-        "postgreSql": "FK_c2cadc_StudentSpecialEducationProgramAssociation"
       },
       "potentiallyLogical": false
     },

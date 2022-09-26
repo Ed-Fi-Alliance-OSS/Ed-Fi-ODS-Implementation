@@ -24,3 +24,10 @@ integer ActivityHours
 integer StaffCreditsEarned
   documentation "The credits earned by the staff."
   is optional
+bool MentorTraining
+    documentation "This data will be used to determine whether the Mentor has completed a Mentor Training."
+    is optional
+shared string EdFi.UniqueId
+    documentation "The staff ID of the mentor"
+    is optional
+    role name MentorId

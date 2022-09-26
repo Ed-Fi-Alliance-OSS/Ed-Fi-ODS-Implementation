@@ -11,26 +11,14 @@ BEGIN TRANSACTION
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StaffEducationOrganizationDigitalEquity') AND name = N'UX_StaffEducationOrganizationDigitalEquity_ChangeVersion')
-    CREATE INDEX [UX_StaffEducationOrganizationDigitalEquity_ChangeVersion] ON [nmped].[StaffEducationOrganizationDigitalEquity] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
     IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentEducationOrganizationAward') AND name = N'UX_StudentEducationOrganizationAward_ChangeVersion')
     CREATE INDEX [UX_StudentEducationOrganizationAward_ChangeVersion] ON [nmped].[StudentEducationOrganizationAward] ([ChangeVersion] ASC)
     GO
 COMMIT
 
 BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSchoolAggregateSectionAttendance') AND name = N'UX_StudentSchoolAggregateSectionAttendance_ChangeVersion')
-    CREATE INDEX [UX_StudentSchoolAggregateSectionAttendance_ChangeVersion] ON [nmped].[StudentSchoolAggregateSectionAttendance] ([ChangeVersion] ASC)
-    GO
-COMMIT
-
-BEGIN TRANSACTION
-    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent') AND name = N'UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion')
-    CREATE INDEX [UX_StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent_ChangeVersion] ON [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent] ([ChangeVersion] ASC)
+    IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'nmped.StudentSpecialEducationAssociationEvent') AND name = N'UX_StudentSpecialEducationAssociationEvent_ChangeVersion')
+    CREATE INDEX [UX_StudentSpecialEducationAssociationEvent_ChangeVersion] ON [nmped].[StudentSpecialEducationAssociationEvent] ([ChangeVersion] ASC)
     GO
 COMMIT
 

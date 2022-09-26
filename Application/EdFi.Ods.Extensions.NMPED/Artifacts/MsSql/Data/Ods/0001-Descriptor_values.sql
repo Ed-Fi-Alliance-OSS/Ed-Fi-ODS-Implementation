@@ -721,6 +721,7 @@ INSERT INTO nmped.NMPEDClassPeriodDescriptor(NMPEDClassPeriodDescriptorId) value
 
 
 /* Service Provider Type Descriptor */
+/* Removed 22-23
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ServiceProviderTypeDescriptor','01','Community-Based Organization','Community-Based Organization');
 INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@@IDENTITY);
@@ -748,9 +749,10 @@ INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId)
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ServiceProviderTypeDescriptor','07','Voluntee','Voluntee');
 INSERT INTO nmped.ServiceProviderTypeDescriptor(ServiceProviderTypeDescriptorId) values (@@IDENTITY);
-
+*/
 
 /*Service Setting*/
+/* Removed 22-23
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ServiceSettingDescriptor','BEFORESCHOOL','BEFORESCHOOL','BEFORESCHOOL');
 INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
@@ -770,6 +772,7 @@ INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/ServiceSettingDescriptor','YEARROUND','YEARROUND','YEARROUND');
 INSERT INTO nmped.ServiceSettingDescriptor(ServiceSettingDescriptorId) values (@@IDENTITY);
+*/
 
 /* Calendar Event Descriptor */
 --DECLARE @@IDENTITY AS Integer;
@@ -3842,7 +3845,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 
 --DisabilityDeterminationSourceTypeDescriptor
-
+/* CHANGED in 22/23 to be an Extension
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/DisabilityDeterminationSourceTypeDescriptor'
 DELETE FROM edfi.DisabilityDeterminationSourceTypeDescriptor
 
@@ -3853,7 +3856,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/DisabilityDeterminationSourceTypeDescriptor','F','Child was referred thru Child Find (NOT Receiving Part C Services)','Child was referred thru Child Find (NOT Receiving Part C Services)');
 	INSERT INTO edfi.DisabilityDeterminationSourceTypeDescriptor (DisabilityDeterminationSourceTypeDescriptorid) values (@@IDENTITY);
-
+*/
 
 --nmped.GenderIdentityDescriptor
 /* 

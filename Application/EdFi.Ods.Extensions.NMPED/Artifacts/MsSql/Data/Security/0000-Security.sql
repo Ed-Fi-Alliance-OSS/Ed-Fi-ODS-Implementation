@@ -41,12 +41,14 @@ VALUES ('staffDevelopment', 'staffDevelopment'
         ,'http://ed-fi.org/ods/identity/claims/nmped/staffDevelopment'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
+/* Removed 22-23
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
 VALUES ('staffEducationOrganizationDigitalEquity', 'staffEducationOrganizationDigitalEquity'
         ,'http://ed-fi.org/ods/identity/claims/nmped/staffEducationOrganizationDigitalEquity'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
+*/
 
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
@@ -55,18 +57,20 @@ VALUES ('studentEducationOrganizationAward', 'studentEducationOrganizationAward'
         ,'http://ed-fi.org/ods/identity/claims/nmped/studentEducationOrganizationAward'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
+/* Removed 22-23
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
 VALUES ('studentSchoolAggregateSectionAttendance', 'studentSchoolAggregateSectionAttendance'
         ,'http://ed-fi.org/ods/identity/claims/nmped/studentSchoolAggregateSectionAttendance'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
+*/
 
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
-VALUES ('studentSpecialEducationProgramAssociationSpecialEducationProgramEvent', 'studentSpecialEducationProgramAssociationSpecialEducationProgramEvent'
-        ,'http://ed-fi.org/ods/identity/claims/nmped/studentSpecialEducationProgramAssociationSpecialEducationProgramEvent'
+VALUES ('studentSpecialEducationAssociationEvent', 'studentSpecialEducationAssociationEvent'
+        ,'http://ed-fi.org/ods/identity/claims/nmped/studentSpecialEducationAssociationEvent'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 
@@ -102,10 +106,6 @@ VALUES ('studentSpecialEducationProgramAssociationSpecialEducationProgramEvent',
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
 ('annualReviewDelayReasonDescriptor','annualReviewDelayReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/annualReviewDelayReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('dentalExaminationVerificationCodeDescriptor','dentalExaminationVerificationCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/dentalExaminationVerificationCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('digitalEquityInternetAccessTypeDescriptor','digitalEquityInternetAccessTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/digitalEquityInternetAccessTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('digitalEquityInternetPerformanceCodeDescriptor','digitalEquityInternetPerformanceCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/digitalEquityInternetPerformanceCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('digitalEquityPrimaryLearningDeviceAccessDescriptor','digitalEquityPrimaryLearningDeviceAccessDescriptor','http://ed-fi.org/ods/identity/claims/nmped/digitalEquityPrimaryLearningDeviceAccessDescriptor',@DescriptorsClaimId,@ApplicationId),
-('digitalEquityPrimaryLearningDeviceTypeDescriptor','digitalEquityPrimaryLearningDeviceTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/digitalEquityPrimaryLearningDeviceTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('directCertificationStatusDescriptor','directCertificationStatusDescriptor','http://ed-fi.org/ods/identity/claims/nmped/directCertificationStatusDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('expectedDiplomaTypeDescriptor','expectedDiplomaTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/expectedDiplomaTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('genderIdentityDescriptor','genderIdentityDescriptor','http://ed-fi.org/ods/identity/claims/nmped/genderIdentityDescriptor',@DescriptorsClaimId,@ApplicationId),
@@ -121,8 +121,6 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('programDeliveryMethodDescriptor','programDeliveryMethodDescriptor','http://ed-fi.org/ods/identity/claims/nmped/programDeliveryMethodDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('programIntensityDescriptor','programIntensityDescriptor','http://ed-fi.org/ods/identity/claims/nmped/programIntensityDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('roadTypeDescriptor','roadTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/roadTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('serviceProviderTypeDescriptor','serviceProviderTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/serviceProviderTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('serviceSettingDescriptor','serviceSettingDescriptor','http://ed-fi.org/ods/identity/claims/nmped/serviceSettingDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventReasonDescriptor','specialEducationEventReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventTypeDescriptor','specialEducationEventTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('levelOfIntegrationDescriptor','levelOfIntegrationDescriptor','http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor',@DescriptorsClaimId,@ApplicationId),

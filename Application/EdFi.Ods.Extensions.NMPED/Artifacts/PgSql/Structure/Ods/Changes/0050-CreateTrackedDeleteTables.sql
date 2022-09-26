@@ -14,38 +14,6 @@ CREATE TABLE tracked_deletes_nmped.DentalExaminationVerificationCodeDescriptor
        CONSTRAINT DentalExaminationVerificationCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.DigitalEquityInternetAccessTypeDescriptor
-(
-       DigitalEquityInternetAccessTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT DigitalEquityInternetAccessTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.DigitalEquityInternetPerformanceCodeDescriptor
-(
-       DigitalEquityInternetPerformanceCodeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT DigitalEquityInternetPerformanceCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.DigitalEquityPrimaryLearningDeviceAccessDescriptor
-(
-       DigitalEquityPrimaryLearningDeviceAccessDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT DigitalEquityPrimaryLearningDeviceAccessDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.DigitalEquityPrimaryLearningDeviceTypeDescriptor
-(
-       DigitalEquityPrimaryLearningDeviceTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT DigitalEquityPrimaryLearningDeviceTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.DirectCertificationStatusDescriptor
 (
        DirectCertificationStatusDescriptorId INT NOT NULL,
@@ -185,22 +153,6 @@ CREATE TABLE tracked_deletes_nmped.RoadTypeDescriptor
        CONSTRAINT RoadTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.ServiceProviderTypeDescriptor
-(
-       ServiceProviderTypeDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT ServiceProviderTypeDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.ServiceSettingDescriptor
-(
-       ServiceSettingDescriptorId INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT ServiceSettingDescriptor_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.SpecialEducationEventReasonDescriptor
 (
        SpecialEducationEventReasonDescriptorId INT NOT NULL,
@@ -223,6 +175,14 @@ CREATE TABLE tracked_deletes_nmped.SpecialEducationNonComplianceReasonDescriptor
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
        CONSTRAINT SpecialEducationNonComplianceReasonDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
+CREATE TABLE tracked_deletes_nmped.SpecialEducationReferralCodeDescriptor
+(
+       SpecialEducationReferralCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT SpecialEducationReferralCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.SpecialProgramCodeDescriptor
@@ -259,17 +219,6 @@ CREATE TABLE tracked_deletes_nmped.StaffDevelopmentPurposeCodeDescriptor
        CONSTRAINT StaffDevelopmentPurposeCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.StaffEducationOrganizationDigitalEquity
-(
-       EducationOrganizationId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StaffUSI INT NOT NULL,
-       StartDate DATE NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StaffEducationOrganizationDigitalEquity_PK PRIMARY KEY (ChangeVersion)
-);
-
 CREATE TABLE tracked_deletes_nmped.StudentAwardTypeDescriptor
 (
        StudentAwardTypeDescriptorId INT NOT NULL,
@@ -291,18 +240,7 @@ CREATE TABLE tracked_deletes_nmped.StudentEducationOrganizationAward
        CONSTRAINT StudentEducationOrganizationAward_PK PRIMARY KEY (ChangeVersion)
 );
 
-CREATE TABLE tracked_deletes_nmped.StudentSchoolAggregateSectionAttendance
-(
-       BeginDate DATE NOT NULL,
-       SchoolId INT NOT NULL,
-       SchoolYear SMALLINT NOT NULL,
-       StudentUSI INT NOT NULL,
-       Id UUID NOT NULL,
-       ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StudentSchoolAggregateSectionAttendance_PK PRIMARY KEY (ChangeVersion)
-);
-
-CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_c2cadc
+CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationAssociationEvent
 (
        BeginDate DATE NOT NULL,
        EducationOrganizationId INT NOT NULL,
@@ -314,7 +252,7 @@ CREATE TABLE tracked_deletes_nmped.StudentSpecialEducationProgramAssociationSpec
        StudentUSI INT NOT NULL,
        Id UUID NOT NULL,
        ChangeVersion BIGINT NOT NULL,
-       CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_c2cadc_PK PRIMARY KEY (ChangeVersion)
+       CONSTRAINT StudentSpecialEducationAssociationEvent_PK PRIMARY KEY (ChangeVersion)
 );
 
 CREATE TABLE tracked_deletes_nmped.TransportationCategoryDescriptor

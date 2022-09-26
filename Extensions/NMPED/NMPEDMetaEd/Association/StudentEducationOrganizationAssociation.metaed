@@ -8,6 +8,3 @@ Association EdFi.StudentEducationOrganizationAssociation additions
     descriptor MilitaryFamily
         documentation "Indicator to identify the military stuats of the student's family"
         is optional
-    common extension EdFi.StudentCharacteristic
-            documentation "This collection provides extended fields to record LevelOfIntegration for Gifted Students"
-            is optional collection
