@@ -1,0 +1,17 @@
+Domain Entity StudentSpecialEducationAssociationEvent
+    documentation "Program Events for Student Special Education associations."
+    association EdFi.StudentSpecialEducationProgramAssociation
+        documentation "The student program association."
+        is part of identity
+    date EventDate
+        documentation "The date of the event."
+        is part of identity
+    descriptor SpecialEducationEventType
+        documentation "The special education event type."
+        is part of identity
+    descriptor SpecialEducationEventReason
+        documentation "The special education event reason."
+        is optional
+    descriptor SpecialEducationNonComplianceReason
+        documentation "The special education non compliance reason."
+        is optional
