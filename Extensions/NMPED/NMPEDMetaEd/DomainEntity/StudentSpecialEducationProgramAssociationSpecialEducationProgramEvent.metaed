@@ -1,5 +1,5 @@
 Domain Entity StudentSpecialEducationProgramAssociationSpecialEducationProgramEvent
-    documentation "This is documentation."
+    documentation "Program Events for Student Special Education associations."
     association EdFi.StudentSpecialEducationProgramAssociation
         documentation "The student program association."
         is part of identity

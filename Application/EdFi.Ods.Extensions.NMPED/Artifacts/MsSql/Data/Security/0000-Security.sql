@@ -140,3 +140,4 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('vehicleFuelTypeDescriptor','vehicleFuelTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleFuelTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleRouteDescriptor','vehicleRouteDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleRouteDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleTypeDescriptor','vehicleTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleTypeDescriptor',@DescriptorsClaimId,@ApplicationId);
+('specialEducationReferralCodeDescriptor','specialEducationReferralCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationReferralCodeDescriptor',@DescriptorsClaimId,@ApplicationId);
