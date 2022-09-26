@@ -13289,7 +13289,7 @@ INSERT INTO [edfi].[EducationOrganizationCategory]
 (35004939, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'SS')),
 (35004990, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS')),
 (35004992, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'PREK')),
-/* (35004993, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'CO')),
+(35004993, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'CO')),
 (35004998, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'CO')), 
 (35005054, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'ES')),
 (35005055, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/SchoolCategoryDescriptor' AND CodeValue = 'HS')),
