@@ -200,14 +200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35001000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35002000,
            'Child participating in the Early Childhood 3Y Program',
@@ -400,14 +400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35002000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35003000,
            'Child participating in the Early Childhood 3Y Program',
@@ -600,14 +600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35003000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+), */
 (
 	    35004000,
            'Child participating in the Early Childhood 3Y Program',
@@ -800,14 +800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35004000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35005000,
            'Child participating in the Early Childhood 3Y Program',
@@ -1000,14 +1000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35005000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35006000,
            'Child participating in the Early Childhood 3Y Program',
@@ -1200,14 +1200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35006000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35007000,
            'Child participating in the Early Childhood 3Y Program',
@@ -1400,14 +1400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35007000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35008000,
            'Child participating in the Early Childhood 3Y Program',
@@ -1600,14 +1600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35008000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35009000,
            'Child participating in the Early Childhood 3Y Program',
@@ -1800,14 +1800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+ /*          
 (          35009000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35010000,
            'Child participating in the Early Childhood 3Y Program',
@@ -2000,14 +2000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35010000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),  */
 (
 	    35011000,
            'Child participating in the Early Childhood 3Y Program',
@@ -2200,14 +2200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35011000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35012000,
            'Child participating in the Early Childhood 3Y Program',
@@ -2400,14 +2400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35012000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35013000,
            'Child participating in the Early Childhood 3Y Program',
@@ -2600,14 +2600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35013000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35014000,
            'Child participating in the Early Childhood 3Y Program',
@@ -2800,14 +2800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35014000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35015000,
            'Child participating in the Early Childhood 3Y Program',
@@ -3000,14 +3000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35015000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35016000,
            'Child participating in the Early Childhood 3Y Program',
@@ -3200,14 +3200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35016000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35017000,
            'Child participating in the Early Childhood 3Y Program',
@@ -3400,14 +3400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35017000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35018000,
            'Child participating in the Early Childhood 3Y Program',
@@ -3600,14 +3600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35018000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35019000,
            'Child participating in the Early Childhood 3Y Program',
@@ -3800,14 +3800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35019000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35020000,
            'Child participating in the Early Childhood 3Y Program',
@@ -4000,14 +4000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35020000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35021000,
            'Child participating in the Early Childhood 3Y Program',
@@ -4200,14 +4200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35021000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35022000,
            'Child participating in the Early Childhood 3Y Program',
@@ -4400,14 +4400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35022000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35023000,
            'Child participating in the Early Childhood 3Y Program',
@@ -4600,14 +4600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35023000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35024000,
            'Child participating in the Early Childhood 3Y Program',
@@ -4800,14 +4800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35024000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35025000,
            'Child participating in the Early Childhood 3Y Program',
@@ -5000,14 +5000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35025000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35026000,
            'Child participating in the Early Childhood 3Y Program',
@@ -5200,14 +5200,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35026000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35027000,
            'Child participating in the Early Childhood 3Y Program',
@@ -5400,14 +5400,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35027000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35028000,
            'Child participating in the Early Childhood 3Y Program',
@@ -5600,14 +5600,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35028000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35029000,
            'Child participating in the Early Childhood 3Y Program',
@@ -5800,14 +5800,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35029000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35030000,
            'Child participating in the Early Childhood 3Y Program',
@@ -6000,14 +6000,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35030000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35031000,
            'Child participating in the Early Childhood 3Y Program',
@@ -6210,14 +6210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35031000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35032000,
            'Child participating in the Early Childhood 3Y Program',
@@ -6410,14 +6410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35032000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35033000,
            'Child participating in the Early Childhood 3Y Program',
@@ -6610,14 +6610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35033000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35034000,
            'Child participating in the Early Childhood 3Y Program',
@@ -6810,14 +6810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35034000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35035000,
            'Child participating in the Early Childhood 3Y Program',
@@ -7010,14 +7010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35035000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35036000,
            'Child participating in the Early Childhood 3Y Program',
@@ -7210,14 +7210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35036000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35037000,
            'Child participating in the Early Childhood 3Y Program',
@@ -7410,14 +7410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35037000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35038000,
            'Child participating in the Early Childhood 3Y Program',
@@ -7610,14 +7610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35038000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35039000,
            'Child participating in the Early Childhood 3Y Program',
@@ -7810,14 +7810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35039000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35040000,
            'Child participating in the Early Childhood 3Y Program',
@@ -8010,14 +8010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35040000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35041000,
            'Child participating in the Early Childhood 3Y Program',
@@ -8210,14 +8210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35041000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35042000,
            'Child participating in the Early Childhood 3Y Program',
@@ -8410,14 +8410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35042000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35043000,
            'Child participating in the Early Childhood 3Y Program',
@@ -8610,14 +8610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35043000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35044000,
            'Child participating in the Early Childhood 3Y Program',
@@ -8810,14 +8810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35044000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35045000,
            'Child participating in the Early Childhood 3Y Program',
@@ -9010,14 +9010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35045000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+), */
 (
 	    35046000,
            'Child participating in the Early Childhood 3Y Program',
@@ -9210,14 +9210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35046000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35047000,
            'Child participating in the Early Childhood 3Y Program',
@@ -9410,14 +9410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35047000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35048000,
            'Child participating in the Early Childhood 3Y Program',
@@ -9610,14 +9610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35048000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35049000,
            'Child participating in the Early Childhood 3Y Program',
@@ -9810,14 +9810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35049000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35050000,
            'Child participating in the Early Childhood 3Y Program',
@@ -10010,14 +10010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35050000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35051000,
            'Child participating in the Early Childhood 3Y Program',
@@ -10210,14 +10210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35051000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35052000,
            'Child participating in the Early Childhood 3Y Program',
@@ -10410,14 +10410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35052000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35053000,
            'Child participating in the Early Childhood 3Y Program',
@@ -10610,14 +10610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35053000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35054000,
            'Child participating in the Early Childhood 3Y Program',
@@ -10810,14 +10810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35054000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35055000,
            'Child participating in the Early Childhood 3Y Program',
@@ -11010,14 +11010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35055000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35056000,
            'Child participating in the Early Childhood 3Y Program',
@@ -11210,14 +11210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35056000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35057000,
            'Child participating in the Early Childhood 3Y Program',
@@ -11410,14 +11410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35057000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35058000,
            'Child participating in the Early Childhood 3Y Program',
@@ -11610,14 +11610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35058000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+), */
 (
 	    35059000,
            'Child participating in the Early Childhood 3Y Program',
@@ -11810,14 +11810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35059000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35060000,
            'Child participating in the Early Childhood 3Y Program',
@@ -12010,14 +12010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35060000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+), */
 (
 	    35061000,
            'Child participating in the Early Childhood 3Y Program',
@@ -12210,14 +12210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35061000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35062000,
            'Child participating in the Early Childhood 3Y Program',
@@ -12410,14 +12410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35062000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35063000,
            'Child participating in the Early Childhood 3Y Program',
@@ -12610,14 +12610,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35063000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35064000,
            'Child participating in the Early Childhood 3Y Program',
@@ -12810,14 +12810,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35064000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35065000,
            'Child participating in the Early Childhood 3Y Program',
@@ -13010,14 +13010,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35065000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35066000,
            'Child participating in the Early Childhood 3Y Program',
@@ -13210,14 +13210,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35066000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35067000,
            'Child participating in the Early Childhood 3Y Program',
@@ -13410,14 +13410,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35067000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35068000,
            'Child participating in the Early Childhood 3Y Program',
@@ -13620,14 +13620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35068000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35069000,
            'Child participating in the Early Childhood 3Y Program',
@@ -13820,14 +13820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35069000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35070000,
            'Child participating in the Early Childhood 3Y Program',
@@ -14020,14 +14020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35070000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35071000,
            'Child participating in the Early Childhood 3Y Program',
@@ -14220,14 +14220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35071000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35072000,
            'Child participating in the Early Childhood 3Y Program',
@@ -14420,14 +14420,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35072000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35073000,
            'Child participating in the Early Childhood 3Y Program',
@@ -14620,14 +14620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35073000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35074000,
            'Child participating in the Early Childhood 3Y Program',
@@ -14820,14 +14820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35074000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35075000,
            'Child participating in the Early Childhood 3Y Program',
@@ -15020,14 +15020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35075000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35076000,
            'Child participating in the Early Childhood 3Y Program',
@@ -15220,14 +15220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35076000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35077000,
            'Child participating in the Early Childhood 3Y Program',
@@ -15420,14 +15420,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35077000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35078000,
            'Child participating in the Early Childhood 3Y Program',
@@ -15620,14 +15620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35078000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35079000,
            'Child participating in the Early Childhood 3Y Program',
@@ -15820,14 +15820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35079000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35080000,
            'Child participating in the Early Childhood 3Y Program',
@@ -16020,14 +16020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35080000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35081000,
            'Child participating in the Early Childhood 3Y Program',
@@ -16220,14 +16220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35081000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35082000,
            'Child participating in the Early Childhood 3Y Program',
@@ -16420,14 +16420,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35082000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35083000,
            'Child participating in the Early Childhood 3Y Program',
@@ -16620,14 +16620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35083000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35084000,
            'Child participating in the Early Childhood 3Y Program',
@@ -16820,14 +16820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35084000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35085000,
            'Child participating in the Early Childhood 3Y Program',
@@ -17020,14 +17020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35085000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35086000,
            'Child participating in the Early Childhood 3Y Program',
@@ -17220,14 +17220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35086000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35087000,
            'Child participating in the Early Childhood 3Y Program',
@@ -17420,14 +17420,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35087000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35088000,
            'Child participating in the Early Childhood 3Y Program',
@@ -17620,14 +17620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35088000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35089000,
            'Child participating in the Early Childhood 3Y Program',
@@ -17820,14 +17820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35089000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35501000,
            'Child participating in the Early Childhood 3Y Program',
@@ -18020,14 +18020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35501000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35503000,
            'Child participating in the Early Childhood 3Y Program',
@@ -18220,14 +18220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35503000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35504000,
            'Child participating in the Early Childhood 3Y Program',
@@ -18420,14 +18420,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35504000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35505000,
            'Child participating in the Early Childhood 3Y Program',
@@ -18620,14 +18620,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35505000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35509000,
            'Child participating in the Early Childhood 3Y Program',
@@ -18820,14 +18820,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35509000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35510000,
            'Child participating in the Early Childhood 3Y Program',
@@ -19020,14 +19020,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35510000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35511000,
            'Child participating in the Early Childhood 3Y Program',
@@ -19220,14 +19220,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35511000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35512000,
            'Child participating in the Early Childhood 3Y Program',
@@ -19419,15 +19419,16 @@ INSERT INTO [edfi].[Program]
            'T8',
            GETDATE(),
            GETDATE()
-),
-           
+)
+           /*,
 (          35512000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-);
+)*/
+;
 
 INSERT INTO [edfi].[Program]
            ([EducationOrganizationId]
@@ -19630,14 +19631,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35515000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35516000,
            'Child participating in the Early Childhood 3Y Program',
@@ -19830,14 +19831,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+         /*  
 (          35516000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35517000,
            'Child participating in the Early Childhood 3Y Program',
@@ -20030,14 +20031,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35517000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+) ,*/
 (
 	    35518000,
            'Child participating in the Early Childhood 3Y Program',
@@ -20230,14 +20231,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35518000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+) ,*/
 (
 	    35519000,
            'Child participating in the Early Childhood 3Y Program',
@@ -20430,14 +20431,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35519000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+) ,*/
 (
 	    35520000,
            'Child participating in the Early Childhood 3Y Program',
@@ -20630,14 +20631,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35520000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35521000,
            'Child participating in the Early Childhood 3Y Program',
@@ -20830,14 +20831,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35521000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35524000,
            'Child participating in the Early Childhood 3Y Program',
@@ -21030,14 +21031,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35524000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35525000,
            'Child participating in the Early Childhood 3Y Program',
@@ -21230,14 +21231,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35525000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35528000,
            'Child participating in the Early Childhood 3Y Program',
@@ -21430,14 +21431,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35528000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35529000,
            'Child participating in the Early Childhood 3Y Program',
@@ -21640,14 +21641,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35529000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35530000,
            'Child participating in the Early Childhood 3Y Program',
@@ -21840,14 +21841,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35530000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35531000,
            'Child participating in the Early Childhood 3Y Program',
@@ -22040,14 +22041,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35531000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35532000,
            'Child participating in the Early Childhood 3Y Program',
@@ -22240,14 +22241,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35532000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35535000,
            'Child participating in the Early Childhood 3Y Program',
@@ -22440,14 +22441,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35535000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35536000,
            'Child participating in the Early Childhood 3Y Program',
@@ -22640,14 +22641,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35536000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35539000,
            'Child participating in the Early Childhood 3Y Program',
@@ -22840,14 +22841,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35539000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35542000,
            'Child participating in the Early Childhood 3Y Program',
@@ -23041,13 +23042,13 @@ INSERT INTO [edfi].[Program]
            GETDATE()
 ),
            
-(          35542000,
+/*(          35542000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35544000,
            'Child participating in the Early Childhood 3Y Program',
@@ -23240,14 +23241,13 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
-(          35544000,
+/*(          35544000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35546000,
            'Child participating in the Early Childhood 3Y Program',
@@ -23440,14 +23440,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+    /*       
 (          35546000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35547000,
            'Child participating in the Early Childhood 3Y Program',
@@ -23640,14 +23640,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+      /*     
 (          35547000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35549000,
            'Child participating in the Early Childhood 3Y Program',
@@ -23840,14 +23840,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35549000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35550000,
            'Child participating in the Early Childhood 3Y Program',
@@ -24050,14 +24050,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35550000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35552000,
            'Child participating in the Early Childhood 3Y Program',
@@ -24250,14 +24250,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35552000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35557000,
            'Child participating in the Early Childhood 3Y Program',
@@ -24450,14 +24450,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35557000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35560000,
            'Child participating in the Early Childhood 3Y Program',
@@ -24650,14 +24650,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+    /*       
 (          35560000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35562000,
            'Child participating in the Early Childhood 3Y Program',
@@ -24850,14 +24850,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35562000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35563000,
            'Child participating in the Early Childhood 3Y Program',
@@ -25050,14 +25050,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35563000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35564000,
            'Child participating in the Early Childhood 3Y Program',
@@ -25250,14 +25250,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35564000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35565000,
            'Child participating in the Early Childhood 3Y Program',
@@ -25450,14 +25450,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35565000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35566000,
            'Child participating in the Early Childhood 3Y Program',
@@ -25650,14 +25650,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35566000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35567000,
            'Child participating in the Early Childhood 3Y Program',
@@ -25850,14 +25850,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35567000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35568000,
            'Child participating in the Early Childhood 3Y Program',
@@ -26050,14 +26050,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35568000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35570000,
            'Child participating in the Early Childhood 3Y Program',
@@ -26250,14 +26250,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35570000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35573000,
            'Child participating in the Early Childhood 3Y Program',
@@ -26450,14 +26450,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35573000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35574000,
            'Child participating in the Early Childhood 3Y Program',
@@ -26650,14 +26650,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35574000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35575000,
            'Child participating in the Early Childhood 3Y Program',
@@ -26850,14 +26850,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+           /*
 (          35575000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35576000,
            'Child participating in the Early Childhood 3Y Program',
@@ -27050,14 +27050,14 @@ INSERT INTO [edfi].[Program]
            GETDATE(),
            GETDATE()
 ),
-           
+  /*         
 (          35576000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-),
+),*/
 (
 	    35577000,
            'Child participating in the Early Childhood 3Y Program',
@@ -27249,15 +27249,16 @@ INSERT INTO [edfi].[Program]
            'T8',
            GETDATE(),
            GETDATE()
-),
-           
+)
+           /*,
 (          35577000,
            'Workforce Readiness Program (used by CCRB bureau)',
            (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%ProgramTypeDescriptor%' AND CodeValue='WRP'),
            'WRP',
            GETDATE(),
            GETDATE()
-);
+)*/
+;
 
 INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Homeless', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Homeless'),'Homeless', GETDATE(), GETDATE());
 INSERT INTO [edfi].[Program]([EducationOrganizationId],[ProgramName],[ProgramTypeDescriptorId],[ProgramId],[CreateDate],[LastModifiedDate]) VALUES(35001000, 'Special Education', (SELECT TOP 1 descriptorid from edfi.descriptor WHERE Namespace like '%uri://nmped.org/ProgramTypeDescriptor%' AND CodeValue='Special Education'),'Special Education', GETDATE(), GETDATE());
