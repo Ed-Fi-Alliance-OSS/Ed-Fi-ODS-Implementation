@@ -3622,19 +3622,19 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 /* 22-23 Additions */
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values  ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor', '11', 'Cellular','Cellular');
-	INSERT INTO nmped.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 		
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values  ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor', '12', 'Community Wi-Fi','Community Wi-Fi');
-	INSERT INTO nmped.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 		
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values  ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor', '13', 'Hotspot','Hotspot');
-	INSERT INTO nmped.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 		
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values  ('uri://nmped.org/InternetAccessTypeInResidenceDescriptor', '14', 'Residential Broadband','Residential Broadband');
-	INSERT INTO nmped.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
+	INSERT INTO edfi.InternetAccessTypeInResidenceDescriptor(InternetAccessTypeInResidenceDescriptorId) values (@@IDENTITY);
 /* END 22-23 Additions */
 
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/InternetPerformanceInResidenceDescriptor'
