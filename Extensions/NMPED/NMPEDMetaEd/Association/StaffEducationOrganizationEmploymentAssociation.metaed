@@ -1,0 +1,7 @@
+Association EdFi.StaffEducationOrganizationEmploymentAssociation additions
+    integer TeacherOrPrincipalYearsInDistrict
+        documentation "The total number of years that an individual has previously held a Teacher or Principal position in the current district."
+        is optional
+    integer TeacherOrPrincipalYearsOverall
+          documentation "The total number of years that an individual has previously held a Teacher or Principal position overall."
+          is optional

@@ -3294,18 +3294,6 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/CourseLevelCharacteristicDescriptor','Basic/General','Basic/General','Basic/General');
 	INSERT INTO edfi.CourseLevelCharacteristicDescriptor (CourseLevelCharacteristicDescriptorId) values (@@IDENTITY);
 
-----Program Type Descriptor
-/* 
-	Adding to more closely align with the state reporting manual.
-*/
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/ProgramTypeDescriptor','MENTOR','MENTOR','MENTOR');
-	INSERT INTO edfi.ProgramTypeDescriptor (ProgramTypeDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/ProgramTypeDescriptor','MENTEE','MENTEE','MENTEE');
-	INSERT INTO edfi.ProgramTypeDescriptor (ProgramTypeDescriptorId) values (@@IDENTITY);
 
 ---- Race Descriptor
 /* 

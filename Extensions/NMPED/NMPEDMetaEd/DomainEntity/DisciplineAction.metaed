@@ -1,0 +1,5 @@
+Domain Entity EdFi.DisciplineAction additions
+    string DisciplineActionDetailedResponse
+        documentation "Provide additional information about the response to an incident."
+        is optional
+        max length 1024

@@ -1,7 +1,7 @@
 Domain Entity StaffDevelopment
     documentation "The development activities a staff has accomplished."
 domain entity EdFi.Staff
-    documentation "A reference to the Student."
+    documentation "A reference to the Staff member."
     is part of identity
 domain entity EdFi.EducationOrganization
     documentation "A reference to the Education Organization representing the context of the student information."
