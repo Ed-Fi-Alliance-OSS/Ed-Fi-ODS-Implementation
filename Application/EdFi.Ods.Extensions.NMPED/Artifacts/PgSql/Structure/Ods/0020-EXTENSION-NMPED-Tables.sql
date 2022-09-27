@@ -16,6 +16,17 @@ CREATE TABLE nmped.DirectCertificationStatusDescriptor (
     CONSTRAINT DirectCertificationStatusDescriptor_PK PRIMARY KEY (DirectCertificationStatusDescriptorId)
 ); 
 
+-- Table nmped.DisciplineActionExtension --
+CREATE TABLE nmped.DisciplineActionExtension (
+    DisciplineActionIdentifier VARCHAR(20) NOT NULL,
+    DisciplineDate DATE NOT NULL,
+    StudentUSI INT NOT NULL,
+    DisciplineActionDetailedResponse VARCHAR(1024) NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT DisciplineActionExtension_PK PRIMARY KEY (DisciplineActionIdentifier, DisciplineDate, StudentUSI)
+); 
+ALTER TABLE nmped.DisciplineActionExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table nmped.DisciplineIncidentExtension --
 CREATE TABLE nmped.DisciplineIncidentExtension (
     IncidentIdentifier VARCHAR(20) NOT NULL,
@@ -215,6 +226,19 @@ CREATE TABLE nmped.StaffDevelopmentPurposeCodeDescriptor (
     CONSTRAINT StaffDevelopmentPurposeCodeDescriptor_PK PRIMARY KEY (StaffDevelopmentPurposeCodeDescriptorId)
 ); 
 
+-- Table nmped.StaffEducationOrganizationEmploymentAssociationExtension --
+CREATE TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension (
+    EducationOrganizationId INT NOT NULL,
+    EmploymentStatusDescriptorId INT NOT NULL,
+    HireDate DATE NOT NULL,
+    StaffUSI INT NOT NULL,
+    TeacherOrPrincipalYearsInDistrict INT NULL,
+    TeacherOrPrincipalYearsOverall INT NULL,
+    CreateDate TIMESTAMP NOT NULL,
+    CONSTRAINT StaffEducationOrganizationEmploymentAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
+); 
+ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+
 -- Table nmped.StaffExtension --
 CREATE TABLE nmped.StaffExtension (
     StaffUSI INT NOT NULL,
@@ -377,22 +401,6 @@ CREATE TABLE nmped.StudentSpecialEducationProgramAssociationExtension (
     CONSTRAINT StudentSpecialEducationProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
 ALTER TABLE nmped.StudentSpecialEducationProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 --
-CREATE TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 (
-    BeginDate DATE NOT NULL,
-    EducationOrganizationId INT NOT NULL,
-    ProgramEducationOrganizationId INT NOT NULL,
-    ProgramName VARCHAR(60) NOT NULL,
-    ProgramTypeDescriptorId INT NOT NULL,
-    SpecialEducationProgramServiceDescriptorId INT NOT NULL,
-    StudentUSI INT NOT NULL,
-    IntegratedServicesStatus BOOLEAN NULL,
-    ServiceDuration INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentSpecialEducationProgramAssociationSpecialEd_e4dfb8_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, SpecialEducationProgramServiceDescriptorId, StudentUSI)
-); 
-ALTER TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.TransportationCategoryDescriptor --
 CREATE TABLE nmped.TransportationCategoryDescriptor (

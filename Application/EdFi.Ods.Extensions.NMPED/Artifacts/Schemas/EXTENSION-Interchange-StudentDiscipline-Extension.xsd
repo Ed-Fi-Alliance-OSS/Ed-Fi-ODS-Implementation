@@ -12,7 +12,7 @@
       <xs:choice maxOccurs="unbounded">
         <xs:element name="DisciplineIncident" type="EXTENSION-DisciplineIncidentExtension" />
         <xs:element name="StudentDisciplineIncidentAssociation" type="StudentDisciplineIncidentAssociation" />
-        <xs:element name="DisciplineAction" type="DisciplineAction" />
+        <xs:element name="DisciplineAction" type="EXTENSION-DisciplineActionExtension" />
         <xs:element name="StaffDisciplineIncidentAssociation" type="StaffDisciplineIncidentAssociation" />
         <xs:element name="StudentDisciplineIncidentBehaviorAssociation" type="StudentDisciplineIncidentBehaviorAssociation" />
         <xs:element name="StudentDisciplineIncidentNonOffenderAssociation" type="StudentDisciplineIncidentNonOffenderAssociation" />

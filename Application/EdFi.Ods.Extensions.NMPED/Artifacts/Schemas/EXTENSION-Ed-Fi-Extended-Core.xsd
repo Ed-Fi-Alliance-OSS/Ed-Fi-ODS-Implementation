@@ -7,6 +7,25 @@
   <xs:annotation>
     <xs:documentation>===== Domain Entities =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-DisciplineActionExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DisciplineAction">
+        <xs:sequence>
+          <xs:element name="DisciplineActionDetailedResponse" type="EXTENSION-DisciplineActionDetailedResponse" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Provide additional information about the response to an incident.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-DisciplineIncidentExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -136,7 +155,7 @@
         <xs:sequence>
           <xs:element name="StaffReference" type="StaffReferenceType">
             <xs:annotation>
-              <xs:documentation>A reference to the Student.</xs:documentation>
+              <xs:documentation>A reference to the Staff member.</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
@@ -903,6 +922,30 @@
   <xs:annotation>
     <xs:documentation>===== Associations =====</xs:documentation>
   </xs:annotation>
+  <xs:complexType name="EXTENSION-StaffEducationOrganizationEmploymentAssociationExtension">
+    <xs:annotation>
+      <xs:documentation></xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Association</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="StaffEducationOrganizationEmploymentAssociation">
+        <xs:sequence>
+          <xs:element name="TeacherOrPrincipalYearsInDistrict" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of years that an individual has previously held a Teacher or Principal position in the current district.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TeacherOrPrincipalYearsOverall" type="xs:int" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The total number of years that an individual has previously held a Teacher or Principal position overall.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentCTEProgramAssociationExtension">
     <xs:annotation>
       <xs:documentation></xs:documentation>
@@ -1078,7 +1121,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="EXTENSION-StudentSpecialEducationProgramAssociationRestriction">
+      <xs:extension base="StudentSpecialEducationProgramAssociation">
         <xs:sequence>
           <xs:element name="SpecialEducationLevelOfIntegrationLevelOfIntegration" type="EXTENSION-LevelOfIntegrationDescriptorReferenceType">
             <xs:annotation>
@@ -1143,11 +1186,6 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="SpecialEducationProgramService" type="EXTENSION-SpecialEducationProgramServiceExtension" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>This collection provides extended fields to record Special Education Services Fact Template Data.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element name="SpecialEducationReferralCode" type="EXTENSION-SpecialEducationReferralCodeDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Required if the child was referred from Part C to B or thru Child Find.</xs:documentation>
@@ -1163,133 +1201,6 @@
           </xs:element>
         </xs:sequence>
       </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationRestriction">
-    <xs:annotation>
-      <xs:documentation>Restriction to Student Special Education Program Association for replacement of common type with common type extension</xs:documentation>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:restriction base="StudentSpecialEducationProgramAssociation">
-        <xs:sequence>
-          <xs:element name="StudentReference" type="StudentReferenceType">
-            <xs:annotation>
-              <xs:documentation>The Student associated with the Program.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramReference" type="ProgramReferenceType">
-            <xs:annotation>
-              <xs:documentation>The Program associated with the Student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BeginDate" type="xs:date">
-            <xs:annotation>
-              <xs:documentation>The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EndDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The month, day, and year on which the Student exited the Program or stopped receiving services.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ReasonExited" type="ReasonExitedDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The reason the child left the Program within a school or district.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>ReasonExitedDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
-            <xs:annotation>
-              <xs:documentation>The EducationOrganization where the Student is participating in or receiving the Program services.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServedOutsideOfRegularSession" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates whether the Student received services during the summer session or between sessions.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ParticipationStatus" type="ParticipationStatus" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The status of the student's program participation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ProgramParticipationStatus" type="ProgramParticipationStatus" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The status of the student's program participation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="IdeaEligibility" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicator of the eligibility of the student to receive special education services according to the Individuals with Disabilities Education Act (IDEA).</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SpecialEducationSetting" type="SpecialEducationSettingDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The major instructional setting (more than 50 percent of a student's special education program).</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>SpecialEducationSettingDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="ServiceProvider" type="ServiceProvider" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The Staff providing special education services to the Student.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SpecialEducationHoursPerWeek" type="HoursPerWeek" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The number of hours per week for special education instruction and therapy.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="SchoolHoursPerWeek" type="HoursPerWeek" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicate the total number of hours of instructional time per week for the school that the student attends.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="MultiplyDisabled" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates whether the Student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="MedicallyFragile" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates whether the Student receiving special education and related services is:
-                      1) in the age range of birth to 22 years, and
-                      2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and
-                      3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and
-                      4) lives with ongoing threat to his or her continued well-being.
-                      Aligns with federal requirements.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="LastEvaluationDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The date of the last special education evaluation.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="IEPReviewDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The date of the last IEP review.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="IEPBeginDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The effective date of the most recent IEP.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="IEPEndDate" type="xs:date" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The end date of the most recent IEP.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
-            <xs:annotation>
-              <xs:documentation>The disability condition(s) that best describes an individual's impairment, as related to special education services received.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
   <xs:annotation>
@@ -1363,7 +1274,7 @@
     <xs:sequence>
       <xs:element name="StaffReference" type="StaffReferenceType">
         <xs:annotation>
-          <xs:documentation>A reference to the Student.</xs:documentation>
+          <xs:documentation>A reference to the Staff member.</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
@@ -2023,6 +1934,17 @@
     </xs:annotation>
     <xs:restriction base="xs:string">
       <xs:maxLength value="60" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-DisciplineActionDetailedResponse">
+    <xs:annotation>
+      <xs:documentation>Provide additional information about the response to an incident.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="1024" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-LicensePlateNumber">

@@ -13,6 +13,7 @@ DECLARE @DescriptorsClaimId INT
 SELECT @DescriptorsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims] WHERE ResourceName = 'systemDescriptors';
 
 -- *** Extension Claims - Use this section to add NMPED specific additions to the model ***
+-- *** These should include any MetaEd defined extensions that are not "Additions" to and Ed-Fi core model element ***
 
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
@@ -75,6 +76,7 @@ VALUES ('staffEducationOrganizationDigitalEquity', 'staffEducationOrganizationDi
 */
 
 -- *** Descriptors Security -- Adding these under the inherited permissions from System Descriptors ***
+-- *** These inserts should match the MetaEd entries under NMPEDMEtaED.Decriptor ***
 
 
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
@@ -85,6 +87,7 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('genderIdentityDescriptor','genderIdentityDescriptor','http://ed-fi.org/ods/identity/claims/nmped/genderIdentityDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('industryCredentialDescriptor','industryCredentialDescriptor','http://ed-fi.org/ods/identity/claims/nmped/industryCredentialDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('levelOfEducationInstitutionDescriptor','levelOfEducationInstitutionDescriptor','http://ed-fi.org/ods/identity/claims/nmped/levelOfEducationInstitutionDescriptor',@DescriptorsClaimId,@ApplicationId),
+('levelOfIntegrationDescriptor',	'levelOfIntegrationDescriptor',	'http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor', @DescriptorsClaimId,@ApplicationId),
 ('mileageTypeDescriptor','mileageTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/mileageTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('militaryFamilyDescriptor','militaryFamilyDescriptor','http://ed-fi.org/ods/identity/claims/nmped/militaryFamilyDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('nMPEDClassPeriodDescriptor','nMPEDClassPeriodDescriptor','http://ed-fi.org/ods/identity/claims/nmped/nMPEDClassPeriodDescriptor',@DescriptorsClaimId,@ApplicationId),
@@ -97,12 +100,11 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('roadTypeDescriptor','roadTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/roadTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventReasonDescriptor','specialEducationEventReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationEventTypeDescriptor','specialEducationEventTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationEventTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('levelOfIntegrationDescriptor','levelOfIntegrationDescriptor','http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialEducationNonComplianceReasonDescriptor','specialEducationNonComplianceReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationNonComplianceReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
+('specialEducationReferralCodeDescriptor','specialEducationReferralCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationReferralCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('specialProgramCodeDescriptor','specialProgramCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialProgramCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('staffDevelopmentActivityCodeDescriptor','staffDevelopmentActivityCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/staffDevelopmentActivityCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('staffDevelopmentPurposeCodeDescriptor','staffDevelopmentPurposeCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/staffDevelopmentPurposeCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('studentAwardLanguageDescriptor','studentAwardLanguageDescriptor','http://ed-fi.org/ods/identity/claims/nmped/studentAwardLanguageDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('studentAwardTypeDescriptor','studentAwardTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/studentAwardTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('transportationCategoryDescriptor','transportationCategoryDescriptor','http://ed-fi.org/ods/identity/claims/nmped/transportationCategoryDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('transportationSetCodeDescriptor','transportationSetCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/transportationSetCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
@@ -111,9 +113,7 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('vehicleChassisManufacturerDescriptor','vehicleChassisManufacturerDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleChassisManufacturerDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleFuelTypeDescriptor','vehicleFuelTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleFuelTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleRouteDescriptor','vehicleRouteDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleRouteDescriptor',@DescriptorsClaimId,@ApplicationId),
-('vehicleTypeDescriptor','vehicleTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('specialEducationReferralCodeDescriptor','specialEducationReferralCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationReferralCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('levelOfIntegrationDescriptor',	'levelOfIntegrationDescriptor',	'http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor', @DescriptorsClaimId,@ApplicationId);
+('vehicleTypeDescriptor','vehicleTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleTypeDescriptor',@DescriptorsClaimId,@ApplicationId);
 
 
 

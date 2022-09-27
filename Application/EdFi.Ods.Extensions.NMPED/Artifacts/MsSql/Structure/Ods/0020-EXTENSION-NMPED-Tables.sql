@@ -25,6 +25,23 @@ CREATE TABLE [nmped].[DirectCertificationStatusDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[DisciplineActionExtension] --
+CREATE TABLE [nmped].[DisciplineActionExtension] (
+    [DisciplineActionIdentifier] [NVARCHAR](20) NOT NULL,
+    [DisciplineDate] [DATE] NOT NULL,
+    [StudentUSI] [INT] NOT NULL,
+    [DisciplineActionDetailedResponse] [NVARCHAR](1024) NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [DisciplineActionExtension_PK] PRIMARY KEY CLUSTERED (
+        [DisciplineActionIdentifier] ASC,
+        [DisciplineDate] ASC,
+        [StudentUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[DisciplineActionExtension] ADD CONSTRAINT [DisciplineActionExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [nmped].[DisciplineIncidentExtension] --
 CREATE TABLE [nmped].[DisciplineIncidentExtension] (
     [IncidentIdentifier] [NVARCHAR](20) NOT NULL,
@@ -320,6 +337,26 @@ CREATE TABLE [nmped].[StaffDevelopmentPurposeCodeDescriptor] (
 ) ON [PRIMARY]
 GO
 
+-- Table [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] --
+CREATE TABLE [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] (
+    [EducationOrganizationId] [INT] NOT NULL,
+    [EmploymentStatusDescriptorId] [INT] NOT NULL,
+    [HireDate] [DATE] NOT NULL,
+    [StaffUSI] [INT] NOT NULL,
+    [TeacherOrPrincipalYearsInDistrict] [INT] NULL,
+    [TeacherOrPrincipalYearsOverall] [INT] NULL,
+    [CreateDate] [DATETIME2] NOT NULL,
+    CONSTRAINT [StaffEducationOrganizationEmploymentAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+        [EducationOrganizationId] ASC,
+        [EmploymentStatusDescriptorId] ASC,
+        [HireDate] ASC,
+        [StaffUSI] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+ALTER TABLE [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] ADD CONSTRAINT [StaffEducationOrganizationEmploymentAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+
 -- Table [nmped].[StaffExtension] --
 CREATE TABLE [nmped].[StaffExtension] (
     [StaffUSI] [INT] NOT NULL,
@@ -567,32 +604,6 @@ CREATE TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] (
 ) ON [PRIMARY]
 GO
 ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationExtension] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
-GO
-
--- Table [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension] --
-CREATE TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension] (
-    [BeginDate] [DATE] NOT NULL,
-    [EducationOrganizationId] [INT] NOT NULL,
-    [ProgramEducationOrganizationId] [INT] NOT NULL,
-    [ProgramName] [NVARCHAR](60) NOT NULL,
-    [ProgramTypeDescriptorId] [INT] NOT NULL,
-    [SpecialEducationProgramServiceDescriptorId] [INT] NOT NULL,
-    [StudentUSI] [INT] NOT NULL,
-    [IntegratedServicesStatus] [BIT] NULL,
-    [ServiceDuration] [INT] NULL,
-    [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_PK] PRIMARY KEY CLUSTERED (
-        [BeginDate] ASC,
-        [EducationOrganizationId] ASC,
-        [ProgramEducationOrganizationId] ASC,
-        [ProgramName] ASC,
-        [ProgramTypeDescriptorId] ASC,
-        [SpecialEducationProgramServiceDescriptorId] ASC,
-        [StudentUSI] ASC
-    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension] ADD CONSTRAINT [StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
 GO
 
 -- Table [nmped].[TransportationCategoryDescriptor] --

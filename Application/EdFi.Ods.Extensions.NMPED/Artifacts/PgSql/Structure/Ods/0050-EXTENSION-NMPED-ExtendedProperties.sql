@@ -10,6 +10,13 @@ COMMENT ON COLUMN nmped.DentalExaminationVerificationCodeDescriptor.DentalExamin
 COMMENT ON TABLE nmped.DirectCertificationStatusDescriptor IS 'This descriptor describes the type of direct certification statuses.';
 COMMENT ON COLUMN nmped.DirectCertificationStatusDescriptor.DirectCertificationStatusDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[DisciplineActionExtension] --
+COMMENT ON TABLE nmped.DisciplineActionExtension IS '';
+COMMENT ON COLUMN nmped.DisciplineActionExtension.DisciplineActionIdentifier IS 'Identifier assigned by the education organization to the DisciplineAction.';
+COMMENT ON COLUMN nmped.DisciplineActionExtension.DisciplineDate IS 'The date of the DisciplineAction.';
+COMMENT ON COLUMN nmped.DisciplineActionExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.DisciplineActionExtension.DisciplineActionDetailedResponse IS 'Provide additional information about the response to an incident.';
+
 -- Extended Properties [nmped].[DisciplineIncidentExtension] --
 COMMENT ON TABLE nmped.DisciplineIncidentExtension IS '';
 COMMENT ON COLUMN nmped.DisciplineIncidentExtension.IncidentIdentifier IS 'A locally assigned unique identifier (within the school or school district) to identify each specific DisciplineIncident or occurrence. The same identifier should be used to document the entire DisciplineIncident even if it included multiple offenses and multiple offenders.';
@@ -139,6 +146,21 @@ COMMENT ON COLUMN nmped.StaffDevelopmentActivityCodeDescriptor.StaffDevelopmentA
 COMMENT ON TABLE nmped.StaffDevelopmentPurposeCodeDescriptor IS 'This descriptor describes the staff development purpose.';
 COMMENT ON COLUMN nmped.StaffDevelopmentPurposeCodeDescriptor.StaffDevelopmentPurposeCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
+-- Extended Properties [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] --
+COMMENT ON TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension IS '';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.EmploymentStatusDescriptorId IS 'Reflects the type of employment or contract; for example:
+        Probationary
+        Contractual
+        Substitute/temporary
+        Tenured or permanent
+        Volunteer/no contract
+        ...';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.HireDate IS 'The month, day, and year on which an individual was hired for a position.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.TeacherOrPrincipalYearsInDistrict IS 'The total number of years that an individual has previously held a Teacher or Principal position in the current district.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.TeacherOrPrincipalYearsOverall IS 'The total number of years that an individual has previously held a Teacher or Principal position overall.';
+
 -- Extended Properties [nmped].[StaffExtension] --
 COMMENT ON TABLE nmped.StaffExtension IS '';
 COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
@@ -264,18 +286,6 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.Alter
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.PrimaryAreaOfExceptionalityDescriptorId IS 'Identification of a studen''s Primary Exceptionality';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.SpecialEducationReferralCodeDescriptorId IS 'Required if the child was referred from Part C to B or thru Child Find.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.ChildCountEducationOrganizationId IS 'The identifier assigned to an education organization.';
-
--- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8] --
-COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 IS 'This collection provides extended fields to record Special Education Services Fact Template Data.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Special Education Program.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.IntegratedServicesStatus IS 'A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment.';
-COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ServiceDuration IS 'Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly.';
 
 -- Extended Properties [nmped].[TransportationCategoryDescriptor] --
 COMMENT ON TABLE nmped.TransportationCategoryDescriptor IS 'The transportation category type.';
