@@ -88,6 +88,16 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
+    - name: Listing files 
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        Write-Host "generated.cs" -fore GREEN
+        Get-ChildItem $env:GITHUB_WORKSPACE/**/*.generated.cs -Recurse | Select -exp FullName
+        Write-Host "*.generated.hbm.xml" -fore GREEN
+        Get-ChildItem $env:GITHUB_WORKSPACE/**/*.generated.hbm.xml -Recurse | Select -exp FullName
+        Write-Host "*_generated.sql" -fore GREEN
+        Get-ChildItem $env:GITHUB_WORKSPACE/**/*_generated.sql -Recurse | Select -exp FullName
+      shell: pwsh
     - name: Running Test for  codegen Project 
       working-directory: ./Ed-Fi-ODS/    
       run: |
