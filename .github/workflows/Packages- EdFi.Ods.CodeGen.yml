@@ -100,7 +100,9 @@ jobs:
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
         & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
+        Write-Host "ApprovalTests.Generated_File_List.received.txt" -fore GREEN
         Get-Content "D:\a\Ed-Fi-ODS-Implementation\Ed-Fi-ODS-Implementation\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\ApprovalTests.Generated_File_List.received.txt"
+        Write-Host "ApprovalTests.Generated_File_List.approved.txt" -fore GREEN
         Get-Content "D:\a\Ed-Fi-ODS-Implementation\Ed-Fi-ODS-Implementation\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\ApprovalTests.Generated_File_List.approved.txt"
       shell: pwsh
     - name: pack codegen
