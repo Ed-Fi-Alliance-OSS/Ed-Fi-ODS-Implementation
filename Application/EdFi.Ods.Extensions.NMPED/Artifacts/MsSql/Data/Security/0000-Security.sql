@@ -1,4 +1,4 @@
---SELECT @ApplicationId
+-- Setting the application to Ed-Fi ODS API
 DECLARE @ApplicationId INT
 SELECT @ApplicationId = ApplicationId FROM [dbo].[Applications] WHERE ApplicationName = 'Ed-Fi ODS API';
 
@@ -12,7 +12,8 @@ SELECT @PrimaryRelationshipsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims
 DECLARE @DescriptorsClaimId INT
 SELECT @DescriptorsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims] WHERE ResourceName = 'systemDescriptors';
 
--- *** Transportation Claims ***
+-- *** Extension Claims - Use this section to add NMPED specific additions to the model ***
+
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
@@ -41,20 +42,18 @@ VALUES ('staffDevelopment', 'staffDevelopment'
         ,'http://ed-fi.org/ods/identity/claims/nmped/staffDevelopment'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
-/* Removed 22-23
-INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
-								   ,[ClaimName] 
-								   ,[ParentResourceClaimId], [Application_ApplicationId])
-VALUES ('staffEducationOrganizationDigitalEquity', 'staffEducationOrganizationDigitalEquity'
-        ,'http://ed-fi.org/ods/identity/claims/nmped/staffEducationOrganizationDigitalEquity'
-        ,@RelationshipBasedDataClaimId, @ApplicationId);
-*/
-
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
 VALUES ('studentEducationOrganizationAward', 'studentEducationOrganizationAward'
         ,'http://ed-fi.org/ods/identity/claims/nmped/studentEducationOrganizationAward'
+        ,@RelationshipBasedDataClaimId, @ApplicationId);
+		
+INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
+								   ,[ClaimName] 
+								   ,[ParentResourceClaimId], [Application_ApplicationId])
+VALUES ('studentSpecialEducationAssociationEvent', 'studentSpecialEducationAssociationEvent'
+        ,'http://ed-fi.org/ods/identity/claims/nmped/studentSpecialEducationAssociationEvent'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 /* Removed 22-23
@@ -66,42 +65,17 @@ VALUES ('studentSchoolAggregateSectionAttendance', 'studentSchoolAggregateSectio
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 */
 
+/* Removed 22-23
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
-VALUES ('studentSpecialEducationAssociationEvent', 'studentSpecialEducationAssociationEvent'
-        ,'http://ed-fi.org/ods/identity/claims/nmped/studentSpecialEducationAssociationEvent'
+VALUES ('staffEducationOrganizationDigitalEquity', 'staffEducationOrganizationDigitalEquity'
+        ,'http://ed-fi.org/ods/identity/claims/nmped/staffEducationOrganizationDigitalEquity'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
+*/
 
+-- *** Descriptors Security -- Adding these under the inherited permissions from System Descriptors ***
 
--- *** Descriptors Security ***
-	-- Base Parent nmpedDescriptors parent claim
---INSERT INTO [dbo].ResourceClaims ([DisplayName],[ResourceName]
---								 ,[ClaimName],[ParentResourceClaimId],[Application_ApplicationId])
---VALUES ('nmpedDescriptors','nmpedDescriptors',
---		'http://nmped.org/ods/identity/claims/nmped/descriptors',
---		null,@ApplicationId);
-
---DECLARE @NMPEDDescrioptorsClaimId INT
---SELECT @NMPEDDescrioptorsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims] WHERE ResourceName = 'nmpedDescriptors';
----- Insert the ResourceClaimAuthorizationMetadatas: We want these resources to have full CRUD.
---INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas] ([Action_ActionId],[AuthorizationStrategy_AuthorizationStrategyId],ResourceClaim_ResourceClaimId)
---SELECT ActionId, 1, @NMPEDDescrioptorsClaimId
---FROM [dbo].[Actions];
----- Insert the ClaimSetResourceClaims full CRUD for the following claim sets 'SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor'
---INSERT INTO [dbo].[ClaimSetResourceClaims] (Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId)
---SELECT ActionId, ClaimSetId, @NMPEDDescrioptorsClaimId
---	FROM ClaimSets 
---	Join Actions on 1=1
---where ClaimSetName in ('SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor');
-
----- Adding Claim for: vehicle FuelType 
---INSERT INTO [dbo].[ResourceClaims] ( [DisplayName],[ResourceName]
---                                     ,[ClaimName]     
---                                     ,[ParentResourceClaimId],[Application_ApplicationId])
---VALUES ('vehicleFuelType','vehicleFuelType'
---        ,'http://nmped.org/ods/identity/claims/nmped/vehicleFuelType'
---        ,@NMPEDDescrioptorsClaimId,@ApplicationId);
 
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
 ('annualReviewDelayReasonDescriptor','annualReviewDelayReasonDescriptor','http://ed-fi.org/ods/identity/claims/nmped/annualReviewDelayReasonDescriptor',@DescriptorsClaimId,@ApplicationId),
@@ -138,4 +112,39 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('vehicleFuelTypeDescriptor','vehicleFuelTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleFuelTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleRouteDescriptor','vehicleRouteDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleRouteDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('vehicleTypeDescriptor','vehicleTypeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/vehicleTypeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('specialEducationReferralCodeDescriptor','specialEducationReferralCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationReferralCodeDescriptor',@DescriptorsClaimId,@ApplicationId);
+('specialEducationReferralCodeDescriptor','specialEducationReferralCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/specialEducationReferralCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('levelOfIntegrationDescriptor',	'levelOfIntegrationDescriptor',	'http://ed-fi.org/ods/identity/claims/nmped/levelOfIntegrationDescriptor', @DescriptorsClaimId,@ApplicationId);
+
+
+
+-- *** Claim Set Changes to Prevent Create, Update, Delete on EdOrg, Courses, Programs, Descriptors for Sandbox and SIS Vendor Claim Sets ***
+
+
+-- *** Legacy insert methods ***
+	-- Base Parent nmpedDescriptors parent claim
+--INSERT INTO [dbo].ResourceClaims ([DisplayName],[ResourceName]
+--								 ,[ClaimName],[ParentResourceClaimId],[Application_ApplicationId])
+--VALUES ('nmpedDescriptors','nmpedDescriptors',
+--		'http://nmped.org/ods/identity/claims/nmped/descriptors',
+--		null,@ApplicationId);
+
+--DECLARE @NMPEDDescrioptorsClaimId INT
+--SELECT @NMPEDDescrioptorsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims] WHERE ResourceName = 'nmpedDescriptors';
+---- Insert the ResourceClaimAuthorizationMetadatas: We want these resources to have full CRUD.
+--INSERT INTO [dbo].[ResourceClaimAuthorizationMetadatas] ([Action_ActionId],[AuthorizationStrategy_AuthorizationStrategyId],ResourceClaim_ResourceClaimId)
+--SELECT ActionId, 1, @NMPEDDescrioptorsClaimId
+--FROM [dbo].[Actions];
+---- Insert the ClaimSetResourceClaims full CRUD for the following claim sets 'SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor'
+--INSERT INTO [dbo].[ClaimSetResourceClaims] (Action_ActionId,ClaimSet_ClaimSetId,ResourceClaim_ResourceClaimId)
+--SELECT ActionId, ClaimSetId, @NMPEDDescrioptorsClaimId
+--	FROM ClaimSets 
+--	Join Actions on 1=1
+--where ClaimSetName in ('SIS Vendor', 'Ed-Fi Sandbox', 'District Hosted SIS Vendor');
+
+---- Adding Claim for: vehicle FuelType 
+--INSERT INTO [dbo].[ResourceClaims] ( [DisplayName],[ResourceName]
+--                                     ,[ClaimName]     
+--                                     ,[ParentResourceClaimId],[Application_ApplicationId])
+--VALUES ('vehicleFuelType','vehicleFuelType'
+--        ,'http://nmped.org/ods/identity/claims/nmped/vehicleFuelType'
+--        ,@NMPEDDescrioptorsClaimId,@ApplicationId);
