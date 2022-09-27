@@ -99,7 +99,7 @@ jobs:
         }
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
-        dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
+        & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
       shell: pwsh
     - name: pack codegen
       working-directory: ./Ed-Fi-ODS-Implementation/
