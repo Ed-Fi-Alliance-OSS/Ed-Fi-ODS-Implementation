@@ -91,16 +91,13 @@ jobs:
     - name: test codegen
       run: |
         $ErrorActionPreference = 'Stop'
-
         $solution = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.sln"
         $reports = "$env:GITHUB_WORKSPACE\Ed-Fi-ODS-Implementation\reports\"
-
         if (Test-Path $reports) {
             Remove-Item -Path $reports -Force -Recurse | Out-Null
         }
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
-        
         & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
       shell: pwsh
       working-directory: ./Ed-Fi-ODS/    
