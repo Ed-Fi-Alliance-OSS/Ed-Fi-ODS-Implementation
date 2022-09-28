@@ -54,7 +54,7 @@ if ($fileName.EndsWith('.zip') -or $fileName.EndsWith('.7z')) {
     else {
         EnsureCommandIsAvailable "7z"
         $arguments = @("x", "$global:templateFolder/$fileName", "-o$global:templateDatabaseFolder")
-        7z @arguments
+        7z @arguments | Out-Null
     }
     Write-Host "Extracted to: $global:templateDatabaseFolder/$fileName" -ForegroundColor Green
 }
