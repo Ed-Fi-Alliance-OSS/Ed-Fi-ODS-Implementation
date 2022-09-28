@@ -88,16 +88,6 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/CodeGeneration/EdFi.Ods.CodeGen.sln"
       shell: pwsh
-    - name: Listing files 
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        Write-Host "generated.cs" -fore GREEN
-        Get-ChildItem $env:GITHUB_WORKSPACE/**/*.generated.cs -Recurse | Select -exp FullName
-        Write-Host "*.generated.hbm.xml" -fore GREEN
-        Get-ChildItem $env:GITHUB_WORKSPACE/**/*.generated.hbm.xml -Recurse | Select -exp FullName
-        Write-Host "*_generated.sql" -fore GREEN
-        Get-ChildItem $env:GITHUB_WORKSPACE/**/*_generated.sql -Recurse | Select -exp FullName
-      shell: pwsh
     - name: Running Test for  codegen Project 
       working-directory: ./Ed-Fi-ODS/    
       run: |
@@ -110,10 +100,6 @@ jobs:
         New-Item -ItemType Directory -Force -Path $reports | Out-Null
         $reportName = $reports + "EdFi.Ods.CodeGen.sln.xml"
         & dotnet test $solution --configuration ${{ env.CONFIGURATION }} --filter TestCategory!=LocalOnly --logger "trx;LogFileName=$reportName"
-        Write-Host "ApprovalTests.Generated_File_List.received.txt" -fore GREEN
-        Get-Content "D:\a\Ed-Fi-ODS-Implementation\Ed-Fi-ODS-Implementation\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\ApprovalTests.Generated_File_List.received.txt"
-        Write-Host "ApprovalTests.Generated_File_List.approved.txt" -fore GREEN
-        Get-Content "D:\a\Ed-Fi-ODS-Implementation\Ed-Fi-ODS-Implementation\Ed-Fi-ODS\Utilities\CodeGeneration\EdFi.Ods.CodeGen.Tests\Approval\ApprovalTests.Generated_File_List.approved.txt"
       shell: pwsh
     - name: pack codegen
       working-directory: ./Ed-Fi-ODS-Implementation/
