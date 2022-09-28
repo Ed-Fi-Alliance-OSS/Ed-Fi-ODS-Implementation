@@ -123,7 +123,7 @@ function Get-RepositoryNameFromPath ($path) {
     }
     #TODO:Enhance this logic so that it handles "C:/projects/Ed-Fi-Core" (no trailing slash) as an input
     foreach ($repoName in $repositoryNames) {
-        $repoRoot = "$(Get-RepositoryRoot $repoName)\"
+        $repoRoot = "$(Get-RepositoryRoot $repoName)$([IO.Path]::DirectorySeparatorChar)"
         $escRegex = [Regex]::Escape($repoRoot.tolower())
         if ($fullname -match "^$escRegex") {
             return $repoName
