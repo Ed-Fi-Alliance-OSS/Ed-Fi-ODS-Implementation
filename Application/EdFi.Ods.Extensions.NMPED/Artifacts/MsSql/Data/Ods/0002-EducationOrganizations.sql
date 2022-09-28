@@ -1,15 +1,3 @@
-/*DECLARE @LocalEducationAgencyCategoryDescriptorId int;
-SELECT @LocalEducationAgencyCategoryDescriptorId=DescriptorId
-from edfi.Descriptor where Namespace like '%LocalEducationAgencyCategoryDescriptor%' and CodeValue = 'Independent';
-
---SELECT * FROM edfi.Descriptor where Namespace like '%LocalEducationAgencyCategoryDescriptor%' 
-
-INSERT INTO edfi.EducationOrganization (EducationOrganizationId, NameOfInstitution) 
-								  VALUES (11,'Doug');
-INSERT INTO edfi.LocalEducationAgency (LocalEducationAgencyId,LocalEducationAgencyCategoryDescriptorId) 
-							   VALUES (11,@LocalEducationAgencyCategoryDescriptorId);
-*/
-
 /*SEA Insert*/
 INSERT INTO [edfi].[EducationOrganization]
            ([EducationOrganizationId]
@@ -36,7 +24,7 @@ INSERT INTO [edfi].[EducationOrganization]
            ,[CreateDate]
            ,[LastModifiedDate])
      VALUES
-	 (35001000,'ALBUQUERQUE DIST OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
+(35001000,'ALBUQUERQUE DIST OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
 (35001006,'NATIVE AMERICAN COMMUNITY ACADEMY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
 (35001016,'ALBUQUERQUE TALENT DEVELOPMENT CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
 (35001017,'LOS PUENTES CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
@@ -1129,8 +1117,8 @@ INSERT INTO [edfi].[EducationOrganization]
 (35510000,'TAOS ACADEMY DISTRICT OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
 (35510001,'TAOS ACADEMY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
 (35510992,'MISC PRESCHOOL PROGRAM', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Off-Site'), 'Edfi.School', GETDATE(), GETDATE()),
-(35511000,'ALMA D'ARTE CHARTER DISTRICT OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
-(35511001,'ALMA D'ARTE CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
+(35511000,'ALMA D''ARTE CHARTER DISTRICT OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
+(35511001,'ALMA D''ARTE CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
 (35511992,'MISC PRESCHOOL PROGRAM', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Off-Site'), 'Edfi.School', GETDATE(), GETDATE()),
 (35512000,'CESAR CHAVEZ COMMUNITY  SCHOOL DO', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'Edfi.School', GETDATE(), GETDATE()),
 (35512001,'CESAR CHAVEZ COMMUNITY  SCHOOL', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'Edfi.School', GETDATE(), GETDATE()),
