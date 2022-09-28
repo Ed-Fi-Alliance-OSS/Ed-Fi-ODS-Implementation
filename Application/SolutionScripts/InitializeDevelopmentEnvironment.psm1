@@ -360,7 +360,7 @@ function Invoke-CodeGen {
         }
 
         $parameters = @(
-            "-r", $RepositoryRoot,
+            "-r", $RepositoryRoot.ToLower(),
             "-e", $Engine
         )
         if ($IncludePlugins) {
