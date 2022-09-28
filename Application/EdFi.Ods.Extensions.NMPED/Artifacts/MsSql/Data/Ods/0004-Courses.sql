@@ -1,3 +1,5 @@
+-- *** Use Course Insert Sheet to Build inserts ***
+-- *** Add new lines at end ***
 INSERT INTO [edfi].[Course]
            ([CourseCode]
            ,[EducationOrganizationId]
@@ -957,4 +959,8 @@ VALUES
 ('0447',35000000,'Low Voltage 2', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='5'),'Courses offered in information and communication technology such as, voice/data/audio/visual technologies, electronic safety and security, telecommunications, wireless networks, etc…', getdate(), getdate()),
 ('0352',35000000,'Cybersecurity', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='4'),'Cybersecurity lays a foundation of understanding cyber law and policy,  networking technology basics and risk assessment.', getdate(), getdate()),
 ('0353',35000000,'Cyber and Society', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='4'),'This course introduces student to the foundational concept of security, coding and robotics through project-driven, hands-on learning.', getdate(), getdate()),
-('0354',35000000,'Art and Computer Science', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='4'),'This course will allow students to learn programming in a medium that is expressive in different ways while covering the basics of computer Science and programming.', getdate(), getdate());
+('0354',35000000,'Art and Computer Science', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='4'),'This course will allow students to learn programming in a medium that is expressive in different ways while covering the basics of computer Science and programming.', getdate(), getdate()),
+('2079',35000000,'Data Science', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='20'),'This course develops computational thinking and builds on mathematics conceptual understanding to support skills and abilities necessary to extract actionable knowledge from data.', getdate(), getdate()),
+('0875',35000000,'eSports', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='8'),'Course is designed to support students in engaging in esports coursework.', getdate(), getdate()),
+('2087',35000000,'Pathway2Careers Algebra 2A', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='20'),'This mathematics/career application (Pathway2Careers) course addresses and is aligned to half of the Algebra 2 Common Core State Standards; Part 1 of 2.', getdate(), getdate()),
+('2088',35000000,'Pathway2Careers Algebra 2B', 1, (select descriptorid from edfi.descriptor where namespace like '%academicsubjectdescriptor%' and codevalue ='20'),'This mathematics/career application (Pathway2Careers) course addresses and is aligned to half of the Algebra 2 Common Core State Standards; Part 2 of 2.', getdate(), getdate());
