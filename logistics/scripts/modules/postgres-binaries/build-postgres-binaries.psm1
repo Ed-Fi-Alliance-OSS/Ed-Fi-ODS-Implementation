@@ -5,15 +5,15 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\packaging.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tasks/TaskHelper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/packaging.psm1')
 
 function Get-DefaultConfiguration([hashtable] $config = @{ }) {
     $config.binariesSourceUrl = 'http://get.enterprisedb.com/postgresql/'
     $config.binariesArchiveName = 'postgresql-{0}-1-windows-x64-binaries.zip'
     $config.binariesVersion = '13.7'
-    $config.binariesTempDirectory = Join-Path $env:temp 'PostgreSQL.Binaries'
+    $config.binariesTempDirectory = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries'
     $config.binariesArchiveExtractedName = 'pgsql'
 
     $config.archiveName = ($config.binariesArchiveName -f $config.binariesVersion)
@@ -91,15 +91,22 @@ function Get-PostgresBinaries([hashtable] $config = (Get-DefaultConfiguration)) 
 }
 
 function Expand-PostgresBinariesArchive([hashtable] $config = (Get-DefaultConfiguration)) {
-    if (-not (Get-InstalledModule | Where-Object -Property Name -eq 7Zip4Powershell)) {
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
 
     Write-Host "Expanding Archive: " -NoNewLine
     Write-Host $config.archivePath -ForegroundColor DarkGray
-
-    Get-7ZipInformation -ArchiveFileName $config.archivePath | Out-Host
-    Expand-7Zip -ArchiveFileName $config.archivePath -TargetPath $config.binariesTempDirectory
+    
+    if (Get-IsWindows){
+        Get-7ZipInformation -ArchiveFileName $config.archivePath | Out-Host
+        Expand-7Zip -ArchiveFileName $config.archivePath -TargetPath $config.binariesTempDirectory
+    }
+    else {
+        EnsureCommandIsAvailable "7z"
+        $arguments = @("x", $config.archivePath, "-o$($config.binariesTempDirectory)")
+        7z @arguments
+    }
 
     if (-not (Test-Path $config.archiveExtractedPath)) { return }
 
