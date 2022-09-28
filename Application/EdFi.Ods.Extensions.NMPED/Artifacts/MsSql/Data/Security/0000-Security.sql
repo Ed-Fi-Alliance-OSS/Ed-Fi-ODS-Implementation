@@ -118,6 +118,61 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 
 
 -- *** Claim Set Changes to Prevent Create, Update, Delete on EdOrg, Courses, Programs, Descriptors for Sandbox and SIS Vendor Claim Sets ***
+-- change course and program so they are not inheritting from relationshipBasedData
+update resourceClaims
+Set ParentResourceClaimId = NULL
+where displayName in ( 'program', 'course');
+
+-- give read permissions for all applications
+insert into ClaimSetResourceClaims (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
+SELECT Actions.ActionId, ClaimSets.ClaimSetId, ResourceClaimId
+	FROM ClaimSets
+	JOIN Actions
+		ON Actions.ActionName = 'Read'
+	JOIN ResourceClaims
+		ON displayName in ( 'program', 'course');
+
+-- give full control for admin app
+insert into ClaimSetResourceClaims (Action_ActionId, ClaimSet_ClaimSetId, ResourceClaim_ResourceClaimId)
+SELECT Actions.ActionId, ClaimSets.ClaimSetId, ResourceClaimId
+	FROM ClaimSets
+	JOIN Actions
+		ON Actions.ActionName != 'Read'
+		AND ClaimSetName = 'Ed-Fi ODS Admin App'
+	JOIN ResourceClaims
+		ON displayName in ( 'program', 'course');
+
+-- take actions other then read away for sandbox and SIS Vendor users on everything Ed Org related
+delete ClaimSetResourceClaims
+where ResourceClaim_ResourceClaimId = 
+	(Select ResourceClaimId
+	FROM ResourceClaims
+	where ResourceName like 'educationOrganizations')
+and ClaimSet_ClaimSetId IN
+	(SELECT claimSetId
+	FROM claimSets
+	where ClaimSetName in ( 'Ed-Fi Sandbox'))
+and Action_ActionId NOT IN
+	(SELECT actionId
+	FROM actions
+	where actionName in ('Read')
+	);
+
+delete ClaimSetResourceClaims
+where ResourceClaim_ResourceClaimId = 
+	(Select ResourceClaimId
+	FROM ResourceClaims
+	where ResourceName like 'educationOrganizations')
+and ClaimSet_ClaimSetId IN
+	(SELECT claimSetId
+	FROM claimSets
+	where ClaimSetName in ( 'SIS Vendor'))
+and Action_ActionId NOT IN
+	(SELECT actionId
+	FROM actions
+	where actionName in ('Read')
+	);
+
 
 
 -- *** Legacy insert methods ***
