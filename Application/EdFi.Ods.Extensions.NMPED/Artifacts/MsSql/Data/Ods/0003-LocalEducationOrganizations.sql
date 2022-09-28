@@ -10325,7 +10325,9 @@ VALUES
 (35566001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '08')),
 (35567001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '09')),
 (35567001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '10')),
-(35567001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '11')),INSERT INTO edfi.SchoolGradeLevel (SchoolID, GradeLevelDescriptorID)
+(35567001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '11'));
+
+INSERT INTO edfi.SchoolGradeLevel (SchoolID, GradeLevelDescriptorID)
 VALUES
 (35001006, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'KF')),
 (35001006, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '01')),
