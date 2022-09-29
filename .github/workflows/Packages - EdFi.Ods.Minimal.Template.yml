@@ -49,11 +49,11 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-    - name: Checkout Ed-Fi-SK-Extension
+    - name: Checkout Starter-Kit-SEA-Modernization
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-SK-Extension
-          path: Ed-Fi-SK-Extension/
+          repository: Ed-Fi-Alliance-OSS/Starter-Kit-SEA-Modernization
+          path: Starter-Kit-SEA-Modernization/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
       shell: pwsh
