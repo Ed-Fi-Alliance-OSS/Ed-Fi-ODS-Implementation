@@ -75,11 +75,12 @@ jobs:
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
           Remove-EdFiDatabases -Force
     - name: Initialize-DevelopmentEnvironment
+      working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DeploymentEnvironment -NoCredentials -NoDeploy
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
       shell: pwsh
     - name: Create Database Template (no extensions)
       working-directory: ./Ed-Fi-ODS-Implementation/
