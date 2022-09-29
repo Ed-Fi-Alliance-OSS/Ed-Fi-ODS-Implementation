@@ -51,6 +51,9 @@ param(
     [string]
     $TestFilter
 
+    # .Net Nuget Spec File
+    [string]
+    $NuspecFile,
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -122,13 +125,18 @@ function Compile {
 }
 
 function Pack {
+    $NuspecFileParameter = ""
+    if ($NuspecFile){
+        $NuspecFileParameter = "p:NuspecFile=$NuspecFile"
+    } 
+    
     if (-not $PackageName){
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
+            dotnet pack $ProjectFile $NuspecFileParameter -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     } else {
         Invoke-Execute {
-            dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
+            dotnet pack $ProjectFile $NuspecFileParameter -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
     }
 }
