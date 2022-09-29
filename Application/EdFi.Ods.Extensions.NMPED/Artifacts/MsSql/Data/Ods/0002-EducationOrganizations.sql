@@ -887,9 +887,13 @@ VALUES
 (35071099,'E.J. MARTINEZ ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
 (35071100,'PINON ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE());
 
-INSERT INTO [edfi].[LocalEducationAgency]
-           ([LocalEducationAgencyId]
-           ,[LocalEducationAgencyCategoryDescriptorId])
+INSERT INTO [edfi].[EducationOrganization]
+           ([EducationOrganizationId]
+           ,[NameOfInstitution]
+           ,[OperationalStatusDescriptorId]
+		   ,[Discriminator]
+           ,[CreateDate]
+           ,[LastModifiedDate])
 VALUES
 (35071110,'EDWARD ORTIZ MIDDLE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
 (35071130,'R.M. SWEENEY ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
