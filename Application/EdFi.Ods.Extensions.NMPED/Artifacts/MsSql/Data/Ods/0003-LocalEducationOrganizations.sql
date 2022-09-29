@@ -155,11 +155,8 @@ VALUES
 (35584000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35585000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office'));
 
-
 /*Schools Insert*/
-INSERT INTO [edfi].[School]
-           ([SchoolId]
-           ,[LocalEducationAgencyId])
+INSERT INTO [edfi].[School]([SchoolId],[LocalEducationAgencyId])
 VALUES
 (35001006, 35001000),
 (35001016, 35001000),
@@ -9298,11 +9295,7 @@ VALUES
 (35001560, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '09')),
 (35001560, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '10')),
 (35001560, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '11')),
-(35001560, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '12')),
-
-
-
-
+(35001560, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '12'));
 
 
 INSERT INTO edfi.SchoolGradeLevel (SchoolID, GradeLevelDescriptorID)
