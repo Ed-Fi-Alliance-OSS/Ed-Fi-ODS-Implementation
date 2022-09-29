@@ -14568,7 +14568,7 @@ INSERT INTO [edfi].[EducationOrganizationCategory] (EducationOrganizationId,Educ
 (35071008, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategoryDescriptor' AND CodeValue ='Public')),
 (35071009, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategoryDescriptor' AND CodeValue ='Off-Site')),
 (35071011, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategoryDescriptor' AND CodeValue ='Public')),
-(35071012, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategoryDescriptor' AND CodeValue ='Public')
+(35071012, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategoryDescriptor' AND CodeValue ='Public'));
 
 
 
