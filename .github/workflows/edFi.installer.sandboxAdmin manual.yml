@@ -27,3 +27,9 @@ jobs:
         .\build-package.ps1 -InformationalVersion ${{env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NugetFeed ${{env.AZURE_ARTIFACT_URL}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }}
       shell: pwsh
       working-directory: Scripts/NuGet/EdFi.Installer.SandboxAdmin
+    - name: Upload EdFi.Installer.SandboxAdmin Artifacts
+      if: success()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Scripts/NuGet/EdFi.Installer.SandboxAdmin/EdFi.Suite3.Installer.SandboxAdmin.*.nupkg      
