@@ -86,7 +86,7 @@ jobs:
       run: |
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-MinimalTemplate -samplePath "./Ed-Fi-Standard/"  -noExtensions
+        Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/'  -noExtensions
       shell: pwsh
     - name: pack
       working-directory: ./Ed-Fi-ODS-Implementation/
