@@ -33,3 +33,10 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+    - name: Remove-EdFiDatabases
+      shell: pwsh
+      run: |
+          $ErrorActionPreference = 'Stop'
+          $PSVersionTable
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          Remove-EdFiDatabases -Force
