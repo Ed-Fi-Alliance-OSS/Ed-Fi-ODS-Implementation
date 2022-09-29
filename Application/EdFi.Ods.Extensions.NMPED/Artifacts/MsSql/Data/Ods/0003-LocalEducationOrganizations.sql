@@ -131,6 +131,8 @@ VALUES
 (35549000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35550000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35552000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
+(35554000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
+(35555000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35557000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35560000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
 (35562000, (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/LocalEducationAgencyCategoryDescriptor' AND CodeValue = 'Central Office')),
