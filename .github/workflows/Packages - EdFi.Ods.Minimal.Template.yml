@@ -34,6 +34,7 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
     - name: Remove-EdFiDatabases
+      working-directory: ./Ed-Fi-ODS/
       shell: pwsh
       run: |
           $ErrorActionPreference = 'Stop'
