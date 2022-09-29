@@ -77,6 +77,8 @@ jobs:
     - name: Initialize-DevelopmentEnvironment
       run: |
         $ErrorActionPreference = 'Stop'
+        $PSVersionTable
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         Initialize-DeploymentEnvironment -NoCredentials -NoDeploy
       shell: pwsh
     - name: Create Database Template (no extensions)
