@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: EdFi.Ods.Minimal.Template manually triggered build
+name: EdFi.Ods.Minimal.Template
 
 on:
   pull_request:
@@ -28,7 +28,7 @@ jobs:
     runs-on: windows-latest
 
     steps:
-   - name: Checkout Ed-Fi-ODS-Implementation
+    - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
