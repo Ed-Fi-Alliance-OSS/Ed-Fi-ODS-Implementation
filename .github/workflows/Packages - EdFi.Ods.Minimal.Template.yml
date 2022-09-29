@@ -83,10 +83,10 @@ jobs:
         Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -RepositoryRoot $env:GITHUB_WORKSPACE
       shell: pwsh
     - name: Create Database Template (no extensions)
-      working-directory: ./Ed-Fi-ODS-Implementation/
+      working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+        Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"      
         Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
       shell: pwsh
     - name: pack
