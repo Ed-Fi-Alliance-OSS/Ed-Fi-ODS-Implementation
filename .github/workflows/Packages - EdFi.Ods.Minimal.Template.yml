@@ -80,7 +80,7 @@ jobs:
         $ErrorActionPreference = 'Stop'
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy
+        Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -RepositoryRoot $env:GITHUB_WORKSPACE
       shell: pwsh
     - name: Create Database Template (no extensions)
       working-directory: ./Ed-Fi-ODS-Implementation/
