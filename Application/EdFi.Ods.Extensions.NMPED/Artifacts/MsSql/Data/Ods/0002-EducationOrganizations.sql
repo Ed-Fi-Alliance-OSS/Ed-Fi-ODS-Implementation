@@ -23,8 +23,8 @@ INSERT INTO [edfi].[EducationOrganization]
 		   ,[Discriminator]
            ,[CreateDate]
            ,[LastModifiedDate])
-     VALUES
-	 (35001000,'ALBUQUERQUE DIST OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'edfi.LocalEducationAgency', GETDATE(), GETDATE()),
+VALUES
+(35001000,'ALBUQUERQUE DIST OFFICE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Central Office'), 'edfi.LocalEducationAgency', GETDATE(), GETDATE()),
 (35001006,'NATIVE AMERICAN COMMUNITY ACADEMY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'edfi.School', GETDATE(), GETDATE()),
 (35001016,'ALBUQUERQUE TALENT DEVELOPMENT CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'edfi.School', GETDATE(), GETDATE()),
 (35001017,'LOS PUENTES CHARTER', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Charter'), 'edfi.School', GETDATE(), GETDATE()),
@@ -885,10 +885,12 @@ INSERT INTO [edfi].[EducationOrganization]
 (35071070,'KEARNY ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
 (35071078,'TRANSITIONAL EDUCATION PROGRAM', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Off-Site'), 'edfi.School', GETDATE(), GETDATE()),
 (35071099,'E.J. MARTINEZ ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
-(35071100,'PINON ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE())
+(35071100,'PINON ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE());
+
 INSERT INTO [edfi].[LocalEducationAgency]
            ([LocalEducationAgencyId]
            ,[LocalEducationAgencyCategoryDescriptorId])
+VALUES
 (35071110,'EDWARD ORTIZ MIDDLE', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
 (35071130,'R.M. SWEENEY ELEMENTARY', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
 (35071135,'EL DORADO COMMUNITY SCHOOL', (SELECT TOP 1 descriptorID from edfi.Descriptor where namespace = 'uri://nmped.org/EducationOrganizationCategory' AND CodeValue = 'Public'), 'edfi.School', GETDATE(), GETDATE()),
