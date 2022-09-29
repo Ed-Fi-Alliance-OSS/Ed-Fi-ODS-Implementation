@@ -7293,7 +7293,6 @@ VALUES
 (35510001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '10')),
 (35510001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '11')),
 (35510001, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '12')),
-(35510992, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'PK')),
 /* --(ddddd993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = 'KF')),
 --(ddddd993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '01')),
 --(ddddd993, (SELECT TOP 1 DescriptorID FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/GradeLevelDescriptor' AND CodeValue = '02')),
