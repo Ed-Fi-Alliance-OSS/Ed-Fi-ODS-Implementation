@@ -5,8 +5,8 @@
 
 #requires -modules "path-resolver"
 
-Import-Module (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
-Import-Module (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
+Import-Module (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/nuget-helper.psm1')
+Import-Module (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
 
 $configurationFile = (Get-RepositoryResolvedPath 'configuration.packages.json')
 $configuration = (Get-Content $configurationFile | ConvertFrom-Json).packages.GrandBend

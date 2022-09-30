@@ -5,42 +5,44 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\utility\cross-platform.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tools\ToolsHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/nuget-helper.psm1')
 
-$script:toolsPath = (Get-ToolsPath)
 $script:providerName = 'NuGet'
 $script:packageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
 $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "13.7.1"
+$script:toolsPath = (Get-ToolsPath)
+$script:windowsPostgreSQLBinariesPath = "$script:toolsPath/$script:packageName.$script:packageVersion/tools/"
 
 function Test-PostgreSQLBinariesInstalled {
-    if (!(Get-IsWindows)) {
 
-        return IsCommandAvailable "psql"
-    }
+    $testerCommand = @(If (Get-IsWindows) { "Test-Path" } Else { "IsCommandAvailable" })
 
-    $packagePath = "$script:toolsPath/$script:packageName.$script:packageVersion"
-
-    $psqlExists = (Test-Path "$packagePath/tools/psql.exe")
-    $pgdumpExists = (Test-Path "$packagePath/tools/pg_dump.exe")
-    $pgrestoreExists = (Test-Path "$packagePath/tools/pg_restore.exe")
+    $psqlExists = & $testerCommand (Get-PSQLPath)
+    $pgdumpExists = & $testerCommand (Get-PGDumpPath)
+    $pgrestoreExists = & $testerCommand (Get-PGRestorePath)
 
     return ($psqlExists -and $pgdumpExists -and $pgrestoreExists)
 }
 
-function Get-PostgreSQLBinariesPath { return (Resolve-path "$script:toolsPath/$script:packageName.$script:packageVersion/tools/").Path }
+function Get-PSQLPath { return @(If (Get-IsWindows) { Join-Path $windowsPostgreSQLBinariesPath "psql.exe" } Else { "psql" }) }
 
-function Get-PSQLPath { return (Resolve-path (Join-Path (Get-PostgreSQLBinariesPath) 'psql.exe')).Path }
+function Get-PGDumpPath { return @(If (Get-IsWindows) { Join-Path $windowsPostgreSQLBinariesPath "pg_dump.exe" } Else { "pg_dump" }) }
 
-function Get-PGDumpPath { return (Resolve-path (Join-Path (Get-PostgreSQLBinariesPath) 'pg_dump.exe')).Path }
-
-function Get-PGRestorePath { return (Resolve-path (Join-Path (Get-PostgreSQLBinariesPath) 'pg_restore.exe')).Path }
+function Get-PGRestorePath { return @(If (Get-IsWindows) { Join-Path $windowsPostgreSQLBinariesPath "pg_restore.exe" } Else { "pg_restore" }) }
 
 function Install-PostgreSQLBinaries {
+    if(!(Get-IsWindows)) {
+        throw "Postgres client binaries are not installed on this Unix-like system." +
+                " To install them you can run:" +
+                    " (Ubuntu) apt-get install postgresql-client" +
+                    " (Alpine) apk add postgresql-client"
+    }
+
     # Ensure we have Tls12 support
     if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
         [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
@@ -58,14 +60,7 @@ function Install-PostgreSQLBinaries {
     $packagePath = Get-NuGetPackage @parameters
 
     if (-not (Test-PostgreSQLBinariesInstalled)) {
-        if(Get-IsWindows){
-            throw "Could not find PostgreSQL binaries in $script:toolsPath\$script:packageName\tools. "
-        }else{
-            throw "ERROR:  Postgres client binaries are not installed on this Unix-like system.
-                    To install them you can run:
-                        Ubuntu: apt-get install postgresql-client
-                        Alpine: apk add postgresql-client"
-        }
+        throw "Could not find PostgreSQL binaries in $script:toolsPath/$script:packageName/tools."
     }
 }
 

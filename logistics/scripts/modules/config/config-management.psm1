@@ -3,9 +3,9 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
 
 function Get-DatabaseIds {
     return @{
@@ -43,7 +43,7 @@ function Get-DefaultSubtypes {
 function Get-RepositoryArtifactPaths {
     $filePaths = @()
 
-    $filePaths += (Get-RepositoryResolvedPath("Application\EdFi.Ods.Standard")).Path
+    $filePaths += (Get-RepositoryResolvedPath("Application/EdFi.Ods.Standard")).Path
     Get-RepositoryNames | ForEach-Object { $filePaths += (Get-RepositoryRoot $_) }
 
     return $filePaths
@@ -66,7 +66,7 @@ function Get-ExtensionScriptFiles {
     if ($null -eq $artifactSources) { return @() }
 
     $output = @()
-    $artifactSources | ForEach-Object { $output += (Get-RepositoryResolvedPath "Application\EdFi.Ods.Extensions.$_").Path }
+    $artifactSources | ForEach-Object { $output += (Get-RepositoryResolvedPath "Application/EdFi.Ods.Extensions.$_").Path }
 
     return $output
 }
@@ -143,7 +143,7 @@ function Get-DbConnectionStringBuilderFromTemplate {
 
 function Get-Configuration {
     param(
-        [string] $configFile = $folders.base.invoke('Application\EdFi.Ods.WebApi\appsettings.json')
+        [string] $configFile = $folders.base.invoke('Application/EdFi.Ods.WebApi/appsettings.json')
     )
 
     $csbs = Get-DbConnectionStringBuilderFromConfig $configFile

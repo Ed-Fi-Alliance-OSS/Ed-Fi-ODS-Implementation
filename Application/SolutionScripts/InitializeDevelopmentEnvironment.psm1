@@ -26,7 +26,6 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/config/config-transform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
 
@@ -192,39 +191,6 @@ function Initialize-DevelopmentEnvironment {
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
     return $script:result | Format-Table
-}
-
-function Invoke-ConfigTransform {
-    [Obsolete("This function is deprecated, and will be removed in the near future. Use the function Invoke-NewDevelopmentAppSettings instead.")]
-    param(
-        [ValidateSet('SQLServer', 'PostgreSQL')]
-        [String] $Engine = 'SQLServer'
-    )
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $baseConfig = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Base.config'
-        $npgsqlTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Npgsql.config'
-        $debugTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.WebApi/Web.Debug.config'
-        $destinationFile = ($baseConfig -replace "base.", "")
-
-        $transformFiles = @()
-        if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
-        $transformFiles += $debugTransform
-
-        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles -destinationFile $destinationFile
-    }
-
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $baseConfig = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Base.config'
-        $npgsqlTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Npgsql.config'
-        $debugTransform = Get-RepositoryResolvedPath 'Application/EdFi.Ods.SandboxAdmin.Web/Web.Debug.config'
-        $destinationFile = ($baseConfig -replace "base.", "")
-
-        $transformFiles = @()
-        if ($Engine -eq "PostgreSQL") { $transformFiles += $npgsqlTransform }
-        $transformFiles += $debugTransform
-
-        Invoke-TransformConfigFile -sourceFile $baseConfig -transformFiles $transformFiles -destinationFile $destinationFile
-    }
 }
 
 function Get-RandomString {

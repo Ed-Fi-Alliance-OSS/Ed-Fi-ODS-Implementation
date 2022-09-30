@@ -73,7 +73,7 @@ if ($isArchiveFile) {
     else {
         EnsureCommandIsAvailable "7z"
         $arguments = @("x", $archiveBackupFilePath, "-o$global:templateDatabaseFolder")
-        7z @arguments
+        7z @arguments | Out-Null
     }
     Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
 }

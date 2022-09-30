@@ -21,13 +21,13 @@ $toolVersions = @{
 #>
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\load-path-resolver.ps1"
-Import-Module -Force $folders.modules.invoke('tasks\TaskHelper.psm1')
-Import-Module -Force $folders.modules.invoke('tools\ToolsHelper.psm1')
+& "$PSScriptRoot/load-path-resolver.ps1"
+Import-Module -Force $folders.modules.invoke('tasks/TaskHelper.psm1')
+Import-Module -Force $folders.modules.invoke('tools/ToolsHelper.psm1')
 
 $defaultToolsPath = $env:toolsPath
 if (-not $defaultToolsPath) {
-    $implementation = (Get-Item "$PSScriptRoot\..\..\..").FullName
+    $implementation = (Get-Item "$PSScriptRoot/../../..").FullName
     $defaultToolsPath = Join-Path $implementation 'tools'
 }
 

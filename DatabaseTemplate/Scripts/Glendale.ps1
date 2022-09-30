@@ -8,4 +8,4 @@ $params = @{
     fileName  = "EdFi_Ods_Glendale_v53_20220120.7z"
 }
 
-return (& "$PSScriptRoot\..\Modules\get-template-from-web.ps1" @params)
+return (& "$PSScriptRoot/../Modules/get-template-from-web.ps1" @params)
