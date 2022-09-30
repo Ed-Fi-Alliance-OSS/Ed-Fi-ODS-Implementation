@@ -104,6 +104,7 @@ function Expand-PostgresBinariesArchive([hashtable] $config = (Get-DefaultConfig
     }
     else {
         EnsureCommandIsAvailable "7z"
+        7z l @($config.archivePath) | Out-Host
         $arguments = @("x", $config.archivePath, "-o$($config.binariesTempDirectory)")
         7z @arguments
     }
