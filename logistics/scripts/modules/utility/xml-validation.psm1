@@ -100,6 +100,7 @@ function Invoke-XmlValidation {
                     continue
                 }
                 $schemaFile = (Join-Path $file.Directory.FullName $rootElement.schema -Resolve)
+                Write-Host "Using Schema $schemaFile"
                 $xmlReaderSettings.Schemas.Add($rootElement.namespace, $schemaFile) | Out-Null
                 $xmlReader = [System.Xml.XmlReader]::Create($file.FullName, $xmlReaderSettings)
 
