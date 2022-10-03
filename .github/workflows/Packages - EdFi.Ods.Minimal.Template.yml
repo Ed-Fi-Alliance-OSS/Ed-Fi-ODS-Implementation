@@ -57,7 +57,7 @@ jobs:
           path: Starter-Kit-SEA-Modernization/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
-      shell: pwsh
+      shell: powershell
       run: |
            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
            $is_pull_request_branch = 'False'
@@ -73,13 +73,13 @@ jobs:
               }
            }
     - name: Install sql-server-2019 & sqlpackage
-      shell: pwsh
+      shell: powershell
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
     - name: Remove-EdFiDatabases
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      shell: powershell
       run: |
           $ErrorActionPreference = 'Stop'
           $PSVersionTable
@@ -92,27 +92,27 @@ jobs:
         $PSVersionTable
           . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
         Initialize-DevelopmentEnvironment -NoCredentials -NoDeploy -RepositoryRoot $env:GITHUB_WORKSPACE
-      shell: pwsh
+      shell: powershell
     - name: Create Database Template (no extensions)
       working-directory: ./
       run: |
         $ErrorActionPreference = 'Stop'
         Import-Module -Force -Scope Global "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Modules/create-minimal-template.psm1"      
         Initialize-MinimalTemplate -samplePath './Ed-Fi-Standard/' -noExtensions
-      shell: pwsh
+      shell: powershell
     - name: pack
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NuspecFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Ods.Minimal.Template"
-      shell: pwsh
+      shell: powershell
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
-      shell: pwsh
+      shell: powershell
     - name: publish 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 publish -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }} -EdFiNuGetFeed ${{env.AZURE_ARTIFACT_URL}} -NuspecFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Ods.Minimal.Template"
-      shell: pwsh      
+      shell: powershell      
     - name: Upload EdFi.Ods.Minimal.Template Artifacts
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
