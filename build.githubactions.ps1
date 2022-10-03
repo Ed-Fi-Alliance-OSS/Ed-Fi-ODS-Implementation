@@ -49,11 +49,11 @@ param(
     $PackageName,
 
     [string]
-    $TestFilter
+    $TestFilter,
 
     # .Net Nuget Spec File
     [string]
-    $NuspecFile,
+    $NuspecFile
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
