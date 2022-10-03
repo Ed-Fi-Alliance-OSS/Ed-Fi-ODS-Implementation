@@ -75,6 +75,7 @@ function Invoke-XmlValidation {
     $xmlReaderSettings.ValidationFlags =
     [System.Xml.Schema.XmlSchemaValidationFlags]::ProcessInlineSchema -bor
     [System.Xml.Schema.XmlSchemaValidationFlags]::ReportValidationWarnings
+    $xmlReaderSettings.Schemas.XmlResolver = New-Object System.Xml.XmlUrlResolver
 
     $validationHandler = [System.Xml.Schema.ValidationEventHandler] {
         if ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Warning) {
