@@ -131,18 +131,17 @@ function Compile {
 }
 
 function Pack {
-    if ($NuspecFile){
-        Invoke-Execute {
-            nuget pack $NuspecFile -Version $version -OutputDirectory "$packageOutput" -p id="$PackageName" -p authors="$Authors" -p description="$Description"
-        }
-        return
-    } 
-    
     if (-not $PackageName){
+    if ([string]::IsNullOrWhiteSpace($PackageName) -and [string]::IsNullOrWhiteSpace($NuspecFilePath)){
         Invoke-Execute {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     } else {
+    }
+    if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
+       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
+    }
+    if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
         Invoke-Execute {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
