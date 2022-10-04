@@ -111,7 +111,7 @@ jobs:
     - name: pack
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NuspecFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Ods.Minimal.Template" -Authors "Ed-Fi Alliance" -Description "EdFi Ods Minimal Template Database"
+        .\build.githubactions.ps1 pack -InformationalVersion ${{ env.INFORMATIONAL_VERSION }} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NuspecFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/EdFi.Ods.Minimal.Template.nuspec" -PackageName  "EdFi.Ods.Minimal.Template" -OutputDirectory "./NugetPackages" -Authors "Ed-Fi Alliance" -Description "EdFi Ods Minimal Template Database"
       shell: powershell
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
@@ -126,4 +126,4 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/EdFi.Ods.Minimal.Template.*.nupkg
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.*
