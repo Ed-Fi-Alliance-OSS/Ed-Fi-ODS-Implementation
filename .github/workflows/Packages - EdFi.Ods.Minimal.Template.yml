@@ -17,6 +17,7 @@ on:
         default: 'warning'
 
 env:
+  EDFI_STANDARD_REFERENCE: "latest"
   INFORMATIONAL_VERSION: "6.1"
   BUILD_INCREMENTER: "1"
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -52,12 +53,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-Standard
           path: Ed-Fi-Standard/
-          ref: 4.0.0-a
-    - name: Checkout Starter-Kit-SEA-Modernization
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Starter-Kit-SEA-Modernization
-          path: Starter-Kit-SEA-Modernization/
+          ref: ${{ env.EDFI_STANDARD_REFERENCE }}
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS/
       shell: powershell
@@ -80,14 +76,6 @@ jobs:
       run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
-    - name: Remove-EdFiDatabases
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
-      run: |
-          $ErrorActionPreference = 'Stop'
-          $PSVersionTable
-          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-          Remove-EdFiDatabases -Force
     - name: Initialize-DevelopmentEnvironment
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
