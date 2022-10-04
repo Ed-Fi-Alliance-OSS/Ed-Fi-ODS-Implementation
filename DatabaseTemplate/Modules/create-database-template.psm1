@@ -68,7 +68,12 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_changes_edfi')
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
-
+    $config.Id = "EdFi.Suite3.Ods.Populated.Template"
+    $config.Title = "EdFi.Suite3.Ods.Populated.Template"
+    $config.Description = "EdFi Ods Populated Template Database"
+    $config.Authors = "Ed-Fi Alliance"
+    $config.Owners = "Ed-Fi Alliance"
+    $config.Copyright = "Copyright @ 2021 Ed-Fi Alliance, LLC and Contributors"
     return $config
 }
 
