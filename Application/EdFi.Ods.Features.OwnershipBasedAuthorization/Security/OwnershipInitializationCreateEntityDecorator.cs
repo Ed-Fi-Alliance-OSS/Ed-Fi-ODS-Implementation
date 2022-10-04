@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
@@ -41,7 +42,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
         /// <param name="sessionFactory"></param>
         /// <param name="apiKeyContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
-        /// <param name="dataManagementRequestContextProvider"></param>
+        /// <param name="dataManagementResourceContextProvider"></param>
         public OwnershipInitializationCreateEntityDecorator(
             ICreateEntity<T> next,
             IAuthorizationContextProvider authorizationContextProvider,
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -64,7 +65,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
                 sessionFactory,
                 apiKeyContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementRequestContextProvider)
+                dataManagementResourceContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
