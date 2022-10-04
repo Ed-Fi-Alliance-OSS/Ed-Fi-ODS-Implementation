@@ -111,8 +111,9 @@ namespace EdFi.Ods.SandboxAdmin.Services
 
             if (!string.IsNullOrEmpty(pickupDirectoryLocation))
             {
-                // Expand any embedded environment variables
-                smtpClient.PickupDirectoryLocation = Environment.ExpandEnvironmentVariables(pickupDirectoryLocation);
+                // Expand any embedded environment variables and resolve relative paths
+                smtpClient.PickupDirectoryLocation = Path.GetFullPath(
+                    Environment.ExpandEnvironmentVariables(pickupDirectoryLocation), AppDomain.CurrentDomain.BaseDirectory);
 
                 // Try to make sure that the specified email directory exists
                 try

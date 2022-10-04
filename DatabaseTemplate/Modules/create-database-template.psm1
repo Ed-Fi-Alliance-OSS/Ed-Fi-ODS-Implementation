@@ -170,7 +170,7 @@ function Copy-InterchangeFiles {
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
                 Write-Host "copy to $($directory.Name)\$($xmlFile.Name) " -NoNewline
-                Copy-Item -Path $xmlFile.FullName -Destination "$directory\$xmlFile"
+                Copy-Item -Path $xmlFile.FullName -Destination "$directory\$($xmlFile.Name)"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }

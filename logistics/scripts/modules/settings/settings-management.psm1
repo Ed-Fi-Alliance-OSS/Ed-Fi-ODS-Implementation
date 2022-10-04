@@ -3,10 +3,10 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\plugin\plugin-source.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
 
 function Get-ProjectTypes {
     return @{
@@ -60,7 +60,7 @@ function Get-DefaultDevelopmentSettingsByProject {
                     DeliveryMethod           = "SpecifiedPickupDirectory"
                     From                     = "noreply@ed-fi.org"
                     SpecifiedPickupDirectory = @{
-                        PickupDirectoryLocation = "C:\Temp\AdminConsole\Artifacts\Emails"
+                        PickupDirectoryLocation = "./Artifacts/Emails"
                     }
 
                 }
@@ -224,7 +224,7 @@ function Get-SubtypesByFeature {
     }
 }
 
-function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(Get-RepositoryRoot 'Ed-Fi-ODS-Implementation')\**\appsettings*.json" -Recurse)) {
+function Assert-ValidAppSettings([string[]] $SettingsFiles = (Get-ChildItem "$(Get-RepositoryRoot 'Ed-Fi-ODS-Implementation')/**/appsettings*.json" -Recurse)) {
     $result = @()
 
     foreach ($file in $SettingsFiles) {

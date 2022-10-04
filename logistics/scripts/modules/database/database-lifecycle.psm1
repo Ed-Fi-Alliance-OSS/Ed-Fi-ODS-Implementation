@@ -5,13 +5,13 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\postgres-database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tools\ToolsHelper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+& "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/postgres-database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tasks/TaskHelper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tools/ToolsHelper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 
 function Get-SQLServerDatabaseRemoveStrategy {
     param(
@@ -188,7 +188,7 @@ function Get-SQLServerDatabaseBackupStrategy {
     if ($databaseNeedsBackup) {
         $msSqlBackupPath = if ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
         Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
-        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath\" -overwriteExisting | Out-Null
+        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath/" -overwriteExisting | Out-Null
     }
     else {
         Write-Host "No backup required for database $($csb.InitialCatalog)"
@@ -430,10 +430,10 @@ $splat = @{
     Database = "EdFi";
     ConnectionString = "server=localhost;database=EdFi_Ods;integrated security=sspi";
     FilePaths = @(
-            "C:\Source\3.x\Ed-Fi-ODS",
-            "C:\Source\3.x\Ed-Fi-ODS-Implementation",
-            "C:\Source\3.x\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.GrandBend",
-            "C:\Source\3.x\Ed-Fi-ODS-Implementation\Application\EdFi.Ods.Extensions.Sample"
+            "C:/Source/3.x/Ed-Fi-ODS",
+            "C:/Source/3.x/Ed-Fi-ODS-Implementation",
+            "C:/Source/3.x/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Extensions.GrandBend",
+            "C:/Source/3.x/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Extensions.Sample"
     );
     Features = @(
         "Changes"
@@ -468,7 +468,7 @@ function Test-DatabaseHasScriptsToApply {
         $DatabaseTimeoutInSeconds
     )
 
-    $exitCode = Invoke-DbDeploy -Verb "WhatIf" -Database $Database -ConnectionString $ConnectionString -FilePaths $FilePaths -Features $Features -DatabaseTimeoutInSeconds $DatabaseTimeoutInSeconds
+    $exitCode = Invoke-DbDeploy -Verb "WhatIf" -Engine $Engine -Database $Database -ConnectionString $ConnectionString -FilePaths $FilePaths -Features $Features -DatabaseTimeoutInSeconds $DatabaseTimeoutInSeconds
 
     return $exitCode -eq 1
 }
@@ -571,7 +571,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         }
         Invoke-DbDeploy @params
-
+        
         Set-PostgresSQLDatabaseAsTemplate @scriptParams
         return;
     }
@@ -587,7 +587,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
     if ($databaseNeedsBackup) {
         $msSqlBackupPath = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
         Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
-        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath\" -overwriteExisting | Out-Null
+        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath/" -overwriteExisting | Out-Null
     }
     else {
         Write-Host "No backup required for database $($csb.InitialCatalog)"
