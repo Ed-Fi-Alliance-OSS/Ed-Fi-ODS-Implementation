@@ -56,9 +56,6 @@ param(
     $NuspecFile,
     
     [string]
-    $OutputDirectory,
-    
-    [string]
     $Authors,
     
     [string]
@@ -136,7 +133,7 @@ function Compile {
 function Pack {
     if ($NuspecFile){
         Invoke-Execute {
-            nuget pack $NuspecFile -Version $InformationalVersion -OutputDirectory "$OutputDirectory" -p id="$PackageName" -p authors="$Authors" -p description="$Description"
+            nuget pack $NuspecFile -Version $version -OutputDirectory "$packagePath" -p id="$PackageName" -p authors="$Authors" -p description="$Description"
         }
         return
     } 
