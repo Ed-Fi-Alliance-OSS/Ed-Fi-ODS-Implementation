@@ -512,15 +512,29 @@ function New-DatabaseTemplateNuspec {
     
     $nuspecPath = Join-Path $populatedTemplatePath "$packageNuspecName.nuspec"
 
+    $Id = '$id$'
+    $Title = '$title$'
+    $Description = '$description$'
+    $Authors = '$authors$'
+    $Owners = '$owners$'
+    $CopyRight = '$copyright$'
+    
+    if ($config.Id) { $Id = $config.Id }
+    if ($config.Title) { $Title = $config.Title }
+    if ($config.Description) { $Description = $config.Description }
+    if ($config.Authors) { $Authors = $config.Authors }
+    if ($config.Owners) { $Owners = $config.Owners }
+    if ($config.CopyRight) { $CopyRight = $config.CopyRight }
+    
     $params = @{
         nuspecPath               = $nuspecPath
-        id                       = '$id$'
-        title                    = '$title$'
-        description              = '$description$'
-        version                  = '$version$'
-        authors                  = '$authors$'
-        copyright                = '$copyright$'
-        owners                   = '$owners$'
+        id                       = $Id
+        title                    = $Title
+        description              = $Description
+        version                  = $Version
+        authors                  = $Authors
+        copyright                = $CopyRight
+        owners                   = $Owners
         requireLicenseAcceptance = $false
     }
     New-Nuspec @params
