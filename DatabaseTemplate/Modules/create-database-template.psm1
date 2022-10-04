@@ -531,7 +531,7 @@ function New-DatabaseTemplateNuspec {
         id                       = $Id
         title                    = $Title
         description              = $Description
-        version                  = $Version
+        version                  = '$version$'
         authors                  = $Authors
         copyright                = $CopyRight
         owners                   = $Owners

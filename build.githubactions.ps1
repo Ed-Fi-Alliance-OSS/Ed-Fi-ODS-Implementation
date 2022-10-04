@@ -51,15 +51,8 @@ param(
     [string]
     $TestFilter,
 
-    # .Net Nuget Spec File
     [string]
-    $NuspecFile,
-    
-    [string]
-    $Authors,
-    
-    [string]
-    $Description
+    $NuspecFilePath
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
