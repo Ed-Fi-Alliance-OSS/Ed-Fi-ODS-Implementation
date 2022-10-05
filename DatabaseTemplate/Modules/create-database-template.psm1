@@ -32,6 +32,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/")
 	
     $sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
+    Write-Host "Create Database Specific AppSettings File: $sourceAppSettings"
     $destinationAppSettings = Join-Path $config.outputFolder "appsettings.json"
     Copy-Item $sourceAppSettings -Destination $destinationAppSettings
 	
