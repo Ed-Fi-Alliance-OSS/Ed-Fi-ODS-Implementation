@@ -187,10 +187,10 @@ function CheckoutBranch {
         }
     } else {
         Write-Output "ref_name: $Env:REF_NAME"
-        $current_branch = $Env:REF_NAME
+        $current_branch = "$Env:REF_NAME"
         if ($current_branch -like "*/merge"){
             Write-Output "ref_name is PR, so using head_ref: $Env:HEAD_REF"
-            $current_branch = $Env:HEAD_REF
+            $current_branch = "$Env:HEAD_REF"
         }
         $patternName = "refs/heads/$current_branch"
         Write-Output "Pattern Name is " $patternName -fore GREEN
