@@ -55,7 +55,7 @@ param(
     $NuspecFilePath,
 
     [string]
-    $RepositoryDispatchBranch
+    $RelativeRepoPath
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -172,6 +172,7 @@ function Test {
 }
 
 function CheckoutBranch {
+    Set-Locaiont $RelativeRepoPath
     $odsBranch = $Env:REPOSITORY_DISPATCH_BRANCH
     Write-Output "OdsBranch: $odsBranch"
     if($odsBranch -ne ''){

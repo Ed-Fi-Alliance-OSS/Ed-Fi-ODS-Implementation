@@ -87,10 +87,10 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-           .\build.githubactions.ps1 CheckoutBranch
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
