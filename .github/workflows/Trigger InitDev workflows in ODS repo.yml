@@ -32,7 +32,7 @@ jobs:
         }
 
         Write-Host "Current Branch: $current_branch"   
-        echo "current_branch=$current_branch" >> $GITHUB_ENV
+        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV
     - name: Dispatch to ODS repo
       uses: peter-evans/repository-dispatch@11ba7d3f32dc7cc919d1c43f1fec1c05260c26b5 # v2
       with:
