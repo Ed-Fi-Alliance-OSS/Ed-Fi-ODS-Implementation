@@ -24,7 +24,7 @@ env:
   VERSION_MAJOR: "6"
   VERSION_MINOR: "1"
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
-  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
+  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
 
 jobs:

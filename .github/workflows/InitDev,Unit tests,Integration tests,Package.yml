@@ -25,7 +25,7 @@ env:
   VERSION_MINOR: "1"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
-  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
+  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
 
 jobs:
