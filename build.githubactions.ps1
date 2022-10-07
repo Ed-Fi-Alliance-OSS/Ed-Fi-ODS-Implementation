@@ -194,7 +194,7 @@ function CheckoutBranch {
             $current_branch = "$Env:HEAD_REF"
         }
         $patternName = "refs/heads/$current_branch"
-        Write-Output "Pattern Name is " $patternName -fore GREEN
+        Write-Output "Pattern Name is $patternName" -fore GREEN
         $branch_exists = $false
         $branch_exists = git ls-remote --heads origin $current_branch | Select-String -Pattern $patternName -SimpleMatch -Quiet
         if ($branch_exists -eq $true) {
