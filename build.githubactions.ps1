@@ -172,7 +172,7 @@ function Test {
 }
 
 function CheckoutBranch {
-    Set-Locaiont $RelativeRepoPath
+    Set-Location $RelativeRepoPath
     $odsBranch = $Env:REPOSITORY_DISPATCH_BRANCH
     Write-Output "OdsBranch: $odsBranch"
     if($odsBranch -ne ''){
