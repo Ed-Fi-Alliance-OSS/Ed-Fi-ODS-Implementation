@@ -24,7 +24,7 @@ jobs:
 
     steps:
     - name: Set Current Branch Environment Variable
-      shell: powershell
+      shell: pwsh
       run: |
         $current_branch = '${{env.REF_NAME}}'
         if ($current_branch -like "*/merge"){
