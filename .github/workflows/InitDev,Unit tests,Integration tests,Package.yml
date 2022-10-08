@@ -23,8 +23,9 @@ env:
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
   VERSION_MINOR: "1"
-  CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
-  ODS_CURRENT_BRANCH: ${{ github.event.client_payload.ref }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
 
 jobs:
@@ -48,39 +49,17 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-            Write-Host "Pattern Name is " $patternName -fore GREEN
-            $is_pull_request_branch = 'False'
-            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-            if ($is_pull_request_branch -eq $true) {
-              git fetch origin ${{ env.CURRENT_BRANCH }}
-              git checkout ${{ env.CURRENT_BRANCH }}
-            }
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS/
+      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-           $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-           Write-Host "Pattern Name is " $patternName -fore GREEN
-           $is_pull_request_branch = 'False'
-           $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-           Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
-           $odsBranch = '${{ env.ODS_CURRENT_BRANCH }}'
-           if($odsBranch -ne ''){
-              git fetch origin $odsBranch
-              git checkout $odsBranch
-           } else {
-              if ($is_pull_request_branch -eq $true) {
-                Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
-                git fetch origin ${{ env.CURRENT_BRANCH }}
-                git checkout ${{ env.CURRENT_BRANCH }}
-              }
-           }
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Setup Sql Server Connection String
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
