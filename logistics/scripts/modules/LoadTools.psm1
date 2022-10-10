@@ -124,7 +124,7 @@ function Invoke-BulkLoadClient {
     $bulkLoadDirectoryData = $config.bulkLoadDirectoryData
     $bulkLoadDirectoryMetadata = $config.bulkLoadDirectoryMetadata -replace '\\', '/'
     $bulkLoadDirectoryWorking = $config.bulkLoadDirectoryWorking -replace '\\', '/'
-    $bulkLoadForceReloadMetadata = $config.bulkLoadForceReloadMetadata -replace '\\', '/'
+    $bulkLoadForceReloadMetadata = $config.bulkLoadForceReloadMetadata
     $bulkLoadMaxRequests = $config.bulkLoadMaxRequests
     $BulkLoadNoXmlValidation = $config.BulkLoadNoXmlValidation
     $bulkLoadRetries = $config.bulkLoadRetries
