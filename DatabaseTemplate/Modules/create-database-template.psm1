@@ -66,8 +66,6 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
     $config.databaseConnectionString = (Get-ConnectionStringBuildersFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_changes_edfi')
-    $config.databaseBackupName = "EdFi.Ods.Populated.Template"
-    $config.packageNuspecName = "EdFi.Ods.Populated.Template"
 
     return $config
 }
