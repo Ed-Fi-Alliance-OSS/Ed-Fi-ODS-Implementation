@@ -6,12 +6,12 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\config\config-management.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\settings\settings-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\database\database-management.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\database\postgres-database-management.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
+& "$PSScriptRoot/../../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/config/config-management.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/database/database-management.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/database/postgres-database-management.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 
 function Remove-EdFiSQLServerDatabases {
     <#
