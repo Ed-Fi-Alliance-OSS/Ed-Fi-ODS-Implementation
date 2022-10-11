@@ -11,10 +11,20 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 function Get-ProjectTypes {
     return @{
         WebApi                 = 'Application/EdFi.Ods.WebApi'
-        IntegrationTestHarness = 'Application/EdFi.Ods.Api.IntegrationTestHarness'
         SandboxAdmin           = 'Application/EdFi.Ods.SandboxAdmin'
         SwaggerUI              = 'Application/EdFi.Ods.SwaggerUI'
         Databases              = 'Scripts/NuGet/EdFi.RestApi.Databases'
+    }
+}
+
+function Get-TestProjectTypes {
+    return @{
+        IntegrationTestHarness      = 'Application/EdFi.Ods.Api.IntegrationTestHarness'
+        NHibernateTests             = 'Application/EdFi.Ods.Repositories.NHibernate.Tests'
+        ApiIntegrationTests         = 'tests/EdFi.Ods.Api.IntegrationTests'
+        CompositeSpecFlowTests      = 'tests/EdFi.Ods.WebApi.CompositeSpecFlowTests'
+        WebApiIntegrationTests      = 'tests/EdFi.Ods.WebApi.IntegrationTests'
+        DataAccessIntegrationTests  = 'tests/EdFi.Admin.DataAccess.IntegrationTests'
     }
 }
 
@@ -32,13 +42,6 @@ function Get-DefaultDevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
-        }
-        ((Get-ProjectTypes).IntegrationTestHarness) = @{
-            Urls              = "http://localhost:8765"
-            ApiSettings       = @{
-                Engine = ""
-            }
-            ConnectionStrings = @{ }
         }
         ((Get-ProjectTypes).SandboxAdmin)           = @{
             Urls                         = "http://localhost:38928"
@@ -74,6 +77,43 @@ function Get-DefaultDevelopmentSettingsByProject {
                     Default = "Debug"
                 }
             }
+        }
+        ((Get-TestProjectTypes).IntegrationTestHarness) = @{
+            Urls              = "http://localhost:8765"
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).NHibernateTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).ApiIntegrationTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).CompositeSpecFlowTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).WebApiIntegrationTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).DataAccessIntegrationTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
         }
     }
 }
@@ -486,8 +526,8 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
     return $Settings
 }
 
-function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne ((Get-ProjectTypes).IntegrationTestHarness)) { return $Settings }
+function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if (-not $ProjectName.Contains("Test")) { return $Settings }
 
     $databaseName = @{
         ((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Ods])      = "EdFi_Ods_Populated_Template_Test"
@@ -497,9 +537,6 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
 
     $newSettings = @{
         ConnectionStrings = @{ }
-        ApiSettings       = @{
-            Mode = "SharedInstance"
-        }
     }
 
     $csbs = Get-ConnectionStringBuildersFromSettings $Settings
@@ -509,6 +546,19 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
     }
     $newSettings = (Merge-Hashtables $Settings, $newSettings)
 
+    return $newSettings
+}
+
+function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne ((Get-TestProjectTypes).IntegrationTestHarness)) { return $Settings }
+
+    $newSettings = @{
+        ApiSettings       = @{
+            Mode = "SharedInstance"
+        }
+    }
+
+    $newSettings = (Merge-Hashtables $Settings, $newSettings)
     return $newSettings
 }
 
@@ -524,10 +574,10 @@ function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $P
 
 function Get-UserSecretsIdByProject {
     return @{
-        ((Get-ProjectTypes).SandboxAdmin)           = "f1506d66-289c-44cb-a2e2-80411cc690ea"
-        ((Get-ProjectTypes).SwaggerUI)              = "f1506d66-289c-44cb-a2e2-80411cc690eb"
-        ((Get-ProjectTypes).WebApi)                 = "f1506d66-289c-44cb-a2e2-80411cc690ec"
-        ((Get-ProjectTypes).IntegrationTestHarness) = "f1506d66-289c-44cb-a2e2-80411cc690ed"
+        ((Get-ProjectTypes).SandboxAdmin)               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
+        ((Get-ProjectTypes).SwaggerUI)                  = "f1506d66-289c-44cb-a2e2-80411cc690eb"
+        ((Get-ProjectTypes).WebApi)                     = "f1506d66-289c-44cb-a2e2-80411cc690ec"
+        ((Get-TestProjectTypes).IntegrationTestHarness) = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
 
@@ -542,6 +592,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
+        $newDevelopmentSettings = Add-TestSpecificAppSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
