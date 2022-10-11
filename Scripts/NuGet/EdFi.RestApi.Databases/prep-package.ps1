@@ -33,6 +33,7 @@ $ErrorActionPreference = 'Stop'
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/packaging.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tasks/TaskHelper.psm1')
@@ -95,7 +96,7 @@ $nonrepoNuspecFiles = Get-ChildItem $outputDirectory -Exclude *.nuspec, prep-pac
 
 Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $nonrepoNuspecFiles
 
-Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems "tools/EdFi.Db.Deploy.exe"; target = "tools" }
+Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems @(If (Get-IsWindows) { "tools/EdFi.Db.Deploy.exe" } Else { "tools/EdFi.Db.Deploy" }) ; target = "tools" }
 
 $dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/EdFi.Suite3.Db.Deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
 
