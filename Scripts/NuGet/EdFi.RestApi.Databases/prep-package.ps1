@@ -98,7 +98,7 @@ Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $nonrepoNuspecFiles
 
 Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems @(If (Get-IsWindows) { "tools/EdFi.Db.Deploy.exe" } Else { "tools/EdFi.Db.Deploy" }) ; target = "tools" }
 
-$dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/EdFi.Suite3.Db.Deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
+$dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/edfi.suite3.db.deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
 
 Foreach ($eachtoolfile in $dbDeployToolfiles)
 {
