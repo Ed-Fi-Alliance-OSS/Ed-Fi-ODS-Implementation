@@ -62,11 +62,12 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Start PostgreSQL
+    - name: Install & Start PostgreSQL 13
       run: |
-        $pgService = Get-Service -Name postgresql*
-        Set-Service -InputObject $pgService -Status running -StartupType automatic
-        Start-Process -FilePath "$env:PGBIN\pg_isready" -Wait -PassThru
+        choco install postgresql13 --params '/Password:postgres'
+        $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
+        (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
+        Restart-Service postgresql-x64-13        
     - name: ODS/API InitDev and SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
