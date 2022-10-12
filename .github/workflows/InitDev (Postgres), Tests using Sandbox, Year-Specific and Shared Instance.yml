@@ -11,11 +11,6 @@ on:
   push:
    branches: [main]
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
   repository_dispatch:
     types: [triggered-from-ods-repo]
 
