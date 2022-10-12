@@ -8,3 +8,6 @@ Association EdFi.StudentEducationOrganizationAssociation additions
     descriptor MilitaryFamily
         documentation "Indicator to identify the military stuats of the student's family"
         is optional
+        descriptor GenderIdentity
+            documentation "Indicates the gender the student identifies with."
+            is optional

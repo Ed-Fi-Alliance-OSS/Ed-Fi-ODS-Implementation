@@ -160,13 +160,9 @@ COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension
 COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.TeacherOrPrincipalYearsInDistrict IS 'The total number of years that an individual has previously held a Teacher or Principal position in the current district.';
 COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.TeacherOrPrincipalYearsOverall IS 'The total number of years that an individual has previously held a Teacher or Principal position overall.';
-
--- Extended Properties [nmped].[StaffExtension] --
-COMMENT ON TABLE nmped.StaffExtension IS '';
-COMMENT ON COLUMN nmped.StaffExtension.StaffUSI IS 'A unique alphanumeric code assigned to a staff.';
-COMMENT ON COLUMN nmped.StaffExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Insitution or State that conferred Highest Degree';
-COMMENT ON COLUMN nmped.StaffExtension.BaccalaureateLevelOfEducationInstitutionDescriptorId IS 'Indicates the Institution or State that conferred Baccalaureate Degree.';
-COMMENT ON COLUMN nmped.StaffExtension.NationalCertified IS 'The data is used to determine if a Staff Member is a National Board Certified Teacher.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.HighestCompletedLevelOfEducationInstitutionDescriptorId IS 'Indicates the Insitution or State that conferred Highest Degree';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.BaccalaureateLevelOfEducationInstitutionDescriptorId IS 'Indicates the Institution or State that conferred Baccalaureate Degree.';
+COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension.NationalCertified IS 'The data is used to determine if a Staff Member is a National Board Certified Teacher.';
 
 -- Extended Properties [nmped].[StudentAwardTypeDescriptor] --
 COMMENT ON TABLE nmped.StudentAwardTypeDescriptor IS 'The award type.';
@@ -195,6 +191,7 @@ COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Student
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.Grade09Entry IS 'This field holds the date when a student entered the ninth grade.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.DentalExaminationVerificationCodeDescriptorId IS 'This code for the dental examination performed.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.MilitaryFamilyDescriptorId IS 'Indicator to identify the military stuats of the student''s family';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.GenderIdentityDescriptorId IS 'Indicates the gender the student identifies with.';
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAward IS 'The awards a student has earned at a education organization.';
@@ -204,11 +201,6 @@ COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.SchoolYear IS 'The sch
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardLanguageDescriptorId IS ' The language for which the State Seal of Bilingualism-Biliteracy (SSBB) was awarded.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentAwardTypeDescriptorId IS 'The type of award.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-
--- Extended Properties [nmped].[StudentExtension] --
-COMMENT ON TABLE nmped.StudentExtension IS '';
-COMMENT ON COLUMN nmped.StudentExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN nmped.StudentExtension.GenderIdentityDescriptorId IS 'Indicates the gender the student identifies with.';
 
 -- Extended Properties [nmped].[StudentProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentProgramAssociationExtension IS '';

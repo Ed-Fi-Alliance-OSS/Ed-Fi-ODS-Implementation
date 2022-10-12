@@ -255,17 +255,11 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total numb
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The total number of years that an individual has previously held a Teacher or Principal position overall.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationEmploymentAssociationExtension', @level2type=N'COLUMN', @level2name=N'TeacherOrPrincipalYearsOverall'
 GO
-
--- Extended Properties [nmped].[StaffExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Insitution or State that conferred Highest Degree', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationEmploymentAssociationExtension', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationInstitutionDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a staff.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'StaffUSI'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Institution or State that conferred Baccalaureate Degree.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationEmploymentAssociationExtension', @level2type=N'COLUMN', @level2name=N'BaccalaureateLevelOfEducationInstitutionDescriptorId'
 GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Insitution or State that conferred Highest Degree', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'HighestCompletedLevelOfEducationInstitutionDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the Institution or State that conferred Baccalaureate Degree.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'BaccalaureateLevelOfEducationInstitutionDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The data is used to determine if a Staff Member is a National Board Certified Teacher.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffExtension', @level2type=N'COLUMN', @level2name=N'NationalCertified'
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The data is used to determine if a Staff Member is a National Board Certified Teacher.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StaffEducationOrganizationEmploymentAssociationExtension', @level2type=N'COLUMN', @level2name=N'NationalCertified'
 GO
 
 -- Extended Properties [nmped].[StudentAwardTypeDescriptor] --
@@ -313,6 +307,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'This code for 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicator to identify the military stuats of the student''s family', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'MilitaryFamilyDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the gender the student identifies with.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAssociationExtension', @level2type=N'COLUMN', @level2name=N'GenderIdentityDescriptorId'
+GO
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The awards a student has earned at a education organization.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward'
@@ -328,14 +324,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The type of award.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'StudentAwardTypeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentEducationOrganizationAward', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-
--- Extended Properties [nmped].[StudentExtension] --
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentExtension'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentExtension', @level2type=N'COLUMN', @level2name=N'StudentUSI'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indicates the gender the student identifies with.', @level0type=N'SCHEMA', @level0name=N'nmped', @level1type=N'TABLE', @level1name=N'StudentExtension', @level2type=N'COLUMN', @level2name=N'GenderIdentityDescriptorId'
 GO
 
 -- Extended Properties [nmped].[StudentProgramAssociationExtension] --

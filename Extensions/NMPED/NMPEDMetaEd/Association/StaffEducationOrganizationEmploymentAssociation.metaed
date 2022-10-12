@@ -5,3 +5,14 @@ Association EdFi.StaffEducationOrganizationEmploymentAssociation additions
     integer TeacherOrPrincipalYearsOverall
           documentation "The total number of years that an individual has previously held a Teacher or Principal position overall."
           is optional
+    descriptor LevelOfEducationInstitution
+        documentation "Indicates the Insitution or State that conferred Highest Degree"
+        is optional
+        role name HighestCompletedLevelOfEducationInstitution
+    descriptor LevelOfEducationInstitution
+        documentation "Indicates the Institution or State that conferred Baccalaureate Degree."
+        is optional
+        role name BaccalaureateLevelOfEducationInstitution
+    bool NationalCertified
+        documentation "The data is used to determine if a Staff Member is a National Board Certified Teacher."
+        is optional

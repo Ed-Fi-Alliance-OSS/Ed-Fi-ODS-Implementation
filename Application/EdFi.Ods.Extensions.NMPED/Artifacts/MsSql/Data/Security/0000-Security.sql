@@ -132,7 +132,7 @@ SELECT Actions.ActionId, ClaimSets.ClaimSetId, ResourceClaimId
 	JOIN ResourceClaims
 		ON displayName in ( 'program', 'course');
 		
--- attach authorization strategy to changed claimes
+-- attach authorization strategy to changed claims
 insert into [ResourceClaimAuthorizationMetadatas] (Action_ActionId, ResourceClaim_ResourceClaimId, AuthorizationStrategy_AuthorizationStrategyId)
 SELECT distinct Actions.ActionId, ResourceClaimId, AuthorizationStrategies.AuthorizationStrategyId
 	FROM ClaimSets
@@ -143,7 +143,6 @@ SELECT distinct Actions.ActionId, ResourceClaimId, AuthorizationStrategies.Autho
 	join AuthorizationStrategies
 		ON AuthorizationStrategies.DisplayName = 'No Further Authorization Required'
 	left join ResourceClaimAuthorizationMetadatas on ResourceClaim_ResourceClaimId = ResourceClaimId and Action_ActionId = actions.ActionId where ResourceClaim_ResourceClaimId is null
-
 
 
 -- give full control for admin app

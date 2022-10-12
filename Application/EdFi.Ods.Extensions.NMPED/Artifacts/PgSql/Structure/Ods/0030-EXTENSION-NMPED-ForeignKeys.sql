@@ -209,27 +209,22 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
+ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ADD CONSTRAINT FK_ec4394_LevelOfEducationInstitutionDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationInstitutionDescriptorId)
+REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitutionDescriptorId)
+;
+
+CREATE INDEX FK_ec4394_LevelOfEducationInstitutionDescriptor
+ON nmped.StaffEducationOrganizationEmploymentAssociationExtension (HighestCompletedLevelOfEducationInstitutionDescriptorId ASC);
+
+ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ADD CONSTRAINT FK_ec4394_LevelOfEducationInstitutionDescriptor1 FOREIGN KEY (BaccalaureateLevelOfEducationInstitutionDescriptorId)
+REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitutionDescriptorId)
+;
+
+CREATE INDEX FK_ec4394_LevelOfEducationInstitutionDescriptor1
+ON nmped.StaffEducationOrganizationEmploymentAssociationExtension (BaccalaureateLevelOfEducationInstitutionDescriptorId ASC);
+
 ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ADD CONSTRAINT FK_ec4394_StaffEducationOrganizationEmploymentAssociation FOREIGN KEY (EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
 REFERENCES edfi.StaffEducationOrganizationEmploymentAssociation (EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
-ON DELETE CASCADE
-;
-
-ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_LevelOfEducationInstitutionDescriptor FOREIGN KEY (HighestCompletedLevelOfEducationInstitutionDescriptorId)
-REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitutionDescriptorId)
-;
-
-CREATE INDEX FK_d7b81a_LevelOfEducationInstitutionDescriptor
-ON nmped.StaffExtension (HighestCompletedLevelOfEducationInstitutionDescriptorId ASC);
-
-ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_LevelOfEducationInstitutionDescriptor1 FOREIGN KEY (BaccalaureateLevelOfEducationInstitutionDescriptorId)
-REFERENCES nmped.LevelOfEducationInstitutionDescriptor (LevelOfEducationInstitutionDescriptorId)
-;
-
-CREATE INDEX FK_d7b81a_LevelOfEducationInstitutionDescriptor1
-ON nmped.StaffExtension (BaccalaureateLevelOfEducationInstitutionDescriptorId ASC);
-
-ALTER TABLE nmped.StaffExtension ADD CONSTRAINT FK_d7b81a_Staff FOREIGN KEY (StaffUSI)
-REFERENCES edfi.Staff (StaffUSI)
 ON DELETE CASCADE
 ;
 
@@ -263,6 +258,13 @@ REFERENCES nmped.DentalExaminationVerificationCodeDescriptor (DentalExaminationV
 
 CREATE INDEX FK_2c2930_DentalExaminationVerificationCodeDescriptor
 ON nmped.StudentEducationOrganizationAssociationExtension (DentalExaminationVerificationCodeDescriptorId ASC);
+
+ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_GenderIdentityDescriptor FOREIGN KEY (GenderIdentityDescriptorId)
+REFERENCES nmped.GenderIdentityDescriptor (GenderIdentityDescriptorId)
+;
+
+CREATE INDEX FK_2c2930_GenderIdentityDescriptor
+ON nmped.StudentEducationOrganizationAssociationExtension (GenderIdentityDescriptorId ASC);
 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_MilitaryFamilyDescriptor FOREIGN KEY (MilitaryFamilyDescriptorId)
 REFERENCES nmped.MilitaryFamilyDescriptor (MilitaryFamilyDescriptorId)
@@ -310,18 +312,6 @@ REFERENCES nmped.StudentAwardTypeDescriptor (StudentAwardTypeDescriptorId)
 
 CREATE INDEX FK_4d41c1_StudentAwardTypeDescriptor
 ON nmped.StudentEducationOrganizationAward (StudentAwardTypeDescriptorId ASC);
-
-ALTER TABLE nmped.StudentExtension ADD CONSTRAINT FK_f25437_GenderIdentityDescriptor FOREIGN KEY (GenderIdentityDescriptorId)
-REFERENCES nmped.GenderIdentityDescriptor (GenderIdentityDescriptorId)
-;
-
-CREATE INDEX FK_f25437_GenderIdentityDescriptor
-ON nmped.StudentExtension (GenderIdentityDescriptorId ASC);
-
-ALTER TABLE nmped.StudentExtension ADD CONSTRAINT FK_f25437_Student FOREIGN KEY (StudentUSI)
-REFERENCES edfi.Student (StudentUSI)
-ON DELETE CASCADE
-;
 
 ALTER TABLE nmped.StudentProgramAssociationExtension ADD CONSTRAINT FK_0c120d_LanguageDescriptor FOREIGN KEY (BEPProgramLanguageDescriptorId)
 REFERENCES edfi.LanguageDescriptor (LanguageDescriptorId)

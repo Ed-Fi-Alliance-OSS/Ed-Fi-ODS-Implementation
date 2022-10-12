@@ -213,41 +213,6 @@
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
-  <xs:complexType name="EXTENSION-StaffExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="Staff">
-        <xs:sequence>
-          <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the Insitution or State that conferred Highest Degree</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="BaccalaureateLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the Institution or State that conferred Baccalaureate Degree.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
-              </xs:appinfo>
-            </xs:annotation>
-          </xs:element>
-          <xs:element name="NationalCertified" type="xs:boolean" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The data is used to determine if a Staff Member is a National Board Certified Teacher.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
   <xs:complexType name="EXTENSION-StudentEducationOrganizationAward">
     <xs:annotation>
       <xs:documentation>The awards a student has earned at a education organization.</xs:documentation>
@@ -292,28 +257,6 @@
           <xs:element name="AwardDate" type="xs:date">
             <xs:annotation>
               <xs:documentation>The date the student got awarded.</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:complexType name="EXTENSION-StudentExtension">
-    <xs:annotation>
-      <xs:documentation></xs:documentation>
-      <xs:appinfo>
-        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:complexContent>
-      <xs:extension base="Student">
-        <xs:sequence>
-          <xs:element name="GenderIdentity" type="EXTENSION-GenderIdentityDescriptorReferenceType" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Indicates the gender the student identifies with.</xs:documentation>
-              <xs:appinfo>
-                <ann:Descriptor>EXTENSION-GenderIdentityDescriptor</ann:Descriptor>
-              </xs:appinfo>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -942,6 +885,27 @@
               <xs:documentation>The total number of years that an individual has previously held a Teacher or Principal position overall.</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="HighestCompletedLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates the Insitution or State that conferred Highest Degree</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BaccalaureateLevelOfEducationInstitutionLevelOfEducationInstitution" type="EXTENSION-LevelOfEducationInstitutionDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates the Institution or State that conferred Baccalaureate Degree.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-LevelOfEducationInstitutionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="NationalCertified" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The data is used to determine if a Staff Member is a National Board Certified Teacher.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
     </xs:complexContent>
@@ -1013,6 +977,14 @@
               <xs:documentation>Indicator to identify the military stuats of the student's family</xs:documentation>
               <xs:appinfo>
                 <ann:Descriptor>EXTENSION-MilitaryFamilyDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="GenderIdentity" type="EXTENSION-GenderIdentityDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates the gender the student identifies with.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-GenderIdentityDescriptor</ann:Descriptor>
               </xs:appinfo>
             </xs:annotation>
           </xs:element>

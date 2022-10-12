@@ -219,29 +219,24 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor] FOREIGN KEY ([HighestCompletedLevelOfEducationInstitutionDescriptorId])
+REFERENCES [nmped].[LevelOfEducationInstitutionDescriptor] ([LevelOfEducationInstitutionDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor]
+ON [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] ([HighestCompletedLevelOfEducationInstitutionDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor1] FOREIGN KEY ([BaccalaureateLevelOfEducationInstitutionDescriptorId])
+REFERENCES [nmped].[LevelOfEducationInstitutionDescriptor] ([LevelOfEducationInstitutionDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor1]
+ON [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] ([BaccalaureateLevelOfEducationInstitutionDescriptorId] ASC)
+GO
+
 ALTER TABLE [nmped].[StaffEducationOrganizationEmploymentAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StaffEducationOrganizationEmploymentAssociationExtension_StaffEducationOrganizationEmploymentAssociation] FOREIGN KEY ([EducationOrganizationId], [EmploymentStatusDescriptorId], [HireDate], [StaffUSI])
 REFERENCES [edfi].[StaffEducationOrganizationEmploymentAssociation] ([EducationOrganizationId], [EmploymentStatusDescriptorId], [HireDate], [StaffUSI])
-ON DELETE CASCADE
-GO
-
-ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_LevelOfEducationInstitutionDescriptor] FOREIGN KEY ([HighestCompletedLevelOfEducationInstitutionDescriptorId])
-REFERENCES [nmped].[LevelOfEducationInstitutionDescriptor] ([LevelOfEducationInstitutionDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffExtension_LevelOfEducationInstitutionDescriptor]
-ON [nmped].[StaffExtension] ([HighestCompletedLevelOfEducationInstitutionDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_LevelOfEducationInstitutionDescriptor1] FOREIGN KEY ([BaccalaureateLevelOfEducationInstitutionDescriptorId])
-REFERENCES [nmped].[LevelOfEducationInstitutionDescriptor] ([LevelOfEducationInstitutionDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StaffExtension_LevelOfEducationInstitutionDescriptor1]
-ON [nmped].[StaffExtension] ([BaccalaureateLevelOfEducationInstitutionDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StaffExtension] WITH CHECK ADD CONSTRAINT [FK_StaffExtension_Staff] FOREIGN KEY ([StaffUSI])
-REFERENCES [edfi].[Staff] ([StaffUSI])
 ON DELETE CASCADE
 GO
 
@@ -277,6 +272,14 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationExtension_DentalExaminationVerificationCodeDescriptor]
 ON [nmped].[StudentEducationOrganizationAssociationExtension] ([DentalExaminationVerificationCodeDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_GenderIdentityDescriptor] FOREIGN KEY ([GenderIdentityDescriptorId])
+REFERENCES [nmped].[GenderIdentityDescriptor] ([GenderIdentityDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationExtension_GenderIdentityDescriptor]
+ON [nmped].[StudentEducationOrganizationAssociationExtension] ([GenderIdentityDescriptorId] ASC)
 GO
 
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_MilitaryFamilyDescriptor] FOREIGN KEY ([MilitaryFamilyDescriptorId])
@@ -330,19 +333,6 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAward_StudentAwardTypeDescriptor]
 ON [nmped].[StudentEducationOrganizationAward] ([StudentAwardTypeDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StudentExtension] WITH CHECK ADD CONSTRAINT [FK_StudentExtension_GenderIdentityDescriptor] FOREIGN KEY ([GenderIdentityDescriptorId])
-REFERENCES [nmped].[GenderIdentityDescriptor] ([GenderIdentityDescriptorId])
-GO
-
-CREATE NONCLUSTERED INDEX [FK_StudentExtension_GenderIdentityDescriptor]
-ON [nmped].[StudentExtension] ([GenderIdentityDescriptorId] ASC)
-GO
-
-ALTER TABLE [nmped].[StudentExtension] WITH CHECK ADD CONSTRAINT [FK_StudentExtension_Student] FOREIGN KEY ([StudentUSI])
-REFERENCES [edfi].[Student] ([StudentUSI])
-ON DELETE CASCADE
 GO
 
 ALTER TABLE [nmped].[StudentProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociationExtension_LanguageDescriptor] FOREIGN KEY ([BEPProgramLanguageDescriptorId])

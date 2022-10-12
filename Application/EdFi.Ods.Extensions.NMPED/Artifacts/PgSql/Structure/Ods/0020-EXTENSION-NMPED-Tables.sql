@@ -234,21 +234,13 @@ CREATE TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension (
     StaffUSI INT NOT NULL,
     TeacherOrPrincipalYearsInDistrict INT NULL,
     TeacherOrPrincipalYearsOverall INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffEducationOrganizationEmploymentAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
-); 
-ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
-
--- Table nmped.StaffExtension --
-CREATE TABLE nmped.StaffExtension (
-    StaffUSI INT NOT NULL,
     HighestCompletedLevelOfEducationInstitutionDescriptorId INT NULL,
     BaccalaureateLevelOfEducationInstitutionDescriptorId INT NULL,
     NationalCertified BOOLEAN NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StaffExtension_PK PRIMARY KEY (StaffUSI)
+    CONSTRAINT StaffEducationOrganizationEmploymentAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, EmploymentStatusDescriptorId, HireDate, StaffUSI)
 ); 
-ALTER TABLE nmped.StaffExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StaffEducationOrganizationEmploymentAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentAwardTypeDescriptor --
 CREATE TABLE nmped.StudentAwardTypeDescriptor (
@@ -279,6 +271,7 @@ CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (
     Grade09Entry DATE NULL,
     DentalExaminationVerificationCodeDescriptorId INT NULL,
     MilitaryFamilyDescriptorId INT NULL,
+    GenderIdentityDescriptorId INT NULL,
     CreateDate TIMESTAMP NOT NULL,
     CONSTRAINT StudentEducationOrganizationAssociationExtension_PK PRIMARY KEY (EducationOrganizationId, StudentUSI)
 ); 
@@ -301,15 +294,6 @@ CREATE TABLE nmped.StudentEducationOrganizationAward (
 ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmped.StudentEducationOrganizationAward ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
-
--- Table nmped.StudentExtension --
-CREATE TABLE nmped.StudentExtension (
-    StudentUSI INT NOT NULL,
-    GenderIdentityDescriptorId INT NULL,
-    CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentExtension_PK PRIMARY KEY (StudentUSI)
-); 
-ALTER TABLE nmped.StudentExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentProgramAssociationExtension --
 CREATE TABLE nmped.StudentProgramAssociationExtension (

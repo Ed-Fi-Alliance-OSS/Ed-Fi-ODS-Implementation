@@ -1677,6 +1677,23 @@
           }
         },
         {
+          "propertyName": "NationalCertified",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The data is used to determine if a Staff Member is a National Board Certified Teacher.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "NationalCertified",
+            "postgreSql": "NationalCertified"
+          }
+        },
+        {
           "propertyName": "TeacherOrPrincipalYearsInDistrict",
           "propertyType": {
             "dbType": "Int32",
@@ -1733,66 +1750,6 @@
       "tableNames": {
         "sqlServer": "StaffEducationOrganizationEmploymentAssociationExtension",
         "postgreSql": "StaffEducationOrganizationEmploymentAssociationExtension"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "StaffExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        },
-        {
-          "propertyName": "NationalCertified",
-          "propertyType": {
-            "dbType": "Boolean",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "The data is used to determine if a Staff Member is a National Board Certified Teacher.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "NationalCertified",
-            "postgreSql": "NationalCertified"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StaffExtension_PK",
-          "identifyingPropertyNames": [
-            "StaffUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StaffExtension_PK",
-            "postgreSql": "StaffExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "",
-      "tableNames": {
-        "sqlServer": "StaffExtension",
-        "postgreSql": "StaffExtension"
       }
     },
     {
@@ -2055,49 +2012,6 @@
       "tableNames": {
         "sqlServer": "StudentEducationOrganizationAward",
         "postgreSql": "StudentEducationOrganizationAward"
-      }
-    },
-    {
-      "schema": "nmped",
-      "name": "StudentExtension",
-      "locallyDefinedProperties": [
-        {
-          "propertyName": "CreateDate",
-          "propertyType": {
-            "dbType": "DateTime2",
-            "maxLength": 0,
-            "precision": 0,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "CreateDate",
-            "postgreSql": "CreateDate"
-          }
-        }
-      ],
-      "identifiers": [
-        {
-          "identifierName": "StudentExtension_PK",
-          "identifyingPropertyNames": [
-            "StudentUSI"
-          ],
-          "isPrimary": true,
-          "isUpdatable": false,
-          "constraintNames": {
-            "sqlServer": "StudentExtension_PK",
-            "postgreSql": "StudentExtension_PK"
-          }
-        }
-      ],
-      "isAbstract": false,
-      "description": "",
-      "tableNames": {
-        "sqlServer": "StudentExtension",
-        "postgreSql": "StudentExtension"
       }
     },
     {
@@ -5618,6 +5532,126 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LevelOfEducationInstitutionDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LevelOfEducationInstitutionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LevelOfEducationInstitutionDescriptorId",
+            "postgreSql": "LevelOfEducationInstitutionDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationEmploymentAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "HighestCompletedLevelOfEducationInstitutionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates the Insitution or State that conferred Highest Degree",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "HighestCompletedLevelOfEducationInstitutionDescriptorId",
+            "postgreSql": "HighestCompletedLevelOfEducationInstitutionDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor",
+        "postgreSql": "FK_ec4394_LevelOfEducationInstitutionDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor1"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LevelOfEducationInstitutionDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LevelOfEducationInstitutionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LevelOfEducationInstitutionDescriptorId",
+            "postgreSql": "LevelOfEducationInstitutionDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StaffEducationOrganizationEmploymentAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates the Institution or State that conferred Baccalaureate Degree.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
+            "postgreSql": "BaccalaureateLevelOfEducationInstitutionDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StaffEducationOrganizationEmploymentAssociationExtension_LevelOfEducationInstitutionDescriptor1",
+        "postgreSql": "FK_ec4394_LevelOfEducationInstitutionDescriptor1"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StaffEducationOrganizationEmploymentAssociationExtension_StaffEducationOrganizationEmploymentAssociation"
       },
       "cardinality": "OneToOneExtension",
@@ -5774,185 +5808,6 @@
       "constraintNames": {
         "sqlServer": "FK_StaffEducationOrganizationEmploymentAssociationExtension_StaffEducationOrganizationEmploymentAssociation",
         "postgreSql": "FK_ec4394_StaffEducationOrganizationEmploymentAssociation"
-      }
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "LevelOfEducationInstitutionDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "LevelOfEducationInstitutionDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfEducationInstitutionDescriptorId",
-            "postgreSql": "LevelOfEducationInstitutionDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "HighestCompletedLevelOfEducationInstitutionDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Indicates the Insitution or State that conferred Highest Degree",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "HighestCompletedLevelOfEducationInstitutionDescriptorId",
-            "postgreSql": "HighestCompletedLevelOfEducationInstitutionDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor",
-        "postgreSql": "FK_d7b81a_LevelOfEducationInstitutionDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor1"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "LevelOfEducationInstitutionDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "LevelOfEducationInstitutionDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "LevelOfEducationInstitutionDescriptorId",
-            "postgreSql": "LevelOfEducationInstitutionDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Indicates the Institution or State that conferred Baccalaureate Degree.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "BaccalaureateLevelOfEducationInstitutionDescriptorId",
-            "postgreSql": "BaccalaureateLevelOfEducationInstitutionDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StaffExtension_LevelOfEducationInstitutionDescriptor1",
-        "postgreSql": "FK_d7b81a_LevelOfEducationInstitutionDescriptor1"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StaffExtension_Staff"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Staff"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StaffExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StaffUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a staff.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StaffUSI",
-            "postgreSql": "StaffUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StaffExtension_Staff",
-        "postgreSql": "FK_d7b81a_Staff"
       }
     },
     {
@@ -6427,6 +6282,66 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAssociationExtension_GenderIdentityDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "GenderIdentityDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "GenderIdentityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GenderIdentityDescriptorId",
+            "postgreSql": "GenderIdentityDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAssociationExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "GenderIdentityDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indicates the gender the student identifies with.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GenderIdentityDescriptorId",
+            "postgreSql": "GenderIdentityDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAssociationExtension_GenderIdentityDescriptor",
+        "postgreSql": "FK_2c2930_GenderIdentityDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentEducationOrganizationAssociationExtension_MilitaryFamilyDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -6876,125 +6791,6 @@
         "postgreSql": "FK_4d41c1_StudentAwardTypeDescriptor"
       },
       "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentExtension_GenderIdentityDescriptor"
-      },
-      "cardinality": "OneToZeroOrMore",
-      "primaryEntityFullName": {
-        "schema": "nmped",
-        "name": "GenderIdentityDescriptor"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "GenderIdentityDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GenderIdentityDescriptorId",
-            "postgreSql": "GenderIdentityDescriptorId"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "GenderIdentityDescriptorId",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": true
-          },
-          "description": "Indicates the gender the student identifies with.",
-          "isIdentifying": false,
-          "isServerAssigned": false,
-          "columnNames": {
-            "sqlServer": "GenderIdentityDescriptorId",
-            "postgreSql": "GenderIdentityDescriptorId"
-          }
-        }
-      ],
-      "isIdentifying": false,
-      "isRequired": false,
-      "constraintNames": {
-        "sqlServer": "FK_StudentExtension_GenderIdentityDescriptor",
-        "postgreSql": "FK_f25437_GenderIdentityDescriptor"
-      },
-      "potentiallyLogical": false
-    },
-    {
-      "fullName": {
-        "schema": "nmped",
-        "name": "FK_StudentExtension_Student"
-      },
-      "cardinality": "OneToOneExtension",
-      "primaryEntityFullName": {
-        "schema": "edfi",
-        "name": "Student"
-      },
-      "primaryEntityProperties": [
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "secondaryEntityFullName": {
-        "schema": "nmped",
-        "name": "StudentExtension"
-      },
-      "secondaryEntityProperties": [
-        {
-          "propertyName": "StudentUSI",
-          "propertyType": {
-            "dbType": "Int32",
-            "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
-            "isNullable": false
-          },
-          "description": "A unique alphanumeric code assigned to a student.",
-          "isIdentifying": true,
-          "isServerAssigned": true,
-          "columnNames": {
-            "sqlServer": "StudentUSI",
-            "postgreSql": "StudentUSI"
-          }
-        }
-      ],
-      "isIdentifying": true,
-      "isRequired": true,
-      "constraintNames": {
-        "sqlServer": "FK_StudentExtension_Student",
-        "postgreSql": "FK_f25437_Student"
-      }
     },
     {
       "fullName": {

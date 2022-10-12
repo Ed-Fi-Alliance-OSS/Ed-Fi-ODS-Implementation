@@ -10,7 +10,7 @@
     </xs:annotation>
     <xs:complexType>
       <xs:choice maxOccurs="unbounded">
-        <xs:element name="Staff" type="EXTENSION-StaffExtension" />
+        <xs:element name="Staff" type="Staff" />
         <xs:element name="StaffEducationOrganizationEmploymentAssociation" type="EXTENSION-StaffEducationOrganizationEmploymentAssociationExtension" />
         <xs:element name="StaffEducationOrganizationAssignmentAssociation" type="StaffEducationOrganizationAssignmentAssociation" />
         <xs:element name="StaffSchoolAssociation" type="StaffSchoolAssociation" />
