@@ -99,7 +99,7 @@ function Get-SmokeTestConfiguration {
     $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
     $config.testHarnessJsonConfigLEAs = @()
 
-    $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
+    $config.bulkLoadTempJsonConfig = Join-Path ([IO.Path]::GetTempPath()) "smokeTestconfig.json"
 
     $config.buildConfiguration = "Debug"
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
