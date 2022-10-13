@@ -69,7 +69,8 @@ if ([string]::IsNullOrWhiteSpace($key)) { $key = Get-RandomString }
 if ([string]::IsNullOrWhiteSpace($secret)) { $secret = Get-RandomString }
 
 if ([string]::IsNullOrWhiteSpace($smokeTestExe) -or -not (Test-Path $smokeTestExe)) {
-    $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.SmokeTest.Console")/bin/**/EdFi.SmokeTest.Console.exe"
+    $smokeTestExeFileName = If (Get-IsWindows) {"EdFi.SmokeTest.Console.exe"} Else {"EdFi.SmokeTest.Console"}
+    $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.SmokeTest.Console")/bin/**/$smokeTestExeFileName"
 }
 else { $noRebuild = $true }
 
