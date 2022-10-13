@@ -6,8 +6,8 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/create-database-template.psm1")
 
 function Get-MinimalConfiguration([hashtable] $config = @{ }) {
 
