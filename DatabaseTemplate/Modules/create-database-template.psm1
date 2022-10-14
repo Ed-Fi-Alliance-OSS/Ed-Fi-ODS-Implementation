@@ -508,7 +508,8 @@ function New-DatabaseTemplateNuspec {
         $config.databaseBackupName += ".PostgreSQL"
         $config.Id += ".PostgreSQL"
         $config.Title += ".PostgreSQL"
-        $config.Description += " for PostgreSQL"
+        $config.Description += "for PostgreSQL"
+    }
 
     if (-not $config.backupDirectory) { $populatedTemplatePath = $global:templateDatabaseFolder }
     else { $populatedTemplatePath = $config.backupDirectory }
