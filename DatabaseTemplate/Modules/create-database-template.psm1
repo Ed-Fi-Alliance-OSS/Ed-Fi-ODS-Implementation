@@ -503,7 +503,13 @@ function New-DatabaseTemplateNuspec {
         [hashtable] $config
     )
     $packageNuspecName = $config.packageNuspecName
-    if ($config.engine -eq 'PostgreSQL') { $packageNuspecName += ".PostgreSQL" }
+    if ($config.engine -eq 'PostgreSQL') {
+        $packageNuspecName += ".PostgreSQL"
+        $config.databaseBackupName += ".PostgreSQL"
+        $config.Id += ".PostgreSQL"
+        $config.Title += ".PostgreSQL"
+        $config.Description = "EdFi Ods Minimal Template Database for PostgreSQL"
+    }
 
     if (-not $config.backupDirectory) { $populatedTemplatePath = $global:templateDatabaseFolder }
     else { $populatedTemplatePath = $config.backupDirectory }
