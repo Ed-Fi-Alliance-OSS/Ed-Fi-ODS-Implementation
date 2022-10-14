@@ -265,6 +265,17 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using (var context = _securityContextFactory.CreateContext())
             {
+                var application = context.Applications.First(a=>a.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
+
+                context.ClaimSets.Add(new ClaimSet
+                {
+                    ClaimSetName = "Ownership Based Test",
+                    IsEdfiPreset = true,
+                    ForApplicationUseOnly = true,
+                    Application = application
+                });
+                context.SaveChanges();
+
                 var claimNameList = new string[] {
                     $"{ClaimsBaseUri}/domains/educationOrganizations",
                     $"{ClaimsBaseUri}/studentSectionAssociation",
@@ -273,7 +284,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     $"{ClaimsBaseUri}/course",
                     $"{ClaimsBaseUri}/courseOffering",
                     $"{ClaimsBaseUri}/section",
-                    $"{ClaimsBaseUri}/studentSchoolAssociation"
+                    $"{ClaimsBaseUri}/studentSchoolAssociation",
+                    $"{ClaimsBaseUri}/domains/people"
                 };
 
                 var ownershipBasedClaimSetId = context.ClaimSets.FirstOrDefault(a => a.ClaimSetName == "Ownership Based Test").ClaimSetId;
