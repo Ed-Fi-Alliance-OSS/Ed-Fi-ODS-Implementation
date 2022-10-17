@@ -6,7 +6,7 @@
 $ErrorActionPreference = "Stop"
 
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
@@ -47,7 +47,8 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.apiClientNameSandbox = "BulkLoadClientSandbox"
     $config.apiYear = (Get-Date).Year
 
-    $config.testHarnessExecutable = "$($config.outputFolder)/EdFi.Ods.Api.IntegrationTestHarness.exe"
+    $integrationTestHarnessExecutableFileName = If (Get-IsWindows) {"EdFi.Ods.Api.IntegrationTestHarness.exe"} Else {"EdFi.Ods.Api.IntegrationTestHarness"}
+    $config.testHarnessExecutable = "$($config.outputFolder)/$integrationTestHarnessExecutableFileName"
     $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.json"
     $config.testHarnessJsonConfigLEAs = @(255901)
 
@@ -146,8 +147,8 @@ function Copy-SchemaFiles {
         $xsdFiles = Get-ChildItem (resolve-path $schemaDirectory) -Recurse -Filter "*.xsd"
         foreach ($xsdFile in $xsdFiles) {
             $elapsed = Use-Stopwatch {
-                Write-Host "copy to $($directory.Name)\$($xsdFile.Name) " -NoNewline
-                Copy-Item -Path $xsdFile.FullName -Destination "$directory\$xsdFile"
+                Write-Host "copy to $($directory.Name)/$($xsdFile.Name) " -NoNewline
+                Copy-Item -Path $xsdFile.FullName -Destination "$directory/$xsdFile"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }
@@ -168,8 +169,8 @@ function Copy-InterchangeFiles {
     foreach ($xmlFile in $xmlFiles) {
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
-                Write-Host "copy to $($directory.Name)\$($xmlFile.Name) " -NoNewline
-                Copy-Item -Path $xmlFile.FullName -Destination "$directory\$($xmlFile.Name)"
+                Write-Host "copy to $($directory.Name)/$($xmlFile.Name) " -NoNewline
+                Copy-Item -Path $xmlFile.FullName -Destination "$directory/$($xmlFile.Name)"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }
