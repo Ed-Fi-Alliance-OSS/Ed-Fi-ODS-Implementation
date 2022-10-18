@@ -23,8 +23,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         private static readonly ILog _log = LogManager.GetLogger(typeof(ClientCreator));
 
         private const string MaximumSandboxesPerUserConfigKey = "MaximumSandboxesPerUser";
-        private const int MaximumSandboxesPerUserDefault = 5;
-
         private readonly int _maximumSandboxesPerUser;
 
         private readonly IConfiguration _configuration;
@@ -51,9 +49,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         {
             string configValue = _configuration.GetValue<string>(MaximumSandboxesPerUserConfigKey);
 
-            return int.TryParse(configValue, out int configResult)
-                ? configResult
-                : MaximumSandboxesPerUserDefault;
+            return Int32.Parse(configValue);
         }
 
         public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
