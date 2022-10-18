@@ -47,7 +47,9 @@ namespace EdFi.Ods.Sandbox.Admin.Services
 
         private int GetMaximumSandboxesPerUserOrDefault()
         {
-            return _configuration.GetValue<string>(MaximumSandboxesPerUserConfigKey);
+            string configValue = _configuration.GetValue<string>(MaximumSandboxesPerUserConfigKey);
+
+            return Int32.Parse(configValue);
         }
 
         public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
