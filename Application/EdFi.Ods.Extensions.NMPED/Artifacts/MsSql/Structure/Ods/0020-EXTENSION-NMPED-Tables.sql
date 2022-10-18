@@ -369,21 +369,27 @@ CREATE TABLE [nmped].[StudentAwardTypeDescriptor] (
 ) ON [PRIMARY]
 GO
 
--- Table [nmped].[StudentCTEProgramAssociationExtension] --
-CREATE TABLE [nmped].[StudentCTEProgramAssociationExtension] (
+-- Table [nmped].[StudentCTEProgramAssociationCredential] --
+CREATE TABLE [nmped].[StudentCTEProgramAssociationCredential] (
     [BeginDate] [DATE] NOT NULL,
+    [CredentialEarnedDate] [DATE] NOT NULL,
     [EducationOrganizationId] [INT] NOT NULL,
+    [IndustryCredentialDescriptorId] [INT] NOT NULL,
+    [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
     [ProgramEducationOrganizationId] [INT] NOT NULL,
     [ProgramName] [NVARCHAR](60) NOT NULL,
     [ProgramTypeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
-    [ProgramDeliveryMethodDescriptorId] [INT] NOT NULL,
-    [IndustryCredentialDescriptorId] [INT] NOT NULL,
-    [CredentialEarnedDate] [DATE] NULL,
+    [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
-    CONSTRAINT [StudentCTEProgramAssociationExtension_PK] PRIMARY KEY CLUSTERED (
+    [LastModifiedDate] [DATETIME2] NOT NULL,
+    [Id] [UNIQUEIDENTIFIER] NOT NULL,
+    CONSTRAINT [StudentCTEProgramAssociationCredential_PK] PRIMARY KEY CLUSTERED (
         [BeginDate] ASC,
+        [CredentialEarnedDate] ASC,
         [EducationOrganizationId] ASC,
+        [IndustryCredentialDescriptorId] ASC,
+        [ProgramDeliveryMethodDescriptorId] ASC,
         [ProgramEducationOrganizationId] ASC,
         [ProgramName] ASC,
         [ProgramTypeDescriptorId] ASC,
@@ -391,7 +397,11 @@ CREATE TABLE [nmped].[StudentCTEProgramAssociationExtension] (
     ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] ADD CONSTRAINT [StudentCTEProgramAssociationExtension_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] ADD CONSTRAINT [StudentCTEProgramAssociationCredential_DF_CreateDate] DEFAULT (getdate()) FOR [CreateDate]
+GO
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] ADD CONSTRAINT [StudentCTEProgramAssociationCredential_DF_Id] DEFAULT (newid()) FOR [Id]
+GO
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] ADD CONSTRAINT [StudentCTEProgramAssociationCredential_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
 GO
 
 -- Table [nmped].[StudentEducationOrganizationAssociationExtension] --

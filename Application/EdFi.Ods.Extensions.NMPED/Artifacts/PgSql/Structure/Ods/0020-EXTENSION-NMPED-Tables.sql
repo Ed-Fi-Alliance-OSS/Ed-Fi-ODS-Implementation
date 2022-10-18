@@ -248,21 +248,26 @@ CREATE TABLE nmped.StudentAwardTypeDescriptor (
     CONSTRAINT StudentAwardTypeDescriptor_PK PRIMARY KEY (StudentAwardTypeDescriptorId)
 ); 
 
--- Table nmped.StudentCTEProgramAssociationExtension --
-CREATE TABLE nmped.StudentCTEProgramAssociationExtension (
+-- Table nmped.StudentCTEProgramAssociationCredential --
+CREATE TABLE nmped.StudentCTEProgramAssociationCredential (
     BeginDate DATE NOT NULL,
+    CredentialEarnedDate DATE NOT NULL,
     EducationOrganizationId INT NOT NULL,
+    IndustryCredentialDescriptorId INT NOT NULL,
+    ProgramDeliveryMethodDescriptorId INT NOT NULL,
     ProgramEducationOrganizationId INT NOT NULL,
     ProgramName VARCHAR(60) NOT NULL,
     ProgramTypeDescriptorId INT NOT NULL,
     StudentUSI INT NOT NULL,
-    ProgramDeliveryMethodDescriptorId INT NOT NULL,
-    IndustryCredentialDescriptorId INT NOT NULL,
-    CredentialEarnedDate DATE NULL,
+    Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
-    CONSTRAINT StudentCTEProgramAssociationExtension_PK PRIMARY KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+    LastModifiedDate TIMESTAMP NOT NULL,
+    Id UUID NOT NULL,
+    CONSTRAINT StudentCTEProgramAssociationCredential_PK PRIMARY KEY (BeginDate, CredentialEarnedDate, EducationOrganizationId, IndustryCredentialDescriptorId, ProgramDeliveryMethodDescriptorId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 ); 
-ALTER TABLE nmped.StudentCTEProgramAssociationExtension ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ALTER COLUMN Id SET DEFAULT gen_random_uuid();
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
 
 -- Table nmped.StudentEducationOrganizationAssociationExtension --
 CREATE TABLE nmped.StudentEducationOrganizationAssociationExtension (

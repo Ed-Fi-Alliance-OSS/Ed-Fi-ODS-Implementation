@@ -199,6 +199,21 @@ CREATE TABLE [tracked_deletes_nmped].[StudentAwardTypeDescriptor]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_StudentAwardTypeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmped].[StudentCTEProgramAssociationCredential]
+(
+       BeginDate [DATE] NOT NULL,
+       CredentialEarnedDate [DATE] NOT NULL,
+       EducationOrganizationId [INT] NOT NULL,
+       IndustryCredentialDescriptorId [INT] NOT NULL,
+       ProgramDeliveryMethodDescriptorId [INT] NOT NULL,
+       ProgramEducationOrganizationId [INT] NOT NULL,
+       ProgramName [NVARCHAR](60) NOT NULL,
+       ProgramTypeDescriptorId [INT] NOT NULL,
+       StudentUSI [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_StudentCTEProgramAssociationCredential PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmped].[StudentEducationOrganizationAward]
 (
        AwardDate [DATE] NOT NULL,

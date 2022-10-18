@@ -500,6 +500,23 @@ ALTER TABLE [nmped].[StudentAwardTypeDescriptor] ENABLE TRIGGER [nmped_StudentAw
 GO
 
 
+CREATE TRIGGER [nmped].[nmped_StudentCTEProgramAssociationCredential_TR_DeleteTracking] ON [nmped].[StudentCTEProgramAssociationCredential] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmped].[StudentCTEProgramAssociationCredential](BeginDate, CredentialEarnedDate, EducationOrganizationId, IndustryCredentialDescriptorId, ProgramDeliveryMethodDescriptorId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    SELECT  BeginDate, CredentialEarnedDate, EducationOrganizationId, IndustryCredentialDescriptorId, ProgramDeliveryMethodDescriptorId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+END
+GO
+
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] ENABLE TRIGGER [nmped_StudentCTEProgramAssociationCredential_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmped].[nmped_StudentEducationOrganizationAward_TR_DeleteTracking] ON [nmped].[StudentEducationOrganizationAward] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

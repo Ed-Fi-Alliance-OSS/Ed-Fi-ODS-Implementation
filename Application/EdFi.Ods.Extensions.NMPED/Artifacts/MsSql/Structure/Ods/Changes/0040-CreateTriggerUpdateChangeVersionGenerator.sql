@@ -18,6 +18,16 @@ BEGIN
 END	
 GO
 
+CREATE TRIGGER [nmped].[nmped_StudentCTEProgramAssociationCredential_TR_UpdateChangeVersion] ON [nmped].[StudentCTEProgramAssociationCredential] AFTER UPDATE AS
+BEGIN
+    SET NOCOUNT ON;
+    UPDATE [nmped].[StudentCTEProgramAssociationCredential]
+    SET ChangeVersion = (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM [nmped].[StudentCTEProgramAssociationCredential] u
+    WHERE EXISTS (SELECT 1 FROM inserted i WHERE i.id = u.id);
+END	
+GO
+
 CREATE TRIGGER [nmped].[nmped_StudentEducationOrganizationAward_TR_UpdateChangeVersion] ON [nmped].[StudentEducationOrganizationAward] AFTER UPDATE AS
 BEGIN
     SET NOCOUNT ON;

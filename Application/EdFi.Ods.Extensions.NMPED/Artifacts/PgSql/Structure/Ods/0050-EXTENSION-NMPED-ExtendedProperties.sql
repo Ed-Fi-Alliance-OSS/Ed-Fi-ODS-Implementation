@@ -168,21 +168,20 @@ COMMENT ON COLUMN nmped.StaffEducationOrganizationEmploymentAssociationExtension
 COMMENT ON TABLE nmped.StudentAwardTypeDescriptor IS 'The award type.';
 COMMENT ON COLUMN nmped.StudentAwardTypeDescriptor.StudentAwardTypeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
--- Extended Properties [nmped].[StudentCTEProgramAssociationExtension] --
-COMMENT ON TABLE nmped.StudentCTEProgramAssociationExtension IS '';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramTypeDescriptorId IS 'The type of program.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.ProgramDeliveryMethodDescriptorId IS 'Identifies the Delivery Method for a program a student is enrolled in.
-                  Valid values:
-                  CG = College Granted Certificate
-                  IS = Industry Standard Third Party Assessment';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.IndustryCredentialDescriptorId IS 'Identifies the Industry Credential for a program a student is enrolled in.
-                  Valid values: (too many to list here)';
-COMMENT ON COLUMN nmped.StudentCTEProgramAssociationExtension.CredentialEarnedDate IS 'The date the credential was earned.';
+-- Extended Properties [nmped].[StudentCTEProgramAssociationCredential] --
+COMMENT ON TABLE nmped.StudentCTEProgramAssociationCredential IS 'Credentials earned by students in a CTE program.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.CredentialEarnedDate IS 'The date the credential was earned.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.IndustryCredentialDescriptorId IS 'Identifies the Industry Credential for a program a student is enrolled in.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.ProgramDeliveryMethodDescriptorId IS 'Identifies the Delivery Method for a program a student is enrolled in.
+                      Valid values:
+                      CG = College Granted Certificate
+                      IS = Industry Standard Third Party Assessment';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentCTEProgramAssociationCredential.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
 
 -- Extended Properties [nmped].[StudentEducationOrganizationAssociationExtension] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAssociationExtension IS '';

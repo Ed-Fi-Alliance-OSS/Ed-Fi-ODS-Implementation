@@ -233,24 +233,26 @@ REFERENCES edfi.Descriptor (DescriptorId)
 ON DELETE CASCADE
 ;
 
-ALTER TABLE nmped.StudentCTEProgramAssociationExtension ADD CONSTRAINT FK_1020a1_IndustryCredentialDescriptor FOREIGN KEY (IndustryCredentialDescriptorId)
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ADD CONSTRAINT FK_3eb6d3_IndustryCredentialDescriptor FOREIGN KEY (IndustryCredentialDescriptorId)
 REFERENCES nmped.IndustryCredentialDescriptor (IndustryCredentialDescriptorId)
 ;
 
-CREATE INDEX FK_1020a1_IndustryCredentialDescriptor
-ON nmped.StudentCTEProgramAssociationExtension (IndustryCredentialDescriptorId ASC);
+CREATE INDEX FK_3eb6d3_IndustryCredentialDescriptor
+ON nmped.StudentCTEProgramAssociationCredential (IndustryCredentialDescriptorId ASC);
 
-ALTER TABLE nmped.StudentCTEProgramAssociationExtension ADD CONSTRAINT FK_1020a1_ProgramDeliveryMethodDescriptor FOREIGN KEY (ProgramDeliveryMethodDescriptorId)
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ADD CONSTRAINT FK_3eb6d3_ProgramDeliveryMethodDescriptor FOREIGN KEY (ProgramDeliveryMethodDescriptorId)
 REFERENCES nmped.ProgramDeliveryMethodDescriptor (ProgramDeliveryMethodDescriptorId)
 ;
 
-CREATE INDEX FK_1020a1_ProgramDeliveryMethodDescriptor
-ON nmped.StudentCTEProgramAssociationExtension (ProgramDeliveryMethodDescriptorId ASC);
+CREATE INDEX FK_3eb6d3_ProgramDeliveryMethodDescriptor
+ON nmped.StudentCTEProgramAssociationCredential (ProgramDeliveryMethodDescriptorId ASC);
 
-ALTER TABLE nmped.StudentCTEProgramAssociationExtension ADD CONSTRAINT FK_1020a1_StudentCTEProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
+ALTER TABLE nmped.StudentCTEProgramAssociationCredential ADD CONSTRAINT FK_3eb6d3_StudentCTEProgramAssociation FOREIGN KEY (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
 REFERENCES edfi.StudentCTEProgramAssociation (BeginDate, EducationOrganizationId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI)
-ON DELETE CASCADE
 ;
+
+CREATE INDEX FK_3eb6d3_StudentCTEProgramAssociation
+ON nmped.StudentCTEProgramAssociationCredential (BeginDate ASC, EducationOrganizationId ASC, ProgramEducationOrganizationId ASC, ProgramName ASC, ProgramTypeDescriptorId ASC, StudentUSI ASC);
 
 ALTER TABLE nmped.StudentEducationOrganizationAssociationExtension ADD CONSTRAINT FK_2c2930_DentalExaminationVerificationCodeDescriptor FOREIGN KEY (DentalExaminationVerificationCodeDescriptorId)
 REFERENCES nmped.DentalExaminationVerificationCodeDescriptor (DentalExaminationVerificationCodeDescriptorId)

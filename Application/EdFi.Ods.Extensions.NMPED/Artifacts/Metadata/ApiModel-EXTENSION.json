@@ -346,6 +346,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmped",
+        "name": "StudentCTEProgramAssociationCredential"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmped",
+          "name": "StudentCTEProgramAssociationCredential"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmped",
         "name": "StudentEducationOrganizationAward"
       },
       "aggregateEntityNames": [
@@ -1779,7 +1791,7 @@
     },
     {
       "schema": "nmped",
-      "name": "StudentCTEProgramAssociationExtension",
+      "name": "StudentCTEProgramAssociationCredential",
       "locallyDefinedProperties": [
         {
           "propertyName": "CreateDate",
@@ -1805,23 +1817,60 @@
             "maxLength": 0,
             "precision": 0,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "The date the credential was earned.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "CredentialEarnedDate",
             "postgreSql": "CredentialEarnedDate"
           }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
         }
       ],
       "identifiers": [
         {
-          "identifierName": "StudentCTEProgramAssociationExtension_PK",
+          "identifierName": "StudentCTEProgramAssociationCredential_PK",
           "identifyingPropertyNames": [
             "BeginDate",
+            "CredentialEarnedDate",
             "EducationOrganizationId",
+            "IndustryCredentialDescriptorId",
+            "ProgramDeliveryMethodDescriptorId",
             "ProgramEducationOrganizationId",
             "ProgramName",
             "ProgramTypeDescriptorId",
@@ -1830,16 +1879,28 @@
           "isPrimary": true,
           "isUpdatable": false,
           "constraintNames": {
-            "sqlServer": "StudentCTEProgramAssociationExtension_PK",
-            "postgreSql": "StudentCTEProgramAssociationExtension_PK"
+            "sqlServer": "StudentCTEProgramAssociationCredential_PK",
+            "postgreSql": "StudentCTEProgramAssociationCredential_PK"
+          }
+        },
+        {
+          "identifierName": "UX_StudentCTEProgramAssociationCredential_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_StudentCTEProgramAssociationCredential_Id",
+            "postgreSql": "UX_3eb6d3_Id"
           }
         }
       ],
       "isAbstract": false,
-      "description": "",
+      "description": "Credentials earned by students in a CTE program.",
       "tableNames": {
-        "sqlServer": "StudentCTEProgramAssociationExtension",
-        "postgreSql": "StudentCTEProgramAssociationExtension"
+        "sqlServer": "StudentCTEProgramAssociationCredential",
+        "postgreSql": "StudentCTEProgramAssociationCredential"
       }
     },
     {
@@ -5873,7 +5934,7 @@
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_StudentCTEProgramAssociationExtension_IndustryCredentialDescriptor"
+        "name": "FK_StudentCTEProgramAssociationCredential_IndustryCredentialDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -5891,7 +5952,7 @@
             "isNullable": false
           },
           "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "IndustryCredentialDescriptorId",
@@ -5901,7 +5962,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "nmped",
-        "name": "StudentCTEProgramAssociationExtension"
+        "name": "StudentCTEProgramAssociationCredential"
       },
       "secondaryEntityProperties": [
         {
@@ -5913,8 +5974,8 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Identifies the Industry Credential for a program a student is enrolled in.                  Valid values: (too many to list here)",
-          "isIdentifying": false,
+          "description": "Identifies the Industry Credential for a program a student is enrolled in.",
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "IndustryCredentialDescriptorId",
@@ -5922,18 +5983,18 @@
           }
         }
       ],
-      "isIdentifying": false,
+      "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentCTEProgramAssociationExtension_IndustryCredentialDescriptor",
-        "postgreSql": "FK_1020a1_IndustryCredentialDescriptor"
+        "sqlServer": "FK_StudentCTEProgramAssociationCredential_IndustryCredentialDescriptor",
+        "postgreSql": "FK_3eb6d3_IndustryCredentialDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_StudentCTEProgramAssociationExtension_ProgramDeliveryMethodDescriptor"
+        "name": "FK_StudentCTEProgramAssociationCredential_ProgramDeliveryMethodDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
@@ -5951,7 +6012,7 @@
             "isNullable": false
           },
           "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "ProgramDeliveryMethodDescriptorId",
@@ -5961,7 +6022,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "nmped",
-        "name": "StudentCTEProgramAssociationExtension"
+        "name": "StudentCTEProgramAssociationCredential"
       },
       "secondaryEntityProperties": [
         {
@@ -5973,8 +6034,8 @@
             "scale": 0,
             "isNullable": false
           },
-          "description": "Identifies the Delivery Method for a program a student is enrolled in.                  Valid values:                  CG = College Granted Certificate                  IS = Industry Standard Third Party Assessment",
-          "isIdentifying": false,
+          "description": "Identifies the Delivery Method for a program a student is enrolled in.                      Valid values:                      CG = College Granted Certificate                      IS = Industry Standard Third Party Assessment",
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "ProgramDeliveryMethodDescriptorId",
@@ -5982,20 +6043,20 @@
           }
         }
       ],
-      "isIdentifying": false,
+      "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentCTEProgramAssociationExtension_ProgramDeliveryMethodDescriptor",
-        "postgreSql": "FK_1020a1_ProgramDeliveryMethodDescriptor"
+        "sqlServer": "FK_StudentCTEProgramAssociationCredential_ProgramDeliveryMethodDescriptor",
+        "postgreSql": "FK_3eb6d3_ProgramDeliveryMethodDescriptor"
       },
       "potentiallyLogical": false
     },
     {
       "fullName": {
         "schema": "nmped",
-        "name": "FK_StudentCTEProgramAssociationExtension_StudentCTEProgramAssociation"
+        "name": "FK_StudentCTEProgramAssociationCredential_StudentCTEProgramAssociation"
       },
-      "cardinality": "OneToOneExtension",
+      "cardinality": "OneToZeroOrMore",
       "primaryEntityFullName": {
         "schema": "edfi",
         "name": "StudentCTEProgramAssociation"
@@ -6106,7 +6167,7 @@
       ],
       "secondaryEntityFullName": {
         "schema": "nmped",
-        "name": "StudentCTEProgramAssociationExtension"
+        "name": "StudentCTEProgramAssociationCredential"
       },
       "secondaryEntityProperties": [
         {
@@ -6215,9 +6276,10 @@
       "isIdentifying": true,
       "isRequired": true,
       "constraintNames": {
-        "sqlServer": "FK_StudentCTEProgramAssociationExtension_StudentCTEProgramAssociation",
-        "postgreSql": "FK_1020a1_StudentCTEProgramAssociation"
-      }
+        "sqlServer": "FK_StudentCTEProgramAssociationCredential_StudentCTEProgramAssociation",
+        "postgreSql": "FK_3eb6d3_StudentCTEProgramAssociation"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {

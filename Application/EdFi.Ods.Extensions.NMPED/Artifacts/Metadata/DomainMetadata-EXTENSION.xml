@@ -84,6 +84,9 @@
   <Aggregate root="StudentAwardTypeDescriptor">
     <Entity table="StudentAwardTypeDescriptor" isA="Descriptor" schema="nmped"/>
   </Aggregate>
+  <Aggregate root="StudentCTEProgramAssociationCredential">
+    <Entity table="StudentCTEProgramAssociationCredential" schema="nmped"/>
+  </Aggregate>
   <Aggregate root="StudentEducationOrganizationAward">
     <Entity table="StudentEducationOrganizationAward" schema="nmped"/>
   </Aggregate>

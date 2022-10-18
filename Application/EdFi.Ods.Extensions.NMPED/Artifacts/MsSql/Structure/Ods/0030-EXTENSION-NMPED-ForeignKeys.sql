@@ -245,25 +245,28 @@ REFERENCES [edfi].[Descriptor] ([DescriptorId])
 ON DELETE CASCADE
 GO
 
-ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationExtension_IndustryCredentialDescriptor] FOREIGN KEY ([IndustryCredentialDescriptorId])
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationCredential_IndustryCredentialDescriptor] FOREIGN KEY ([IndustryCredentialDescriptorId])
 REFERENCES [nmped].[IndustryCredentialDescriptor] ([IndustryCredentialDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentCTEProgramAssociationExtension_IndustryCredentialDescriptor]
-ON [nmped].[StudentCTEProgramAssociationExtension] ([IndustryCredentialDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_StudentCTEProgramAssociationCredential_IndustryCredentialDescriptor]
+ON [nmped].[StudentCTEProgramAssociationCredential] ([IndustryCredentialDescriptorId] ASC)
 GO
 
-ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationExtension_ProgramDeliveryMethodDescriptor] FOREIGN KEY ([ProgramDeliveryMethodDescriptorId])
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationCredential_ProgramDeliveryMethodDescriptor] FOREIGN KEY ([ProgramDeliveryMethodDescriptorId])
 REFERENCES [nmped].[ProgramDeliveryMethodDescriptor] ([ProgramDeliveryMethodDescriptorId])
 GO
 
-CREATE NONCLUSTERED INDEX [FK_StudentCTEProgramAssociationExtension_ProgramDeliveryMethodDescriptor]
-ON [nmped].[StudentCTEProgramAssociationExtension] ([ProgramDeliveryMethodDescriptorId] ASC)
+CREATE NONCLUSTERED INDEX [FK_StudentCTEProgramAssociationCredential_ProgramDeliveryMethodDescriptor]
+ON [nmped].[StudentCTEProgramAssociationCredential] ([ProgramDeliveryMethodDescriptorId] ASC)
 GO
 
-ALTER TABLE [nmped].[StudentCTEProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationExtension_StudentCTEProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ALTER TABLE [nmped].[StudentCTEProgramAssociationCredential] WITH CHECK ADD CONSTRAINT [FK_StudentCTEProgramAssociationCredential_StudentCTEProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentCTEProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
-ON DELETE CASCADE
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentCTEProgramAssociationCredential_StudentCTEProgramAssociation]
+ON [nmped].[StudentCTEProgramAssociationCredential] ([BeginDate] ASC, [EducationOrganizationId] ASC, [ProgramEducationOrganizationId] ASC, [ProgramName] ASC, [ProgramTypeDescriptorId] ASC, [StudentUSI] ASC)
 GO
 
 ALTER TABLE [nmped].[StudentEducationOrganizationAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationExtension_DentalExaminationVerificationCodeDescriptor] FOREIGN KEY ([DentalExaminationVerificationCodeDescriptorId])

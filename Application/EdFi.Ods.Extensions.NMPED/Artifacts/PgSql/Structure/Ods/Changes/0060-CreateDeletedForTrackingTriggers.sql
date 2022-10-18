@@ -388,6 +388,19 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentAwardTypeDescriptor 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentAwardTypeDescriptor_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmped.StudentCTEProgramAssociationCredential_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmped.StudentCTEProgramAssociationCredential(BeginDate, CredentialEarnedDate, EducationOrganizationId, IndustryCredentialDescriptorId, ProgramDeliveryMethodDescriptorId, ProgramEducationOrganizationId, ProgramName, ProgramTypeDescriptorId, StudentUSI, Id, ChangeVersion)
+    VALUES (OLD.BeginDate, OLD.CredentialEarnedDate, OLD.EducationOrganizationId, OLD.IndustryCredentialDescriptorId, OLD.ProgramDeliveryMethodDescriptorId, OLD.ProgramEducationOrganizationId, OLD.ProgramName, OLD.ProgramTypeDescriptorId, OLD.StudentUSI, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmped.StudentCTEProgramAssociationCredential 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmped.StudentCTEProgramAssociationCredential_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmped.StudentEducationOrganizationAward_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
