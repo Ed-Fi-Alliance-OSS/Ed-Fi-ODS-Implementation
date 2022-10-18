@@ -82,7 +82,7 @@ jobs:
         Write-Host "Starting MSSQLLocalDB"
         SQLLocalDB start MSSQLLocalDB
       shell: pwsh
-    - name: ODS/API InitDev, SdkGen, Integration Test, Unit Test, Package
+    - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
