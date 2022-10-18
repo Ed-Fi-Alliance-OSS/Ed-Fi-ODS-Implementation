@@ -6,26 +6,26 @@
 $ErrorActionPreference = "Stop"
 
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate\Modules\database-template-source.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\config\config-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-lifecycle.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\postgres-database-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\LoadTools.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\nuget-helper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\packaging.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\packaging\restore-packages.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\tasks\TaskHelper.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\TestHarness.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\xml-validation.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts\NuGet\EdFi.RestApi.Databases\Deployment.psm1')
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-lifecycle.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/postgres-database-management.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/LoadTools.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/nuget-helper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/packaging.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/tasks/TaskHelper.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/xml-validation.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
 
 function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
-    $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
+    $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/*").FullName
     
     # Since not all features are enabled by default for database templates, an appsettings.json specifically intended for database generation is copied to
     # the Integration Test Harness output folder to overwrite the appsettings.json file otherwise used by the Integration Test Harness
@@ -47,15 +47,17 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.apiClientNameSandbox = "BulkLoadClientSandbox"
     $config.apiYear = (Get-Date).Year
 
-    $config.testHarnessExecutable = "$($config.outputFolder)\EdFi.Ods.Api.IntegrationTestHarness.exe"
-    $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.json"
+    $integrationTestHarnessExecutableFileName = If (Get-IsWindows) {"EdFi.Ods.Api.IntegrationTestHarness.exe"} Else {"EdFi.Ods.Api.IntegrationTestHarness"}
+    $config.testHarnessExecutable = "$($config.outputFolder)/$integrationTestHarnessExecutableFileName"
+    $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.json"
     $config.testHarnessJsonConfigLEAs = @(255901)
 
-    $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities\DataLoading\LoadTools.sln")
-    $config.bulkLoadClientExecutable = "$(Get-RepositoryResolvedPath "Utilities\DataLoading\EdFi.BulkLoadClient.Console")\bin\**\EdFi.BulkLoadClient.Console.exe"
+    $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities/DataLoading/LoadTools.sln")
+    $bulkLoadClientExecutableFileName = If (Get-IsWindows) {"EdFi.BulkLoadClient.Console.exe"} Else {"EdFi.BulkLoadClient.Console"}
+    $config.bulkLoadClientExecutable = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.BulkLoadClient.Console")/bin/**/$bulkLoadClientExecutableFileName"
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors", "InterchangeStandards", "InterchangeEducationOrganization")
-    $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Metadata\")
-    $config.bulkLoadTempDirectory = Join-Path $env:temp "CreateDatabaseTemplate"
+    $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Metadata/")
+    $config.bulkLoadTempDirectory = Join-Path ([IO.Path]::GetTempPath()) "CreateDatabaseTemplate"
     $config.bulkLoadTempDirectorySchema = Join-Path $config.bulkLoadTempDirectory "Schemas"
     $config.bulkLoadTempDirectoryBootstrap = Join-Path $config.bulkLoadTempDirectory "Bootstrap"
     $config.bulkLoadTempDirectorySample = Join-Path $config.bulkLoadTempDirectory "Sample"
@@ -145,8 +147,8 @@ function Copy-SchemaFiles {
         $xsdFiles = Get-ChildItem (resolve-path $schemaDirectory) -Recurse -Filter "*.xsd"
         foreach ($xsdFile in $xsdFiles) {
             $elapsed = Use-Stopwatch {
-                Write-Host "copy to $($directory.Name)\$($xsdFile.Name) " -NoNewline
-                Copy-Item -Path $xsdFile.FullName -Destination "$directory\$xsdFile"
+                Write-Host "copy to $($directory.Name)/$($xsdFile.Name) " -NoNewline
+                Copy-Item -Path $xsdFile.FullName -Destination "$directory/$xsdFile"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }
@@ -167,8 +169,8 @@ function Copy-InterchangeFiles {
     foreach ($xmlFile in $xmlFiles) {
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
-                Write-Host "copy to $($directory.Name)\$($xmlFile.Name) " -NoNewline
-                Copy-Item -Path $xmlFile.FullName -Destination "$directory\$($xmlFile.Name)"
+                Write-Host "copy to $($directory.Name)/$($xmlFile.Name) " -NoNewline
+                Copy-Item -Path $xmlFile.FullName -Destination "$directory/$($xmlFile.Name)"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }

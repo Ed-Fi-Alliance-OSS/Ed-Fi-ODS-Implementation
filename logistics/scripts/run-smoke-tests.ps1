@@ -49,8 +49,8 @@ param(
     [string] $namespaceUri = "uri://ed-fi.org/",
     [string] $schoolYear = $null,
     [string[]] $testSets = @("NonDestructiveApi"),
-    [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
-    [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
+    [string] $smokeTestExe = "./EdFi.SmokeTest.Console/tools/EdFi.SmokeTest.Console.exe",
+    [string] $smokeTestDll = "./EdFi.OdsApi.Sdk/lib/EdFi.OdsApi.Sdk.dll",
     [switch] $noRebuild,
     [string] $testHarnessLogNamePrefix
 )
@@ -59,22 +59,23 @@ $ErrorActionPreference = 'Stop'
 
 $error.Clear()
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\LoadTools.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\tasks\TaskHelper.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\utility\hashtable.psm1')
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/LoadTools.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/TestHarness.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 
 if ([string]::IsNullOrWhiteSpace($key)) { $key = Get-RandomString }
 if ([string]::IsNullOrWhiteSpace($secret)) { $secret = Get-RandomString }
 
 if ([string]::IsNullOrWhiteSpace($smokeTestExe) -or -not (Test-Path $smokeTestExe)) {
-    $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities\DataLoading\EdFi.SmokeTest.Console")\bin\**\EdFi.SmokeTest.Console.exe"
+    $smokeTestExeFileName = If (Get-IsWindows) {"EdFi.SmokeTest.Console.exe"} Else {"EdFi.SmokeTest.Console"}
+    $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.SmokeTest.Console")/bin/**/$smokeTestExeFileName"
 }
 else { $noRebuild = $true }
 
 if ([string]::IsNullOrWhiteSpace($smokeTestDll) -or -not(Test-Path $smokeTestDll)) {
-    $smokeTestDll = "$(Get-RepositoryResolvedPath "Utilities\DataLoading\EdFi.LoadTools.Test")\bin\**\EdFi.OdsApi.Sdk.dll"
+    $smokeTestDll = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.LoadTools.Test")/bin/**/EdFi.OdsApi.Sdk.dll"
 }
 
 function Get-SmokeTestConfiguration {
@@ -88,18 +89,18 @@ function Get-SmokeTestConfiguration {
     $config.apiYear = $schoolYear
     $config.smokeTestExecutable = $smokeTestExe
     $config.smokeTestDll = $smokeTestDll
-    $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\appsettings.json"
+    $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/appsettings.json"
     $config.noExtensions = $false
 
     $config.testSets = $testSets
 
-    $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities\DataLoading\LoadTools.sln")
+    $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities/DataLoading/LoadTools.sln")
 
-    $config.testHarnessAppConfig = "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\appsettings.json"
-    $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics\scripts\smokeTestHarnessConfiguration.json")"
+    $config.testHarnessAppConfig = "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/appsettings.json"
+    $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json")"
     $config.testHarnessJsonConfigLEAs = @()
 
-    $config.bulkLoadTempJsonConfig = Join-Path $env:temp "smokeTestconfig.json"
+    $config.bulkLoadTempJsonConfig = Join-Path ([IO.Path]::GetTempPath()) "smokeTestconfig.json"
 
     $config.buildConfiguration = "Debug"
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $config.buildConfiguration = $env:msbuild_buildConfiguration }
