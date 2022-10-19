@@ -34,6 +34,7 @@ foreach ($assembly in $testAssemblies) {
         $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".trx"
     }
 
+    Write-Host "Report for $assembly will be stored in $reportName"
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
 
     Write-Host "assembly exit code: $LASTEXITCODE"
