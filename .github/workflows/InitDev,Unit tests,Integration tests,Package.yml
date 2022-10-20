@@ -103,7 +103,8 @@ jobs:
       if: success() || failure()
       with:
         name: Integration and Unit Tests
-        path: ${{ github.workspace }}\Ed-Fi-ODS-Implementation/reports/EdFi.Ods.Repositories.NHibernate.Tests.dll.trx
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/EdFi.Ods.Repositories.NHibernate.Tests.dll.trx
+        path-replace-backslashes: 'true'
         working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
         reporter: dotnet-trx
     - name: Upload initdev logs
