@@ -41,6 +41,7 @@ function Install-Newman {
 function Invoke-Newman {
     $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite\")
     $collectionFiles = Get-ChildItem $collectionFileDirectory -Filter "*.postman_collection.json"
+    $reportPath = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/postmanreport.xml"
 
     foreach ($collectionFile in $collectionFiles) {
         Write-host $script:environmentJson
@@ -48,7 +49,7 @@ function Invoke-Newman {
             newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters 'teamcity,cli'
         }
         else {
-            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode -r junit,cli --reporter-junit-export $reportPath
         }
     }
 }
