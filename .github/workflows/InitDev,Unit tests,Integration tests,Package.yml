@@ -79,7 +79,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
-        name: unit-test-results
+        name: test-results
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
     - name: Unit Test Report
       uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
