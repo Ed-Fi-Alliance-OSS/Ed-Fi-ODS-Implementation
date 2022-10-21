@@ -30,6 +30,7 @@ function Install-Newman {
     try {
         npm install -g newman@5.2.2
         npm install -g newman-reporter-teamcity@0.1.12
+        npm install -g newman-reporter-junitfull
         newman --version
     }
     catch {
