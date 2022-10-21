@@ -28,11 +28,9 @@ $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
 function Install-Newman {
     try {
-        npm --version
-        node --version
         npm install -g newman@5.2.2 --verbose
-        npm install -g newman-reporter-teamcity@0.1.12 --verbose
-        npm install -g newman-reporter-junitfull --verbose
+        npm install -g newman-reporter-teamcity@0.1.12
+        npm install -g newman-reporter-junitfull
         newman --version
     }
     catch {
