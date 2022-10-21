@@ -53,8 +53,7 @@ function Invoke-Newman {
         }
         else {
             $testFile = $collectionFile.Name -Replace ".postman_collection.json",""
-            $reportPath +=  $testFile + " postmanreport.xml"
-            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode --reporters 'junit,cli' --reporter-junit-export "$reportPath"
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode --reporters 'junit,cli' --reporter-junit-export "$reportPath/$testFile.xml"
         }
     }
 }
