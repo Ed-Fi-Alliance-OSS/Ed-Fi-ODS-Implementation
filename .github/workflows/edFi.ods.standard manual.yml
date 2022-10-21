@@ -52,7 +52,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 build -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
       shell: pwsh
-    - name: test
+    - name: Run Unit tests
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 test -Configuration ${{ env.CONFIGURATION }}  -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"

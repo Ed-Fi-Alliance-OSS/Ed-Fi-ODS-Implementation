@@ -102,7 +102,7 @@ jobs:
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
-    - name: Unit test EdFi.LoadTools 
+    - name: Run Unit tests for EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
            dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
