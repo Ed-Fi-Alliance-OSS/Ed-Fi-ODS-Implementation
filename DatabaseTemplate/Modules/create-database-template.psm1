@@ -148,7 +148,7 @@ function Copy-SchemaFiles {
         foreach ($xsdFile in $xsdFiles) {
             $elapsed = Use-Stopwatch {
                 Write-Host "copy to $($directory.Name)/$($xsdFile.Name) " -NoNewline
-                Copy-Item -Path $xsdFile.FullName -Destination "$directory/$xsdFile"
+                Copy-Item -Path $xsdFile.FullName -Destination "$directory/$($xsdFile.Name)"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }
