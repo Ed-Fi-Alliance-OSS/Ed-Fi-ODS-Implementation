@@ -60,28 +60,11 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Setup Sql Server Connection String
-      working-directory: ./Ed-Fi-ODS-Implementation/
+    - name: Install sql-server-2019 & sqlpackage
+      shell: powershell
       run: |
-        $ErrorActionPreference = 'Stop'
-        $PSVersionTable
-        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-           
-        # EdFi.Ods.WebApi
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Ods'      'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_{0}; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Admin'    'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_Admin; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Security' 'Server=(LocalDB)\\MSSQLLocalDB; Database=EdFi_Security; Connection Timeout=30; Trusted_Connection=True; Persist Security Info=True; Application Name=EdFi.Ods.WebApi;'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Master'   'Server=(LocalDB)\\MSSQLLocalDB; Database=master; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.WebApi;'
-
-        # EdFi.Ods.Api.IntegrationTestHarness
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Ods'      'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Ods_Populated_Template_Test; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Admin'    'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Admin; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Security' 'Server=(LocalDB)\MSSQLLocalDB; Database=EdFi_Security; Connection Timeout=30; Trusted_Connection=True; Persist Security Info=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
-        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Master'   'Server=(LocalDB)\MSSQLLocalDB; Database=master; Connection Timeout=30; Trusted_Connection=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
-        
-        Write-Host "Starting MSSQLLocalDB"
-        SQLLocalDB start MSSQLLocalDB
-      shell: pwsh
+          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
+          choco install sqlpackage
     - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -92,6 +75,30 @@ jobs:
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
       shell: pwsh
+    - name: Upload Unit And Integration Test Reports
+      if: success() || failure()
+      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      with:
+        name: test-results
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
+    - name: Unit Test Report
+      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      if: success() || failure()
+      with:
+        name: Unit Tests
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
+        path-replace-backslashes: 'true'
+        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+        reporter: dotnet-trx
+    - name: Postman Test Report
+      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      if: success() || failure()
+      with:
+        name: Integration Tests
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+        path-replace-backslashes: 'true'
+        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+        reporter: java-junit
     - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
