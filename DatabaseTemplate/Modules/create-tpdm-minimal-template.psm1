@@ -6,8 +6,8 @@
 
 $ErrorActionPreference = "Stop"
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate/Modules/create-database-template.psm1")
 
 function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
 
@@ -19,14 +19,14 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
     $config.Remove('apiClientNameSandbox')
 
     $config.testHarnessJsonConfigLEAs = @()
-    $config.testHarnessJsonConfig = "$PSScriptRoot\testHarnessConfiguration.TPDM.json"
+    $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.TPDM.json"
 
     $config.Remove('bulkLoadTempDirectorySample')
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors")
     $config.bulkLoadMaxRequests = 1
     $config.schemaDirectories = @(
-        (Get-RepositoryResolvedPath "Application\EdFi.Ods.Standard\Artifacts\Schemas\")
-        ("$(Get-PluginFolderFromSettings $config.appSettings)\EdFi.Suite3.Ods.Extensions.TPDM*\Artifacts\Schemas\")
+        (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Schemas/")
+        ("$(Get-PluginFolderFromSettings $config.appSettings)/EdFi.Suite3.Ods.Extensions.TPDM*/Artifacts/Schemas/")
     )
 
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM.Core"
@@ -58,12 +58,12 @@ function Initialize-TPDMMinimalTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.bak
-        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.nuspec
+        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/Minimal.Template.bak
+        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/Minimal.Template.nuspec
 
     .PARAMETER samplePath
-        An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
-        Also supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\
+        An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.
+        Also supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/
 
     .PARAMETER noExtensions
         Ignores any extension sources when running the sql scripts against the database.
@@ -75,12 +75,12 @@ function Initialize-TPDMMinimalTemplate {
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .EXAMPLE
-        PS> Initialize-TPDMMinimalTemplate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
+        PS> Initialize-TPDMMinimalTemplate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
     param(
         [Parameter(
             Mandatory = $false,
-            HelpMessage = "An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.`r`nAlso supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\"
+            HelpMessage = "An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.`r`nAlso supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/"
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]

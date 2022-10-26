@@ -48,12 +48,12 @@ function Initialize-MinimalTemplate {
         * Executes first load scenario using the bootstrap data and claimset
         * Executes second load scenario using the rest of the sample data and the sandbox claimset
         * Stops the test harness api
-        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.bak
-        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation\DatabaseTemplate\Database\Minimal.Template.nuspec
+        * Creates a backup of the new minimal template at: Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/Minimal.Template.bak
+        * Creates a .nuspec file for the new minimal template at: Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/Minimal.Template.nuspec
 
     .PARAMETER samplePath
-        An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.
-        Also supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\
+        An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.
+        Also supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/
 
     .PARAMETER noExtensions
         Ignores any extension sources when running the sql scripts against the database.
@@ -65,12 +65,12 @@ function Initialize-MinimalTemplate {
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .EXAMPLE
-        PS> Initialize-MinimalTempalate -samplePath "C:\edfi\Ed-Fi-Standard\v3.2\"
+        PS> Initialize-MinimalTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
     param(
         [Parameter(
             Mandatory = $true,
-            HelpMessage = "An absolute path to the folder to load samples from, for example: C:\MySampleXmlData\.`r`nAlso supports specific version folders of the Data Standard repository, for example: C:\Ed-Fi-Standard\v3.0\ or C:\Ed-Fi-Standard\v2.0\"
+            HelpMessage = "An absolute path to the folder to load samples from, for example: C:/MySampleXmlData/.`r`nAlso supports specific version folders of the Data Standard repository, for example: C:/Ed-Fi-Standard/v3.0/ or C:/Ed-Fi-Standard/v2.0/"
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
