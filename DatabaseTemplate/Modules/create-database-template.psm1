@@ -20,6 +20,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/TestHarness.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/xml-validation.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
 
 function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
@@ -47,13 +48,13 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.apiClientNameSandbox = "BulkLoadClientSandbox"
     $config.apiYear = (Get-Date).Year
 
-    $integrationTestHarnessExecutableFileName = If (Get-IsWindows) {"EdFi.Ods.Api.IntegrationTestHarness.exe"} Else {"EdFi.Ods.Api.IntegrationTestHarness"}
+    $integrationTestHarnessExecutableFileName = "EdFi.Ods.Api.IntegrationTestHarness$(GetExeExtension)"
     $config.testHarnessExecutable = "$($config.outputFolder)/$integrationTestHarnessExecutableFileName"
     $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.json"
     $config.testHarnessJsonConfigLEAs = @(255901)
 
     $config.loadToolsSolution = (Get-RepositoryResolvedPath "Utilities/DataLoading/LoadTools.sln")
-    $bulkLoadClientExecutableFileName = If (Get-IsWindows) {"EdFi.BulkLoadClient.Console.exe"} Else {"EdFi.BulkLoadClient.Console"}
+    $bulkLoadClientExecutableFileName = "EdFi.BulkLoadClient.Console$(GetExeExtension)"
     $config.bulkLoadClientExecutable = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.BulkLoadClient.Console")/bin/**/$bulkLoadClientExecutableFileName"
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors", "InterchangeStandards", "InterchangeEducationOrganization")
     $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Metadata/")

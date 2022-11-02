@@ -60,6 +60,7 @@ $ErrorActionPreference = 'Stop'
 $error.Clear()
 
 & "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/LoadTools.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/TestHarness.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
@@ -69,7 +70,7 @@ if ([string]::IsNullOrWhiteSpace($key)) { $key = Get-RandomString }
 if ([string]::IsNullOrWhiteSpace($secret)) { $secret = Get-RandomString }
 
 if ([string]::IsNullOrWhiteSpace($smokeTestExe) -or -not (Test-Path $smokeTestExe)) {
-    $smokeTestExeFileName = If (Get-IsWindows) {"EdFi.SmokeTest.Console.exe"} Else {"EdFi.SmokeTest.Console"}
+    $smokeTestExeFileName = "EdFi.SmokeTest.Console$(GetExeExtension)"
     $smokeTestExe = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.SmokeTest.Console")/bin/**/$smokeTestExeFileName"
 }
 else { $noRebuild = $true }

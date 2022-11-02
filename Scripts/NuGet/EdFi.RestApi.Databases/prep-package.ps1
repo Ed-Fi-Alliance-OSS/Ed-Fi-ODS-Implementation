@@ -96,7 +96,7 @@ $nonrepoNuspecFiles = Get-ChildItem $outputDirectory -Exclude *.nuspec, prep-pac
 
 Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $nonrepoNuspecFiles
 
-Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems @(If (Get-IsWindows) { "tools/EdFi.Db.Deploy.exe" } Else { "tools/EdFi.Db.Deploy" }) ; target = "tools" }
+Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems "tools/EdFi.Db.Deploy$(GetExeExtension)"; target = "tools" }
 
 $dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/edfi.suite3.db.deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
 
