@@ -52,7 +52,5 @@ Add-Parameter $deploymentParams 'ExcludedExtensionSources' $ExcludedExtensionSou
 Add-Parameter $deploymentParams 'EnabledFeatureNames' $EnabledFeatureNames
 if ([Boolean]::TryParse((Add-Parameter $deploymentParams 'UsePlugins' $UsePlugins).UsePlugins, [ref]$UsePlugins)) { $deploymentParams.UsePlugins = $UsePlugins }
 
-If (-Not(Get-IsWindows)) {Add-Parameter $deploymentParams 'Engine' "PostgreSQL"} 
-
 Import-Module -Force -Scope Global "$PSScriptRoot/Deployment.psm1"
 Initialize-DeploymentEnvironment @deploymentParams
