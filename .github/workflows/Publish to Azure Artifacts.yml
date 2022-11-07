@@ -33,6 +33,8 @@ jobs:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
         commit: ${{ env.INITDEV_COMMIT }}
+        check_artifacts: true
+        if_no_artifact_found: fail
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
