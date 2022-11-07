@@ -15,12 +15,13 @@ env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  CURRENT_BRANCH: ${{ GITHUB.REF_NAME }}
+  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
 
 jobs:
   build:
 
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
@@ -30,7 +31,7 @@ jobs:
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
-        branch: ${{ env.CURRENT_BRANCH }}
+        commit: ${{ env.INITDEV_COMMIT }}
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
