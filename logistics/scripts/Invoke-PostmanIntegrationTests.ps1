@@ -14,24 +14,32 @@
     Path to environment file used to run Postman integration tests
 #>
 param(
-    [string] $configurationFile = (Resolve-Path "$PSScriptRoot\modules\postmanTestHarnessConfiguration.json"),
+    [string] $configurationFile = (Resolve-Path "$PSScriptRoot/modules/postmanTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
-    [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot\modules")
+    [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot/modules")
 )
 
-& "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global  (Get-RepositoryResolvedPath "Initialize-PowershellForDevelopment.ps1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\scripts\modules\TestHarness.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/TestHarness.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/cross-platform.psm1')
 
 $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
 function Install-Newman {
     try {
-        npm install -g newman@5.2.2 --verbose
-        npm install -g newman-reporter-teamcity@0.1.12
-        npm install -g newman-reporter-junitfull
-        newman --version
+        if (Get-IsWindows){
+            npm install -g newman@5.2.2 --verbose
+            npm install -g newman-reporter-teamcity@0.1.12
+            npm install -g newman-reporter-junitfull
+            newman --version
+        } else {
+            sudo npm install -g newman@5.2.2 --verbose
+            sudo npm install -g newman-reporter-teamcity@0.1.12
+            sudo npm install -g newman-reporter-junitfull
+            sudo newman --version            
+        }
     }
     catch {
         Write-Host $_ -ForegroundColor Red
@@ -40,7 +48,7 @@ function Install-Newman {
 }
 
 function Invoke-Newman {
-    $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite\")
+    $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite/")
     $collectionFiles = Get-ChildItem $collectionFileDirectory -Filter "*.postman_collection.json"
     $reportPath = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/"
 
