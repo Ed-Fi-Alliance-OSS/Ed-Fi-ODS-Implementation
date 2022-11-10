@@ -77,6 +77,7 @@ jobs:
         (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
         (Get-Content $buildPropsPath).Replace("<FileVersion>1.0.0</FileVersion>","<FileVersion>$version</FileVersion>") | Set-Content $buildPropsPath
         (Get-Content $buildPropsPath).Replace("<InformationalVersion>1.0.0</InformationalVersion>","<FileVersion>${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}</FileVersion>") | Set-Content $buildPropsPath
+        Get-Content $buildPropsPath
       shell: pwsh
     - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
