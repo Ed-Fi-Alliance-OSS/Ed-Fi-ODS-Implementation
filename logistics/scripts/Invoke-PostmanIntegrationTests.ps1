@@ -72,9 +72,12 @@ function Install-NpmPackages {
     [Hashtable[]] $packages
   )
   foreach ($package in $packages) {
+    Write-Host "outside package.name" $package.name -ForegroundColor Red
     $does_corresponding_package_exist = npm list -g --depth=0 |Out-String -Stream | Select-String -Pattern $package.name -SimpleMatch -Quiet
     if (!$does_corresponding_package_exist -eq $true) {
       if (Get-IsWindows) {
+        Write-Host "package.name" $package.name -ForegroundColor Red
+        Write-Host "package.requiredVersion" $package.requiredVersion -ForegroundColor Red
         & "npm install -g $($package.name)@$($package.requiredVersion) --verbose"
       }
       else {
