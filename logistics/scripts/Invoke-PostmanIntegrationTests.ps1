@@ -78,7 +78,7 @@ function Install-NpmPackages {
         & "npm install -g $($package.name)@$($package.requiredVersion) --verbose"
       }
       else {
-        & "sudo npm install -g $($package.name)@$($package.requiredVersion) --verbose"
+        sudo npm install -g "$($package.name)@$($package.requiredVersion)" --verbose
       }
     }
   }
