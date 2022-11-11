@@ -27,24 +27,61 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
+function Test-GithubActions { return (Test-Path env:GITHUB_ACTIONS) }
+
 function Install-Newman {
-    try {
-        if (Get-IsWindows){
-            npm install -g newman@5.2.2 --verbose
-            npm install -g newman-reporter-teamcity@0.1.12
-            npm install -g newman-reporter-junitfull
-            newman --version
-        } else {
-            sudo npm install -g newman@5.2.2 --verbose
-            sudo npm install -g newman-reporter-teamcity@0.1.12
-            sudo npm install -g newman-reporter-junitfull
-            sudo newman --version            
-        }
+  try {
+      $packages = @{
+      newman         = @{
+        name            = "newman"
+        requiredVersion = "5.2.2"
+      }
+      newmanTeamcity = @{
+        name            = "newman-reporter-teamcity"
+        requiredVersion = "0.1.12"
+      }
+      newmanJunit    = @{
+        name            = "newman-reporter-junitfull"
+        requiredVersion = "" # empty means any version (latest)
+      }
     }
-    catch {
-        Write-Host $_ -ForegroundColor Red
-        Clear-Error
+    $teamcityPackages = @($packages.newman, $packages.newmanTeamcity, $packages.newmanJunit)
+    $githubActionsPackages = @($packages.newman, $packages.newmanJunit)
+    $developerPackages = @($packages.newman)
+    If (Test-TeamCityVersion) {
+      Write-Host "teamcityPackages" -ForegroundColor Red
+      Install-NpmPackages $teamcityPackages
     }
+    elseIf (Test-GithubActions) {
+      Write-Host "githubActionsPackages" -ForegroundColor Red
+      Install-NpmPackages $githubActionsPackages
+    }
+    else {
+      Write-Host "developerPackages" -ForegroundColor Red
+      Install-NpmPackages $developerPackages
+    }
+  }
+  catch {
+      Write-Host $_ -ForegroundColor Red
+      Clear-Error
+  }
+}
+
+function Install-NpmPackages {
+  param(
+    [Hashtable[]] $packages
+  )
+  foreach ($package in $packages) {
+    $does_corresponding_package_exist = npm list -g --depth=0 |Out-String -Stream | Select-String -Pattern $package.name -SimpleMatch -Quiet
+    if (!$does_corresponding_package_exist -eq $true) {
+      if (Get-IsWindows) {
+        & "npm install -g $($package.name)@$($package.requiredVersion) --verbose"
+      }
+      else {
+        & "sudo npm install -g $($package.name)@$($package.requiredVersion) --verbose"
+      }
+    }
+  }
 }
 
 function Invoke-Newman {
