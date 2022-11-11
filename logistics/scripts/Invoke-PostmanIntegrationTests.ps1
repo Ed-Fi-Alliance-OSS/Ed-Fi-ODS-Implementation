@@ -42,7 +42,7 @@ function Install-Newman {
       }
       newmanJunit    = @{
         name            = "newman-reporter-junitfull"
-        requiredVersion = "" # empty means any version (latest)
+        requiredVersion = "1.1.1"
       }
     }
     $teamcityPackages = @($packages.newman, $packages.newmanTeamcity, $packages.newmanJunit)
