@@ -49,15 +49,15 @@ function Install-Newman {
     $githubActionsPackages = @($packages.newman, $packages.newmanJunit)
     $developerPackages = @($packages.newman)
     If (Test-TeamCityVersion) {
-      Write-Host "teamcityPackages" -ForegroundColor Red
+      Write-Host "teamcityPackages" -ForegroundColor Green
       Install-NpmPackages $teamcityPackages
     }
     elseIf (Test-GithubActions) {
-      Write-Host "githubActionsPackages" -ForegroundColor Red
+      Write-Host "githubActionsPackages" -ForegroundColor Green
       Install-NpmPackages $githubActionsPackages
     }
     else {
-      Write-Host "developerPackages" -ForegroundColor Red
+      Write-Host "developerPackages" -ForegroundColor Green
       Install-NpmPackages $developerPackages
     }
   }
@@ -72,12 +72,9 @@ function Install-NpmPackages {
     [Hashtable[]] $packages
   )
   foreach ($package in $packages) {
-    Write-Host "outside package.name" $package.name -ForegroundColor Red
     $does_corresponding_package_exist = npm list -g --depth=0 |Out-String -Stream | Select-String -Pattern $package.name -SimpleMatch -Quiet
     if (!$does_corresponding_package_exist -eq $true) {
       if (Get-IsWindows) {
-        Write-Host "package.name" $package.name -ForegroundColor Red
-        Write-Host "package.requiredVersion" $package.requiredVersion -ForegroundColor Red
         & "npm install -g $($package.name)@$($package.requiredVersion) --verbose"
       }
       else {
