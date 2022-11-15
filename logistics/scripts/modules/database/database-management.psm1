@@ -241,7 +241,7 @@ Function Backup-Database {
     $databaseName = $csb.InitialCatalog
 
     $server = Get-Server -csb $csb
-    $local = @("localhost", "127.0.0.1", $env:ComputerName)
+    $local = @("localhost", "127.0.0.1", [Environment]::MachineName)
 
     if (-not $backupDirectory) { $backupDirectory = $server.Settings.BackupDirectory }
 

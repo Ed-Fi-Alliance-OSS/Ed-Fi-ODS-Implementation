@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-# Octopus lifecycle script called automatically after deploying the EdFi.RestApi.Databases NuGet package created by .\prep-package.ps1
+# Octopus lifecycle script called automatically after deploying the EdFi.RestApi.Databases NuGet package created by ./prep-package.ps1
 # see: https://octopus.com/docs/deployment-examples/custom-scripts/scripts-in-packages
 param(
     [Obsolete("This parameter is deprecated, and will be removed in the near future. Please use the configuration.json instead.")]
