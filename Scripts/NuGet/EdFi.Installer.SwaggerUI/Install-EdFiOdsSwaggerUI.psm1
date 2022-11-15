@@ -34,14 +34,14 @@ function Install-EdFiOdsSwaggerUI {
         version and metadata URLs.
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             ToolsPath = "C:/temp/tools"
             WebApiMetadataUrl = "https://my-server.example/EdFiOdsWebApi/metadata"
             WebApiVersionUrl = "https://my-server.example/EdFiOdsWebApi"
-            WebSitePath="c:\inetpub\Ed-Fi"
+            WebSitePath="c:/inetpub/Ed-Fi"
             WebApplicationPath="SwaggerUI"
         }
-        PS c:\> Install-EdFiOdsSwaggerUI @parameters
+        PS c:/> Install-EdFiOdsSwaggerUI @parameters
     #>
     [CmdletBinding()]
     param (
@@ -65,9 +65,9 @@ function Install-EdFiOdsSwaggerUI {
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
 
-        # Path for the IIS WebSite. Default: c:\inetpub\Ed-Fi.
+        # Path for the IIS WebSite. Default: c:/inetpub/Ed-Fi.
         [string]
-        $WebSitePath = "c:\inetpub\Ed-Fi", # NB: _must_ use backslash with IIS settings
+        $WebSitePath = "c:/inetpub/Ed-Fi", # NB: _must_ use backslash with IIS settings
 
         # Web site name. Default: "Ed-Fi".
         [string]
@@ -167,16 +167,16 @@ function Uninstall-EdFiOdsSwaggerUI {
         Does not remove IIS or the URL Rewrite module.
 
     .EXAMPLE
-        PS c:\> Uninstall-EdFiOdsSwaggerUI
+        PS c:/> Uninstall-EdFiOdsSwaggerUI
 
         Uninstall using all default values.
     .EXAMPLE
-        PS c:\> $p = @{
+        PS c:/> $p = @{
             WebSiteName="Ed-Fi-3"
             WebApplicationPath="d:/octopus/applications/staging/SwaggerUI-3"
             WebApplicationName = "SwaggerUI"
         }
-        PS c:\> Uninstall-EdFiOdsSwaggerUI @p
+        PS c:/> Uninstall-EdFiOdsSwaggerUI @p
 
         Uninstall when the web application and web site were setup with non-default values.
     #>
@@ -186,9 +186,9 @@ function Uninstall-EdFiOdsSwaggerUI {
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SwaggerUI".
+        # Path for the web application. Default: "c:/inetpub/Ed-Fi/SwaggerUI".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\SwaggerUI",
+        $WebApplicationPath = "c:/inetpub/Ed-Fi/SwaggerUI",
 
         # Web application name. Default: "SwaggerUI".
         [string]

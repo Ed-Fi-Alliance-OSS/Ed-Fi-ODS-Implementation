@@ -33,19 +33,19 @@ function Install-EdFiOdsSandboxAdmin {
         SandboxAdmin binaries as an an application.
 
     .EXAMPLE
-        PS c:\> Install-EdFiOdsSandboxAdmin
+        PS c:/> Install-EdFiOdsSandboxAdmin
 
         Using all available default settings.
 
     .EXAMPLE
-        PS c:\> Install-EdFiOdsSandboxAdmin -Engine PostgreSQL
+        PS c:/> Install-EdFiOdsSandboxAdmin -Engine PostgreSQL
 
         Using default connection strings for PostgreSQL
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             PackageVersion     = '5.1.0'
-            WebSitePath        = 'c:\inetpub\Ed-Fi'
+            WebSitePath        = 'c:/inetpub/Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
@@ -85,7 +85,7 @@ function Install-EdFiOdsSandboxAdmin {
                 }
             }
         }
-        PS c:\> Install-EdFiOdsSandboxAdmin @parameters
+        PS c:/> Install-EdFiOdsSandboxAdmin @parameters
 
         Detailed example setting many customizations.
     #>
@@ -111,9 +111,9 @@ function Install-EdFiOdsSandboxAdmin {
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
 
-        # Path for the IIS WebSite. Default: c:\inetpub\Ed-Fi.
+        # Path for the IIS WebSite. Default: c:/inetpub/Ed-Fi.
         [string]
-        $WebSitePath = "c:\inetpub\Ed-Fi", # NB: _must_ use backslash with IIS settings
+        $WebSitePath = "c:/inetpub/Ed-Fi", # NB: _must_ use backslash with IIS settings
 
         # Web site name. Default: "Ed-Fi".
         $WebsiteName = "Ed-Fi",
@@ -418,16 +418,16 @@ function Uninstall-EdFiOdsSandboxAdmin {
         Does not remove IIS or the URL Rewrite module.
 
     .EXAMPLE
-        PS c:\> Uninstall-EdFiOdsSandboxAdmin
+        PS c:/> Uninstall-EdFiOdsSandboxAdmin
 
         Uninstall using all default values.
     .EXAMPLE
-        PS c:\> $p = @{
+        PS c:/> $p = @{
             WebSiteName="Ed-Fi"
             WebApplicationPath="d:/octopus/applications/staging/Sandbox-3"
             WebApplicationName = "Sandbox"
         }
-        PS c:\> Uninstall-EdFiOdsSandboxAdmin @p
+        PS c:/> Uninstall-EdFiOdsSandboxAdmin @p
 
         Uninstall when the web application and web site were setup with non-default values.
     #>
@@ -437,9 +437,9 @@ function Uninstall-EdFiOdsSandboxAdmin {
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SandboxAdmin".
+        # Path for the web application. Default: "c:/inetpub/Ed-Fi/SandboxAdmin".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\SandboxAdmin",
+        $WebApplicationPath = "c:/inetpub/Ed-Fi/SandboxAdmin",
 
         # Web application name. Default: "SandboxAdmin".
         [string]

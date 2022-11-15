@@ -3,8 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-& "$PSScriptRoot\..\load-path-resolver.ps1"
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics\scripts\modules\database\database-utility.psm1')
+& "$PSScriptRoot/../load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/database/database-utility.psm1')
 
 function Test-SqlServerModuleInstalled { $null -ne (Get-InstalledModule | where -Property Name -eq SqlServer) }
 
@@ -247,10 +247,10 @@ Function Backup-Database {
 
     if (Test-DatabaseExists -csb $csb) {
         if ($backupActionType -eq "log") {
-            $bakFilePath = "$backupDirectory\$databaseName_log.bak"
+            $bakFilePath = "$backupDirectory/$databaseName_log.bak"
         }
         else {
-            $bakFilePath = "$backupDirectory\$databaseName.bak"
+            $bakFilePath = "$backupDirectory/$databaseName.bak"
         }
         $bakFilePath = [System.IO.Path]::GetFullPath("$bakFilePath")
 
@@ -660,7 +660,7 @@ Function Clear-DatabaseUsers {
         $scriptParameters = @{
             sql_server = $csb['Data Source']
             database_name = $csb['Initial Catalog']
-            thisModulePath = Resolve-Path $folders.modules.invoke('database\database-management.psm1')
+            thisModulePath = Resolve-Path $folders.modules.invoke('database/database-management.psm1')
         }
         if ($username -ne $null) { $scriptParameters.Add("username", $csb['Uid']) }
         if ($password -ne $null) { $scriptParameters.Add("plainPass", $csb['Pwd']) }

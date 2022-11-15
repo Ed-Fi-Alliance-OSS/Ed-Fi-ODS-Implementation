@@ -40,22 +40,22 @@ function Install-EdFiOdsWebApi {
         PostgreSQL.
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             DbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Use all available default values, connecting to databases on a single SQL Server instance.
         Connect to the database with integrated security. The WebApi application will be set to
-        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:\inetpub\Ed-Fi,
-        and the application files will be in "c:\inetpub\Ed-Fi\WebApi". Installs the most recent full
+        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:/inetpub/Ed-Fi,
+        and the application files will be in "c:/inetpub/Ed-Fi/WebApi". Installs the most recent full
         release of the WebApi software.
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             AdminDbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="edfi-auth.my-sql-server.example"
@@ -74,13 +74,13 @@ function Install-EdFiOdsWebApi {
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install with all web application defaults, but using separate database connections.
         Override the name of the ODS database and use username/password for the ODS connection.
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             InstallType="YearSpecific"
             DbConnectionInfo=@{
                 Engine="PostgreSQL"
@@ -88,12 +88,12 @@ function Install-EdFiOdsWebApi {
                 Username="ods-admin"
             }
             WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi"
+            WebSitePath="c:/inetpub/Ed-Fi"
             WebApplicationPath="EdFiOdsApi"
             WebSitePort=843
             CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in Year Specific mode on PostgreSQL, with alternate IIS configuration.
         Assumes the presence of pgconf file for the password. Note that a Year Specific
@@ -103,7 +103,7 @@ function Install-EdFiOdsWebApi {
         should have a database named "EdFi_Ods_2020" (or whatever year is in use).
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             InstallType="Sandbox"
             DbConnectionInfo=@{
                 DatabaseName="EdFi_Sandbox"
@@ -112,7 +112,7 @@ function Install-EdFiOdsWebApi {
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in Sandbox mode on SQL Server with default IIS configuration.
         Override the default ODS database name. Note that a Sandbox connection string
@@ -123,7 +123,7 @@ function Install-EdFiOdsWebApi {
         and "EdFi_Sandbox_Ods_Populated_Template".
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             DbConnectionInfo=@{
                 Engine="SqlServer"
                 Server="my-sql-server.example"
@@ -144,7 +144,7 @@ function Install-EdFiOdsWebApi {
                 )
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in the default mode (shared) instance with basic database
         configuration, with override all available web.config app settings.
@@ -171,9 +171,9 @@ function Install-EdFiOdsWebApi {
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
 
-        # Path for the IIS WebSite. Default: c:\inetpub\Ed-Fi.
+        # Path for the IIS WebSite. Default: c:/inetpub/Ed-Fi.
         [string]
-        $WebSitePath = "c:\inetpub\Ed-Fi", # NB: _must_ use backslash with IIS settings
+        $WebSitePath = "c:/inetpub/Ed-Fi", # NB: _must_ use backslash with IIS settings
 
         # Web site name. Default: "Ed-Fi".
         [string]
@@ -583,17 +583,17 @@ function Uninstall-EdFiOdsWebApi {
     .EXAMPLE
         Uninstall using all default values.
 
-        PS c:\> Uninstall-EdFiOdsWebApi
+        PS c:/> Uninstall-EdFiOdsWebApi
 
     .EXAMPLE
         Uninstall when the web application and web site were setup with non-default values.
 
-        PS c:\> $p = @{
+        PS c:/> $p = @{
             WebSiteName="Ed-Fi-3"
             WebApplicationPath="d:/octopus/applications/staging/EdFiOdsApi-3"
             WebApplicationName = "EdFiOdsWebApi"
         }
-        PS c:\> Uninstall-EdFiOdsWebApi @p
+        PS c:/> Uninstall-EdFiOdsWebApi @p
     #>
     [CmdletBinding()]
     param (
@@ -601,9 +601,9 @@ function Uninstall-EdFiOdsWebApi {
         [string]
         $ToolsPath = "$PSScriptroot/tools",
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\WebApi".
+        # Path for the web application. Default: "c:/inetpub/Ed-Fi/WebApi".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi",
+        $WebApplicationPath = "c:/inetpub/Ed-Fi/WebApi",
 
         # Web application name. Default: "WebApi".
         [string]
