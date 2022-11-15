@@ -92,7 +92,8 @@ function Get-PostgresBinaries([hashtable] $config = (Get-DefaultConfiguration)) 
 }
 
 function Expand-PostgresBinariesArchive([hashtable] $config = (Get-DefaultConfiguration)) {
-    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+    if (Get-IsWindows -and -not (Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell")) {
+        Write-Host "Installing 7Zip4Powershell Module" -NoNewLine
         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
     }
 
