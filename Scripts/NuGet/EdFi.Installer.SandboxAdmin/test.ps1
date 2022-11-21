@@ -33,9 +33,9 @@ function Invoke-InstallCustomSettings {
     # this should match the example for the Install-EdFiOdsSandboxAdmin function in Install-EdFiOdsSandboxAdmin.psm1
     $parameters = @{
         PackageVersion     = '5.1.0'
-        WebSitePath        = 'c:\inetpub\SandboxAdmin'
+        WebSitePath        = 'c:/inetpub/SandboxAdmin'
         WebSitePort        = 8765
-        WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
+        WebApplicationPath = 'c:/inetpub/SandboxAdmin/5.1.0'
         WebApplicationName = 'SandboxAdmin5.1.0'
         Settings           = @{
             ConnectionStrings            = @{
@@ -80,7 +80,7 @@ function Invoke-Uninstall { UnInstall-EdFiOdsSandboxAdmin }
 
 function Invoke-UninstallCustomSettings {
     $parameters = @{
-        WebApplicationPath = "c:\inetpub\SandboxAdmin\5.1.0"
+        WebApplicationPath = "c:/inetpub/SandboxAdmin/5.1.0"
         WebApplicationName = "SandboxAdmin"
     }
 

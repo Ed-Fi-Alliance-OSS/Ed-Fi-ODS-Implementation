@@ -20,10 +20,10 @@ function Invoke-CreatePackage {
 
     .EXAMPLE
         $parameters = @{
-            PackageDefinitionFile = "c:\temp\EdFi.Installer.WebApi.nuspec"
+            PackageDefinitionFile = "c:/temp/EdFi.Installer.WebApi.nuspec"
             Version = "1.0.0"
             Suffix = "pre0001"
-            OutputDirectory = "c:\temp"
+            OutputDirectory = "c:/temp"
             Publish = $true
             Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
             ApiKey = $env:azureArtifacts.apiKey

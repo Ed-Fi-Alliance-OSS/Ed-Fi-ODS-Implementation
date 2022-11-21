@@ -9,7 +9,7 @@ Param(
     $Scenario
 )
 
-import-module -force "$PSScriptRoot\Install-EdFiOdsWebApi.psm1"
+import-module -force "$PSScriptRoot/Install-EdFiOdsWebApi.psm1"
 
 function Invoke-DifferentWebSite {
     $p = @{
@@ -21,9 +21,9 @@ function Invoke-DifferentWebSite {
             UseIntegratedSecurity=$true
         }
         WebSiteName = "DifferentWebSite"
-        WebSitePath = "c:\inetpub\DifferentWebSite"
+        WebSitePath = "c:/inetpub/DifferentWebSite"
         WebSitePort = 444
-        WebApplicationPath = "c:\inetpub\DifferentWebSite\DifferentAppPath"
+        WebApplicationPath = "c:/inetpub/DifferentWebSite/DifferentAppPath"
         WebApplicationName = "SomethingElse"
     }
     Install-EdFiOdsWebApi @p
@@ -160,7 +160,7 @@ function Invoke-FeatureOverride {
 function Invoke-Uninstall {
     $p = @{
         ToolsPath = "../../../tools"
-        WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi"
+        WebApplicationPath = "c:/inetpub/Ed-Fi/WebApi"
         WebApplicationName = "WebApi"
         WebSiteName = "Ed-Fi"        
     }
@@ -171,7 +171,7 @@ function Invoke-UninstallDifferentWebSite {
     $p = @{
         WebApplicationName = "SomethingElse"
         WebSiteName = "DifferentWebSite"
-        WebApplicationPath = "c:\inetpub\DifferentWebSite\DifferentAppPath"
+        WebApplicationPath = "c:/inetpub/DifferentWebSite/DifferentAppPath"
     }
     Uninstall-EdFiOdsWebApi @p
 }
