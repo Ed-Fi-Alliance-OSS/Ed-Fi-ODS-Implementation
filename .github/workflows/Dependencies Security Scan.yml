@@ -10,6 +10,8 @@ on:
     branches: [main]
 env:
   CURRENT_BRANCH: ${{ GITHUB.HEAD_REF }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}  
 
 jobs:
   scan-actions:
@@ -35,19 +37,10 @@ jobs:
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
             path: Ed-Fi-ODS-Implementation/
-      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        shell: pwsh
-        run: |
-            $patternName = 'refs/heads/' +  '${{ env.CURRENT_BRANCH }}'
-            Write-Host "Pattern Name is " $patternName -fore GREEN
-            $is_pull_request_branch = 'False'
-            $is_pull_request_branch = git ls-remote --heads origin ${{ env.CURRENT_BRANCH }} | Select-String -Pattern $patternName -SimpleMatch -Quiet
-            Write-Host "pull request branch is '$($is_pull_request_branch -eq $true)'" -fore GREEN
-            if ($is_pull_request_branch -eq $true) {
-              Write-Host "pull request branch " + ${{ env.CURRENT_BRANCH }} + "exists" -fore GREEN
-              git fetch origin ${{ env.CURRENT_BRANCH }}
-              git checkout ${{ env.CURRENT_BRANCH }}
-            }
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
       - name: Dependency Review ("Dependabot on PR")
         uses: actions/dependency-review-action@a9c83d3af6b9031e20feba03b904645bb23d1dab  # v1.0.2
