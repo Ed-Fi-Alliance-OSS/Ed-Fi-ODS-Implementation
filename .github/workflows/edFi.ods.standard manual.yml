@@ -2,11 +2,6 @@ name: EdFi.Ods.Standard Manually triggered build
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
 
 env:
   INFORMATIONAL_VERSION: "6.1"
@@ -15,7 +10,9 @@ env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  CURRENT_BRANCH: ${{ GITHUB.REF_NAME }}
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
 
 jobs:
   build:
@@ -34,12 +31,21 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-          ref: ${{ env.CURRENT_BRANCH }}
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"	
     - name: CodeGen
       shell: pwsh
       run: |
@@ -75,4 +81,4 @@ jobs:
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.*
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Standard.*.nupkg 
