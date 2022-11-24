@@ -45,7 +45,7 @@ function Install-EdFiOdsSandboxAdmin {
     .EXAMPLE
         PS c:/> $parameters = @{
             PackageVersion     = '5.1.0'
-            WebSitePath        = 'c:/inetpub/Ed-Fi'
+            WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
@@ -111,9 +111,9 @@ function Install-EdFiOdsSandboxAdmin {
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
 
-        # Path for the IIS WebSite. Default: c:/inetpub/Ed-Fi.
+        # Path for the IIS WebSite. Default: c:\inetpub\Ed-Fi.
         [string]
-        $WebSitePath = "c:/inetpub/Ed-Fi", # NB: _must_ use backslash with IIS settings
+        $WebSitePath = "c:\inetpub\Ed-Fi", # NB: _must_ use backslash with IIS settings
 
         # Web site name. Default: "Ed-Fi".
         $WebsiteName = "Ed-Fi",
@@ -437,9 +437,9 @@ function Uninstall-EdFiOdsSandboxAdmin {
         [string]
         $ToolsPath = "$PSScriptRoot/tools",
 
-        # Path for the web application. Default: "c:/inetpub/Ed-Fi/SandboxAdmin".
+        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SandboxAdmin".
         [string]
-        $WebApplicationPath = "c:/inetpub/Ed-Fi/SandboxAdmin",
+        $WebApplicationPath = "c:\inetpub\Ed-Fi\SandboxAdmin",
 
         # Web application name. Default: "SandboxAdmin".
         [string]
