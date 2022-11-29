@@ -51,8 +51,8 @@ function Install-EdFiOdsWebApi {
 
         Use all available default values, connecting to databases on a single SQL Server instance.
         Connect to the database with integrated security. The WebApi application will be set to
-        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:/inetpub/Ed-Fi,
-        and the application files will be in "c:/inetpub/Ed-Fi/WebApi". Installs the most recent full
+        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:\inetpub\Ed-Fi,
+        and the application files will be in "c:\inetpub\Ed-Fi\WebApi". Installs the most recent full
         release of the WebApi software.
     .EXAMPLE
         PS c:/> $parameters = @{
@@ -88,7 +88,7 @@ function Install-EdFiOdsWebApi {
                 Username="ods-admin"
             }
             WebSiteName="Ed-Fi-3"
-            WebSitePath="c:/inetpub/Ed-Fi"
+            WebSitePath="c:\inetpub\Ed-Fi"
             WebApplicationPath="EdFiOdsApi"
             WebSitePort=843
             CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
@@ -171,9 +171,9 @@ function Install-EdFiOdsWebApi {
         [string]
         $DownloadPath = "$PSScriptRoot/downloads",
 
-        # Path for the IIS WebSite. Default: c:/inetpub/Ed-Fi.
+        # Path for the IIS WebSite. Default: c:\inetpub\Ed-Fi.
         [string]
-        $WebSitePath = "c:/inetpub/Ed-Fi", # NB: _must_ use backslash with IIS settings
+        $WebSitePath = "c:\inetpub\Ed-Fi", # NB: _must_ use backslash with IIS settings
 
         # Web site name. Default: "Ed-Fi".
         [string]
@@ -601,9 +601,9 @@ function Uninstall-EdFiOdsWebApi {
         [string]
         $ToolsPath = "$PSScriptroot/tools",
 
-        # Path for the web application. Default: "c:/inetpub/Ed-Fi/WebApi".
+        # Path for the web application. Default: "c:\inetpub\Ed-Fi\WebApi".
         [string]
-        $WebApplicationPath = "c:/inetpub/Ed-Fi/WebApi",
+        $WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi",
 
         # Web application name. Default: "WebApi".
         [string]
