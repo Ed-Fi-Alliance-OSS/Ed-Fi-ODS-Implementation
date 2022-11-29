@@ -4512,7 +4512,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 ----PreK Class Type Descriptor
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values  ('uri://nmped.org/PreKClassTypeDescriptor', 'AM ', 'Morning Program for PreK ONLY','Morning Program for PreK ONLY');
+        values  ('uri://nmped.org/PreKClassTypeDescriptor', 'AM', 'Morning Program for PreK ONLY','Morning Program for PreK ONLY');
         INSERT INTO nmped.PreKClassTypeDescriptor(PreKClassTypeDescriptorId) values (@@IDENTITY);
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values  ('uri://nmped.org/PreKClassTypeDescriptor', 'PM', 'Afternoon Program for PreK ONLY','Afternoon Program for PreK ONLY');
