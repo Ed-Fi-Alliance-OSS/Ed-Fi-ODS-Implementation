@@ -117,7 +117,7 @@ function Invoke-Restore-ApiSdk-Packages {
     param (
         [string] $sdkSolutionFile
     )
-    $toolsPath = (Join-Path (Get-RepositoryRoot "ed-fi-ods-implementation") 'tools')
+    $toolsPath = (Join-Path (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") 'tools')
 
     $params = @{
         SolutionPath = $sdkSolutionFile
@@ -150,7 +150,7 @@ function Invoke-Pack-ApiSdk {
 
 function Invoke-Clean-SdkGen-Output {
     try {
-        Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse
+        Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse -Force
     }
     catch {
         # catching if this call throws, which just means the path does not exist so sdkgen has not been run yet
