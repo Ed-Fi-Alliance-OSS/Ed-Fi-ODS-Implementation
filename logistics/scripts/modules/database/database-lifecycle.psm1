@@ -249,8 +249,8 @@ function Get-PostgreSQLDatabaseCreateStrategy {
     }
     $databaseExists = (Test-PostgreSQLDatabaseExists @params)
 
-    if (-not $databaseExists -and $createByRestoringBackup) {
-        Install-PostgreSQLTemplate @params -backupFile $createByRestoringBackup
+    if (-not $databaseExists -and $CreateByRestoringBackup) {
+        Install-PostgreSQLTemplate @params -backupFile $CreateByRestoringBackup
     }
 }
 
