@@ -3375,10 +3375,12 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	INSERT INTO edfi.EmploymentStatusDescriptor (EmploymentStatusDescriptorid) values (@@IDENTITY);
 
 ---- VisaDescriptor
+Update edfi.descriptor Set namespace = 'uri://nmped.org/VisaDescriptor' WHERE namespace = 'uri://ed-fi.org/VisaDescriptor'
+
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/VisaDescriptor','TEMPVISA','Temporary Work Visa','Temporary Work Visa');
-	INSERT INTO edfi.VisaDescriptor (VisaDescriptorid) values (@@IDENTITY);
-
+INSERT INTO edfi.VisaDescriptor (VisaDescriptorid) values (@@IDENTITY);
+	
 ---- MediumOfInstructionDescriptor
 DELETE FROM edfi.Descriptor WHERE namespace = 'uri://ed-fi.org/MediumOfInstructionDescriptor'
 DELETE FROM edfi.Descriptor WHERE namespace = 'uri://nmped.org/MediumOfInstructionDescriptor'
