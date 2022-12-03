@@ -4100,11 +4100,11 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 
 --Updating the J1Visa codevalue to match the state reporting code value
 UPDATE edfi.Descriptor
-SET CodeValue = 'J1Visa' WHERE Namespace = 'uri://ed-fi.org/VisaDescriptor' AND CodeValue = 'J1 - Exchange Scholar Visa'
+SET CodeValue = 'J1Visa' WHERE Namespace = 'uri://nmped.org/VisaDescriptor' AND CodeValue = 'J1 - Exchange Scholar Visa'
 
 --Updating the J1Visa description to match the state reporting description
 UPDATE edfi.Descriptor
-SET ShortDescription = 'J1Visa' WHERE Namespace = 'uri://ed-fi.org/VisaDescriptor' AND CodeValue = 'J1Visa'
+SET ShortDescription = 'J1Visa' WHERE Namespace = 'uri://nmped.org/VisaDescriptor' AND CodeValue = 'J1Visa'
 
 -- *** TRANSPORTATION Descriptors***
 -- Vehicle Fuel Type
