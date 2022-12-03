@@ -95,10 +95,17 @@ function Invoke-TemplateScript {
 function Get-TemplateBackupPath {
     [CmdletBinding()] param(
         [parameter(ValueFromPipeline)]
-        [string]$backupFolder = $databaseTemplateDatabaseFolder
+        [string]$backupFolder = $databaseTemplateDatabaseFolder,
+        [parameter(ValueFromPipeline)]
+        [string]$engine
     )
     if (-not (Test-Path $backupFolder)) { return }
-    return (Get-ChildItem $backupFolder -File -Filter "*.bak" | Select-Object -First 1 -Expand FullName)
+
+    if($engine -eq "PostgreSQL"){
+        return (Get-ChildItem $backupFolder -File -Filter "*.sql" | Select-Object -First 1 -Expand FullName)
+    } else {
+        return (Get-ChildItem $backupFolder -File -Filter "*.bak" | Select-Object -First 1 -Expand FullName)
+    }
 }
 
 function Get-TemplateSourceFromConfig {
@@ -115,7 +122,9 @@ function Get-TemplateSourceFromConfig {
 function Initialize-TemplateSourceFromScriptName {
     [CmdletBinding()] param(
         [parameter(ValueFromPipeline, Mandatory)]
-        [string]$scriptName
+        [string]$scriptName,
+        [ValidateSet('SQLServer', 'PostgreSQL')]
+        [string] $engine = 'SQLServer'
     )
 
     $scriptPath = Get-TemplateScriptPath $scriptName
@@ -124,7 +133,7 @@ function Initialize-TemplateSourceFromScriptName {
     $returnedValidPath = ((-not [string]::IsNullOrWhiteSpace($returnedPath)) -and (Test-Path $returnedPath))
     if ($returnedValidPath) { return $returnedPath }
 
-    return Get-TemplateBackupPath
+    return Get-TemplateBackupPath $databaseTemplateDatabaseFolder $engine
 }
 
 function Get-MinimalTemplateBackupPathFromSettings {
@@ -144,7 +153,7 @@ function Get-PopulatedTemplateBackupPathFromSettings {
     )
 
     if (-not [string]::IsNullOrWhiteSpace($Settings.Azure.PopulatedStorageUri)) { return $Settings.Azure.PopulatedStorageUri }
-    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.PopulatedTemplateScript
+    return Initialize-TemplateSourceFromScriptName $Settings.ApiSettings.PopulatedTemplateScript $Settings.ApiSettings.Engine
 }
 
 Export-ModuleMember -Function Get-MinimalTemplateBackupPath,
