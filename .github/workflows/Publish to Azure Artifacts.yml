@@ -11,8 +11,7 @@ on:
     workflows: ["InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance"]
     types:
       - completed
-    branches: 
-      - '**'
+    branches: [main] 
 
 env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
