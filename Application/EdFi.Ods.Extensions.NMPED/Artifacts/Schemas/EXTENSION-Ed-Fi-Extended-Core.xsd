@@ -961,7 +961,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="StudentEducationOrganizationAssociation">
+      <xs:extension base="EXTENSION-StudentEducationOrganizationAssociationRestriction">
         <xs:sequence>
           <xs:element name="Grade09Entry" type="xs:date" minOccurs="0">
             <xs:annotation>
@@ -992,8 +992,205 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="StudentCharacteristic" type="EXTENSION-StudentCharacteristicExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Additional field to record Level of Integration for Gifted Students</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentEducationOrganizationAssociationRestriction">
+    <xs:annotation>
+      <xs:documentation>Restriction to Student Education Organization Association for replacement of common type with common type extension</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="StudentEducationOrganizationAssociation">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>A reference to the Education Organization representing the context of the student information.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentIdentificationCode" type="StudentIdentificationCode" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>A coding scheme that is used for identification and record-keeping purposes by schools, social services, or other agencies to refer to a student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Sex" type="SexDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>The student's gender as last reported to the education organization.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SexDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Address" type="Address" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The set of elements that describes an address, including the street address, city, state, and ZIP code.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternationalAddress" type="InternationalAddress" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The set of elements that describes an international address.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Telephone" type="Telephone" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The 10-digit telephone number, including the area code, for the person.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ElectronicMail" type="ElectronicMail" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The numbers, letters, and symbols used to identify an electronic mail (e-mail) user within the network to which the individual or organization belongs.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProfileThumbnail" type="ProfileThumbnail" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Locator reference for the student photo. The specification for that reference is left to local definition.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="HispanicLatinoEthnicity" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the individual traces his or her origin or descent to Mexico, Puerto Rico, Cuba, Central, and South America, and other Spanish cultures, regardless of race, as last reported to the education organization. The term, "Spanish origin," can be used in addition to "Hispanic or Latino."</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="OldEthnicity" type="OldEthnicityDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Previous definition of Ethnicity combining Hispanic/Latino and race:
+                      1 - American Indian or Alaskan Native
+                      2 - Asian or Pacific Islander
+                      3 - Black, not of Hispanic origin
+                      4 - Hispanic
+                      5 - White, not of Hispanic origin.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>OldEthnicityDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Race" type="RaceDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The general racial category which most clearly reflects the individual's recognition of his or her community or with which the individual most identifies as last reported to the education organization. The data model allows for multiple entries so that each individual can specify all appropriate races.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>RaceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TribalAffiliation" type="TribalAffiliationDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>An American Indian tribe with which the student is affiliated as last reported to the education organization.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>TribalAffiliationDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LimitedEnglishProficiency" type="LimitedEnglishProficiencyDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication that the student has been identified as limited English proficient by the Language Proficiency Assessment Committee (LPAC), or English proficient.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>LimitedEnglishProficiencyDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Language" type="Language" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The language(s) the individual uses to communicate. It is strongly recommended that entries use only ISO 639-3 language codes.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The disability condition(s) that best describes an individual's impairment, as determined by evaluation(s) conducted by the education organization.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramParticipation" type="ProgramParticipation" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Key programs the student is participating in or receives services from.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="CohortYear" type="CohortYear" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The type and year of a cohort (e.g., 9th grade) the student belongs to as determined by the year that student entered a specific grade.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StudentIndicator" type="StudentIndicator" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>An indicator or metric computed for the student (e.g., at risk).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LoginId" type="IdentificationCode" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The login ID for the user; used for security access control interface.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="AncestryEthnicOrigin" type="AncestryEthnicOriginDescriptorReferenceType" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The original peoples or cultures with which the individual identifies.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>AncestryEthnicOriginDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceAwayFromSchool" type="PrimaryLearningDeviceAwayFromSchoolDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The type of device the student uses most often to complete learning activities away from school.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceAwayFromSchoolDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceAccess" type="PrimaryLearningDeviceAccessDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the primary learning device is shared or not shared with another individual.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceAccessDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="PrimaryLearningDeviceProvider" type="PrimaryLearningDeviceProviderDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The provider of the primary learning device.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>PrimaryLearningDeviceProviderDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetAccessInResidence" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the student is able to access the internet in their primary place of residence.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BarrierToInternetAccessInResidence" type="BarrierToInternetAccessInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of the barrier to having internet access in the student’s primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>BarrierToInternetAccessInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetAccessTypeInResidence" type="InternetAccessTypeInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The primary type of internet service used in the student’s primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>InternetAccessTypeInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="InternetPerformanceInResidence" type="InternetPerformanceInResidenceDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>An indication of whether the student can complete the full range of learning activities, including video streaming and assignment upload, without interruptions caused by poor internet performance in their primary place of residence.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>InternetPerformanceInResidenceDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="EXTENSION-StudentProgramAssociationExtension">
@@ -1004,7 +1201,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="StudentProgramAssociation">
+      <xs:extension base="EXTENSION-StudentProgramAssociationRestriction">
         <xs:sequence>
           <xs:element name="ParticipationInformation" type="EXTENSION-ParticipationInformationDescriptorReferenceType" minOccurs="0">
             <xs:annotation>
@@ -1030,8 +1227,72 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="Service" type="EXTENSION-ServiceExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Extended fields for Service ServiceFrequency</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentProgramAssociationRestriction">
+    <xs:annotation>
+      <xs:documentation>Restriction to Student Program Association for replacement of common type with common type extension</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="StudentProgramAssociation">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Student associated with the Program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramReference" type="ProgramReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Program associated with the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the Student exited the Program or stopped receiving services.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReasonExited" type="ReasonExitedDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The reason the child left the Program within a school or district.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReasonExitedDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The EducationOrganization where the Student is participating in or receiving the Program services.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServedOutsideOfRegularSession" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the Student received services during the summer session or between sessions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ParticipationStatus" type="ParticipationStatus" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The status of the student's program participation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramParticipationStatus" type="ProgramParticipationStatus" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The status of the student's program participation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
   <xs:complexType name="EXTENSION-StudentSchoolFoodServiceProgramAssociationExtension">
@@ -1097,7 +1358,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:complexContent>
-      <xs:extension base="StudentSpecialEducationProgramAssociation">
+      <xs:extension base="EXTENSION-StudentSpecialEducationProgramAssociationRestriction">
         <xs:sequence>
           <xs:element name="SpecialEducationLevelOfIntegrationLevelOfIntegration" type="EXTENSION-LevelOfIntegrationDescriptorReferenceType">
             <xs:annotation>
@@ -1175,8 +1436,140 @@
               <xs:documentation>Only submit this value if the Location code is designated as an off-site</xs:documentation>
             </xs:annotation>
           </xs:element>
+          <xs:element name="SpecialEducationProgramService" type="EXTENSION-SpecialEducationProgramServiceExtension" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>Additional fields for NMPED SPED Services</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StudentSpecialEducationProgramAssociationRestriction">
+    <xs:annotation>
+      <xs:documentation>Restriction to Student Special Education Program Association for replacement of common type with common type extension</xs:documentation>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:restriction base="StudentSpecialEducationProgramAssociation">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Student associated with the Program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramReference" type="ProgramReferenceType">
+            <xs:annotation>
+              <xs:documentation>The Program associated with the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="BeginDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The month, day, and year on which the Student exited the Program or stopped receiving services.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ReasonExited" type="ReasonExitedDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The reason the child left the Program within a school or district.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>ReasonExitedDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The EducationOrganization where the Student is participating in or receiving the Program services.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServedOutsideOfRegularSession" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the Student received services during the summer session or between sessions.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ParticipationStatus" type="ParticipationStatus" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The status of the student's program participation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ProgramParticipationStatus" type="ProgramParticipationStatus" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The status of the student's program participation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IdeaEligibility" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicator of the eligibility of the student to receive special education services according to the Individuals with Disabilities Education Act (IDEA).</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialEducationSetting" type="SpecialEducationSettingDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The major instructional setting (more than 50 percent of a student's special education program).</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>SpecialEducationSettingDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ServiceProvider" type="ServiceProvider" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The Staff providing special education services to the Student.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SpecialEducationHoursPerWeek" type="HoursPerWeek" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The number of hours per week for special education instruction and therapy.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="SchoolHoursPerWeek" type="HoursPerWeek" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicate the total number of hours of instructional time per week for the school that the student attends.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MultiplyDisabled" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the Student receiving special education and related services has been designated as multiply disabled by the admission, review, and dismissal committee as aligned with federal requirements.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="MedicallyFragile" type="xs:boolean" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indicates whether the Student receiving special education and related services is:
+                      1) in the age range of birth to 22 years, and
+                      2) has a serious, ongoing illness or a chronic condition that has lasted or is anticipated to last at least 12 or more months or has required at least one month of hospitalization, and that requires daily, ongoing medical treatments and monitoring by appropriately trained personnel which may include parents or other family members, and
+                      3) requires the routine use of medical device or of assistive technology to compensate for the loss of usefulness of a body function needed to participate in activities of daily living, and
+                      4) lives with ongoing threat to his or her continued well-being.
+                      Aligns with federal requirements.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="LastEvaluationDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The date of the last special education evaluation.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IEPReviewDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The date of the last IEP review.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IEPBeginDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The effective date of the most recent IEP.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="IEPEndDate" type="xs:date" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The end date of the most recent IEP.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="Disability" type="Disability" minOccurs="0" maxOccurs="unbounded">
+            <xs:annotation>
+              <xs:documentation>The disability condition(s) that best describes an individual's impairment, as related to special education services received.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:restriction>
     </xs:complexContent>
   </xs:complexType>
   <xs:annotation>

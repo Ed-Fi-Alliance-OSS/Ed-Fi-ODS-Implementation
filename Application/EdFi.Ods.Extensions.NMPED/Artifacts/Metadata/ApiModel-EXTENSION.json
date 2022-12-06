@@ -1966,6 +1966,51 @@
     },
     {
       "schema": "nmped",
+      "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentEducationOrganizationAssociationStudentCharacteristicExtension_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentCharacteristicDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristicExtension_PK",
+            "postgreSql": "StudentEducationOrganizationAssociationStudentChar_fc9b44_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Additional field to record Level of Integration for Gifted Students",
+      "tableNames": {
+        "sqlServer": "StudentEducationOrganizationAssociationStudentCharacteristicExtension",
+        "postgreSql": "StudentEducationOrganizationAssociationStudentCharacteri_fc9b44"
+      }
+    },
+    {
+      "schema": "nmped",
       "name": "StudentEducationOrganizationAward",
       "locallyDefinedProperties": [
         {
@@ -2121,6 +2166,72 @@
       "tableNames": {
         "sqlServer": "StudentProgramAssociationExtension",
         "postgreSql": "StudentProgramAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentProgramAssociationServiceExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "ServiceFrequency",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceFrequency",
+            "postgreSql": "ServiceFrequency"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentProgramAssociationServiceExtension_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "EducationOrganizationId",
+            "ProgramEducationOrganizationId",
+            "ProgramName",
+            "ProgramTypeDescriptorId",
+            "ServiceDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentProgramAssociationServiceExtension_PK",
+            "postgreSql": "StudentProgramAssociationServiceExtension_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Extended fields for Service ServiceFrequency",
+      "tableNames": {
+        "sqlServer": "StudentProgramAssociationServiceExtension",
+        "postgreSql": "StudentProgramAssociationServiceExtension"
       }
     },
     {
@@ -2430,6 +2541,89 @@
       "tableNames": {
         "sqlServer": "StudentSpecialEducationProgramAssociationExtension",
         "postgreSql": "StudentSpecialEducationProgramAssociationExtension"
+      }
+    },
+    {
+      "schema": "nmped",
+      "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "IntegratedServicesStatus",
+          "propertyType": {
+            "dbType": "Boolean",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "IntegratedServicesStatus",
+            "postgreSql": "IntegratedServicesStatus"
+          }
+        },
+        {
+          "propertyName": "ServiceDuration",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceDuration",
+            "postgreSql": "ServiceDuration"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_PK",
+          "identifyingPropertyNames": [
+            "BeginDate",
+            "EducationOrganizationId",
+            "ProgramEducationOrganizationId",
+            "ProgramName",
+            "ProgramTypeDescriptorId",
+            "SpecialEducationProgramServiceDescriptorId",
+            "StudentUSI"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_PK",
+            "postgreSql": "StudentSpecialEducationProgramAssociationSpecialEd_e4dfb8_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Additional fields for NMPED SPED Services",
+      "tableNames": {
+        "sqlServer": "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension",
+        "postgreSql": "StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8"
       }
     },
     {
@@ -6557,6 +6751,194 @@
     {
       "fullName": {
         "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmped",
+        "name": "LevelOfIntegrationDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "LevelOfIntegrationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LevelOfIntegrationDescriptorId",
+            "postgreSql": "LevelOfIntegrationDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "GiftedLevelOfIntegrationDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "This field holds the level of integration that represents the amount of service for GIFTED characteristic students only                    Valid values are:                    1 = Less than 10% of the day (minimum or 'A')                    2 = 11% to 49% of the day (moderate or 'B')                    3 = 50% of the day or more, but not a full day (extensive or 'C')                    4 = Up to a full day or program 3Y/4Y (maximum or 'D')",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "GiftedLevelOfIntegrationDescriptorId",
+            "postgreSql": "GiftedLevelOfIntegrationDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor",
+        "postgreSql": "FK_fc9b44_LevelOfIntegrationDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_StudentEducationOrganizationAssociationStudentCharacter"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentEducationOrganizationAssociationStudentCharacteristic"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the Student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentEducationOrganizationAssociationStudentCharacteristicExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "StudentCharacteristicDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The characteristic designated for the Student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentCharacteristicDescriptorId",
+            "postgreSql": "StudentCharacteristicDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_StudentEducationOrganizationAssociationStudentCharacter",
+        "postgreSql": "FK_fc9b44_StudentEducationOrganizationAssociationStudentCharacteristic"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
         "name": "FK_StudentEducationOrganizationAward_EducationOrganization"
       },
       "cardinality": "OneToZeroOrMore",
@@ -7262,6 +7644,270 @@
         "sqlServer": "FK_StudentProgramAssociationExtension_StudentProgramAssociation",
         "postgreSql": "FK_0c120d_StudentProgramAssociation"
       }
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentProgramAssociationServiceExtension_StudentProgramAssociationService"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentProgramAssociationService"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "ServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the Service being provided to the student by the Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceDescriptorId",
+            "postgreSql": "ServiceDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentProgramAssociationServiceExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "ServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the Service being provided to the student by the Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ServiceDescriptorId",
+            "postgreSql": "ServiceDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentProgramAssociationServiceExtension_StudentProgramAssociationService",
+        "postgreSql": "FK_beb1a6_StudentProgramAssociationService"
+      },
+      "potentiallyLogical": false
     },
     {
       "fullName": {
@@ -8991,6 +9637,270 @@
       "constraintNames": {
         "sqlServer": "FK_StudentSpecialEducationProgramAssociationExtension_TriennialReviewDelayReasonDescriptor",
         "postgreSql": "FK_3da84f_TriennialReviewDelayReasonDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmped",
+        "name": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_StudentSpecialEducationProgramAssociationSpe"
+      },
+      "cardinality": "OneToOneExtension",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramService"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "SpecialEducationProgramServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the service being provided to the student by the Special Education Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationProgramServiceDescriptorId",
+            "postgreSql": "SpecialEducationProgramServiceDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmped",
+        "name": "StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "BeginDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "BeginDate",
+            "postgreSql": "BeginDate"
+          }
+        },
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramEducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramEducationOrganizationId",
+            "postgreSql": "ProgramEducationOrganizationId"
+          }
+        },
+        {
+          "propertyName": "ProgramName",
+          "propertyType": {
+            "dbType": "String",
+            "maxLength": 60,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramName",
+            "postgreSql": "ProgramName"
+          }
+        },
+        {
+          "propertyName": "ProgramTypeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The type of program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ProgramTypeDescriptorId",
+            "postgreSql": "ProgramTypeDescriptorId"
+          }
+        },
+        {
+          "propertyName": "SpecialEducationProgramServiceDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Indicates the service being provided to the student by the Special Education Program.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "SpecialEducationProgramServiceDescriptorId",
+            "postgreSql": "SpecialEducationProgramServiceDescriptorId"
+          }
+        },
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_StudentSpecialEducationProgramAssociationSpe",
+        "postgreSql": "FK_e4dfb8_StudentSpecialEducationProgramAssociationSpecialEducatio_a51ff9"
       },
       "potentiallyLogical": false
     },

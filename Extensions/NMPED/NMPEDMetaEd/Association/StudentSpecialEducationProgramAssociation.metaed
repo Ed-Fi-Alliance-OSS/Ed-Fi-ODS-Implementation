@@ -36,3 +36,6 @@ Association EdFi.StudentSpecialEducationProgramAssociation additions
           documentation "Only submit this value if the Location code is designated as an off-site"
           is optional
           role name ChildCountEducationOrganization
+    common extension EdFi.SpecialEducationProgramService
+              documentation "Additional fields for NMPED SPED Services"
+              is optional collection

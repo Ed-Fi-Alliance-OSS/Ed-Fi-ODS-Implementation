@@ -192,6 +192,18 @@ COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.DentalE
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.MilitaryFamilyDescriptorId IS 'Indicator to identify the military stuats of the student''s family';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationExtension.GenderIdentityDescriptorId IS 'Indicates the gender the student identifies with.';
 
+-- Extended Properties [nmped].[StudentEducationOrganizationAssociationStudentCharacteri_fc9b44] --
+COMMENT ON TABLE nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44 IS 'Additional field to record Level of Integration for Gifted Students';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44.StudentCharacteristicDescriptorId IS 'The characteristic designated for the Student.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentEducationOrganizationAssociationStudentCharacteri_fc9b44.GiftedLevelOfIntegrationDescriptorId IS 'This field holds the level of integration that represents the amount of service for GIFTED characteristic students only
+                    Valid values are:
+                    1 = Less than 10% of the day (minimum or ''A'')
+                    2 = 11% to 49% of the day (moderate or ''B'')
+                    3 = 50% of the day or more, but not a full day (extensive or ''C'')
+                    4 = Up to a full day or program 3Y/4Y (maximum or ''D'')';
+
 -- Extended Properties [nmped].[StudentEducationOrganizationAward] --
 COMMENT ON TABLE nmped.StudentEducationOrganizationAward IS 'The awards a student has earned at a education organization.';
 COMMENT ON COLUMN nmped.StudentEducationOrganizationAward.AwardDate IS 'The date the student got awarded.';
@@ -212,6 +224,17 @@ COMMENT ON COLUMN nmped.StudentProgramAssociationExtension.StudentUSI IS 'A uniq
 COMMENT ON COLUMN nmped.StudentProgramAssociationExtension.ParticipationInformationDescriptorId IS 'Indicates the program participation information.';
 COMMENT ON COLUMN nmped.StudentProgramAssociationExtension.ProgramIntensityDescriptorId IS 'Indicates the program Intensity.';
 COMMENT ON COLUMN nmped.StudentProgramAssociationExtension.BEPProgramLanguageDescriptorId IS 'Language for students participating in BEP';
+
+-- Extended Properties [nmped].[StudentProgramAssociationServiceExtension] --
+COMMENT ON TABLE nmped.StudentProgramAssociationServiceExtension IS 'Extended fields for Service ServiceFrequency';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.ServiceDescriptorId IS 'Indicates the Service being provided to the student by the Program.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentProgramAssociationServiceExtension.ServiceFrequency IS 'Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number.';
 
 -- Extended Properties [nmped].[StudentSchoolFoodServiceProgramAssociationExtension] --
 COMMENT ON TABLE nmped.StudentSchoolFoodServiceProgramAssociationExtension IS '';
@@ -277,6 +300,18 @@ COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.Alter
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.PrimaryAreaOfExceptionalityDescriptorId IS 'Identification of a studen''s Primary Exceptionality';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.SpecialEducationReferralCodeDescriptorId IS 'Required if the child was referred from Part C to B or thru Child Find.';
 COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationExtension.ChildCountEducationOrganizationId IS 'The identifier assigned to an education organization.';
+
+-- Extended Properties [nmped].[StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8] --
+COMMENT ON TABLE nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8 IS 'Additional fields for NMPED SPED Services';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.BeginDate IS 'The earliest date the student is involved with the program. Typically, this is the date the student becomes eligible for the program.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.EducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramEducationOrganizationId IS 'The identifier assigned to an education organization.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramName IS 'The formal name of the Program of instruction, training, services, or benefits available through federal, state, or local agencies.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ProgramTypeDescriptorId IS 'The type of program.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.SpecialEducationProgramServiceDescriptorId IS 'Indicates the service being provided to the student by the Special Education Program.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.StudentUSI IS 'A unique alphanumeric code assigned to a student.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.IntegratedServicesStatus IS 'A ‘Y’ or ‘N’ indication of whether the student receives services within the regular education environment.';
+COMMENT ON COLUMN nmped.StudentSpecialEducationProgramAssociationSpecialEducatio_e4dfb8.ServiceDuration IS 'Service Duration will be required for all other service codes. A value from 1 – 9999 to indicate the number of minutes the service occurs per week. Must calculate service minutes that occur in a service cycle that is not weekly.';
 
 -- Extended Properties [nmped].[TransportationCategoryDescriptor] --
 COMMENT ON TABLE nmped.TransportationCategoryDescriptor IS 'The transportation category type.';

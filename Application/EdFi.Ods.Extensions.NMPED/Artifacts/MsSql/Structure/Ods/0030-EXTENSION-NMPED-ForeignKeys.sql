@@ -298,6 +298,19 @@ REFERENCES [edfi].[StudentEducationOrganizationAssociation] ([EducationOrganizat
 ON DELETE CASCADE
 GO
 
+ALTER TABLE [nmped].[StudentEducationOrganizationAssociationStudentCharacteristicExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor] FOREIGN KEY ([GiftedLevelOfIntegrationDescriptorId])
+REFERENCES [nmped].[LevelOfIntegrationDescriptor] ([LevelOfIntegrationDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_LevelOfIntegrationDescriptor]
+ON [nmped].[StudentEducationOrganizationAssociationStudentCharacteristicExtension] ([GiftedLevelOfIntegrationDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentEducationOrganizationAssociationStudentCharacteristicExtension] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAssociationStudentCharacteristicExtension_StudentEducationOrganizationAssociationStudentCharacter] FOREIGN KEY ([EducationOrganizationId], [StudentCharacteristicDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentEducationOrganizationAssociationStudentCharacteristic] ([EducationOrganizationId], [StudentCharacteristicDescriptorId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
 ALTER TABLE [nmped].[StudentEducationOrganizationAward] WITH CHECK ADD CONSTRAINT [FK_StudentEducationOrganizationAward_EducationOrganization] FOREIGN KEY ([EducationOrganizationId])
 REFERENCES [edfi].[EducationOrganization] ([EducationOrganizationId])
 GO
@@ -364,6 +377,11 @@ GO
 
 ALTER TABLE [nmped].[StudentProgramAssociationExtension] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociationExtension_StudentProgramAssociation] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
 REFERENCES [edfi].[StudentProgramAssociation] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [StudentUSI])
+ON DELETE CASCADE
+GO
+
+ALTER TABLE [nmped].[StudentProgramAssociationServiceExtension] WITH CHECK ADD CONSTRAINT [FK_StudentProgramAssociationServiceExtension_StudentProgramAssociationService] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [ServiceDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentProgramAssociationService] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [ServiceDescriptorId], [StudentUSI])
 ON DELETE CASCADE
 GO
 
@@ -493,6 +511,11 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_StudentSpecialEducationProgramAssociationExtension_TriennialReviewDelayReasonDescriptor]
 ON [nmped].[StudentSpecialEducationProgramAssociationExtension] ([TriennialReviewDelayReasonDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmped].[StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension] WITH CHECK ADD CONSTRAINT [FK_StudentSpecialEducationProgramAssociationSpecialEducationProgramServiceExtension_StudentSpecialEducationProgramAssociationSpe] FOREIGN KEY ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [SpecialEducationProgramServiceDescriptorId], [StudentUSI])
+REFERENCES [edfi].[StudentSpecialEducationProgramAssociationSpecialEducationProgramService] ([BeginDate], [EducationOrganizationId], [ProgramEducationOrganizationId], [ProgramName], [ProgramTypeDescriptorId], [SpecialEducationProgramServiceDescriptorId], [StudentUSI])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [nmped].[TransportationCategoryDescriptor] WITH CHECK ADD CONSTRAINT [FK_TransportationCategoryDescriptor_Descriptor] FOREIGN KEY ([TransportationCategoryDescriptorId])

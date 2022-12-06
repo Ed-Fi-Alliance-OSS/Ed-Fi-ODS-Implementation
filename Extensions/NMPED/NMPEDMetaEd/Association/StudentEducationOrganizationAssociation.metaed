@@ -8,6 +8,9 @@ Association EdFi.StudentEducationOrganizationAssociation additions
     descriptor MilitaryFamily
         documentation "Indicator to identify the military stuats of the student's family"
         is optional
-        descriptor GenderIdentity
+    descriptor GenderIdentity
             documentation "Indicates the gender the student identifies with."
             is optional
+    common extension EdFi.StudentCharacteristic
+        documentation "Additional field to record Level of Integration for Gifted Students"
+        is optional collection

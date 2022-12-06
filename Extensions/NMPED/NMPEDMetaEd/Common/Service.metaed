@@ -1,4 +1,4 @@
 Common EdFi.Service additions
   integer ServiceFrequency
-    documentation "Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number."
+      documentation "Number of days the student received the Community School Program (CSP) and/or Expanded and Enriched Learning Time and Opportunities (EELTO) within the reporting period. A one to two digit number."
       is required

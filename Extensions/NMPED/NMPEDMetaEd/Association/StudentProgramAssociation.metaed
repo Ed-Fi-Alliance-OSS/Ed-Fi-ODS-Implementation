@@ -9,3 +9,6 @@ Association EdFi.StudentProgramAssociation additions
         documentation "Language for students participating in BEP"
         is optional
         role name BEPProgramLanguage
+    common extension EdFi.Service
+        documentation "Extended fields for Service ServiceFrequency"
+        is optional collection
