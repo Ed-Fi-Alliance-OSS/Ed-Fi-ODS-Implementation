@@ -4,8 +4,8 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 $params = @{
-    sourceUrl = "https://odsassets.blob.core.windows.net/public/Glendale/EdFi_Ods_Glendale_v53_20220120.7z"
-    fileName  = "EdFi_Ods_Glendale_v53_20220120.7z"
+    sourceUrl = "https://odsassets.blob.core.windows.net/public/Glendale/EdFi_Ods_Glendale_v60_20220930.7z"
+    fileName  = "EdFi_Ods_Glendale_v60_20220930.7z"
 }
 
 return (& "$PSScriptRoot/../Modules/get-template-from-web.ps1" @params)
