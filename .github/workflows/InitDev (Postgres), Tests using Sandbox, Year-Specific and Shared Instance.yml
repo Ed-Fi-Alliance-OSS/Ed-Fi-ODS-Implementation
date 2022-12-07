@@ -25,19 +25,32 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
+  LANG: "en_US.utf8"
 
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:13
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
 
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:
         dotnet-version: 6.0.x
-    - name: Support longpaths
-      run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
@@ -57,13 +70,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Install & Start PostgreSQL 13
-      run: |
-        choco install postgresql13 --params '/Password:postgres'
-        $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
-        (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-        Restart-Service postgresql-x64-13        
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"       
     - name: ODS/API InitDev and SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
