@@ -170,8 +170,10 @@ function Copy-InterchangeFiles {
     foreach ($xmlFile in $xmlFiles) {
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
-                Write-Host "copy to $($directory.Name)/$($xmlFile.Name) " -NoNewline
-                Copy-Item -Path $xmlFile.FullName -Destination "$directory/$($xmlFile.Name)"
+                # Randomize the file's name to prevent it from being overwritten if there is another file with the same name
+                $xmlFileName = RandomizeFileName $xmlFile.Name
+                Write-Host "copy to $($directory.Name)/$($xmlFileName) " -NoNewline
+                Copy-Item -Path $xmlFile.FullName -Destination "$directory/$($xmlFileName)"
             }
             Write-Host $elapsed.duration -ForegroundColor DarkGray
         }
@@ -555,6 +557,16 @@ function New-DatabaseTemplateNuspec {
     Write-Host "Nuspec Created: " -ForegroundColor Green -NoNewline
     Write-Host (Get-ChildItem $populatedTemplatePath -Filter "*.nuspec").FullName
     Write-Host
+}
+
+function RandomizeFileName {
+    param(
+        [string] $fileName
+    )
+
+    $parts = [Linq.Enumerable]::ToList($fileName.Split("."))
+    $parts.Insert($parts.Count - 1, [IO.Path]::GetFileNameWithoutExtension([IO.Path]::GetRandomFileName()))
+    return [string]::Join(".", $parts)
 }
 
 Export-ModuleMember -function * -Alias *
