@@ -6,8 +6,7 @@
 name: InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance
 
 on:
-  pull_request:
-   branches: [main]
+
   push:
    branches: [main]
   workflow_dispatch:

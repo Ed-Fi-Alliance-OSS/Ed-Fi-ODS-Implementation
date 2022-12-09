@@ -1,0 +1,133 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Rebuild Database Templates
+
+on:
+  pull_request:
+   branches: [main]
+  workflow_dispatch:
+
+env:
+  INFORMATIONAL_VERSION: "7.0"
+  BUILD_INCREMENTER: "1"
+  CONFIGURATION: "Release"
+  VERSION_MAJOR: "7"
+  VERSION_MINOR: "0"
+  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
+  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
+  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
+  EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
+
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Setup .NET
+      uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
+      with:
+        dotnet-version: 6.0.x
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"	
+    - name: Checkout Ed-Fi-Extensions
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+    - name: Is pull request branch exists in Ed-Fi-Extensions
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+    - name: Build Web App
+      run: |
+           echo "Build Web App"
+           sleep 10s           
+    - uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-ODS
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.CodeGen.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true        
+    - name: Save latest Ed-Fi-ODS commit hash in env variable
+      working-directory: ./Ed-Fi-ODS/
+      shell: pwsh
+      run: |
+           $commitHash = git rev-parse ${{ env.HEAD_REF }}
+           Write-Host "commitHash"  $commitHash
+           Add-Content -Path $env:GITHUB_ENV -Value "EDFIODS_COMMITHASH=$commitHash"
+    - name: Download Codegen artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.CodeGen.yml
+        workflow_conclusion: success
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        commit: ${{ env.EDFIODS_COMMITHASH }}
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Import GPG key
+      id: import-gpg
+      uses: crazy-max/ghaction-import-gpg@c8bb57c57e8df1be8c73ff3d59deab1dbc00e0d1 # v5.1.0
+      with:
+        workdir: ./Ed-Fi-ODS-Implementation/
+        gpg_private_key: ${{ secrets.EDFIBUILDAGENT_PRIVATE_KEY }}
+        passphrase: ${{ secrets.EDFIBUILDAGENT_PASSPHRASE }}
+        git_user_signingkey: true
+        git_commit_gpgsign: true
+    - name: Git setup
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        git config user.name "${{ steps.import-gpg.outputs.name }}"
+        git config user.email "${{ steps.import-gpg.outputs.email }}"
+    - name: update configuration.packages.json with EdFi.Ods.CodeGen new package version
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.CodeGen.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $version = $folderParts[6]
+        Write-Host "latestVersion"  $version
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $config = Get-Content $filePath | ConvertFrom-Json
+        $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $version
+        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+    - name: Commit and push updated EdFi.Ods.CodeGen package reference
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        git add ./configuration.packages.json
+        git commit -m "Updating for new CodeGen version"
+        git push -u origin ${{ GITHUB.HEAD_REF }}
