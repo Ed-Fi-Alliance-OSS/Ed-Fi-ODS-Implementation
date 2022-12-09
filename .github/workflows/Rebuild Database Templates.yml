@@ -80,7 +80,7 @@ jobs:
       with:
         workflow: Packages - EdFi.Ods.CodeGen.yml
         workflow_conclusion: success
-        name: NugetPackages.Artifacts
+        name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         commit: ${{ env.EDFIODS_COMMITHASH }}
         check_artifacts: true
