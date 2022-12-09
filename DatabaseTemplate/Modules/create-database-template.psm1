@@ -515,13 +515,13 @@ function New-DatabaseTemplateNuspec {
 
     $params = @{
         nuspecPath               = $nuspecPath
-        id                       = '$id$'
-        title                    = '$title$'
-        description              = '$description$'
-        version                  = '$version$'
-        authors                  = '$authors$'
-        copyright                = '$copyright$'
-        owners                   = '$owners$'
+        id                       = 'EdFi.Suite3.Ods.Minimal.Template.PostgreSQL'
+        title                    = 'N/A'
+        description              = 'N/A'
+        version                  = '1.0.0'
+        authors                  = 'N/A'
+        copyright                = 'N/A'
+        owners                   = 'N/A'
         requireLicenseAcceptance = $false
     }
     New-Nuspec @params
