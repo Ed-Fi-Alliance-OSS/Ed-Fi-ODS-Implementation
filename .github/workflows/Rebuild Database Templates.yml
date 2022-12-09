@@ -55,21 +55,8 @@ jobs:
       shell: pwsh
       run: |
            ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"	
-    - name: Checkout Ed-Fi-Extensions
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
-          path: Ed-Fi-Extensions/
-    - name: Is pull request branch exists in Ed-Fi-Extensions
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
-    - name: Build Web App
-      run: |
-           echo "Build Web App"
-           sleep 10s           
-    - uses: convictional/trigger-workflow-and-wait@v1.6.1
+    - name: Trigger to EdFi.Ods.CodeGen Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
       with:
         owner: ${{ github.repository_owner }}
         repo: Ed-Fi-ODS
@@ -126,6 +113,120 @@ jobs:
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $version
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        git add ./configuration.packages.json
+        git commit -m "Updating for new CodeGen version"
+        git push -u origin ${{ GITHUB.HEAD_REF }}
+    - name: Trigger to EdFi.Ods.Extensions.Homograph Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-Extensions
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Homograph.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true  
+    - name: Trigger to EdFi.Ods.Extensions.Sample Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-Extensions
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Sample.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true 
+    - name: Trigger to EdFi.Ods.Extensions.TPDM Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-Extensions
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true 
+    - name: Save latest Ed-Fi-Extensions commit hash in env variable
+      working-directory: ./Ed-Fi-Extensions/
+      shell: pwsh
+      run: |
+           $commitHash = git rev-parse ${{ env.HEAD_REF }}
+           Write-Host "commitHash"  $commitHash
+           Add-Content -Path $env:GITHUB_ENV -Value "EDFIEXTENSIONS_COMMITHASH=$commitHash"
+    - name: Download EdFi.Ods.Extensions.Homograph artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Extensions.Homograph.yml
+        workflow_conclusion: success
+        name: EdFi.Ods.Extensions.Homograph.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Download EdFi.Ods.Extensions.Sample artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Extensions.Sample.yml
+        workflow_conclusion: success
+        name: EdFi.Ods.Extensions.Sample.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Download EdFi.Ods.Extensions.TPDM artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Extensions.TPDM.yml
+        workflow_conclusion: success
+        name: EdFi.Ods.Extensions.TPDM.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: update configuration.packages.json with all Extensions Homograph ,TPDM , Sample new package version
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $version = $folderParts[6]
+        Write-Host "Extensions.Homograph latestVersion"  $version
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $config = Get-Content $filePath | ConvertFrom-Json
+        $config.packages.'homograph'.PackageVersion = $version
+
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $version = $folderParts[6]
+        Write-Host "Extensions.Sample latestVersion"  $version
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $config = Get-Content $filePath | ConvertFrom-Json
+        $config.packages.'sample'.PackageVersion = $version
+
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $version = $folderParts[11]
+        Write-Host " Extensions.TPDM latestVersion"  $version
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $config = Get-Content $filePath | ConvertFrom-Json
+        $config.packages.'tpdm'.PackageVersion = $version
+
+        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+    - name: Commit and push updated EXtensions- TPDM, Sample, Homograph package references
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         git add ./configuration.packages.json
