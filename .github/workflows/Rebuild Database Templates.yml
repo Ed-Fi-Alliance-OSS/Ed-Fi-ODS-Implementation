@@ -82,7 +82,8 @@ jobs:
         workflow_conclusion: success
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
-        commit: ${{ env.EDFIODS_COMMITHASH }}
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-ODS
         check_artifacts: true
         if_no_artifact_found: fail
     - name: Import GPG key
