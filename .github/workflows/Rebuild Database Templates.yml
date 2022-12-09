@@ -172,7 +172,8 @@ jobs:
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Homograph.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
-        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
     - name: Download EdFi.Ods.Extensions.Sample artifact
@@ -182,7 +183,8 @@ jobs:
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Sample.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
-        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
     - name: Download EdFi.Ods.Extensions.TPDM artifact
@@ -192,7 +194,8 @@ jobs:
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.TPDM.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
-        commit: ${{ env.EDFIEXTENSIONS_COMMITHASH }}
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
     - name: update configuration.packages.json with all Extensions Homograph ,TPDM , Sample new package version
