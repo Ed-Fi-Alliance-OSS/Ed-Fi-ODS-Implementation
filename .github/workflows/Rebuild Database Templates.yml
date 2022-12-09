@@ -106,12 +106,13 @@ jobs:
       run: |
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.CodeGen.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $version = $folderParts[6]
-        Write-Host "latestVersion"  $version
+        $newRevision = ([int]$folderParts[6])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"  
+        Write-Host "packageversion"  $packageversion
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
-        $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $version
+        $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -204,30 +205,33 @@ jobs:
       run: |
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $version = $folderParts[6]
-        Write-Host "Extensions.Homograph latestVersion"  $version
+        $newRevision = ([int]$folderParts[6])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host "Extensions.Homograph latestVersion"  $packageversion
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
-        $config.packages.'homograph'.PackageVersion = $version
+        $config.packages.'homograph'.PackageVersion = $packageversion
 
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $version = $folderParts[6]
-        Write-Host "Extensions.Sample latestVersion"  $version
+        $newRevision = ([int]$folderParts[6])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host "Extensions.Sample latestVersion"  $packageversion
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
-        $config.packages.'sample'.PackageVersion = $version
+        $config.packages.'sample'.PackageVersion = $packageversion
 
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $version = $folderParts[11]
-        Write-Host " Extensions.TPDM latestVersion"  $version
+        $newRevision = ([int]$folderParts[11])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host " Extensions.TPDM latestVersion"  $packageversion
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
-        $config.packages.'tpdm'.PackageVersion = $version
+        $config.packages.'tpdm'.PackageVersion = $packageversion
 
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EXtensions- TPDM, Sample, Homograph package references
