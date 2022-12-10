@@ -55,6 +55,16 @@ jobs:
       shell: pwsh
       run: |
            ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"	
+    - name: Checkout Ed-Fi-Extensions
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/
+    - name: Is pull request branch exists in Ed-Fi-Extensions
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"	
     - name: Trigger to EdFi.Ods.CodeGen Packages workflow 
       uses: convictional/trigger-workflow-and-wait@v1.6.1
       with:
