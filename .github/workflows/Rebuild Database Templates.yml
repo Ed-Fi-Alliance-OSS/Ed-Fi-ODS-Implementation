@@ -382,3 +382,141 @@ jobs:
         git add ./configuration.packages.json
         git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL  package version"
         git push -u origin ${{ GITHUB.HEAD_REF }}
+    - name: Trigger to EdFi.Ods.Minimal.Template.TPDM Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-ODS
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.TPDM.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true  
+    - name: Trigger to EdFi.Ods.Minimal.Template.TPDM.PostgreSQL Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-ODS
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true
+    - name: Trigger to Packages - EdFi.Ods.Populated.Template.TPDM Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-ODS
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.TPDM.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true
+    - name: Trigger to EdFi.Ods.Populated.Template.TPDM.PostgreSQL Packages workflow 
+      uses: convictional/trigger-workflow-and-wait@v1.6.1
+      with:
+        owner: ${{ github.repository_owner }}
+        repo: Ed-Fi-ODS
+        github_token: ${{ env.EDFI_ODS_TOKEN }}
+        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
+        ref:  ${{ env.HEAD_REF }}
+        wait_interval: 20
+        client_payload: '{}'
+        propagate_failure: true
+        trigger_workflow: true
+        wait_workflow: true
+    - name: Download EdFi.Ods.Minimal.Template.TPDM artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.yml
+        workflow_conclusion: success
+        name: EdFi.Ods.Minimal.Template.TPDM.Core.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
+        workflow_conclusion: success
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Download EdFi.Ods.Populated.Template.TPDM artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Populated.Template.TPDM.yml
+        workflow_conclusion: success
+        name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Download EdFi.Ods.Populated.Template..TPDMPostgreSQL artifact
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
+        workflow_conclusion: success
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
+        branch: ${{ env.HEAD_REF }}
+        repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: update configuration.packages.json with all EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $newRevision = ([int]$folderParts[8])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM latestVersion"  $packageversion
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $config = Get-Content $filePath | ConvertFrom-Json
+        $config.packages.'TPDMCoreMinimalTemplate'.PackageVersion = $packageversion
+
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $newRevision = ([int]$folderParts[9])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM.PostgreSQL latestVersion"  $packageversion
+        $config.packages.'TPDMCorePostgreSqlMinimalTemplate'.PackageVersion = $packageversion
+
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $newRevision = ([int]$folderParts[8])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM latestVersion"  $packageversion
+        $config.packages.'TPDMCorePopulatedTemplate'.PackageVersion = $packageversion
+
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $folderParts = $packageFolder -split "\."
+        $newRevision = ([int]$folderParts[9])
+        $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+        Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM.PostgreSQL latestVersion"  $packageversion
+        $config.packages.'TPDMCorePostgreSqlPopulatedTemplate'.PackageVersion = $packageversion
+
+        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+    - name: Commit and push updated EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        git add ./configuration.packages.json
+        git commit -m "Updating for new EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL  package version"
+        git push -u origin ${{ GITHUB.HEAD_REF }}
