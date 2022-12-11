@@ -84,7 +84,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         ref: ${{ GITHUB.HEAD_REF  }}
-        repo:  Ed-Fi-Extensions
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.CodeGen.yml
         workflow_timeout_seconds: 1200
@@ -93,7 +93,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         ref: ${{ GITHUB.HEAD_REF  }}
-        repo: Ed-Fi-Extensions
+        repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
         run_timeout_seconds: 1200
