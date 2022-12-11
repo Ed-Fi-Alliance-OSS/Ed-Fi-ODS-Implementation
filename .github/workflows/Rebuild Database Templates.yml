@@ -139,11 +139,8 @@ jobs:
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.Extensions.Homograph.yml
-        workflow_inputs: '{"distinct_id":"2ae6d5eb-f56d-4a1d-b057-b6e347e989c4"}' # Optional
-        workflow_timeout_seconds: 600 # Default: 300
-    - name: Use the output run ID
-      run: echo ${{steps.return_dispatch_homograph.outputs.run_id}}
-    - name: Await Run ID ${{ steps.return_dispatch_homograph.outputs.run_id }}
+        workflow_timeout_seconds: 1200
+    - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -151,6 +148,8 @@ jobs:
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
+        run_timeout_seconds: 1200
+        poll_interval_ms: 5000
     - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.Sample
       uses: codex-/return-dispatch@v1
       id: return_dispatch_sample
