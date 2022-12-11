@@ -158,7 +158,7 @@ jobs:
         owner: ${{ github.repository_owner }}
         workflow: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
 
-   - name: Await Run ID ${{ steps.return_dispatch_homograph.outputs.run_id }}
+    - name: Await Run ID ${{ steps.return_dispatch_homograph.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
