@@ -139,7 +139,7 @@ jobs:
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.Extensions.Homograph.yml
-        workflow_inputs: '{ }' # Optional
+        workflow_inputs: '{"distinct_id":"2ae6d5eb-f56d-4a1d-b057-b6e347e989c4"}' # Optional
         workflow_timeout_seconds: 600 # Default: 300
     - name: Use the output run ID
       run: echo ${{steps.return_dispatch_homograph.outputs.run_id}}
