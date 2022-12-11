@@ -65,19 +65,19 @@ jobs:
       shell: pwsh
       run: |
            ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"	
-    - name: Trigger to EdFi.Ods.CodeGen Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
-      with:
-        owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.CodeGen.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
+    #- name: Trigger to EdFi.Ods.CodeGen Packages workflow 
+    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
+    #  with:
+    #    owner: ${{ github.repository_owner }}
+    #    repo: Ed-Fi-ODS
+    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
+    #    workflow_file_name: Packages%20-%20EdFi.Ods.CodeGen.yml
+    #    ref:  ${{ env.HEAD_REF }}
+    #    wait_interval: 20
+    #    client_payload: '{}'
+    #    propagate_failure: true
+    #    trigger_workflow: true
+    #    wait_workflow: true
     - name: Dispatch an action and get the run ID for EdFi.Ods.CodeGen
       uses: codex-/return-dispatch@v1
       id: return_dispatch_codegen
