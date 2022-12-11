@@ -130,45 +130,98 @@ jobs:
         git add ./configuration.packages.json
         git commit -m "Updating for new CodeGen version"
         git push -u origin ${{ GITHUB.HEAD_REF }}
-    - name: Trigger to EdFi.Ods.Extensions.Homograph Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.Homograph
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_homograph
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-Extensions
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Homograph.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true  
-    - name: Trigger to EdFi.Ods.Extensions.Sample Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages%20-%20EdFi.Ods.Extensions.Homograph.yml
+    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.Sample
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_sample
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-Extensions
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Sample.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true 
-    - name: Trigger to EdFi.Ods.Extensions.TPDM Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages%20-%20EdFi.Ods.Extensions.Sample.yml
+    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.TPDM
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_TPDM
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
+        workflow: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
+
+   - name: Await Run ID ${{ steps.return_dispatch_homograph.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-Extensions
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true 
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
+
+    - name: Await Run ID ${{ steps.return_dispatch_sample.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-Extensions
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
+    - name: Await Run ID ${{ steps.return_dispatch_TPDM.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-Extensions
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
+    #- name: Trigger to EdFi.Ods.Extensions.Homograph Packages workflow 
+    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
+    #  with:
+    #    owner: ${{ github.repository_owner }}
+    #    repo: Ed-Fi-Extensions
+    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
+    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Homograph.yml
+    #    ref:  ${{ env.HEAD_REF }}
+    #    wait_interval: 20
+    #    client_payload: '{}'
+    #    propagate_failure: true
+    #    trigger_workflow: true
+    #    wait_workflow: true  
+    #- name: Trigger to EdFi.Ods.Extensions.Sample Packages workflow 
+    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
+    #  with:
+    #    owner: ${{ github.repository_owner }}
+    #    repo: Ed-Fi-Extensions
+    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
+    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Sample.yml
+    #    ref:  ${{ env.HEAD_REF }}
+    #    wait_interval: 20
+    #    client_payload: '{}'
+    #    propagate_failure: true
+    #    trigger_workflow: true
+    #    wait_workflow: true 
+    #- name: Trigger to EdFi.Ods.Extensions.TPDM Packages workflow 
+    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
+    #  with:
+    #    owner: ${{ github.repository_owner }}
+    #    repo: Ed-Fi-Extensions
+    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
+    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
+    #    ref:  ${{ env.HEAD_REF }}
+    #    wait_interval: 20
+    #    client_payload: '{}'
+    #    propagate_failure: true
+    #    trigger_workflow: true
+    #    wait_workflow: true 
     - name: Save latest Ed-Fi-Extensions commit hash in env variable
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
@@ -467,7 +520,7 @@ jobs:
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Populated.Template..TPDMPostgreSQL artifact
+    - name: Download EdFi.Ods.Populated.Template.TPDM.PostgreSQL artifact
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
