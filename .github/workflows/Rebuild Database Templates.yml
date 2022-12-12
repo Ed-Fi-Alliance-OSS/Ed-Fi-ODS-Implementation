@@ -16,14 +16,10 @@ env:
   CONFIGURATION: "Release"
   VERSION_MAJOR: "7"
   VERSION_MINOR: "0"
-  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
-  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}  
   EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
-
 
 jobs:
   build:
@@ -65,20 +61,7 @@ jobs:
       shell: pwsh
       run: |
            ./build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"	
-    #- name: Trigger to EdFi.Ods.CodeGen Packages workflow 
-    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
-    #  with:
-    #    owner: ${{ github.repository_owner }}
-    #    repo: Ed-Fi-ODS
-    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
-    #    workflow_file_name: Packages%20-%20EdFi.Ods.CodeGen.yml
-    #    ref:  ${{ env.HEAD_REF }}
-    #    wait_interval: 20
-    #    client_payload: '{}'
-    #    propagate_failure: true
-    #    trigger_workflow: true
-    #    wait_workflow: true
-    - name: Dispatch an action and get the run ID for EdFi.Ods.CodeGen
+    - name: Dispatch EdFi.Ods.CodeGen workflow
       uses: codex-/return-dispatch@v1
       id: return_dispatch_codegen
       with:
@@ -87,7 +70,7 @@ jobs:
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.CodeGen.yml
-        workflow_timeout_seconds: 1200
+        workflow_timeout_seconds: 4800
     - name: Await to complete the execution for EdFi.Ods.CodeGen RunID ${{ steps.return_dispatch_codegen.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
       with:
@@ -96,7 +79,7 @@ jobs:
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
-        run_timeout_seconds: 1200
+        run_timeout_seconds: 4800
         poll_interval_ms: 5000
         
     - name: Save latest Ed-Fi-ODS commit hash in env variable
@@ -106,7 +89,8 @@ jobs:
            $commitHash = git rev-parse ${{ env.HEAD_REF }}
            Write-Host "commitHash"  $commitHash
            Add-Content -Path $env:GITHUB_ENV -Value "EDFIODS_COMMITHASH=$commitHash"
-    - name: Download Codegen artifact
+
+    - name: Download Codegen artifact using Run Id ${{ steps.return_dispatch_codegen.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.CodeGen.yml
@@ -114,6 +98,7 @@ jobs:
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
+        run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         check_artifacts: true
         if_no_artifact_found: fail
@@ -151,7 +136,8 @@ jobs:
         git add ./configuration.packages.json
         git commit -m "Updating for new CodeGen version"
         git push -u origin ${{ GITHUB.HEAD_REF }}
-    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.Homograph
+
+    - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       uses: codex-/return-dispatch@v1
       id: return_dispatch_homograph
       with:
@@ -160,9 +146,9 @@ jobs:
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.Extensions.Homograph.yml
-        workflow_timeout_seconds: 1200
+        workflow_timeout_seconds: 4800
 
-    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.Sample
+    - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
       uses: codex-/return-dispatch@v1
       id: return_dispatch_sample
       with:
@@ -171,9 +157,9 @@ jobs:
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.Extensions.Sample.yml
-        workflow_timeout_seconds: 1200
+        workflow_timeout_seconds: 4800
 
-    - name: Dispatch an action and get the run ID for EdFi.Ods.Extensions.TPDM
+    - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
       uses: codex-/return-dispatch@v1
       id: return_dispatch_TPDM
       with:
@@ -182,7 +168,7 @@ jobs:
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         workflow: Packages - EdFi.Ods.Extensions.TPDM.yml
-        workflow_timeout_seconds: 1200
+        workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
@@ -192,7 +178,7 @@ jobs:
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
-        run_timeout_seconds: 1200
+        run_timeout_seconds: 4800
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Sample RunID ${{ steps.return_dispatch_sample.outputs.run_id }}
@@ -203,7 +189,7 @@ jobs:
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
-        run_timeout_seconds: 1200
+        run_timeout_seconds: 4800
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.TPDM RunID ${{ steps.return_dispatch_TPDM.outputs.run_id }}
@@ -214,48 +200,9 @@ jobs:
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-        run_timeout_seconds: 1200
+        run_timeout_seconds: 4800
         poll_interval_ms: 5000
 
-    #- name: Trigger to EdFi.Ods.Extensions.Homograph Packages workflow 
-    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
-    #  with:
-    #    owner: ${{ github.repository_owner }}
-    #    repo: Ed-Fi-Extensions
-    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
-    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Homograph.yml
-    #    ref:  ${{ env.HEAD_REF }}
-    #    wait_interval: 20
-    #    client_payload: '{}'
-    #    propagate_failure: true
-    #    trigger_workflow: true
-    #    wait_workflow: true  
-    #- name: Trigger to EdFi.Ods.Extensions.Sample Packages workflow 
-    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
-    #  with:
-    #    owner: ${{ github.repository_owner }}
-    #    repo: Ed-Fi-Extensions
-    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
-    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.Sample.yml
-    #    ref:  ${{ env.HEAD_REF }}
-    #    wait_interval: 20
-    #    client_payload: '{}'
-    #    propagate_failure: true
-    #    trigger_workflow: true
-    #    wait_workflow: true 
-    #- name: Trigger to EdFi.Ods.Extensions.TPDM Packages workflow 
-    #  uses: convictional/trigger-workflow-and-wait@v1.6.1
-    #  with:
-    #    owner: ${{ github.repository_owner }}
-    #    repo: Ed-Fi-Extensions
-    #    github_token: ${{ env.EDFI_ODS_TOKEN }}
-    #    workflow_file_name: Packages%20-%20EdFi.Ods.Extensions.TPDM.yml
-    #    ref:  ${{ env.HEAD_REF }}
-    #    wait_interval: 20
-    #    client_payload: '{}'
-    #    propagate_failure: true
-    #    trigger_workflow: true
-    #    wait_workflow: true 
     - name: Save latest Ed-Fi-Extensions commit hash in env variable
       working-directory: ./Ed-Fi-Extensions/
       shell: pwsh
@@ -263,7 +210,7 @@ jobs:
            $commitHash = git rev-parse ${{ env.HEAD_REF }}
            Write-Host "commitHash"  $commitHash
            Add-Content -Path $env:GITHUB_ENV -Value "EDFIEXTENSIONS_COMMITHASH=$commitHash"
-    - name: Download EdFi.Ods.Extensions.Homograph artifact
+    - name: Download EdFi.Ods.Extensions.Homograph artifact using Run Id ${{ steps.return_dispatch_homograph.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Extensions.Homograph.yml
@@ -271,10 +218,11 @@ jobs:
         name: EdFi.Ods.Extensions.Homograph.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
+        run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Extensions.Sample artifact
+    - name: Download EdFi.Ods.Extensions.Sample artifact using Run Id ${{ steps.return_dispatch_sample.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Extensions.Sample.yml
@@ -282,10 +230,11 @@ jobs:
         name: EdFi.Ods.Extensions.Sample.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
+        run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Extensions.TPDM artifact
+    - name: Download EdFi.Ods.Extensions.TPDM artifact using Run Id ${{ steps.return_dispatch_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Extensions.TPDM.yml
@@ -293,6 +242,7 @@ jobs:
         name: EdFi.Ods.Extensions.TPDM.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
+        run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
         if_no_artifact_found: fail
@@ -331,59 +281,96 @@ jobs:
         git add ./configuration.packages.json
         git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
         git push -u origin ${{ GITHUB.HEAD_REF }}
-    - name: Trigger to EdFi.Ods.Minimal.Template Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+
+    - name: Dispatch EdFi.Ods.Populated.Template  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_populated_template
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true  
-    - name: Trigger to EdFi.Ods.Minimal.Template.PostgreSQL Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Populated.Template.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_populated_template_postgresql
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.PostgreSQL.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Trigger to Packages - EdFi.Ods.Populated.Template Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Populated.Template.PostgreSQL.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Minimal.Template  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_minimal_template
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Trigger to EdFi.Ods.Populated.Template.PostgreSQL Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Minimal.Template.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_minimal_template_postgresql
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
+        workflow: Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.PostgreSQL.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Download EdFi.Ods.Minimal.Template artifact
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Minimal.Template RunID ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Minimal.Template.yml
@@ -392,9 +379,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact
+    - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
@@ -403,9 +391,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Populated.Template artifact
+    - name: Download EdFi.Ods.Populated.Template artifact using Run Id ${{ steps.return_dispatch_populated_template.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Populated.Template.yml
@@ -414,9 +403,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Populated.Template.PostgreSQL artifact
+    - name: Download EdFi.Ods.Populated.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Populated.Template.PostgreSQL.yml
@@ -425,8 +415,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
+
     - name: update configuration.packages.json with all EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
@@ -463,65 +455,103 @@ jobs:
         $config.packages.'PostgreSqlPopulatedTemplate'.PackageVersion = $packageversion
 
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         git add ./configuration.packages.json
         git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL  package version"
         git push -u origin ${{ GITHUB.HEAD_REF }}
-    - name: Trigger to EdFi.Ods.Minimal.Template.TPDM Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+
+    - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_populated_template_TPDM
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.TPDM.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true  
-    - name: Trigger to EdFi.Ods.Minimal.Template.TPDM.PostgreSQL Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Populated.Template.TPDM.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Populated.Template.TPDM.PostgreSQL workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_populated_template_TPDM_postgresql
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Trigger to Packages - EdFi.Ods.Populated.Template.TPDM Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Minimal.Template.TPDM  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_minimal_template_TPDM
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.TPDM.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Trigger to EdFi.Ods.Populated.Template.TPDM.PostgreSQL Packages workflow 
-      uses: convictional/trigger-workflow-and-wait@v1.6.1
+        workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Dispatch EdFi.Ods.Minimal.Template.TPDM.PostgreSQL  workflow
+      uses: codex-/return-dispatch@v1
+      id: return_dispatch_minimal_template_TPDM_postgresql
       with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
+        workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
+        workflow_timeout_seconds: 4800
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM RunID ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
-        github_token: ${{ env.EDFI_ODS_TOKEN }}
-        workflow_file_name: Packages%20-%20EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
-        ref:  ${{ env.HEAD_REF }}
-        wait_interval: 20
-        client_payload: '{}'
-        propagate_failure: true
-        trigger_workflow: true
-        wait_workflow: true
-    - name: Download EdFi.Ods.Minimal.Template.TPDM artifact
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM RunID ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        ref: ${{ GITHUB.HEAD_REF  }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Download EdFi.Ods.Minimal.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.yml
@@ -530,20 +560,22 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact
+    - name: Download EdFi.Ods.Minimal.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
+        workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Populated.Template.TPDM artifact
+    - name: Download EdFi.Ods.Populated.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Populated.Template.TPDM.yml
@@ -552,9 +584,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
-    - name: Download EdFi.Ods.Populated.Template.TPDM.PostgreSQL artifact
+    - name: Download EdFi.Ods.Populated.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
         workflow: Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
@@ -563,8 +596,10 @@ jobs:
         path: ${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/
         branch: ${{ env.HEAD_REF }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
+
     - name: update configuration.packages.json with all EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
