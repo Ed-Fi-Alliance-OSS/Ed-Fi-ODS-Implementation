@@ -322,26 +322,6 @@ jobs:
         workflow: Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-      uses: Codex-/await-remote-run@v1.0.0
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-      uses: Codex-/await-remote-run@v1.0.0
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
       with:
@@ -362,6 +342,26 @@ jobs:
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
 
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
     - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
@@ -374,6 +374,7 @@ jobs:
         run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
         check_artifacts: true
         if_no_artifact_found: fail
+
     - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
@@ -499,26 +500,6 @@ jobs:
         workflow: Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM RunID ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
-      uses: Codex-/await-remote-run@v1.0.0
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
-    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
-      uses: Codex-/await-remote-run@v1.0.0
-      with:
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        repo: Ed-Fi-ODS
-        owner: ${{ github.repository_owner }}
-        run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
-        run_timeout_seconds: 4800
-        poll_interval_ms: 5000
-
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
       uses: Codex-/await-remote-run@v1.0.0
       with:
@@ -536,6 +517,26 @@ jobs:
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM RunID ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
+        run_timeout_seconds: 4800
+        poll_interval_ms: 5000
+
+    - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
+      uses: Codex-/await-remote-run@v1.0.0
+      with:
+        token: ${{ env.EDFI_ODS_TOKEN }}
+        repo: Ed-Fi-ODS
+        owner: ${{ github.repository_owner }}
+        run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
 
