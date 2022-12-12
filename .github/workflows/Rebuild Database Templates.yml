@@ -593,33 +593,33 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $newRevision = ([int]$folderParts[8])
+        $newRevision = ([int]$folderParts[9])
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
         Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM latestVersion"  $packageversion
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'TPDMCoreMinimalTemplate'.PackageVersion = $packageversion
-
-        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+                                                                                         
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $newRevision = ([int]$folderParts[9])
+        $newRevision = ([int]$folderParts[10])
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
         Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM.PostgreSQL latestVersion"  $packageversion
         $config.packages.'TPDMCorePostgreSqlMinimalTemplate'.PackageVersion = $packageversion
-
-        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+                                                                                         
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $newRevision = ([int]$folderParts[8])
+        $newRevision = ([int]$folderParts[9])
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
         Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM latestVersion"  $packageversion
         $config.packages.'TPDMCorePopulatedTemplate'.PackageVersion = $packageversion
 
-        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+        $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS/NugetPackages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.PostgreSQL.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
         $folderParts = $packageFolder -split "\."
-        $newRevision = ([int]$folderParts[9])
+        $newRevision = ([int]$folderParts[10])
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
         Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM.PostgreSQL latestVersion"  $packageversion
         $config.packages.'TPDMCorePostgreSqlPopulatedTemplate'.PackageVersion = $packageversion
