@@ -75,7 +75,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_codegen.outputs.run_id }}
@@ -174,7 +173,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
@@ -185,7 +183,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_sample.outputs.run_id }}
@@ -196,7 +193,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_TPDM.outputs.run_id }}
@@ -330,7 +326,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_populated_template.outputs.run_id }}
@@ -341,7 +336,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
@@ -352,7 +346,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
@@ -363,7 +356,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
@@ -511,7 +503,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
@@ -522,7 +513,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
@@ -533,7 +523,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
@@ -544,7 +533,6 @@ jobs:
       uses: Codex-/await-remote-run@v1.0.0
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
-        ref: ${{ GITHUB.HEAD_REF  }}
         repo: Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
