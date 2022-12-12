@@ -98,9 +98,9 @@ function Install-DotNetTool {
     }
 
     Write-Host "Installing $Name version $Version to $Path"
-    Write-Host -ForegroundColor Magenta "& dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source"
+    Write-Host -ForegroundColor Magenta "& dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source  --no-cache"
 
-    & dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source
+    & dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source  --no-cache
 }
 
 function Install-ToolDbDeploy {
