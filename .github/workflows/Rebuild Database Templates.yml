@@ -123,6 +123,7 @@ jobs:
       run: |
         git add ./configuration.packages.json
         git commit -m "Updating for new CodeGen version"
+        git pull origin ${{ env.current_branch }}
         git push -u origin ${{ env.current_branch }}
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
