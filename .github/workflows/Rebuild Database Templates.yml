@@ -66,7 +66,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.CodeGen.yml
+        workflow: Pkg EdFi.Ods.CodeGen.yml
         workflow_timeout_seconds: 4800
     - name: Await to complete the execution for EdFi.Ods.CodeGen RunID ${{ steps.return_dispatch_codegen.outputs.run_id }}
       uses: codex-/await-remote-run@d04eeb1e053a19a32037eb0b8ddee6ab4f19790a #v1.7.0
@@ -81,7 +81,7 @@ jobs:
     - name: Download Codegen artifact using Run Id ${{ steps.return_dispatch_codegen.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.CodeGen.yml
+        workflow: Pkg EdFi.Ods.CodeGen.yml
         workflow_conclusion: success
         name: NugetPackage.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -133,7 +133,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Extensions.Homograph.yml
+        workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
@@ -144,7 +144,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Extensions.Sample.yml
+        workflow: Pkg EdFi.Ods.Extensions.Sample.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
@@ -155,7 +155,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-Extensions
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Extensions.TPDM.yml
+        workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
@@ -191,7 +191,7 @@ jobs:
     - name: Download EdFi.Ods.Extensions.Homograph artifact using Run Id ${{ steps.return_dispatch_homograph.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Extensions.Homograph.yml
+        workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Homograph.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -203,7 +203,7 @@ jobs:
     - name: Download EdFi.Ods.Extensions.Sample artifact using Run Id ${{ steps.return_dispatch_sample.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Extensions.Sample.yml
+        workflow: Pkg EdFi.Ods.Extensions.Sample.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.Sample.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -215,7 +215,7 @@ jobs:
     - name: Download EdFi.Ods.Extensions.TPDM artifact using Run Id ${{ steps.return_dispatch_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Extensions.TPDM.yml
+        workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Extensions.TPDM.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -268,7 +268,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
@@ -279,7 +279,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template  workflow
@@ -290,7 +290,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
@@ -301,7 +301,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
@@ -347,7 +347,7 @@ jobs:
     - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -360,7 +360,7 @@ jobs:
     - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -372,7 +372,7 @@ jobs:
     - name: Download EdFi.Ods.Populated.Template artifact using Run Id ${{ steps.return_dispatch_populated_template.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -384,7 +384,7 @@ jobs:
     - name: Download EdFi.Ods.Populated.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -446,7 +446,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.TPDM.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM.PostgreSQL workflow
@@ -457,7 +457,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM  workflow
@@ -468,7 +468,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.TPDM.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.yml
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM.PostgreSQL  workflow
@@ -479,7 +479,7 @@ jobs:
         ref: ${{  env.current_branch  }}
         repo:  Ed-Fi-ODS
         owner: ${{ github.repository_owner }}
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
@@ -525,7 +525,7 @@ jobs:
     - name: Download EdFi.Ods.Minimal.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.TPDM.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Minimal.Template.TPDM.Core.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -537,7 +537,7 @@ jobs:
     - name: Download EdFi.Ods.Minimal.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Minimal.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -549,7 +549,7 @@ jobs:
     - name: Download EdFi.Ods.Populated.Template.TPDM artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.TPDM.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.yml
         workflow_conclusion: success
         name: EdFi.Ods.Populated.Template.TPDM.Core.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -561,7 +561,7 @@ jobs:
     - name: Download EdFi.Ods.Populated.Template.TPDM.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: Pkg Packages - EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
+        workflow: Pkg EdFi.Ods.Populated.Template.TPDM.PostgreSQL.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
