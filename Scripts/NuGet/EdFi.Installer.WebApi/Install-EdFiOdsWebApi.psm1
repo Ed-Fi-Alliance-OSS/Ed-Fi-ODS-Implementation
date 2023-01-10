@@ -427,9 +427,15 @@ function Invoke-TransformWebConfigAppSettings {
             }
             # Add a Log4net property override to specify the log's destination
             $splitPackageVersion = $Config.PackageVersion.Split(".")
+            # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
+            if(-not $splitPackageVersion) {
+                $packageName = $Config.PackageName
+                $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
+                $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
+            }
             # We only care about Major/Minor for determining the log file name
-            if ($splitPackageVersion.Count -lt 2) {
-                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major and minor."
+            if ($splitPackageVersion.Count -lt 3) {
+                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
             }
             $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
             if($Null -eq $settings.Log4NetCore) { 
