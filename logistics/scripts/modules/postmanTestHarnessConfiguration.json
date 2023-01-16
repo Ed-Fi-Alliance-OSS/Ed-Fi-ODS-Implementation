@@ -927,6 +927,24 @@
         }
       ],
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
+      "Email": "noEdorg@ed-fi.org",
+      "VendorName": "noEdOrg",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "NoEdorg",
+              "LocalEducationOrganizations": [ ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     }
+    
   ]
 }
