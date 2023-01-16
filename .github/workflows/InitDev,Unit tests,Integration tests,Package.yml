@@ -7,7 +7,7 @@ name: InitDev, Unit tests, Integration tests, Package
 
 on:
   pull_request:
-   branches: [main]
+   branches: [main, 'ODS-*']
   push:
    branches: [main]
   workflow_dispatch:
