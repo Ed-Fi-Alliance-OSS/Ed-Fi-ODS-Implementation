@@ -453,6 +453,12 @@ function Invoke-TransformWebConfigAppSettings {
                     }
                 }
             }
+            if($Config.InstallType -eq "Sandbox") {
+                $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
+                if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
+                    $settings.ApiSettings.PlainTextSecrets = $true
+                }
+            }
            $settings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
            New-JsonFile $settingsFile $settings -Overwrite
