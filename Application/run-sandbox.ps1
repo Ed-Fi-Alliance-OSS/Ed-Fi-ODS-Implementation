@@ -15,6 +15,7 @@ Start-Process powershell -WorkingDirectory $PSScriptRoot -ArgumentList {
     &dotnet run --project "EdFi.Ods.SandboxAdmin"
 }
 
+Write-Output "If running on default configurations, the websites can be reached at:"
 Write-Output "WebAPI --> http://localhost:54746"
 Write-Output "SwaggerUI --> http://localhost:56641"
-Write-OUtput "Sandbox Admin --> http://localhost:38928"
+Write-Output "Sandbox Admin --> http://localhost:38928"
