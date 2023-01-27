@@ -42,7 +42,9 @@ Write-Host "Downloading file from $sourceUrl..."
 $webClient = New-Object System.Net.WebClient
 
 if ($isArchiveFile) {
+    if (-not (Test-Path $archiveBackupFilePath)) {
     $webClient.DownloadFile($sourceUrl, $archiveBackupFilePath)
+    }
 
     if (-not (Test-Path $archiveBackupFilePath)) {
         Write-Error "Template source file '$archiveBackupFilePath' not found."
