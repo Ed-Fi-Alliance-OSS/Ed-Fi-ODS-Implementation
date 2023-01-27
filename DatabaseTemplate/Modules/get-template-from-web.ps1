@@ -43,7 +43,7 @@ $webClient = New-Object System.Net.WebClient
 
 if ($isArchiveFile) {
     if (-not (Test-Path $archiveBackupFilePath)) {
-    $webClient.DownloadFile($sourceUrl, $archiveBackupFilePath)
+        $webClient.DownloadFile($sourceUrl, $archiveBackupFilePath)
     }
 
     if (-not (Test-Path $archiveBackupFilePath)) {
@@ -65,19 +65,21 @@ else {
 Write-Host "Download complete."
 
 if ($isArchiveFile) {
-    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -EQ "7Zip4Powershell") {
-        Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
-    }
     Write-Host "Extracting $archiveBackupFilePath..."
-    if (Get-IsWindows){
-        Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $global:templateDatabaseFolder
+    $targetPath = $finalBackupFilePath.split('.')[-2]
+    if (Get-IsWindows) {
+        if (-not (Get-InstalledModule "7Zip4Powershell" -ErrorAction silentlycontinue)) {
+            Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+        }
+        Expand-7Zip -ArchiveFileName $archiveBackupFilePath -TargetPath $targetPath
     }
     else {
         EnsureCommandIsAvailable "7z"
-        $arguments = @("x", $archiveBackupFilePath, "-o$global:templateDatabaseFolder")
+        $arguments = @("x", $archiveBackupFilePath, "-o$targetPath")
         7z @arguments | Out-Null
     }
-    Write-Host "Extracted to: $global:templateDatabaseFolder" -ForegroundColor Green
+    Write-Host "Extracted to: $targetPath" -ForegroundColor Green
+    $finalBackupFilePath = $targetPath
 }
 
 if ($error.count -gt 0 -or $LASTEXITCODE -gt 0) { exit 1; }
