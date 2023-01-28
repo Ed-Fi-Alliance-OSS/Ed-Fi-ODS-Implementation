@@ -152,6 +152,8 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
+         $script:result += Invoke-MaximumPathLengthLimitation
+        
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
@@ -191,6 +193,30 @@ function Initialize-DevelopmentEnvironment {
     $script:result += New-TaskResult -name $MyInvocation.MyCommand.Name -duration $elapsed.format
 
     return $script:result | Format-Table
+}
+
+function Invoke-MaximumPathLengthLimitation {
+         
+        $baseRootPathLength = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation").Length - ("Ed-Fi-ODS-Implementation".Length)
+        $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
+
+        Get-ChildItem -Path $pluginParentFolderPath -Recurse -Force -Filter "*.sql" | Sort-Object {($_.FullName.Length)} -Descending | ForEach-Object {
+            $sqlFilePath = $_.FullName
+            $sqlFileLength = ($_.FullName.Length) -($baseRootPathLength)
+            $sqlFileLength= $sqlFileLength -as [int]
+            $sqlFileName = Split-Path $sqlFilePath -leaf
+            $maximumlength =180
+            if($sqlFileLength -ge $maximumlength)
+            {
+                $message = "Found plugin extension SQL file '$sqlFilePath' exceeds 180 characters full file path length,"
+                $message += "So Windows Operating system don't allow due to Maximum Path Length Limitation."
+                $message += "Please reduce length of SQL file name and retry."
+                Write-Host $message -ForegroundColor Red
+                throw "Found plugin extension SQL file name '$sqlFileName' exceeds 180 characters full file path length."
+                return;
+            }
+        }
+        Write-Host "Invoke-MaximumPathLengthLimitation passed"
 }
 
 function Get-RandomString {
