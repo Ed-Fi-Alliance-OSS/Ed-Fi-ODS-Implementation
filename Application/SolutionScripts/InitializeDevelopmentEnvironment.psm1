@@ -196,7 +196,9 @@ function Initialize-DevelopmentEnvironment {
 }
 
 function Invoke-MaximumPathLengthLimitation {
-         
+        
+        $isLongPathsEnabled = Get-ItemPropertyValue  -Path 'HKLM:SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled'
+        if ($isLongPathsEnabled) { return }
         $baseRootPathLength = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation").Length - ("Ed-Fi-ODS-Implementation".Length)
         $pluginParentFolderPath = (Get-RepositoryResolvedPath "Plugin/")
         $sqlFileNameValues = "";
@@ -209,7 +211,7 @@ function Invoke-MaximumPathLengthLimitation {
             $sqlFileName = Split-Path $sqlFilePath -leaf
             $maximumlength = 180
             
-            if($sqlFileLength -ge $maximumlength)
+            if ($sqlFileLength -ge $maximumlength)
             {
                 $isMaximumPathLengthLimitationFound = $true
                 $sqlFileNameValues += " " + $sqlFileName
