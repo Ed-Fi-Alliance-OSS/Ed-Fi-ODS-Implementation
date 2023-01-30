@@ -130,10 +130,13 @@ function Initialize-TemplateSourceFromScriptName {
     $scriptPath = Get-TemplateScriptPath $scriptName
     $returnedPath = Invoke-TemplateScript $scriptPath
 
-    $returnedValidPath = ((-not [string]::IsNullOrWhiteSpace($returnedPath)) -and (Test-Path $returnedPath))
-    if ($returnedValidPath) { return $returnedPath }
-
-    return Get-TemplateBackupPath $databaseTemplateDatabaseFolder $engine
+    # $returnedPath can be a valid backup file or a folder with a valid backup inside
+    if ((Get-Item $returnedPath) -is  [System.IO.DirectoryInfo]) {
+        return Get-TemplateBackupPath $returnedPath $engine
+    }
+    else {
+        return $returnedPath
+    }
 }
 
 function Get-MinimalTemplateBackupPathFromSettings {
