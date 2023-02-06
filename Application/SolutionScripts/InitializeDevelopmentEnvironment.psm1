@@ -124,7 +124,7 @@ function Initialize-DevelopmentEnvironment {
 
         [String] $StandardVersion = '4.0.0',
 
-        [String] $ExtensionVersion = '1.1.0',
+        [String] $ExtensionVersion = '1.1.0'
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
