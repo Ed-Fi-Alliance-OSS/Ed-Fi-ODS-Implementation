@@ -25,7 +25,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/packaging/restore-packages.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/plugin/plugin-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'InstallerPackages/EdFi.RestApi.Databases/Deployment.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
 
