@@ -14,7 +14,7 @@ $ErrorActionPreference = "Stop"
 
 Push-Location $PackageDirectory
 
-$edFiRepoContainer = "$PackageDirectory/../../../.."
+$edFiRepoContainer = "$PackageDirectory/../../.."
 $repositoryNames = @('Ed-Fi-ODS-Implementation')
 & "$edFiRepoContainer/Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1" $repositoryNames
 Import-Module -Force $folders.modules.invoke("packaging/nuget-helper.psm1")
