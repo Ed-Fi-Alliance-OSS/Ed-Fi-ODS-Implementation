@@ -84,8 +84,8 @@ $repoNuspecFiles = @(
     Select-ExtensionAssemblyMetadataJson
 
     # Add the License and Notices files
-    "$PSScriptRoot/../../../LICENSE.txt"
-    "$PSScriptRoot/../../../NOTICES.md"
+    "$PSScriptRoot/../../LICENSE.txt"
+    "$PSScriptRoot/../../NOTICES.md"
 )
 Add-RepositoryFileToNuspec -nuspecPath $nuspecPath -file $repoNuspecFiles
 
