@@ -13,7 +13,7 @@ import-module -force "$PSScriptRoot/Install-EdFiOdsWebApi.psm1"
 
 function Invoke-DifferentWebSite {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -31,7 +31,7 @@ function Invoke-DifferentWebSite {
 
 function Invoke-NonDefaultApplication {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -46,7 +46,7 @@ function Invoke-NonDefaultApplication {
 
 function Invoke-DifferentPackageSource {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -60,7 +60,7 @@ function Invoke-DifferentPackageSource {
 
 function Invoke-SeparateConnectionInfo {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         AdminDbConnectionInfo = @{
             Engine="SqlServer"
@@ -83,7 +83,7 @@ function Invoke-SeparateConnectionInfo {
 
 function Invoke-CommonConnectionInfo {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -96,7 +96,7 @@ function Invoke-CommonConnectionInfo {
 
 function Invoke-Sandbox {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "Sandbox"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -109,7 +109,7 @@ function Invoke-Sandbox {
 
 function Invoke-YearSpecific {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "YearSpecific"
         DbConnectionInfo = @{
             Engine="SqlServer"
@@ -122,7 +122,7 @@ function Invoke-YearSpecific {
 
 function Invoke-FeatureOverride {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         InstallType = "SharedInstance"
         AdminDbConnectionInfo = @{
             Engine="SqlServer"
@@ -159,7 +159,7 @@ function Invoke-FeatureOverride {
 
 function Invoke-Uninstall {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi"
         WebApplicationName = "WebApi"
         WebSiteName = "Ed-Fi"        
