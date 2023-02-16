@@ -615,12 +615,12 @@
           "ApiClients": [
             {
               "ApiClientName": "MultipleEdorg_255901999_5001_51",
-              "LocalEducationOrganizations": [255901999, 51, 5001]
+              "LocalEducationOrganizations": [ 255901999, 51, 5001 ]
             }
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
       "Email": "OwnershipBased@ed-fi.org",
@@ -632,13 +632,13 @@
           "ApiClients": [
             {
               "ApiClientName": "255901-A",
-              "LocalEducationOrganizations": [255901],
+              "LocalEducationOrganizations": [ 255901 ],
               "OwnershipToken": "OwnershipToken_One",
               "ApiClientOwnershipTokens": [ "OwnershipToken_One" ]
             },
             {
               "ApiClientName": "255901-B",
-              "LocalEducationOrganizations": [255901],
+              "LocalEducationOrganizations": [ 255901 ],
               "OwnershipToken": "OwnershipToken_Two",
               "ApiClientOwnershipTokens": [ "OwnershipToken_One", "OwnershipToken_Two" ]
             }
@@ -657,14 +657,14 @@
           "ApiClients": [
             {
               "ApiClientName": "255901-C",
-              "LocalEducationOrganizations": [255901],
+              "LocalEducationOrganizations": [ 255901 ],
               "OwnershipToken": "MultipleAuthorizationStrategyBasedTest",
               "ApiClientOwnershipTokens": [ "MultipleAuthorizationStrategyBasedTest" ]
             }
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
       "Email": "noEdorg@ed-fi.org",
@@ -676,12 +676,12 @@
           "ApiClients": [
             {
               "ApiClientName": "NoEdorg",
-              "LocalEducationOrganizations": []
+              "LocalEducationOrganizations": [ ]
             }
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
       "Email": "MultipleProfile5@ed-fi.org",
