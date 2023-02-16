@@ -645,7 +645,7 @@
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
       "Email": "MultipleAuthorizationStrategyBased@ed-fi.org",
@@ -704,5 +704,6 @@
       ],
       "NamespacePrefixes": ["uri://ed-fi.org"]
     }
+    
   ]
 }
