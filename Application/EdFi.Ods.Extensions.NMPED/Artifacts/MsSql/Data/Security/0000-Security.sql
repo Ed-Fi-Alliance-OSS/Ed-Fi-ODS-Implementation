@@ -56,6 +56,13 @@ INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName]
 VALUES ('studentSpecialEducationAssociationEvent', 'studentSpecialEducationAssociationEvent'
         ,'http://ed-fi.org/ods/identity/claims/nmped/studentSpecialEducationAssociationEvent'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
+		
+INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
+								   ,[ClaimName] 
+								   ,[ParentResourceClaimId], [Application_ApplicationId])
+VALUES ('studentCTEProgramAssociationCredential', 'studentCTEProgramAssociationCredential'
+        ,'http://ed-fi.org/ods/identity/claims/nmped/studentCTEProgramAssociationCredential'
+        ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 /* Removed 22-23
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
