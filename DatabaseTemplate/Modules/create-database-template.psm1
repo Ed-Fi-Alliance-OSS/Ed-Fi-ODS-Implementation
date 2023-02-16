@@ -21,7 +21,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/hashtable.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/utility/xml-validation.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
-Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'Scripts/NuGet/EdFi.RestApi.Databases/Deployment.psm1')
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'InstallerPackages/EdFi.RestApi.Databases/Deployment.psm1')
 
 function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 

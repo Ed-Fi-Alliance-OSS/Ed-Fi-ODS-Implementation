@@ -13,7 +13,7 @@ function Get-ProjectTypes {
         WebApi                 = 'Application/EdFi.Ods.WebApi'
         SandboxAdmin           = 'Application/EdFi.Ods.SandboxAdmin'
         SwaggerUI              = 'Application/EdFi.Ods.SwaggerUI'
-        Databases              = 'Scripts/NuGet/EdFi.RestApi.Databases'
+        Databases              = 'InstallerPackages/EdFi.RestApi.Databases'
     }
 }
 

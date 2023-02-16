@@ -14,7 +14,7 @@
   <files>
     <file src="Install-EdFiOdsWebApi.psm1" />  
     <file src="AppCommon/**" />
-    <file src="../../../LICENSE.txt" />
-    <file src="../../../NOTICES.md" />
+    <file src="../../LICENSE.txt" />
+    <file src="../../NOTICES.md" />
   </files>
 </package>

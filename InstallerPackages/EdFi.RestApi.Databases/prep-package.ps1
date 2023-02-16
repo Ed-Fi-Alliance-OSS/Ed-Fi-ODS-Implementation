@@ -29,7 +29,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
-& "$PSScriptRoot/../../../logistics/scripts/modules/load-path-resolver.ps1"
+& "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'DatabaseTemplate/Modules/database-template-source.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/config/config-management.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/scripts/modules/settings/settings-management.psm1')
@@ -84,8 +84,8 @@ $repoNuspecFiles = @(
     Select-ExtensionAssemblyMetadataJson
 
     # Add the License and Notices files
-    "$PSScriptRoot/../../../LICENSE.txt"
-    "$PSScriptRoot/../../../NOTICES.md"
+    "$PSScriptRoot/../../LICENSE.txt"
+    "$PSScriptRoot/../../NOTICES.md"
 )
 Add-RepositoryFileToNuspec -nuspecPath $nuspecPath -file $repoNuspecFiles
 

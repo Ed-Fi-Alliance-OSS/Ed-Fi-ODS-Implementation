@@ -9,13 +9,13 @@ Param(
     $Scenario
 )
 
-& "../../../../Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1"
+& "../../../Ed-Fi-ODS-Implementation/logistics/scripts/modules/load-path-resolver.ps1"
 
 Import-Module -Force -Scope Global "$PSScriptRoot/Install-EdFiOdsSwaggerUI.psm1"
 
 function Invoke-Install {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
     }
@@ -25,7 +25,7 @@ function Invoke-Install {
 
 function Invoke-DifferentPackageSource {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
         PackageSource  = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
@@ -36,7 +36,7 @@ function Invoke-DifferentPackageSource {
 
 function Invoke-KeyAndSecret {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
         PrePopulatedKey = "key!"
@@ -48,7 +48,7 @@ function Invoke-KeyAndSecret {
 
 function Invoke-KeyAndSecret {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
         PrePopulatedKey = "key!"
@@ -60,7 +60,7 @@ function Invoke-KeyAndSecret {
 
 function Invoke-Uninstall {
     $p = @{
-        ToolsPath = "../../../tools"
+        ToolsPath = "../../tools"
     }
 
     UnInstall-EdFiOdsSwaggerUI @p

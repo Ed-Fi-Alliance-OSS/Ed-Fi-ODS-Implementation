@@ -30,7 +30,7 @@ Invoke-Expression "$PSScriptRoot/../prep-installer-package.ps1 $PSScriptRoot"
 
 $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
-Import-Module "$PSScriptRoot/../../../logistics/scripts/modules/packaging/create-package.psm1" -Force
+Import-Module "$PSScriptRoot/../../logistics/scripts/modules/packaging/create-package.psm1" -Force
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
 $SemanticVersion = "$InformationalVersion.$newRevision"
@@ -42,7 +42,7 @@ $parameters = @{
     Publish               = $true
     Source                = $NuGetFeed
     ApiKey                = $NuGetApiKey
-    ToolsPath             = "../../../tools"
+    ToolsPath             = "../../tools"
 }
 
 Invoke-CreatePackage @parameters -Verbose:$verbose
