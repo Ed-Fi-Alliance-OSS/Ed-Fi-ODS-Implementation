@@ -81,6 +81,10 @@ function Initialize-DevelopmentEnvironment {
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
+    .parameter StandardVersion
+        Standard Version.
+    .parameter ExtensionVersion
+        Extension Version.
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -137,7 +141,13 @@ function Initialize-DevelopmentEnvironment {
         [String] $RepositoryRoot,
 
         [Parameter(Mandatory=$false)]
-        [string] $PackageVersion
+        [string] $PackageVersion,
+
+        [Parameter(Mandatory=$false)]
+        [String] $StandardVersion = '4.0.0',
+
+        [Parameter(Mandatory=$false)]
+        [String] $ExtensionVersion = '1.1.0'
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -173,7 +183,7 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
 
-        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
+        if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot -StandardVersion $StandardVersion -ExtensionVersion $ExtensionVersion }
 
         if (-not $NoRebuild) {
             if (-not $NoRestore) {
@@ -378,7 +388,9 @@ function Invoke-CodeGen {
         [String] $Engine,
         [switch] $IncludePlugins,
         [string[]] $ExtensionPaths,
-        [String] $RepositoryRoot
+        [String] $RepositoryRoot,
+        [String] $StandardVersion,
+        [String] $ExtensionVersion
     )
 
     Install-CodeGenUtility
@@ -396,7 +408,9 @@ function Invoke-CodeGen {
 
         $parameters = @(
             "-r", $RepositoryRoot,
-            "-e", $Engine
+            "-e", $Engine,
+            "--standardVersion", $StandardVersion,
+            "--extensionVersion", $ExtensionVersion
         )
         if ($IncludePlugins) {
             $parameters += "--IncludePlugins"
