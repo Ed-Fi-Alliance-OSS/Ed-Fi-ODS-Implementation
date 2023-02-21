@@ -95,6 +95,23 @@ function Get-Plugins([hashtable] $Settings) {
         $result += $extensionPath
     }
 
+    $prefix = "EdFi.Suite3.Ods."
+
+    Get-ChildItem -Path $folder -Directory -Filter "$prefix*" | ForEach-Object {
+        Write-Host "Foldername" $_.Name
+
+        $newName = $_.Name -replace "^$prefix"
+        $newfoldername =Join-Path $folder $newName
+
+        Write-Host "New folder path" $newfoldername
+
+        if (Test-Path $newfoldername) {
+            Remove-Item $newfoldername -Recurse 
+        }
+
+        Rename-Item -Path $_.FullName -NewName $newName -Force
+    }
+
     Assert-NoDuplicatePlugins $Settings
 
     return $result
