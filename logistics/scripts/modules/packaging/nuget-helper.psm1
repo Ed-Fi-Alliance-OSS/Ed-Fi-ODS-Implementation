@@ -112,6 +112,7 @@ function Get-NuGetPackage {
         "install", $PackageName,
         "-source", $PackageSource,
         "-outputDirectory", $OutputDirectory
+        "-ExcludeVersion"
     )
     if ($PackageVersion) {
         $parameters += "-version"
@@ -127,7 +128,7 @@ function Get-NuGetPackage {
     }
     
 
-    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
+    return Resolve-Path "$outputDirectory/$PackageName*" | Select-Object -Last 1
 }
 
 $exports = @(
