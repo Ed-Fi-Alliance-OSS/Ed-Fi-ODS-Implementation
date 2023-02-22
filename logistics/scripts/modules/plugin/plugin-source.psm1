@@ -94,14 +94,11 @@ function Get-Plugins([hashtable] $Settings) {
         $scriptPath = Get-PluginScript $folder $script
         $extensionPath = Invoke-PluginScript $scriptPath
         Write-Host "Extension path" $extensionPath
-
         $extensionFolder = Split-Path $extensionPath -leaf
-
         Write-Host "Foldername" $extensionFolder
 
         $newExtensionFolderName = $extensionFolder -replace "^$prefix"
         $newExtensionPath = Join-Path $folder $newExtensionFolderName
-
         Write-Host "New Extension path" $newExtensionPath
 
         if (Test-Path $newExtensionPath) {
@@ -109,7 +106,6 @@ function Get-Plugins([hashtable] $Settings) {
         }
 
         Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
-
         $result += $newExtensionPath
     }
 
