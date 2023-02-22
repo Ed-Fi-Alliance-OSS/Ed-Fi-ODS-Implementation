@@ -3,6 +3,18 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+# When to Use : 
+
+#Pre-Condition :
+ # Ed-Fi-ODS ,Ed-Fi-ODS-Implementation & Ed-Fi-Extensions should have working branch i.e ODS_*
+ # when you want to run this workflow manually , This workflow should not be executed from Main branch.
+
+   # 1.If Data Standard upgrade happens ,then we should update database template based packages 
+   # 2.If Ed-Fi-Extensions repo - EdFi.Ods.Extensions.* code changes happens,then we should update database template based packages 
+   # 3.If CodeGen project has code changes ,then we should update database template based packages
+   # 4.If any code change happens in \Ed-Fi-ODS-Implementation\DatabaseTemplate or \Ed-Fi-ODS-Implementation\logistics\scripts folder
+   # 5.If Powershell upgrade major/minor version upgrade happens
+
 name: Rebuild Database Templates
 
 on:

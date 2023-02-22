@@ -1,3 +1,8 @@
+# When to Use :
+   # 1.If Postgresql database version upgrade happens 
+   # 2.If any code change happens in \Ed-Fi-ODS-Implementation\logistics\scripts folder
+   # 3.If Powershell upgrade major/minor version upgrade happens
+
 name: PostgreSQL.Binaries Manually triggered build
 
 on:

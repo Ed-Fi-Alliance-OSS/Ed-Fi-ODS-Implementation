@@ -3,6 +3,9 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+# When to Use : 
+   # 1.At the time of ODS/API Major/Minor ex:6.0 Nuget Package version Deployment -Pre-release & Release package
+
 name: Promote Packages
 
 on:

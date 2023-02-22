@@ -1,3 +1,9 @@
+# When to Use :
+   # 1.If any code change happens in EdFi.Installer.AppCommon Repository 
+   # 2.If any code change happens in  \Ed-Fi-ODS-Implementation\InstallerPackages or \Ed-Fi-ODS-Implementation\logistics\scripts folder
+   # 3.Before every actual nuget package release must run to get latest version updated in Azure Artifacts Feed
+   # 4.At the time of  every major/minor version development must run to get new major/minor version updated in Azure Artifacts Feed
+
 name: Instl EdFi.Installer.WebApi Manually triggered build
 
 on:
