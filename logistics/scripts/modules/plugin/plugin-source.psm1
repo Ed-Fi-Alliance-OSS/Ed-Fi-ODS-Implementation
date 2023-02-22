@@ -88,28 +88,29 @@ function Get-Plugins([hashtable] $Settings) {
 
     $result = @()
 
+    $prefix = "EdFi.Suite3.Ods."
+
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
         $extensionPath = Invoke-PluginScript $scriptPath
-        Write-Host $extensionPath
-        $result += $extensionPath
-    }
+        Write-Host "Extension path" $extensionPath
 
-    $prefix = "EdFi.Suite3.Ods."
+        $extensionFolder = Split-Path $extensionPath -leaf
 
-    Get-ChildItem -Path $folder -Directory -Filter "$prefix*" | ForEach-Object {
-        Write-Host "Foldername" $_.Name
+        Write-Host "Foldername" $extensionFolder
 
-        $newName = $_.Name -replace "^$prefix"
-        $newfoldername =Join-Path $folder $newName
+        $newExtensionFolderName = $extensionFolder -replace "^$prefix"
+        $newExtensionPath = Join-Path $folder $newExtensionFolderName
 
-        Write-Host "New folder path" $newfoldername
+        Write-Host "New Extension path" $newExtensionPath
 
-        if (Test-Path $newfoldername) {
-            Remove-Item $newfoldername -Recurse 
+        if (Test-Path $newExtensionPath) {
+            Remove-Item $newExtensionPath -Recurse 
         }
 
-        Rename-Item -Path $_.FullName -NewName $newName -Force
+        Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
+
+        $result += $newExtensionPath
     }
 
     Assert-NoDuplicatePlugins $Settings
