@@ -104,7 +104,10 @@ function Get-NuGetPackage {
         $OutputDirectory = './downloads',
 
         [string]
-        $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+        $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json",
+
+        [switch]
+        $ExcludeVersion
     )
 
     $nuget = Install-NuGetCli $ToolsPath
@@ -113,11 +116,14 @@ function Get-NuGetPackage {
         "-source", $PackageSource,
         "-outputDirectory", $OutputDirectory
     )
+    if ($ExcludeVersion) {
+        $parameters += "-ExcludeVersion"
+    }
     if ($PackageVersion) {
         $parameters += "-version"
         $parameters += $PackageVersion
     }
-    
+
     if(Get-IsWindows){
         Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
         & "$ToolsPath/nuget" $parameters | Out-Null
@@ -125,7 +131,10 @@ function Get-NuGetPackage {
         Write-Host -ForegroundColor Magenta "mono $ToolsPath/nuget.exe $parameters"
         & mono "$ToolsPath/nuget.exe" $parameters | Out-Null
     }
-    
+
+    if ($ExcludeVersion) {
+        return Resolve-Path "$outputDirectory/$PackageName*" | Select-Object -Last 1
+    }
 
     return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
 }

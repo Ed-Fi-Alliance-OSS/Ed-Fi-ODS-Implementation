@@ -88,11 +88,25 @@ function Get-Plugins([hashtable] $Settings) {
 
     $result = @()
 
+    $prefix = "EdFi.Suite3.Ods."
+
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
         $extensionPath = Invoke-PluginScript $scriptPath
-        Write-Host $extensionPath
-        $result += $extensionPath
+        Write-Host "Extension path" $extensionPath
+        $extensionFolder = Split-Path $extensionPath -leaf
+        Write-Host "Foldername" $extensionFolder
+
+        $newExtensionFolderName = $extensionFolder -replace "^$prefix"
+        $newExtensionPath = Join-Path $folder $newExtensionFolderName
+        Write-Host "New Extension path" $newExtensionPath
+
+        if (Test-Path $newExtensionPath) {
+            Remove-Item $newExtensionPath -Recurse 
+        }
+
+        Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
+        $result += $newExtensionPath
     }
 
     Assert-NoDuplicatePlugins $Settings
