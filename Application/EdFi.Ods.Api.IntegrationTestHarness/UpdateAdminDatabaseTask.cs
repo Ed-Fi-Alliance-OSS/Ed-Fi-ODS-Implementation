@@ -55,11 +55,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             foreach (XmlNode profileName in profileDefinitions)
             {
                  profiles.Add(new Profile()
-                     { ProfileDefinition = profileName.OuterXml, 
-                       ProfileName = profileName.Attributes["name"].Value
-                     });
+                              { ProfileDefinition = profileName.OuterXml, ProfileName = profileName.Attributes["name"].Value  });
             }
-
             _clientAppRepo.CreateProfilesWithProfileDefinition(profiles);
 
             foreach (var vendor in _testHarnessConfiguration.Vendors)
@@ -137,14 +134,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
                     if (app.Profiles != null)
                     {
-
                         var _profiles = new List<Profile>();
                         foreach (var profileName in app.Profiles)
                         {
-
                             var profileDefinition = _allDocs.SelectNodes(String.Format("/Profiles/Profile[@name='{0}']", profileName))[0].OuterXml;
-                            _profiles.Add(new Profile()
-                            {  ProfileDefinition = profileDefinition, ProfileName = profileName });
+                            _profiles.Add(new Profile() {  ProfileDefinition = profileDefinition, ProfileName = profileName });
                         }
                         _clientAppRepo.AddProfilesToApplication(_profiles,application.ApplicationId);
                     }
