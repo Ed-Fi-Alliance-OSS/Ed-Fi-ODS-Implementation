@@ -11,9 +11,6 @@
  *
  */
 
-USE [NM_Staging_EdFi_v5.3.0_Ods]
-GO
-
  IF EXISTS 
 (
 	SELECT 
@@ -29,7 +26,7 @@ GO
 DROP VIEW nmped_rpt.vw_disciplineIncidents;
 GO
 
-CREATE VIEW vw_disciplineIncidents AS 
+CREATE VIEW nmped_rpt.vw_disciplineIncidents AS 
 SELECT
 	 SUBSTRING(CAST(DI.SchoolId AS VARCHAR(10)), 3, 3)		[DistrictCode]
 	,EO2.NameOfInstitution									[DistrictName]

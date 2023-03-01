@@ -11,8 +11,6 @@
  *
  */
 
-USE [NM_Staging_EdFi_v5.3.0_Ods]
-GO
 
  IF EXISTS 
 (

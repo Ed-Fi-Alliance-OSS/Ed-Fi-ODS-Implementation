@@ -4061,40 +4061,40 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	Ensuring no values have found their way into this table and seeding with correct values.
 */
 
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SpecialEducationEventReasonDescription'
+DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/SpecialEducationEventReasonDescriptor'
 DELETE FROM nmped.SpecialEducationEventReasonDescriptor
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '1', 'Returned to regular education (no longer receiving special education)', 'Returned to regular education (no longer receiving special education)');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '1', 'Returned to regular education (no longer receiving special education)', 'Returned to regular education (no longer receiving special education)');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '4', 'Reached Maximum Age', 'Reached Maximum Age');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '4', 'Reached Maximum Age', 'Reached Maximum Age');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '5', 'Died WD', 'Died WD');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '5', 'Died WD', 'Died WD');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '6', 'Student has transferred out to another PED District or State Charter.', 'Student has transferred out to another PED District or State Charter. and known to be continuing.These students moved out of the catchment area or otherwise transferred to another district and are KNOWN to be continuing in an educational program. There does not need to be evidence that the students are continuing in special education only that the students are continuing in an educational program.  
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '6', 'Student has transferred out to another PED District or State Charter.', 'Student has transferred out to another PED District or State Charter. and known to be continuing.These students moved out of the catchment area or otherwise transferred to another district and are KNOWN to be continuing in an educational program. There does not need to be evidence that the students are continuing in special education only that the students are continuing in an educational program.  
 This includes students who are in residential drug/alcohol rehabilitation centers, correctional facilities, or charter schools if those facilities operated as separate districts, excluding normal matriculation.');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '8', 'Dropped Out ', 'Dropped Out ');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '8', 'Dropped Out ', 'Dropped Out ');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '9', 'Graduated with Diploma on Standard Option (FAPE ends)', 'Graduated with Diploma on Standard Option (FAPE ends)');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '9', 'Graduated with Diploma on Standard Option (FAPE ends)', 'Graduated with Diploma on Standard Option (FAPE ends)');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '10', 'Graduated with Diploma on Modified Option (FAPE ends)', 'Graduated with Diploma on Modified Option (FAPE ends)');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '10', 'Graduated with Diploma on Modified Option (FAPE ends)', 'Graduated with Diploma on Modified Option (FAPE ends)');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescription', '11', 'Graduated with Diploma on Ability Option (FAPE ends)', 'Graduated with Diploma on Ability Option (FAPE ends)');
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '11', 'Graduated with Diploma on Ability Option (FAPE ends)', 'Graduated with Diploma on Ability Option (FAPE ends)');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 
@@ -4297,42 +4297,6 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values  ('uri://nmped.org/RoadTypeDescriptor', 'UIM', 'Unimproved','Unimproved');
         INSERT INTO nmped.RoadTypeDescriptor(RoadTypeDescriptorId) values (@@IDENTITY);
-
---Special Education Event Reason Descriptor
-DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SpecialEducationEventReasonDescriptor'
-DELETE FROM nmped.SpecialEducationEventReasonDescriptor
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '1', 'Returned to regular education (no longer receiving special education)', 'Returned to regular education (no longer receiving special education)');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '4', 'Reached Maximum Age', 'Reached Maximum Age');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '5', 'Died WD', 'Died WD');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '6', 'Student has transferred out to another PED District or State Charter.', 'Student has transferred out to another PED District or State Charter.');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '8', 'Dropped Out ', 'Dropped Out ');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '9', 'Graduated with Diploma on Standard Option (FAPE ends)', 'Graduated with Diploma on Standard Option (FAPE ends)');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '10', 'Graduated with Diploma on Modified Option (Does not end FAPE)', 'Graduated with Diploma on Modified Option (Does not end FAPE)');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '11', 'Graduated with Diploma on Ability Option (Does not end FAPE)', 'Graduated with Diploma on Ability Option (Does not end FAPE)');
-        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorid) values (@@IDENTITY);
 
 ----Student Award Type Descriptor
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
@@ -4637,3 +4601,29 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/SpecialEducationReferralCodeDescriptor','F','F=Child was referred thru Child Find (NOT Receiving Part C Services)','Child was referred thru Child Find (NOT Receiving Part C Services)');
 	INSERT INTO nmped.SpecialEducationReferralCodeDescriptor (SpecialEducationReferralCodeDescriptorId) values (@@IDENTITY);
+
+----Mini Term Grading Period Addition (Being added to Ed-Fi Namespace to preserve consistency with other grading periods
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 1', 'Miniterm 1', 'Miniterm 1');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 2', 'Miniterm 2', 'Miniterm 2');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 3', 'Miniterm 3', 'Miniterm 3');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 4', 'Miniterm 4', 'Miniterm 4');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 5', 'Miniterm 5', 'Miniterm 5');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 6', 'Miniterm 6', 'Miniterm 6');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 7', 'Miniterm 7', 'Miniterm 7');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://ed-fi.org/GradingPeriodDescriptor', 'Miniterm 8', 'Miniterm 8', 'Miniterm 8');
+        INSERT INTO edfi.GradingPeriodDescriptor(GradingPeriodDescriptorId) values (@@IDENTITY);

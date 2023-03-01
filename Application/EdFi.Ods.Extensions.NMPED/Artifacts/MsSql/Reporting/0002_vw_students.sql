@@ -21,9 +21,6 @@
  * Students that join a school, leave, and join another school will have two records in the table,
  */
 
-USE [NM_Staging_EdFi_v5.3.0_Ods]
-GO
-
 IF EXISTS 
 (
 	SELECT 

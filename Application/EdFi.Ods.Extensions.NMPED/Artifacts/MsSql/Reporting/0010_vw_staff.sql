@@ -33,7 +33,7 @@ CREATE or ALTER VIEW nmped_rpt.vw_staff_Employment AS
 SELECT 
 	 s.StaffUniqueId
 	 ,s.StaffUSI
-	 ,SEOEA.EducationOrganizationId		     'LocalEducationAgency'
+	 ,SEOEA.EducationOrganizationId		LocalEducationAgencyId
 	 ,SUBSTRING(CAST(SEOEA.EducationOrganizationId AS VARCHAR(10)), 3, 3)	'DistrictCode'
 	 ,SexDescriptor.CodeValue				'SexCode'
 	 ,EO2.NameOfInstitution								'DistrictName'
@@ -65,27 +65,27 @@ FROM
 		ON EO2.EducationOrganizationId = SEOEA.EducationOrganizationId
 	LEFT JOIN edfi.Descriptor SexDescriptor WITH (NOLOCK)
 		ON SexDescriptor.DescriptorId = S.SexDescriptorId
-	LEFT JOIN nmped.StaffEducationOrganizationEmploymentAssociationExtension SEOEAN
+	LEFT JOIN nmped.StaffEducationOrganizationEmploymentAssociationExtension SEOEAN WITH (NOLOCK)
 		ON SEOEAN.EducationOrganizationId = SEOEA.EducationOrganizationId
 		AND SEOEAN.StaffUSI = SEOEA.StaffUSI
-	LEFT JOIN edfi.Descriptor HighestCompletedLevelOfEducationDescriptor
+	LEFT JOIN edfi.Descriptor HighestCompletedLevelOfEducationDescriptor WITH (NOLOCK)
 		ON HighestCompletedLevelOfEducationDescriptor.DescriptorId =S.HighestCompletedLevelOfEducationDescriptorId
-	LEFT JOIN edfi.descriptor BaccalaureateLevelOfEducationInstitutionDescriptor
+	LEFT JOIN edfi.descriptor BaccalaureateLevelOfEducationInstitutionDescriptor WITH (NOLOCK)
 		ON SEOEAN.BaccalaureateLevelOfEducationInstitutionDescriptorId = BaccalaureateLevelOfEducationInstitutionDescriptor.DescriptorId
-    LEFT JOIN edfi.descriptor EmploymentStatusDescriptor
+    LEFT JOIN edfi.descriptor EmploymentStatusDescriptor WITH (NOLOCK)
 		ON EmploymentStatusDescriptor.DescriptorId = SEOEA.EmploymentStatusDescriptorId
-	LEFT JOIN nmped_rpt.vw_staff_race vw_sr1
+	LEFT JOIN nmped_rpt.vw_staff_race vw_sr1 WITH (NOLOCK)
 		ON vw_sr1.staffUsi = s.StaffUSI
 		AND vw_sr1.race_rank = 1
-	LEFT JOIN nmped_rpt.vw_staff_race vw_sr2
+	LEFT JOIN nmped_rpt.vw_staff_race vw_sr2 WITH (NOLOCK)
 		ON vw_sr2.staffUsi = s.StaffUSI
 		AND vw_sr2.race_rank = 2
-	LEFT JOIN nmped_rpt.vw_staff_race vw_sr3
+	LEFT JOIN nmped_rpt.vw_staff_race vw_sr3 WITH (NOLOCK)
 		ON vw_sr3.staffUsi = s.StaffUSI
 		AND vw_sr3.race_rank = 3
-	LEFT JOIN edfi.Descriptor HighestCompletedLevelOfEducationInstitutionDescriptor
+	LEFT JOIN edfi.Descriptor HighestCompletedLevelOfEducationInstitutionDescriptor WITH (NOLOCK)
 		ON HighestCompletedLevelOfEducationInstitutionDescriptor.descriptorId = SEOEAN.HighestCompletedLevelOfEducationInstitutionDescriptorId
-	LEFT JOIN edfi.Descriptor  SeparationReasonDescriptor
+	LEFT JOIN edfi.Descriptor  SeparationReasonDescriptor WITH (NOLOCK)
 		ON SeparationReasonDescriptor.DescriptorId = SEOEA.SeparationReasonDescriptorId
 	LEFT JOIN
 	(
@@ -94,8 +94,8 @@ FROM
 		RANK () OVER ( PARTITION BY StaffUSI
 		ORDER BY Descriptor.descriptorId 
 	   ) rk 
-	FROM edfi.StaffTribalAffiliation
-	JOIN edfi.Descriptor
+	FROM edfi.StaffTribalAffiliation 
+	JOIN edfi.Descriptor WITH (NOLOCK)
 		on Descriptor.DescriptorId = StaffTribalAffiliation.TribalAffiliationDescriptorId) TribalAffiliation
 	ON TribalAffiliation.StaffUSI = S.StaffUSI
 
