@@ -759,7 +759,7 @@ CREATE TABLE [nmped].[VehicleSnapshot] (
     [SchoolYear] [SMALLINT] NOT NULL,
     [VehicleId] [NVARCHAR](255) NOT NULL,
     [VehicleIdentificationNumber] [NVARCHAR](21) NOT NULL,
-    [LicensePlateNumber] [NVARCHAR](7) NOT NULL,
+    [LicensePlateNumber] [NVARCHAR](10) NOT NULL,
     [ManufacturerYear] [INT] NOT NULL,
     [VehicleBodyManufacturerDescriptorId] [INT] NOT NULL,
     [VehicleChassisManufacturerDescriptorId] [INT] NOT NULL,

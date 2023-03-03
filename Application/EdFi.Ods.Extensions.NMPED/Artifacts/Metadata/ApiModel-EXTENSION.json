@@ -3022,7 +3022,7 @@
           "propertyName": "LicensePlateNumber",
           "propertyType": {
             "dbType": "String",
-            "maxLength": 7,
+            "maxLength": 10,
             "precision": 0,
             "scale": 0,
             "isNullable": false

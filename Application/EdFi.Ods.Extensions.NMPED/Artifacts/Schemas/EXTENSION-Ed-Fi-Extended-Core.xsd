@@ -2382,7 +2382,7 @@
       </xs:appinfo>
     </xs:annotation>
     <xs:restriction base="xs:string">
-      <xs:maxLength value="7" />
+      <xs:maxLength value="10" />
     </xs:restriction>
   </xs:simpleType>
   <xs:simpleType name="EXTENSION-RegisteredOwnerCode">

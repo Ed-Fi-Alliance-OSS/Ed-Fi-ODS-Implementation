@@ -17,7 +17,7 @@ string VehicleIdentificationNumber
 string LicensePlateNumber
     documentation "The vehicle's license number."
     is required
-    max length 7
+    max length 10
 integer ManufacturerYear
     documentation "The year the vehicle was manufactured."
     is required

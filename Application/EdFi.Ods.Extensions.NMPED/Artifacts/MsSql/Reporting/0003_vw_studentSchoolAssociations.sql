@@ -18,7 +18,7 @@
  */
 
 
-CREATE OR ALTER  VIEW [nmped_rpt].[vw_studentSchoolAssociations]
+CREATE OR ALTER  VIEW nmped_rpt.vw_studentSchoolAssociations
 AS SELECT
 	s.StudentUniqueId
 	,ssa.SchoolId,school.LocalEducationAgencyId

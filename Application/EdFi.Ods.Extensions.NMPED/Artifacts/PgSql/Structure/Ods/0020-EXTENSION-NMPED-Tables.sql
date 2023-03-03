@@ -500,7 +500,7 @@ CREATE TABLE nmped.VehicleSnapshot (
     SchoolYear SMALLINT NOT NULL,
     VehicleId VARCHAR(255) NOT NULL,
     VehicleIdentificationNumber VARCHAR(21) NOT NULL,
-    LicensePlateNumber VARCHAR(7) NOT NULL,
+    LicensePlateNumber VARCHAR(10) NOT NULL,
     ManufacturerYear INT NOT NULL,
     VehicleBodyManufacturerDescriptorId INT NOT NULL,
     VehicleChassisManufacturerDescriptorId INT NOT NULL,
