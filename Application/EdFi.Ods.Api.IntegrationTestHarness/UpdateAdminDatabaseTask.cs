@@ -10,6 +10,12 @@ using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
+using System.Xml.Linq;
+using System.Xml;
+using Formatting = Newtonsoft.Json.Formatting;
+using System.Collections.Generic;
+using static EdFi.Ods.Common.Namespaces;
+using System.Reflection;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -39,6 +45,19 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var postmanEnvironment = new PostmanEnvironment();
 
             _clientAppRepo.Reset();
+
+            var _allDocs = new XmlDocument();
+            string profilesPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, "Profiles.xml");
+            _allDocs.Load(profilesPath);
+
+            var profiles = new List<Profile>();
+            var profileDefinitions = _allDocs.SelectNodes("/Profiles/Profile");
+            foreach (XmlNode profileName in profileDefinitions)
+            {
+                 profiles.Add(new Profile()
+                              { ProfileDefinition = profileName.OuterXml, ProfileName = profileName.Attributes["name"].Value  });
+            }
+            _clientAppRepo.CreateProfilesWithProfileDefinition(profiles);
 
             foreach (var vendor in _testHarnessConfiguration.Vendors)
             {
@@ -115,7 +134,13 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
                     if (app.Profiles != null)
                     {
-                        _clientAppRepo.AddProfilesToApplication(app.Profiles, application.ApplicationId);
+                        var _profiles = new List<Profile>();
+                        foreach (var profileName in app.Profiles)
+                        {
+                            var profileDefinition = _allDocs.SelectNodes(String.Format("/Profiles/Profile[@name='{0}']", profileName))[0].OuterXml;
+                            _profiles.Add(new Profile() {  ProfileDefinition = profileDefinition, ProfileName = profileName });
+                        }
+                        _clientAppRepo.AddProfilesToApplication(_profiles,application.ApplicationId);
                     }
                 }
             }
