@@ -14,6 +14,8 @@ param(
 
     [switch] $NoRebuild = $false,
 
+    [switch] $NoRestore = $false,
+
     [switch] $NoCodeGen = $false,
 
     [switch] $NoDeploy = $false,
@@ -63,6 +65,7 @@ $params = @{
     Engine                 = $Engine
     NoCodeGen              = $NoCodeGen
     NoRebuild              = $NoRebuild
+    NoRestore              = $NoRestore
     NoDeploy               = $NoDeploy
     RunPester              = $RunPester
     RunDotnetTest          = $RunDotnetTest
