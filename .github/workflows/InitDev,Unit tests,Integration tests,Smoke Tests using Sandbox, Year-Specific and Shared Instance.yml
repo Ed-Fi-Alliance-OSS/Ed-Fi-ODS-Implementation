@@ -58,6 +58,20 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: Cache Nuget packages   
+      uses: actions/cache@58c146cc91c5b9e778e71775dfe9bf1442ad9a12 #v3.2.3
+      with:
+        path: ~/.nuget/packages
+        key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
+        restore-keys: |
+          ${{ runner.os }}-nuget-
+    - name: Restore NuGet packages
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        .\build.githubactions.ps1 restore -Solution "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln"      
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
+      shell: pwsh
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
@@ -71,7 +85,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging -NoRestore
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
@@ -84,7 +98,7 @@ jobs:
     - name: Run Unit tests for EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-           dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
+           .\build.githubactions.ps1 test -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
       shell: pwsh
     - name: ODS/API Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
