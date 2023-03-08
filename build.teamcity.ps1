@@ -19,6 +19,7 @@ $params = @{
     Engine                 = Get-ValueOrDefault                    $teamcityParameters['odsapi.build.engine']                  'SQLServer'
     NoCodeGen              = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.noCodeGen'])              $false
     NoRebuild              = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.noRebuild'])              $false
+    NoRestore              = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.noRestore'])              $false
     NoDeploy               = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.noDeploy'])               $false
     RunPester              = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runPester'])              $true
     RunDotnetTest          = Get-ValueOrDefault (ConvertTo-Boolean $teamcityParameters['odsapi.build.runDotnetTest'])          $true

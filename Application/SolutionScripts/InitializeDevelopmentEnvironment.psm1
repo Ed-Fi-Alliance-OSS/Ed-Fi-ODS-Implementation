@@ -57,6 +57,8 @@ function Initialize-DevelopmentEnvironment {
         The database engine provider, either "SQLServer" or "PostgreSQL".
     .parameter NoRebuild
         Skip the Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln.
+    .parameter NoRestore
+        Ignore the Restoring Nuget package on Invoke-RebuildSolution task which uses MSBuild to rebuild the main solution file: Ed-Fi-Ods-Implementation/Application/Ed-Fi-Ods.sln.
     .parameter NoCodeGen
         Skip the Invoke-CodeGen task which is to generate artifacts consumed by the api.
     .parameter NoDeploy
@@ -92,6 +94,8 @@ function Initialize-DevelopmentEnvironment {
 
         [Alias('NoCompile')]
         [switch] $NoRebuild,
+
+        [switch] $NoRestore,
 
         [Alias('NoCodeGen')]
         [switch] $ExcludeCodeGen,
@@ -155,7 +159,13 @@ function Initialize-DevelopmentEnvironment {
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
-            $script:result += Invoke-RebuildSolution
+            if (-not $NoRestore) {
+                $script:result += Invoke-RebuildSolution
+            }
+            else {
+                Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
+                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $NoRestore
+            }
         }
 
         $script:result += Install-DbDeploy
@@ -247,7 +257,8 @@ Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
+        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
+        [switch] $noRestore = $false
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -266,8 +277,15 @@ Function Invoke-RebuildSolution {
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
+        Write-Host -ForegroundColor Magenta "NoRestore is " $noRestore
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
-        & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+        if ($noRestore) {
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore | Out-Host
+        }
+        else
+        {
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath  | Out-Host
+        }
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
         if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
