@@ -50,7 +50,7 @@ function Invoke-SdkGen {
     $buildConfiguration = if($null -ne $envBuildConfiguration) { $envBuildConfiguration} else { Get-ValueOrDefault $teamCityParameters['msbuild.buildConfiguration'] 'Debug'}
     $version = if($packageVersion){ $packageVersion } else { (Get-ValueOrDefault $teamCityParameters['version'] '0.0.0') }
     
-    Write-Host -ForegroundColor Magenta "Inside Invoke-SdkGen -NoRestore is " $noRestore    
+    Write-Host -ForegroundColor Magenta "Invoke-SdkGen -NoRestore is " $noRestore    
     $elapsed = Use-StopWatch {
         if($generateApiSdkPackage) {
 

@@ -278,7 +278,6 @@ Function Invoke-RebuildSolution {
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
-        Write-Host -ForegroundColor Magenta "NoRestore is " $noRestore
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
         if ($noRestore) {
             & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore | Out-Host
@@ -472,7 +471,6 @@ function Invoke-SdkGen {
         [string] $PackageVersion,
         [Boolean] $NoRestore
     )
-    Write-Host -ForegroundColor Magenta "Invoke-SdkGen -NoRestore is " $NoRestore
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore 
     }
