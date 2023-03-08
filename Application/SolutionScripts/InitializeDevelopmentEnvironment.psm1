@@ -258,7 +258,7 @@ Function Invoke-RebuildSolution {
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
-        [switch] $noRestore = $false
+        [Boolean] $noRestore = $false
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -470,11 +470,11 @@ function Invoke-SdkGen {
         [Boolean] $GenerateApiSdkPackage,
         [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion,
-        [switch] $NoRestore = $false
+        [Boolean] $NoRestore
     )
     Write-Host -ForegroundColor Magenta "Invoke-SdkGen -NoRestore is " $NoRestore
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion  -noRestore $NoRestore 
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore 
     }
 }
 

@@ -25,7 +25,7 @@ param(
     [Boolean] $generateApiSdkPackage = $false,
     [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion,
-    [switch] $noRestore = $false
+    [Boolean] $noRestore = $false
 )
 
 $ErrorActionPreference = 'Stop'
