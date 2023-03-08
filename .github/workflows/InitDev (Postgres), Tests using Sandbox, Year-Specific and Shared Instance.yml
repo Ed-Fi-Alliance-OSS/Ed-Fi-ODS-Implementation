@@ -82,7 +82,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
-        .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
       shell: pwsh                  
     - name: ODS/API InitDev and SdkGen
@@ -106,6 +105,8 @@ jobs:
     - name: Run Unit Tests for EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
+        .\build.githubactions.ps1 Restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
+        .\build.githubactions.ps1 Build -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"        
         .\build.githubactions.ps1 Test -Configuration ${{ env.CONFIGURATION }} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
       shell: pwsh
     - name: ODS/API Smoke Test Sandbox
