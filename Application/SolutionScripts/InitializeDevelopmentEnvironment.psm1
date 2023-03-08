@@ -471,7 +471,7 @@ function Invoke-SdkGen {
         [string] $PackageVersion,
         [switch] $NoRestore = $false
     )
-    
+    Write-Host -ForegroundColor Magenta "Invoke-SdkGen -NoRestore is " $NoRestore
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion  -noRestore $NoRestore 
     }
