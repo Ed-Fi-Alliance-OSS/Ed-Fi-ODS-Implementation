@@ -78,7 +78,7 @@ function Install-NpmPackages {
         npm install -g "$($package.name)@$($package.requiredVersion)" --verbose --cache '%AppData%\npm-cache' --prefer-offline
       }
       else {
-        sudo npm install -g "$($package.name)@$($package.requiredVersion)" --verbose --prefer-offline'~/.npm/_cacache' --prefer-offline
+        sudo npm install -g "$($package.name)@$($package.requiredVersion)" --verbose --cache '~/.npm/_cacache' --prefer-offline
       }
     }
   }

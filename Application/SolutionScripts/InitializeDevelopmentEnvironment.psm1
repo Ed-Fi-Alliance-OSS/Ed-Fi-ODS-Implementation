@@ -268,6 +268,7 @@ Function Invoke-RebuildSolution {
             Path               = $solutionPath
             BuildConfiguration = $buildConfiguration
             LogVerbosityLevel  = $verbosity
+            noRestore          = $noRestore
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
