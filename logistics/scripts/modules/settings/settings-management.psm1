@@ -446,8 +446,11 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
         ApiSettings       = @{
             Mode = "SharedInstance"
         }
-    }
-
+        Plugin = @{
+            Folder  = ""
+            Scripts = @()
+        }
+  }
     $csbs = Get-ConnectionStringBuildersFromSettings $Settings
     foreach ($key in $databaseName.Keys) {
         $csbs[$key].database = $databaseName[$key]
@@ -488,12 +491,11 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
-        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
-
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
         $newDevelopmentSettings = Add-WebApiSpecificSettings $newDevelopmentSettings $project
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
+        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
