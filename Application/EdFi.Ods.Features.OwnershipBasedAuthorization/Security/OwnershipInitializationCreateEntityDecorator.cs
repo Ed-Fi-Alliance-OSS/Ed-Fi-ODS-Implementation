@@ -18,6 +18,7 @@ using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
+using EdFi.Ods.Common.Context;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
 {
@@ -53,7 +54,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IDataManagementRequestContextProvider dataManagementRequestContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementRequestContextProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
