@@ -65,6 +65,9 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj*', '**/configuration.packages.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+          ${{ runner.os }}-
+          nuget-
+        enableCrossOsArchive: true
     - name: Restore NuGet packages
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
