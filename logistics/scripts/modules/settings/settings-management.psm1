@@ -537,6 +537,12 @@ function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $Pro
 
     $newSettings = @{
         ConnectionStrings = @{ }
+        ApiSettings       = @{
+            Mode = "SharedInstance"
+        }
+        Plugin = @{
+            Folder  = "Plugin"
+        }
     }
 
     $csbs = Get-ConnectionStringBuildersFromSettings $Settings
@@ -593,11 +599,11 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
         $newDevelopmentSettings = Add-TestSpecificAppSettings $newDevelopmentSettings $project
-        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
+        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
