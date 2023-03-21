@@ -20,7 +20,7 @@ function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
     $config.Description = "EdFi Ods Populated Template Database"
     $config.Authors = "Ed-Fi Alliance"
     $config.Owners = "Ed-Fi Alliance"
-    $config.Copyright = "Copyright @ 2021 Ed-Fi Alliance, LLC and Contributors"
+    $config.Copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"
     return $config
 }
 
