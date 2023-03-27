@@ -23,9 +23,9 @@ SELECT
 	,EO.NameOfInstitution DistrictName
 	,LEAT.Count
 	,TransportationCategoryDescriptor1.codeValue TransportationCategory1Code
-	,TransportationCategoryDescriptor1.ShortDescription TransportationCategory1ShortDescription
+	,TransportationCategoryDescriptor1.ShortDescription TransportationCategory1Description
 	,TransportationCategoryDescriptor2.codeValue TransportationCategory2Code
-	,TransportationCategoryDescriptor2.ShortDescription TransportationCategory2ShortDescription
+	,TransportationCategoryDescriptor2.ShortDescription TransportationCategory2Description
 
 FROM nmped.LocalEducationAgencyTransportation LEAT WITH (NOLOCK)
 JOIN edfi.EducationOrganization EO WITH (NOLOCK)

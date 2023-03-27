@@ -32,12 +32,12 @@ SELECT
 	,NVS.NumberOfDaysInUse
 	,NVS.VehicleUseIndicator
 	,VehicleBodyManufacturerDescriptor.CodeValue VehicleBodyManufacturerCode
-	,VehicleBodyManufacturerDescriptor.ShortDescription VehicleBodyManufacturerShortDescription
+	,VehicleBodyManufacturerDescriptor.ShortDescription VehicleBodyManufacturerDescription
 	,VehicleChassisManufacturerDescriptor.CodeValue VehicleChassisManufacturerCode
-	,VehicleChassisManufacturerDescriptor.ShortDescription VehicleChassisManufacturerShortDescription
+	,VehicleChassisManufacturerDescriptor.ShortDescription VehicleChassisManufacturerDescription
 	,VehicleFuelTypeDescriptor.CodeValue VehicleFuelTypeCode
-	,VehicleTypeDescriptor.CodeValue VehicleTypeCodeValue
-	,VehicleTypeDescriptor.ShortDescription VehicleTypeShortDescription
+	,VehicleTypeDescriptor.CodeValue VehicleTypeCode
+	,VehicleTypeDescriptor.ShortDescription VehicleTypeDescription
 FROM nmped.VehicleSnapshot NVS WITH (NOLOCK)
 JOIN edfi.Descriptor VehicleBodyManufacturerDescriptor WITH (NOLOCK)
 	ON VehicleBodyManufacturerDescriptor.DescriptorId = NVS.VehicleBodyManufacturerDescriptorId

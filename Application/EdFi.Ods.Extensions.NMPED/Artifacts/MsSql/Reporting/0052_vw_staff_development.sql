@@ -21,9 +21,9 @@ CREATE or ALTER VIEW nmped_rpt.vw_staff_development AS select
 	,NSD.StartDate
 	,NSD.EndDate
 	,StaffDevelopmentActivityCodeDescriptor.codeValue StaffDevelopmentActivityCode
-	,StaffDevelopmentActivityCodeDescriptor.ShortDescription StaffDevelopmentActivityShortDescription
+	,StaffDevelopmentActivityCodeDescriptor.ShortDescription StaffDevelopmentActivityDescription
 	,StaffDevelopmentPurposeCodeDescriptor.CodeValue StaffDevelopmentPurposeCode
-	,StaffDevelopmentPurposeCodeDescriptor.shortDescription StaffDevelopmentPurposeShortDescription
+	,StaffDevelopmentPurposeCodeDescriptor.shortDescription StaffDevelopmentPurposeDescription
 	,ActivityHours
 	,StaffCreditsEarned
 	,MentorTraining

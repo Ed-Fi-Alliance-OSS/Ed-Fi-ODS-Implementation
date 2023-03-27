@@ -30,16 +30,16 @@ SELECT
 	,v_sess.LocalEducationAgencyid
 	,v_sess.DISTRICT_CODE
 	,NMPEDClassPeriodDescriptor.codeValue NMPEDClassPeriodCode
-	,NMPEDClassPeriodDescriptor.ShortDescription NMPEDClassPeriodshortDescription
+	,NMPEDClassPeriodDescriptor.ShortDescription NMPEDClassPeriodDescription
 	,PreKClassTypeDescriptor.CodeValue PreKClassTypeCode
-	,PreKClassTypeDescriptor.ShortDescription PreKClassTypeShortDescription
+	,PreKClassTypeDescriptor.ShortDescription PreKClassTypeDescription
 	,AvailableCreditTypeDescriptor.CodeValue AvailableCreditTypeCode
-	,AvailableCreditTypeDescriptor.ShortDescription AvailableCreditTypeShortDescription
+	,AvailableCreditTypeDescriptor.ShortDescription AvailableCreditTypeDescription
 	,InstructionLanguageDescriptor.CodeValue InstructionLanguageCode
-	,InstructionLanguageDescriptor.ShortDescription InstructionLanguageShortDescription
+	,InstructionLanguageDescriptor.ShortDescription InstructionLanguageDescription
 FROM
 	 edfi.Section WITH (NOLOCK)
-JOIN nmped_rpt.vw_sessions v_sess WITH (NOLOCK)
+INNER JOIN nmped_rpt.vw_sessions v_sess WITH (NOLOCK)
 	on v_sess.sessionName = Section.SessionName 
 	and v_sess.schoolId = Section.SchoolId
 	and v_sess.SchoolYear = Section.SchoolYear

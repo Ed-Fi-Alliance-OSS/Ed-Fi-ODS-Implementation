@@ -29,7 +29,7 @@ CREATE or alter view nmped_rpt.vw_staff_race AS
 GO
 
 
-CREATE or ALTER VIEW nmped_rpt.vw_staff_Employment AS 
+CREATE or ALTER VIEW nmped_rpt.vw_staff_Employments AS 
 SELECT 
 	 s.StaffUniqueId
 	 ,s.StaffUSI
@@ -43,25 +43,29 @@ SELECT
 	 ,SEOEAN.teacherOrPrincipalYearsOverall
 	 ,SEOEAN.teacherOrPrincipalYearsInDistrict
 	 ,SEOEAN.NationalCertified
-	 ,HighestCompletedLevelOfEducationDescriptor.CodeValue HighestCompletedLevelOfEducationDescriptor
-	 ,HighestCompletedLevelOfEducationInstitutionDescriptor.CodeValue HighestCompletedLevelOfEducationInstitutionDescriptor
-	 ,BaccalaureateLevelOfEducationInstitutionDescriptor.CodeValue BaccalaureateLevelOfEducationInstitutionDescriptor
+	 ,HighestCompletedLevelOfEducationDescriptor.CodeValue HighestCompletedLevelOfEducationCode
+	 ,HighestCompletedLevelOfEducationInstitutionDescriptor.CodeValue HighestCompletedLevelOfEducationInstitutionCode
+	 ,BaccalaureateLevelOfEducationInstitutionDescriptor.CodeValue BaccalaureateLevelOfEducationInstitutionCode
 	 ,S.HispanicLatinoEthnicity	 
-	 ,EmploymentStatusDescriptor.CodeValue EmploymentStatusDescriptor
+	 ,EmploymentStatusDescriptor.CodeValue EmploymentStatusCode
+	 ,EmploymentStatusDescriptor.ShortDescription EmploymentStatusDescription
 	 ,SEOEA.HireDate
 	 ,SEOEA.EndDate
 	 ,SEOEA.HourlyWage
-	 ,SeparationReasonDescriptor.CodeValue SeparationReasonDescriptor
+	 ,SeparationReasonDescriptor.CodeValue SeparationReasonCode
+	 ,SeparationReasonDescriptor.ShortDescription SeparationReasonDescription
 	 ,SEOEA.FullTimeEquivalency
 	 ,vw_sr1.Race RaceCode1
 	 ,vw_sr2.Race RaceCode2
 	 ,vw_sr3.Race RaceCode3
-	 ,TribalAffiliation.CodeValue TribalAffiliation
+	 ,vw_sr4.Race RaceCode4
+	 ,vw_sr5.Race RaceCode5
+	 ,TribalAffiliation.CodeValue TribalAffiliationCode
 FROM 
 	edfi.Staff S WITH (NOLOCK)
-	RIGHT JOIN edfi.StaffEducationOrganizationEmploymentAssociation SEOEA
+	INNER JOIN edfi.StaffEducationOrganizationEmploymentAssociation SEOEA
 		ON S.StaffUSI = SEOEA.StaffUSI
-    RIGHT JOIN edfi.EducationOrganization EO2 WITH  (NOLOCK)
+    INNER JOIN edfi.EducationOrganization EO2 WITH  (NOLOCK)
 		ON EO2.EducationOrganizationId = SEOEA.EducationOrganizationId
 	LEFT JOIN edfi.Descriptor SexDescriptor WITH (NOLOCK)
 		ON SexDescriptor.DescriptorId = S.SexDescriptorId
@@ -83,6 +87,13 @@ FROM
 	LEFT JOIN nmped_rpt.vw_staff_race vw_sr3 WITH (NOLOCK)
 		ON vw_sr3.staffUsi = s.StaffUSI
 		AND vw_sr3.race_rank = 3
+	LEFT JOIN nmped_rpt.vw_staff_race vw_sr4 WITH (NOLOCK)
+		ON vw_sr4.staffUsi = s.StaffUSI
+		AND vw_sr4.race_rank = 4
+	LEFT JOIN nmped_rpt.vw_staff_race vw_sr5 WITH (NOLOCK)
+		ON vw_sr5.staffUsi = s.StaffUSI
+		AND vw_sr5.race_rank = 5
+
 	LEFT JOIN edfi.Descriptor HighestCompletedLevelOfEducationInstitutionDescriptor WITH (NOLOCK)
 		ON HighestCompletedLevelOfEducationInstitutionDescriptor.descriptorId = SEOEAN.HighestCompletedLevelOfEducationInstitutionDescriptorId
 	LEFT JOIN edfi.Descriptor  SeparationReasonDescriptor WITH (NOLOCK)
@@ -95,7 +106,7 @@ FROM
 		ORDER BY Descriptor.descriptorId 
 	   ) rk 
 	FROM edfi.StaffTribalAffiliation 
-	JOIN edfi.Descriptor WITH (NOLOCK)
+	INNER JOIN edfi.Descriptor WITH (NOLOCK)
 		on Descriptor.DescriptorId = StaffTribalAffiliation.TribalAffiliationDescriptorId) TribalAffiliation
 	ON TribalAffiliation.StaffUSI = S.StaffUSI
 
@@ -105,7 +116,7 @@ FROM
 
 
 
-CREATE or ALTER VIEW nmped_rpt.vw_staff_Assignment AS 
+CREATE or ALTER VIEW nmped_rpt.vw_staff_Assignments AS 
 SELECT 
 	 s.StaffUniqueId
 	 ,s.StaffUSI
@@ -115,29 +126,31 @@ SELECT
 	 ,S.MiddleName 
 	 ,s.LastSurname 
 	 ,s.BirthDate
-	 ,EmploymentStatusDescriptor.CodeValue EmploymentStatusDescriptor
+	 ,EmploymentStatusDescriptor.CodeValue EmploymentStatusCode
+	 ,EmploymentStatusDescriptor.ShortDescription EmploymentStatusDescription
 	 ,SEOAA.fullTimeEquivalency
-	 ,staffClassificationDescriptor.CodeValue staffClassificationDescriptor
-    ,SEOAA.beginDate
+	 ,staffClassificationDescriptor.CodeValue staffClassificationCode
+	 ,staffClassificationDescriptor.ShortDescription staffClassificationDescription
+	 ,SEOAA.beginDate
 	,SIC.IdentificationCode IdentificationCode
 	FROM 
 	edfi.Staff S WITH (NOLOCK)
-	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA
+	INNER JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA
 		ON S.StaffUSI = SEOAA.StaffUSI
-    RIGHT JOIN edfi.EducationOrganization School WITH  (NOLOCK)
+    INNER JOIN edfi.EducationOrganization School WITH  (NOLOCK)
 		ON School.EducationOrganizationId = SEOAA.EducationOrganizationId
-	RIGHT JOIN edfi.EducationOrganization EO2
+	INNER JOIN edfi.EducationOrganization EO2
 		ON EO2.EducationOrganizationId =   SEOAA.EmploymentEducationOrganizationId
 	LEFT JOIN edfi.Descriptor EmploymentStatusDescriptor WITH (NOLOCK)
 		ON EmploymentStatusDescriptor.DescriptorId = SEOAA.EmploymentStatusDescriptorId
-	LEFT JOIN edfi.Descriptor staffClassificationDescriptor
+	LEFT JOIN edfi.Descriptor staffClassificationDescriptor  WITH (NOLOCK)
 		ON staffClassificationDescriptor.DescriptorId = SEOAA.StaffClassificationDescriptorId
 	LEFT JOIN 
 		(
 		select MAX(IdentificationCode) IdentificationCode,
 		StaffUSI
-		from edfi.StaffIdentificationCode
-		JOIN edfi.descriptor StaffIdentificationSystemDescriptor
+		from edfi.StaffIdentificationCode  WITH (NOLOCK)
+		INNER JOIN edfi.descriptor StaffIdentificationSystemDescriptor WITH (NOLOCK)
 			ON StaffIdentificationSystemDescriptor.DescriptorId = StaffIdentificationCode.StaffIdentificationSystemDescriptorId
 		where namespace like '%StaffIdentificationSystemDescriptor%'
 		and   CodeValue = 'SSN'

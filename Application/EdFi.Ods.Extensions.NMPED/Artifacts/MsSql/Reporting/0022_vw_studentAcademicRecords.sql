@@ -6,34 +6,23 @@
  * By:		Collin Neville | App Dev I
  * Email:	Collin.Neville@ped.nm.gov
  * Date:	02-23-2023
- * Desc:	This script creates a Program view from the programs resource
+ * Desc:	This script creates a studentAcademicRecord view
+ *			from the studentAcademicRecords resource
  *			
- *			We are also combining the studentProgramAssociations resource
- *
  */
 
-IF EXISTS 
-(
-	SELECT 
-		1 
-	FROM 
-		sys.views
-		JOIN sys.schemas
-			ON views.schema_id = schemas.schema_id
-	WHERE 
-		views.name = 'vw_studentAcademicRecords'
-		AND schemas.name = 'nmped_rpt'
-)
-DROP VIEW nmped_rpt.vw_studentAcademicRecords;
-GO
 
-CREATE VIEW nmped_rpt.vw_studentAcademicRecords AS 
+CREATE OR ALTER VIEW nmped_rpt.vw_studentAcademicRecords AS 
 SELECT
-	 SUBSTRING(CAST(SSA.SchoolId AS VARCHAR(10)), 3, 3)	[DistrictCode]
-	,EO2.NameOfInstitution								[DistrictName]
-	,SSA.SchoolId
-	,EO.NameOfInstitution								[SchoolName] 
-	,SAR.TermDescriptorId
+	--standard school/district columns
+	 VDL.EducationOrganizationId_District
+	,VDL.DistrictCode
+	,VDL.DistrictName
+	,VDL.EducationOrganizationId_School
+	,VDL.LocationCode
+	,VDL.SchoolName	
+	
+	--resource documentation starts
 	,Term.CodeValue										[TermCode]
 	,Term.Description									[TermDescription]
 	,SAR.SchoolYear
@@ -42,24 +31,19 @@ SELECT
 --	,classRanking not collected
 	,CumulativeAttemptedCreditConversion
 	,CumulativeAttemptedCredits
-	,CumulativeAttemptedCreditTypeDescriptorId 
 	,CumulativeAttemptedCreditType.CodeValue			[CumulativeAttemptedCreditTypeCode]
 	,CumulativeAttemptedCreditType.Description			[CumulativeAttemptedCreditTypeDescription]
 	,CumulativeEarnedCreditConversion
-	,CumulativeEarnedCreditTypeDescriptorId 
 	,CumulativeEarnedCreditType.CodeValue				[CumulativeEarnedCreditTypeCode]
 	,CumulativeEarnedCreditType.Description				[CumulativeEarnedCreditTypeDescription]
 	,CumulativeGradePointAverage
 	,CumulativeGradePointsEarned
 
-	,DiplomaTypeDescriptorId
 	,DiplomaType.CodeValue								[DiplomaTypeCode]
 	,DiplomaType.Description							[DiplomaTypeDescription]
 	,DiplomaAwardDate
-	,AchievementCategoryDescriptorId 
 	,AchievementCategory.CodeValue						[AchievementCategoryCode]
 	,AchievementCategory.Description					[AchievementCategoryDescription]
-	,DiplomaLevelDescriptorId
 	,DiplomaLevel.CodeValue								[DiplomaLevelCode]
 	,DiplomaLevel.Description							[DiplomaLevelDescription]
 	,AchievementCategorySystem
@@ -81,12 +65,10 @@ SELECT
 --	,reportCards not collected
 	,SessionAttemptedCreditConversion
 	,SessionAttemptedCredits
-	,SessionAttemptedCreditTypeDescriptorId
 	,SessionAttemptedCreditType.CodeValue				[SessionAttemptedCreditTypeCode]
 	,SessionAttemptedCreditType.Description				[SessionAttemptedCreditTypeDescription]
 	,SessionEarnedCreditConversion
 	,SessionEarnedCredits
-	,SessionEarnedCreditTypeDescriptorId
 	,SessionEarnedCreditType.CodeValue					[SessionEarnedCreditTypeCode]
 	,SessionEarnedCreditType.Description				[SessionEarnedCreditTypeDescription]
 	,SessionGradePointAverage
@@ -96,7 +78,7 @@ SELECT
 FROM
 	edfi.StudentAcademicRecord SAR WITH (NOLOCK)
 
-	LEFT JOIN edfi.Student S WITH (NOLOCK)
+	INNER JOIN edfi.Student S WITH (NOLOCK)
 		ON S.StudentUSI = SAR.StudentUSI
 
 	JOIN edfi.StudentSchoolAssociation SSA WITH (NOLOCK)
@@ -132,10 +114,5 @@ FROM
 	LEFT JOIN edfi.Descriptor DiplomaLevel WITH (NOLOCK)
 		ON DiplomaLevel.DescriptorId = SARD.DiplomaLevelDescriptorId
 
-	JOIN edfi.EducationOrganization EO WITH (NOLOCK)
-		ON EO.EducationOrganizationId = SSA.SchoolId
-		AND EO.Discriminator = 'edfi.School'
-
-	JOIN edfi.EducationOrganization EO2 WITH (NOLOCK)
-		ON SUBSTRING(CAST(SSA.SchoolId AS VARCHAR(10)), 3, 3) = SUBSTRING(CAST(EO2.EducationOrganizationId AS VARCHAR(10)), 3, 3)
-		AND EO2.Discriminator = 'edfi.LocalEducationAgency'
+	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+		ON VDL.EducationOrganizationId_School = SSA.SchoolId

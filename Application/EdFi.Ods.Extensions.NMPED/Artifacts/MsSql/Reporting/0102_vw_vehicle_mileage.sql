@@ -24,11 +24,11 @@ SELECT
 	,VM.VehicleId
 	,VM.DailyMileage
 	,MileageTypeDescriptor.CodeValue MileageTypeCode
-	,MileageTypeDescriptor.ShortDescription MileageShortDescription
+	,MileageTypeDescriptor.ShortDescription MileageDescription
 	,VehicleRouteDescriptor.CodeValue VehicleRouteCode
-	,VehicleRouteDescriptor.ShortDescription VehicleRouteShortDescription
+	,VehicleRouteDescriptor.ShortDescription VehicleRouteDescription
 	,RoadTypeDescriptor.CodeValue RoadTypeCode
-	,RoadTypeDescriptor.ShortDescription RoadTypeShortDescription
+	,RoadTypeDescriptor.ShortDescription RoadTypeDescription
 FROM nmped.VehicleMileage VM WITH (NOLOCK)
 JOIN edfi.Descriptor MileageTypeDescriptor WITH (NOLOCK)
 	ON MileageTypeDescriptor.DescriptorId = VM.MileageTypeDescriptorId

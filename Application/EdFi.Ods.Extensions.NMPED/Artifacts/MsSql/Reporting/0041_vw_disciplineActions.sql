@@ -12,48 +12,35 @@
  */
 
 
- IF EXISTS 
-(
-	SELECT 
-		1 
-	FROM 
-		sys.views
-		JOIN sys.schemas
-			ON views.schema_id = schemas.schema_id
-	WHERE 
-		views.name = 'vw_disciplineActions'
-		AND schemas.name = 'nmped_rpt'
-)
-DROP VIEW nmped_rpt.vw_disciplineActions;
-GO
-
-CREATE VIEW nmped_rpt.vw_disciplineActions AS 
+CREATE OR ALTER VIEW nmped_rpt.vw_disciplineActions AS 
 SELECT
-	 SUBSTRING(CAST(DASDIA.SchoolId AS VARCHAR(10)), 3, 3)	[DistrictCode]
-	,EO2.NameOfInstitution									[DistrictName]
-	,DASDIA.SchoolId
-	,EO.NameOfInstitution									[SchoolName]
+	--standard school/district columns
+	 VDL.EducationOrganizationId_District
+	,VDL.DistrictCode
+	,VDL.DistrictName
+	,VDL.EducationOrganizationId_School
+	,VDL.LocationCode
+	,VDL.SchoolName	
+	
+	--resource documentation starts										[SchoolName]
 	,DA.DisciplineActionIdentifier
 	,DA.DisciplineDate
-	,DAD.DisciplineDescriptorId
-	,Discipline.CodeValue									[DisciplineCode]
-	,Discipline.Description									[DisciplineDescription]
+	,Discipline.CodeValue											[DisciplineCode]
+	,Discipline.Description											[DisciplineDescription]
 	,DASDIA.IncidentIdentifier
 	,ResponsibilitySchoolId 
 	,AssignmentSchoolId
 	,StudentUniqueId
 	,ActualDisciplineActionLength
 	,DisciplineActionLength
-	,DA.DisciplineActionLengthDifferenceReasonDescriptorId
-	,DisciplineActionLengthDifferenceReason.CodeValue		[DisciplineActionLengthDifferenceReasonCode]
-	,DisciplineActionLengthDifferenceReason.Description		[DisciplineActionLengthDifferenceReasonDescription]
+	,DisciplineActionLengthDifferenceReason.CodeValue				[DisciplineActionLengthDifferenceReasonCode]
+	,DisciplineActionLengthDifferenceReason.Description				[DisciplineActionLengthDifferenceReasonDescription]
 	,IEPPlacementMeetingIndicator
 	,ReceivedEducationServicesDuringExpulsion
 	,RelatedToZeroTolerancePolicy
-	,StaffUniqueId
-	,DASDIBA.BehaviorDescriptorId		
-	,Behavior.CodeValue										[BehaviorCode]
-	,Behavior.Description									[BehaviorDescription]
+	,StaffUniqueId	
+	,Behavior.CodeValue												[BehaviorCode]
+	,Behavior.Description											[BehaviorDescription]
 	,DAE.DisciplineActionDetailedResponse
 	,DA.CreateDate
 	,DA.LastModifiedDate
@@ -102,10 +89,5 @@ FROM
 	LEFT JOIN edfi.Descriptor Behavior WITH (NOLOCK)
 		ON Behavior.DescriptorId = DASDIBA.BehaviorDescriptorId
 
-	JOIN edfi.EducationOrganization EO WITH (NOLOCK)
-		ON EO.EducationOrganizationId = DA.ResponsibilitySchoolId
-		AND EO.Discriminator = 'edfi.School'
-
-	JOIN edfi.EducationOrganization EO2 WITH (NOLOCK)
-		ON SUBSTRING(CAST(DA.ResponsibilitySchoolId AS VARCHAR(10)), 3, 3) = SUBSTRING(CAST(EO2.EducationOrganizationId AS VARCHAR(10)), 3, 3)
-		AND EO2.Discriminator = 'edfi.LocalEducationAgency'
+	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+		ON VDL.EducationOrganizationId_School = DA.ResponsibilitySchoolId

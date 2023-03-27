@@ -76,5 +76,9 @@
 	c. When adding/deleting/updating individual lines use the below convention.
 --Alt Id: 001
 
-9. Subcollection in a resource should be its own view.
+9. When to use LEFT JOIN vs INNER JOIN
+	INNER JOIN is for when you want to only show records that match
+	LEFT JOIN is for when you want to show all students regardless of whether they match
+
+
 	

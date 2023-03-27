@@ -12,30 +12,19 @@
  *
  */
 
-IF EXISTS 
-(
-	SELECT 
-		1 
-	FROM 
-		sys.views
-		JOIN sys.schemas
-			ON views.schema_id = schemas.schema_id
-	WHERE 
-		views.name = 'vw_studentProgramAssociations'
-		AND schemas.name = 'nmped_rpt'
-)
-DROP VIEW nmped_rpt.vw_studentProgramAssociations;
-GO
-
-CREATE VIEW nmped_rpt.vw_studentProgramAssociations AS 
+CREATE OR ALTER VIEW nmped_rpt.vw_studentProgramAssociations AS 
 SELECT
-	 SUBSTRING(CAST(GSPA.EducationOrganizationId AS VARCHAR(10)), 3, 3)		[DistrictCode]
-	,EO2.NameOfInstitution													[DistrictName]
-	,GSPA.EducationOrganizationId
-	,EO.NameOfInstitution													[SchoolName] 
+	--standard school/district columns
+	 VDL.EducationOrganizationId_District
+	,VDL.DistrictCode
+	,VDL.DistrictName
+	,VDL.EducationOrganizationId_School
+	,VDL.LocationCode
+	,VDL.SchoolName
+
+	--resource documentation starts													[SchoolName] 
 	,GSPA.BeginDate
 	,P.ProgramName
-	,P.ProgramTypeDescriptorId
 	,ProgramType.CodeValue													[ProgramTypeCode]
 	,ProgramType.Description												[ProgramTypeDescription]
 	,ProgramId
@@ -43,20 +32,18 @@ SELECT
 	,EndDate
 --	,participationStatus not collected
 --	,programParticipationStatuses not collected
-	,ReasonExitedDescriptorId
 	,ReasonExited.CodeValue													[ReasonExitedCode]
 	,ReasonExited.Description												[ReasonExitedDescription]
 	,ServedOutsideOfRegularSession
 --	,services not collected
-	,BEPProgramLanguageDescriptorId
 	,BEPProgramLanguage.CodeValue											[BEPProgramLanguageCode]
 	,BEPProgramLanguage.Description											[BEPProgramLanguageDescription]
-	,ParticipationInformationDescriptorId
 	,ParticipationInformation.CodeValue										[ParticipationInformationCode]
 	,ParticipationInformation.Description									[ParticipationInformationDescription]
-	,ProgramIntensityDescriptorId
 	,ProgramIntensity.CodeValue												[ProgramIntensityCode]
 	,ProgramIntensity.Description											[ProgramIntensityDescription]
+	
+	--table CreateDate/LastModifiedDate
 	,GSPA.CreateDate
 	,GSPA.LastModifiedDate
 FROM
@@ -93,10 +80,5 @@ FROM
 	LEFT JOIN edfi.Descriptor BEPProgramLanguage WITH (NOLOCK)
 		ON BEPProgramLanguage.DescriptorId = SPAE.BEPProgramLanguageDescriptorId
 
-	JOIN edfi.EducationOrganization EO WITH (NOLOCK)
-		ON EO.EducationOrganizationId = GSPA.EducationOrganizationId
-		AND EO.Discriminator = 'edfi.School'
-
-	JOIN edfi.EducationOrganization EO2 WITH (NOLOCK)
-		ON SUBSTRING(CAST(GSPA.EducationOrganizationId AS VARCHAR(10)), 3, 3) = SUBSTRING(CAST(EO2.EducationOrganizationId AS VARCHAR(10)), 3, 3)
-		AND EO2.Discriminator = 'edfi.LocalEducationAgency'
+	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+		ON VDL.EducationOrganizationId_School = GSPA.EducationOrganizationId

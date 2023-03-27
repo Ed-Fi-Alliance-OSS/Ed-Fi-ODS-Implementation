@@ -14,35 +14,23 @@
  *
  */
 
-IF EXISTS 
-(
-	SELECT 
-		1 
-	FROM 
-		sys.views
-		JOIN sys.schemas
-			ON views.schema_id = schemas.schema_id
-	WHERE 
-		views.name = 'vw_studentCTEProgramAssociations'
-		AND schemas.name = 'nmped_rpt'
-)
-DROP VIEW nmped_rpt.vw_studentCTEProgramAssociations;
-GO
-
-CREATE VIEW vw_studentCTEProgramAssociations AS 
+CREATE OR ALTER VIEW vw_studentCTEProgramAssociations AS 
 SELECT
-	 SUBSTRING(CAST(SCTEPA.EducationOrganizationId AS VARCHAR(10)), 3, 3)	[DistrictCode]
-	,EO2.NameOfInstitution													[DistrictName]
-	,SUBSTRING(CAST(SCTEPA.EducationOrganizationId AS VARCHAR(10)), 6, 3)	[SchoolCode]
-	,EO.NameOfInstitution													[SchoolName] 
+	--standard school/district columns
+	 VDL.EducationOrganizationId_District
+	,VDL.DistrictCode
+	,VDL.DistrictName
+	,VDL.EducationOrganizationId_School
+	,VDL.LocationCode
+	,VDL.SchoolName		
+	
+	--resource documentation starts
 	,SCTEPA.BeginDate
 	,SCTEPA.ProgramEducationOrganizationId
 	,SCTEPA.ProgramName
-	,SCTEPA.ProgramTypeDescriptorId
 	,ProgramType.CodeValue													[ProgramTypeCode]
 	,ProgramType.Description												[ProgramTypeDescription]
 	,StudentUniqueId
-	,CareerPathwayDescriptorId
 	,CareerPathway.CodeValue												[CareerPathwayCode]
 	,CareerPathway.Description												[CareerPathwayDescription]
 	,CIPCode
@@ -54,28 +42,24 @@ SELECT
 --	,participationStatus not collected
 	,PrivateCTEProgram
 --	,programParticipationStatuses not collected
-	,ReasonExitedDescriptorId
 	,ReasonExited.CodeValue													[ReasonExitedCode]
 	,ReasonExited.Description												[ReasonExitedDescription]
 	,ServedOutsideOfRegularSession
 --	,services not collected
-	,TechnicalSkillsAssessmentDescriptorId
 	,TechnicalSkillsAssessment.CodeValue									[TechnicalSkillsAssessmentCode]
 	,TechnicalSkillsAssessment.Description									[TechnicalSkillsAssessmentDescription]
-
 	,CredentialEarnedDate
-	,IndustryCredentialDescriptorId
 	,IndustryCredential.CodeValue											[IndustryCredentialCode]
 	,IndustryCredential.Description											[IndustryCredentialDescription]
-	,ProgramDeliveryMethodDescriptorId
 	,ProgramDeliveryMethod.CodeValue										[ProgramDeliveryMethodCode]
 	,ProgramDeliveryMethod.Description										[ProgramDeliveryMethodDescription]
 
+	--table CreateDate/LastModifiedDate
 	,SCTEPACTEP.CreateDate
 FROM 
 	edfi.StudentCTEProgramAssociation SCTEPA WITH (NOLOCK)
 
-	LEFT JOIN edfi.Student S WITH (NOLOCK)
+	INNER JOIN edfi.Student S WITH (NOLOCK)
 		ON S.StudentUSI = SCTEPA.StudentUSI
 
 	LEFT JOIN edfi.StudentCTEProgramAssociationCTEProgram SCTEPACTEP WITH (NOLOCK)
@@ -86,7 +70,7 @@ FROM
 		AND SCTEPA.ProgramTypeDescriptorId = SCTEPACTEP.ProgramTypeDescriptorId
 		AND SCTEPA.StudentUSI = SCTEPACTEP.StudentUSI
 
-	LEFT JOIN edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
+	JOIN edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
 		ON SCTEPA.BeginDate = GSPA.BeginDate
 		AND SCTEPA.EducationOrganizationId = GSPA.EducationOrganizationId
 		AND SCTEPA.ProgramEducationOrganizationId = GSPA.ProgramEducationOrganizationId
@@ -120,10 +104,5 @@ FROM
 	LEFT JOIN edfi.Descriptor ProgramDeliveryMethod WITH (NOLOCK)
 		ON ProgramDeliveryMethod.DescriptorId = SCTEPAC.ProgramDeliveryMethodDescriptorId
 
-	JOIN edfi.EducationOrganization EO WITH (NOLOCK)
-		ON EO.EducationOrganizationId = SCTEPA.EducationOrganizationId
-		AND EO.Discriminator = 'edfi.School'
-
-	JOIN edfi.EducationOrganization EO2 WITH (NOLOCK)
-		ON SUBSTRING(CAST(SCTEPA.EducationOrganizationId AS VARCHAR(10)), 3, 3) = SUBSTRING(CAST(EO2.EducationOrganizationId AS VARCHAR(10)), 3, 3)
-		AND EO2.Discriminator = 'edfi.LocalEducationAgency'
+	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+		ON VDL.EducationOrganizationId_School = SCTEPA.EducationOrganizationId
