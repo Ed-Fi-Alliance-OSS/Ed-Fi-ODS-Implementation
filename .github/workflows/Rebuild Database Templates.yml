@@ -41,7 +41,7 @@ jobs:
     - name: Check for Repo Dispatch Token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.EDFI_ODS_TOKEN == '' }}
       run: | 
-        echo "Missing GitHub Token" 
+        echo "::error::Missing GitHub Token" 
         exit 1
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
