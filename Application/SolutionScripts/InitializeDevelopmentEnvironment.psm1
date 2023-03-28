@@ -495,6 +495,7 @@ function Get-DefaultNuGetProperties {
     return @(
         "authors=Ed-Fi Alliance"
         "owners=Ed-Fi Alliance"
+        "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"
         "configuration=$buildConfiguration"
     )
 }
