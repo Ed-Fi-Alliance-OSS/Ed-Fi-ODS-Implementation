@@ -70,7 +70,7 @@ function Invoke-CreatePackage {
 
         # Additional Properties to pass to nuget.exe
         [string[]]
-        $Properties = @(),
+        $Properties = @("copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"),
 
         [string]
         $AdditionalParameters

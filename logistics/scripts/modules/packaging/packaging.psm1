@@ -17,7 +17,7 @@ function New-Nuspec {
         [string] $owners,
         [bool] $requireLicenseAcceptance = $false,
         [string] $releaseNotes,
-        [string] $copyright = "Copyright $((Get-Date).year)",
+        [string] $copyright = "Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors",
         [hashtable] $dependencies,
         [switch] $forceOverwrite
     )
