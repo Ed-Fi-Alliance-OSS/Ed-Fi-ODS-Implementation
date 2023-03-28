@@ -144,7 +144,7 @@ function Invoke-Pack-ApiSdk {
         OutputDirectory       = $nugetOutput
         Publish               = $false
         ToolsPath             = "../../../tools"
-        Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright ©Ed-Fi Alliance, LLC. " + $((Get-Date).year) )
+        Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright © $((Get-Date).year) Ed-Fi Alliance, LLC and Contributors" )
     }
     
     Invoke-CreatePackage @parameters -Verbose:$verbose
