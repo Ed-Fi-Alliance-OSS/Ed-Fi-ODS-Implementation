@@ -40,7 +40,7 @@
                   INNER JOIN [edfi].[EducationOrganization] EO2 WITH (NOLOCK) on
                   SUBSTRING(cast(SSA.SchoolId as varchar(10)),3,3) = SUBSTRING(cast(EO2.EducationOrganizationId as varchar(10)),3,3) AND EO2.Discriminator = 'edfi.LocalEducationAgency'
 
-7. Descriptor guidlines should be followed below when joining to descriptor id fields.
+7. Descriptor guidelines should be followed below when joining to descriptor id fields.
 	a. Descriptors should always be LEFT JOIN to include all records and not one INNER JOIN records. See example below. 
 	b. Descriptor aliases should be the the full descriptor name not including descritorid of the descriptor id being joined to. See example below.
 		i. Example: LEFT JOIN [edfi].[Descriptor] BirthCountry WITH (NOLOCK) ON S.[BirthCountryDescriptorId] = BirthCountry.[DescriptorId]

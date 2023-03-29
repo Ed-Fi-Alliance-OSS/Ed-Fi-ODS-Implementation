@@ -25,6 +25,7 @@ SELECT
 	,VDL.SchoolName		
 	
 	--resource documentation starts
+	,StudentUniqueId
 	,AttendanceEventCategory.CodeValue					[AttendanceEventCode]
 	,AttendanceEventCategory.Description				[AttendanceEventDescription]
 	,SSAE.EventDate
@@ -32,7 +33,6 @@ SELECT
 	,SSAE.SchoolYear
 	,SSAE.SectionIdentifier
 	,SSAE.SessionName
-	,StudentUniqueId
 	,SSAE.ArrivalTime
 	,SSAE.AttendanceEventReason
 	,ClassPeriodName
@@ -41,7 +41,6 @@ SELECT
 	,EducationalEnvironment.Description					[EducationalEnvironmentDescription]
 	,SSAE.EventDuration
 	,SectionAttendanceDuration
-	,SchoolAttendanceDuration
 
 	--table CreateDate/LastModifiedDate
 	,SSAE.CreateDate
@@ -49,7 +48,7 @@ SELECT
 FROM
 	edfi.StudentSectionAttendanceEvent SSAE WITH (NOLOCK)
 
-	INNER JOIN edfi.Student S WITH (NOLOCK)
+	LEFT JOIN edfi.Student S WITH (NOLOCK)
 		ON S.StudentUSI = SSAE.StudentUSI
 
 	LEFT JOIN edfi.StudentSectionAttendanceEventClassPeriod SSAECP WITH (NOLOCK)
@@ -62,19 +61,11 @@ FROM
 		AND SSAECP.SessionName = SSAE.SessionName
 		AND SSAECP.StudentUSI = SSAE.StudentUSI
 
-	LEFT JOIN edfi.StudentSchoolAttendanceEvent SSAE_School WITH (NOLOCK)
-		ON SSAE_School.AttendanceEventCategoryDescriptorId = SSAE.AttendanceEventCategoryDescriptorId
-		AND SSAE_School.EventDate = SSAE.EventDate
-		AND SSAE_School.SchoolId = SSAE.SchoolId
-		AND SSAE_School.SchoolYear = SSAE.SchoolYear
-		AND SSAE_School.SessionName = SSAE.SessionName
-		AND SSAE_School.StudentUSI = SSAE.StudentUSI
-
 	LEFT JOIN edfi.Descriptor AttendanceEventCategory WITH (NOLOCK)
 		ON AttendanceEventCategory.DescriptorId = SSAE.AttendanceEventCategoryDescriptorId
 
 	LEFT JOIN edfi.Descriptor EducationalEnvironment WITH (NOLOCK)
 		ON EducationalEnvironment.DescriptorId = SSAE.EducationalEnvironmentDescriptorId
 	
-	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SSAE.SchoolId

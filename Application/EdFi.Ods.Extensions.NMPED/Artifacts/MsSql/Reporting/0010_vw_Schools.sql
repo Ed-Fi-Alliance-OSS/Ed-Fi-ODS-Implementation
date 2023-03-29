@@ -24,9 +24,9 @@ CREATE OR ALTER VIEW [nmped_rpt].[vw_Schools]
 AS
 
 SELECT S.[SchoolId]
-	  ,School_EO.NameOfInstitution AS [SchoolName]
+	  ,DL.SchoolName
 	  ,S.[LocalEducationAgencyId]
-	  ,District_EO.NameOfInstitution AS [DistrictName]
+	  ,DL.DistrictName
 	  ,SchoolTypeDescriptor.[Description] AS [SchoolTypeDescription]
 	  ,CharterStatusDescriptor.[Description] AS [CharterStatusDescription]
 	  ,SchoolCategory.CodeValue AS [SchoolCategoryCode]
@@ -52,11 +52,8 @@ SELECT S.[SchoolId]
 	  ,'35000' + SUBSTRING(CAST(S.LocalEducationAgencyId AS VARCHAR(10)), 3, 3) AS DISTRICT_KEY
 FROM [edfi].[School] S WITH (NOLOCK)
 
-LEFT JOIN edfi.EducationOrganization District_EO WITH (NOLOCK)
-	ON (District_EO.EducationOrganizationId = S.LocalEducationAgencyId)
-
-LEFT JOIN edfi.EducationOrganization School_EO WITH (NOLOCK)
-	ON (School_EO.EducationOrganizationId = S.SchoolId)
+LEFT JOIN nmped_rpt.vw_district_location DL WITH (NOLOCK)
+	ON (DL.EducationOrganizationId_School =  S.SchoolId)
 
 LEFT JOIN edfi.Descriptor SchoolTypeDescriptor WITH (NOLOCK) 
 	ON (SchoolTypeDescriptor.DescriptorId = S.[SchoolTypeDescriptorId])

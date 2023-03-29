@@ -30,7 +30,7 @@ GO
 CREATE VIEW nmped_rpt.vw_studentDisciplineIncidentBehaviorAssociations AS 
 
 SELECT	nmped_rpt.vw_district_location.EducationOrganizationId_District, 
-	mped_rpt.vw_district_location.DistrictCode, 
+	nmped_rpt.vw_district_location.DistrictCode, 
 	nmped_rpt.vw_district_location.DistrictName, 
         nmped_rpt.vw_district_location.EducationOrganizationId_School, 
         nmped_rpt.vw_district_location.LocationCode, 

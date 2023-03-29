@@ -39,11 +39,11 @@ WHERE StaffIdSystem.CodeValue IN ('SSN', 'Professional Certificate')
 SELECT 
 	 S.StaffUniqueId
 	 ,S.StaffUSI
-	 ,Employer.EducationOrganizationId AS [EmployerId]
-	 ,Employer.NameOfInstitution AS [EmployerName]
+	 ,School.EducationOrganizationId_School AS [SchoolId]
+	 ,School.SchoolName
 	 ,SUBSTRING(CAST(SEOAA.EducationOrganizationId AS VARCHAR(10)), 3, 3) AS [DistrictCode]
-	 ,District.NameOfInstitution AS [DistrictName]
-	 ,District.EducationOrganizationId AS [DistrictId]
+	 ,School.DistrictName 
+	 ,School.EducationOrganizationId_District AS [DistrictId]
 	 ,S.FirstName
 	 ,S.MiddleName 
 	 ,S.LastSurname AS [LastName]
@@ -62,11 +62,8 @@ SELECT
 	edfi.Staff S WITH (NOLOCK)
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)
 		ON (S.StaffUSI = SEOAA.StaffUSI)
-    LEFT JOIN edfi.EducationOrganization Employer WITH (NOLOCK)
-		ON (Employer.EducationOrganizationId = SEOAA.EducationOrganizationId)
-	LEFT JOIN edfi.EducationOrganization District WITH (NOLOCK)
-		ON (District.EducationOrganizationId = SUBSTRING(CAST(SEOAA.EducationOrganizationId AS VARCHAR(10)), 1, 5) + '000'
-		AND District.Discriminator = 'edfi.LocalEducationAgency')
+    LEFT JOIN nmped_rpt.vw_district_location School WITH (NOLOCK)
+		ON (School.EducationOrganizationId_School = SEOAA.EducationOrganizationId)
 	LEFT JOIN edfi.Descriptor EmploymentStatusDescriptor WITH (NOLOCK)
 		ON (EmploymentStatusDescriptor.DescriptorId = SEOAA.EmploymentStatusDescriptorId)
 	LEFT JOIN edfi.Descriptor staffClassificationDescriptor  WITH (NOLOCK)
