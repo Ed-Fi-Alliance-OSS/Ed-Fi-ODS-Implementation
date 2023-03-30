@@ -11,7 +11,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 
 function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
 
-    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
 
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
@@ -20,7 +20,7 @@ function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
     $config.Description = "EdFi Ods Populated Template Database"
     $config.Authors = "Ed-Fi Alliance"
     $config.Owners = "Ed-Fi Alliance"
-    $config.Copyright = "Copyright @ 2021 Ed-Fi Alliance, LLC and Contributors"
+    $config.Copyright = "Copyright @ $(Get-Date -format yyyy) Ed-Fi Alliance, LLC and Contributors"
     return $config
 }
 
@@ -72,7 +72,8 @@ function Initialize-PopulatedTemplate {
         [switch] $noExtensions,
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
-        [String] $engine = 'SQLServer'
+        [String] $engine = 'SQLServer',
+        [String] $standardVersion = '4.0.0'
     )
 
     Clear-Error
@@ -82,6 +83,7 @@ function Initialize-PopulatedTemplate {
         noExtensions = $noExtensions
         noValidation = $noValidation
         engine       = $engine
+        standardVersion = $standardVersion
     }
 
     $config = (Get-PopulatedConfiguration $paramConfig)

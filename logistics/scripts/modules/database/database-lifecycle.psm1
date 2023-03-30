@@ -145,7 +145,13 @@ function Get-SQLServerDatabaseScriptStrategy {
         $Database,
 
         [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb
+        [System.Data.Common.DbConnectionStringBuilder] $csb,
+
+        [String]
+        $StandardVersion = '4.0.0',
+
+        [String]
+        $ExtensionVersion = '1.1.0'
     )
 
     Write-Host "Executing SQLServerDatabaseScriptStrategy..."
@@ -156,6 +162,8 @@ function Get-SQLServerDatabaseScriptStrategy {
         ConnectionString = $csb
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
+        StandardVersion  = $StandardVersion
+        ExtensionVersion = $ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -316,7 +324,13 @@ function New-EdFiDatabaseLifecycle {
         $CreateStrategy,
 
         [scriptblock]
-        $ScriptStrategy
+        $ScriptStrategy,
+
+        [String]
+        $StandardVersion = '4.0.0',
+
+        [String]
+        $ExtensionVersion = '1.1.0'
     )
 
     $params = @{}
@@ -388,7 +402,13 @@ function Initialize-EdFiDatabase {
         $CreateStrategy,
 
         [scriptblock]
-        $ScriptStrategy
+        $ScriptStrategy,
+
+        [String]
+        $StandardVersion = '4.0.0',
+
+        [String]
+        $ExtensionVersion = '1.1.0'
     )
 
     Write-InvocationInfo $MyInvocation
