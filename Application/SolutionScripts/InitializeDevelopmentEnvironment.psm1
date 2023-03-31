@@ -146,7 +146,8 @@ function Initialize-DevelopmentEnvironment {
         if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
-
+        if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
+        if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }

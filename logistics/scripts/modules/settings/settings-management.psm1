@@ -35,6 +35,8 @@ function Get-DefaultDevelopmentSettingsByProject {
             ApiSettings       = @{
                 Engine           = ""
                 PlainTextSecrets = $true
+                StandardVersion  = ""
+                ExtensionVersion  = ""
             }
             ConnectionStrings = @{ }
             Logging           = @{
@@ -82,6 +84,8 @@ function Get-DefaultDevelopmentSettingsByProject {
             Urls              = "http://localhost:8765"
             ApiSettings       = @{
                 Engine = ""
+                StandardVersion  = ""
+                ExtensionVersion  = ""
             }
             ConnectionStrings = @{ }
         }
