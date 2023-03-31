@@ -130,14 +130,15 @@ function Update-PackageName([string] $scriptName, [string] $scriptPath) {
     $content = Get-Content $scriptPath -Raw
     $pattern = [regex]::Escape('$configuration.packageName')
     $StandardVersion = $Settings.ApiSettings.StandardVersion
+    $internalExtensions = @("sample", "homograph")
 
-    if($scriptName -eq 'tpdm'){
-        $ExtensionVersion = "1.1.0"
-        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.Core.$ExtensionVersion.Standard.$StandardVersion"
-    }
-    else {
-        $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
+    if($internalExtensions -contains $scriptName){
+        $ExtensionVersion = "1.0.0"
         $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.$ExtensionVersion.Standard.$StandardVersion"
+    }
+    elseif('tpdm' -contains $scriptName){
+        $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
+        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.Core.$ExtensionVersion.Standard.$StandardVersion"
     }
     
     $replacement = " `"$replacement`" "
