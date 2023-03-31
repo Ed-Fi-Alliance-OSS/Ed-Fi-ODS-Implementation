@@ -1,4 +1,4 @@
-{
+﻿{
   "packages": {
     "EdFiMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template",
@@ -41,8 +41,8 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "homograph": {
-      "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph",
-      "PackageVersion": "7.0.270",
+      "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph.1.0.0.Standard.{StandardVersion}",
+      "PackageVersion": "7.0.265",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "profiles.sample": {
@@ -51,18 +51,18 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "sample": {
-      "PackageName": "EdFi.Suite3.Ods.Extensions.Sample",
-      "PackageVersion": "7.0.193",
+      "PackageName": "EdFi.Suite3.Ods.Extensions.Sample.1.0.0.Standard.{StandardVersion}",
+      "PackageVersion": "7.0.188",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
-      "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0",
-      "PackageVersion": "7.0.219",
+      "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.{ExtensionVersion}.Standard.{StandardVersion}",
+      "PackageVersion": "7.0.215",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
-      "PackageVersion": "7.0.822",
+      "PackageVersion": "7.0.808",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Db.Deploy": {
