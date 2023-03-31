@@ -92,12 +92,23 @@ function Get-Plugins([hashtable] $Settings) {
 
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
-        $extensionPath = Invoke-PluginScript $scriptPath
+        if("profiles.sample" -ne $script){
+            $content = Update-PackageName $script  $scriptPath
+            $extensionPath = Invoke-PluginScript $scriptPath
+            $content = $content.TrimEnd()
+            Set-Content $scriptPath -Value $content
+        }
+        else {
+            $extensionPath = Invoke-PluginScript $scriptPath
+        }
+
         Write-Host "Extension path" $extensionPath
         $extensionFolder = Split-Path $extensionPath -leaf
         Write-Host "Foldername" $extensionFolder
 
         $newExtensionFolderName = $extensionFolder -replace "^$prefix"
+        $postfix = "(.*$script).*"
+        $newExtensionFolderName = $newExtensionFolderName -replace "$postfix", '$1'
         $newExtensionPath = Join-Path $folder $newExtensionFolderName
         Write-Host "New Extension path" $newExtensionPath
 
@@ -112,6 +123,29 @@ function Get-Plugins([hashtable] $Settings) {
     Assert-NoDuplicatePlugins $Settings
 
     return $result
+}
+
+function Update-PackageName([string] $scriptName, [string] $scriptPath) {
+
+    $content = Get-Content $scriptPath -Raw
+    $pattern = [regex]::Escape('$configuration.packageName')
+    $StandardVersion = $Settings.ApiSettings.StandardVersion
+
+    if($scriptName -eq 'tpdm'){
+        $ExtensionVersion = "1.1.0"
+        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.Core.$ExtensionVersion.Standard.$StandardVersion"
+    }
+    else {
+        $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
+        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.$ExtensionVersion.Standard.$StandardVersion"
+    }
+    
+    $replacement = " `"$replacement`" "
+    Write-Host "replacement" $replacement
+    $newContent = [regex]::Replace($content, $pattern, $replacement)
+    $newContent = $newContent.TrimEnd()
+    Set-Content $scriptPath -Value $newContent
+    return $content
 }
 
 function Remove-Plugins([hashtable] $Settings) {
