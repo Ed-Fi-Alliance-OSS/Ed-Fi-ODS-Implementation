@@ -94,9 +94,10 @@ function Get-Plugins([hashtable] $Settings) {
         $scriptPath = Get-PluginScript $folder $script
 
         if("profiles.sample" -ne $script){
-            $content = Update-PackageName $script  $filePath
+            $originalConfig = Get-Content $filePath | ConvertFrom-Json
+            Update-PackageName $script  $filePath
             $extensionPath = Invoke-PluginScript $scriptPath
-            $content | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+            $originalConfig | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
         }
         else {
             $extensionPath = Invoke-PluginScript $scriptPath
@@ -127,7 +128,6 @@ function Get-Plugins([hashtable] $Settings) {
 
 function Update-PackageName([string] $scriptName, [string] $filePath) {
 
-    $originalConfig = Get-Content $filePath | ConvertFrom-Json
     $config = Get-Content $filePath | ConvertFrom-Json
     $packageName = $config.packages.($scriptName).PackageName
    
@@ -140,9 +140,8 @@ function Update-PackageName([string] $scriptName, [string] $filePath) {
     elseif('tpdm' -contains $scriptName){
         $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $Settings.ApiSettings.ExtensionVersion)
     }
-
     $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
-    return $originalConfig
+
 }
 
 function Remove-Plugins([hashtable] $Settings) {
