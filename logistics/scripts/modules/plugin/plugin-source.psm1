@@ -89,14 +89,14 @@ function Get-Plugins([hashtable] $Settings) {
     $result = @()
 
     $prefix = "EdFi.Suite3.Ods."
-
+    $filePath = "./configuration.packages.json"
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
+
         if("profiles.sample" -ne $script){
-            $content = Update-PackageName $script  $scriptPath
+            $content = Update-PackageName $script  $filePath
             $extensionPath = Invoke-PluginScript $scriptPath
-            $content = $content.TrimEnd()
-            Set-Content $scriptPath -Value $content
+            $content | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
         }
         else {
             $extensionPath = Invoke-PluginScript $scriptPath
@@ -125,28 +125,24 @@ function Get-Plugins([hashtable] $Settings) {
     return $result
 }
 
-function Update-PackageName([string] $scriptName, [string] $scriptPath) {
+function Update-PackageName([string] $scriptName, [string] $filePath) {
 
-    $content = Get-Content $scriptPath -Raw
-    $pattern = [regex]::Escape('$configuration.packageName')
+    $originalConfig = Get-Content $filePath | ConvertFrom-Json
+    $config = Get-Content $filePath | ConvertFrom-Json
+    $packageName = $config.packages.($scriptName).PackageName
+   
     $StandardVersion = $Settings.ApiSettings.StandardVersion
     $internalExtensions = @("sample", "homograph")
 
     if($internalExtensions -contains $scriptName){
-        $ExtensionVersion = "1.0.0"
-        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.$ExtensionVersion.Standard.$StandardVersion"
+        $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion)
     }
     elseif('tpdm' -contains $scriptName){
-        $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
-        $replacement = "EdFi.Suite3.Ods.Extensions.$scriptName.Core.$ExtensionVersion.Standard.$StandardVersion"
+        $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $Settings.ApiSettings.ExtensionVersion)
     }
-    
-    $replacement = " `"$replacement`" "
-    Write-Host "replacement" $replacement
-    $newContent = [regex]::Replace($content, $pattern, $replacement)
-    $newContent = $newContent.TrimEnd()
-    Set-Content $scriptPath -Value $newContent
-    return $content
+
+    $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+    return $originalConfig
 }
 
 function Remove-Plugins([hashtable] $Settings) {
