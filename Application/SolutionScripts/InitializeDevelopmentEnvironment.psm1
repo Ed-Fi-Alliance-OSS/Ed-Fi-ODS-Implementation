@@ -325,11 +325,6 @@ function Reset-EmptySandboxDatabase {
 }
 
 function Reset-TestAdminDatabase {
-    param(
-        [String] $StandardVersion,
-        [String] $ExtensionVersion
-    )
-
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
@@ -337,7 +332,7 @@ function Reset-TestAdminDatabase {
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
         $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Admin_Test'
-        Initialize-EdFiDatabase $settings $databaseType $csb -StandardVersion $StandardVersion -ExtensionVersion $ExtensionVersion
+        Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }
 
