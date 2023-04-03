@@ -127,7 +127,7 @@ function Initialize-TemplateSourceFromScriptName {
         [string] $engine = 'SQLServer'
     )
 
-    $filePath = "./configuration.packages.json"
+    $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     $scriptPath = Get-TemplateScriptPath $scriptName
 
     $originalConfig = Get-Content $filePath | ConvertFrom-Json

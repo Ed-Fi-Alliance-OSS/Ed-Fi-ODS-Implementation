@@ -89,7 +89,7 @@ function Get-Plugins([hashtable] $Settings) {
     $result = @()
 
     $prefix = "EdFi.Suite3.Ods."
-    $filePath = "./configuration.packages.json"
+    $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
 
