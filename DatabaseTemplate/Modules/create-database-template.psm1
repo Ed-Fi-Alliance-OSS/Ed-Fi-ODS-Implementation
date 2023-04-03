@@ -57,7 +57,7 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $bulkLoadClientExecutableFileName = "EdFi.BulkLoadClient.Console$(GetExeExtension)"
     $config.bulkLoadClientExecutable = "$(Get-RepositoryResolvedPath "Utilities/DataLoading/EdFi.BulkLoadClient.Console")/bin/**/$bulkLoadClientExecutableFileName"
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors", "InterchangeStandards", "InterchangeEducationOrganization")
-    $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Metadata/")
+    $config.bulkLoadDirectoryMetadata = (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Standard/" + $config.standardVersion + "/Artifacts/Metadata/")
     $config.bulkLoadTempDirectory = Join-Path ([IO.Path]::GetTempPath()) "CreateDatabaseTemplate"
     $config.bulkLoadTempDirectorySchema = Join-Path $config.bulkLoadTempDirectory "Schemas"
     $config.bulkLoadTempDirectoryBootstrap = Join-Path $config.bulkLoadTempDirectory "Bootstrap"
@@ -513,7 +513,15 @@ function New-DatabaseTemplateNuspec {
         $config.databaseBackupName += ".PostgreSQL"
         $config.Id += ".PostgreSQL"
         $config.Title += ".PostgreSQL"
-        $config.Description += "for PostgreSQL"
+        $config.Description += " for PostgreSQL"
+    }
+
+    if ($config.StandardVersion) {
+        $packageNuspecName += ".Standard." + $config.StandardVersion
+        $config.databaseBackupName += ".Standard." + $config.StandardVersion
+        $config.Id += ".Standard." + $config.StandardVersion
+        $config.Title += ".Standard." + $config.StandardVersion
+        $config.Description += " with StandardVersion " + $config.StandardVersion
     }
 
     if (-not $config.backupDirectory) { $populatedTemplatePath = $global:templateDatabaseFolder }
