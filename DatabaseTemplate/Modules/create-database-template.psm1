@@ -507,7 +507,16 @@ function New-DatabaseTemplateNuspec {
     param(
         [hashtable] $config
     )
+
     $packageNuspecName = $config.packageNuspecName
+
+    if ($config.extensionVersion) {
+        $packageNuspecName += "." + $config.extensionVersion
+        $config.databaseBackupName += "." + $config.extensionVersion
+        $config.Id += "." + $config.extensionVersion
+        $config.Title += "." + $config.extensionVersion
+    }
+
     if ($config.engine -eq 'PostgreSQL') {
         $packageNuspecName += ".PostgreSQL"
         $config.databaseBackupName += ".PostgreSQL"
