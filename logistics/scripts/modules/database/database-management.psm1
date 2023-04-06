@@ -11,11 +11,9 @@ function Test-SqlServerModuleInstalled { $null -ne (Get-InstalledModule | where 
 function Test-SqlServerModuleImported { $null -ne (Get-Module SqlServer) }
 
 function Use-SqlServerModule {
-
     if (Test-SqlServerModuleImported) { return }
 
     if (Test-SqlServerModuleInstalled) {
-       
         Import-Module -Force -Scope Global SqlServer
     }
     else {
@@ -24,7 +22,7 @@ function Use-SqlServerModule {
             [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
         }
 
-        Write-Host "Installing SqlServer Module" -ForegroundColor DarkMagenta
+        Write-Host "Installing SqlServer Module"
         Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
         Import-Module -Force -Scope Global SqlServer
     }
@@ -94,6 +92,7 @@ function New-DbConnectionStringBuilder {
             }
         }
     }
+
     if ($property.Keys.Count -gt 0) {
         $property.Keys | % { $newDbCSB[$_] = [String]::Copy($property[$_]) }
     }
@@ -511,7 +510,6 @@ Function Invoke-SqlScript {
         [Parameter(Position = 1, Mandatory = $false, ParameterSetName = 'object')]
         [switch]$returnDataSet
     )
-    Write-Host "Invoke-SqlScript Method Before Use-SqlServerModule" -ForegroundColor DarkMagenta
     Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -eq "legacy") {
@@ -619,11 +617,8 @@ Function Clear-DatabaseUsers {
     #
     # 1) It attempts to brute-force kill all user processes using T-SQL
     # 2) If -safe is passed, it subsequently sets the database to offline then online again
-    Write-Host "csb is $csb"  -ForegroundColor DarkMagenta
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
-    Write-Host "csb is $csb"  -ForegroundColor DarkMagenta
     $databaseName = $csb['Initial Catalog']
-    Write-Host "databaseName is $databaseName"  -ForegroundColor DarkMagenta
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
     Write-Host "masterCSB is $masterCSB"  -ForegroundColor DarkMagenta
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
@@ -643,7 +638,6 @@ Function Clear-DatabaseUsers {
         "GO"
     ) -join "`n"
     Write-Host "Killing all processes."
-    Write-Host "master database Connection String is $masterConnStr"  -ForegroundColor DarkMagenta
     Invoke-SqlScript -connectionString $masterConnStr -sql $killUsersSQL
 
     if ($forceOffline) {
@@ -736,8 +730,6 @@ Function Remove-Database {
     Write-Host "Starting removal of database $databaseName..."
     if (Test-DatabaseExists -csb $csb) {
         Write-Host "Database '$databaseName' does exist. Clearing users and processes."
-        Write-Host "Database 'before Clear-DatabaseUsers. $csb" -ForegroundColor Blue
-
         Clear-DatabaseUsers -csb $csb -safe:$safe
         # NOTE: We use DROP DATABASE rather than the SMO's .KillDatabase() function because the former can
         #       drop a database stuck in "Restoring" state, but the latter cannot
