@@ -12,13 +12,10 @@ function Test-SqlServerModuleImported { $null -ne (Get-Module SqlServer) }
 
 function Use-SqlServerModule {
 
-    Write-Host "inside Use-SqlServerModule" -ForegroundColor DarkMagenta
-    if (Test-SqlServerModuleImported) { 
-        Write-Host "Test-SqlServerModuleImported" -ForegroundColor DarkMagenta
-        return }
+    if (Test-SqlServerModuleImported) { return }
 
     if (Test-SqlServerModuleInstalled) {
-        Write-Host "Test-SqlServerModuleInstalled" -ForegroundColor DarkMagenta
+       
         Import-Module -Force -Scope Global SqlServer
     }
     else {
@@ -87,12 +84,16 @@ function New-DbConnectionStringBuilder {
         $newDbCSB = New-DbConnectionStringBuilder
         foreach ($key in $existingCSB.keys) {
             $value = $existingCSB[$key]
-            if (-not ($emptySpecificCSB[$key] -eq $value)) {
+            if($key -eq 'Encrypt')
+            {
+                Write-Host "key $key" -ForegroundColor Yellow
+                $newDbCSB[$key] =$value
+            }
+            elseif (-not ($emptySpecificCSB[$key] -eq $value)) {
                 $newDbCSB[$key] = [String]::Copy($value)
             }
         }
     }
-
     if ($property.Keys.Count -gt 0) {
         $property.Keys | % { $newDbCSB[$_] = [String]::Copy($property[$_]) }
     }
@@ -332,7 +333,6 @@ Function Get-SqlConnectionString {
         }
     }
     else {
-        Write-Host "semalai" -ForegroundColor Red
         (Convert-CommonDbCSBtoSqlCSB $dbCSB).ConnectionString
     }
 }
@@ -624,10 +624,7 @@ Function Clear-DatabaseUsers {
     Write-Host "csb is $csb"  -ForegroundColor DarkMagenta
     $databaseName = $csb['Initial Catalog']
     Write-Host "databaseName is $databaseName"  -ForegroundColor DarkMagenta
-    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{
-        'Initial Catalog' = 'master'
-        'Encrypt'='False'
-     }
+    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
     Write-Host "masterCSB is $masterCSB"  -ForegroundColor DarkMagenta
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
@@ -739,6 +736,8 @@ Function Remove-Database {
     Write-Host "Starting removal of database $databaseName..."
     if (Test-DatabaseExists -csb $csb) {
         Write-Host "Database '$databaseName' does exist. Clearing users and processes."
+        Write-Host "Database 'before Clear-DatabaseUsers. $csb" -ForegroundColor Blue
+
         Clear-DatabaseUsers -csb $csb -safe:$safe
         # NOTE: We use DROP DATABASE rather than the SMO's .KillDatabase() function because the former can
         #       drop a database stuck in "Restoring" state, but the latter cannot
