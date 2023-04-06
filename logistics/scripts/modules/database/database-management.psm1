@@ -28,7 +28,7 @@ function Use-SqlServerModule {
         }
 
         Write-Host "Installing SqlServer Module" -ForegroundColor DarkMagenta
-        Install-Module -Name SqlServer -RequiredVersion "21.1.18256" -Scope CurrentUser -Force -AllowClobber | Out-Null
+        Install-Module -Name SqlServer -MinimumVersion "21.1.18068" -Scope CurrentUser -Force -AllowClobber | Out-Null
         Import-Module -Force -Scope Global SqlServer
     }
 }
@@ -332,6 +332,7 @@ Function Get-SqlConnectionString {
         }
     }
     else {
+        Write-Host "semalai" -ForegroundColor Red
         (Convert-CommonDbCSBtoSqlCSB $dbCSB).ConnectionString
     }
 }
@@ -623,7 +624,11 @@ Function Clear-DatabaseUsers {
     Write-Host "csb is $csb"  -ForegroundColor DarkMagenta
     $databaseName = $csb['Initial Catalog']
     Write-Host "databaseName is $databaseName"  -ForegroundColor DarkMagenta
-    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
+    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{
+        'Initial Catalog' = 'master'
+        'Encrypt'='False'
+     }
+    Write-Host "masterCSB is $masterCSB"  -ForegroundColor DarkMagenta
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     # Kill all the database processes using T-SQL:
