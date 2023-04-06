@@ -84,7 +84,6 @@ function New-DbConnectionStringBuilder {
             $value = $existingCSB[$key]
             if($key -eq 'Encrypt')
             {
-                Write-Host "key $key" -ForegroundColor Yellow
                 $newDbCSB[$key] =$value
             }
             elseif (-not ($emptySpecificCSB[$key] -eq $value)) {
@@ -510,6 +509,7 @@ Function Invoke-SqlScript {
         [Parameter(Position = 1, Mandatory = $false, ParameterSetName = 'object')]
         [switch]$returnDataSet
     )
+
     Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -eq "legacy") {
@@ -617,10 +617,11 @@ Function Clear-DatabaseUsers {
     #
     # 1) It attempts to brute-force kill all user processes using T-SQL
     # 2) If -safe is passed, it subsequently sets the database to offline then online again
+
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
     $databaseName = $csb['Initial Catalog']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
-    Write-Host "masterCSB is $masterCSB"  -ForegroundColor DarkMagenta
+    Write-Host "masterCSB is $masterCSB"  -ForegroundColor Blue
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     # Kill all the database processes using T-SQL:
