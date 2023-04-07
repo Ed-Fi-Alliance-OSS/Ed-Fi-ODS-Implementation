@@ -86,13 +86,27 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var defaultApplication = _defaultApplicationCreator
                 .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
 
-            return _clientAppRepo.SetupDefaultSandboxClient(
+            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
+            {
+                Name = "Name",
+                InstanceType = "Enterprise",
+                Status = "Sandbox",
+                IsExtended = false,
+                Version = "1",
+                ConnectionString = "TestConnStr"
+            });
+
+            var apiClient = _clientAppRepo.SetupDefaultSandboxClient(
                 sandboxName,
                 sandboxOptions.Type,
                 sandboxOptions.Key,
                 sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
+
+            _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
+
+            return apiClient;
         }
 
         private void ProvisionSandbox(ApiClient client)
