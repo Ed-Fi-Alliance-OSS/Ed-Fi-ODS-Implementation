@@ -563,6 +563,7 @@ function New-WebPackage {
         [string] $OutputDirectory`
     )
 
+    Write-Host "New-WebPackage" $PackageId
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
         $buildConfiguration = 'debug'
@@ -585,6 +586,8 @@ function New-WebPackage {
             $xml.package.metadata.id = $PackageId
             $xml.Save($PackageDefinitionFile)
         }
+
+        Get-Content $PackageDefinitionFile
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
 

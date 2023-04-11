@@ -95,8 +95,10 @@ $noPackaging   = $params.NoPackaging
 
 if (-not $noPackaging) {
 
-    $WebApiId  +="." + $params.StandardVersion
-    $DatabasesId +="." + $params.StandardVersion
+   $params.WebApiId +="." + $params.StandardVersion
+   $params.DatabasesId +="." + $params.StandardVersion
+   Write-Host  "params.WebApiId" $params.WebApiId
+   Write-Host  "params.DatabasesId" $params.DatabasesId
 
     # Package
     $parameters = @{
