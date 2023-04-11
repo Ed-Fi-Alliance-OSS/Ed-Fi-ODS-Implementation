@@ -42,7 +42,7 @@ Describe 'Remove-Plugins' {
 
 Describe 'Get-Plugins' {
     It "Gets plugin"{
-        $settings = Get-EdFiDeveloperPluginSettings
+        $settings = Get-DeploymentSettings
         $plugs = Get-Plugins $settings
         foreach($plug in $plugs){
             Test-Path $plug | Should -Be $true
