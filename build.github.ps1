@@ -94,11 +94,12 @@ $result = Initialize-DevelopmentEnvironment @params
 $noPackaging   = $params.NoPackaging
 
 if (-not $noPackaging) {
-
-   $params.WebApiId +="." + $params.StandardVersion
-   $params.DatabasesId +="." + $params.StandardVersion
-   Write-Host  "params.WebApiId" $params.WebApiId
-   Write-Host  "params.DatabasesId" $params.DatabasesId
+   
+   if($null -ne $params.StandardVersion)
+   {
+        $params.WebApiId += ".$params.StandardVersion"
+        $params.DatabasesId += ".$params.StandardVersion"
+   }
 
     # Package
     $parameters = @{
