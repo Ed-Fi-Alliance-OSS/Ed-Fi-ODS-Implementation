@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -211,6 +211,19 @@ function CheckoutBranch {
     }
 }
 
+function StandardVersions {
+
+    $standardProjectDirectory = Split-Path $Solution  -Resolve
+    $standardProjectPath = Join-Path $standardProjectDirectory "/Standard/"
+    $versions = (Get-ChildItem -Path $standardProjectPath -Directory -Force -ErrorAction SilentlyContinue | Select -ExpandProperty Name | %{ "'" + $_ + "'" }) -Join ','
+    $standardVersions = "[$versions]"
+    return $standardVersions
+}
+
+function Invoke-StandardVersions {
+    Invoke-Step { StandardVersions }
+}
+
 function Invoke-Build {
     Write-Host "Building Version $version" -ForegroundColor Cyan
     Invoke-Step { DotnetClean }
@@ -250,6 +263,7 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        StandardVersions { Invoke-StandardVersions }        
         default { throw "Command '$Command' is not recognized" }
     }
 }

@@ -27,10 +27,32 @@ env:
   msbuild_buildConfiguration: "release"
 
 jobs:
+  FindStandardVersions:
+    runs-on: ubuntu-latest    
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+    steps:
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/   
+    - name: Set StandardVersions
+      id: Set_StandardVersions
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
+        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "StandardVersions is  $output"
+      shell: pwsh
+
   build:
-
+    if: ${{ always() }}
+    needs: FindStandardVersions
     runs-on: windows-latest
-
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
     steps:
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
@@ -97,7 +119,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
@@ -142,7 +164,7 @@ jobs:
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
-                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
+                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease' + ${{ matrix.StandardVersion }}
                 Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
                 Properties            = (Get-DefaultNuGetProperties)
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
