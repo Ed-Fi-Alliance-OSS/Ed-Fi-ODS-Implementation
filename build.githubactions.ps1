@@ -136,10 +136,10 @@ function Pack {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123
         }
     }
-    if ($NuspecFilePath -Like "*.nuspec" -and $PackageName -ne $null){
+    if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName ){
        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
     }
-    if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $PackageName -ne $null){
+    if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
             dotnet pack $ProjectFile -c $Configuration --output $packageOutput --no-build --no-restore --verbosity normal -p:VersionPrefix=$version -p:NoWarn=NU5123 -p:PackageId=$PackageName
         }
