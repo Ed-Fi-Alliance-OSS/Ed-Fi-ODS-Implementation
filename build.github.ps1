@@ -97,8 +97,8 @@ if (-not $noPackaging) {
    
    if($null -ne $params.StandardVersion)
    {
-        $params.WebApiId += ".$params.StandardVersion"
-        $params.DatabasesId += ".$params.StandardVersion"
+        $params.WebApiId += "." + $params.StandardVersion
+        $params.DatabasesId +="." + $params.StandardVersion
    }
 
     # Package
