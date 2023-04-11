@@ -11,10 +11,12 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 
 function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
 
-    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
     $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
+    $config.appSettings.ApiSettings.StandardVersion = $config.standardVersion
+    $config.appSettings.ApiSettings.ExtensionVersion = $config.extensionVersion
 
     $config.Remove('apiClientNameSandbox')
 
@@ -24,9 +26,10 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
     $config.Remove('bulkLoadTempDirectorySample')
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors")
     $config.bulkLoadMaxRequests = 1
+
     $config.schemaDirectories = @(
-        (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Schemas/")
-        ("$(Get-PluginFolderFromSettings $config.appSettings)/EdFi.Suite3.Ods.Extensions.TPDM*/Artifacts/Schemas/")
+        (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Standard/$($config.standardVersion)/Artifacts/Schemas/")
+        ("$(Get-PluginFolderFromSettings $config.appSettings)/Extensions.TPDM*/Artifacts/Schemas/")
     )
 
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM.Core"
@@ -88,7 +91,9 @@ function Initialize-TPDMMinimalTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
-        [string] $createByRestoringBackup
+        [string] $createByRestoringBackup,
+        [String] $standardVersion = '4.0.0',
+        [String] $extensionVersion = '1.1.0'
     )
 
     Clear-Error
@@ -99,6 +104,8 @@ function Initialize-TPDMMinimalTemplate {
         noValidation            = if ($PSBoundParameters.ContainsKey('noValidation')) { $noValidation } else { $true }
         engine                  = $engine
         createByRestoringBackup = $createByRestoringBackup
+        standardVersion = $standardVersion
+        extensionVersion = $extensionVersion
     }
 
     $config = (Get-TPDMMinimalConfiguration $paramConfig)

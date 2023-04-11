@@ -89,7 +89,7 @@ function Get-Plugins([hashtable] $Settings) {
     $result = @()
 
     $prefix = "EdFi.Suite3.Ods."
-    $filePath = "./configuration.packages.json"
+    $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
 
@@ -132,16 +132,10 @@ function Update-PackageName([string] $scriptName, [string] $filePath) {
     $packageName = $config.packages.($scriptName).PackageName
    
     $StandardVersion = $Settings.ApiSettings.StandardVersion
-    $internalExtensions = @("sample", "homograph")
+    $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
 
-    if($internalExtensions -contains $scriptName){
-        $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion)
-    }
-    elseif('tpdm' -contains $scriptName){
-        $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $Settings.ApiSettings.ExtensionVersion)
-    }
+    $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $ExtensionVersion)
     $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
-
 }
 
 function Remove-Plugins([hashtable] $Settings) {
