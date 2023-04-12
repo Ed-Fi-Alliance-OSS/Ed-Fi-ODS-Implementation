@@ -22,7 +22,11 @@ param(
     # An absolute path to the output folder to store artifacts.
     [string] $Output = "C:/tmp/EdFi.Database",
 
-    [string[]] $PathResolverOverride
+    [string[]] $PathResolverOverride,
+
+    [String] $StandardVersion = '4.0.0',
+
+    [String] $ExtensionVersion = '1.1.0'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -41,6 +45,11 @@ Clear-Error
 
 if (-not (Test-Path $SQLPackage)) { throw "SQLPackage.exe not found at '$SQLPackage'" }
 if ([string]::IsNullOrWhitespace($PackageName)) { $PackageName = "EdFi.Database.$DatabaseType" }
+
+$settings = @{ ApiSettings = @{ } }
+if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
+if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
+Set-DeploymentSettings $settings | Out-Null
 
 Write-InvocationInfo $MyInvocation
 
@@ -151,7 +160,7 @@ $tasks = [ordered] @{
         Backup-DatabaseTemplate $params
     }
     'Create SQLServer Backup .nuspec'                      = {
-        $name = $PackageName
+        $name = "$PackageName.Standard.$StandardVersion"
         $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
@@ -184,7 +193,7 @@ $tasks = [ordered] @{
         Write-Host
     }
     'Create SQLServer BACPAC .nuspec'                      = {
-        $name = "$PackageName.BACPAC"
+        $name = "$PackageName.BACPAC.Standard.$StandardVersion"
         $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
@@ -217,7 +226,7 @@ $tasks = [ordered] @{
         Write-Host
     }
     'Create PostgreSQL Backup .nuspec'                     = {
-        $name = "$PackageName.PostgreSQL"
+        $name = "$PackageName.PostgreSQL.Standard.$StandardVersion"
         $nuspecPath = Join-Path $Output "$name.nuspec"
 
         $params = @{
