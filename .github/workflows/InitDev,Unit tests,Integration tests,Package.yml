@@ -59,10 +59,23 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardVersions
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+    services:
+      sqlserver:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        env:
+          SA_PASSWORD: "YourStrong(!)Password"
+          ACCEPT_EULA: "Y"
+        ports:
+          - "1433:1433"
+        healthcheck:
+          test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P YourStrong(!)Password -Q \"SELECT 1\""]
+          interval: 10s
+          timeout: 5s
+          retries: 3  
     name: build (Standard Version ${{ matrix.StandardVersion }})        
     steps:
     - name: Setup .NET
@@ -107,11 +120,25 @@ jobs:
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"      
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
       shell: pwsh
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
+    - name: Setup Sql Server Connection String
+      working-directory: .//Ed-Fi-ODS/
       run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
+        $ErrorActionPreference = 'Stop'
+        $PSVersionTable
+        [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+           
+        # EdFi.Ods.WebApi
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Ods'      'Server=127.0.0.1,1433; Database=EdFi_{0}; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Admin'    'Server=127.0.0.1,1433; Database=EdFi_Admin; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Security' 'Server=127.0.0.1,1433; Database=EdFi_Security; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Persist Security Info=True; Application Name=EdFi.Ods.WebApi;'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ec 'ConnectionStrings:EdFi_Master'   'Server=127.0.0.1,1433; Database=master; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.WebApi;'
+        # EdFi.Ods.Api.IntegrationTestHarness
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Ods'      'Server=127.0.0.1,1433; Database=EdFi_Ods_Populated_Template_Test; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Admin'    'Server=127.0.0.1,1433; Database=EdFi_Admin_Test; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Security' 'Server=127.0.0.1,1433; Database=EdFi_Security_Test; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Persist Security Info=True; Application Name=EdFi.Ods.Api.IntegrationTestHarness'
+        dotnet user-secrets set --id f1506d66-289c-44cb-a2e2-80411cc690ed 'ConnectionStrings:EdFi_Master'   'Server=127.0.0.1,1433; Database=master; Connection Timeout=30; User Id=sa;Password=yourStrong(!)Password; Application Name=EdFi.Ods.Api.IntegrationTestHarness'        
+
+      shell: pwsh 
     - name: Update build.props
       working-directory: ./Ed-Fi-ODS/
       run: |
