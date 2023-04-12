@@ -71,11 +71,6 @@ jobs:
           ACCEPT_EULA: "Y"
         ports:
           - "1433:1433"
-        healthcheck:
-          test: ["CMD-SHELL", "sqlcmd -S localhost -U sa -P YourStrong(!)Password -Q \"SELECT 1\""]
-          interval: 10s
-          timeout: 5s
-          retries: 3  
     name: build (Standard Version ${{ matrix.StandardVersion }})        
     steps:
     - name: Setup .NET
