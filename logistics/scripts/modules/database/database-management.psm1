@@ -1019,11 +1019,17 @@ Function Test-DatabaseExists {
 
     Use-SqlServerModule
     Write-Host "before ParameterSetName : " $csb
+    Write-Host "PsCmdlet.ParameterSetName : " $PsCmdlet.ParameterSetName    
+
     if ($PsCmdlet.ParameterSetName -match "csb") {
         # Convert to SQL CSB here to ensure the Initial Catalog property will always return the DB name
         $csb = Convert-CommonDbCSBtoSqlCSB -dbCSB $csb
         $server = Get-Server -csb $csb
         $databaseName = $csb["Initial Catalog"]
+        Write-Host "if part PsCmdlet.ParameterSetName : " $PsCmdlet.ParameterSetName  
+    }
+    else {
+        Write-Host "Else part PsCmdlet.ParameterSetName : " $PsCmdlet.ParameterSetName    
     }
     $found = $false
     #Makesure we have the latest database information.
