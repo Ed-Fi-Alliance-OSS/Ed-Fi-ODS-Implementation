@@ -383,10 +383,14 @@ Function Get-Server {
         }
     }
 
+    Write-Host "sql_server '$ $sql_server'..."
+    Write-Host "username '$username'..."
+    Write-Host "password '$password'..."
+
 
     if ($username) {
         # Initialize Server instance using standard security
-        # Write-Host "Connecting to SQL Server using standard security for user '$username'..."
+         Write-Host "Connecting to SQL Server using standard security for user '$username'..."
 
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
         $s.ConnectionContext.LoginSecure = $false
@@ -395,14 +399,14 @@ Function Get-Server {
     }
     else {
         # Initialize Server instance using integrated security
-        # Write-Host "Connecting to SQL Server using integrated security..."
+         Write-Host "Connecting to SQL Server using integrated security..."
 
         $s = New-Object ('Microsoft.SqlServer.Management.Smo.Server') $sql_server
     }
 
     # Don't let operations performed on this Server time out
     $s.ConnectionContext.StatementTimeout = 0
-
+    Write-Host "s '$s'..."
     $s
 }
 
@@ -1027,6 +1031,9 @@ Function Test-DatabaseExists {
         $server = Get-Server -csb $csb
         $databaseName = $csb["Initial Catalog"]
         Write-Host "if part PsCmdlet.ParameterSetName : " $PsCmdlet.ParameterSetName  
+        Write-Host "if part server: "  $server
+        Write-Host "if part databaseName: "  $databaseName      
+
     }
     else {
         Write-Host "Else part PsCmdlet.ParameterSetName : " $PsCmdlet.ParameterSetName    
