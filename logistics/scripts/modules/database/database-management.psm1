@@ -387,7 +387,8 @@ Function Get-Server {
     Write-Host "username '$username'..."
     Write-Host "password '$password'..."
 
-
+    $s =''
+    Write-Host "s before username $s"
     if ($username) {
         # Initialize Server instance using standard security
          Write-Host "Connecting to SQL Server using standard security for user '$username'..."
