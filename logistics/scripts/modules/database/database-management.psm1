@@ -729,6 +729,7 @@ Function Remove-Database {
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     Write-Host "Starting removal of database $databaseName..."
+    Write-Host "csb value is  $csb"
     if (Test-DatabaseExists -csb $csb) {
         Write-Host "Database '$databaseName' does exist. Clearing users and processes."
         Clear-DatabaseUsers -csb $csb -safe:$safe
@@ -1017,7 +1018,7 @@ Function Test-DatabaseExists {
     )
 
     Use-SqlServerModule
-
+    Write-Host "before ParameterSetName : " $csb
     if ($PsCmdlet.ParameterSetName -match "csb") {
         # Convert to SQL CSB here to ensure the Initial Catalog property will always return the DB name
         $csb = Convert-CommonDbCSBtoSqlCSB -dbCSB $csb
@@ -1026,6 +1027,7 @@ Function Test-DatabaseExists {
     }
     $found = $false
     #Makesure we have the latest database information.
+     Write-Host "calling Refresh : " $csb
     $server.Databases.Refresh($true)
     foreach ($db in $server.Databases) {
         if ($db.Name -eq $databaseName) {
