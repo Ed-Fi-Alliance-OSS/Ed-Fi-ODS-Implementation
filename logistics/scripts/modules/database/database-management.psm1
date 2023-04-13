@@ -1042,7 +1042,7 @@ Function Test-DatabaseExists {
     $found = $false
     #Makesure we have the latest database information.
      Write-Host "calling Refresh : " $csb
-    $server.Databases.Refresh($true)
+    #$server.Databases.Refresh($true)
     foreach ($db in $server.Databases) {
         if ($db.Name -eq $databaseName) {
             $found = $true
