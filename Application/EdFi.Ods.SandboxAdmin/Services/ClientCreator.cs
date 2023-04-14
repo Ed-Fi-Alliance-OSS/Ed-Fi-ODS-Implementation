@@ -101,7 +101,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
             {
                 Name = sandboxName,
-                InstanceType = "ODS",
+                InstanceType = "Sandbox",
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
