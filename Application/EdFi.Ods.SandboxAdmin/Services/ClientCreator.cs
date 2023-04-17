@@ -9,6 +9,7 @@ using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.SandboxAdmin.Services;
@@ -24,6 +25,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
 
         private const string MaximumSandboxesPerUserConfigKey = "MaximumSandboxesPerUser";
         private readonly int _maximumSandboxesPerUser;
+        private readonly IConfigConnectionStringsProvider _configConnectionStringsProvider;
 
         private readonly IConfiguration _configuration;
         private readonly IClientAppRepo _clientAppRepo;
@@ -35,7 +37,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
-            ISandboxProvisioner sandboxProvisioner)
+            ISandboxProvisioner sandboxProvisioner,
+            IConfigConnectionStringsProvider configConnectionStringsProvider)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
@@ -43,6 +46,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             _templateDatabaseLeaQuery = Preconditions.ThrowIfNull(templateDatabaseLeaQuery, nameof(templateDatabaseLeaQuery));
             _clientAppRepo = Preconditions.ThrowIfNull(clientAppRepo, nameof(clientAppRepo));
             _defaultApplicationCreator = Preconditions.ThrowIfNull(defaultApplicationCreator, nameof(defaultApplicationCreator));
+            _configConnectionStringsProvider = configConnectionStringsProvider;
         }
 
         private int GetMaximumSandboxesPerUserOrDefault()
@@ -86,13 +90,27 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var defaultApplication = _defaultApplicationCreator
                 .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
 
-            return _clientAppRepo.SetupDefaultSandboxClient(
+            var apiClient = _clientAppRepo.SetupDefaultSandboxClient(
                 sandboxName,
                 sandboxOptions.Type,
                 sandboxOptions.Key,
                 sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
+
+            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
+            {
+                Name = sandboxName,
+                InstanceType = "Sandbox",
+                Status = "OK",
+                IsExtended = false,
+                Version = "1.0.0",
+                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods"), apiClient.Key)
+            });
+
+            _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
+
+            return apiClient;
         }
 
         private void ProvisionSandbox(ApiClient client)
