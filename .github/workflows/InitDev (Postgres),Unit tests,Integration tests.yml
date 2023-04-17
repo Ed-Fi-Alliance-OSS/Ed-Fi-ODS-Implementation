@@ -26,10 +26,43 @@ env:
   LANG: "en_US.utf8"
 
 jobs:
+  FindStandardVersions:
+    runs-on: ubuntu-latest    
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+    steps:
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/    
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
+    - name: Set StandardVersions
+      id: Set_StandardVersions
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
+        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "StandardVersions is  $output"
+      shell: pwsh
+
   build:
-
+    if: ${{ always() }}
+    needs: FindStandardVersions
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
+    name: build (Standard Version ${{ matrix.StandardVersion }}) 
     services:
       postgres:
         image: postgres:13
@@ -93,7 +126,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging  -NoRestore
+        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
       shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
