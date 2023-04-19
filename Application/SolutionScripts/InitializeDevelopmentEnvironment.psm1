@@ -84,42 +84,59 @@ function Initialize-DevelopmentEnvironment {
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
+        [Parameter(Mandatory=$false)]
         [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
+        [Parameter(Mandatory=$false)]
         [string[]] $OdsTokens,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
+        [Parameter(Mandatory=$false)]
         [String] $Engine = 'SQLServer',
 
         [Alias('NoCompile')]
+        [Parameter(Mandatory=$false)]
         [switch] $NoRebuild,
 
+        [Parameter(Mandatory=$false)]
         [switch] $NoRestore,
 
         [Alias('NoCodeGen')]
+        [Parameter(Mandatory=$false)]
         [switch] $ExcludeCodeGen,
 
+        [Parameter(Mandatory=$false)]
         [switch] $NoDeploy,
 
+        [Parameter(Mandatory=$false)]
         [switch] $RunPester,
 
+        [Parameter(Mandatory=$false)]
         [switch] $RunDotnetTest,
 
+        [Parameter(Mandatory=$false)]
         [switch] $RunPostman,
 
+        [Parameter(Mandatory=$false)]
         [switch] $RunSmokeTest,
 
+        [Parameter(Mandatory=$false)]
         [switch] $RunSdkGen,
 
+        [Parameter(Mandatory=$false)]
         [switch] $GenerateApiSdkPackage,
 
+        [Parameter(Mandatory=$false)]
         [switch] $GenerateTestSdkPackage,
 
+        [Parameter(Mandatory=$false)]
         [switch] $UsePlugins,
 
+        [Parameter(Mandatory=$false)]
         [String] $RepositoryRoot,
 
+        [Parameter(Mandatory=$false)]
         [string] $PackageVersion
     )
 
