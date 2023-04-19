@@ -75,56 +75,48 @@ $params = @{
     RunSdkGen              = $RunSdkGen
     GenerateApiSdkPackage  = $GenerateApiSdkPackage
     GenerateTestSdkPackage = $GenerateTestSdkPackage
-    NoPackaging            = $NoPackaging
-    SandboxAdminId         = $SandboxAdminId
     PackageVersion         = $PackageVersion
-    PackageOutput          = $PackageOutput
-    SwaggerUIId            = $SwaggerUIId
-    WebApiId               = $WebApiId
-    DatabasesId            = $DatabasesId
     RepositoryRoot         = $RepositoryRoot
 }
 
 Write-FlatHashtable $params
 $result = Initialize-DevelopmentEnvironment @params
 
-$noPackaging   = $params.NoPackaging
-
-if (-not $noPackaging) {
+if (-not $NoPackaging) {
     # Package
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SandboxAdmin)
-        PackageId       = $params.SandboxAdminId
+        PackageId       = $SandboxAdminId
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = $params.PackageOutput
+        OutputDirectory = $PackageOutput
     }
     $result += New-WebPackage @parameters
 
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SwaggerUI)
-        PackageId       = $params.SwaggerUIId
+        PackageId       = $SwaggerUIId
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = $params.PackageOutput
+        OutputDirectory = $PackageOutput
     }
     $result += New-WebPackage @parameters
 
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).WebApi)
-        PackageId       = $params.WebApiId
+        PackageId       = $WebApiId
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = $params.PackageOutput
+        OutputDirectory = $PackageOutput
     }
     $result += New-WebPackage @parameters
 
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases)
-        PackageId       = $params.DatabasesId
+        PackageId       = $DatabasesId
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
-        OutputDirectory = $params.PackageOutput
+        OutputDirectory = $PackageOutput
     }
     $result += New-DatabasesPackage @parameters
 
