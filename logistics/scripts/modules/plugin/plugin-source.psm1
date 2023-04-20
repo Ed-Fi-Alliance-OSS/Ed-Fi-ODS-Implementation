@@ -89,15 +89,27 @@ function Get-Plugins([hashtable] $Settings) {
     $result = @()
 
     $prefix = "EdFi.Suite3.Ods."
-
+    $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     foreach ($script in $scripts) {
         $scriptPath = Get-PluginScript $folder $script
-        $extensionPath = Invoke-PluginScript $scriptPath
+
+        if("profiles.sample" -ne $script){
+            $originalConfig = Get-Content $filePath | ConvertFrom-Json
+            Update-PackageName $script  $filePath
+            $extensionPath = Invoke-PluginScript $scriptPath
+            $originalConfig | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+        }
+        else {
+            $extensionPath = Invoke-PluginScript $scriptPath
+        }
+
         Write-Host "Extension path" $extensionPath
         $extensionFolder = Split-Path $extensionPath -leaf
         Write-Host "Foldername" $extensionFolder
 
         $newExtensionFolderName = $extensionFolder -replace "^$prefix"
+        $postfix = "(.*$script).*"
+        $newExtensionFolderName = $newExtensionFolderName -replace "$postfix", '$1'
         $newExtensionPath = Join-Path $folder $newExtensionFolderName
         Write-Host "New Extension path" $newExtensionPath
 
@@ -112,6 +124,18 @@ function Get-Plugins([hashtable] $Settings) {
     Assert-NoDuplicatePlugins $Settings
 
     return $result
+}
+
+function Update-PackageName([string] $scriptName, [string] $filePath) {
+
+    $config = Get-Content $filePath | ConvertFrom-Json
+    $packageName = $config.packages.($scriptName).PackageName
+   
+    $StandardVersion = $Settings.ApiSettings.StandardVersion
+    $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
+
+    $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $ExtensionVersion)
+    $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 }
 
 function Remove-Plugins([hashtable] $Settings) {

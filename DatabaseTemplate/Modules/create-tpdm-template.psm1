@@ -11,18 +11,20 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 
 function Get-TPDMConfiguration([hashtable] $config = @{ }) {
 
-    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
     $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
+    $config.appSettings.ApiSettings.StandardVersion = $config.standardVersion
+    $config.appSettings.ApiSettings.ExtensionVersion = $config.extensionVersion
 
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
     $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.TPDM.json"
 
     $config.bulkLoadMaxRequests = 1
     $config.schemaDirectories = @(
-        (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Artifacts/Schemas/")
-        ("$(Get-PluginFolderFromSettings $config.appSettings)/EdFi.Suite3.Ods.Extensions.TPDM*/Artifacts/Schemas/")
+        (Get-RepositoryResolvedPath "Application/EdFi.Ods.Standard/Standard/$($config.standardVersion)/Artifacts/Schemas/")
+        ("$(Get-PluginFolderFromSettings $config.appSettings)/Extensions.TPDM*/Artifacts/Schemas/")
     )
 
     $config.databaseBackupName = "EdFi.Ods.Populated.Template.TPDM.Core"
@@ -84,7 +86,9 @@ function Initialize-TPDMTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
-        [string] $createByRestoringBackup
+        [string] $createByRestoringBackup,
+        [String] $standardVersion = '4.0.0',
+        [String] $extensionVersion = '1.1.0'
     )
 
     Clear-Error
@@ -95,6 +99,8 @@ function Initialize-TPDMTemplate {
         noValidation            = if ($PSBoundParameters.ContainsKey('noValidation')) { $noValidation } else { $true }
         engine                  = $engine
         createByRestoringBackup = $createByRestoringBackup
+        standardVersion = $standardVersion
+        extensionVersion = $extensionVersion
     }
 
     $config = (Get-TPDMConfiguration $paramConfig)

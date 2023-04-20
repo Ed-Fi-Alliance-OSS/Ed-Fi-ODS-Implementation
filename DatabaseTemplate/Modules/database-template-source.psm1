@@ -127,8 +127,13 @@ function Initialize-TemplateSourceFromScriptName {
         [string] $engine = 'SQLServer'
     )
 
+    $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     $scriptPath = Get-TemplateScriptPath $scriptName
+
+    $originalConfig = Get-Content $filePath | ConvertFrom-Json
+    Update-PackageName $scriptName  $filePath
     $returnedPath = Invoke-TemplateScript $scriptPath
+    $originalConfig | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 
     # $returnedPath can be a valid backup file or a folder with a valid backup inside
     if ((Get-Item $returnedPath) -is  [System.IO.DirectoryInfo]) {
@@ -137,6 +142,18 @@ function Initialize-TemplateSourceFromScriptName {
     else {
         return $returnedPath
     }
+}
+
+function Update-PackageName([string] $scriptName, [string] $filePath) {
+
+    $config = Get-Content $filePath | ConvertFrom-Json
+    $packageName = $config.packages.($scriptName).PackageName
+
+    $StandardVersion = $Settings.ApiSettings.StandardVersion
+    $ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
+
+    $config.packages.($scriptName).PackageName = $packageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}", $ExtensionVersion)
+    $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 }
 
 function Get-MinimalTemplateBackupPathFromSettings {

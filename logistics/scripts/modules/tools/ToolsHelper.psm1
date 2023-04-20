@@ -265,7 +265,13 @@ function Invoke-DbDeploy {
 
         [string] $ToolsPath = (Get-ToolsPath),
 
-        [Int] $DatabaseTimeoutInSeconds = 600
+        [Int] $DatabaseTimeoutInSeconds = 600,
+
+        [String]
+        $StandardVersion = '4.0.0',
+
+        [String]
+        $ExtensionVersion = '1.1.0'
     )
 
     $databaseIdLookup = @{
@@ -286,7 +292,9 @@ function Invoke-DbDeploy {
         "--database", $databaseType,
         "--connectionString", $ConnectionString,
         "--timeOut", $DatabaseTimeoutInSeconds,
-        "--filePaths", ($FilePaths -join ',')
+        "--filePaths", ($FilePaths -join ','),
+        "--standardVersion", $StandardVersion,
+        "--extensionVersion", $ExtensionVersion
     )
 
     if ($Features.count -gt 0) { $params += @('--features', ($Features -join ',')) }

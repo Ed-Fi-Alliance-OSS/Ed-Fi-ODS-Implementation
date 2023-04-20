@@ -50,7 +50,11 @@ param(
     
     [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
     
-    [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases'
+    [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
+    
+    [String] $StandardVersion = '4.0.0',
+    
+    [String] $ExtensionVersion = '1.1.0'
 )
 
 $ErrorActionPreference = 'Stop'
@@ -77,12 +81,21 @@ $params = @{
     GenerateTestSdkPackage = $GenerateTestSdkPackage
     PackageVersion         = $PackageVersion
     RepositoryRoot         = $RepositoryRoot
+    StandardVersion        = $StandardVersion
+    ExtensionVersion       = $ExtensionVersion
 }
 
 Write-FlatHashtable $params
 $result = Initialize-DevelopmentEnvironment @params
 
 if (-not $NoPackaging) {
+
+   if($null -ne $StandardVersion)
+   {
+        $params.WebApiId += "." + $StandardVersion
+        $params.DatabasesId +="." + $StandardVersion
+   }
+
     # Package
     $parameters = @{
         ProjectPath     = (Get-RepositoryResolvedPath (Get-ProjectTypes).SandboxAdmin)
