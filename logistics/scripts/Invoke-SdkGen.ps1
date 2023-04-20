@@ -102,7 +102,7 @@ function Invoke-SdkGen {
             $suffix = Get-ValueOrDefault $teamCityParameters['odsapi.package.suffix'] ".Suite3"
             Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk.$standardVersion"
             (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
-                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk</id>").replace("<title>EdFi$suffix.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk</title>")
+                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.$standardVersion</id>").replace("<title>EdFi$suffix.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
             $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
