@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>EdFi.Ods.Features.OwnershipBasedAuthorization</RootNamespace>
@@ -13,8 +13,19 @@
     <DebugType>full</DebugType>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <Choose>
+    <When Condition="'$(UseProjectsOverPackages)' == 'true'">
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>  
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="7.0.38" />
     <PackageReference Include="Iesi.Collections" Version="4.0.5" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
