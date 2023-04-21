@@ -390,8 +390,8 @@ function Invoke-CodeGen {
         [switch] $IncludePlugins,
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
-        [String] $StandardVersion,
-        [String] $ExtensionVersion
+        [String] $StandardVersion = '4.0.0',
+        [String] $ExtensionVersion = '1.1.0'
     )
 
     Install-CodeGenUtility
