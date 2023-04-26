@@ -41,6 +41,16 @@ jobs:
         commit: ${{ env.INITDEV_COMMIT }}
         check_artifacts: true
         if_no_artifact_found: fail
+    - name: EdFi.Ods.Api.TestSdk NugetPackage
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: InitDev,Unit tests,Integration tests,Smoke Tests using Sandbox, Year-Specific and Shared Instance.yml
+        workflow_conclusion: success
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
+        commit: ${{ env.INITDEV_COMMIT }}
+        check_artifacts: true
+        if_no_artifact_found: fail
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
