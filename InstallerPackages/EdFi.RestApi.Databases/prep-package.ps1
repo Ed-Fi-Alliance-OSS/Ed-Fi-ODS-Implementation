@@ -23,6 +23,7 @@ while binaries are invoked directly.
 #>
 param(
     [parameter(mandatory = $true)] $packageName,
+    $standardVersion = '4.0.0',
     $enabledSources,
     $outputDirectory
 )
@@ -77,7 +78,7 @@ $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems -recurse "Artifacts"
 
     # Core Ods Scripts
-    Select-CumulativeRepositoryResolvedItems -recurse "Application/EdFi.Ods.Standard/Artifacts"
+    Select-CumulativeRepositoryResolvedItems -recurse "Application/EdFi.Ods.Standard/Standard/$standardVersion/Artifacts"
 
     # Extension scripts
     Select-SupportingArtifactResolvedFiles -recurse -artifactType "Database" -artifactSources $enabledSources
