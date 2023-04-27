@@ -31,6 +31,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
+        private readonly IDatabaseNameBuilder _databaseNameBuilder;
 
         public ClientCreator(
             IConfiguration configValueProvider,
@@ -38,7 +39,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             IDefaultApplicationCreator defaultApplicationCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             ISandboxProvisioner sandboxProvisioner,
-            IConfigConnectionStringsProvider configConnectionStringsProvider)
+            IConfigConnectionStringsProvider configConnectionStringsProvider,
+            IDatabaseNameBuilder databaseNameBuilder)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
@@ -47,6 +49,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             _clientAppRepo = Preconditions.ThrowIfNull(clientAppRepo, nameof(clientAppRepo));
             _defaultApplicationCreator = Preconditions.ThrowIfNull(defaultApplicationCreator, nameof(defaultApplicationCreator));
             _configConnectionStringsProvider = configConnectionStringsProvider;
+            _databaseNameBuilder = databaseNameBuilder;
         }
 
         private int GetMaximumSandboxesPerUserOrDefault()
@@ -105,7 +108,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
-                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods"), apiClient.Key)
+                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods"), _databaseNameBuilder.TemplateSandboxNameForKey(apiClient.Key))
             });
 
             _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
