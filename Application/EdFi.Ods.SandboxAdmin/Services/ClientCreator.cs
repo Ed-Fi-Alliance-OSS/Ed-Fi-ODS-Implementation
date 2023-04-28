@@ -11,12 +11,10 @@ using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common;
 using EdFi.Common.Configuration;
 using EdFi.Common.Database;
-using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.SandboxAdmin.Services;
 using log4net;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Admin.Services
@@ -112,9 +110,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             connectionStringBuilder.ConnectionString = _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
             connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi"; 
             connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
-
-            var connectionString = connectionStringBuilder.ConnectionString;
-
+            
             var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
             {
                 Name = sandboxName,
@@ -122,7 +118,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
-                ConnectionString = connectionString
+                ConnectionString = connectionStringBuilder.ConnectionString
             });
 
             _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
