@@ -108,7 +108,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
-                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods"), _databaseNameBuilder.TemplateSandboxNameForKey(apiClient.Key))
+                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods_Template"), _databaseNameBuilder.TemplateSandboxNameForKey(apiClient.Key))
             });
 
             _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
