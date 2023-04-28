@@ -106,14 +106,15 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
-            
+
             var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
-            
-            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi";
+
+            connectionStringBuilder.ConnectionString = _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
+            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi"; 
             connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
 
             var connectionString = connectionStringBuilder.ConnectionString;
-            
+
             var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
             {
                 Name = sandboxName,
