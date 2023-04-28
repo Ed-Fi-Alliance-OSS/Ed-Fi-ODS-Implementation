@@ -10,10 +10,13 @@ using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common;
 using EdFi.Common.Configuration;
+using EdFi.Common.Database;
+using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.SandboxAdmin.Services;
 using log4net;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Sandbox.Admin.Services
@@ -32,6 +35,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
         private readonly IDatabaseNameBuilder _databaseNameBuilder;
+        private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
 
         public ClientCreator(
             IConfiguration configValueProvider,
@@ -40,7 +44,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             ISandboxProvisioner sandboxProvisioner,
             IConfigConnectionStringsProvider configConnectionStringsProvider,
-            IDatabaseNameBuilder databaseNameBuilder)
+            IDatabaseNameBuilder databaseNameBuilder,
+            IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
@@ -50,6 +55,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             _defaultApplicationCreator = Preconditions.ThrowIfNull(defaultApplicationCreator, nameof(defaultApplicationCreator));
             _configConnectionStringsProvider = configConnectionStringsProvider;
             _databaseNameBuilder = databaseNameBuilder;
+            _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
         }
 
         private int GetMaximumSandboxesPerUserOrDefault()
@@ -100,7 +106,14 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
+            
+            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
+            
+            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi";
+            connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
 
+            var connectionString = connectionStringBuilder.ConnectionString;
+            
             var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
             {
                 Name = sandboxName,
@@ -108,7 +121,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
-                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods_Template"), _databaseNameBuilder.TemplateSandboxNameForKey(apiClient.Key))
+                ConnectionString = connectionString
             });
 
             _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
