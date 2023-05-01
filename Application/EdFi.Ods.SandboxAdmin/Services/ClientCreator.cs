@@ -10,6 +10,7 @@ using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common;
 using EdFi.Common.Configuration;
+using EdFi.Common.Database;
 using EdFi.Ods.Sandbox.Admin.Initialization;
 using EdFi.Ods.Sandbox.Provisioners;
 using EdFi.Ods.SandboxAdmin.Services;
@@ -31,6 +32,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly ITemplateDatabaseLeaQuery _templateDatabaseLeaQuery;
+        private readonly IDatabaseNameBuilder _databaseNameBuilder;
+        private readonly IDbConnectionStringBuilderAdapterFactory _dbConnectionStringBuilderAdapterFactory;
 
         public ClientCreator(
             IConfiguration configValueProvider,
@@ -38,7 +41,9 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             IDefaultApplicationCreator defaultApplicationCreator,
             ITemplateDatabaseLeaQuery templateDatabaseLeaQuery,
             ISandboxProvisioner sandboxProvisioner,
-            IConfigConnectionStringsProvider configConnectionStringsProvider)
+            IConfigConnectionStringsProvider configConnectionStringsProvider,
+            IDatabaseNameBuilder databaseNameBuilder,
+            IDbConnectionStringBuilderAdapterFactory dbConnectionStringBuilderAdapterFactory)
         {
             _sandboxProvisioner = sandboxProvisioner;
             _configuration = Preconditions.ThrowIfNull(configValueProvider, nameof(configValueProvider));
@@ -47,6 +52,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             _clientAppRepo = Preconditions.ThrowIfNull(clientAppRepo, nameof(clientAppRepo));
             _defaultApplicationCreator = Preconditions.ThrowIfNull(defaultApplicationCreator, nameof(defaultApplicationCreator));
             _configConnectionStringsProvider = configConnectionStringsProvider;
+            _databaseNameBuilder = databaseNameBuilder;
+            _dbConnectionStringBuilderAdapterFactory = dbConnectionStringBuilderAdapterFactory;
         }
 
         private int GetMaximumSandboxesPerUserOrDefault()
@@ -98,6 +105,12 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 user.UserId,
                 defaultApplication.ApplicationId);
 
+            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
+
+            connectionStringBuilder.ConnectionString = _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
+            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi"; 
+            connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
+            
             var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
             {
                 Name = sandboxName,
@@ -105,7 +118,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 Status = "OK",
                 IsExtended = false,
                 Version = "1.0.0",
-                ConnectionString = string.Format(_configConnectionStringsProvider.GetConnectionString("EdFi_Ods"), apiClient.Key)
+                ConnectionString = connectionStringBuilder.ConnectionString
             });
 
             _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
