@@ -39,6 +39,10 @@ function Initialize-DeploymentEnvironment {
         Turn off duration display
     .parameter UsePlugins
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation
+    .parameter StandardVersion
+        Standard Version.
+    .parameter ExtensionVersion
+        Extension Version.
     #>
     param(
         [string] $PathResolverRepositoryOverride,
@@ -64,7 +68,11 @@ function Initialize-DeploymentEnvironment {
 
         [switch] $NoDuration,
 
-        [switch] $UsePlugins
+        [switch] $UsePlugins,
+
+        [String] $StandardVersion = '4.0.0',
+
+        [String] $ExtensionVersion = '1.1.0'
     )
 
     # if path-resolver is not present assume that the script is being ran in a deployment scenario
