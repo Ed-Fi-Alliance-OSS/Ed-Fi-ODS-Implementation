@@ -16,6 +16,10 @@ using Formatting = Newtonsoft.Json.Formatting;
 using System.Collections.Generic;
 using static EdFi.Ods.Common.Namespaces;
 using System.Reflection;
+using EdFi.Common.Configuration;
+using EdFi.Common.Database;
+using EdFi.Ods.Common.Database;
+using Npgsql;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -46,6 +50,28 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             _clientAppRepo.Reset();
 
+            // Add ODS instance
+            string odsConnectionString = _configuration.GetConnectionString("EdFi_Ods");
+
+            var dbConnectionStringBuilderAdapterFactory =
+                new DbConnectionStringBuilderAdapterFactory(_apiSettings.GetDatabaseEngine());
+
+            var connectionStringBuilderAdapter = dbConnectionStringBuilderAdapterFactory.Get();
+            connectionStringBuilderAdapter.ConnectionString = odsConnectionString;
+            string odsDatabaseName = connectionStringBuilderAdapter.DatabaseName;
+
+            var odsInstance = _clientAppRepo.CreateOdsInstance(
+                new OdsInstance()
+                {
+                    Name = odsDatabaseName,
+                    InstanceType = "ODS",
+                    Status = "OK",
+                    IsExtended = false,
+                    Version = "1.0.0",
+                    ConnectionString = odsConnectionString,
+                });
+            
+            // Add Profiles
             var _allDocs = new XmlDocument();
             string profilesPath = Path.Combine(Directory.GetParent(AppContext.BaseDirectory).FullName, "Profiles.xml");
             _allDocs.Load(profilesPath);
@@ -111,6 +137,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         _clientAppRepo.AddEdOrgIdsToApiClient(
                             user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
                             application.ApplicationId);
+
+                        _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
 
                         postmanEnvironment.Values.Add(
                             new ValueItem

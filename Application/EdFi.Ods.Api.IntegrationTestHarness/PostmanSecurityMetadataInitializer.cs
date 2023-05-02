@@ -6,13 +6,13 @@ using EdFi.Common;
 using EdFi.Common.Utils.Extensions;
 using EdFi.Security.DataAccess.Contexts;
 using EdFi.Security.DataAccess.Models;
-using EdFi.Security.DataAccess.Repositories;
+using EdFi.Security.DataAccess.Utils;
+using Action = EdFi.Security.DataAccess.Models.Action;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
-    public class PostmanSecurityMetadataInitializer : SecurityRepositoryBase,IPostmanSecurityMetadataInitializer
+    public class PostmanSecurityMetadataInitializer : IPostmanSecurityMetadataInitializer
     {
-
         private readonly ISecurityContextFactory _securityContextFactory;
         private const string ClaimsBaseUri = "http://ed-fi.org/ods/identity/claims";
 
@@ -30,6 +30,53 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 GetClaimSetResourceClaimActions,
                 GetResourceClaimActionAuthorizations);
         }
+        
+        protected ResettableLazy<EdFi.Security.DataAccess.Models.Application> Application { get; private set; }
+
+        protected ResettableLazy<List<Action>> Actions { get; private set; }
+
+        protected ResettableLazy<List<ClaimSet>> ClaimSets { get; private set; }
+
+        protected ResettableLazy<List<ResourceClaim>> ResourceClaims { get; private set; }
+
+        protected ResettableLazy<List<AuthorizationStrategy>> AuthorizationStrategies { get; private set; }
+
+        protected ResettableLazy<List<ClaimSetResourceClaimAction>> ClaimSetResourceClaimActions { get; private set; }
+
+        protected ResettableLazy<List<ResourceClaimAction>> ResourceClaimActions { get; private set; }
+        
+        protected void Initialize(
+            Func<EdFi.Security.DataAccess.Models.Application> application,
+            Func<List<Action>> actions,
+            Func<List<ClaimSet>> claimSets,
+            Func<List<ResourceClaim>> resourceClaims,
+            Func<List<AuthorizationStrategy>> authorizationStrategies,
+            Func<List<ClaimSetResourceClaimAction>> claimSetResourceClaimActions,
+            Func<List<ResourceClaimAction>> resourceClaimActions)
+        {
+            Application = new ResettableLazy<EdFi.Security.DataAccess.Models.Application>(application);
+            Actions = new ResettableLazy<List<Action>>(actions);
+            ClaimSets = new ResettableLazy<List<ClaimSet>>(claimSets);
+            ResourceClaims = new ResettableLazy<List<ResourceClaim>>(resourceClaims);
+            AuthorizationStrategies = new ResettableLazy<List<AuthorizationStrategy>>(authorizationStrategies);
+            ClaimSetResourceClaimActions = new ResettableLazy<List<ClaimSetResourceClaimAction>>(claimSetResourceClaimActions);
+            ResourceClaimActions = new ResettableLazy<List<ResourceClaimAction>>(resourceClaimActions);
+        }
+        
+        /// <summary>
+        /// Clears the cache, the database will be hit lazily.
+        /// </summary>
+        protected void Reset()
+        {
+            Application.Reset();
+            Actions.Reset();
+            ClaimSets.Reset();
+            ResourceClaims.Reset();
+            AuthorizationStrategies.Reset();
+            ClaimSetResourceClaimActions.Reset();
+            ResourceClaimActions.Reset();
+        }
+        
         public void LoadMultipleAuthorizationStrategyData()
         {
             int createActionId, readActionId, updateActionId, deleteActionId;
