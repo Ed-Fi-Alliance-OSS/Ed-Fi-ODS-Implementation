@@ -31,7 +31,6 @@ function Get-SQLServerDatabaseRemoveStrategy {
 
     if (-not $Settings.ApiSettings.DropDatabases) { return }
 
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
     Remove-Database -csb $csb -safe | Out-Null
 }
 
@@ -52,8 +51,6 @@ function Get-SQLServerDatabaseCreateStrategy {
     )
 
     Write-Host "Executing SQLServerCreateStrategy..."
-
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
 
     if (-not (Test-DatabaseExists -csb $csb) -and $CreateByRestoringBackup) {
         # Copy the backup to a location that the SQL Server has permission to see
@@ -83,7 +80,6 @@ function Get-AzureSQLServerDatabaseCreateStrategy {
 
     Write-Host "Executing AzureSQLServerDatabaseCreateStrategy..."
 
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
     $databaseExists = Test-DatabaseExists -csb $csb
 
     if ($databaseExists) { return }
@@ -178,8 +174,6 @@ function Get-SQLServerDatabaseBackupStrategy {
     )
 
     Write-Host "Executing SQLServerBackupStrategy..."
-
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
 
     $databaseNeedsBackup = (
         (-not $Settings.ApiSettings.DropDatabases) -and
@@ -578,8 +572,6 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         return;
     }
 
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-
     $databaseNeedsBackup = (
         (-not $dropDatabase) -and
         (Test-DatabaseExists -csb $csb) -and
@@ -667,13 +659,10 @@ function Remove-SqlServerSandboxDatabase {
         [System.Data.Common.DbConnectionStringBuilder] $edfiOdsTemplateCSB
     )
 
-    $masterCSB = Convert-CommonDbCSBtoSqlCSB $masterCSB
-    $edfiOdsTemplateCSB = Convert-CommonDbCSBtoSqlCSB $edfiOdsTemplateCSB
-
     # If we don't throw here, the .StartsWith() command below will match all databases, including system databases
-    $templateInitialCatalog = $edfiOdsTemplateCSB['Initial Catalog']
-    if (-not $templateInitialCatalog) {
-        throw "The template CSB does not define an initial catalog"
+    $templateDatabase = $edfiOdsTemplateCSB['Database']
+    if (-not $templateDatabase) {
+        throw "The template CSB does not define a database"
     }
 
     $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"

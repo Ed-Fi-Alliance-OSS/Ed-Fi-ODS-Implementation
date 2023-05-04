@@ -241,8 +241,8 @@ Function Backup-Database {
             Database = $databaseName
         }
     }
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-    $databaseName = $csb.InitialCatalog
+    
+    $databaseName = $csb.Database
 
     $server = Get-Server -csb $csb
     $local = @("localhost", "127.0.0.1", [Environment]::MachineName)
@@ -331,27 +331,8 @@ Function Get-SqlConnectionString {
         }
     }
     else {
-        (Convert-CommonDbCSBtoSqlCSB $dbCSB).ConnectionString
+        (New-DbConnectionStringBuilder -existingCSB $dbCSB).ConnectionString
     }
-}
-
-<#
-.description
-Convert a generic DbConnectionStringBuilder object to a SqlConnectionStringBuilder object.
-#>
-function Convert-CommonDbCSBtoSqlCSB {
-    [cmdletbinding()] param(
-        [Parameter(Position = 0, ValueFromPipeline = $true, Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $dbCSB
-    )
-    $localCSB = New-DbConnectionStringBuilder -existingCSB $dbCSB
-
-    #Remove problematic kvp's
-    $localCSB.Remove("Provider") | Out-Null
-    $localCSB.Remove("AutoTranslate") | Out-Null
-
-    $sqlCSB = New-Object System.Data.SqlClient.SqlConnectionStringBuilder $localCSB.ConnectionString
-    return $sqlCSB
 }
 
 Function Get-Server {
@@ -372,7 +353,6 @@ Function Get-Server {
     Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -eq "csb") {
-        $csb = Convert-CommonDbCSBtoSqlCSB $csb
         $sql_server = $csb.DataSource
         $username = $csb.UserID
         if ([string]::IsNullOrWhitespace($csb.Password)) {
@@ -618,9 +598,8 @@ Function Clear-DatabaseUsers {
     # 1) It attempts to brute-force kill all user processes using T-SQL
     # 2) If -safe is passed, it subsequently sets the database to offline then online again
 
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-    $databaseName = $csb['Initial Catalog']
-    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
+    $databaseName = $csb['Database']
+    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
     Write-Host "masterCSB is $masterCSB"  -ForegroundColor Blue
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
@@ -655,7 +634,7 @@ Function Clear-DatabaseUsers {
             Import-Module $thisModulePath
             $masterCSB = New-DbConnectionStringBuilder -username $username -password $plainPass -property @{
                 'Data Source' = $sql_server
-                'Initial Catalog' = 'master'
+                'Database' = 'master'
             }
             $smo = Get-Server -csb $masterCSB
             $db = $smo.Databases.Item("$database_name")
@@ -664,7 +643,7 @@ Function Clear-DatabaseUsers {
         }
         $scriptParameters = @{
             sql_server = $csb['Data Source']
-            database_name = $csb['Initial Catalog']
+            database_name = $csb['Database']
             thisModulePath = Resolve-Path $folders.modules.invoke('database/database-management.psm1')
         }
         if ($username -ne $null) { $scriptParameters.Add("username", $csb['Uid']) }
@@ -719,13 +698,12 @@ Function Remove-Database {
 
     if ($PsCmdlet.ParameterSetName -match "legacy") {
         $csb = New-DbConnectionStringBuilder -username $username -password $password -property @{
-            'Data Source' = $sqlServer
-            'Initial Catalog' = $database
+            Server = $sqlServer
+            Database = $database
         }
     }
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-    $databaseName = $csb['Initial Catalog']
-    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
+    $databaseName = $csb['Database']
+    $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     Write-Host "Starting removal of database $databaseName..."
@@ -922,8 +900,7 @@ Function Restore-Database {
             Database = $databaseName
         }
     }
-    $csb = Convert-CommonDbCSBtoSqlCSB $csb
-
+    
     $server = Get-Server -csb $csb
     $smoRestore = New-Object("Microsoft.SqlServer.Management.Smo.Restore")
 
@@ -944,14 +921,14 @@ Function Restore-Database {
         $dbFilePath = $row[1]
         $dbFile = New-Object("Microsoft.SqlServer.Management.Smo.RelocateFile")
         $dbFile.LogicalFileName = $row[0]
-        $dbFile.PhysicalFileName = [IO.Path]::Combine($dataPath, $csb.InitialCatalog + [IO.Path]::GetExtension($dbFilePath))
+        $dbFile.PhysicalFileName = [IO.Path]::Combine($dataPath, $csb.Database + [IO.Path]::GetExtension($dbFilePath))
         Write-Host "dbFile.LogicalFileName = $($dbFile.LogicalFileName)"
         Write-Host "dbFile.PhysicalFileName = $($dbFile.PhysicalFileName )"
         $smoRestore.RelocateFiles.Add($dbFile) | Out-Null
     }
 
     # Set options
-    $smoRestore.Database = $csb.InitialCatalog
+    $smoRestore.Database = $csb.Database
     $smoRestore.NoRecovery = $noRecovery
     $smoRestore.ReplaceDatabase = if ($restoreActionType -eq [Microsoft.SqlServer.Management.Smo.RestoreActionType]::Database) { $true } else { $false }
     $smoRestore.Action = $restoreActionType
@@ -968,7 +945,7 @@ Function Restore-Database {
     #"Database Name from Backup Header : " + $smoRestoreDetails.Rows[0][$csb.InitialCatalog]
 
     # Forcibly close all connections on the target database
-    $server.KillAllProcesses($csb.InitialCatalog)
+    $server.KillAllProcesses($csb.Database)
 
     #create server users for db users to be re-associated
     if ($usersToReassociate -ne $null) {
@@ -982,7 +959,7 @@ Function Restore-Database {
     # Trap { Write-Host -Fore Red -back White $_.Exception.ToString(); Break; };
     $smoRestore.SqlRestore($server)
 
-    $db = $server.Databases[$csb.InitialCatalog]
+    $db = $server.Databases[$csb.Database]
 
     # Reassociate user accounts with logins on server
     # (Useful in scenarios where database is being restored on a different server)
@@ -999,7 +976,7 @@ Function Restore-Database {
     $user = if ($csb.UserID) { $csb.UserID } else { [System.Security.Principal.WindowsIdentity]::GetCurrent().Name }
     Write-Host "Setting db_owner: $user"
     if ($user -ne $null) {
-        $databaseName = $csb["Initial Catalog"]
+        $databaseName = $csb["Database"]
         $query = "USE [$databaseName]; DECLARE @owner_sid  AS VARCHAR(100);
         SELECT @owner_sid=suser_sname(owner_sid) FROM SYS.DATABASES WHERE name = `'$databaseName`';"
         $query += "IF @owner_sid <> `'$user`' BEGIN EXEC sp_changedbowner `'$user`' END"
@@ -1018,11 +995,9 @@ Function Test-DatabaseExists {
 
     Use-SqlServerModule
 
-    if ($PsCmdlet.ParameterSetName -match "csb") {
-        # Convert to SQL CSB here to ensure the Initial Catalog property will always return the DB name
-        $csb = Convert-CommonDbCSBtoSqlCSB -dbCSB $csb
+    if ($PsCmdlet.ParameterSetName -match "csb") {        
         $server = Get-Server -csb $csb
-        $databaseName = $csb["Initial Catalog"]
+        $databaseName = $csb["Database"]
     }
     $found = $false
     #Makesure we have the latest database information.
@@ -1043,7 +1018,6 @@ Export-ModuleMember -Function `
     Get-DbConnectionStringBuilderFromConfig,
     Backup-Database,
     Get-SqlConnectionString,
-    Convert-CommonDbCSBtoSqlCSB,
     Get-Server,
     Initialize-SqlLogin,
     Invoke-SqlReader,
