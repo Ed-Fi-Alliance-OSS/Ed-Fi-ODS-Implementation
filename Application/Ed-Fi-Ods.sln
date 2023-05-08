@@ -101,10 +101,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Common", "..\..\Ed-Fi-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Admin.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj", "{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.TPDM", "..\..\Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.TPDM\EdFi.Ods.Extensions.TPDM.csproj", "{B3BDA66A-D520-444F-B7A6-FE71FDA1AB6D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.Sample", "..\..\Ed-Fi-Extensions\Extensions\EdFi.Ods.Extensions.Sample\EdFi.Ods.Extensions.Sample.csproj", "{81F03B43-3164-44B0-AE91-D798C1A0021C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -227,12 +223,6 @@ Global
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3BDA66A-D520-444F-B7A6-FE71FDA1AB6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3BDA66A-D520-444F-B7A6-FE71FDA1AB6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3BDA66A-D520-444F-B7A6-FE71FDA1AB6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81F03B43-3164-44B0-AE91-D798C1A0021C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81F03B43-3164-44B0-AE91-D798C1A0021C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81F03B43-3164-44B0-AE91-D798C1A0021C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -269,8 +259,6 @@ Global
 		{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
-		{B3BDA66A-D520-444F-B7A6-FE71FDA1AB6D} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
-		{81F03B43-3164-44B0-AE91-D798C1A0021C} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}
