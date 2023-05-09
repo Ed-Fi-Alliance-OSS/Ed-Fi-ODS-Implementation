@@ -477,7 +477,7 @@ function Backup-DatabaseTemplate {
 
     if ($config.engine -eq 'SQLServer') {
         $params = @{
-            csb               = Convert-CommonDbCSBtoSqlCSB $csb
+            csb               = $csb
             backupDirectory   = (Resolve-Path $backupDirectory)
             overwriteExisting = $true
         }
