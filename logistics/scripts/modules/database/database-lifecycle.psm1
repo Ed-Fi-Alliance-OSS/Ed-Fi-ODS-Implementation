@@ -665,9 +665,9 @@ function Remove-SqlServerSandboxDatabase {
         throw "The template CSB does not define a database"
     }
 
-    $templateBaseName = $templateInitialCatalog -f "Ods_Sandbox_"
+    $templateBaseName = $templateDatabase -f "Ods_Sandbox_"
 
-    if ($templateInitialCatalog -like '*{0}*') {
+    if ($templateDatabase -like '*{0}*') {
         $smo = Get-Server -csb $masterCSB
         foreach ($db in $smo.Databases) {
             if ($db.Name.StartsWith("$templateBaseName")) {
