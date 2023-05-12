@@ -47,6 +47,7 @@ SELECT
 	 ,S.FirstName
 	 ,S.MiddleName 
 	 ,S.LastSurname AS [LastName]
+	 ,S.LastSurname + ', ' + S.FirstName AS [FullName]
 	 ,S.BirthDate
 	 ,EmploymentStatusDescriptor.CodeValue AS [EmploymentStatusCode]
 	 ,EmploymentStatusDescriptor.ShortDescription AS [EmploymentStatusDescription]
@@ -58,8 +59,8 @@ SELECT
 	 ,SEOAA.EndDate
 	,ID_SSN.IdentificationCode AS [StaffId]
 	,ID_Cert.IdentificationCode AS [CertNum]
-	,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]
-	,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
+	--,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		-- I can't see any reason these would be used in this view.
+	--,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
 	FROM
 	edfi.Staff S WITH (NOLOCK)
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)

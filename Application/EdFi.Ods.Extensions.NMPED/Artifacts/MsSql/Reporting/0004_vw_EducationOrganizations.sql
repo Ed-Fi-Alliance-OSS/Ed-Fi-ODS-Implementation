@@ -10,12 +10,13 @@
 * - EducationOrganizationAddress (twice, one for Mailing Address and once for Physical Address)
 * - When extensions are added for more EducationOrganization information they should be added to this view
 *
-* --I left this here for easy reference when updated--
+* 
 * Alt Id: 001 (Increment value each change)
-* By: 'Updaters Name' | 'Creators Title'
-* Email: 'Updaters Email'
-* Date: 'Date Updated'
-* Alt Desc: 'Description of the change'
+* By: Cody Misplay | Code Monkey III
+* Email: cody.misplay@ped.nm.gov
+* Date: 05/10/2023
+* Alt Desc: Updated to add references to the nmped.EducationOrganizationExtension.
+* DO NOT RUN THIS VIEW IF THE EXTENSION TABLE HASN'T BEEN CREATED
 */
 CREATE OR ALTER VIEW [nmped_rpt].[vw_EducationOrganizations]
 AS
@@ -36,10 +37,15 @@ SELECT * FROM edfi.StateAbbreviationDescriptor WITH (NOLOCK)
 UNION
 SELECT * FROM edfi.LocaleDescriptor WITH (NOLOCK)
 UNION
-SELECT * FROM edfi.AddressTypeDescriptor WITH (NOLOCK))
+SELECT * FROM edfi.AddressTypeDescriptor WITH (NOLOCK)
+UNION -- Alt Id: 001 -- New Descriptors added here via Namespace as there is no control table
+SELECT DescriptorId FROM edfi.Descriptor WITH (NOLOCK) WHERE [Namespace] IN
+	('uri://nmped.org/VirtualLocationStatusDescriptor','uri://nmped.org/LunchProgramTypeDescriptor'))
 )
 
-SELECT EO.[EducationOrganizationId]
+SELECT 
+	  -- Basic EdOrg Data
+	   EO.[EducationOrganizationId]
       ,EO.[NameOfInstitution]
       ,EO.[ShortNameOfInstitution]
       ,EO.[WebSite]
@@ -47,7 +53,28 @@ SELECT EO.[EducationOrganizationId]
       ,EO.[Discriminator]
       ,EO.[CreateDate] AS [EducationOrganization_CreateDate]
       ,EO.[LastModifiedDate] AS [EducationOrganization_LastModifiedDate]
+
+	  -- EdOrgCategory (formerly ORG_TYPE_CODE in STARS)
 	  ,EOCategoryDescriptor.[Description] AS [EducationOrganizationCategoryDescription]
+
+	  -- Alt Id: 001 -- New fields from extension table
+	  -- Extension data from nmped.EducationOrganizationExtension
+	  ,EOE.NCESNumber
+	  ,EOE.AlternativeLocation
+	  ,EOE.BoardingSchoolIndicator
+	  ,EOE.PersistentlyDangerousStatus
+	  ,EOE.OpenDate
+	  ,EOE.CloseDate
+	  ,EOE.LastStatusDate
+	  ,EOE.PhoneNumber
+	  ,EOE.PreviousDistrictId
+	  ,EOE.PreviousSchoolId
+	  ,LunchProgramType.CodeValue AS [LunchProgramTypeCode]
+	  ,LunchProgramType.[Description] AS [LunchProgramTypeDescription]
+	  ,VirtualLocationStatus.CodeValue AS [VirtualLocationStatusCode]
+	  ,VirtualLocationStatus.[Description] AS [VirtualLocationStatusDescription]
+
+	  -- EdOrgAddress Stuff, flattened
 	  ,MailingAddress.StreetNumberName AS [MailingAddress_StreetNumberName]
 	  ,MailingAddress.BuildingSiteNumber AS [MailingAddress_BuildingSiteNumber]
 	  ,MailingAddress.ApartmentRoomSuiteNumber AS [MailingAddress_ApartmentRoomSuiteNumber]
@@ -65,10 +92,21 @@ SELECT EO.[EducationOrganizationId]
 	  ,PhysicalAddress.Latitude AS [PhysicalAddress_Latitude]
 	  ,PhysicalAddress.Longitude AS [PhysicalAddress_Longitude]
 	  ,PhysicalAddressLocaleDescriptor.[Description] AS [PhysicalAddress_LocaleDescription]
+
+	  -- Parsed codes for District and Location, then District Key in case we have to join to STARS
 	  ,SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)),3,3) AS [DistrictCode]
 	  ,SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)),6,3) AS [StateLocationID]
 	  ,'35000' + SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)), 3, 3) AS DISTRICT_KEY
 FROM [edfi].[EducationOrganization] EO WITH (NOLOCK)
+-- Alt Id: 001 -- Added join to extension table
+LEFT JOIN nmped.EducationOrganizationExtension EOE WITH (NOLOCK)
+	ON (EO.EducationOrganizationId = EOE.EducationOrganizationId)
+-- Alt Id: 001 -- Descriptor join for extension table
+LEFT JOIN cte_Descriptors LunchProgramType WITH (NOLOCK) 
+	ON (LunchProgramType.DescriptorId = EOE.LunchProgramTypeDescriptorId)
+-- Alt Id: 001 -- Descriptor join for extension table
+LEFT JOIN cte_Descriptors VirtualLocationStatus WITH (NOLOCK) 
+	ON (LunchProgramType.DescriptorId = EOE.VirtualLocationStatusDescriptorId)
 
 LEFT JOIN cte_Descriptors OperationalStatusDescriptor WITH (NOLOCK) 
 	ON (OperationalStatusDescriptor.DescriptorId = EO.OperationalStatusDescriptorId)

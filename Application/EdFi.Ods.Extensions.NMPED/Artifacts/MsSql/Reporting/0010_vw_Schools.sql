@@ -68,7 +68,7 @@ SELECT S.[SchoolId]
 			LEFT JOIN nmped_rpt.vw_gradeLevels VGL ON (VGL.GradeLevelDescriptorId = SGL.GradeLevelDescriptorId) 
 			WHERE SGL.SchoolId = S.SchoolId ORDER BY VGL.GradeLevelOrder ASC FOR XML PATH('')),1,1,'') 
 	  ,MagnetDescriptor.[Description] AS [MagnetDescription]
-      ,S.[AdministrativeFundingControlDescriptorId]
+      ,AdminFundingDescriptor.[CodeValue] AS [AdminFundingCode]
 	  ,AdminFundingDescriptor.[Description] AS [AdminFundingDescription]
 	  ,InternetAccessDescriptor.[Description] AS [InternetAccessDescription]
 	  ,CharterApprovalDescriptor.[Description] AS [CharterApprovalDescription]
