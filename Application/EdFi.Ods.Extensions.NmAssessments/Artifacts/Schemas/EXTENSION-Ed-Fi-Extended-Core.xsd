@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://ed-fi.org/3.3.1-b" xmlns:ann="http://ed-fi.org/annotation" targetNamespace="http://ed-fi.org/3.3.1-b" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:include schemaLocation="Ed-Fi-Core.xsd" />
+  <xs:annotation>
+    <xs:documentation>===== Ed-Fi 3.3.1-b Extensions =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Domain Entities =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-NmStudentAssessment">
+    <xs:annotation>
+      <xs:documentation>Entity that captures student assessments in a legacy STARs-like format</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Domain Entity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ComplexObjectType">
+        <xs:sequence>
+          <xs:element name="StudentReference" type="StudentReferenceType">
+            <xs:annotation>
+              <xs:documentation>References the student who took the assessment</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+            <xs:annotation>
+              <xs:documentation>The educaiton organization that is reporting the assessment</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TestDate" type="xs:date">
+            <xs:annotation>
+              <xs:documentation>The date the assessment was given</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="TestDescription" type="EXTENSION-TestDescriptionDescriptorReferenceType">
+            <xs:annotation>
+              <xs:documentation>Code that defines the assessment.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-TestDescriptionDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="StandardAchievedCode" type="EXTENSION-StandardAchievedCodeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Indication of whether or not the assessment standard was achieved.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-StandardAchievedCodeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="ItemDescriptionCode" type="EXTENSION-ItemDescriptionCodeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Code that further describes the assessment.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ItemDescriptionCodeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element name="RawScore" type="EXTENSION-RawScore" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Score of administered test. Need not be a RAW Score.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Descriptors =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-ItemDescriptionCodeDescriptor">
+    <xs:annotation>
+      <xs:documentation>Code that further describes the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-StandardAchievedCodeDescriptor">
+    <xs:annotation>
+      <xs:documentation>Indication of whether or not the assessment standard was achieved.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-TestDescriptionDescriptor">
+    <xs:annotation>
+      <xs:documentation>Code that defines the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Associations =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Extended Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:complexType name="EXTENSION-NmStudentAssessmentIdentityType">
+    <xs:annotation>
+      <xs:documentation>Identity of a NmStudentAssessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Identity</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="StudentReference" type="StudentReferenceType">
+        <xs:annotation>
+          <xs:documentation>References the student who took the assessment</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
+        <xs:annotation>
+          <xs:documentation>The educaiton organization that is reporting the assessment</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TestDate" type="xs:date">
+        <xs:annotation>
+          <xs:documentation>The date the assessment was given</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="TestDescription" type="EXTENSION-TestDescriptionDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>Code that defines the assessment.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-TestDescriptionDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-NmStudentAssessmentReferenceType">
+    <xs:annotation>
+      <xs:documentation>Provides alternative references for a NmStudentAssessment. Use XML IDREF to reference a record that is included in the interchange. Use the identity type to look up a record that was loaded previously.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="ReferenceType">
+        <xs:sequence>
+          <xs:element name="NmStudentAssessmentIdentity" type="EXTENSION-NmStudentAssessmentIdentityType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Identity of a NmStudentAssessment.</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:annotation>
+    <xs:documentation>===== Extended Descriptor Reference Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-ItemDescriptionCodeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Code that further describes the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-StandardAchievedCodeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Indication of whether or not the assessment standard was achieved.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-TestDescriptionDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>Code that defines the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:annotation>
+    <xs:documentation>===== Common Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Enumerations and Enumerated Collections =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== String Simple Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:annotation>
+    <xs:documentation>===== Numeric Simple Types =====</xs:documentation>
+  </xs:annotation>
+  <xs:simpleType name="EXTENSION-RawScore">
+    <xs:annotation>
+      <xs:documentation>Score of administered test. Need not be a RAW Score.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Simple</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:minInclusive value="0" />
+      <xs:maxInclusive value="9999" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

@@ -1,0 +1,25 @@
+Domain Entity NmStudentAssessment
+    documentation "Entity that captures student assessments in a legacy STARs-like format"
+     domain entity EdFi.Student
+        documentation "References the student who took the assessment"
+        is part of identity
+    domain entity EdFi.EducationOrganization
+        documentation "The educaiton organization that is reporting the assessment"
+        is part of identity
+    date TestDate
+        documentation "The date the assessment was given"
+        is part of identity
+    descriptor TestDescription
+        documentation "Code that defines the assessment."
+        is part of identity
+    descriptor StandardAchievedCode
+        documentation "Indication of whether or not the assessment standard was achieved."
+        is optional
+    descriptor ItemDescriptionCode
+        documentation "Code that further describes the assessment."
+        is optional
+    integer RawScore
+        documentation "Score of administered test. Need not be a RAW Score."
+        is optional
+        min value 0
+        max value 9999

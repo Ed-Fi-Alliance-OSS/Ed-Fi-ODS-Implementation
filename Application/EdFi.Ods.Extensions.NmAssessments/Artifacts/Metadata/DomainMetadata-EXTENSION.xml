@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<AggregateExtensions logicalSchema="NmAssessments" schema="nmassessments">
+  <Aggregate root="ItemDescriptionCodeDescriptor">
+    <Entity table="ItemDescriptionCodeDescriptor" isA="Descriptor" schema="nmassessments"/>
+  </Aggregate>
+  <Aggregate root="NmStudentAssessment">
+    <Entity table="NmStudentAssessment" schema="nmassessments"/>
+  </Aggregate>
+  <Aggregate root="StandardAchievedCodeDescriptor">
+    <Entity table="StandardAchievedCodeDescriptor" isA="Descriptor" schema="nmassessments"/>
+  </Aggregate>
+  <Aggregate root="TestDescriptionDescriptor">
+    <Entity table="TestDescriptionDescriptor" isA="Descriptor" schema="nmassessments"/>
+  </Aggregate>
+</AggregateExtensions>
