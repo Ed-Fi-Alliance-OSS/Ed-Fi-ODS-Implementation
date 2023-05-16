@@ -8,6 +8,7 @@ Common Pet
     string PetName
         documentation "The pet's name."
         is part of identity
+        min length 3
         max length 20
     bool IsFixed
         documentation "An indication as to whether the pet has been spayed/neutered."
