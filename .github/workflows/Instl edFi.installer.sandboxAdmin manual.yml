@@ -34,7 +34,7 @@ jobs:
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       run: |
         .\build-package.ps1 -InformationalVersion ${{env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NugetFeed ${{env.AZURE_ARTIFACT_URL}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }}
-      shell: pwsh
+      shell: powershell
       working-directory: InstallerPackages/EdFi.Installer.SandboxAdmin
     - name: Upload EdFi.Installer.SandboxAdmin Artifacts
       if: success()
