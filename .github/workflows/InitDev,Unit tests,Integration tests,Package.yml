@@ -78,7 +78,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
@@ -88,7 +88,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Cache Nuget packages   
@@ -106,7 +106,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"      
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
-      shell: pwsh
+      shell: powershell
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
@@ -121,7 +121,7 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
-      shell: pwsh
+      shell: powershell
     - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -131,7 +131,7 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
-      shell: pwsh
+      shell: powershell
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
@@ -181,7 +181,7 @@ jobs:
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
         }
         New-WebPackage @params
-      shell: pwsh
+      shell: powershell
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       if: success()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0

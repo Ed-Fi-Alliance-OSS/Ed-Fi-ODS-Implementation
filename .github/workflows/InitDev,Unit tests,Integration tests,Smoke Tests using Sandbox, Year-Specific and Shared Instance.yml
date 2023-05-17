@@ -78,7 +78,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
@@ -88,7 +88,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
+      shell: powershell
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Cache Nuget packages   
@@ -107,7 +107,7 @@ jobs:
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
-      shell: pwsh
+      shell: powershell
     - name: Install sql-server-2019 & sqlpackage
       shell: powershell
       run: |
@@ -122,7 +122,7 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }}
-      shell: pwsh
+      shell: powershell
     - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
@@ -137,7 +137,7 @@ jobs:
         .\build.githubactions.ps1 Restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
         .\build.githubactions.ps1 Build -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"        
         .\build.githubactions.ps1 Test -Configuration ${{ env.CONFIGURATION }} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
-      shell: pwsh
+      shell: powershell
     - name: ODS/API Smoke Test Sandbox
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -164,7 +164,7 @@ jobs:
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
-      shell: pwsh
+      shell: powershell
     - name: Upload Smoke Test Sandbox Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
@@ -197,7 +197,7 @@ jobs:
                 testHarnessLogNamePrefix = "SmokeTestYearSpecific"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
-      shell: pwsh
+      shell: powershell
     - name: Upload Smoke Test YearSpecific Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
@@ -228,7 +228,7 @@ jobs:
                 testHarnessLogNamePrefix = "SmokeTestSharedInstance"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
-      shell: pwsh
+      shell: powershell
     - name: Upload Smoke Test Shared Instance Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
