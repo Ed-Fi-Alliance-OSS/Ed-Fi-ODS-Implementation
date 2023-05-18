@@ -104,6 +104,7 @@ jobs:
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $originalConfig = Get-Content $filePath | ConvertFrom-Json
+        echo "originalConfig=$originalConfig">> $env:GITHUB_ENV
         $config = Get-Content $filePath | ConvertFrom-Json
         $StandardVersion = '${{ matrix.StandardVersion }}'
         $ExtensionVersion = '${{ matrix.ExtensionVersion }}'
@@ -123,7 +124,7 @@ jobs:
         }
 
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8 
-        echo "originalConfig=$originalConfig">> $env:GITHUB_ENV
+        
         
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
