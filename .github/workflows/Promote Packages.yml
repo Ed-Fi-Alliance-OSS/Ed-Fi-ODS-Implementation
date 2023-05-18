@@ -27,9 +27,63 @@ env:
   AZURE_ARTIFACTS_API_PACKAGING : "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
 
 jobs:
-  build:
+  FindStandardAndExtensionVersions:
+    runs-on: ubuntu-latest    
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+      ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
+    steps:
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/    
+    - name: Checkout Ed-Fi-ODS
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+    - name: Checkout Ed-Fi-Extensions
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+          path: Ed-Fi-Extensions/    
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: Is pull request branch exists in Ed-Fi-Extensions
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"             
+    - name: Set StandardVersions
+      id: Set_StandardVersions
+      working-directory: ./Ed-Fi-ODS/
+      run: |
+        $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj" | Out-String
+        echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "StandardVersions is  $output"
+      shell: pwsh
+    - name: Set ExtensionVersions
+      id: Set_ExtensionVersions
+      working-directory: ./Ed-Fi-Extensions/  
+      run: |
+        $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+        echo "ExtensionVersions=$output" >> $env:GITHUB_OUTPUT
+        Write-host "ExtensionVersions is  $output"
+      shell: pwsh
 
+  build:
+    if: ${{ always() }}
+    needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }}) 
  
     steps:
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -42,9 +96,40 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+    - name: Update StandardVersion and ExtensionVersion in configuration.packages.json
+      working-directory: ./Ed-Fi-ODS-Implementation
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
+        $filePath = "./configuration.packages.json"
+        $originalConfig = Get-Content $filePath | ConvertFrom-Json
+        $config = Get-Content $filePath | ConvertFrom-Json
+
+        foreach ($package in  $config.packages.psobject.properties) 
+        {
+            $selectedPackageName = $config.packages.$($package.Name).PackageName
+            $packageName = $config.packages.$($package.Name).PackageName.Replace("{StandardVersion}",${{ matrix.StandardVersion }}).Replace("{ExtensionVersion}", ${{ matrix.ExtensionVersion }})
+
+            if ($selectedPackageName -ne $packageName)
+            {
+                $config.packages.$($package.Name).PackageName  = $packageName
+                Write-Host("$selectedPackageName Package replaced with  $packageName")
+            }
+        }
+
+        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8 
+        echo "originalConfig=$originalConfig">> $env:GITHUB_ENV
+        
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
         ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}"
+    - name: Reset configuration.packages.json file
+      working-directory: ./Ed-Fi-ODS-Implementation
+      shell: pwsh
+      run: |
+        $ErrorActionPreference = 'Stop'
+        ${{ env.originalConfig }} | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8  
