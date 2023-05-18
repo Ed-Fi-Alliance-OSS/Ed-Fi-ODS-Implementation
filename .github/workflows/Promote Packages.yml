@@ -96,7 +96,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Update StandardVersion and ExtensionVersion in configuration.packages.json
+    - name: Update Standard ${{ matrix.StandardVersion }} and Extension ${{ matrix.ExtensionVersion }} in configuration.packages.json
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
