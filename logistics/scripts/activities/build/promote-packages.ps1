@@ -18,7 +18,10 @@ param(
     [SecureString] $Password,
 
     [Parameter(Mandatory = $true)]
-    $View
+    $View,
+
+    [Parameter(Mandatory = $true)]
+    [String] $StandardVersion
 )
 
 $ErrorActionPreference = 'Stop'
@@ -41,6 +44,21 @@ Invoke-Task -name 'Gather package versions' -task {
         (Select-DotNetPackages $searchPaths),
         (Select-ConfigurationPackages $configurationFile)
     )
+
+    $keysToRemove = @()
+
+    foreach ($key in $packages.Keys) {
+        foreach ($otherKey in $packages.Keys) {
+            if ($key -ne $otherKey -and $otherKey.Contains($key)) {
+                $keysToRemove += $key
+                break
+            }
+        }
+    }
+
+    foreach ($key in $keysToRemove) {
+        $packages.Remove($key)
+    }
 
     $azurePackages = (Get-AzurePackages $FeedsURL)
 
