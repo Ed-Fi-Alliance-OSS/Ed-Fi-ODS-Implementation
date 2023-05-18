@@ -103,8 +103,6 @@ jobs:
         $ErrorActionPreference = 'Stop'
         Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
-        $originalConfig = Get-Content $filePath | ConvertFrom-Json
-        echo "originalConfig=$originalConfig">> $env:GITHUB_ENV
         $config = Get-Content $filePath | ConvertFrom-Json
         $StandardVersion = '${{ matrix.StandardVersion }}'
         $ExtensionVersion = '${{ matrix.ExtensionVersion }}'
@@ -122,19 +120,12 @@ jobs:
                 Write-Host("$selectedPackageName Package replaced with  $packageName")
             }
         }
-
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8 
-        
-        
+       
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
       run: |
         $ErrorActionPreference = 'Stop'
         ./logistics/scripts/activities/build/promote-packages.ps1 -FeedsURL "${{ env.AZURE_ARTIFACTS_API_FEEDS }}" -PackagesURL "${{ env.AZURE_ARTIFACTS_API_PACKAGING }}" -Username "${{ env.AZURE_ARTIFACT_USER_NAME }}"  -Password  (ConvertTo-SecureString -String "${{ env.AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN }}" -AsPlainText -Force) -View "${{ inputs.promote_packages_view }}" -StandardVersion ${{ matrix.StandardVersion }}
-    - name: Reset configuration.packages.json file
-      working-directory: ./Ed-Fi-ODS-Implementation
-      shell: pwsh
-      run: |
-        $ErrorActionPreference = 'Stop'
-        ${{ env.originalConfig }} | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8  
+ 
