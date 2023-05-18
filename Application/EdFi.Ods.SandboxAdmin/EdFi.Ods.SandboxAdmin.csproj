@@ -1,11 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<TargetFramework>netcoreapp3.1</TargetFramework>
     <AssemblyName>EdFi.Ods.Sandbox.Admin</AssemblyName>
+    <NoWarn>$(NoWarn);NU1504;NU1505;NU1701</NoWarn>
     <RootNamespace>EdFi.Ods.Sandbox.Admin</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatErrorsAsWarning>false</TreatErrorsAsWarning>
     <RestorePackages>true</RestorePackages>
     <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ea</UserSecretsId>
   </PropertyGroup>

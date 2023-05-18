@@ -1,0 +1,745 @@
+{
+  "odsApiVersion": "5.3",
+  "schemaDefinition": {
+    "logicalName": "NmAssessments",
+    "physicalName": "nmassessments",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "aggregateDefinitions": [
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmassessments",
+        "name": "ItemDescriptionCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmassessments",
+          "name": "ItemDescriptionCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmassessments",
+          "name": "NmStudentAssessment"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmassessments",
+        "name": "StandardAchievedCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmassessments",
+          "name": "StandardAchievedCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmassessments",
+        "name": "TestDescriptionDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmassessments",
+          "name": "TestDescriptionDescriptor"
+        }
+      ]
+    }
+  ],
+  "aggregateExtensionDefinitions": [],
+  "entityDefinitions": [
+    {
+      "schema": "nmassessments",
+      "name": "ItemDescriptionCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "ItemDescriptionCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "ItemDescriptionCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ItemDescriptionCodeDescriptor_PK",
+            "postgreSql": "ItemDescriptionCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Code that further describes the assessment.",
+      "tableNames": {
+        "sqlServer": "ItemDescriptionCodeDescriptor",
+        "postgreSql": "ItemDescriptionCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmassessments",
+      "name": "NmStudentAssessment",
+      "locallyDefinedProperties": [
+        {
+          "propertyName": "CreateDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "CreateDate",
+            "postgreSql": "CreateDate"
+          }
+        },
+        {
+          "propertyName": "Id",
+          "propertyType": {
+            "dbType": "Guid",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "Id",
+            "postgreSql": "Id"
+          }
+        },
+        {
+          "propertyName": "LastModifiedDate",
+          "propertyType": {
+            "dbType": "DateTime2",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "LastModifiedDate",
+            "postgreSql": "LastModifiedDate"
+          }
+        },
+        {
+          "propertyName": "RawScore",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Score of administered test. Need not be a RAW Score.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "RawScore",
+            "postgreSql": "RawScore"
+          }
+        },
+        {
+          "propertyName": "TestDate",
+          "propertyType": {
+            "dbType": "Date",
+            "maxLength": 0,
+            "precision": 0,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The date the assessment was given",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TestDate",
+            "postgreSql": "TestDate"
+          }
+        }
+      ],
+      "identifiers": [
+        {
+          "identifierName": "NmStudentAssessment_PK",
+          "identifyingPropertyNames": [
+            "EducationOrganizationId",
+            "StudentUSI",
+            "TestDate",
+            "TestDescriptionDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "NmStudentAssessment_PK",
+            "postgreSql": "NmStudentAssessment_PK"
+          }
+        },
+        {
+          "identifierName": "UX_NmStudentAssessment_Id",
+          "identifyingPropertyNames": [
+            "Id"
+          ],
+          "isPrimary": false,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "UX_NmStudentAssessment_Id",
+            "postgreSql": "UX_43017d_Id"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Entity that captures student assessments in a legacy STARs-like format",
+      "tableNames": {
+        "sqlServer": "NmStudentAssessment",
+        "postgreSql": "NmStudentAssessment"
+      }
+    },
+    {
+      "schema": "nmassessments",
+      "name": "StandardAchievedCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "StandardAchievedCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "StandardAchievedCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "StandardAchievedCodeDescriptor_PK",
+            "postgreSql": "StandardAchievedCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Indication of whether or not the assessment standard was achieved.",
+      "tableNames": {
+        "sqlServer": "StandardAchievedCodeDescriptor",
+        "postgreSql": "StandardAchievedCodeDescriptor"
+      }
+    },
+    {
+      "schema": "nmassessments",
+      "name": "TestDescriptionDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "TestDescriptionDescriptor_PK",
+          "identifyingPropertyNames": [
+            "TestDescriptionDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "TestDescriptionDescriptor_PK",
+            "postgreSql": "TestDescriptionDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "Code that defines the assessment.",
+      "tableNames": {
+        "sqlServer": "TestDescriptionDescriptor",
+        "postgreSql": "TestDescriptionDescriptor"
+      }
+    }
+  ],
+  "associationDefinitions": [
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_ItemDescriptionCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "ItemDescriptionCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ItemDescriptionCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ItemDescriptionCodeDescriptorId",
+            "postgreSql": "ItemDescriptionCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ItemDescriptionCodeDescriptor_Descriptor",
+        "postgreSql": "FK_dfda42_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_EducationOrganization"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "EducationOrganization"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "EducationOrganizationId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "The identifier assigned to an education organization.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "EducationOrganizationId",
+            "postgreSql": "EducationOrganizationId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_EducationOrganization",
+        "postgreSql": "FK_43017d_EducationOrganization"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_ItemDescriptionCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "ItemDescriptionCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ItemDescriptionCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ItemDescriptionCodeDescriptorId",
+            "postgreSql": "ItemDescriptionCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ItemDescriptionCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Code that further describes the assessment.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ItemDescriptionCodeDescriptorId",
+            "postgreSql": "ItemDescriptionCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_ItemDescriptionCodeDescriptor",
+        "postgreSql": "FK_43017d_ItemDescriptionCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_StandardAchievedCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "StandardAchievedCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StandardAchievedCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StandardAchievedCodeDescriptorId",
+            "postgreSql": "StandardAchievedCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StandardAchievedCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "Indication of whether or not the assessment standard was achieved.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StandardAchievedCodeDescriptorId",
+            "postgreSql": "StandardAchievedCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_StandardAchievedCodeDescriptor",
+        "postgreSql": "FK_43017d_StandardAchievedCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_Student"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Student"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StudentUSI",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique alphanumeric code assigned to a student.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "StudentUSI",
+            "postgreSql": "StudentUSI"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_Student",
+        "postgreSql": "FK_43017d_Student"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_TestDescriptionDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "TestDescriptionDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "TestDescriptionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TestDescriptionDescriptorId",
+            "postgreSql": "TestDescriptionDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TestDescriptionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "Code that defines the assessment.",
+          "isIdentifying": true,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "TestDescriptionDescriptorId",
+            "postgreSql": "TestDescriptionDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_TestDescriptionDescriptor",
+        "postgreSql": "FK_43017d_TestDescriptionDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_StandardAchievedCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "StandardAchievedCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "StandardAchievedCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "StandardAchievedCodeDescriptorId",
+            "postgreSql": "StandardAchievedCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_StandardAchievedCodeDescriptor_Descriptor",
+        "postgreSql": "FK_c7c785_Descriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_TestDescriptionDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "TestDescriptionDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "TestDescriptionDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "TestDescriptionDescriptorId",
+            "postgreSql": "TestDescriptionDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_TestDescriptionDescriptor_Descriptor",
+        "postgreSql": "FK_a335f0_Descriptor"
+      },
+      "potentiallyLogical": false
+    }
+  ]
+}
