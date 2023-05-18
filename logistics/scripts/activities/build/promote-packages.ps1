@@ -49,7 +49,7 @@ Invoke-Task -name 'Gather package versions' -task {
 
     foreach ($key in $packages.Keys) {
         foreach ($otherKey in $packages.Keys) {
-            if ($key -ne $otherKey -and $otherKey.Contains($key)) {
+            if ($key -ne $otherKey -and $otherKey.Contains($key) -and $otherKey.Contains($StandardVersion)) {
                 $keysToRemove += $key
                 break
             }
