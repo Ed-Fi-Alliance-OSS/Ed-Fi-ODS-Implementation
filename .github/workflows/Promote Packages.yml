@@ -105,11 +105,14 @@ jobs:
         $filePath = "./configuration.packages.json"
         $originalConfig = Get-Content $filePath | ConvertFrom-Json
         $config = Get-Content $filePath | ConvertFrom-Json
-
+        $StandardVersion = ${{ matrix.StandardVersion }}
+        $ExtensionVersion = ${{ matrix.ExtensionVersion }}
+        Write-Host("StandardVersion value is $StandardVersion")
+        Write-Host("ExtensionVersion value is $ExtensionVersion")
         foreach ($package in  $config.packages.psobject.properties) 
         {
             $selectedPackageName = $config.packages.$($package.Name).PackageName
-            $packageName = $config.packages.$($package.Name).PackageName.Replace("{StandardVersion}",${{ matrix.StandardVersion }}).Replace("{ExtensionVersion}", ${{ matrix.ExtensionVersion }})
+            $packageName = $config.packages.$($package.Name).PackageName.Replace("{StandardVersion}",$StandardVersion).Replace("{ExtensionVersion}",$ExtensionVersion)
 
             if ($selectedPackageName -ne $packageName)
             {
