@@ -73,9 +73,9 @@ function Invoke-SdkGen {
 
             $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
             $suffix = Get-ValueOrDefault $teamCityParameters['odsapi.package.suffix'] ".Suite3"
-            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.Sdk.$standardVersion"
+            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion"
             (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
-                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.Sdk.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk.$standardVersion</title>")
+                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
             $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
@@ -100,9 +100,9 @@ function Invoke-SdkGen {
 
             $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
             $suffix = Get-ValueOrDefault $teamCityParameters['odsapi.package.suffix'] ".Suite3"
-            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk.$standardVersion"
+            Write-Host "Updating package id and title to EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion"
             (Get-Content -path $nuspecFile -Raw) | ForEach-Object {
-                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk.$standardVersion</id>","<id>EdFi$suffix.OdsApi.TestSdk.$standardVersion</id>").replace("<title>EdFi$suffix.OdsApi.Sdk.$standardVersion</title>","<title>EdFi$suffix.OdsApi.TestSdk.$standardVersion</title>")
+                $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
             $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }

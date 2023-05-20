@@ -71,22 +71,22 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Admin.PostgreSQL": {
-      "PackageName": "EdFi.Database.Admin.PostgreSQL.{StandardVersion}",
+      "PackageName": "EdFi.Database.Admin.PostgreSQL.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Admin": {
-      "PackageName": "EdFi.Database.Admin.{StandardVersion}",
+      "PackageName": "EdFi.Database.Admin.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Security": {
-      "PackageName": "EdFi.Database.Security.{StandardVersion}",
+      "PackageName": "EdFi.Database.Security.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Security.PostgreSQL": {
-      "PackageName": "EdFi.Database.Security.PostgreSQL.{StandardVersion}",
+      "PackageName": "EdFi.Database.Security.PostgreSQL.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
@@ -111,12 +111,12 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.Sdk": {
-      "PackageName": "EdFi.Suite3.OdsApi.Sdk.{StandardVersion}",
+      "PackageName": "EdFi.Suite3.OdsApi.Sdk.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.TestSdk": {
-      "PackageName": "EdFi.Suite3.OdsApi.TestSdk.{StandardVersion}",
+      "PackageName": "EdFi.Suite3.OdsApi.TestSdk.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
@@ -141,12 +141,12 @@
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.WebApi": {
-      "PackageName": "EdFi.Suite3.Ods.WebApi.{StandardVersion}",
+      "PackageName": "EdFi.Suite3.Ods.WebApi.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.RestApi.Databases": {
-      "PackageName": "EdFi.Suite3.RestApi.Databases.{StandardVersion}",
+      "PackageName": "EdFi.Suite3.RestApi.Databases.Standard.{StandardVersion}",
       "PackageVersion": "latest",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
