@@ -175,7 +175,7 @@ jobs:
         $params = @{
                 ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
                 PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
-                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease.${{ matrix.StandardVersion }}'
+                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease.Standard.${{ matrix.StandardVersion }}'
                 Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
                 Properties            = (Get-DefaultNuGetProperties)
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
