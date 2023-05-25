@@ -10,6 +10,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Amazon.Extensions.Configuration.SystemsManager;
+using Amazon.Extensions.NETCore.Setup;
+using EdFi.Ods.Api.Configuration;
+using EdFi.Ods.Common.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Primitives;
 
 namespace EdFi.Ods.WebApi
 {
@@ -17,9 +23,12 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
+            CacheSettings cacheSettings = GetCacheSettings();
+
+            var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(ConfigureLogging)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                .ConfigureAppConfiguration(c => c.AddSystemsManager("/appsettings/tenantsSection", TimeSpan.FromSeconds(cacheSettings.Tenants.AbsoluteExpirationSeconds)))
                 .ConfigureWebHostDefaults(
                     webBuilder =>
                     {
@@ -27,7 +36,9 @@ namespace EdFi.Ods.WebApi
                             serverOptions => { serverOptions.AddServerHeader = false; });
 
                         webBuilder.UseStartup<Startup>();
-                    }).Build();
+                    });
+
+            var host = hostBuilder.Build();
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -45,6 +56,18 @@ namespace EdFi.Ods.WebApi
                     };
 
                 loggingBuilder.AddLog4Net(loggingOptions);
+            }
+
+            CacheSettings GetCacheSettings()
+            {
+                var hostBuilderForConfig = Host.CreateDefaultBuilder(args);
+                var preliminaryHost = hostBuilderForConfig.Build();
+                var configuration = preliminaryHost.Services.GetService<IConfiguration>();
+
+                var cacheSettings = new CacheSettings();
+                configuration.Bind("ApiSettings:Caching", cacheSettings);
+
+                return cacheSettings;
             }
         }
     }
