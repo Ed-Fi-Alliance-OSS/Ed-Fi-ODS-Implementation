@@ -144,7 +144,7 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
-        [String] $StandardVersion = '4.0.0',
+        [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
         [String] $ExtensionVersion = '1.1.0'
@@ -390,7 +390,7 @@ function Invoke-CodeGen {
         [switch] $IncludePlugins,
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
-        [String] $StandardVersion = '4.0.0',
+        [String] $StandardVersion = '5.0.0',
         [String] $ExtensionVersion = '1.1.0'
     )
 
