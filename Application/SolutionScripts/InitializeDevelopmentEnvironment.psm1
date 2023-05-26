@@ -192,7 +192,7 @@ function Initialize-DevelopmentEnvironment {
             }
             else {
                 Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
-                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $NoRestore
+                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $NoRestore -standardVersion $StandardVersion
             }
         }
 
@@ -286,7 +286,8 @@ Function Invoke-RebuildSolution {
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
-        [Boolean] $noRestore = $false
+        [Boolean] $noRestore = $false,
+        [String] $standardVersion = '5.0.0'
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -297,6 +298,7 @@ Function Invoke-RebuildSolution {
             BuildConfiguration = $buildConfiguration
             LogVerbosityLevel  = $verbosity
             noRestore          = $noRestore
+            standardVersion    = $StandardVersion
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
@@ -308,11 +310,11 @@ Function Invoke-RebuildSolution {
 
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
         if ($noRestore) {
-            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore | Out-Host
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore -p:StandardVersion=$StandardVersion | Out-Host
         }
         else
         {
-            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath  | Out-Host
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath  -p:StandardVersion=$StandardVersion | Out-Host
         }
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
