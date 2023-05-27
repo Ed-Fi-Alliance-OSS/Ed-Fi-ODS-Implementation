@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Security.DataAccess.Repositories;
@@ -54,7 +55,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
             ISessionFactory sessionFactory,
             IApiKeyContextProvider apiKeyContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
-            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
+            IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
+            IClaimSetClaimsProvider claimSetClaimsProvider)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
@@ -65,7 +67,8 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
                 sessionFactory,
                 apiKeyContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
-                dataManagementResourceContextProvider)
+                dataManagementResourceContextProvider,
+                claimSetClaimsProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
             _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
