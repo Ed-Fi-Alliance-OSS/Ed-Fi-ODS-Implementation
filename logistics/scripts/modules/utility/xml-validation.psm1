@@ -16,11 +16,23 @@ function Get-XmlRoot {
         $streamReader = New-Object System.IO.StreamReader $source
         $xmlReader = [System.Xml.XmlReader]::Create($streamReader, (New-Object "System.Xml.XmlReaderSettings"))
         $xmlReader.MoveToContent() | Out-Null
-        $result = @{
-            name = $xmlReader.Name
-            namespace = $xmlReader.NamespaceURI
-            schema = ($xmlReader.GetAttribute("xsi:schemaLocation") -replace $xmlReader.NamespaceURI, "").Trim()
+        $namespace = $xmlReader.NamespaceURI
+        $schema = ($xmlReader.GetAttribute("xsi:schemaLocation") -replace $xmlReader.NamespaceURI, "").Trim()
+        
+        $elementName = ""
+        while ($xmlReader.Read()) {
+            if ($xmlReader.NodeType -eq [System.Xml.XmlNodeType]::Element ) {
+                $elementname = $xmlReader.Name
+                break
+            }
         }
+
+        $result = @{
+            name = $elementName
+            namespace = $namespace
+            schema = $schema
+        }
+        
         return $result
     }
     finally {
