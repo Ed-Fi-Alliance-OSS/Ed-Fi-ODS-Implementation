@@ -1,3 +1,9 @@
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
 /* © NMPED 2023
 * 300 Don Gaspar Ave.
 * Santa Fe, NM 87501
@@ -15,7 +21,7 @@
 * Date: 'Date Updated'
 * Alt Desc: 'Description of the change'
 */
-CREATE OR ALTER VIEW [nmped_rpt].[vw_LocalEducationAgencies]
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_LocalEducationAgencies]
 AS
 
 WITH cte_Descriptors AS (
@@ -36,6 +42,10 @@ SELECT LEA.[LocalEducationAgencyId]
 	   ,LEACategory.[Description] AS [LEACategoryDescription]
 	   ,LEACharterStatus.CodeValue AS [LEACharterStatusCode]
 	   ,LEACharterStatus.[Description] AS [LEACharterStatusDescription]
+	   ,CASE WHEN 
+		(SELECT TOP 1 SchoolId FROM nmped_rpt.vw_Schools 
+			WHERE LocalEducationAgencyId = LEA.LocalEducationAgencyId 
+			AND CharterStatusCode = 'District Charter') IS NULL THEN 'N' ELSE 'Y' END AS [LocalCharterIndicator]
 FROM edfi.LocalEducationAgency LEA WITH (NOLOCK)
 LEFT JOIN cte_Descriptors LEACategory WITH (NOLOCK)
 	ON (LEACategory.DescriptorId = LEA.LocalEducationAgencyCategoryDescriptorId)
@@ -43,3 +53,5 @@ LEFT JOIN cte_Descriptors LEACharterStatus WITH (NOLOCK)
 	ON (LEACharterStatus.DescriptorId = LEA.CharterStatusDescriptorId)
 
 GO
+
+
