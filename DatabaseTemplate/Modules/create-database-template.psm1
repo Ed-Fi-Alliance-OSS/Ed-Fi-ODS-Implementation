@@ -169,9 +169,6 @@ function Copy-InterchangeFiles {
 
     foreach ($xmlFile in $xmlFiles) {
 
-        Write-Host "xmlFile.FullName " (Get-XmlRoot $xmlFile.FullName).Name -ForegroundColor DarkGray
-        Write-Host "includeAllInterchanges " $includeAllInterchanges -ForegroundColor DarkGray
-        Write-Host "interchanges " $interchanges -ForegroundColor DarkGray
 
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
