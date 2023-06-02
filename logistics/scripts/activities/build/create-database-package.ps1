@@ -106,7 +106,7 @@ $tasks = [ordered] @{
                 filePaths    = $sqlServerSettings.ApiSettings.FilePaths
                 subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase = $true
-            standardVersion  = $sqlServerSettings.ApiSettings.StandardVersion
+            standardVersion  = $settings.ApiSettings.StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
@@ -119,7 +119,7 @@ $tasks = [ordered] @{
                 filePaths    = $postgresSettings.ApiSettings.FilePaths
                 subTypeNames = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase = $true
-            standardVersion  = $postgresSettings.ApiSettings.StandardVersion
+            standardVersion  = $settings.ApiSettings.StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
