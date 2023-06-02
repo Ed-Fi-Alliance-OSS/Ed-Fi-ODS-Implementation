@@ -100,24 +100,26 @@ $tasks = [ordered] @{
     "Reset SQLServer $DatabaseType Database"               = {
         $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-            engine       = $sqlServerSettings.ApiSettings.engine
-            csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            database     = $databaseType
-            filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-            subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-            dropDatabase = $true
+                engine       = $sqlServerSettings.ApiSettings.engine
+                csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+                database     = $databaseType
+                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
+                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
+                dropDatabase = $true
+            standardVersion  = $sqlServerSettings.ApiSettings.StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
     "Reset PostgreSQL $DatabaseType Database"              = {
         $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-            engine       = $postgresSettings.ApiSettings.engine
-            csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-            database     = $databaseType
-            filePaths    = $postgresSettings.ApiSettings.FilePaths
-            subTypeNames = $postgresSettings.ApiSettings.SubTypes
-            dropDatabase = $true
+                engine       = $postgresSettings.ApiSettings.engine
+                csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+                database     = $databaseType
+                filePaths    = $postgresSettings.ApiSettings.FilePaths
+                subTypeNames = $postgresSettings.ApiSettings.SubTypes
+                dropDatabase = $true
+            standardVersion  = $postgresSettings.ApiSettings.StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

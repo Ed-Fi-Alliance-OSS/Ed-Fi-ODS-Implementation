@@ -12,11 +12,11 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 function Get-TPDMConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
+    $config.StandardVersion = $config.standardVersion
+    $config.ExtensionVersion = $config.extensionVersion
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
     $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
-    $config.appSettings.ApiSettings.StandardVersion = $config.standardVersion
-    $config.appSettings.ApiSettings.ExtensionVersion = $config.extensionVersion
 
     $config.testHarnessJsonConfigLEAs = @(255901, 1, 2, 3, 4, 5, 6, 7, 6000203)
     $config.testHarnessJsonConfig = "$PSScriptRoot/testHarnessConfiguration.TPDM.json"

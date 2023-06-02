@@ -106,14 +106,16 @@ function New-DatabaseTemplate {
         Write-Host "Skipping extensions sources."
         $filePaths = Get-RepositoryArtifactPaths
     }
-
+    
     $params = @{
-        csb          = $config.databaseConnectionString
-        engine       = $config.engine
-        database     = $config.database
-        filePaths    = $filePaths
-        subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
-        transient    = $true
+            csb          = $config.databaseConnectionString
+            engine       = $config.engine
+            database     = $config.database
+            filePaths    = $filePaths
+            subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
+            transient    = $true
+            standardVersion  = $config.StandardVersion
+  
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
     Initialize-EdFiDatabaseWithDbDeploy @params

@@ -15,8 +15,8 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
     $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
-    $config.appSettings.ApiSettings.StandardVersion = $config.standardVersion
-    $config.appSettings.ApiSettings.ExtensionVersion = $config.extensionVersion
+    $config.StandardVersion = $config.standardVersion
+    $config.ExtensionVersion = $config.extensionVersion
 
     $config.Remove('apiClientNameSandbox')
 

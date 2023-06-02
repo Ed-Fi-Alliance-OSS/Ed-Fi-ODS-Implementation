@@ -186,13 +186,14 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot -StandardVersion $StandardVersion -ExtensionVersion $ExtensionVersion }
 
+        Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
+
         if (-not $NoRebuild) {
             if (-not $NoRestore) {
-                $script:result += Invoke-RebuildSolution
+                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $false -standardVersion $StandardVersion
             }
             else {
-                Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
-                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $NoRestore -standardVersion $StandardVersion
+                $script:result += Invoke-RebuildSolution -standardVersion $StandardVersion
             }
         }
 
