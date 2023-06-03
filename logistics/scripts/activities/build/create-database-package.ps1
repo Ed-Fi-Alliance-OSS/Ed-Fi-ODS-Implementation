@@ -47,8 +47,6 @@ if (-not (Test-Path $SQLPackage)) { throw "SQLPackage.exe not found at '$SQLPack
 if ([string]::IsNullOrWhitespace($PackageName)) { $PackageName = "EdFi.Database.$DatabaseType" }
 
 $settings = @{ ApiSettings = @{ } }
-if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
-if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
 Set-DeploymentSettings $settings | Out-Null
 
 Write-InvocationInfo $MyInvocation
@@ -100,26 +98,26 @@ $tasks = [ordered] @{
     "Reset SQLServer $DatabaseType Database"               = {
         $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-                engine       = $sqlServerSettings.ApiSettings.engine
-                csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase = $true
-            standardVersion  = $settings.ApiSettings.StandardVersion
+            engine           = $sqlServerSettings.ApiSettings.engine
+            csb              = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+            database         = $databaseType
+            filePaths        = $sqlServerSettings.ApiSettings.FilePaths
+            subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
+            dropDatabase     = $true
+            standardVersion  = $StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
     "Reset PostgreSQL $DatabaseType Database"              = {
         $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-                engine       = $postgresSettings.ApiSettings.engine
-                csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase = $true
-            standardVersion  = $settings.ApiSettings.StandardVersion
+            engine           = $postgresSettings.ApiSettings.engine
+            csb              = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+            database         = $databaseType
+            filePaths        = $postgresSettings.ApiSettings.FilePaths
+            subTypeNames     = $postgresSettings.ApiSettings.SubTypes
+            dropDatabase     = $true
+            standardVersion  = $StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
