@@ -153,7 +153,6 @@ function Get-SQLServerDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $Settings.ApiSettings.StandardVersion
-        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -620,6 +619,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         FilePaths                = $filePaths
         Features                 = $subTypeNames
         DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+        StandardVersion          = $standardVersion
     }
     Invoke-DbDeploy @params
 }
