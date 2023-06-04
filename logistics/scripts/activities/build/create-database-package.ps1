@@ -47,6 +47,8 @@ if (-not (Test-Path $SQLPackage)) { throw "SQLPackage.exe not found at '$SQLPack
 if ([string]::IsNullOrWhitespace($PackageName)) { $PackageName = "EdFi.Database.$DatabaseType" }
 
 $settings = @{ ApiSettings = @{ } }
+if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
+if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
 Set-DeploymentSettings $settings | Out-Null
 
 Write-InvocationInfo $MyInvocation
