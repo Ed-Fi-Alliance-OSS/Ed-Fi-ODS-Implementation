@@ -83,6 +83,7 @@ namespace EdFi.Ods.SandboxAdmin.Services
             var smtpPassword = _configuration.GetValue<string>("MailSettings:Smtp:Password");
             var host = _configuration.GetValue<string>("MailSettings:Smtp:Host");
             var port = _configuration.GetValue<int>("MailSettings:Smtp:Port");
+            var enableSsl = _configuration.GetValue<bool>("MailSettings:Smtp:EnableSsl");
             var pickupDirectoryLocation = _configuration.GetValue<string>("MailSettings:Smtp:SpecifiedPickupDirectory:PickupDirectoryLocation");
 
             var smtpClient = new SmtpClient();
@@ -108,6 +109,12 @@ namespace EdFi.Ods.SandboxAdmin.Services
             {
                 smtpClient.DeliveryMethod = (SmtpDeliveryMethod) deliveryMethod;
             }
+
+            if (!enableSsl.IsDefaultValue() && smtpClient.DeliveryMethod == SmtpDeliveryMethod.Network)
+            {
+                smtpClient.EnableSsl = enableSsl;
+            }
+                
 
             if (!string.IsNullOrEmpty(pickupDirectoryLocation))
             {
