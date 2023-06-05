@@ -114,7 +114,6 @@ namespace EdFi.Ods.SandboxAdmin.Services
             {
                 smtpClient.EnableSsl = enableSsl;
             }
-                
 
             if (!string.IsNullOrEmpty(pickupDirectoryLocation))
             {
