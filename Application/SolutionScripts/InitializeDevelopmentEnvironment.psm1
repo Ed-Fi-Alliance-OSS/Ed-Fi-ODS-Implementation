@@ -344,26 +344,34 @@ function Reset-EmptySandboxDatabase {
 }
 
 function Reset-TestAdminDatabase {
+    param(
+        [string[]] $replacementTokens = @('Admin_Test')
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens 'Admin_Test'
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
 
 function Reset-TestSecurityDatabase {
+    param(
+        [string[]] $replacementTokens = @('Security_Test')
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Security]] -replacementTokens 'Security_Test'
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Security]] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
 
@@ -371,7 +379,7 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-       $settings = Get-DeploymentSettings
+        $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
@@ -380,6 +388,40 @@ function Reset-TestPopulatedTemplateDatabase {
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
     }
+}
+
+function Set-Multitenancy {
+    param(
+        [string[]] $Tenants
+    )
+    
+    $adminReplacementTokens = @()
+    $securityReplacementTokens = @()
+        
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $settings = Get-DeploymentSettings
+        $multiTenancyFeature = $settings.ApiSettings.Features | Where Name -eq 'MultiTenancy'
+        $multiTenancyFeature.IsEnabled = $true
+        
+        $settings = (Merge-Hashtables @{ Tenants = @() }, $settings )
+        
+        foreach ($tenant in $tenants) {
+            $settings.Tenants += @{
+                TenantIdentifier = $tenant
+                ConnectionStrings = @{
+                    EdFi_Admin = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Admin_$($tenant)_Test"
+                    EdFi_Security = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Security_$($tenant)_Test"
+                }
+            }
+            $adminReplacementTokens += "Admin_$($tenant)_Test"
+            $securityReplacementTokens += "Security_$($tenant)_Test"
+        }
+
+        Set-DeploymentSettings $settings
+    }
+    
+    Reset-TestAdminDatabase $adminReplacementTokens
+    Reset-TestSecurityDatabase $securityReplacementTokens
 }
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
