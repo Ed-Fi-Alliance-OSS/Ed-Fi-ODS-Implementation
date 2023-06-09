@@ -588,6 +588,16 @@ function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $P
     return $newSettings
 }
 
+function Remove-ODSConnectionString([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if (($ProjectName -eq ((Get-ProjectTypes).SandboxAdmin)) -or 
+    ($ProjectName -eq ((Get-ProjectTypes).Databases))) { return $Settings }
+
+    $newSettings = Get-HashtableDeepClone $settings
+    $newSettings.ConnectionStrings.Remove('EdFi_Ods')
+
+    return $newSettings
+}
+
 function Get-UserSecretsIdByProject {
     return @{
         ((Get-ProjectTypes).SandboxAdmin)               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
@@ -621,11 +631,9 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
 
-        $projectPath = Get-RepositoryResolvedPath $Project
+        $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
-        if($ProjectName -ne (Get-TestProjectTypes).SandboxAdmin) {     
-            $Settings = $Settings.ConnectionStrings.Remove('EdFi_Ods')
-        }
+        $projectPath = Get-RepositoryResolvedPath $Project
 
         $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.Development.json"
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite

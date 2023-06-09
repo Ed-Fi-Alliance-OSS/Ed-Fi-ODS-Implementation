@@ -387,6 +387,10 @@ function Initialize-EdFiDatabase {
         $ScriptStrategy
     )
 
+    if ([string]::IsNullOrEmpty($CSB['Encrypt'])) {
+        $CSB['Encrypt'] = $false
+    }
+
     Write-InvocationInfo $MyInvocation
 
     $lifecycle = New-EdFiDatabaseLifecycle @PSBoundParameters
