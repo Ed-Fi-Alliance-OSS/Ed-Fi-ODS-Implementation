@@ -3,8 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-ARG API_VERSION=6.1.901
 FROM mcr.microsoft.com/dotnet/aspnet:6.0.16-alpine3.17-amd64@sha256:dabdf423e179383d848889b760a4258a5950b224730762bf39bfd51de344cfa3
+ARG API_VERSION=6.1.929
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 ENV POSTGRES_PORT=5432
