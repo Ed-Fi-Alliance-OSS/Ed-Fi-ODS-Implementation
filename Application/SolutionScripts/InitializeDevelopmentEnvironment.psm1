@@ -410,10 +410,9 @@ function Set-Multitenancy {
         $deplosymentSettings = Get-DeploymentSettings
         $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
         
-        $multiTenancyFeature = $integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where Name -eq 'MultiTenancy'
-        $multiTenancyFeature.IsEnabled = $true
+        $integrationTestHarnessDevelopmentSettings.ApiSettings | Add-Member -NotePropertyName Features -NotePropertyValue @( @{Name = 'MultiTenancy'; IsEnabled=$true} )
         
-        $integrationTestHarnessDevelopmentSettings.Tenants = @()
+        $integrationTestHarnessDevelopmentSettings | Add-Member -NotePropertyName Tenants -NotePropertyValue @()
         
         foreach ($tenant in $tenants) {
             $integrationTestHarnessDevelopmentSettings.Tenants += @{
