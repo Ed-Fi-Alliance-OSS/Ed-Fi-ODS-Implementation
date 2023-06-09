@@ -590,7 +590,8 @@ function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $P
 
 function Remove-ODSConnectionString([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if (($ProjectName -eq ((Get-ProjectTypes).SandboxAdmin)) -or 
-    ($ProjectName -eq ((Get-ProjectTypes).Databases))) { return $Settings }
+    ($ProjectName -eq ((Get-ProjectTypes).Databases)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).IntegrationTestHarness))) { return $Settings }
 
     $newSettings = Get-HashtableDeepClone $settings
     $newSettings.ConnectionStrings.Remove('EdFi_Ods')
