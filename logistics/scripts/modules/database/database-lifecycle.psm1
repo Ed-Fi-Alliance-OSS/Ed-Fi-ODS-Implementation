@@ -387,7 +387,7 @@ function Initialize-EdFiDatabase {
         $ScriptStrategy
     )
 
-    if ([string]::IsNullOrEmpty($CSB['Encrypt'])) {
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and ([string]::IsNullOrEmpty($CSB['Encrypt']))) {
         $CSB['Encrypt'] = $false
     }
 
