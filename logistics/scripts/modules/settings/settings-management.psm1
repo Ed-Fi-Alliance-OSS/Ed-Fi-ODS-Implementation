@@ -623,6 +623,10 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
+        if($ProjectName -ne (Get-TestProjectTypes).SandboxAdmin) {     
+            $Settings = $Settings.ConnectionStrings.Remove('EdFi_Ods')
+        }
+
         $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.Development.json"
         New-JsonFile $newDevelopmentSettingsPath $newDevelopmentSettings -Overwrite
         $newSettingsFiles += $newDevelopmentSettingsPath
