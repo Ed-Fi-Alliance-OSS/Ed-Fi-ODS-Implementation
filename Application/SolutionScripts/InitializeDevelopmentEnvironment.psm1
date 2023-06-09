@@ -379,11 +379,12 @@ Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateD
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
     param(
-        [string[]] $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test")
+        [string[]] $replacementTokens = @()
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
+        if ($replacementTokens.count -eq 0) { $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test") }
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
