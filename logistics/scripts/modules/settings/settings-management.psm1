@@ -86,8 +86,15 @@ function Get-DefaultDevelopmentSettingsByProject {
                 Engine = ""
                 StandardVersion  = ""
                 ExtensionVersion  = ""
+                Features = @(
+                    @{
+                        Name = "MultiTenancy"
+                        IsEnabled = $false
+            }
+                )
             }
             ConnectionStrings = @{ }
+            Tenants = @()
         }
         ((Get-TestProjectTypes).NHibernateTests) = @{
             ApiSettings       = @{

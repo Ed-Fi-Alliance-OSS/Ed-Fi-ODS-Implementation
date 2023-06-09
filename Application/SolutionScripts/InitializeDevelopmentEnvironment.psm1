@@ -378,15 +378,19 @@ function Reset-TestSecurityDatabase {
 Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateDatabase
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
+    param(
+        [string[]] $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test")
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
-        Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
 }
 
@@ -397,31 +401,38 @@ function Set-Multitenancy {
     
     $adminReplacementTokens = @()
     $securityReplacementTokens = @()
+    $odsReplacementTokens = @()
         
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $settings = Get-DeploymentSettings
-        $multiTenancyFeature = $settings.ApiSettings.Features | Where Name -eq 'MultiTenancy'
+        $integrationTestHarnessProjectPath = Get-RepositoryResolvedPath (Get-TestProjectTypes).IntegrationTestHarness
+        $integrationTestHarnessDevelopmentSettingsPath = Join-Path $integrationTestHarnessProjectPath "appsettings.Development.json"
+        $deplosymentSettings = Get-DeploymentSettings
+        $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        
+        $multiTenancyFeature = $integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where Name -eq 'MultiTenancy'
         $multiTenancyFeature.IsEnabled = $true
         
-        $settings = (Merge-Hashtables @{ Tenants = @() }, $settings )
+        $integrationTestHarnessDevelopmentSettings.Tenants = @()
         
         foreach ($tenant in $tenants) {
-            $settings.Tenants += @{
+            $integrationTestHarnessDevelopmentSettings.Tenants += @{
                 TenantIdentifier = $tenant
                 ConnectionStrings = @{
-                    EdFi_Admin = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Admin_$($tenant)_Test"
-                    EdFi_Security = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Security_$($tenant)_Test"
+                    EdFi_Admin = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Admin_$($tenant)_Test"
+                    EdFi_Security = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Security_$($tenant)_Test"
                 }
             }
             $adminReplacementTokens += "Admin_$($tenant)_Test"
             $securityReplacementTokens += "Security_$($tenant)_Test"
+            $odsReplacementTokens += "$($deplosymentSettings.ApiSettings.populatedTemplateSuffix)_$($tenant)_Test"
         }
-
-        Set-DeploymentSettings $settings
+        
+        $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsPath -Encoding UTF8
     }
     
     Reset-TestAdminDatabase $adminReplacementTokens
     Reset-TestSecurityDatabase $securityReplacementTokens
+    Reset-TestPopulatedTemplateDatabase $odsReplacementTokens
 }
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
