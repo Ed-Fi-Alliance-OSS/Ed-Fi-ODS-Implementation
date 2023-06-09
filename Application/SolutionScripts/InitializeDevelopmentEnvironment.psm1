@@ -350,7 +350,7 @@ function Reset-TestAdminDatabase {
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Admin_Test'
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens 'Admin_Test'
         Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }
@@ -362,7 +362,7 @@ function Reset-TestSecurityDatabase {
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Security_Test'
+        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Security]] -replacementTokens 'Security_Test'
         Initialize-EdFiDatabase $settings $databaseType $csb
     }
 }

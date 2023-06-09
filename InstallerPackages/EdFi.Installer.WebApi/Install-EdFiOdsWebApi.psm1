@@ -243,16 +243,6 @@ function Install-EdFiOdsWebApi {
         [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
         $AdminDbConnectionInfo,
 
-        # Database connectivity only for the ODS database.
-        #
-        # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
-        # either UseIntegratedSecurity or Username and Password (Password can be skipped
-        # for PostgreSQL when using pgconf file). Optionally can include Port and
-        # DatabaseName.
-        [hashtable]
-        [Parameter(Mandatory=$true, ParameterSetName="SeparateCredentials")]
-        $OdsDbConnectionInfo,
-
         # Database connectivity only for the security database.
         #
         # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
@@ -312,7 +302,6 @@ function Install-EdFiOdsWebApi {
         OdsDatabaseName = $OdsDatabaseName
         DbConnectionInfo = $DbConnectionInfo
         AdminDbConnectionInfo = $AdminDbConnectionInfo
-        OdsDbConnectionInfo = $OdsDbConnectionInfo
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
@@ -361,23 +350,11 @@ function Initialize-Configuration {
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        # Validate the input parameters. Couldn't do so in the parameter declaration
-        # because the function is contained in the Configuration module imported above.
-        $Config.usingSharedCredentials = $Config.ContainsKey("DbConnectionInfo") -and (-not $null -eq $Config.DbConnectionInfo)
-        if ($Config.usingSharedCredentials) {
-            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.DbConnectionInfo
-            $Config.DbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-            $Config.engine = $Config.DbConnectionInfo.Engine
-        }
-        else {
-            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
-            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.OdsDbConnectionInfo
-            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
-            $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-            $Config.OdsDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-            $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-            $Config.engine = $Config.OdsDbConnectionInfo.Engine
-        }
+        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
+        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
+        $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+        $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+        $Config.engine = $Config.AdminDbConnectionInfo.Engine
     }
 }
 
@@ -411,58 +388,58 @@ function Invoke-TransformWebConfigAppSettings {
         $Config
     )
    
-        Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-            $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
-            $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
-            $settings.ApiSettings.Mode = $Config.InstallType
-            $settings.ApiSettings.Engine = $Config.engine
-            If ($Config.WebApiFeatures.Features -ne $Null) {
-                foreach ($feature in $Config.WebApiFeatures.Features) {
-                    foreach ($defaultfeature in $settings.ApiSettings.Features) {
-                        If ( $feature.Name -eq $defaultfeature.Name) {
-                            $defaultfeature.IsEnabled =$feature.IsEnabled
-                        }
+    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
+        $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+        $settings.ApiSettings.Mode = $Config.InstallType
+        $settings.ApiSettings.Engine = $Config.engine
+        If ($Config.WebApiFeatures.Features -ne $Null) {
+            foreach ($feature in $Config.WebApiFeatures.Features) {
+                foreach ($defaultfeature in $settings.ApiSettings.Features) {
+                    If ( $feature.Name -eq $defaultfeature.Name) {
+                        $defaultfeature.IsEnabled =$feature.IsEnabled
                     }
                 }
             }
-            # Add a Log4net property override to specify the log's destination
-            $splitPackageVersion = $Config.PackageVersion.Split(".")
-            # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
-            if(-not $splitPackageVersion) {
-                $packageName = $Config.PackageName
-                $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
-                $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
-            }
-            # We only care about Major/Minor for determining the log file name
-            if ($splitPackageVersion.Count -lt 3) {
-                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
-            }
-            $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
-            if($Null -eq $settings.Log4NetCore) { 
-                $settings.Log4NetCore = @{}
-            }
-            if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
-                $settings.Log4NetCore.PropertyOverrides = @()
-            }
-            $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
-            if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
-                $settings.Log4NetCore.PropertyOverrides += @{
-                    XPath = $rollingFileXpath
-                    Attributes = @{
-                        Value = $logDestination
-                    }
-                }
-            }
-            if($Config.InstallType -eq "Sandbox") {
-                $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
-                if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
-                    $settings.ApiSettings.PlainTextSecrets = $true
-                }
-            }
-           $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
-           $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
-           New-JsonFile $settingsFile $settings -Overwrite
         }
+        # Add a Log4net property override to specify the log's destination
+        $splitPackageVersion = $Config.PackageVersion.Split(".")
+        # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
+        if(-not $splitPackageVersion) {
+            $packageName = $Config.PackageName
+            $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
+            $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
+        }
+        # We only care about Major/Minor for determining the log file name
+        if ($splitPackageVersion.Count -lt 3) {
+            throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
+        }
+        $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
+        if($Null -eq $settings.Log4NetCore) { 
+            $settings.Log4NetCore = @{}
+        }
+        if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+            $settings.Log4NetCore.PropertyOverrides = @()
+        }
+        $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
+        if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+            $settings.Log4NetCore.PropertyOverrides += @{
+                XPath = $rollingFileXpath
+                Attributes = @{
+                    Value = $logDestination
+                }
+            }
+        }
+        if($Config.InstallType -eq "Sandbox") {
+            $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
+            if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
+                $settings.ApiSettings.PlainTextSecrets = $true
+            }
+        }
+        $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
+        $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+        New-JsonFile $settingsFile $settings -Overwrite
+    }
 }
 
 function Invoke-TransformWebConfigConnectionStrings {
@@ -473,41 +450,15 @@ function Invoke-TransformWebConfigConnectionStrings {
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        if ($Config.usingSharedCredentials) {
-            # ODS database name needs to have {0} for all but the SharedInstance mode. Convention is "_{0}".
-            if ((-not ("SharedInstance" -ieq $Config.InstallType)) -and (-not $Config.OdsDatabaseName.Contains("{0}"))) {
-                $Config.OdsDatabaseName += "_{0}"
-
-                # Eliminate potential duplication of "Ods" in token
-                $Config.OdsDatabaseName = $Config.OdsDatabaseName -replace "_Ods_\{0\}", "_{0}"
-            }
-
-            $Config.AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-            $Config.AdminDbConnectionInfo.DatabaseName = $Config.AdminDatabaseName
-
-            $Config.OdsDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-            $Config.OdsDbConnectionInfo.DatabaseName = $Config.OdsDatabaseName
-
-            $Config.SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
-            $Config.SecurityDbConnectionInfo.DatabaseName = $Config.SecurityDatabaseName
-        }
-        else {
             # Inject default database names if not provided
             if (-not $Config.AdminDbConnectionInfo.DatabaseName) {
                 $Config.AdminDbConnectionInfo.DatabaseName = "EdFi_Admin"
             }
-            if (-not $Config.OdsDbConnectionInfo.DatabaseName) {
-                if ("SharedInstance" -ieq "$Config.InstallType") {
-                    $Config.OdsDbConnectionInfo.DatabaseName = "EdFi_Ods"
-                }
-                else {
-                    $Config.OdsDbConnectionInfo.DatabaseName = "EdFi_{0}"
-                }
-            }
+
             if (-not $Config.SecurityDbConnectionInfo.DatabaseName) {
                 $Config.SecurityDbConnectionInfo.DatabaseName = "EdFi_Security"
             }
-        }
+        
 
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
@@ -515,12 +466,10 @@ function Invoke-TransformWebConfigConnectionStrings {
         Write-Host "Setting database connections in $($Config.WebConfigLocation)"
 
         $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
-        $odsconnString = New-ConnectionString -ConnectionInfo $Config.OdsDbConnectionInfo -SspiUsername $Config.WebApplicationName
         $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
         $connectionstrings = @{
             ConnectionStrings = @{
-                EdFi_Ods = $odsconnString
                 EdFi_Admin = $adminconnString
                 EdFi_Security = $securityConnString 
             }
@@ -570,9 +519,6 @@ function New-SqlLogins {
         {
             if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
             Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
-            
-            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
-            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
             
             if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
             Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
