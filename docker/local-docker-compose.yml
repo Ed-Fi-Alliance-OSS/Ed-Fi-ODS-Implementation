@@ -7,7 +7,7 @@ version: "3.8"
 
 services:
   db-ods:
-    image: edfialliance/ods-api-db-sandbox:${TAG}
+    image: edfialliance/ods-api-db-ods:${TAG}
     environment:
       POSTGRES_USER: "${POSTGRES_USER}"
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
