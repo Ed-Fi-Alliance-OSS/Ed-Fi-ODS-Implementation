@@ -3,17 +3,23 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+# This docker compose is only intended for local testing of the dockerfiles in
+# the parent docker/ directory. Those files load the Ed-Fi components from
+# publisehd NuGet packages rather than from source code.
+
 version: "3.8"
 
 services:
   db-ods:
-    image: edfialliance/ods-api-db-ods:${TAG}
+    build:
+      context: ods-api-db-ods/alpine/pgsql
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      TPDM_ENABLED: "${TPDM_ENABLED:-true}"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      TPDM_ENABLED: ${TPDM_ENABLED:-true}
     volumes:
-      - vol-local-nuget-db-ods:/var/lib/postgresql/data
+      - vol-db-ods:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-ods
     healthcheck:
@@ -22,13 +28,15 @@ services:
       retries: 3
 
   db-admin:
-    image: edfialliance/ods-api-db-admin:${TAG}
+    build:
+      context: ods-api-db-admin/alpine/pgsql
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      API_MODE: "Sandbox"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      API_MODE: SharedInstsance
     volumes:
-      - vol-local-nuget-db-admin:/var/lib/postgresql/data
+      - vol-db-admin:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-admin
     healthcheck:
@@ -36,41 +44,25 @@ services:
       start_period: "60s"
       retries: 3
 
-  # nginx:
-  #   image: edfialliance/ods-api-web-gateway-sandbox:${TAG}
-  #   environment:
-  #     ODS_VIRTUAL_NAME: "${ODS_VIRTUAL_NAME:-api}"
-  #     SANDBOX_ADMIN_VIRTUAL_NAME: "${SANDBOX_ADMIN_VIRTUAL_NAME:-admin}"
-  #   ports:
-  #     - "443:443"
-  #     - "80:80"
-  #   container_name: ed-fi-gateway
-  #   restart: always
-  #   hostname: nginx
-  #   volumes:
-  #     - ../../ssl:/ssl/
-  #   depends_on:
-  #     - api
-  #     - admin
-  #     - swagger
-
   api:
-    image: edflocalialliance/ods-api-web-api:${TAG}
+    build:
+      context: ods-api-web-api/alpine/pgsql
+      dockerfile: Dockerfile
     environment:
-      POSTGRES_USER: "${POSTGRES_USER}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      POSTGRES_PORT: "${PGBOUNCER_LISTEN_PORT:-6432}"
-      API_MODE: "Sandbox"
-      ODS_POSTGRES_HOST: pb-ods
-      ADMIN_POSTGRES_HOST: pb-admin
-      ApiSettings__PathBase: "${ODS_VIRTUAL_NAME:-api}"
-      TPDM_ENABLED: "${TPDM_ENABLED:-true}"
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_PORT: ${PGBOUNCER_LISTEN_PORT:-6432}
+      API_MODE: SharedInstsance
+      ODS_POSTGRES_HOST: db-ods
+      ADMIN_POSTGRES_HOST: db-admin
+      ApiSettings__PathBase: ${ODS_VIRTUAL_NAME:-api}
+      TPDM_ENABLED: ${TPDM_ENABLED:-true}
       API_HEALTHCHECK_TEST: ${API_HEALTHCHECK_TEST?Please consult env.example to set the API healthcheck test}
-      NPG_POOLING_ENABLED: "${NPG_POOLING_ENABLED:-false}"
-      NPG_API_MAX_POOL_SIZE_ODS: "${NPG_API_MAX_POOL_SIZE_ODS}"
-      NPG_API_MAX_POOL_SIZE_ADMIN: "${NPG_API_MAX_POOL_SIZE_ADMIN}"
-      NPG_API_MAX_POOL_SIZE_SECURITY: "${NPG_API_MAX_POOL_SIZE_SECURITY}"
-      NPG_API_MAX_POOL_SIZE_MASTER: "${NPG_API_MAX_POOL_SIZE_MASTER}"
+      NPG_POOLING_ENABLED: ${NPG_POOLING_ENABLED:-false}
+      NPG_API_MAX_POOL_SIZE_ODS: ${NPG_API_MAX_POOL_SIZE_ODS}
+      NPG_API_MAX_POOL_SIZE_ADMIN: ${NPG_API_MAX_POOL_SIZE_ADMIN}
+      NPG_API_MAX_POOL_SIZE_SECURITY: ${NPG_API_MAX_POOL_SIZE_SECURITY}
+      NPG_API_MAX_POOL_SIZE_MASTER: ${NPG_API_MAX_POOL_SIZE_MASTER}
     volumes:
       - ${LOGS_FOLDER}:/app/logs
     depends_on:
@@ -85,12 +77,14 @@ services:
       retries: 3
 
   swagger:
-    image: edfialliance/ods-api-web-swaggerui:${TAG}
+    build:
+      context: ods-api-web-swaggerui
+      dockerfile: Dockerfile
     environment:
-      POPULATED_KEY: "${POPULATED_KEY}"
-      POPULATED_SECRET: "${POPULATED_SECRET}"
-      WebApiVersionUrl: "https://localhost/${ODS_VIRTUAL_NAME:-api}/"
-      PathBase: "${DOCS_VIRTUAL_NAME:-docs}"
+      POPULATED_KEY: ${POPULATED_KEY}
+      POPULATED_SECRET: ${POPULATED_SECRET}
+      WebApiVersionUrl: https://api
+      PathBase: ${DOCS_VIRTUAL_NAME:-docs}
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     depends_on:
       - api
@@ -101,6 +95,25 @@ services:
       test: ${SWAGGER_HEALTHCHECK_TEST}
       start_period: "60s"
       retries: 3
+
+  nginx:
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    environment:
+      ODS_VIRTUAL_NAME: "${ODS_VIRTUAL_NAME:-api}"
+      SWAGGER_VIRTUAL_NAME: "${SWAGGER_VIRTUAL_NAME:-swagger}"
+    ports:
+      - 443:443
+      - 80:80
+    container_name: ed-fi-gateway
+    restart: always
+    hostname: nginx
+    volumes:
+      - ./gateway/ssl/:/ssl/
+    depends_on:
+      - api
+      - swagger
 
 volumes:
   vol-db-admin:
