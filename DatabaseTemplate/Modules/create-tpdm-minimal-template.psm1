@@ -15,8 +15,8 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
     $config.appSettings.Plugin.Folder = "../../Plugin"
     $config.appSettings.Plugin.Scripts = @("tpdm")
     $config.appSettings = Merge-Hashtables $config.appSettings, (Get-DefaultTemplateSettingsByEngine)[$config.engine]
-    $config.appSettings.ApiSettings.StandardVersion = $config.standardVersion
-    $config.appSettings.ApiSettings.ExtensionVersion = $config.extensionVersion
+    $config.StandardVersion = $config.standardVersion
+    $config.ExtensionVersion = $config.extensionVersion
 
     $config.Remove('apiClientNameSandbox')
 
@@ -92,7 +92,7 @@ function Initialize-TPDMMinimalTemplate {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
         [string] $createByRestoringBackup,
-        [String] $standardVersion = '4.0.0',
+        [String] $standardVersion = '5.0.0',
         [String] $extensionVersion = '1.1.0'
     )
 

@@ -12,7 +12,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 function Get-MinimalConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
-
+    $config.StandardVersion = $config.StandardVersion
     $config.Remove('apiClientNameSandbox')
 
     $config.testHarnessJsonConfigLEAs = @()
@@ -79,7 +79,7 @@ function Initialize-MinimalTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '4.0.0'
+        [String] $standardVersion = '5.0.0'
     )
 
     Clear-Error

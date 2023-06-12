@@ -24,7 +24,7 @@ param(
 
     [string[]] $PathResolverOverride,
 
-    [String] $StandardVersion = '4.0.0',
+    [String] $StandardVersion = '5.0.0',
 
     [String] $ExtensionVersion = '1.1.0'
 )
@@ -100,24 +100,26 @@ $tasks = [ordered] @{
     "Reset SQLServer $DatabaseType Database"               = {
         $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-            engine       = $sqlServerSettings.ApiSettings.engine
-            csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-            database     = $databaseType
-            filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-            subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-            dropDatabase = $true
+            engine           = $sqlServerSettings.ApiSettings.engine
+            csb              = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+            database         = $databaseType
+            filePaths        = $sqlServerSettings.ApiSettings.FilePaths
+            subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
+            dropDatabase     = $true
+            standardVersion  = $StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
     "Reset PostgreSQL $DatabaseType Database"              = {
         $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$DatabaseType]
         $params = @{
-            engine       = $postgresSettings.ApiSettings.engine
-            csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-            database     = $databaseType
-            filePaths    = $postgresSettings.ApiSettings.FilePaths
-            subTypeNames = $postgresSettings.ApiSettings.SubTypes
-            dropDatabase = $true
+            engine           = $postgresSettings.ApiSettings.engine
+            csb              = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+            database         = $databaseType
+            filePaths        = $postgresSettings.ApiSettings.FilePaths
+            subTypeNames     = $postgresSettings.ApiSettings.SubTypes
+            dropDatabase     = $true
+            standardVersion  = $StandardVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

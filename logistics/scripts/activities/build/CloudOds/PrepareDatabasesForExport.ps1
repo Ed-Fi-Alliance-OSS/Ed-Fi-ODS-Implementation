@@ -29,7 +29,11 @@ param(
     [string] $packageName = 'EdFi.CloudODS',
 
     [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
-    [switch] $WhatIf
+    [switch] $WhatIf,
+
+    [String] $StandardVersion = '5.0.0',
+
+    [String] $ExtensionVersion = '1.1.0'
 )
 
 if (-not (Test-Path $sqlPackagePath)) { throw "Could not find sqlpackage.exe at $sqlPackagePath" }
@@ -103,12 +107,13 @@ $deploymentTasks = @(
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $sqlServerSettings.ApiSettings.engine
-                csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine           = $sqlServerSettings.ApiSettings.engine
+                csb              = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+                database         = $databaseType
+                filePaths        = $sqlServerSettings.ApiSettings.FilePaths
+                subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
+                dropDatabase     = $true
+                standardVersion  = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -119,12 +124,13 @@ $deploymentTasks = @(
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $sqlServerSettings.ApiSettings.engine
-                csb          = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine           = $sqlServerSettings.ApiSettings.engine
+                csb              = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+                database         = $databaseType
+                filePaths        = $sqlServerSettings.ApiSettings.FilePaths
+                subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
+                dropDatabase     = $true
+                standardVersion  = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -135,12 +141,13 @@ $deploymentTasks = @(
             $databaseType = $sqlServerSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $sqlServerSettings.ApiSettings.engine
-                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
-                database     = $databaseType
-                filePaths    = $sqlServerSettings.ApiSettings.FilePaths
-                subTypeNames = $sqlServerSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine           = $sqlServerSettings.ApiSettings.engine
+                csb              = Get-DbConnectionStringBuilderFromTemplate -templateCSB $sqlServerSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
+                database         = $databaseType
+                filePaths        = $sqlServerSettings.ApiSettings.FilePaths
+                subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
+                dropDatabase     = $true
+                standardVersion  = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -159,6 +166,7 @@ $deploymentTasks = @(
                 subTypeNames            = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
+                standardVersion         = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -177,6 +185,7 @@ $deploymentTasks = @(
                 subTypeNames            = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
+                standardVersion         = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }
@@ -187,12 +196,13 @@ $deploymentTasks = @(
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Admin
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $postgresSettings.ApiSettings.engine
-                csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine              = $postgresSettings.ApiSettings.engine
+                csb                 = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+                database            = $databaseType
+                filePaths           = $postgresSettings.ApiSettings.FilePaths
+                subTypeNames        = $postgresSettings.ApiSettings.SubTypes
+                dropDatabase        = $true
+                standardVersion     = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -203,12 +213,13 @@ $deploymentTasks = @(
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Security
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $postgresSettings.ApiSettings.engine
-                csb          = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
-                database     = $databaseType
-                filePaths    = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine            = $postgresSettings.ApiSettings.engine
+                csb               = $postgresSettings.ApiSettings.csbs[$connectionStringKey]
+                database          = $databaseType
+                filePaths         = $postgresSettings.ApiSettings.FilePaths
+                subTypeNames      = $postgresSettings.ApiSettings.SubTypes
+                dropDatabase      = $true
+                standardVersion   = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -219,12 +230,13 @@ $deploymentTasks = @(
             $databaseType = $postgresSettings.ApiSettings.DatabaseTypes.Ods
             $connectionStringKey = $postgresSettings.ApiSettings.ConnectionStringKeys[$databaseType]
             $params = @{
-                engine       = $postgresSettings.ApiSettings.engine
-                csb          = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
-                database     = $databaseType
-                filePaths    = $postgresSettings.ApiSettings.FilePaths
-                subTypeNames = $postgresSettings.ApiSettings.SubTypes
-                dropDatabase = $true
+                engine            = $postgresSettings.ApiSettings.engine
+                csb               = Get-DbConnectionStringBuilderFromTemplate -templateCSB $postgresSettings.ApiSettings.csbs[$connectionStringKey] -replacementTokens 'Ods'
+                database          = $databaseType
+                filePaths         = $postgresSettings.ApiSettings.FilePaths
+                subTypeNames      = $postgresSettings.ApiSettings.SubTypes
+                dropDatabase      = $true
+                standardVersion   = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -243,6 +255,7 @@ $deploymentTasks = @(
                 subTypeNames            = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
+                standardVersion         = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -261,6 +274,7 @@ $deploymentTasks = @(
                 subTypeNames            = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
+                standardVersion         = $StandardVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }

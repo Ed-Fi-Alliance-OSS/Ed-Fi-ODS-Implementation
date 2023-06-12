@@ -52,7 +52,7 @@ param(
     
     [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
     
-    [String] $StandardVersion = '4.0.0',
+    [String] $StandardVersion = '5.0.0',
     
     [String] $ExtensionVersion = '1.1.0'
 )

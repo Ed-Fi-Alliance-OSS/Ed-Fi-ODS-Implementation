@@ -12,7 +12,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate
 function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
-
+    $config.StandardVersion =  $config.standardVersion
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
     $config.Id = "EdFi.Suite3.Ods.Populated.Template"
@@ -73,7 +73,7 @@ function Initialize-PopulatedTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '4.0.0'
+        [String] $standardVersion = '5.0.0'
     )
 
     Clear-Error

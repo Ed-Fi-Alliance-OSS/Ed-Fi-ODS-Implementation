@@ -70,7 +70,7 @@ function Initialize-DeploymentEnvironment {
 
         [switch] $UsePlugins,
 
-        [String] $StandardVersion = '4.0.0',
+        [String] $StandardVersion = '5.0.0',
 
         [String] $ExtensionVersion = '1.1.0'
     )

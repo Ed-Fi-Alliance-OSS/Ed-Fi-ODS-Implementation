@@ -106,14 +106,16 @@ function New-DatabaseTemplate {
         Write-Host "Skipping extensions sources."
         $filePaths = Get-RepositoryArtifactPaths
     }
-
+    
     $params = @{
-        csb          = $config.databaseConnectionString
-        engine       = $config.engine
-        database     = $config.database
-        filePaths    = $filePaths
-        subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
-        transient    = $true
+            csb          = $config.databaseConnectionString
+            engine       = $config.engine
+            database     = $config.database
+            filePaths    = $filePaths
+            subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
+            transient    = $true
+            standardVersion  = $config.StandardVersion
+  
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }
     Initialize-EdFiDatabaseWithDbDeploy @params
@@ -168,6 +170,8 @@ function Copy-InterchangeFiles {
     $includeAllInterchanges = ([string]::IsNullOrWhiteSpace($interchanges)) -or ($interchanges.Length -eq 0)
 
     foreach ($xmlFile in $xmlFiles) {
+
+
         if ($includeAllInterchanges -or ($interchanges -contains (Get-XmlRoot $xmlFile.FullName).Name)) {
             $elapsed = Use-Stopwatch {
                 # Randomize the file's name to prevent it from being overwritten if there is another file with the same name
