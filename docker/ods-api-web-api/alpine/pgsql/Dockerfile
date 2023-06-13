@@ -3,10 +3,16 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.16-alpine3.17-amd64@sha256:dabdf423e179383d848889b760a4258a5950b224730762bf39bfd51de344cfa3
+# Base image with additional packages
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.16-alpine3.17-amd64@sha256:dabdf423e179383d848889b760a4258a5950b224730762bf39bfd51de344cfa3 AS base
+RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 postgresql13-client=~13 icu=~72 curl=~8
+
+# Start a new layer so that the above layer can be cached
+FROM base AS build
 ARG API_VERSION=6.1.929
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
+# These variables can be overwritten at runtime
 ENV POSTGRES_PORT=5432
 ENV PGBOUNCER_LISTEN_PORT=6432
 ENV NPG_POOLING_ENABLED=false
@@ -23,8 +29,7 @@ COPY appsettings.template.json /app/appsettings.template.json
 COPY run.sh /app/run.sh
 COPY log4net.config /app/log4net.txt
 
-RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 postgresql13-client=~13 icu=~72 curl=~8 && \
-    wget -O /app/WebApi.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi/versions/${API_VERSION}/content && \
+RUN wget -O /app/WebApi.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi/versions/${API_VERSION}/content && \
     unzip /app/WebApi.zip -d /app && \
     rm -f /app/WebApi.zip && \
     cp /app/log4net.txt /app/log4net.config && \
@@ -32,7 +37,8 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 postgresql13-clie
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \
     chmod 700 /app/*.sh -- ** && \
-    rm -f /app/*.exe
+    rm -f /app/*.exe && \
+    apk del unzip dos2unix
 
 EXPOSE 80
 
