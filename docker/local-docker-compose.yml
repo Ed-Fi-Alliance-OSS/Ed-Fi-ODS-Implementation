@@ -22,6 +22,7 @@ services:
       - vol-db-ods:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-ods
+    hostname: db-ods
     healthcheck:
       test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
       start_period: "60s"
@@ -39,6 +40,7 @@ services:
       - vol-db-admin:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-admin
+    hostname: db-admin
     healthcheck:
       test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
       start_period: "60s"
@@ -51,8 +53,8 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_PORT: ${PGBOUNCER_LISTEN_PORT:-6432}
-      API_MODE: SharedInstsance
+      POSTGRES_PORT: 5432
+      API_MODE: sharedinstance
       ODS_POSTGRES_HOST: db-ods
       ADMIN_POSTGRES_HOST: db-admin
       ApiSettings__PathBase: ${ODS_VIRTUAL_NAME:-api}
@@ -78,12 +80,12 @@ services:
 
   swagger:
     build:
-      context: ods-api-web-swaggerui
+      context: ods-api-web-swaggerui/alpine
       dockerfile: Dockerfile
     environment:
       POPULATED_KEY: ${POPULATED_KEY}
       POPULATED_SECRET: ${POPULATED_SECRET}
-      WebApiVersionUrl: https://api
+      WebApiVersionUrl: https://localhost/${ODS_VIRTUAL_NAME:-api}
       PathBase: ${DOCS_VIRTUAL_NAME:-docs}
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     depends_on:
@@ -101,8 +103,8 @@ services:
       context: gateway
       dockerfile: Dockerfile
     environment:
-      ODS_VIRTUAL_NAME: "${ODS_VIRTUAL_NAME:-api}"
-      SWAGGER_VIRTUAL_NAME: "${SWAGGER_VIRTUAL_NAME:-swagger}"
+      ODS_VIRTUAL_NAME: ${ODS_VIRTUAL_NAME:-api}
+      SWAGGER_VIRTUAL_NAME: ${SWAGGER_VIRTUAL_NAME:-swagger}
     ports:
       - 443:443
       - 80:80
