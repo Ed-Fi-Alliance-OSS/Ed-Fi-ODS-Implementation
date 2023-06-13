@@ -80,7 +80,7 @@ services:
 
   swagger:
     build:
-      context: ods-api-web-swaggerui/alpine
+      context: ods-api-swaggerui/alpine
       dockerfile: Dockerfile
     environment:
       POPULATED_KEY: ${POPULATED_KEY}

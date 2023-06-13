@@ -9,7 +9,7 @@ Provides docker deployment for SwaggerUI.
 
 The only supported image at this time is an Alpine-based implementation.
 
-`edfialliance/ods-api-web-swaggerui:<version>`
+`edfialliance/ods-api-swaggerui:<version>`
 
 ## Supported Environment Variables
 
