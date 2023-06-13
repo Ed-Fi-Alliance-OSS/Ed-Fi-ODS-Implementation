@@ -17,7 +17,7 @@ if (-not (Test-Path ./gateway/ssl/server.crt)) {
 docker compose -f .\local-docker-compose.yml build `
  --build-arg ADMIN_VERSION=7.0.98 `
  --build-arg SECURITY_VERSION=7.0.78 `
- --build-arg CORE_VERSION=7.0.656 `
+ --build-arg ODS_VERSION=7.0.656 `
  --build-arg TPDM_VERSION=7.0.573 `
  --build-arg API_VERSION=7.0.1596 `
  --build-arg SWAGGER_VERSION=7.0.1994
