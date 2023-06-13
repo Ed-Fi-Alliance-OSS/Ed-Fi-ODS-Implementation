@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: InitDev (Postgres), Smoke Tests Sandbox, and Multitenancy
+name: InitDev (Postgres), Smoke Tests
 
 on:
   pull_request:
@@ -145,7 +145,7 @@ jobs:
         .\build.githubactions.ps1 Build -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"        
         .\build.githubactions.ps1 Test -Configuration ${{ env.CONFIGURATION }} -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" -TestFilter "RunManually"
       shell: pwsh
-    - name: ODS/API Smoke Test Sandbox
+    - name: ODS/API Smoke Tests
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
         $ErrorActionPreference = 'Stop'
@@ -172,22 +172,11 @@ jobs:
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
       shell: pwsh
-    - name: Upload Smoke Test Sandbox Logs
+    - name: Upload Smoke Tests Logs
       if: success() || failure()
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
-        name: Smoke Test Sandbox Logs
+        name: Smoke Tests Logs
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
-    - name: ODS/API Postman Test MultiTenancy
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |           
-        $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-
-        Set-Multitenancy -tenants Tenant1,Tenant2
-        
-        Write-FlatHashtable (Get-DeploymentSettings)
-        # TODO: Execute Postman MultiTenancy Collection
-      shell: pwsh
