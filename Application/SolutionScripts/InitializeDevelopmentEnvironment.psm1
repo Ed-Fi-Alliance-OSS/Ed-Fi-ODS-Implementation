@@ -144,7 +144,7 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
-        [String] $StandardVersion = '4.0.0',
+        [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
         [String] $ExtensionVersion = '1.1.0'
@@ -186,13 +186,14 @@ function Initialize-DevelopmentEnvironment {
 
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot -StandardVersion $StandardVersion -ExtensionVersion $ExtensionVersion }
 
+        Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
+
         if (-not $NoRebuild) {
             if (-not $NoRestore) {
-                $script:result += Invoke-RebuildSolution
+                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $false -standardVersion $StandardVersion
             }
             else {
-                Write-Host -ForegroundColor Magenta "Invoke-RebuildSolution NoRestore is " $noRestore
-                $script:result += Invoke-RebuildSolution  -buildConfiguration "Debug"  -verbosity "minimal" -solutionPath (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln") -noRestore $NoRestore
+                $script:result += Invoke-RebuildSolution -standardVersion $StandardVersion
             }
         }
 
@@ -286,7 +287,8 @@ Function Invoke-RebuildSolution {
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
-        [Boolean] $noRestore = $false
+        [Boolean] $noRestore = $false,
+        [String] $standardVersion = '5.0.0'
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -297,6 +299,7 @@ Function Invoke-RebuildSolution {
             BuildConfiguration = $buildConfiguration
             LogVerbosityLevel  = $verbosity
             noRestore          = $noRestore
+            standardVersion    = $StandardVersion
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
@@ -308,11 +311,11 @@ Function Invoke-RebuildSolution {
 
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
         if ($noRestore) {
-            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore | Out-Host
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath --no-restore -p:StandardVersion=$StandardVersion | Out-Host
         }
         else
         {
-            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath  | Out-Host
+            & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath  -p:StandardVersion=$StandardVersion | Out-Host
         }
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
@@ -344,42 +347,95 @@ function Reset-EmptySandboxDatabase {
 }
 
 function Reset-TestAdminDatabase {
+    param(
+        [string[]] $replacementTokens = @('Admin_Test')
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Admin_Test'
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
 
 function Reset-TestSecurityDatabase {
+    param(
+        [string[]] $replacementTokens = @('Security_Test')
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens 'Security_Test'
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Security]] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
 
 Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateDatabase
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
+    param(
+        [string[]] $replacementTokens = @()
+    )
+    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-       $settings = Get-DeploymentSettings
+        $settings = Get-DeploymentSettings
+        if ($replacementTokens.count -eq 0) { $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test") }
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
-        $csb = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens "$($settings.ApiSettings.populatedTemplateSuffix)_Test"
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
-        Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
+}
+
+function Set-Multitenancy {
+    param(
+        [string[]] $Tenants
+    )
+    
+    $adminReplacementTokens = @()
+    $securityReplacementTokens = @()
+    $odsReplacementTokens = @()
+        
+    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
+        $integrationTestHarnessProjectPath = Get-RepositoryResolvedPath (Get-TestProjectTypes).IntegrationTestHarness
+        $integrationTestHarnessDevelopmentSettingsPath = Join-Path $integrationTestHarnessProjectPath "appsettings.Development.json"
+        $deplosymentSettings = Get-DeploymentSettings
+        $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+        
+        $integrationTestHarnessDevelopmentSettings.ApiSettings | Add-Member -NotePropertyName Features -NotePropertyValue @( @{Name = 'MultiTenancy'; IsEnabled=$true} )
+        
+        $integrationTestHarnessDevelopmentSettings | Add-Member -NotePropertyName Tenants -NotePropertyValue @()
+        
+        foreach ($tenant in $tenants) {
+            $integrationTestHarnessDevelopmentSettings.Tenants += @{
+                TenantIdentifier = $tenant
+                ConnectionStrings = @{
+                    EdFi_Admin = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Admin_$($tenant)_Test"
+                    EdFi_Security = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Security_$($tenant)_Test"
+                }
+            }
+            $adminReplacementTokens += "Admin_$($tenant)_Test"
+            $securityReplacementTokens += "Security_$($tenant)_Test"
+            $odsReplacementTokens += "$($deplosymentSettings.ApiSettings.populatedTemplateSuffix)_$($tenant)_Test"
+        }
+        
+        $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsPath -Encoding UTF8
+    }
+    
+    Reset-TestAdminDatabase $adminReplacementTokens
+    Reset-TestSecurityDatabase $securityReplacementTokens
+    Reset-TestPopulatedTemplateDatabase $odsReplacementTokens
 }
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
@@ -390,7 +446,7 @@ function Invoke-CodeGen {
         [switch] $IncludePlugins,
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
-        [String] $StandardVersion = '4.0.0',
+        [String] $StandardVersion = '5.0.0',
         [String] $ExtensionVersion = '1.1.0'
     )
 

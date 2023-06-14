@@ -249,6 +249,12 @@ const getConfigs = () => {
       docsUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/docs/`,
       apiUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/api/`,
       displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Year Specific`
+    },
+    {
+      initialVersion: newVersion(3, 7, 0, 0, null),
+      docsUrlTemplate: `${apiUrlBase}/Multitenant_v{{version}}/docs/`,
+      apiUrlTemplate: `${apiUrlBase}/Multitenant_v{{version}}/api/`,
+      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Multi-tenant`
     }
   ]
 

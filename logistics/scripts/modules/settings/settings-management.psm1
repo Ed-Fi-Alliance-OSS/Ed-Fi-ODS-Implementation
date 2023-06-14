@@ -588,6 +588,22 @@ function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $P
     return $newSettings
 }
 
+function Remove-ODSConnectionString([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if (($ProjectName -eq ((Get-ProjectTypes).SandboxAdmin)) -or 
+    ($ProjectName -eq ((Get-ProjectTypes).Databases)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).IntegrationTestHarness)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).NHibernateTests)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).ApiIntegrationTests)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).CompositeSpecFlowTests)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).WebApiIntegrationTests)) -or
+    ($ProjectName -eq ((Get-TestProjectTypes).DataAccessIntegrationTests))) { return $Settings }
+
+    $newSettings = Get-HashtableDeepClone $settings
+    $newSettings.ConnectionStrings.Remove('EdFi_Ods')
+
+    return $newSettings
+}
+
 function Get-UserSecretsIdByProject {
     return @{
         ((Get-ProjectTypes).SandboxAdmin)               = "f1506d66-289c-44cb-a2e2-80411cc690ea"
@@ -620,6 +636,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
 
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
+
+        $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 

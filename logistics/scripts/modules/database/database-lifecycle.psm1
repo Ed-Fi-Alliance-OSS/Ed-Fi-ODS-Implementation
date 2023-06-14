@@ -153,7 +153,6 @@ function Get-SQLServerDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $Settings.ApiSettings.StandardVersion
-        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -272,6 +271,7 @@ function Get-PostgreSQLDatabaseScriptStrategy {
         ConnectionString = $csb
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
+        StandardVersion  = $settings.ApiSettings.StandardVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -386,6 +386,10 @@ function Initialize-EdFiDatabase {
         [scriptblock]
         $ScriptStrategy
     )
+
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and ([string]::IsNullOrEmpty($CSB['Encrypt']))) {
+        $CSB['Encrypt'] = $false
+    }
 
     Write-InvocationInfo $MyInvocation
 
@@ -525,7 +529,11 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [string] $msSqlBackupPath,
 
-        [Int] $databaseTimeoutInSeconds = 60
+        [Int] $databaseTimeoutInSeconds = 60,
+        
+        [String] $standardVersion = '5.0.0',
+
+        [String] $extensionVersion = '1.1.0'
     )
 
     Write-InvocationInfo $MyInvocation
@@ -565,7 +573,8 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             FilePaths                = $filePaths
             Features                 = $subTypeNames
             DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
-        }
+            StandardVersion          = $standardVersion
+          }
         Invoke-DbDeploy @params
         
         Set-PostgresSQLDatabaseAsTemplate @scriptParams
@@ -610,6 +619,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         FilePaths                = $filePaths
         Features                 = $subTypeNames
         DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
+        StandardVersion          = $standardVersion
     }
     Invoke-DbDeploy @params
 }
