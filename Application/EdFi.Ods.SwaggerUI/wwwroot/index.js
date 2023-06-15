@@ -85,7 +85,7 @@ function onChangeTenant() {
 
     $(".url-link").each(function() {
         var oldUrl = $(this).attr("href");
-        var newUrl = oldUrl.replace('{tenantIdentifier}', tenantSelected);
+        var newUrl = oldUrl.replace(/tenantIdentifier=({?[A-Za-z0-9]+}?)/g, 'tenantIdentifier=' + tenantSelected);
         $(this).attr("href", newUrl);
     });
 }
@@ -167,20 +167,17 @@ async function addTenantOptions() {
 // dynamically creates the api sections using the #sectionTemplate
 function createSections() {
     var uri = sections['Resources'].links[0].uri;
-    var hasYear = /\/(20)\d{2}/.test(uri);
-
-    if (hasYear) {
-        addYearOptions();
-        $("#schoolYear").show();
-    }
 
     Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
     if (section.links <= 0) return
 
     const { Tenants } = appSettings;
+    const { Years } = appSettings;
 
-    var hasTenant = Tenants.length;
+    var hasYear = Years.length > 0;
+    var hasTenant = Tenants.length > 0;
+    
     var sectionTemplate = document.getElementById('sectionTemplate')
     var templateHtml = sectionTemplate.innerHTML
     var html = templateHtml
@@ -244,8 +241,18 @@ const fetchWebApiVersionUrl = (appSettings) => {
 
 const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
   var { openApiMetadata } = webApiVersionUrlJson.urls
+  const { Tenants } = appSettings;
+  const { Years } = appSettings;
 
-  var hasTenant = openApiMetadata.includes('{tenantIdentifier}');
+  var hasYear = Years.length > 0;
+  var hasTenant = Tenants.length > 0;
+
+  if (hasYear) {
+    addYearOptions();
+    let schoolYearSelected = $("#schoolYearSelect option:selected").text();
+    openApiMetadata = openApiMetadata.replace('{schoolYear}', schoolYearSelected);
+    $("#schoolYear").show();
+  }
 
   if (hasTenant) {
      addTenantOptions();
