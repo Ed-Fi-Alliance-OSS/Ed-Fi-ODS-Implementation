@@ -57,7 +57,6 @@ SELECT S.[SchoolId]
 	  ,CharterStatusDescriptor.[Description] AS [CharterStatusDescription]
 	  ,SchoolCategory.CodeValue AS [SchoolCategoryCode]
 	  ,SchoolCategory.[Description] AS [SchoolCategoryDescription]
-	  ,TitleIDescriptor.CodeValue AS [TitleICode]
 	  ,TitleIDescriptor.[Description] AS [TitleIDescription]
 	  ,(SELECT TOP 1 VGL.GradeLevelCode FROM edfi.SchoolGradeLevel SGL WITH (NOLOCK) -- Not sure if we'd prefer the Min and Max columns or the list. Most likely the list would be more accurate.
 			LEFT JOIN nmped_rpt.vw_gradeLevels VGL ON (VGL.GradeLevelDescriptorId = SGL.GradeLevelDescriptorId) 

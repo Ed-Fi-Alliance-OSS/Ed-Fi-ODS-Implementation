@@ -51,7 +51,6 @@ SELECT
 	,SSA.StudentUSI
 	,S.StudentUniqueId
 	,S.LastSurname + ', ' + S.FirstName AS [StudentName]
-	,S.BirthDate
 	,SSA.EntryDate
 	,SSA.SchoolYear
 	,EntryGradeLevel.CodeValue AS [GradeLevel]

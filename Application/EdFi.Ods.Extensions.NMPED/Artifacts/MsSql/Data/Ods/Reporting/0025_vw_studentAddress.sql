@@ -11,7 +11,7 @@
  *
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_studentAddress AS 
+
 WITH cte_Descriptors AS 
 (	SELECT
 		DescriptorId,

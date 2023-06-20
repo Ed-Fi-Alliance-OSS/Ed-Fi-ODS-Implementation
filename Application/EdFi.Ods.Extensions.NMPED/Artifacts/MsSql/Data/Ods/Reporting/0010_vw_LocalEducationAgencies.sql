@@ -53,3 +53,5 @@ LEFT JOIN cte_Descriptors LEACharterStatus WITH (NOLOCK)
 	ON (LEACharterStatus.DescriptorId = LEA.CharterStatusDescriptorId)
 
 GO
+
+

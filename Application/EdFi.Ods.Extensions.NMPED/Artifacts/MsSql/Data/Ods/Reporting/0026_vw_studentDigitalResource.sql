@@ -11,7 +11,6 @@
  *
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_studentDigitalResources AS 
 WITH cte_Descriptors AS 
 	(	SELECT DescriptorId, CodeValue, Description
 		FROM edfi.Descriptor WITH (NOLOCK)
@@ -58,7 +57,6 @@ SELECT
 	,InternetPerformanceInResidence.CodeValue			'InternetPerformanceInResidenceCode'
 	,InternetPerformanceInResidence.Description			'InternetPerformanceInResidenceDescription'
 	,SEOA.CreateDate
-	,SEOA.LastModifiedDate
 FROM 
 	edfi.StudentEducationOrganizationAssociation SEOA WITH (NOLOCK)
 

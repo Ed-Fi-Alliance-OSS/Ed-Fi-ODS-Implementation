@@ -10,7 +10,7 @@
  *			view, to build into a StudEdOrgAssoc sub report
  *
  */
-CREATE OR ALTER VIEW nmped_rpt.vw_studentLanguage AS
+
 WITH cte_Descriptors AS 
 (	SELECT
 		DescriptorId,
