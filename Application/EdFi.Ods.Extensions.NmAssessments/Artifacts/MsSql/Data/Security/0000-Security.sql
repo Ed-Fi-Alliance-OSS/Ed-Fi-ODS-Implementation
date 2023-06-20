@@ -18,8 +18,8 @@ SELECT @DescriptorsClaimId = ResourceClaimId FROM [dbo].[ResourceClaims] WHERE R
 INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName] 
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
-VALUES ('NmStudentAssessment', 'NmStudentAssessment'
-        ,'http://ed-fi.org/ods/identity/claims/nmped/localEducationAgencyTransportation'
+VALUES ('nmStudentAssessment', 'nmStudentAssessment'
+        ,'http://ed-fi.org/ods/identity/claims/nmped/nmStudentAssessment'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 -- *** Descriptors Security -- Adding these under the inherited permissions from System Descriptors ***
