@@ -14,6 +14,12 @@
  * Date: 04/18/2023
  * Alt Desc: Added CTE to the view to grab all Descriptors after noticing significant
  *           performance issues when accessing descriptor fields.
+ *
+ * Alt Id: 002
+ * By: Jesse Kain | contractor
+ * Email: douglas.kain@ped.nm.gov
+ * Date: 06/12/2023
+ * Alt Desc: Added columns  [DistrictOrgType],[LocationOrgType],[SchoolCategory]
  */
 
  CREATE OR ALTER VIEW nmped_rpt.vw_studentSchoolAssociations AS 
@@ -46,6 +52,10 @@ SELECT * FROM edfi.ResidencyStatusDescriptor WITH (NOLOCK))
 	,VDL.EducationOrganizationId_School
 	,VDL.LocationCode
 	,VDL.SchoolName	
+	-- Alt id 02 Added columns        [DistrictOrgType],[LocationOrgType],[SchoolCategory]
+	,VDL.[DistrictOrgType]
+	,VDL.[LocationOrgType]
+	,VDL.[SchoolCategory]
 
 	--resource documentation starts
 	,S.StudentUSI
