@@ -1,6 +1,3 @@
-USE [NM_Staging_EdFi_v5.3.0_Ods]
-GO
-
 /****** Object:  View [nmped_rpt].[vw_district_location]    Script Date: 6/20/2023 12:32:43 PM ******/
 SET ANSI_NULLS ON
 GO
