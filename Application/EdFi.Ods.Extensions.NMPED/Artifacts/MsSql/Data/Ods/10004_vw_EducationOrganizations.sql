@@ -137,3 +137,64 @@ LEFT JOIN cte_Descriptors PhysicalAddressLocaleDescriptor WITH (NOLOCK)
 	ON (PhysicalAddressLocaleDescriptor.DescriptorId = PhysicalAddress.LocaleDescriptorId)
 
 GO
+
+/* © NMPED 2023
+* 300 Don Gaspar Ave.
+* Santa Fe, NM 87501
+* Information Technology Division
+* By: Cody Misplay | Code Monkey III
+* Email: cody.misplay@ped.nm.gov
+* Date: 02/20/2023
+* Desc: This view has been created to display basic data from the EducationOrganization table and its associated tables
+* - EducationOrganizationCategory
+*
+* --I left this here for easy reference when updated--
+* Alt Id: 001 (Increment value each change)
+* By: 'Updaters Name' | 'Creators Title'
+* Email: 'Updaters Email'
+* Date: 'Date Updated'
+* Alt Desc: 'Description of the change'
+*/
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_EducationOrganizations_Basic]
+AS
+
+WITH cte_Descriptors AS (
+SELECT [DescriptorId]
+	   ,[Namespace]
+	   ,[CodeValue]
+	   ,[ShortDescription]
+	   ,[Description]
+FROM edfi.Descriptor WITH (NOLOCK)
+WHERE DescriptorId IN ( -- Control Table Query
+SELECT * FROM edfi.OperationalStatusDescriptor WITH (NOLOCK)
+UNION
+SELECT * FROM edfi.EducationOrganizationCategoryDescriptor WITH (NOLOCK)
+UNION
+SELECT * FROM edfi.StateAbbreviationDescriptor WITH (NOLOCK)
+UNION
+SELECT * FROM edfi.LocaleDescriptor WITH (NOLOCK)
+UNION
+SELECT * FROM edfi.AddressTypeDescriptor WITH (NOLOCK))
+)
+
+SELECT EO.[EducationOrganizationId]
+      ,EO.[NameOfInstitution]
+      ,EO.[ShortNameOfInstitution]
+      ,OperationalStatusDescriptor.[Description] AS [OperationalStatusDescription]
+      ,EO.[Discriminator]
+	  ,EOCategoryDescriptor.[Description] AS [EducationOrganizationCategoryDescription]
+	  ,SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)),3,3) AS [DistrictCode]
+	  ,SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)),6,3) AS [StateLocationID]
+	  ,'35000' + SUBSTRING(CAST(EO.[EducationOrganizationId] AS VARCHAR(10)), 3, 3) AS DISTRICT_KEY
+FROM [edfi].[EducationOrganization] EO WITH (NOLOCK)
+
+LEFT JOIN cte_Descriptors OperationalStatusDescriptor WITH (NOLOCK) 
+	ON (OperationalStatusDescriptor.DescriptorId = EO.OperationalStatusDescriptorId)
+
+LEFT JOIN edfi.EducationOrganizationCategory EOC WITH (NOLOCK) 
+	ON (EOC.EducationOrganizationId = EO.EducationOrganizationId)
+
+LEFT JOIN cte_Descriptors EOCategoryDescriptor WITH (NOLOCK) 
+	ON (EOCategoryDescriptor.DescriptorId = EOC.EducationOrganizationCategoryDescriptorId)
+
+GO

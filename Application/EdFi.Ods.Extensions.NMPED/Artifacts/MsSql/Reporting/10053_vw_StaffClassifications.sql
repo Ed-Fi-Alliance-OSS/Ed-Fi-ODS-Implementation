@@ -22,7 +22,7 @@
 * Date: 'Date Updated'
 * Alt Desc: 'Description of the change'
 */
-CREATE OR ALTER VIEW [nmped_rpt].[vw_StaffClassifications]
+CREATE OR ALTER     VIEW [nmped_rpt].[vw_StaffClassifications]
 AS
 
 
@@ -37,11 +37,12 @@ WHERE StaffIdSystem.CodeValue IN ('SSN', 'Professional Certificate')
 )
 
 SELECT 
-	 S.StaffUniqueId
+	  S.StaffUniqueId
 	 ,S.StaffUSI
 	 ,School.EducationOrganizationId_School AS [SchoolId]
 	 ,School.SchoolName
-	 ,SUBSTRING(CAST(SEOAA.EducationOrganizationId AS VARCHAR(10)), 3, 3) AS [DistrictCode]
+	 ,School.LocationCode
+	 ,School.DistrictCode
 	 ,School.DistrictName 
 	 ,School.EducationOrganizationId_District AS [DistrictId]
 	 ,S.FirstName
@@ -59,8 +60,8 @@ SELECT
 	 ,SEOAA.EndDate
 	,ID_SSN.IdentificationCode AS [StaffId]
 	,ID_Cert.IdentificationCode AS [CertNum]
-	--,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		-- I can't see any reason these would be used in this view.
-	--,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
+	,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		
+	,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
 	FROM
 	edfi.Staff S WITH (NOLOCK)
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)

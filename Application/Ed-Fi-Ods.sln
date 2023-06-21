@@ -95,6 +95,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Api.IntegrationTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.NMPED", "EdFi.Ods.Extensions.NMPED\EdFi.Ods.Extensions.NMPED.csproj", "{9A12AB99-E3FD-44EE-B962-53277623A8EF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.NmAssessments", "EdFi.Ods.Extensions.NMPED\EdFi.Ods.Extensions.NmAssessments.csproj", "{9A12AB99-E3FD-44EE-B962-53277623A8EF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
