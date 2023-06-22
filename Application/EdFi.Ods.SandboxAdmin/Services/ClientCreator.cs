@@ -115,9 +115,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             {
                 Name = sandboxName,
                 InstanceType = "Sandbox",
-                Status = "OK",
-                IsExtended = false,
-                Version = "1.0.0",
                 ConnectionString = connectionStringBuilder.ConnectionString
             });
 
