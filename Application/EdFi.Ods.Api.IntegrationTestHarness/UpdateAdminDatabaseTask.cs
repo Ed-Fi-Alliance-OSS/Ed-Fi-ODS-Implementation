@@ -10,16 +10,10 @@ using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
-using System.Xml.Linq;
 using System.Xml;
 using Formatting = Newtonsoft.Json.Formatting;
 using System.Collections.Generic;
-using static EdFi.Ods.Common.Namespaces;
-using System.Reflection;
-using EdFi.Common.Configuration;
-using EdFi.Common.Database;
 using EdFi.Ods.Common.Database;
-using Npgsql;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
@@ -65,9 +59,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 {
                     Name = odsDatabaseName,
                     InstanceType = "ODS",
-                    Status = "OK",
-                    IsExtended = false,
-                    Version = "1.0.0",
                     ConnectionString = odsConnectionString,
                 });
             
