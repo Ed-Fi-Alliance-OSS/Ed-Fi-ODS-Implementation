@@ -26,7 +26,7 @@ docker compose  -f .\docker-compose-sharedinstance.yml up -d
 
 Start-Sleep -Seconds 10
 
-# Create bootstrapped key and secret: populatedSandbox, populatedSandboxSecret
-docker cp ./bootstrap-client.sql ed-fi-db-admin:/tmp/bootstrap-client.sql
-docker exec -i ed-fi-db-admin sh -c "psql -U postgres -d EdFi_Admin -f /tmp/bootstrap-client.sql"
-docker exec -i ed-fi-db-admin sh -c "rm /tmp/bootstrap-client.sql"
+# Create bootstrapped key and secret: minimalKey / minimalSecret
+docker cp ./bootstrap-shared.sql ed-fi-db-admin:/tmp/bootstrap-shared.sql
+docker exec -i ed-fi-db-admin sh -c "psql -U postgres -d EdFi_Admin -f /tmp/bootstrap-shared.sql"
+docker exec -i ed-fi-db-admin sh -c "rm /tmp/bootstrap-shared.sql"
