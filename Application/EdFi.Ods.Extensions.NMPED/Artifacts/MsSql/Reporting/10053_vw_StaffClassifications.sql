@@ -45,6 +45,9 @@ SELECT
 	 ,School.DistrictCode
 	 ,School.DistrictName 
 	 ,School.EducationOrganizationId_District AS [DistrictId]
+	 ,School.DistrictOrgType
+	 ,School.LocationOrgType
+	 ,School.SchoolCategory
 	 ,S.FirstName
 	 ,S.MiddleName 
 	 ,S.LastSurname AS [LastName]
@@ -55,15 +58,16 @@ SELECT
 	 ,SEOAA.FullTimeEquivalency AS [FTE]
 	 ,StaffClassificationDescriptor.CodeValue AS [StaffClassificationCode]
 	 ,StaffClassificationDescriptor.ShortDescription AS [StaffClassificationDescription]
+	 ,StaffClassificationDescriptor.Description AS [StaffClassificationCategory]
 	 ,SEOAA.BeginDate
 	 ,SEOAA.EmploymentHireDate AS [HireDate]
 	 ,SEOAA.EndDate
-	,ID_SSN.IdentificationCode AS [StaffId]
-	,ID_Cert.IdentificationCode AS [CertNum]
-	,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		
-	,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
-	FROM
-	edfi.Staff S WITH (NOLOCK)
+	 ,ID_SSN.IdentificationCode AS [StaffId]
+	 ,ID_Cert.IdentificationCode AS [CertNum]
+	 ,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		
+	 ,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
+FROM edfi.Staff S WITH (NOLOCK)
+
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)
 		ON (S.StaffUSI = SEOAA.StaffUSI)
     LEFT JOIN nmped_rpt.vw_district_location School WITH (NOLOCK)

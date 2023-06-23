@@ -2178,681 +2178,682 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/StaffClassificationDescriptor'
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://nmped.org/StaffClassificationDescriptor'
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '10', 'Superintendent', 'Superintendent - Administrators');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','10','Superintendent','Administrators');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '11', 'Assistant Area Deputy of Associate Superintendent', 'Assistant Area Deputy of Associate Superintendent - Administrators');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','11','Assistant Area Deputy of Associate Superintendent','Administrators');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '12', 'Director of Personnel', 'Director of Personnel - Administrators');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','12','Director of Personnel','Administrators');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '13', 'Director of Instruction', 'Director of Instruction - Administrators');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','13','Director of Instruction','Administrators');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '36', 'Athletic Director', 'Athletic Director - Administrators');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','36','Athletic Director','Administrators');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '31', 'Instructional EA (Not Title 1, Part A program)', 'Instructional EA (Not providing instructional duties in a Title 1, Part A program) - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','31','Instructional EA (Not Title 1, Part A program)','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '31I', 'Instructional EA Providing instructional duties in a Title1, Part A program', 'Instructional EA Providing instructional duties in a Title1, Part A program - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','31I','Instructional EA Providing instructional duties in a Title1, Part A program','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '32', 'Library/Media EA (Not in a Title 1, Part A program)', 'Library/Media EA (Not providing instructional duties in a Title 1, Part A program) - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','32','Library/Media EA (Not in a Title 1, Part A program)','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '32I', 'Library/Media EA Providing instructional duties in a Title1, Part A program', 'Library/Media EA Providing instructional duties in a Title1, Part A program - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','32I','Library/Media EA Providing instructional duties in a Title1, Part A program','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '33', 'Other EA (Not providing instructional duties in a Title 1, Part A program)', 'Other EA (Not providing instructional duties in a Title 1, Part A program) - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','33','Other EA (Not providing instructional duties in a Title 1, Part A program)','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '33I', 'Other EA Providing instructional duties in a Title1, Part A program', 'Other EA Providing instructional duties in a Title1, Part A program - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','33I','Other EA Providing instructional duties in a Title1, Part A program','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '34', 'SpEd EA (Instructional Assistant) for SpEd 6-21 (NOT Title 1, Part A).', 'Special Education EA (Instructional Assistant) for Special Education students ages 6-21 (NOT providing instructional duties in a Title 1, Part A program). - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','34','SpEd EA (Instructional Assistant) for SpEd 6-21 (NOT Title 1, Part A).','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '34S', 'SpEd EA (Instructional Assistant) for SpEd 3-5 (NOT Title 1, Part A).', 'Special Education EA (Instructional Assistant) for Special Education students ages 3-5 (NOT providing instructional duties in a Title 1, Part A program). - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','34S','SpEd EA (Instructional Assistant) for SpEd 3-5 (NOT Title 1, Part A).','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '34I', 'SpEd EA (Instructional Assistant) inst duties - Title1, Part A SpEd 6-21.', 'Special Education EA (Instructional Assistant) Providing instructional duties in a Title1, Part A program to Special Education students ages 6-21. - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','34I','SpEd EA (Instructional Assistant) inst duties - Title1, Part A SpEd 6-21.','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '34IS', 'SpEd EA (Instructional Assistant) inst duties -Title1, Part A  3-5.', 'Special Education EA (Instructional Assistant) Providing instructional duties in a Title1, Part A program to Special Education students ages 3-5. - Educational Assistant');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','34IS','SpEd EA (Instructional Assistant) inst duties -Title1, Part A  3-5.','Educational Assistant');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '01', 'Nurse (LPN)', 'Nurse (LPN) - Healthcare');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','01','Nurse (LPN)','Healthcare');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '03', 'Healthcare Assistant', 'Healthcare Assistant - Healthcare');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','03','Healthcare Assistant','Healthcare');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '07', 'Special Education Healthcare Asst.', 'Special Education Healthcare Asst. - Healthcare');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','07','Special Education Healthcare Asst.','Healthcare');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '70', 'Nurse (RN)', 'Nurse (RN) - Healthcare');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','70','Nurse (RN)','Healthcare');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '76', 'Secondary Media', 'Secondary Media - Media Specialist');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','76','Secondary Media','Media Specialist');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '77', 'Junior/Mid High Media', 'Junior/Mid High Media - Media Specialist');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','77','Junior/Mid High Media','Media Specialist');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '78', 'Elementary Media', 'Elementary Media - Media Specialist');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','78','Elementary Media','Media Specialist');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '02', 'Generic Support Staff without a specific code', 'Generic code for other Support Staff without a specific code in this category - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','02','Generic Support Staff without a specific code','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '114', 'Maintenance', 'Maintenance - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','114','Maintenance','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '115', 'Custodian', 'Custodian - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','115','Custodian','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '116', 'Security', 'Security - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','116','Security','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '117', 'Cafeteria Worker', 'Cafeteria Worker - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','117','Cafeteria Worker','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '118', 'Bus Driver', 'Bus Driver - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','118','Bus Driver','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '144', 'Bus Assistant', 'Bus Assistant - All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','144','Bus Assistant','All Other Non-Certified Support Staff – Maintenance, Transportation, Food Service, IT, Facilities');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '24', 'Generic non-certified Supervisors or Directors without a specific code', 'Generic code for other non-certified Supervisors or Directors without a specific code in this category - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','24','Generic non-certified Supervisors or Directors without a specific code','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '120', 'Supervisor or Director of Information Technology', 'Supervisor or Director of Information Technology - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','120','Supervisor or Director of Information Technology','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '121', 'Supervisor or Director of Facilities', 'Supervisor or Director of Facilities - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','121','Supervisor or Director of Facilities','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '122', 'Supervisor or Director of Food Service', 'Supervisor or Director of Food Service - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','122','Supervisor or Director of Food Service','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '123', 'Supervisor or Director of Transportation', 'Supervisor or Director of Transportation - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','123','Supervisor or Director of Transportation','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '124', 'Supervisor or Director of Grants', 'Supervisor or Director of Grants - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','124','Supervisor or Director of Grants','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '125', 'Supervisor or Director of Human Resources', 'Supervisor or Director of Human Resources - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','125','Supervisor or Director of Human Resources','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '126', 'Supervisor or Director/Coordinator of Visual & Performing Arts', 'Supervisor or Director/Coordinator of Visual & Performing Arts - Non-Certified Supervisors or Directors');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','126','Supervisor or Director/Coordinator of Visual & Performing Arts','Non-Certified Supervisors or Directors');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '29', 'Generic non-certified Admin Supp Staff - Typically District Office', 'Generic code for other non-certified Administrative Support Staff without a specific code in this category - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','29','Generic non-certified Admin Supp Staff - Typically District Office','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '127', 'Administrative Business Office Support', 'Administrative Business Office Support - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','127','Administrative Business Office Support','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '128', 'Administrative Clerk', 'Administrative Clerk - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','128','Administrative Clerk','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '129', 'Administrative Secretary', 'Administrative Secretary - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','129','Administrative Secretary','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '130', 'STARS/Data Coordinator', 'STARS/Data Coordinator - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','130','STARS/Data Coordinator','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '131', 'Information Technology/Data Staff', 'Information Technology/Data Staff - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','131','Information Technology/Data Staff','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '132', 'Facilitator', 'Facilitator - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','132','Facilitator','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '133', 'Administrative Grant Clerk', 'Administrative Grant Clerk - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','133','Administrative Grant Clerk','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '134', 'Administrative Grant Secretary', 'Administrative Grant Secretary - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','134','Administrative Grant Secretary','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '135', 'Human Resource Staff', 'Human Resource Staff - Non-Certified Administrative Support Staff (typically working at a district office)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','135','Human Resource Staff','Non-Certified Administrative Support Staff (typically working at a district office)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '68', 'Generic code for other non-certified School Admin Staff -Support Staff', 'Generic code for other non-certified School Administrative Staff without a specific code in this category - Non-Certified School Support Staff
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','68','Generic code for other non-certified School Admin Staff -Support Staff','Non-Certified School Support Staff
 (Activities concerned with the support of teaching and administrative duties of the office of the Principal or Department Chairperson)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '136', 'School Registrar', 'School Registrar - Non-Certified School Support Staff
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','136','School Registrar','Non-Certified School Support Staff
 (Activities concerned with the support of teaching and administrative duties of the office of the Principal or Department Chairperson)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '137', 'School Clerk', 'School Clerk - Non-Certified School Support Staff
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','137','School Clerk','Non-Certified School Support Staff
 (Activities concerned with the support of teaching and administrative duties of the office of the Principal or Department Chairperson)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '138', 'School Secretary', 'School Secretary - Non-Certified School Support Staff
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','138','School Secretary','Non-Certified School Support Staff
 (Activities concerned with the support of teaching and administrative duties of the office of the Principal or Department Chairperson)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '04', 'ROTC Instructor', 'ROTC Instructor - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '05', 'Drivers Education', 'Drivers Education - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '06', 'In School Suspension', 'In School Suspension - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '08', 'Social Worker, General Education', 'Social Worker, General Education - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '09', 'Technology Coordinator', 'Technology Coordinator - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '65', 'Business Official or Supervisor/Director of Business', 'Business Official or Supervisor/Director of Business - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '79', 'Athletic Trainer', 'Athletic Trainer - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '80', 'Music Therapist', 'Music Therapist - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '81', 'Athletic Coach', 'Athletic Coach - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '83', 'Resource Coordinator', 'Resource Coordinator - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '95', 'SLP or SLP Clinical Fellows Acting as a Case Manager for speech only 6-21 ', 'Special Education Speech/Language Pathologist (SLP) or SLP Clinical Fellows Acting as a Caseload Manager for speech only 6-21 year olds - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '95S', 'SLP or SLP Clinical Fellows Acting as a Case Manager for speech only 3-5', 'Special Education Speech/Language Pathologist (SLP) or SLP Clinical Fellows Acting as a Caseload Manager for speech only 3-5 year olds - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '102', 'Testing Coordinator', 'Testing Coordinator - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '105', 'Academic Instructional Coach', 'Academic Instructional Coach - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '108', 'Native American Lang & Culture Inst (req 520 Native Lang & Culture Cert)', 'Native American Language & Culture Instructor (requires 520 Native Language & Culture Certificate) - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '109', 'Dean of Students', 'Dean of Students - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '141', 'School Psychologist, General Education', 'School Psychologist, General Education - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '142', 'Student Assistance Team (SAT) Chair', 'Student Assistance Team (SAT) Chair - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '143', 'Student Success Advisor', 'Student Success Advisor - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '146', 'Attendance Coach', 'Attendance Coach - Other Personnel');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '14', 'Principal, Secondary', 'Principal, Secondary - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '15', 'Assistant Principal, Secondary', 'Assistant Principal, Secondary - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '16', 'Principal, Jr./Mid High', 'Principal, Jr./Mid High - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '17', 'Assistant Principal, Jr./Mid High', 'Assistant Principal, Jr./Mid High - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '18', 'Principal, Elementary', 'Principal, Elementary - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '19', 'Assistant Principal, Elementary', 'Assistant Principal, Elementary - Principals');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '26', 'Speech/Language Apprentice (Not allowed to carry a caseload)', 'Speech/Language Apprentice (Not allowed to carry a caseload) - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '82', 'Social Worker', 'Social Worker - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '84', 'Physical Therapy Assistant (Not allowed to carry a caseload)', 'Physical Therapy Assistant (Not allowed to carry a caseload) - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '85', 'COTA (Not allowed to carry a caseload)', 'Certified Occupational Therapy Assistant (COTA) (Not allowed to carry a caseload) - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '86', 'Audiologist', 'Audiologist - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '87', 'Diagnostician', 'Diagnostician - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '88', 'Interpreter for the Deaf', 'Interpreter for the Deaf - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '89', 'Occupational Therapist', 'Occupational Therapist - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '90', 'Orientation and Mobility Trainer', 'Orientation and Mobility Trainer - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '91', 'Physical Therapist', 'Physical Therapist - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '92', 'School Psychologist', 'School Psychologist - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '93', 'Speech/Language Pathologist (SLP)', 'Speech/Language Pathologist (SLP) - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '98', 'Recreation and Therapeutic Recreation Specialist', 'Recreation and Therapeutic Recreation Specialist - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '99', 'Rehabilitation Counselor', 'Rehabilitation Counselor - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '107', 'Medical/Nursing Services Provider for special education', 'Medical/Nursing Services Provider for special education - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '111', 'SLP Clinical Fellows', 'SLP Clinical Fellows - Related Service Personnel For Special Education (6-21 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '26S', 'Spee/Lang Apprentice for special education 3-5 year (Not caseload allowed)', 'Speech/Language Apprentice for special education 3-5 year olds (Not allowed to carry a caseload) - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '82S', 'Social Worker for special education 3-5 year olds', 'Social Worker for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '84S', 'PTA for special education 3-5 year olds (Not allowed to carry a caseload)', 'Physical Therapy Assistant for special education 3-5 year olds (Not allowed to carry a caseload) - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '85S', 'COTA for special education 3-5 year olds (Not allowed to carry a caseload)', 'Certified Occupational Therapy Assistant (COTA) for special education 3-5 year olds (Not allowed to carry a caseload) - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '86S', 'Audiologist for special education 3-5 years olds', 'Audiologist for special education 3-5 years olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '87S', 'Diagnostician for special education 3-5 year olds', 'Diagnostician for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '88S', 'Interpreter for the Deaf for special education 3-5 year olds', 'Interpreter for the Deaf for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '89S', 'Occupational Therapist for special education 3-5 year olds', 'Occupational Therapist for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '90S', 'Orientation and Mobility Trainer for special education 3-5 year olds', 'Orientation and Mobility Trainer for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '91S', 'Physical Therapist for special education 3-5 year olds', 'Physical Therapist for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '92S', 'School Psychologist for special education 3-5 year olds', 'School Psychologist for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '93S', 'Speech/Language Pathologist for special education 3-5 year olds', 'Speech/Language Pathologist for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '98S', 'Recreation and Therapeutic Recreation Specialist 3-5 year olds', 'Recreation and Therapeutic Recreation Specialist 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '99S', 'Rehabilitation Counselor for special education 3-5 year olds', 'Rehabilitation Counselor for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '107S', 'Medical/Nursing Services Provider for special education 3-5 year olds', 'Medical/Nursing Services Provider for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '111S', 'SLP Clinical Fellows for special education 3-5 year olds', 'SLP Clinical Fellows for special education 3-5 year olds - Related Service Personnel For Special Education (3-5 Year Olds)');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '66', 'Secondary School Counselor', 'Secondary School Counselor - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '67', 'Junior/Mid High School Counselor', 'Junior/Mid High School Counselor - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '69', 'Elementary School Counselor', 'Elementary School Counselor - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '71', 'Counseling Coordinator', 'Counseling Coordinator - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '72', 'Drug/Alcohol Abuse Counselor', 'Drug/Alcohol Abuse Counselor - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '112', 'Marriage & Family Therapist', 'Marriage & Family Therapist - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '113', 'Substance Abuse Associate', 'Substance Abuse Associate - School Counselor');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '35', 'Activities Supervisor', 'Activities Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '37', 'Attendance Officer Supervisor', 'Attendance Officer Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '38', 'Instructional Resources Supervisor', 'Instructional Resources Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '39', 'Pupil Personnel Services Supervisor', 'Pupil Personnel Services Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '40', 'Art Supervisor', 'Art Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '41', 'Bilingual Education Supervisor', 'Bilingual Education Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '42', 'Research/Evaluation Supervisor', 'Research/Evaluation Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '43', 'Career Education Supervisor', 'Career Education Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '44', 'Curriculum Supervisor', 'Curriculum Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '45', 'Social Studies Supervisor', 'Social Studies Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '46', 'Elementary Supervisor', 'Elementary Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '47', 'Foreign Languages Supervisor', 'Foreign Languages Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '48', 'Health Services Supervisor', 'Health Services Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '49', 'Indian Education Supervisor', 'Indian Education Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '50', 'Junior/Mid High Supervisor', 'Junior/Mid High Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '51', 'Language Arts Supervisor', 'Language Arts Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '52', 'Mathematics Supervisor', 'Mathematics Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '53', 'Multi-cultural Supervisor', 'Multi-cultural Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '54', 'Music Supervisor', 'Music Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '55', 'Special Services Supervisor', 'Special Services Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '56', 'Physical Education Supervisor', 'Physical Education Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '57', 'Vocational Supervisor', 'Vocational Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '58', 'Science Supervisor', 'Science Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '59', 'Secondary Supervisor', 'Secondary Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '60', 'Federal Projects Supervisor', 'Federal Projects Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '61', 'Special Education Supervisor', 'Special Education Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '62', 'District Library/Media Coordinator Supervisor', 'District Library/Media Coordinator Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '63', 'Media Supervisor', 'Media Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '64', 'Reading Supervisor', 'Reading Supervisor - Supervisors, Directors or Managers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '00', 'Homebound Instructor (Regular Education)', 'Homebound Instructor (Regular Education) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '20', 'Kindergarten Teacher', 'Kindergarten Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '21', 'Elementary Teacher', 'Elementary Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '22', 'Junior High/Middle School Teacher', 'Junior High/Middle School Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '23', 'Head Teacher', 'Head Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '25', 'Preschool Teacher', 'Preschool Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '28', 'Elementary Bilingual Teacher', 'Elementary Bilingual Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '30', 'Secondary Teacher', 'Secondary Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '73', 'Secondary Librarian', 'Secondary Librarian - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '74', 'Junior/Mid High Librarian', 'Junior/Mid High Librarian - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '75', 'Elementary Librarian', 'Elementary Librarian - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '94', 'Gifted Teacher', 'Gifted Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '96', 'Special Education Preschool Teacher (Preschool)', 'Special Education Preschool Teacher (Preschool) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '97', 'General Special Education Teacher (K-12)', 'General Special Education Teacher (K-12) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '101', 'Corrections Facility Teacher', 'Corrections Facility Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '103', 'Computer Lab Instructor', 'Computer Lab Instructor - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '104', 'Home School/Alternative School Teacher (Includes Family Schools)', 'Home School/Alternative School Teacher (Includes Family Schools) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '106', 'Special Education – Alternative School Teacher (Includes Family Schools)', 'Special Education – Alternative School Teacher (Includes Family Schools) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '110', 'Special Education – Adapted Physical Education Teacher (K-12)', 'Special Education – Adapted Physical Education Teacher (K-12) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '110S', 'Special Education – Adapted Physical Education Teacher (Preschool)', 'Special Education – Adapted Physical Education Teacher (Preschool) - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '139', 'Junior High/Middle School Bilingual Teacher', 'Junior High/Middle School Bilingual Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '140', 'Secondary Bilingual Teacher', 'Secondary Bilingual Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
-
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-        values ('uri://nmped.org/StaffClassificationDescriptor', '145', 'Deaf and Hard of Hearing Teacher', 'Deaf and Hard of Hearing Teacher - Teachers');
-        INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) values (@@IDENTITY);
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','04','ROTC Instructor','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','05','Drivers Education','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','06','In School Suspension','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','08','Social Worker, General Education','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','09','Technology Coordinator','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','65','Business Official or Supervisor/Director of Business','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','79','Athletic Trainer','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','80','Music Therapist','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','81','Athletic Coach','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','83','Resource Coordinator','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','95','SLP or SLP Clinical Fellows Acting as a Case Manager for speech only 6-21 ','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','95S','SLP or SLP Clinical Fellows Acting as a Case Manager for speech only 3-5','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','102','Testing Coordinator','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','105','Academic Instructional Coach','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','108','Native American Lang & Culture Inst (req 520 Native Lang & Culture Cert)','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','109','Dean of Students','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','141','School Psychologist, General Education','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','142','Student Assistance Team (SAT) Chair','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','143','Student Success Advisor','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','146','Attendance Coach','Other Personnel');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','14','Principal, Secondary','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','15','Assistant Principal, Secondary','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','16','Principal, Jr./Mid High','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','17','Assistant Principal, Jr./Mid High','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','18','Principal, Elementary','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','19','Assistant Principal, Elementary','Principals');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','26','Speech/Language Apprentice (Not allowed to carry a caseload)','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','82','Social Worker','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','84','Physical Therapy Assistant (Not allowed to carry a caseload)','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','85','COTA (Not allowed to carry a caseload)','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','86','Audiologist','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','87','Diagnostician','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','88','Interpreter for the Deaf','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','89','Occupational Therapist','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','90','Orientation and Mobility Trainer','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','91','Physical Therapist','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','92','School Psychologist','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','93','Speech/Language Pathologist (SLP)','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','98','Recreation and Therapeutic Recreation Specialist','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','99','Rehabilitation Counselor','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','107','Medical/Nursing Services Provider for special education','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','111','SLP Clinical Fellows','Related Service Personnel For Special Education (6-21 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','26S','Spee/Lang Apprentice for special education 3-5 year (Not caseload allowed)','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','82S','Social Worker for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','84S','PTA for special education 3-5 year olds (Not allowed to carry a caseload)','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','85S','COTA for special education 3-5 year olds (Not allowed to carry a caseload)','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','86S','Audiologist for special education 3-5 years olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','87S','Diagnostician for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','88S','Interpreter for the Deaf for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','89S','Occupational Therapist for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','90S','Orientation and Mobility Trainer for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','91S','Physical Therapist for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','92S','School Psychologist for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','93S','Speech/Language Pathologist for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','98S','Recreation and Therapeutic Recreation Specialist 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','99S','Rehabilitation Counselor for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','107S','Medical/Nursing Services Provider for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','111S','SLP Clinical Fellows for special education 3-5 year olds','Related Service Personnel For Special Education (3-5 Year Olds)');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','66','Secondary School Counselor','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','67','Junior/Mid High School Counselor','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','69','Elementary School Counselor','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','71','Counseling Coordinator','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','72','Drug/Alcohol Abuse Counselor','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','112','Marriage & Family Therapist','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','113','Substance Abuse Associate','School Counselor');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','35','Activities Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','37','Attendance Officer Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','38','Instructional Resources Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','39','Pupil Personnel Services Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','40','Art Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','41','Bilingual Education Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','42','Research/Evaluation Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','43','Career Education Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','44','Curriculum Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','45','Social Studies Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','46','Elementary Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','47','Foreign Languages Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','48','Health Services Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','49','Indian Education Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','50','Junior/Mid High Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','51','Language Arts Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','52','Mathematics Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','53','Multi-cultural Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','54','Music Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','55','Special Services Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','56','Physical Education Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','57','Vocational Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','58','Science Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','59','Secondary Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','60','Federal Projects Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','61','Special Education Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','62','District Library/Media Coordinator Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','63','Media Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','64','Reading Supervisor','Supervisors, Directors or Managers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','00','Homebound Instructor (Regular Education)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','20','Kindergarten Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','21','Elementary Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','22','Junior High/Middle School Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','23','Head Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','25','Preschool Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','28','Elementary Bilingual Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','30','Secondary Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','73','Secondary Librarian','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','74','Junior/Mid High Librarian','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','75','Elementary Librarian','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','94','Gifted Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','96','Special Education Preschool Teacher (Preschool)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','97','General Special Education Teacher (K-12)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','101','Corrections Facility Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','103','Computer Lab Instructor','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','104','Home School/Alternative School Teacher (Includes Family Schools)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','106','Special Education – Alternative School Teacher (Includes Family Schools)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','110','Special Education – Adapted Physical Education Teacher (K-12)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','110S','Special Education – Adapted Physical Education Teacher (Preschool)','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','139','Junior High/Middle School Bilingual Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','140','Secondary Bilingual Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/StaffClassificationDescriptor','145','Deaf and Hard of Hearing Teacher','Teachers');
+INSERT INTO edfi.StaffClassificationDescriptor (StaffClassificationDescriptorid) VALUES (@@IDENTITY);
+
 
 
 --Disability Descriptor
