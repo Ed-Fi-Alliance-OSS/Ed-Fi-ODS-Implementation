@@ -14,7 +14,7 @@ if (-not (Test-Path ./gateway/ssl/server.crt)) {
     Pop-Location
 }
 
-docker compose -f .\local-docker-compose.yml build `
+docker compose -f .\docker-compose-sharedinstance.yml build `
  --build-arg ADMIN_VERSION=7.0.98 `
  --build-arg SECURITY_VERSION=7.0.78 `
  --build-arg ODS_VERSION=7.0.656 `
@@ -22,7 +22,7 @@ docker compose -f .\local-docker-compose.yml build `
  --build-arg API_VERSION=7.0.1596 `
  --build-arg SWAGGER_VERSION=7.0.1994
 
-docker compose  -f .\local-docker-compose.yml up -d
+docker compose  -f .\docker-compose-sharedinstance.yml up -d
 
 Start-Sleep -Seconds 10
 

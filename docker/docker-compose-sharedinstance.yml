@@ -120,7 +120,7 @@ services:
 volumes:
   vol-db-admin:
     driver: local
-    name: vol-local-nuget-db-admin
+    name: vol-shared-nuget-db-admin
   vol-db-ods:
     driver: local
-    name: vol-local-nuget-db-ods
+    name: vol-shared-nuget-db-ods
