@@ -17,30 +17,43 @@ production releases.
 
 ## Docker Compose Files
 
-There are two compose files provided for local testing.
+There are two compose files provided for local testing: one that loads the
+"minimal template" and another that loads the "populated template" version of
+the ODS database.
 
 > **Warning** these are not appropriate for production use!
 
 Both compose files expect the presence of a `.env` file. You can copy
 `.env.example` and customize it for both.
 
-### Shared Instance
+In both cases there are no credentials at startup. The script
+[bootstrap.ps1](./bootstrap.ps1) creates a set of initial credentials with
+access to all resources, using the `Ed-Fi Sandbox` claimset. It also creates a
+self-signed TLS certificate.
 
-The file
-[docker-compose-sharedinstance.yml](./docker-compose-sharedinstance.yml) starts
-up the class "shared instance" ODS/API, with the minimal database template. Thus
-the ODS database will have the default set of Ed-Fi descriptors, and no other
-data.
+* Key: `sampleKey`
+* Secret: `sampleSecret`.
 
-This environment does not automatically create any credentials that could be
-used in Swagger UI or by a client application. There is a convenience script
-that starts the environment and injects credentials `minimalKey` /
-`minimalSecret`: [bootstrap-shared.ps1](./bootstrap-shared.ps1).
+In a real production environment you would use Admin API or Admin App to create
+these credentials.
+
+### Minimal Template
+
+The file [docker-compose-minimal.yml](./docker-compose-minimal.yml) starts up
+the ODS/API with the minimal template database, which contains the default set
+of Ed-Fi descriptors, and no other data.
 
 Operational commands:
 
 ```pwsh
-docker compose -f docker-compose-sharedinstsance.yml
+# (optional) Only build the images, don't start them 
+docker compose -f docker-compose-minimal.yml build
+
+# Start
+docker compose -f docker-compose-minimal.yml up -d
+
+# Stop
+docker compose -f docker-compose-minimal.yml stop
 ```
 
 Network topology:
@@ -49,7 +62,7 @@ Network topology:
 flowchart LR
     A(Client Application) -->|Raw API Calls| B[ed-fi-gateway]
     B -->|Raw API Calls| C[ed-fi-ods-api]
-    C --> D[(ed-fi-db-ods)]
+    C --> D[(ed-fi-db-ods-minimal)]
     C --> E[(ed-fi-db-admin)]
 
     F(User) -->|API Testing| B
@@ -65,19 +78,24 @@ flowchart LR
     end
 ```
 
-### Sandbox
+### Populated Template
 
-The file
-[docker-compose-sharedinstance.yml](./docker-compose-sharedinstance.yml) starts
-up the "sandbox" ODS/API, with both minimal and populated template ODS
-databases. The populated template database includes a small set of sample data
-such as fake schools and students.
+The file [docker-compose-populated.yml](./docker-compose-populated.yml) starts
+up the ODS/API with the populated template database, which contains the default
+set of Ed-Fi descriptors, and no other data.
 
-This environment does not automatically create any credentials that could be
-used in Swagger UI or by a client application. There is a convenience script
-that starts the environment and injects credentials `minimalKey` /
-`minimalSecret` and `populatedKey` / `populatedSecret`:
-[bootstrap-sandbox.ps1](./bootstrap-sandbox.ps1).
+Operational commands:
+
+```pwsh
+# (optional) Only build the images, don't start them 
+docker compose -f docker-compose-populated.yml build
+
+# Start
+docker compose -f docker-compose-populated.yml up -d
+
+# Stop
+docker compose -f docker-compose-populated.yml stop
+```
 
 Network topology:
 
@@ -85,7 +103,7 @@ Network topology:
 flowchart LR
     A(Client Application) -->|Raw API Calls| B[ed-fi-gateway]
     B -->|Raw API Calls| C[ed-fi-ods-api]
-    C --> D[(ed-fi-db-sandbox)]
+    C --> D[(ed-fi-db-populated)]
     C --> E[(ed-fi-db-admin)]
 
     F(User) -->|API Testing| B
