@@ -20,19 +20,25 @@ if (-not (Test-Path ./gateway/ssl/server.crt)) {
     Pop-Location
 }
 
-docker compose -f .\docker-compose-sharedinstance.yml build `
+$odsVersion = "7.0.656"
+if ($Template -eq "populated") {
+    $odsVersion = "7.0.636"
+}
+
+
+docker compose -f .\docker-compose-$Template.yml build `
  --build-arg ADMIN_VERSION=7.0.98 `
  --build-arg SECURITY_VERSION=7.0.78 `
- --build-arg ODS_VERSION=7.0.656 `
+ --build-arg ODS_VERSION=$odsVersion `
  --build-arg TPDM_VERSION=7.0.573 `
  --build-arg API_VERSION=7.0.1596 `
  --build-arg SWAGGER_VERSION=7.0.1994
 
-docker compose  -f .\docker-compose-sharedinstance.yml up -d
+docker compose  -f .\docker-compose-$Template.yml up -d
 
 Start-Sleep -Seconds 10
 
 # Create bootstrapped key and secret: minimalKey / minimalSecret
-docker cp ./bootstrap-shared.sql ed-fi-db-admin:/tmp/bootstrap-shared.sql
-docker exec -i ed-fi-db-admin sh -c "psql -U postgres -d EdFi_Admin -f /tmp/bootstrap-shared.sql"
-docker exec -i ed-fi-db-admin sh -c "rm /tmp/bootstrap-shared.sql"
+docker cp ./bootstrap.sql ed-fi-db-admin:/tmp/bootstrap.sql
+docker exec -i ed-fi-db-admin sh -c "psql -U postgres -d EdFi_Admin -f /tmp/bootstrap.sql"
+docker exec -i ed-fi-db-admin sh -c "rm /tmp/bootstrap.sql"
