@@ -1,26 +1,24 @@
-# Ed-Fi ODS Database
+# ods-api-db-ods-populated
 
-Provides docker deployment for **_EdFi_Ods_** and the minimal template
-**_EdFi_Ods_Minimal_Template_** database implementation of Ed-Fi Data Standard
-on PostgreSQL 13. The databases are installed when the image is started for the
-first time.
+Provides a Docker image of the Ed-Fi ODS database's "populated template",
+containing a small set of sample (fake) school and student data, running on
+PostgreSQL 13.
 
-> **Note**
-> This image is suitable for production use in _shared instance_ mode.
+> **Warning** 
+> This image is not recommended for a production environment.
 
 ## Image Variants
 
 The only supported image at this time is an Alpine-based implementation using
 [PostgreSQL 13](https://hub.docker.com/_/postgres).
 
-`edfialliance/ods-api-db-ods:<version>`
+`edfialliance/ods-api-db-ods-populated:<version>`
 
 ## Supported Environment Variables
 
 ```none
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
-ODS_DB=<name for the edfi database>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 ```
 

@@ -1,27 +1,25 @@
-# Ed-Fi Sandbox Databases
+# Ed-Fi ODS Database
 
-Provides docker deployment for ***EdFi_Ods_Sandbox_\****, the minimal template
-**_EdFi_Ods_Minimal_Template_**, and the populated template
-**_EdFi_Ods_Populated_Template_** databases implementation on PostgreSQL 13. The
-templates implement the Ed-Fi Data Standard. The databases are installed when
-the image is started for the first time with change queries enabled by default.
-Sandboxes are initially created when the Sandbox Admin application is started.
+Provides a Docker image of the Ed-Fi ODS database's "populated template",
+containing a small set of sample (fake) school and student data, running on
+PostgreSQL 13.
 
-> **NOTE**: A vendor for Grandbend is installed by default, and this
-> implementation is not recommended for a production environment.**
+> **Note** 
+> This image is recommended for production environments.
 
 ## Image Variants
 
 The only supported image at this time is an Alpine-based implementation using
 [PostgreSQL 13](https://hub.docker.com/_/postgres).
 
-`edfialliance/ods-api-db-sandbox:<version>`
+`edfialliance/ods-api-db-ods-minimal:<version>`
 
 ## Supported Environment Variables
 
 ```none
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
+ODS_DB=<name for the edfi database>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 ```
 

@@ -8,6 +8,12 @@
 # development certificate and of an initial key and secret with the "Ed-Fi
 # Sandbox" claimset.
 
+param(
+    [string]
+    [ValidateSet("minimal", "populated")]
+    $Template = "minimal"
+)
+
 if (-not (Test-Path ./gateway/ssl/server.crt)) {
     Push-Location gateway
     ./generate-cert.ps1
