@@ -14,8 +14,8 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-POPULATED_KEY=<populated template key>
-POPULATED_SECRET=<populated template secret>
+SAMPLE_KEY=<populated template key>
+SAMPLE_SECRET=<populated template secret>
 ```
 
 ## Legal Information

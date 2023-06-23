@@ -83,8 +83,8 @@ services:
       context: ods-api-swaggerui/alpine
       dockerfile: Dockerfile
     environment:
-      POPULATED_KEY: ${POPULATED_KEY}
-      POPULATED_SECRET: ${POPULATED_SECRET}
+      SAMPLE_KEY: ${SAMPLE_KEY}
+      SAMPLE_SECRET: ${SAMPLE_SECRET}
       WebApiVersionUrl: https://localhost/${ODS_VIRTUAL_NAME:-api}
       PathBase: ${DOCS_VIRTUAL_NAME:-docs}
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
