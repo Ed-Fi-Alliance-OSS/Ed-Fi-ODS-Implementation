@@ -12,7 +12,7 @@ version: "3.8"
 services:
   db-ods:
     build:
-      context: ods-api-db-sandbox/alpine/pgsql
+      context: ods-api-db-populated/alpine/pgsql
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -120,7 +120,7 @@ services:
 volumes:
   vol-db-admin:
     driver: local
-    name: vol-sandbox-nuget-db-admin
+    name: vol-nuget-db-admin
   vol-db-ods:
     driver: local
-    name: vol-sandbox-nuget-db-ods
+    name: vol-nuget-db-ods-populated

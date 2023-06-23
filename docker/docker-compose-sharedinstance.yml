@@ -12,7 +12,7 @@ version: "3.8"
 services:
   db-ods:
     build:
-      context: ods-api-db-ods/alpine/pgsql
+      context: ods-api-db-minimal/alpine/pgsql
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -123,4 +123,4 @@ volumes:
     name: vol-shared-nuget-db-admin
   vol-db-ods:
     driver: local
-    name: vol-shared-nuget-db-ods
+    name: vol-nuget-db-ods-minimal
