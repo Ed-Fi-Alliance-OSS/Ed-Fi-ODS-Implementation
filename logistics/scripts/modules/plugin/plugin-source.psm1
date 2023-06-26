@@ -103,22 +103,55 @@ function Get-Plugins([hashtable] $Settings) {
             $extensionPath = Invoke-PluginScript $scriptPath
         }
 
-        Write-Host "Extension path" $extensionPath
+        Write-Host "Extension path" $extensionPath -ForegroundColor Green
         $extensionFolder = Split-Path $extensionPath -leaf
-        Write-Host "Foldername" $extensionFolder
 
         $newExtensionFolderName = $extensionFolder -replace "^$prefix"
         $postfix = "(.*$script).*"
         $newExtensionFolderName = $newExtensionFolderName -replace "$postfix", '$1'
-        $newExtensionPath = Join-Path $folder $newExtensionFolderName
-        Write-Host "New Extension path" $newExtensionPath
-
-        if (Test-Path $newExtensionPath) {
-            Remove-Item $newExtensionPath -Recurse 
+        $sourcePath = Join-Path $folder $newExtensionFolderName
+        
+        if (Test-Path $sourcePath) {
+            Remove-Item $sourcePath -Recurse 
         }
 
         Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
-        $result += $newExtensionPath
+        if ($extensionFolder.Contains(".Extensions."))
+        {
+            $extensionVersion = $extensionFolder -replace ".*?(1.*?)(?=\.Standard).*", '$1'
+            $standardVersion = ($extensionFolder -split '\.Standard\.')[1]
+
+            if (Test-Path "$sourcePath\$extensionVersion\") {
+                Remove-Item "$sourcePath\$extensionVersion\" -Recurse 
+
+            }
+
+            if (-not (Test-Path "$sourcePath\$extensionVersion\")) {
+                New-Item -ItemType Directory -Path "$sourcePath\$extensionVersion\"
+            }
+
+            if (-not (Test-Path "$sourcePath\$extensionVersion\Standard\")) {
+                New-Item -ItemType Directory -Path "$sourcePath\$extensionVersion\Standard\"
+            }
+
+            if (-not (Test-Path "$sourcePath\$extensionVersion\Standard\$standardVersion\")) {
+                New-Item -ItemType Directory -Path "$sourcePath\$extensionVersion\Standard\$standardVersion\"
+            }
+
+            $destinationPath = "$sourcePath\$extensionVersion\Standard\$standardVersion\"
+            Write-Host "$destinationPath" $destinationPath
+
+            Move-Item -Path "$sourcePath\Artifacts\" -Destination $destinationPath
+
+            $files = Get-ChildItem -Path $sourcePath -File
+
+            foreach ($file in $files) {
+                $destination = $file.FullName.Replace($sourcePath, $destinationPath)
+                Move-Item -Path $file.FullName -Destination $destination
+            }
+            Write-Host "New Extension path" $destinationPath -ForegroundColor Green
+        }
+        $result += $destinationPath
     }
 
     Assert-NoDuplicatePlugins $Settings
