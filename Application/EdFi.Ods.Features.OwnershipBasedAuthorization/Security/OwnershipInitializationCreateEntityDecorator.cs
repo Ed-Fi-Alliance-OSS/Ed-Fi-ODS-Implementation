@@ -15,6 +15,7 @@ using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
 using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
+using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Security.DataAccess.Repositories;
@@ -26,7 +27,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
         : RepositoryOperationAuthorizationDecoratorBase<T>, ICreateEntity<T>
         where T : AggregateRootWithCompositeKey
     {
-        private readonly IApiKeyContextProvider _apiKeyContextProvider;
+        private readonly IApiClientContextProvider _apiClientContextProvider;
         private readonly ICreateEntity<T> _next;
 
         /// <summary>
@@ -40,7 +41,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
         /// <param name="authorizationBasisMetadataSelector"></param>
         /// <param name="securityRepository"></param>
         /// <param name="sessionFactory"></param>
-        /// <param name="apiKeyContextProvider"></param>
+        /// <param name="apiClientContextProvider"></param>
         /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
         public OwnershipInitializationCreateEntityDecorator(
@@ -52,7 +53,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
             ISecurityRepository securityRepository,
             ISessionFactory sessionFactory,
-            IApiKeyContextProvider apiKeyContextProvider,
+            IApiClientContextProvider apiClientContextProvider,
             IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider)
             : base(
@@ -63,12 +64,12 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
                 authorizationBasisMetadataSelector,
                 securityRepository,
                 sessionFactory,
-                apiKeyContextProvider,
+                apiClientContextProvider,
                 viewBasedSingleItemAuthorizationQuerySupport,
                 dataManagementResourceContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
+            _apiClientContextProvider = Preconditions.ThrowIfNull(apiClientContextProvider, nameof(apiClientContextProvider));
         }
 
         public async Task CreateAsync(T entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
@@ -77,7 +78,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
 
             // POST comes in as an "Upsert", but at this point we know it's actually about to create an entity,
             // so we'll use the more explicit action for authorization.
-            short? creatorOwnershipTokenId = _apiKeyContextProvider.GetApiKeyContext().CreatorOwnershipTokenId;
+            short? creatorOwnershipTokenId = _apiClientContextProvider.GetApiClientContext().CreatorOwnershipTokenId;
 
             entity.CreatedByOwnershipTokenId = creatorOwnershipTokenId;
 
