@@ -80,19 +80,42 @@ function onChangeSchoolYear() {
     });
 }
 
-function createSectionLinks(sectionName, hasYear) {
+function onChangeTenant() {
+    var tenantSelected = $("#tenantSelect option:selected").text();
+
+    $(".url-link").each(function() {
+        var oldUrl = $(this).attr("href");
+        var newUrl = oldUrl.replace(/tenantIdentifier=({?[A-Za-z0-9]+}?)/g, 'tenantIdentifier=' + tenantSelected);
+        $(this).attr("href", newUrl);
+    });
+}
+
+function createSectionLinks(sectionName, hasYear, hasTenant) {
   var section = sections[sectionName]
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
   return section.links
     .map(function (link) {
         routePrefix = appSettings.RoutePrefix ? appSettings.RoutePrefix + '/' : ''
 
+        let linkHrefBase = `./${routePrefix}index.html`
+
+        let queryParameters = {};
+
+        queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
+
         if (hasYear) {
             var year = $("#schoolYearSelect option:selected").text();
-            return `<li><a class="url-link" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}&year=${year}">${link.name}</a ></li>`
-        } else {
-            return `<li><a class="url-link" href="./${routePrefix}index.html?urls.primaryName=${prefix}${link.name}">${link.name}</a ></li>`
+            queryParameters.year = year;
         }
+
+        if (hasTenant) {
+            var tenantIdentifier = $("#tenantSelect option:selected").text();
+            queryParameters.tenantIdentifier = tenantIdentifier;
+        }
+
+        const paramsUrlString = new URLSearchParams(queryParameters);
+
+        return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
     })
     .join('')
 }
@@ -122,20 +145,39 @@ async function addYearOptions() {
     $("#schoolYearSelect option[value='" + defaultYear + "']").attr("selected", "selected");
 }
 
+async function addTenantOptions() {
+    const { Tenants } = appSettings;
+
+    let defaultTenant = '';
+
+    if (Tenants.length > 0) {
+
+        Tenants.forEach(element => {
+            $('#tenantSelect').append(new Option(element.Tenant, element.Tenant));
+        });
+
+        var defaultTenants = $.grep(Tenants, function (item) { return item.IsDefault });
+
+        defaultTenant = defaultTenants.length === 0 ? Tenants[0].Tenant : defaultTenants[0].Tenant;
+ 
+        $("#tenantSelect option[value='" + defaultTenant + "']").attr("selected", "selected");
+    }
+}
+
 // dynamically creates the api sections using the #sectionTemplate
 function createSections() {
     var uri = sections['Resources'].links[0].uri;
-    var hasYear = /\/(20)\d{2}/.test(uri);
-
-    if (hasYear) {
-        addYearOptions();
-        $("#schoolYear").show();
-    }
 
     Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
     if (section.links <= 0) return
 
+    const { Tenants } = appSettings;
+    const { Years } = appSettings;
+
+    var hasYear = Years.length > 0;
+    var hasTenant = Tenants.length > 0;
+    
     var sectionTemplate = document.getElementById('sectionTemplate')
     var templateHtml = sectionTemplate.innerHTML
     var html = templateHtml
@@ -149,7 +191,7 @@ function createSections() {
           })
           .join('')
       )
-        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasYear))
+        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasYear, hasTenant))
 
     section.links.forEach(function(link) {
         console.log("Found: " + link.uri);
@@ -198,7 +240,26 @@ const fetchWebApiVersionUrl = (appSettings) => {
 }
 
 const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
-  const { openApiMetadata } = webApiVersionUrlJson.urls
+  var { openApiMetadata } = webApiVersionUrlJson.urls
+  const { Tenants } = appSettings;
+  const { Years } = appSettings;
+
+  var hasYear = Years.length > 0;
+  var hasTenant = Tenants.length > 0;
+
+  if (hasYear) {
+    addYearOptions();
+    let schoolYearSelected = $("#schoolYearSelect option:selected").text();
+    openApiMetadata = openApiMetadata.replace('{schoolYear}', schoolYearSelected);
+    $("#schoolYear").show();
+  }
+
+  if (hasTenant) {
+     addTenantOptions();
+     let tenantSelected = $("#tenantSelect option:selected").text();
+     openApiMetadata = openApiMetadata.replace('{tenantIdentifier}', tenantSelected);
+     $("#tenant").show();
+  }
 
   return fetch(openApiMetadata)
     .then(getJSON)

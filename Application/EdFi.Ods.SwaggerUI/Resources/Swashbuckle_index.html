@@ -42,7 +42,7 @@
 
     <script src="./swagger-ui-bundle.js"></script>
     <script src="./swagger-ui-standalone-preset.js"></script>
-    <script>
+<script>
         window.onload = function () {
 
             initSwaggerUI();
@@ -53,16 +53,21 @@
                 var oauthConfigObject = JSON.parse('%(OAuthConfigObject)');
 
                 var currentUrl = window.location.href;
-                var match = currentUrl.match(/year=(20\d{2})/);
+                var yearMatch = currentUrl.match(/year=(20\d{2})/);
+                var tenantMatch = currentUrl.match(/tenantIdentifier=([A-Za-z0-9]+)/);
+
+                if (tenantMatch !== null && tenantMatch.length > 1) {
+                    configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
+                }
+                
+                if (yearMatch !== null && yearMatch.length > 1) {
+                    configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${yearMatch[1]}`;
+                }
 
                 configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);
 
                 // Workaround for https://github.com/swagger-api/swagger-ui/issues/5945
-                configObject.urls.forEach(function (item) {
-                    if (match !== null && match.length > 1) {
-                        item.url = item.url.replace(/20\d{2}/g, match[1]);
-                    }
-                
+                configObject.urls.forEach(function (item) {            
                     if (item.url.startsWith("http") || item.url.startsWith("/")) return;
                     item.url = window.location.href.replace("index.html", item.url).split('#')[0];
                 });

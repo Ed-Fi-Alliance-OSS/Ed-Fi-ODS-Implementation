@@ -61,6 +61,7 @@ namespace EdFi.Ods.SwaggerUI
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
             var years = Configuration.GetSection("Years").Get<List<Years>>() ?? new List<Years>();
+            var tenants = Configuration.GetSection("Tenants").Get<List<Tenants>>() ?? new List<Tenants>();
             string swaggerStyleSheetPath = "../swagger.css";
 
             if (!string.IsNullOrEmpty(_pathBase))
@@ -96,7 +97,8 @@ namespace EdFi.Ods.SwaggerUI
                                     {
                                         WebApiVersionUrl = webApiUrl,
                                         RoutePrefix = _routePrefix,
-                                        Years = years
+                                        Years = years,
+                                        Tenants = tenants
                                     }));
                         });
                 });
