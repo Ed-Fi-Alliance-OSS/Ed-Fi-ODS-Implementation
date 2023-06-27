@@ -60,7 +60,7 @@ Association StudentGraduationPlanAssociation
     domain entity EdFi.Staff
         documentation "The student's mentor."
         is optional
-    association EdFi.StudentParentAssociation
-        documentation "Parent responsible for graduation plan."
+    association EdFi.StudentContactAssociation
+        documentation "Contact responsible for graduation plan."
         is optional collection
-        merge StudentParentAssociation.Student with Student
+        merge StudentContactAssociation.Student with Student
