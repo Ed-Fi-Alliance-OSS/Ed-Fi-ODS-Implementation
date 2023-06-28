@@ -17,10 +17,11 @@
 * 
 * --I left this here for easy reference when updated--
 * Alt Id: 001 (Increment value each change)
-* By: 'Updaters Name' | 'Creators Title'
-* Email: 'Updaters Email'
-* Date: 'Date Updated'
-* Alt Desc: 'Description of the change'
+* By: Cody Misplay | App III
+* Email: cody.misplay@ped.nm.gov
+* Date: 06/27/2023
+* Alt Desc: Updated view to query the StaffEducationOrganizationEmploymentAssociation table when the EmploymentStatusDescriptorId is null.
+*			Due to multiple StaffEdOrgEmpAssociation records only the record with the most recent HireDate is used for which EmploymentStatusDescriptorId is not null.
 */
 CREATE OR ALTER     VIEW [nmped_rpt].[vw_StaffClassifications]
 AS
@@ -53,8 +54,30 @@ SELECT
 	 ,S.LastSurname AS [LastName]
 	 ,S.LastSurname + ', ' + S.FirstName AS [FullName]
 	 ,S.BirthDate
-	 ,EmploymentStatusDescriptor.CodeValue AS [EmploymentStatusCode]
-	 ,EmploymentStatusDescriptor.ShortDescription AS [EmploymentStatusDescription]
+	 -- Begin Alt 001
+	 ,CASE WHEN SEOAA.EmploymentStatusDescriptorId IS NULL 
+		THEN (SELECT TOP 1 AssociationEmploymentStatusDescriptor.CodeValue 
+				FROM edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
+				LEFT JOIN edfi.Descriptor AssociationEmploymentStatusDescriptor WITH (NOLOCK)
+					ON (AssociationEmploymentStatusDescriptor.DescriptorId = SEOEA.EmploymentStatusDescriptorId)
+				WHERE SEOEA.StaffUSI = SEOAA.StaffUSI
+				AND SEOEA.EmploymentStatusDescriptorId IS NOT NULL
+				AND (SEOEA.EducationOrganizationId = School.EducationOrganizationId_School 
+					OR SEOEA.EducationOrganizationId = School.EducationOrganizationId_District)
+				ORDER BY SEOEA.HireDate DESC)
+		ELSE AssignmentEmploymentStatusDescriptor.CodeValue END AS [EmploymentStatusCode]
+	 ,CASE WHEN SEOAA.EmploymentStatusDescriptorId IS NULL 
+		THEN (SELECT TOP 1 AssociationEmploymentStatusDescriptor.ShortDescription 
+				FROM edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
+				LEFT JOIN edfi.Descriptor AssociationEmploymentStatusDescriptor WITH (NOLOCK)
+					ON (AssociationEmploymentStatusDescriptor.DescriptorId = SEOEA.EmploymentStatusDescriptorId)
+				WHERE SEOEA.StaffUSI = SEOAA.StaffUSI
+				AND SEOEA.EmploymentStatusDescriptorId IS NOT NULL
+				AND (SEOEA.EducationOrganizationId = School.EducationOrganizationId_School 
+					OR SEOEA.EducationOrganizationId = School.EducationOrganizationId_District)
+				ORDER BY SEOEA.HireDate DESC) 
+		ELSE AssignmentEmploymentStatusDescriptor.ShortDescription END AS [EmploymentStatusDescription]
+	 -- End Alt 001
 	 ,SEOAA.FullTimeEquivalency AS [FTE]
 	 ,StaffClassificationDescriptor.CodeValue AS [StaffClassificationCode]
 	 ,StaffClassificationDescriptor.ShortDescription AS [StaffClassificationDescription]
@@ -70,14 +93,19 @@ FROM edfi.Staff S WITH (NOLOCK)
 
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)
 		ON (S.StaffUSI = SEOAA.StaffUSI)
+
     LEFT JOIN nmped_rpt.vw_district_location School WITH (NOLOCK)
 		ON (School.EducationOrganizationId_School = SEOAA.EducationOrganizationId)
-	LEFT JOIN edfi.Descriptor EmploymentStatusDescriptor WITH (NOLOCK)
-		ON (EmploymentStatusDescriptor.DescriptorId = SEOAA.EmploymentStatusDescriptorId)
+
+	LEFT JOIN edfi.Descriptor AssignmentEmploymentStatusDescriptor WITH (NOLOCK)
+		ON (AssignmentEmploymentStatusDescriptor.DescriptorId = SEOAA.EmploymentStatusDescriptorId)
+
 	LEFT JOIN edfi.Descriptor staffClassificationDescriptor  WITH (NOLOCK)
 		ON (StaffClassificationDescriptor.DescriptorId = SEOAA.StaffClassificationDescriptorId)
+
 	LEFT JOIN cte_StaffIdentification ID_SSN
 		ON (ID_SSN.StaffUSI = SEOAA.StaffUSI AND ID_SSN.StaffIdSystem = 'SSN')
+
 	LEFT JOIN cte_StaffIdentification ID_Cert
 		ON (ID_Cert.StaffUSI = SEOAA.StaffUSI AND ID_Cert.StaffIdSystem = 'Professional Certificate')
 
