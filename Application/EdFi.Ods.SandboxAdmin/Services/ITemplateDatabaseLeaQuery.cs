@@ -7,8 +7,8 @@ namespace EdFi.Ods.SandboxAdmin.Services
 {
     public interface ITemplateDatabaseLeaQuery
     {
-        int[] GetLocalEducationAgencyIds(string sandboxKey);
+        long[] GetLocalEducationAgencyIds(string sandboxKey);
 
-        int[] GetCommunityProviderIds(string sandboxKey);
+        long[] GetCommunityProviderIds(string sandboxKey);
     }
 }
