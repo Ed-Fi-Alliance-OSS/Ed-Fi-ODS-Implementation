@@ -9,14 +9,14 @@ RUN apk --no-cache add dos2unix=~7 unzip=~6
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-ARG ADMIN_VERSION=6.1.45
-ARG SECURITY_VERSION=6.1.56
+ARG ADMIN_VERSION=7.0.252
+ARG SECURITY_VERSION=7.0.233
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV POSTGRES_DB=postgres
-ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.PostgreSQL/versions/${ADMIN_VERSION}/content
-ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.PostgreSQL/versions/${SECURITY_VERSION}/content
+ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.PostgreSQL.Standard.4.0.0/versions/${ADMIN_VERSION}/content
+ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.PostgreSQL.Standard.4.0.0/versions/${SECURITY_VERSION}/content
 
 COPY init-database.sh /docker-entrypoint-initdb.d/1-init-database.sh
 
@@ -25,6 +25,7 @@ RUN set +e && \
     wget -O /tmp/EdFi_Security.zip ${SECURITY_URL} && \
     unzip -p /tmp/EdFi_Admin.zip EdFi_Admin.sql > /tmp/EdFi_Admin.sql && \
     unzip -p /tmp/EdFi_Security.zip EdFi_Security.sql > /tmp/EdFi_Security.sql && \
+    rm -f /tmp/*.zip && \
     dos2unix /docker-entrypoint-initdb.d/1-init-database.sh && \
     dos2unix /tmp/EdFi_Admin.sql && \
     dos2unix /tmp/EdFi_Security.sql && \
