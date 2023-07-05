@@ -3,6 +3,8 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
+#Requires -Version 5
+
 <#
 .SYNOPSIS
     Builds and tags Ed-Fi ODS/API Dockerfiles for publishing. Optionally pushes to a registry.
@@ -28,7 +30,7 @@ param (
     # NuGet package version for the Admin database scripts (PostgreSQL).
     [Parameter()]
     [string]
-    $AdminVersion = "7.0.98",
+    $AdminVersion = "7.0.252",
 
     # NuGet package version for the Web API binaries (configured for PostgreSQL).
     [Parameter()]
@@ -38,17 +40,17 @@ param (
     # NuGet package version for the ODS minimal template database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $MinimalVersion = "7.0.656",
+    $MinimalVersion = "7.0.847",
 
     # NuGet package version for the ODS minimal template database script (PostgreSQL populated template).
     [Parameter()]
     [string]
-    $PopulatedVersion = "7.0.656",
+    $PopulatedVersion = "7.0.827",
 
     # NuGet package version for the Security database scripts (PostgreSQL).
     [Parameter()]
     [string]
-    $SecurityVersion = "7.0.78",
+    $SecurityVersion = "7.0.233",
 
     # NuGet package version for Ed-Fi's Swagger UI.
     [Parameter()]
@@ -58,12 +60,12 @@ param (
     # NuGet package version for the TPDM extension database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $TpdmMinimalVersion = "7.0.573",
+    $TpdmMinimalVersion = "7.0.701",
 
     # NuGet package version for the TPDM extension database script (PostgreSQL populated template).
     [Parameter()]
     [string]
-    $TpdmPopulatedVersion = "7.0.573",
+    $TpdmPopulatedVersion = "7.0.665",
 
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
@@ -75,6 +77,8 @@ param (
     [Switch]
     $Push
 )
+
+$ErrorActionPreference = "Stop"
 
 function Write-Message {
     param(
@@ -95,14 +99,14 @@ Push-Location ods-api-db-admin/alpine/pgsql
 &docker build -t edfialliance/ods-api-db-admin:$AdminVersion --build-arg ADMIN_VERSION=$AdminVersion .
 Pop-Location
 
-Write-Message "Building ods-api-db-ods"
-Push-Location ods-api-db-ods/alpine/pgsql
+Write-Message "Building ods-api-db-ods-minimal"
+Push-Location ods-api-db-ods-minimal/alpine/pgsql
 &docker build -t edfialliance/ods-api-db-ods-minimal:$MinimalVersion --build-arg ODS_VERSION=$MinimalVersion `
     --build-arg TPDM_VERSION=$TpdmMinimalVersion .
 Pop-Location
 
-Write-Message "Building ods-api-db-ods"
-Push-Location ods-api-db-ods/alpine/pgsql
+Write-Message "Building ods-api-db-ods-populated"
+Push-Location ods-api-db-ods-populated/alpine/pgsql
 &docker build -t edfialliance/ods-api-db-ods-populated:$PopulatedVersion --build-arg ODS_VERSION=$PopulatedVersion `
     --build-arg TPDM_VERSION=$TpdmPopulatedVersion .
 Pop-Location
