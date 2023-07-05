@@ -121,16 +121,21 @@ function Invoke-Build {
         $BuildArgs
     )
 
+    $mssql = ""
+    if ($Path.EndsWith("mssql")) {
+        $mssql = "-mssql"
+    }
+
     Write-Message "Building ods-api-db-admin"
     Push-Location $ImageName/$Path
-    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer $BuildArgs ."
+    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
+    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):pre$mssql
 
     if ($Push) {
-        &docker push edfialliance/$($ImageName):$semVer
+        &docker push edfialliance/$($ImageName):$semVer$mssql
 
         if ($PreRelease) { 
-            &docker tag edfialliance/$($ImageName):$semVer edfialliance/$($ImageName):pre
-            &docker push edfialliance/$($ImageName):pre 
+            &docker push edfialliance/$($ImageName):pre$mssql
         }
     }
     Pop-Location
