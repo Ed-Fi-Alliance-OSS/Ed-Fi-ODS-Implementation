@@ -3,8 +3,8 @@
 -- The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 -- See the LICENSE and NOTICES files in the project root for more information.
 
-insert into dbo.OdsInstances (Name, Status, IsExtended, Version, InstanceType, ConnectionString)
-select 'default', 'active', true, '4.0.0', 'ODS', 'host=db-ods;port=5432;username=postgres;password=980jlej.23kd;database=EdFi_Ods;application name=EdFi.Ods.WebApi'
+insert into dbo.OdsInstances (Name, InstanceType, ConnectionString)
+select 'default', 'ODS', 'host=ed-fi-db-ods;port=5432;username=postgres;password=980jlej.23kd;database=EdFi_Ods;application name=EdFi.Ods.WebApi'
 where not exists (select 1 from dbo.OdsInstances where Name = 'default');
 
 insert into dbo.Vendors (VendorName)
@@ -34,7 +34,7 @@ select ApiClients.ApiClientId, ApplicationEducationOrganizations.ApplicationEduc
 from dbo.ApiClients 
 cross join dbo.Applications 
 inner join dbo.ApplicationEducationOrganizations on Applications.ApplicationId = ApplicationEducationOrganizations.Application_ApplicationId
-where ApiClients.Name = 'testing' and Applications.ApplicationName = 'Bootstrap Application'
+where ApiClients.Name = 'Bootstrap' and Applications.ApplicationName = 'Bootstrap Application'
 and not exists (select 1 from dbo.ApiClientApplicationEducationOrganizations 
     where ApiClient_ApiClientId = ApiClients.ApiClientId
     and ApplicationEdOrg_ApplicationEdOrgId = ApplicationEducationOrganizations.ApplicationEducationOrganizationId);
@@ -43,7 +43,7 @@ insert into dbo.ApiClientOdsInstances (apiclient_apiclientid, odsinstance_odsins
 select ApiClients.ApiClientId, OdsInstances.OdsInstanceId
 from dbo.ApiClients
 cross join dbo.OdsInstances
-where ApiClients.Name = 'testing' and OdsInstances.Name = 'default'
+where ApiClients.Name = 'Bootstrap' and OdsInstances.Name = 'default'
 and not exists (select 1 from dbo.ApiClientOdsInstances
     where apiclient_apiclientid = ApiClients.ApiClientId and odsinstance_odsinstanceid = OdsInstances.odsinstanceid
 );
