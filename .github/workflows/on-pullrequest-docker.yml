@@ -41,7 +41,7 @@ jobs:
 
   docker-build:
     runs-on: ubuntu-latest
-    depends-on: docker-lint
+    needs: docker-lint
     steps:
       - name: Build all of the images
         # To confirm no errors occur. The "local" one will be built by the e2e
