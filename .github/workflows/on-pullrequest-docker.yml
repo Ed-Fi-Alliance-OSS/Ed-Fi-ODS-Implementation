@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: On Pull Request - Docker
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/on-pullrequest-docker.yml"
+      - "docker/*"
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/on-pullrequest-docker.yml"
+      - "docker/*"
+  workflow_dispatch:
+
+jobs:
+  docker-lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        image:
+          - ods-api-db-admin
+          - ods-api-db-ods-minimal
+          - ods-api-db-ods-populated
+          - ods-api-swaggerui
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+
+      - uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf # v3.1.0
+        name: Run Linter on Local Dockerfile
+        with:
+          dockerfile: docker/${{ matrix.image }}/Dockerfile
+
+  docker-build:
+    runs-on: ubuntu-latest
+    depends-on: docker-lint
+    steps:
+      - name: Build all of the images
+        # To confirm no errors occur. The "local" one will be built by the e2e
+        # testing process.
+        run: ./build-images.ps1
+        working-directory: docker
