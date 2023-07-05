@@ -70,12 +70,7 @@ param (
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
     [string]
-    $TagBase = "edfialliance",
-
-    # When used, will attempt to push the image to the currently configured registry.
-    [Parameter()]
-    [Switch]
-    $Push
+    $TagBase = "edfialliance"
 )
 
 $ErrorActionPreference = "Stop"
