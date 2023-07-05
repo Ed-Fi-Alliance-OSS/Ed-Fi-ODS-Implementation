@@ -21,7 +21,7 @@ server {
 
     # Sourced from https://enable-cors.org/server_nginx.html with modifications
     location /${ODS_VIRTUAL_NAME} {
-        proxy_pass  http://api;
+        proxy_pass  http://ed-fi-ods-api;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Port 443;
@@ -29,7 +29,7 @@ server {
     }
 
     location /${SWAGGER_VIRTUAL_NAME} {
-        proxy_pass http://swagger;
+        proxy_pass http://ed-fi-swagger;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-Port 443;

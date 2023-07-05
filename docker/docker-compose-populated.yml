@@ -10,9 +10,9 @@
 version: "3.8"
 
 services:
-  db-ods:
+  db-ods-populated:
     build:
-      context: ods-api-db-populated/alpine/pgsql
+      context: ods-api-db-ods-populated/alpine/pgsql
       dockerfile: Dockerfile
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -21,8 +21,8 @@ services:
     volumes:
       - vol-db-ods:/var/lib/postgresql/data
     restart: always
-    container_name: ed-fi-db-sandbox
-    hostname: db-ods
+    container_name: ed-fi-db-ods
+    hostname: ed-fi-db-ods
     healthcheck:
       test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
       start_period: "60s"
@@ -40,7 +40,7 @@ services:
       - vol-db-admin:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-admin
-    hostname: db-admin
+    hostname: ed-fi-db-admin
     healthcheck:
       test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
       start_period: "60s"
@@ -55,7 +55,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_PORT: 5432
       API_MODE: sharedinstance
-      ODS_POSTGRES_HOST: db-ods
+      ODS_POSTGRES_HOST: ed-fi-db-ods
       ADMIN_POSTGRES_HOST: db-admin
       ApiSettings__PathBase: ${ODS_VIRTUAL_NAME:-api}
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
@@ -68,11 +68,11 @@ services:
     volumes:
       - ${LOGS_FOLDER}:/app/logs
     depends_on:
-      - db-ods
+      - db-ods-populated
       - db-admin
     restart: always
-    hostname: api
     container_name: ed-fi-ods-api
+    hostname: ed-fi-ods-api
     healthcheck:
       test: ${API_HEALTHCHECK_TEST}
       start_period: "60s"
@@ -91,8 +91,8 @@ services:
     depends_on:
       - api
     restart: always
-    hostname: swagger
     container_name: ed-fi-swagger
+    hostname: ed-fi-swagger
     healthcheck:
       test: ${SWAGGER_HEALTHCHECK_TEST}
       start_period: "60s"
@@ -108,9 +108,9 @@ services:
     ports:
       - 443:443
       - 80:80
-    container_name: ed-fi-gateway
     restart: always
-    hostname: nginx
+    container_name: ed-fi-gateway
+    hostname: ed-fi-gateway
     volumes:
       - ./gateway/ssl/:/ssl/
     depends_on:
