@@ -35,10 +35,15 @@ param (
     [string]
     $ApiVersion = "7.0.1596",
 
-    # NuGet package version for the ODS minimal template database script (PostgreSQL).
+    # NuGet package version for the ODS minimal template database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $OdsVersion = "7.0.656",
+    $MinimalVersion = "7.0.656",
+
+    # NuGet package version for the ODS minimal template database script (PostgreSQL populated template).
+    [Parameter()]
+    [string]
+    $PopulatedVersion = "7.0.656",
 
     # NuGet package version for the Security database scripts (PostgreSQL).
     [Parameter()]
@@ -50,10 +55,15 @@ param (
     [string]
     $SwaggerVersion = "7.0.1994",
 
-    # NuGet package version for the TPDM extension database script (PostgreSQL).
+    # NuGet package version for the TPDM extension database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $TpdmVersion = "7.0.573",
+    $TpdmMinimalVersion = "7.0.573",
+
+    # NuGet package version for the TPDM extension database script (PostgreSQL populated template).
+    [Parameter()]
+    [string]
+    $TpdmPopulatedVersion = "7.0.573",
 
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
@@ -78,6 +88,8 @@ function Write-Message {
     $host.UI.RawUI.ForegroundColor = $default
 }
 
+# Note: "gateway" is for local testing only and therefore should not be included in this script.
+
 Write-Message "Building ods-api-db-admin"
 Push-Location ods-api-db-admin/alpine/pgsql
 &docker build -t edfialliance/ods-api-db-admin:$AdminVersion --build-arg ADMIN_VERSION=$AdminVersion .
@@ -85,8 +97,14 @@ Pop-Location
 
 Write-Message "Building ods-api-db-ods"
 Push-Location ods-api-db-ods/alpine/pgsql
-&docker build -t edfialliance/ods-api-db-ods:$AdminVersion --build-arg ODS_VERSION=$OdsVersion `
-    --build-arg TPDM_VERSION=$TpdmVersion .
+&docker build -t edfialliance/ods-api-db-ods-minimal:$MinimalVersion --build-arg ODS_VERSION=$MinimalVersion `
+    --build-arg TPDM_VERSION=$TpdmMinimalVersion .
+Pop-Location
+
+Write-Message "Building ods-api-db-ods"
+Push-Location ods-api-db-ods/alpine/pgsql
+&docker build -t edfialliance/ods-api-db-ods-populated:$PopulatedVersion --build-arg ODS_VERSION=$PopulatedVersion `
+    --build-arg TPDM_VERSION=$TpdmPopulatedVersion .
 Pop-Location
 
 Write-Message "Building ods-api-web-api"
