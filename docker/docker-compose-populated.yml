@@ -14,6 +14,9 @@ services:
     build:
       context: ods-api-db-ods-populated/alpine/pgsql
       dockerfile: Dockerfile
+      args:
+        ODS_VERSION: ${ODS_POPULATED_VERSION:-7.0.827}
+        TPDM_VERSION: ${TPDM_POPULATED_VERSION:-7.0.665}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -32,6 +35,9 @@ services:
     build:
       context: ods-api-db-admin/alpine/pgsql
       dockerfile: Dockerfile
+      args:
+        ADMIN_VERSION: ${ADMIN_VERSION:-7.0.252}
+        SECURITY_VERSION: ${SECURITY_VERSION:-7.0.233}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -50,6 +56,8 @@ services:
     build:
       context: ods-api-web-api/alpine/pgsql
       dockerfile: Dockerfile
+      args:
+        API_VERSION: ${API_VERSION:-7.0.1994}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -82,6 +90,8 @@ services:
     build:
       context: ods-api-swaggerui/alpine
       dockerfile: Dockerfile
+      args:
+        SWAGGER_VERSION: ${SWAGGER_VERSION:-7.0.1994}
     environment:
       SAMPLE_KEY: ${SAMPLE_KEY}
       SAMPLE_SECRET: ${SAMPLE_SECRET}

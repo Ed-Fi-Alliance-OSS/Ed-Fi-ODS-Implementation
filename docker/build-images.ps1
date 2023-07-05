@@ -27,45 +27,45 @@
 #>
 [CmdletBinding()]
 param (
-    # NuGet package version for the Admin database scripts (PostgreSQL).
-    [Parameter()]
-    [string]
-    $AdminVersion = "7.0.252",
-
-    # NuGet package version for the Web API binaries (configured for PostgreSQL).
-    [Parameter()]
-    [string]
-    $ApiVersion = "7.0.1596",
-
     # NuGet package version for the ODS minimal template database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $MinimalVersion = "7.0.847",
+    $MinimalVersion = $env:ODS_MINIMAL_VERSION,
 
     # NuGet package version for the ODS minimal template database script (PostgreSQL populated template).
     [Parameter()]
     [string]
-    $PopulatedVersion = "7.0.827",
-
-    # NuGet package version for the Security database scripts (PostgreSQL).
-    [Parameter()]
-    [string]
-    $SecurityVersion = "7.0.233",
-
-    # NuGet package version for Ed-Fi's Swagger UI.
-    [Parameter()]
-    [string]
-    $SwaggerVersion = "7.0.1994",
+    $PopulatedVersion = $env:ODS_POPULATED_VERSION,
 
     # NuGet package version for the TPDM extension database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
-    $TpdmMinimalVersion = "7.0.701",
+    $TpdmMinimalVersion = $env:TPDM_MINIMAL_VERSION,
 
     # NuGet package version for the TPDM extension database script (PostgreSQL populated template).
     [Parameter()]
     [string]
-    $TpdmPopulatedVersion = "7.0.665",
+    $TpdmPopulatedVersion = $env:TPDM_POPULATED_VERSION,
+
+    # NuGet package version for the Admin database scripts (PostgreSQL).
+    [Parameter()]
+    [string]
+    $AdminVersion = $env:ADMIN_VERSION,
+
+    # NuGet package version for the Security database scripts (PostgreSQL).
+    [Parameter()]
+    [string]
+    $SecurityVersion = $env:SECURITY_VERSION,
+
+    # NuGet package version for the Web API binaries (configured for PostgreSQL).
+    [Parameter()]
+    [string]
+    $ApiVersion = $env:API_VERSION,
+
+    # NuGet package version for Ed-Fi's Swagger UI.
+    [Parameter()]
+    [string]
+    $SwaggerVersion = $env:SWAGGER_VERSION,
 
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
