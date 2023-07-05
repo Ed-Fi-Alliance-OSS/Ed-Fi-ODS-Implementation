@@ -85,7 +85,7 @@ param (
     # Major/minor version number
     [Parameter()]
     [string]
-    $MajorMinor = "7.0",
+    $PackageVersion = "7.0",
 
     # Patch version number
     [Parameter()]
@@ -109,7 +109,7 @@ function Write-Message {
 
 # Note: "gateway" is for local testing only and therefore should not be included in this script.
 
-$semVer = "$MajorMinor.$Patch"
+$semVer = "$PackageVersion.$Patch"
 
 Write-Message "Building ods-api-db-admin"
 Push-Location ods-api-db-admin/alpine/pgsql

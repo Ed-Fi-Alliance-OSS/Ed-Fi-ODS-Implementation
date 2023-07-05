@@ -7,19 +7,29 @@
 
 <#
 .SYNOPSIS
-    Sets environment variables containing the most recent pre-release minor/patch release of the 7.x line.
+    Sets environment variables containing the most recent pre-release
+    minor/patch release of the 7.x line.
+
+.DESCRIPTION
+    Uses the [NuGet Server
+    API](https://docs.microsoft.com/en-us/nuget/api/overview) to look for the
+    latest compatible version of a NuGet package, where version is all or part
+    of a Semantic Version. For example, if $PackageVersion = "5", this will
+    download the most recent 5.minor.patch version. If $PackageVersion = "5.3",
+    then it download the most recent 5.3.patch version. And if $PackageVersion =
+    "5.3.1", then it will look for the exact version 5.3.1 and fail if it does
+    not exist.
 
 .OUTPUTS
-    Sets the following environment variables:
-        $env:ODS_MINIMAL_VERSION
-        $env:TPDM_MINIMAL_VERSION
-        $env:ODS_POPULATED_VERSION
-        $env:TPDM_POPULATED_VERSION
-        $env:ADMIN_VERSION 
-        $env:SECURITY_VERSION
-        $env:API_VERSION
-        $env:SWAGGER_VERSION
+    Sets the following environment variables: $env:ODS_MINIMAL_VERSION
+        $env:TPDM_MINIMAL_VERSION $env:ODS_POPULATED_VERSION
+        $env:TPDM_POPULATED_VERSION $env:ADMIN_VERSION $env:SECURITY_VERSION
+        $env:API_VERSION $env:SWAGGER_VERSION
 #>
+param(
+    [string]
+    $PackageVersion = "7.0"
+)
 
 # Azure DevOps hosts the Ed-Fi packages, and it requires TLS 1.2
 if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
@@ -131,17 +141,17 @@ Invalid version string ``$($PackageVersion)``. Should be one, two, or three comp
     $version = $versions | Where-Object { $_ -like $versionSearch } | Select-Object -First 1
 
     if ($null -eq $version) {
-        throw "Version ``$($PackageVersion)`` does not exist yet."
+        throw "Version ``$($PackageVersion)`` does not exist yet for ``$($PackageName)``."
     }
 
     $version
 }
 
-$env:ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.PostgreSQL.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:API_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.WebApi.Standard.4.0.0 -PackageVersion 7 -Prerelease)".Trim()
-$env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SwaggerUI -PackageVersion 7 -Prerelease)".Trim()
+$env:ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:API_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.WebApi.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SwaggerUI -PackageVersion $PackageVersion -Prerelease)".Trim()

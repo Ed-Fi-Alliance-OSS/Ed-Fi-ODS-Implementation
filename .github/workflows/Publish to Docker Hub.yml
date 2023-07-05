@@ -30,8 +30,10 @@ jobs:
         run: |
           docker login -u ${{ env.DOCKER_USERNAME}} -p ${{ env.DOCKER_HUB_TOKEN }}
 
-          ./get-versions.ps1
-          ./build-images.ps1 -Push -MajorMinor "7.0" -Patch ${{ github.run_number }} -PreRelease
+          ./get-versions.ps1 -PackageVersion 7.0
+
+          # Note: all images will receive the same version number for this Docker release
+          ./build-images.ps1 -Push -PackageVersion 7.0 -Patch ${{ github.run_number }} -PreRelease
         working-directory: docker
         shell: pwsh
 
