@@ -117,26 +117,19 @@ function Invoke-Build {
         [string]
         $Path,
 
-        [Parameter(Mandatory=$true)]
-        [string]
-        $LocalVersion,
-
         [string]
         $BuildArgs
     )
 
     Write-Message "Building ods-api-db-admin"
     Push-Location $ImageName/$Path
-    Invoke-Expression "docker build -t edfialliance/$($ImageName):$LocalVersion $BuildArgs ."
+    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer $BuildArgs ."
 
     if ($Push) {
-        &docker push edfialliance/$($ImageName):$LocalVersion
-
-        &docker tag edfialliance/$($ImageName):$LocalVersion edfialliance/$($ImageName):$semVer
         &docker push edfialliance/$($ImageName):$semVer
 
         if ($PreRelease) { 
-            &docker tag edfialliance/$($ImageName):$LocalVersion edfialliance/$($ImageName):pre
+            &docker tag edfialliance/$($ImageName):$semVer edfialliance/$($ImageName):pre
             &docker push edfialliance/$($ImageName):pre 
         }
     }
@@ -147,20 +140,16 @@ function Invoke-Build {
 
 $semVer = "$PackageVersion.$Patch"
 
-Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -LocalVersion $AdminVersion `
-    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
+Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
 
-# Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql -LocalVersion $MinimalVersion `
-#     -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
+Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
+    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
 
-# Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql -LocalVersion $PopulatedVersion `
-#     -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
+Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql `
+    -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
 
-# Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -LocalVersion $ApiVersion `
-#     -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-# Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -LocalVersion $ApiVersion `
-#     -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-# Invoke-Build -ImageName ods-api-swaggerui -Path alpine -LocalVersion $SwaggerVersion `
-#     -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+Invoke-Build -ImageName ods-api-swaggerui -Path alpine -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
