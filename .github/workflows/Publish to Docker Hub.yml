@@ -31,7 +31,7 @@ jobs:
 
       - name: Build and Push
         run: |
-          docker login -u ${{ env.DOCKER_USERNAME}} -p ${{ env.DOCKER_HUB_TOKEN }}
+          ${{ env.DOCKER_HUB_TOKEN }} | docker login -u ${{ env.DOCKER_USERNAME}} --password-stdin
 
           ./get-versions.ps1 -PackageVersion 7.0
 

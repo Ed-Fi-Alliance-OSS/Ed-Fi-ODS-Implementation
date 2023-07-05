@@ -150,17 +150,17 @@ $semVer = "$PackageVersion.$Patch"
 Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -LocalVersion $AdminVersion `
     -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
 
-Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql -LocalVersion $MinimalVersion `
-    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
+# Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql -LocalVersion $MinimalVersion `
+#     -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
 
-Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql -LocalVersion $PopulatedVersion `
-    -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
+# Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql -LocalVersion $PopulatedVersion `
+#     -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
 
-Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -LocalVersion $ApiVersion `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+# Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -LocalVersion $ApiVersion `
+#     -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -LocalVersion $ApiVersion `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+# Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -LocalVersion $ApiVersion `
+#     -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-Invoke-Build -ImageName ods-api-swaggerui -Path alpine -LocalVersion $SwaggerVersion `
-    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+# Invoke-Build -ImageName ods-api-swaggerui -Path alpine -LocalVersion $SwaggerVersion `
+#     -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
