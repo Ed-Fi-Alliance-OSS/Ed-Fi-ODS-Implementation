@@ -95,6 +95,10 @@ param (
 
 $ErrorActionPreference = "Stop"
 
+
+$semVer = "$PackageVersion.$Patch"
+$major = $($PackageVersion -split "\.")[0]
+
 function Write-Message {
     param(
         [Parameter(Mandatory=$true)]
@@ -128,7 +132,13 @@ function Invoke-Build {
 
     Write-Message "Building ods-api-db-admin"
     Push-Location $ImageName/$Path
+    # Full semantic version
     Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
+    # Major / minor version
+    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$PackageVersion$mssql
+    # Major version
+    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$major$mssql
+    # Pre-release
     &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):pre$mssql
 
     if ($Push) {
@@ -142,8 +152,6 @@ function Invoke-Build {
 }
 
 # Note: "gateway" is for local testing only and therefore should not be included in this script.
-
-$semVer = "$PackageVersion.$Patch"
 
 Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
 
