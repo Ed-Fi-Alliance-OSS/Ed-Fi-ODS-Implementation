@@ -12,6 +12,7 @@ on:
       - completed
     branches:
       - main
+  workflow_dispatch:
 
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
