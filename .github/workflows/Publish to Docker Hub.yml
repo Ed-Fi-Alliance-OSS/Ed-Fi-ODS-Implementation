@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Publish to Docker Hub
+on:
+  workflow_run:
+    workflows:
+      - "Publish to Azure Artifacts"
+    types:
+      - completed
+    branches:
+      - main
+
+env:
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+
+jobs:
+  docker-publish:
+    name: Publish to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait 20s for Azure Artifacts caching
+        run: sleep 20
+
+      - name: Build and Push
+        run: |
+          docker login -u ${{ env.DOCKER_USERNAME}} -p ${{ env.DOCKER_HUB_TOKEN }}
+
+          ./get-versions.ps1
+          ./build-images.ps1 -Push -MajorMinor "7.0" -Patch ${{ github.run_number }} -PreRelease
+        working-directory: docker
+        shell: pwsh
+
+  
