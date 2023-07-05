@@ -21,8 +21,8 @@ ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_a
 COPY init-database.sh /docker-entrypoint-initdb.d/1-init-database.sh
 
 RUN set +e && \
-    wget -O /tmp/EdFi_Admin.zip ${ADMIN_URL} && \
-    wget -O /tmp/EdFi_Security.zip ${SECURITY_URL} && \
+    wget -q -O /tmp/EdFi_Admin.zip ${ADMIN_URL} && \
+    wget -q -O /tmp/EdFi_Security.zip ${SECURITY_URL} && \
     unzip -p /tmp/EdFi_Admin.zip EdFi_Admin.sql > /tmp/EdFi_Admin.sql && \
     unzip -p /tmp/EdFi_Security.zip EdFi_Security.sql > /tmp/EdFi_Security.sql && \
     rm -f /tmp/*.zip && \

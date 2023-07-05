@@ -23,10 +23,10 @@ COPY init-database.sh /docker-entrypoint-initdb.d/init-database.sh
 
 RUN \
     # Download and extract Minimal and Populated Templates for core Ed-Fi Data Model
-    wget -O /tmp/OdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.4.0.0/versions/${ODS_VERSION}/content && \
+    wget -q -O /tmp/OdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.4.0.0/versions/${ODS_VERSION}/content && \
     unzip -p /tmp/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.sql > /tmp/EdFi_Ods_Populated_Template.sql && \
     # Download and extract Minimal and Populated Templates for Teacher Prep Data Model (TPDM)
-    wget -O /tmp/TPDMOdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0/versions/${TPDM_VERSION}/content && \
+    wget -q -O /tmp/TPDMOdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.4.0.0/versions/${TPDM_VERSION}/content && \
     unzip -p /tmp/TPDMOdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Populated_Template_TPDM_Core.sql && \
     rm -f /tmp/*.zip && \
     dos2unix /docker-entrypoint-initdb.d/init-database.sh && \
