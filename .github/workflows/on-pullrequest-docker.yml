@@ -48,5 +48,5 @@ jobs:
       - name: Build all of the images
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
-        run: ./build-images.ps1
+        run: build-images.ps1
         working-directory: docker
