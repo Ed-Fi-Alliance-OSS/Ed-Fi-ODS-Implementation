@@ -119,36 +119,36 @@ Push-Location ods-api-db-admin/alpine/pgsql
 if ($PreRelease) { &docker push edfialliance/ods-api-db-admin:pre }
 Pop-Location
 
-Write-Message "Building ods-api-db-ods-minimal"
-Push-Location ods-api-db-ods-minimal/alpine/pgsql
-&docker build -t edfialliance/ods-api-db-ods-minimal:$MinimalVersion --build-arg ODS_VERSION=$MinimalVersion `
-    --build-arg TPDM_VERSION=$TpdmMinimalVersion .
-&docker push edfialliance/ods-api-db-ods-minimal:$MinimalVersion
-&docker push edfialliance/ods-api-db-ods-minimal:$semVer
-if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-minimal:pre }
-Pop-Location
+# Write-Message "Building ods-api-db-ods-minimal"
+# Push-Location ods-api-db-ods-minimal/alpine/pgsql
+# &docker build -t edfialliance/ods-api-db-ods-minimal:$MinimalVersion --build-arg ODS_VERSION=$MinimalVersion `
+#     --build-arg TPDM_VERSION=$TpdmMinimalVersion .
+# &docker push edfialliance/ods-api-db-ods-minimal:$MinimalVersion
+# &docker push edfialliance/ods-api-db-ods-minimal:$semVer
+# if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-minimal:pre }
+# Pop-Location
 
-Write-Message "Building ods-api-db-ods-populated"
-Push-Location ods-api-db-ods-populated/alpine/pgsql
-&docker build -t edfialliance/ods-api-db-ods-populated:$PopulatedVersion --build-arg ODS_VERSION=$PopulatedVersion `
-    --build-arg TPDM_VERSION=$TpdmPopulatedVersion .
-&docker push edfialliance/ods-api-db-ods-populated:$PopulatedVersion
-&docker push edfialliance/ods-api-db-ods-populated:$semVer
-if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-populated:pre }
-Pop-Location
+# Write-Message "Building ods-api-db-ods-populated"
+# Push-Location ods-api-db-ods-populated/alpine/pgsql
+# &docker build -t edfialliance/ods-api-db-ods-populated:$PopulatedVersion --build-arg ODS_VERSION=$PopulatedVersion `
+#     --build-arg TPDM_VERSION=$TpdmPopulatedVersion .
+# &docker push edfialliance/ods-api-db-ods-populated:$PopulatedVersion
+# &docker push edfialliance/ods-api-db-ods-populated:$semVer
+# if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-populated:pre }
+# Pop-Location
 
-Write-Message "Building ods-api-web-api"
-Push-Location ods-api-web-api/alpine/pgsql
-&docker build -t edfialliance/ods-api-db-web-api:$ApiVersion --build-arg API_VERSION=$ApiVersion .
-&docker push edfialliance/ods-api-db-web-api:$AdminVApiVersion
-&docker push edfialliance/ods-api-db-web-api:$seVer
-if ($PreRelease) { &docker push edfialliance/ods-api-db-web-api:pre }
-Pop-Location
+# Write-Message "Building ods-api-web-api"
+# Push-Location ods-api-web-api/alpine/pgsql
+# &docker build -t edfialliance/ods-api-db-web-api:$ApiVersion --build-arg API_VERSION=$ApiVersion .
+# &docker push edfialliance/ods-api-db-web-api:$AdminVApiVersion
+# &docker push edfialliance/ods-api-db-web-api:$seVer
+# if ($PreRelease) { &docker push edfialliance/ods-api-db-web-api:pre }
+# Pop-Location
 
-Write-Message "Building ods-api-swaggerui"
-Push-Location ods-api-swaggerui/alpine
-&docker build -t edfialliance/ods-api-swaggerui:$SwaggerVersion --build-arg SWAGGER_VERSION=$SwaggerVersion .
-&docker push edfialliance/ods-api-swaggerui:$SwaggerVersion
-&docker push edfialliance/ods-api-swaggerui:$semVer
-if ($PreRelease) { &docker push edfialliance/ods-api-swaggerui:pre }
-Pop-Location
+# Write-Message "Building ods-api-swaggerui"
+# Push-Location ods-api-swaggerui/alpine
+# &docker build -t edfialliance/ods-api-swaggerui:$SwaggerVersion --build-arg SWAGGER_VERSION=$SwaggerVersion .
+# &docker push edfialliance/ods-api-swaggerui:$SwaggerVersion
+# &docker push edfialliance/ods-api-swaggerui:$semVer
+# if ($PreRelease) { &docker push edfialliance/ods-api-swaggerui:pre }
+# Pop-Location
