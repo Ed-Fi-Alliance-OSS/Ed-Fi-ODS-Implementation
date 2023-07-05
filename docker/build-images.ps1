@@ -107,63 +107,60 @@ function Write-Message {
     $host.UI.RawUI.ForegroundColor = $default
 }
 
+function Invoke-Build {
+    param(
+        [Parameter(Mandatory=$true)]
+        [string]
+        $ImageName,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $Path,
+
+        [Parameter(Mandatory=$true)]
+        [string]
+        $LocalVersion,
+
+        [string]
+        $BuildArgs
+    )
+
+    Write-Message "Building ods-api-db-admin"
+    Push-Location $ImageName/$Path
+    Invoke-Expression "docker build -t edfialliance/$($ImageName):$LocalVersion $BuildArgs ."
+
+    if ($Push) {
+        &docker push edfialliance/$($ImageName):$LocalVersion
+
+        &docker tag edfialliance/$($ImageName):$LocalVersion edfialliance/$($ImageName):$semVer
+        &docker push edfialliance/$($ImageName):$semVer
+
+        if ($PreRelease) { 
+            &docker tag edfialliance/$($ImageName):$LocalVersion edfialliance/$($ImageName):pre
+            &docker push edfialliance/$($ImageName):pre 
+        }
+    }
+    Pop-Location
+}
+
 # Note: "gateway" is for local testing only and therefore should not be included in this script.
 
 $semVer = "$PackageVersion.$Patch"
 
-Write-Message "Building ods-api-db-admin"
-Push-Location ods-api-db-admin/alpine/pgsql
-&docker build -t edfialliance/ods-api-db-admin:$AdminVersion --build-arg ADMIN_VERSION=$AdminVersion .
+Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -LocalVersion $AdminVersion `
+    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
 
-if ($Push) {
-    &docker push edfialliance/ods-api-db-admin:$AdminVersion
-    &docker push edfialliance/ods-api-db-admin:$semVer
-    if ($PreRelease) { &docker push edfialliance/ods-api-db-admin:pre }
-}
-Pop-Location
+Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql -LocalVersion $MinimalVersion `
+    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
 
-# Write-Message "Building ods-api-db-ods-minimal"
-# Push-Location ods-api-db-ods-minimal/alpine/pgsql
-# &docker build -t edfialliance/ods-api-db-ods-minimal:$MinimalVersion --build-arg ODS_VERSION=$MinimalVersion `
-#     --build-arg TPDM_VERSION=$TpdmMinimalVersion .
+Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql -LocalVersion $PopulatedVersion `
+    -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
 
-# if ($Push) {
-#   &docker push edfialliance/ods-api-db-ods-minimal:$MinimalVersion
-#   &docker push edfialliance/ods-api-db-ods-minimal:$semVer
-#   if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-minimal:pre }
-# }
-# Pop-Location
+Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -LocalVersion $ApiVersion `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-# Write-Message "Building ods-api-db-ods-populated"
-# Push-Location ods-api-db-ods-populated/alpine/pgsql
-# &docker build -t edfialliance/ods-api-db-ods-populated:$PopulatedVersion --build-arg ODS_VERSION=$PopulatedVersion `
-#     --build-arg TPDM_VERSION=$TpdmPopulatedVersion .
+Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -LocalVersion $ApiVersion `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-# if ($Push) {
-#   &docker push edfialliance/ods-api-db-ods-populated:$PopulatedVersion
-#   &docker push edfialliance/ods-api-db-ods-populated:$semVer
-#   if ($PreRelease) { &docker push edfialliance/ods-api-db-ods-populated:pre }
-# }
-# Pop-Location
-
-# Write-Message "Building ods-api-web-api"
-# Push-Location ods-api-web-api/alpine/pgsql
-# &docker build -t edfialliance/ods-api-db-web-api:$ApiVersion --build-arg API_VERSION=$ApiVersion .
-
-# if ($Push) {
-#   &docker push edfialliance/ods-api-db-web-api:$AdminVApiVersion
-#   &docker push edfialliance/ods-api-db-web-api:$seVer
-#   if ($PreRelease) { &docker push edfialliance/ods-api-db-web-api:pre }
-# }
-# Pop-Location
-
-# Write-Message "Building ods-api-swaggerui"
-# Push-Location ods-api-swaggerui/alpine
-# &docker build -t edfialliance/ods-api-swaggerui:$SwaggerVersion --build-arg SWAGGER_VERSION=$SwaggerVersion .
-
-# if ($Push) {
-#   &docker push edfialliance/ods-api-swaggerui:$SwaggerVersion
-#   &docker push edfialliance/ods-api-swaggerui:$semVer
-#   if ($PreRelease) { &docker push edfialliance/ods-api-swaggerui:pre }
-# }
-# Pop-Location
+Invoke-Build -ImageName ods-api-swaggerui -Path alpine -LocalVersion $SwaggerVersion `
+    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
