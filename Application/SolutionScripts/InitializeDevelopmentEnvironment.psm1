@@ -357,7 +357,7 @@ function Reset-TestAdminDatabase {
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens $replacementTokens
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
@@ -373,7 +373,7 @@ function Reset-TestSecurityDatabase {
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$settings.ApiSettings.DatabaseTypes.Security]] -replacementTokens $replacementTokens
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
@@ -410,27 +410,34 @@ function Set-Multitenancy {
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $integrationTestHarnessProjectPath = Get-RepositoryResolvedPath (Get-TestProjectTypes).IntegrationTestHarness
         $integrationTestHarnessDevelopmentSettingsPath = Join-Path $integrationTestHarnessProjectPath "appsettings.Development.json"
-        $deplosymentSettings = Get-DeploymentSettings
+        $deploymentSettings = Get-DeploymentSettings
         $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
         
-        $integrationTestHarnessDevelopmentSettings.ApiSettings | Add-Member -NotePropertyName Features -NotePropertyValue @( @{Name = 'MultiTenancy'; IsEnabled=$true} )
+        $integrationTestHarnessDevelopmentSettings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
+
+        $connectionString = $integrationTestHarnessDevelopmentSettings.ConnectionStrings.EdFi_Ods.replace('EdFi_Ods_Populated_Template_Test', 'EdFi_Ods_Populated_Template_{0}_Test')
+        $integrationTestHarnessDevelopmentSettings.ConnectionStrings | Add-Member -NotePropertyName EdFi_Ods -NotePropertyValue $connectionString -Force
         
-        $integrationTestHarnessDevelopmentSettings | Add-Member -NotePropertyName Tenants -NotePropertyValue @()
+        $integrationTestHarnessDevelopmentSettings | Add-Member -NotePropertyName Tenants -NotePropertyValue @{} -Force
         
         foreach ($tenant in $tenants) {
             $integrationTestHarnessDevelopmentSettings.Tenants += @{
-                TenantIdentifier = $tenant
-                ConnectionStrings = @{
-                    EdFi_Admin = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Admin_$($tenant)_Test"
-                    EdFi_Security = Get-DbConnectionStringBuilderFromTemplate -templateCSB $deplosymentSettings.ApiSettings.csbs[$deplosymentSettings.ApiSettings.ConnectionStringKeys[$deplosymentSettings.ApiSettings.DatabaseTypes.Ods]] -replacementTokens "Security_$($tenant)_Test"
+                $tenant = @{
+                    ConnectionStrings = @{
+                        EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $deploymentSettings.ApiSettings.csbs[$deploymentSettings.ApiSettings.ConnectionStringKeys[$deploymentSettings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens "Admin_$($tenant)_Test")"
+                        EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $deploymentSettings.ApiSettings.csbs[$deploymentSettings.ApiSettings.ConnectionStringKeys[$deploymentSettings.ApiSettings.DatabaseTypes.Security]] -replacementTokens "Security_$($tenant)_Test")"
+                    }
                 }
             }
             $adminReplacementTokens += "Admin_$($tenant)_Test"
             $securityReplacementTokens += "Security_$($tenant)_Test"
-            $odsReplacementTokens += "$($deplosymentSettings.ApiSettings.populatedTemplateSuffix)_$($tenant)_Test"
+            $odsReplacementTokens += "$($deploymentSettings.ApiSettings.populatedTemplateSuffix)_$($tenant)_Test"
         }
         
         $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsPath -Encoding UTF8
+
+        $integrationTestHarnessDevelopmentSettingsBinPath = Join-Path "$($integrationTestHarnessProjectPath)/bin/**/*" "appsettings.Development.json"
+        $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsBinPath -Encoding UTF8
     }
     
     Reset-TestAdminDatabase $adminReplacementTokens

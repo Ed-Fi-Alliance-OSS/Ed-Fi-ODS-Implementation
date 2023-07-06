@@ -86,6 +86,19 @@ function Get-DefaultDevelopmentSettingsByProject {
                 Engine = ""
                 StandardVersion  = ""
                 ExtensionVersion  = ""
+                Features = @(
+                    @{ Name = 'OpenApiMetadata'; IsEnabled=$true }
+                    @{ Name = 'AggregateDependencies'; IsEnabled=$true }
+                    @{ Name = 'TokenInfo'; IsEnabled=$true }
+                    @{ Name = 'Extensions'; IsEnabled=$true }
+                    @{ Name = 'Composites'; IsEnabled=$true }
+                    @{ Name = 'Profiles'; IsEnabled=$true }
+                    @{ Name = 'ChangeQueries'; IsEnabled=$true }
+                    @{ Name = 'IdentityManagement'; IsEnabled=$false }
+                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled=$true }
+                    @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
+                    @{ Name = 'XsdMetadata'; IsEnabled=$true }
+                )
             }
             ConnectionStrings = @{ }
         }
