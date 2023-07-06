@@ -23,15 +23,23 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
         public UpdateSecurityDatabaseTask(IPostmanSecurityMetadataInitializer postmanSecurityMetadataInitializer,
             TestHarnessConfigurationProvider testHarnessConfigurationProvider,
-            ApiSettings apiSettings,
-            ITenantConfigurationMapProvider tenantConfigurationMapProvider,
-            IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
+            ApiSettings apiSettings)
         {
             _postmanSecurityMetadataInitializer = postmanSecurityMetadataInitializer;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
             _apiSettings = apiSettings;
+        }
+
+        public UpdateSecurityDatabaseTask(IPostmanSecurityMetadataInitializer postmanSecurityMetadataInitializer,
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider,
+            ApiSettings apiSettings,
+            IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
+            ITenantConfigurationMapProvider tenantConfigurationMapProvider) 
+            : this(postmanSecurityMetadataInitializer, testHarnessConfigurationProvider, apiSettings)
+        {
             _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
+
         }
 
         public void Execute()

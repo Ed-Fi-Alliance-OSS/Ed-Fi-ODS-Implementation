@@ -41,15 +41,24 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
-            TestHarnessConfigurationProvider testHarnessConfigurationProvider,
-            ITenantConfigurationMapProvider tenantConfigurationMapProvider,
-            IContextProvider<TenantConfiguration> tenantConfigurationContextProvider)
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
             _configuration = configuration;
             _apiSettings = apiSettings;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
+        }
+
+        public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
+            IDefaultApplicationCreator defaultApplicationCreator,
+            IConfiguration configuration,
+            ApiSettings apiSettings,
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider,
+            IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
+            ITenantConfigurationMapProvider tenantConfigurationMapProvider)
+            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider)
+        {
             _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
         }
