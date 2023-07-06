@@ -170,7 +170,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             _clientAppRepo.CreateProfilesWithProfileDefinition(profiles);
 
             foreach (var vendor in _testHarnessConfiguration.Vendors.Where(x =>
-                !string.IsNullOrEmpty(tenantIdentifier) &&
+                string.IsNullOrEmpty(tenantIdentifier) ||
                 x.TenantIdentifier.Equals(tenantIdentifier, StringComparison.InvariantCultureIgnoreCase)))
             {
                 var user = _clientAppRepo.GetUser(vendor.Email) ??
