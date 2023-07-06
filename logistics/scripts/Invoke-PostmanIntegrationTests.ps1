@@ -16,7 +16,8 @@
 param(
     [string] $configurationFile = (Resolve-Path "$PSScriptRoot/modules/postmanTestHarnessConfiguration.json"),
     [string] $apiUrl = "http://localhost:8765",
-    [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot/modules")
+    [string] $environmentFilePath = (Resolve-Path "$PSScriptRoot/modules"),
+    [switch] $isMultiTenancy
 )
 
 & "$PSScriptRoot/../../logistics/scripts/modules/load-path-resolver.ps1"
@@ -86,6 +87,7 @@ function Install-NpmPackages {
 
 function Invoke-Newman {
     $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite/")
+    if ($isMultiTenancy.IsPresent) { $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite/Multitenancy") }
     $collectionFiles = Get-ChildItem $collectionFileDirectory -Filter "*.postman_collection.json"
     $reportPath = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "/reports/"
 
