@@ -35,7 +35,7 @@ self-signed TLS certificate.
 * Secret: `sampleSecret`.
 
 In a real production environment you would use Admin API or Admin App to create
-these credentials.
+these credentials, and of course you would want to install a real certificate.
 
 ### Minimal Template
 
@@ -45,15 +45,21 @@ of Ed-Fi descriptors, and no other data.
 
 Operational commands:
 
-```pwsh
+```shell
 # (optional) Only build the images, don't start them 
 docker compose -f docker-compose-minimal.yml build
 
 # Start
 docker compose -f docker-compose-minimal.yml up -d
 
-# Stop
+# Stop, but do not remove containers
 docker compose -f docker-compose-minimal.yml stop
+
+# Stop and remove containers
+docker compose -f docker-compose-minimal.yml down
+
+# Stop and remove containers and volumes
+docker compose -f docker-compose-minimal.yml down -v
 ```
 
 Network topology:
@@ -86,7 +92,7 @@ set of Ed-Fi descriptors, and no other data.
 
 Operational commands:
 
-```pwsh
+```shell
 # (optional) Only build the images, don't start them 
 docker compose -f docker-compose-populated.yml build
 
