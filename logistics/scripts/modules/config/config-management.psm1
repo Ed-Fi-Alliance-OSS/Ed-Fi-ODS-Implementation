@@ -133,7 +133,7 @@ function Get-DbConnectionStringBuilderFromTemplate {
             if ($templateCSB['Database'] -like '*{0}*') {
                 $params.property['Database'] = $templateCSB['Database'] -f $token
             } elseif ($token -ne "Ods") {
-                $templateCSB['Database'] = "EdFi_$replacementTokens"
+                $templateCSB['Database'] = "EdFi_$token"
             }
         }
 
