@@ -542,7 +542,7 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
 }
 
 function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName, [string] $AESKey) {
-    if (-not $ProjectName.Contains("Ods")) { return $Settings }
+    if ((-not $ProjectName.Contains("Ods")) -or ($ProjectName.Contains("Swagger"))) { return $Settings }
 
     if([string]::IsNullOrWhiteSpace($settings.ApiSettings.OdsConnectionStringAESKey)) {
         $Settings.ApiSettings.OdsConnectionStringAESKey = $AESKey
