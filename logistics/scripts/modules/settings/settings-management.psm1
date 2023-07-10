@@ -541,11 +541,11 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
     return $Settings
 }
 
-function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName) {
+function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName, [string] $AESKey) {
     if (-not $ProjectName.Contains("Ods")) { return $Settings }
 
     if([string]::IsNullOrWhiteSpace($settings.ApiSettings.OdsConnectionStringAESKey)) {
-        $Settings.ApiSettings.OdsConnectionStringAESKey = New-AESKey
+        $Settings.ApiSettings.OdsConnectionStringAESKey = $AESKey
     }
 
     return $Settings
@@ -663,6 +663,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
     $credentialSettingsByProject = Get-CredentialSettingsByProject
 
+    $NewAESKey = New-AESKey
+
     foreach ($project in $developmentSettingsByProject.Keys) {
         $newDevelopmentSettings = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
@@ -680,7 +682,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
-        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings $Project
+        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings $Project $NewAESKey
 
         if ($Settings.InstallType -eq 'MultiTenant')
         {
