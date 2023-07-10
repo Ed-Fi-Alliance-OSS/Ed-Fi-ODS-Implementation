@@ -557,7 +557,7 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
 }
 
 function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne ((Get-ProjectTypes).WebApi)) { return $Settings }
+    if (-not $ProjectName.Contains("Ods")) { return $Settings }
 
     if([string]::IsNullOrWhiteSpace($settings.ApiSettings.OdsConnectionStringAESKey)) {
         $Settings.ApiSettings.OdsConnectionStringAESKey = New-AESKey
@@ -663,7 +663,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
-        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings @project
+        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings $Project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
