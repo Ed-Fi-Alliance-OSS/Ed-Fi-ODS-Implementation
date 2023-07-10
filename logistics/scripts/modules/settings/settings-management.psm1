@@ -556,6 +556,16 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
     return $Settings
 }
 
+function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne ((Get-ProjectTypes).WebApi)) { return $Settings }
+
+    if([string]::IsNullOrWhiteSpace($settings.ApiSettings.OdsConnectionStringAESKey)) {
+        $Settings.ApiSettings.OdsConnectionStringAESKey = New-AESKey
+    }
+
+    return $Settings
+}
+
 function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if (-not $ProjectName.Contains("Test")) { return $Settings }
 
@@ -652,6 +662,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
+
+        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings @project
 
         $projectPath = Get-RepositoryResolvedPath $Project
 
