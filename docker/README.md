@@ -24,7 +24,9 @@ the ODS database.
 > **Warning** these are not appropriate for production use!
 
 Both compose files expect the presence of a `.env` file. You can copy
-`.env.example` and customize it for both.
+`.env.example` and customize it for both. The commands below will use your
+`.env` file automatically; you can use an alternate file name if you add an
+argument like `--env-file {filePath}` to the `docker compose up` command.
 
 In both cases there are no credentials at startup. The script
 [bootstrap.ps1](./bootstrap.ps1) creates a set of initial credentials with
