@@ -140,7 +140,7 @@ jobs:
         Set-Multitenancy -tenants Tenant1,Tenant2
         
         Write-FlatHashtable (Get-DeploymentSettings)
-       ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
+        ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
       shell: powershell
     - name: Postman MultiTenancy Test Report
       uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
