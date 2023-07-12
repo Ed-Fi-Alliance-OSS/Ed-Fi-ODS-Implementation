@@ -22,6 +22,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public List<Application> Applications { get; set; }
 
         public List<string> NamespacePrefixes { get; set; }
+
+        public string TenantIdentifier { get; set; }
     }
 
     public class Application
