@@ -98,6 +98,7 @@ function Get-DefaultDevelopmentSettingsByProject {
                     @{ Name = 'OwnershipBasedAuthorization'; IsEnabled=$true }
                     @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
                     @{ Name = 'XsdMetadata'; IsEnabled=$true }
+                    @{ Name = 'MultiTenancy'; IsEnabled=$false }
                 )
             }
             ConnectionStrings = @{ }

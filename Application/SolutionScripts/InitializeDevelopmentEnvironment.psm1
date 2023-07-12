@@ -413,7 +413,11 @@ function Set-Multitenancy {
         $deploymentSettings = Get-DeploymentSettings
         $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
         
-        $integrationTestHarnessDevelopmentSettings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
+        if (($integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}) -eq $null) {
+            $integrationTestHarnessDevelopmentSettings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
+        } else {
+            ($integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}).IsEnabled = $true
+        }
 
         $connectionString = $integrationTestHarnessDevelopmentSettings.ConnectionStrings.EdFi_Ods.replace('EdFi_Ods_Populated_Template_Test', 'EdFi_Ods_Populated_Template_{0}_Test')
         $integrationTestHarnessDevelopmentSettings.ConnectionStrings | Add-Member -NotePropertyName EdFi_Ods -NotePropertyValue $connectionString -Force
@@ -435,7 +439,7 @@ function Set-Multitenancy {
         }
         
         $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsPath -Encoding UTF8
-
+        
         $integrationTestHarnessDevelopmentSettingsBinPath = Join-Path "$($integrationTestHarnessProjectPath)/bin/**/*" "appsettings.Development.json"
         $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsBinPath -Encoding UTF8
     }
