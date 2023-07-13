@@ -25,6 +25,8 @@ if (Test-Path $reports) {
 
 New-Item -ItemType Directory -Force -Path $reports
 
+$settings = Get-DeploymentSettings
+
 foreach ($assembly in $testAssemblies) {
     Write-Host ( "Testing assembly " + $assembly)
 
@@ -34,7 +36,9 @@ foreach ($assembly in $testAssemblies) {
         $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".trx"
     }
 
-    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
+    $testRunParameters = "TestRunParameters.Parameter(name=\`"StandardVersion\`", value=\`"$($settings.ApiSettings.StandardVersion)\`")"
+    $escapeparser = '--%'
+    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName) $escapeparser -- $testRunParameters
 
     Write-Host "assembly exit code: $LASTEXITCODE"
 }
