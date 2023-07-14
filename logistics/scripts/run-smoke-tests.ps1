@@ -52,7 +52,8 @@ param(
     [string] $smokeTestExe = "./EdFi.SmokeTest.Console/tools/EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = "./EdFi.OdsApi.Sdk/lib/EdFi.OdsApi.Sdk.dll",
     [switch] $noRebuild,
-    [string] $testHarnessLogNamePrefix
+    [string] $testHarnessLogNamePrefix,
+    [switch] $isMultiTenancy
 )
 
 $ErrorActionPreference = 'Stop'
@@ -92,6 +93,7 @@ function Get-SmokeTestConfiguration {
     $config.smokeTestDll = $smokeTestDll
     $config.apiAppConfig = "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/appsettings.json"
     $config.noExtensions = $false
+    $config.isMultiTenancy = $isMultiTenancy.IsPresent
 
     $config.testSets = $testSets
 
@@ -99,6 +101,7 @@ function Get-SmokeTestConfiguration {
 
     $config.testHarnessAppConfig = "$(Get-RepositoryResolvedPath "Application/EdFi.Ods.Api.IntegrationTestHarness")/bin/**/appsettings.json"
     $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration.json")"
+    if ($isMultiTenancy.IsPresent) { $config.testHarnessJsonConfig = "$(Get-RepositoryResolvedPath "logistics/scripts/smokeTestHarnessConfiguration - Multitenancy.json")" }
     $config.testHarnessJsonConfigLEAs = @()
 
     $config.bulkLoadTempJsonConfig = Join-Path ([IO.Path]::GetTempPath()) "smokeTestconfig.json"
