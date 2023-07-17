@@ -21,7 +21,7 @@ on:
   workflow_dispatch:
     inputs:
       rebuildLevel:
-        description: "Rebuild and package CodeGen library, .NET data assemblies, and ODS template databases"
+        description: "Rebuild and package CodeGen library, Standard/Extension .NET assemblies, and the ODS/API database templates"
         required: true
         default: "DatabaseTemplates"
         type: choice
@@ -676,7 +676,7 @@ jobs:
         git commit -m "Updating for new EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL  package version"
         git push -u origin ${{ env.current_branch }}
     - name: Upload NugetPackages created using Rebuild Database Templates worfklow
-      if: inputs.rebuildLevel == 'DatabaseTemplates' && success() 
+      if: success() 
       uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
       with:
         name: NugetPackages.Artifacts
