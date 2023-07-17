@@ -45,7 +45,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
         public string Secret { get; set; }
 
-        public List<int> LocalEducationOrganizations { get; set; }
+        public List<long> LocalEducationOrganizations { get; set; }
 
         public string OwnershipToken { get; set; }
 

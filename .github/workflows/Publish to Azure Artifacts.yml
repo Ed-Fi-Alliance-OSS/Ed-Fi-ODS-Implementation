@@ -34,7 +34,7 @@ jobs:
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: InitDev,Unit tests,Integration tests,Package.yml
+        workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
@@ -44,7 +44,7 @@ jobs:
     - name: EdFi.Ods.Api.TestSdk NugetPackage
       uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
       with:
-        workflow: InitDev,Unit tests,Integration tests,Smoke Tests using Sandbox, Year-Specific and Shared Instance.yml
+        workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
