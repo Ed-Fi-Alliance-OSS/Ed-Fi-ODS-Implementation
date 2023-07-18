@@ -26,6 +26,8 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
+    - uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b  # v3.0.2
+    - uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4   
     - name: Check for Azure token
       if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.AZURE_ARTIFACT_NUGET_KEY == '' }}
       run: | 
