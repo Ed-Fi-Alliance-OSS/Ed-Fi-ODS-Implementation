@@ -114,7 +114,6 @@ function Initialize-DeploymentEnvironment {
     
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
-    if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
     if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
     if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
     if ($Engine) { $settings.ApiSettings.Engine = $Engine }
@@ -135,7 +134,7 @@ function Initialize-DeploymentEnvironment {
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
 
-        if ((Get-DeploymentSettings).ApiSettings.Mode -ne 'Sandbox') {
+        if ($InstallType -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
         }
         else {
