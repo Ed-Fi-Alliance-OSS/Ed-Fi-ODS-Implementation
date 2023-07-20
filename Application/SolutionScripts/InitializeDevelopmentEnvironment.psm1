@@ -365,7 +365,7 @@ function Reset-TestAdminDatabase {
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
-        $replacementTokens = @($databaseName)
+        $replacementTokens = @("$($databaseName)_Test")
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
@@ -381,7 +381,7 @@ function Reset-TestSecurityDatabase {
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
-        $replacementTokens = @($databaseName)
+        $replacementTokens = @("$($databaseName)_Test")
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
