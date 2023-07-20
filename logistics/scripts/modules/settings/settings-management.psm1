@@ -86,20 +86,6 @@ function Get-DefaultDevelopmentSettingsByProject {
                 Engine = ""
                 StandardVersion  = ""
                 ExtensionVersion  = ""
-                Features = @(
-                    @{ Name = 'OpenApiMetadata'; IsEnabled=$true }
-                    @{ Name = 'AggregateDependencies'; IsEnabled=$true }
-                    @{ Name = 'TokenInfo'; IsEnabled=$true }
-                    @{ Name = 'Extensions'; IsEnabled=$true }
-                    @{ Name = 'Composites'; IsEnabled=$true }
-                    @{ Name = 'Profiles'; IsEnabled=$true }
-                    @{ Name = 'ChangeQueries'; IsEnabled=$true }
-                    @{ Name = 'IdentityManagement'; IsEnabled=$false }
-                    @{ Name = 'OwnershipBasedAuthorization'; IsEnabled=$true }
-                    @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
-                    @{ Name = 'XsdMetadata'; IsEnabled=$true }
-                    @{ Name = 'MultiTenancy'; IsEnabled=$false }
-                )
             }
             ConnectionStrings = @{ }
         }
@@ -449,7 +435,6 @@ function Get-MergedAppSettings([string[]] $SettingsFiles = @() , [string]$Projec
     return $mergedSettings
 }
 
-
 function Get-ConnectionStringBuildersFromSettings([hashtable] $Settings = @{ }) {
     $connectionStrings = @{ }
 
@@ -579,26 +564,63 @@ function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $Pro
     return $newSettings
 }
 
-function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -ne ((Get-TestProjectTypes).IntegrationTestHarness)) { return $Settings }
-
+function Add-MultiTenantSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne (Get-ProjectTypes).WebApi) { return $Settings }
+    
     $newSettings = @{
         ApiSettings       = @{
-            Mode = "SharedInstance"
+            Features = (Get-DefaultFeatures).Features
         }
+        Tenants = @{}
     }
 
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
+    foreach ($tenant in $Settings.ApiSettings.Tenants -split ';' | ForEach-Object { $_ }) {
+        $newSettings.Tenants += @{
+            $tenant = @{
+                ConnectionStrings = @{
+                    EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])] -replacementTokens "Admin_$($tenant)")"
+                    EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security])] -replacementTokens "Security_$($tenant)")"
+                }
+            }
+        }
+    }
+    
     $newSettings = (Merge-Hashtables $Settings, $newSettings)
+    $newSettings = Set-Feature -Settings $newSettings -FeatureName "MultiTenancy" -IsEnabled $true
+    $newSettings.Remove('ConnectionStrings')
     return $newSettings
 }
 
-function Remove-WebApiSpecificSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
-    if ($ProjectName -eq ((Get-ProjectTypes).WebApi)) { return $Settings }
-    if ($null -eq $Settings.ApiSettings.Mode) { return $Settings }
-
-    $newSettings = Get-HashtableDeepClone $settings
-    $newSettings.ApiSettings.Remove('Mode')
-
+function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne (Get-TestProjectTypes).IntegrationTestHarness) { return $Settings }
+    
+    $odsConnectionString = $Settings.ConnectionStrings.EdFi_Ods.replace('EdFi_Ods_Populated_Template_Test', 'EdFi_Ods_Populated_Template_{0}_Test')
+    $newSettings = @{
+        ApiSettings       = @{
+            Features = (Get-DefaultFeatures).Features
+        }
+        Tenants = @{}
+        ConnectionStrings = @{
+            EdFi_Ods = $odsConnectionString
+        }
+    }
+    
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
+    foreach ($tenant in $Settings.ApiSettings.Tenants -split ';' | ForEach-Object { $_ }) {
+        $newSettings.Tenants += @{
+            $tenant = @{
+                ConnectionStrings = @{
+                    EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Admin])] -replacementTokens "Admin_$($tenant)_Test")"
+                    EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $csbs[((Get-ConnectionStringKeyByDatabaseTypes)[(Get-DatabaseTypes).Security])] -replacementTokens "Security_$($tenant)_Test")"
+                }
+            }
+        }
+    }
+    
+    $Settings.Remove('ConnectionStrings')
+    $newSettings = (Merge-Hashtables $Settings, $newSettings)
+    $newSettings = Set-Feature -Settings $newSettings -FeatureName "MultiTenancy" -IsEnabled $true
     return $newSettings
 }
 
@@ -645,14 +667,17 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
         $newDevelopmentSettings = Add-TestSpecificAppSettings $newDevelopmentSettings $project
-        $newDevelopmentSettings = Add-TestHarnessSpecificAppSettings $newDevelopmentSettings $project
-
+        
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
-
-        $newDevelopmentSettings = Remove-WebApiSpecificSettings $newDevelopmentSettings $project
-
+        
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
+        if ($Settings.InstallType -eq 'MultiTenant')
+        {
+            $newDevelopmentSettings = Add-MultiTenantSettings $newDevelopmentSettings $project
+            $newDevelopmentSettings = Add-MultiTenantTestHarnessSettings $newDevelopmentSettings $project
+        }
+        
         $projectPath = Get-RepositoryResolvedPath $Project
 
         $newDevelopmentSettingsPath = Join-Path $projectPath "appsettings.Development.json"
@@ -700,4 +725,23 @@ function ConvertTo-Boolean($Value) {
 function Get-ValueOrDefault($Value, $Default) {
     if ([string]::IsNullOrWhiteSpace($Value)) { return $Default }
     return $Value
+}
+
+function Get-DefaultFeatures() {
+    return @{
+        Features = @(
+            @{ Name = 'OpenApiMetadata'; IsEnabled=$true }
+            @{ Name = 'AggregateDependencies'; IsEnabled=$true }
+            @{ Name = 'TokenInfo'; IsEnabled=$true }
+            @{ Name = 'Extensions'; IsEnabled=$true }
+            @{ Name = 'Composites'; IsEnabled=$true }
+            @{ Name = 'Profiles'; IsEnabled=$true }
+            @{ Name = 'ChangeQueries'; IsEnabled=$true }
+            @{ Name = 'IdentityManagement'; IsEnabled=$false }
+            @{ Name = 'OwnershipBasedAuthorization'; IsEnabled=$true }
+            @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
+            @{ Name = 'XsdMetadata'; IsEnabled=$true }
+            @{ Name = 'MultiTenancy'; IsEnabled=$false }
+        )
+    }
 }
