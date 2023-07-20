@@ -4,10 +4,12 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 [CmdLetBinding()]
 param(
-    [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
+    [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
     [string] $InstallType = 'Sandbox',
 
     [string[]] $OdsTokens = @(),
+    
+    [string[]] $Tenants = @(),
 
     [ValidateSet('SQLServer', 'PostgreSQL')]
     [String] $Engine = 'SQLServer',
@@ -66,6 +68,7 @@ $ErrorActionPreference = 'Stop'
 $params = @{
     InstallType            = $InstallType
     OdsTokens              = @()
+    Tenants                = $Tenants
     Engine                 = $Engine
     NoCodeGen              = $NoCodeGen
     NoRebuild              = $NoRebuild
