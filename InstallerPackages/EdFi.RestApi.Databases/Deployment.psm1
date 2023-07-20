@@ -17,7 +17,7 @@ function Initialize-DeploymentEnvironment {
     .parameter PathResolverRepositoryOverride
         A semicolon-separated string of repositories to pass to path-resolver, such as 'Ed-Fi-ODS;Ed-Fi-Ods-Implementation'
     .parameter InstallType
-        The type of deployment to install: 'Sandbox', 'SharedInstance' or 'YearSpecific'
+        The type of deployment to install: 'Sandbox', 'SingleTenant' or 'MultiTenant'
     .parameter Engine
         The database engine provider, either 'SQLServer' or 'PostgreSQL'
     .parameter ExcludedExtensionSources
@@ -47,7 +47,7 @@ function Initialize-DeploymentEnvironment {
     param(
         [string] $PathResolverRepositoryOverride,
 
-        [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
+        [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
         [string] $InstallType,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
@@ -114,6 +114,7 @@ function Initialize-DeploymentEnvironment {
     
     $settings = @{ ApiSettings = @{ NoDuration = $NoDuration.IsPresent } }
 
+    if ($InstallType) { $settings.InstallType = $InstallType }
     if ($EnabledFeatureNames) { $settings.ApiSettings.EnabledFeatureNames = $EnabledFeatureNames }
     if ($ExcludedExtensionSources) { $settings.ApiSettings.ExcludedExtensionSources = $ExcludedExtensionSources }
     if ($Engine) { $settings.ApiSettings.Engine = $Engine }
@@ -123,8 +124,8 @@ function Initialize-DeploymentEnvironment {
     if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
 
     Set-DeploymentSettings $settings | Out-Null
-
-    Write-FlatHashtable (Get-DeploymentSettings)
+    $settings = Get-DeploymentSettings
+    Write-FlatHashtable $settings
     
     $script:result = @()
 
@@ -134,7 +135,7 @@ function Initialize-DeploymentEnvironment {
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
 
-        if ($InstallType -ne 'Sandbox') {
+        if ($settings.InstallType -ne 'Sandbox') {
             $script:result += Reset-OdsDatabase
         }
         else {
@@ -248,14 +249,22 @@ $deploymentTasks = @{
     'Reset-AdminDatabase'             = {
         $settings = Get-DeploymentSettings
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csb = $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]]
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
+        $databaseName = $databaseType
+        $replacementTokens = @($databaseName)
+        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)" } }
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
     'Reset-SecurityDatabase'          = {
         $settings = Get-DeploymentSettings
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csb = $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]]
-        Initialize-EdFiDatabase $settings $databaseType $csb
+        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
+        $databaseName = $databaseType
+        $replacementTokens = @($databaseName)
+        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)" } }
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
     'Reset-OdsDatabase'               = {
         $settings = Get-DeploymentSettings

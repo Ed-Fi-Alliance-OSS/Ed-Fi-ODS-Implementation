@@ -5,6 +5,7 @@
     "EdFi_Security": "server=(local);trusted_connection=True;database=EdFi_Security;persist security info=True;Application Name=EdFi.Ods.WebApi",
     "EdFi_Master": "server=(local);trusted_connection=True;database=master;Application Name=EdFi.Ods.WebApi"
   },
+  "InstallType": "Sandbox",
   "ApiSettings": {
     "Engine": "SQLServer",
     "ExtensionVersion": "1.1.0",
@@ -51,6 +52,10 @@
       {
         "Name": "UniqueIdValidation",
         "IsEnabled": false
+      },
+      {
+        "IsEnabled": false,
+        "Name": "MultiTenancy"
       }
     ],
     "ExcludedExtensions": [],
