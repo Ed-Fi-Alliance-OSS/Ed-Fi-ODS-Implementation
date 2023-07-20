@@ -588,7 +588,6 @@ function Add-MultiTenantSettings([hashtable] $Settings = @{ }, [string] $Project
     
     $newSettings = (Merge-Hashtables $Settings, $newSettings)
     $newSettings = Set-Feature -Settings $newSettings -FeatureName "MultiTenancy" -IsEnabled $true
-    $newSettings.Remove('ConnectionStrings')
     return $newSettings
 }
 
@@ -618,7 +617,6 @@ function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [strin
         }
     }
     
-    $Settings.Remove('ConnectionStrings')
     $newSettings = (Merge-Hashtables $Settings, $newSettings)
     $newSettings = Set-Feature -Settings $newSettings -FeatureName "MultiTenancy" -IsEnabled $true
     return $newSettings
