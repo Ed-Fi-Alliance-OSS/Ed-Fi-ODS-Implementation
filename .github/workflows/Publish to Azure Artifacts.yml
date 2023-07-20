@@ -28,7 +28,6 @@ env:
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
-  EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}  
 
 jobs:
   build:
