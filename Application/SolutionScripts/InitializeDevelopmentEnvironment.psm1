@@ -46,13 +46,15 @@ function Initialize-DevelopmentEnvironment {
     .description
         Builds the ODS/API solution and deploys the necessary databases in order to setup a complete development environment.
     .parameter InstallType
-        The type of deployment to install: 'Sandbox', 'SharedInstance', 'YearSpecific', or 'DistrictSpecific'.
+        The type of deployment to install: 'Sandbox', 'SingleTenant', 'MultiTenant'.
     .parameter OdsTokens
         A semicolon-separated string which requires single quotes or an array of strings for OdsTokens to use when creating Ods database instances.
-        Example for Array of Strings in this format @("2018","2019","2020")
-        Example for semicolon-separated string which requires single quote in this format '2013;2014;2015;2016;2017'
-        For a year specific deployment a valid value could be '2013;2014;2015;2016;2017'.
-        For a district specific deployment a valid value could be '255901;255902'.
+        Example for Array of Strings in this format @("2021","2023")
+        Example for semicolon-separated string which requires single quote in this format '2021;2023'
+    .parameter Tenants
+        A semicolon-separated string which requires single quotes or an array of strings for Tenants to use when InstallType is MultiTenant.
+        Example for Array of Strings in this format @("Tenant1","Tenant2")
+        Example for semicolon-separated string which requires single quote in this format 'Tenant1;Tenant2'
     .parameter Engine
         The database engine provider, either "SQLServer" or "PostgreSQL".
     .parameter NoRebuild
@@ -87,13 +89,16 @@ function Initialize-DevelopmentEnvironment {
         Extension Version.
     #>
     param(
-        [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
+        [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
         [Parameter(Mandatory=$false)]
         [string] $InstallType = 'Sandbox',
 
         [Alias('OdsYears')]
         [Parameter(Mandatory=$false)]
         [string[]] $OdsTokens,
+        
+        [Parameter(Mandatory=$false)]
+        [string[]] $Tenants,
 
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [Parameter(Mandatory=$false)]
@@ -150,8 +155,12 @@ function Initialize-DevelopmentEnvironment {
         [String] $ExtensionVersion = '1.1.0'
     )
 
-    if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
-        throw "The OdsTokens (legacy parameter name OdsYears) parameter can only be used with the 'YearSpecific' or 'DistrictSpecific' InstallType."
+    if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
+        throw "The OdsTokens parameter can only be used with the 'SingleTenant' or 'MultiTenant' InstallType."
+    }
+    
+    if (($InstallType -eq 'MultiTenant') -and ([string]::IsNullOrWhiteSpace($Tenants))) {
+        throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
     }
 
     Clear-Error
@@ -162,8 +171,9 @@ function Initialize-DevelopmentEnvironment {
 
         $settings = @{ ApiSettings = @{ } }
 
-        if ($InstallType) { $settings.ApiSettings.Mode = $InstallType }
+        if ($InstallType) { $settings.InstallType = $InstallType }
         if ($OdsTokens) { $settings.ApiSettings.OdsTokens = $OdsTokens }
+        if ($Tenants) { $settings.ApiSettings.Tenants = $Tenants }
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
         if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
         if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
@@ -178,7 +188,7 @@ function Initialize-DevelopmentEnvironment {
         if ((-not [string]::IsNullOrWhiteSpace($pluginFolderPath)) -AND (($pluginFolderPath -eq './Plugin') -OR ($pluginFolderPath -eq '../../Plugin'))) { 
             $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginFolder))
         }
-
+        
         $global:InvokedTasks = $null
         $script:result += Invoke-NewDevelopmentAppSettings $settings
 
@@ -347,33 +357,33 @@ function Reset-EmptySandboxDatabase {
 }
 
 function Reset-TestAdminDatabase {
-    param(
-        [string[]] $replacementTokens = @('Admin_Test')
-    )
-    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Admin
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
+        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
+        $databaseName = $databaseType
+        $replacementTokens = @("$($databaseName)_Test")
+        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
 
 function Reset-TestSecurityDatabase {
-    param(
-        [string[]] $replacementTokens = @('Security_Test')
-    )
-    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
+        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
+        $databaseName = $databaseType
+        $replacementTokens = @("$($databaseName)_Test")
+        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
     }
 }
@@ -381,72 +391,19 @@ function Reset-TestSecurityDatabase {
 Set-Alias -Scope Global Reset-TestPopulatedTemplate Reset-TestPopulatedTemplateDatabase
 # deploy separate database used by the ODS/API tests
 function Reset-TestPopulatedTemplateDatabase {
-    param(
-        [string[]] $replacementTokens = @()
-    )
-    
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         $settings = Get-DeploymentSettings
-        if ($replacementTokens.count -eq 0) { $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test") }
+        $replacementTokens = @("$($settings.ApiSettings.populatedTemplateSuffix)_Test")
         # turn on all available features for the test database to ensure all the schema components are available
         $settings.ApiSettings.SubTypes = Get-DefaultSubtypes
         $settings.ApiSettings.DropDatabases = $true
         $databaseType = $settings.ApiSettings.DatabaseTypes.Ods
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$settings.ApiSettings.ConnectionStringKeys[$databaseType]] -replacementTokens $replacementTokens
+        $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
+        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
+        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
-}
-
-function Set-Multitenancy {
-    param(
-        [string[]] $Tenants
-    )
-    
-    $adminReplacementTokens = @()
-    $securityReplacementTokens = @()
-    $odsReplacementTokens = @()
-        
-    Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        $integrationTestHarnessProjectPath = Get-RepositoryResolvedPath (Get-TestProjectTypes).IntegrationTestHarness
-        $integrationTestHarnessDevelopmentSettingsPath = Join-Path $integrationTestHarnessProjectPath "appsettings.Development.json"
-        $deploymentSettings = Get-DeploymentSettings
-        $integrationTestHarnessDevelopmentSettings = Get-Content -Path $integrationTestHarnessDevelopmentSettingsPath -Raw -Encoding UTF8 | ConvertFrom-Json
-        
-        if (($integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}) -eq $null) {
-            $integrationTestHarnessDevelopmentSettings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
-        } else {
-            ($integrationTestHarnessDevelopmentSettings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}).IsEnabled = $true
-        }
-
-        $connectionString = $integrationTestHarnessDevelopmentSettings.ConnectionStrings.EdFi_Ods.replace('EdFi_Ods_Populated_Template_Test', 'EdFi_Ods_Populated_Template_{0}_Test')
-        $integrationTestHarnessDevelopmentSettings.ConnectionStrings | Add-Member -NotePropertyName EdFi_Ods -NotePropertyValue $connectionString -Force
-        
-        $integrationTestHarnessDevelopmentSettings | Add-Member -NotePropertyName Tenants -NotePropertyValue @{} -Force
-        
-        foreach ($tenant in $tenants) {
-            $integrationTestHarnessDevelopmentSettings.Tenants += @{
-                $tenant = @{
-                    ConnectionStrings = @{
-                        EdFi_Admin = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $deploymentSettings.ApiSettings.csbs[$deploymentSettings.ApiSettings.ConnectionStringKeys[$deploymentSettings.ApiSettings.DatabaseTypes.Admin]] -replacementTokens "Admin_$($tenant)_Test")"
-                        EdFi_Security = "$(Get-DbConnectionStringBuilderFromTemplate -templateCSB $deploymentSettings.ApiSettings.csbs[$deploymentSettings.ApiSettings.ConnectionStringKeys[$deploymentSettings.ApiSettings.DatabaseTypes.Security]] -replacementTokens "Security_$($tenant)_Test")"
-                    }
-                }
-            }
-            $adminReplacementTokens += "Admin_$($tenant)_Test"
-            $securityReplacementTokens += "Security_$($tenant)_Test"
-            $odsReplacementTokens += "$($deploymentSettings.ApiSettings.populatedTemplateSuffix)_$($tenant)_Test"
-        }
-        
-        $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsPath -Encoding UTF8
-        
-        $integrationTestHarnessDevelopmentSettingsBinPath = Join-Path "$($integrationTestHarnessProjectPath)/bin/**/*" "appsettings.Development.json"
-        $integrationTestHarnessDevelopmentSettings | ConvertTo-Json -Depth 10 | Set-Content $integrationTestHarnessDevelopmentSettingsBinPath -Encoding UTF8
-    }
-    
-    Reset-TestAdminDatabase $adminReplacementTokens
-    Reset-TestSecurityDatabase $securityReplacementTokens
-    Reset-TestPopulatedTemplateDatabase $odsReplacementTokens
 }
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
