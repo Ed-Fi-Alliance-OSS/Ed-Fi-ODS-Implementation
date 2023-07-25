@@ -541,6 +541,16 @@ function Update-DefaultDatabaseTemplate([hashtable] $Settings = @{ }) {
     return $Settings
 }
 
+function Add-OdsConnectionStringEncryptionKey([hashtable] $Settings = @{ }, [string] $ProjectName, [string] $AESKey) {
+    if ((-not $ProjectName.Contains("Ods")) -or ($ProjectName.Contains("Swagger"))) { return $Settings }
+
+    if([string]::IsNullOrWhiteSpace($settings.ApiSettings.OdsConnectionStringEncryptionKey)) {
+        $Settings.ApiSettings.OdsConnectionStringEncryptionKey = $AESKey
+    }
+
+    return $Settings
+}
+
 function Add-TestSpecificAppSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if (-not $ProjectName.Contains("Test")) { return $Settings }
 
@@ -653,6 +663,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
 
     $credentialSettingsByProject = Get-CredentialSettingsByProject
 
+    $NewAESKey = New-AESKey
+
     foreach ($project in $developmentSettingsByProject.Keys) {
         $newDevelopmentSettings = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
@@ -669,6 +681,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Merge-Hashtables $newDevelopmentSettings, $credentialSettingsByProject[$project], $Settings
         
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
+
+        $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings $Project $NewAESKey
 
         if ($Settings.InstallType -eq 'MultiTenant')
         {

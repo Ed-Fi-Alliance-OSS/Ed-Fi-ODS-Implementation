@@ -28,6 +28,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'InstallerPackages/EdFi.RestApi.Databases/Deployment.psm1')
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tasks/TaskHelper.psm1")
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/tools/ToolsHelper.psm1")
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/key-management.psm1")
 
 Set-Alias -Scope Global Reset-PopulatedTemplateFromSamples Initialize-PopulatedTemplate
 Set-Alias -Scope Global Reset-MinimalTemplateFromSamples Initialize-MinimalTemplate
