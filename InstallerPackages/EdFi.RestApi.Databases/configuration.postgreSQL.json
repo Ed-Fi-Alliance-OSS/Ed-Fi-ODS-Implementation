@@ -5,6 +5,7 @@
     "EdFi_Admin": "host=localhost;port=5432;username=postgres;database=EdFi_Admin;Application Name=EdFi.Ods.WebApi",
     "EdFi_Master": "host=localhost;port=5432;username=postgres;database=postgres;Application Name=EdFi.Ods.WebApi"
   },
+  "InstallType": "Sandbox",
   "ApiSettings": {
     "Engine": "PostgreSQL",
     "ExtensionVersion": "1.1.0",
@@ -51,6 +52,10 @@
       {
         "Name": "UniqueIdValidation",
         "IsEnabled": false
+      },
+      {
+        "IsEnabled": false,
+        "Name": "MultiTenancy"
       }
     ],
     "ExcludedExtensions": [],
