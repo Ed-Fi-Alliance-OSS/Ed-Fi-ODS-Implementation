@@ -252,19 +252,34 @@ $deploymentTasks = @{
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
         $replacementTokens = @($databaseName)
-        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)" } }
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
+        if ($settings.InstallType -eq 'MultiTenant') {
+            foreach ($tenantKey in $settings.Tenants.keys) {
+                $csb = New-Object System.Data.Common.DbConnectionStringBuilder
+                $csb.set_ConnectionString($settings.Tenants[$tenantKey].ConnectionStrings[$connectionStringKey])
+                write-host $csb
+                Initialize-EdFiDatabase $settings $databaseType $csb
+            }
+        } else {
+            $csb = $settings.ApiSettings.csbs[$connectionStringKey]
+            Initialize-EdFiDatabase $settings $databaseType $csb
+        }
     }
     'Reset-SecurityDatabase'          = {
         $settings = Get-DeploymentSettings
         $databaseType = $settings.ApiSettings.DatabaseTypes.Security
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         $databaseName = $databaseType
-        $replacementTokens = @($databaseName)
-        if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)" } }
-        $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
+        if ($settings.InstallType -eq 'MultiTenant') {
+            foreach ($tenantKey in $settings.Tenants.keys) {
+                $csb = New-Object System.Data.Common.DbConnectionStringBuilder
+                $csb.set_ConnectionString($settings.Tenants[$tenantKey].ConnectionStrings[$connectionStringKey])
+                write-host $csb
+                Initialize-EdFiDatabase $settings $databaseType $csb
+            }
+        } else {
+            $csb = $settings.ApiSettings.csbs[$connectionStringKey]
+            Initialize-EdFiDatabase $settings $databaseType $csb
+        }
     }
     'Reset-OdsDatabase'               = {
         $settings = Get-DeploymentSettings
