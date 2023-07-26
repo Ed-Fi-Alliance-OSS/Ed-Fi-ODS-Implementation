@@ -14,7 +14,6 @@ import-module -force "$PSScriptRoot/Install-EdFiOdsWebApi.psm1"
 function Invoke-DifferentWebSite {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
@@ -32,7 +31,6 @@ function Invoke-DifferentWebSite {
 function Invoke-NonDefaultApplication {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
@@ -47,7 +45,6 @@ function Invoke-NonDefaultApplication {
 function Invoke-DifferentPackageSource {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
         DbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
@@ -61,13 +58,7 @@ function Invoke-DifferentPackageSource {
 function Invoke-SeparateConnectionInfo {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
         AdminDbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
-        OdsDbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
             UseIntegratedSecurity=$true
@@ -84,33 +75,6 @@ function Invoke-SeparateConnectionInfo {
 function Invoke-CommonConnectionInfo {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
-        DbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
-    }
-    Install-EdFiOdsWebApi @p
-}
-
-function Invoke-Sandbox {
-    $p = @{
-        ToolsPath = "../../tools"
-        InstallType = "Sandbox"
-        DbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
-    }
-    Install-EdFiOdsWebApi @p
-}
-
-function Invoke-YearSpecific {
-    $p = @{
-        ToolsPath = "../../tools"
-        InstallType = "YearSpecific"
         DbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
@@ -123,13 +87,7 @@ function Invoke-YearSpecific {
 function Invoke-FeatureOverride {
     $p = @{
         ToolsPath = "../../tools"
-        InstallType = "SharedInstance"
         AdminDbConnectionInfo = @{
-            Engine="SqlServer"
-            Server="localhost"
-            UseIntegratedSecurity=$true
-        }
-        OdsDbConnectionInfo = @{
             Engine="SqlServer"
             Server="localhost"
             UseIntegratedSecurity=$true
@@ -140,13 +98,13 @@ function Invoke-FeatureOverride {
             UseIntegratedSecurity=$true
         }
         WebApiFeatures = @{
-            BearerTokenTimeoutMinutes="BearerTokenTimeoutMinutes"                                   
+            BearerTokenTimeoutMinutes="BearerTokenTimeoutMinutes"
             ExcludedExtensionSources="GrandBend"
             FeatureIsEnabled=@{
                 changeQueries = $true
                 openApiMetadata = $false
                 composites = $false
-                profiles = $false                
+                profiles = $false
                 identityManagement = $false
                 extensions = $false
                 ownershipBasedAuthorization = $true
@@ -162,7 +120,7 @@ function Invoke-Uninstall {
         ToolsPath = "../../tools"
         WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi"
         WebApplicationName = "WebApi"
-        WebSiteName = "Ed-Fi"        
+        WebSiteName = "Ed-Fi"
     }
     Uninstall-EdFiOdsWebApi @p
 }
@@ -182,19 +140,16 @@ try {
         "SeparateConnectionInfo" { Invoke-SeparateConnectionInfo } 
         "CommonConnectionInfo" { Invoke-CommonConnectionInfo }
         "FeatureOverride" { Invoke-FeatureOverride }
-        "YearSpecific" { Invoke-YearSpecific }
         "DifferentWebSite" { Invoke-DifferentWebSite }
         "NonDefaultApplication" { Invoke-NonDefaultApplication }
         "Uninstall" { Invoke-Uninstall }
         "UninstallDifferentWebSite" { Invoke-UninstallDifferentWebSite }
-        "Sandbox" { Invoke-Sandbox }
         default { 
             Write-Host "Valid test scenarios are: "
             Write-Host "    DifferentPackageSource"
             Write-Host "    SeparateConnectionInfo"
             Write-Host "    CommonConnectionInfo"
             Write-Host "    FeatureOverride"
-            Write-Host "    YearSpecific"
             Write-Host "    DifferentWebSite"
             Write-Host "    NonDefaultApplication"
             Write-Host "    Uninstall"

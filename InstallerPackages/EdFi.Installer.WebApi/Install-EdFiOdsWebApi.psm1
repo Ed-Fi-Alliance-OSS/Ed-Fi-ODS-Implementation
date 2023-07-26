@@ -30,8 +30,8 @@ function Install-EdFiOdsWebApi {
         Windows Server 2016+. As needed, will create a new "Ed-Fi" website in IIS, configure it
         for HTTPS, and load the WebAPI binaries as an an application. Transforms the web.config
         as needed for the database engine of choice, to set connection strings, and override
-        default feature settings. Supports all API mode/install types: Shared Instance, Year
-        Specific, Sandbox, District.
+        default feature settings. Supports all install types: Sandbox, SingleTenant
+        and MultiTenant.
 
         This function has two different parameter sets for database connectivity: one parameter for
         all three Ed-Fi databases residing the same server, and an alternate set of parameters
@@ -50,10 +50,10 @@ function Install-EdFiOdsWebApi {
         PS c:/> Install-EdFiOdsWebApi @parameters
 
         Use all available default values, connecting to databases on a single SQL Server instance.
-        Connect to the database with integrated security. The WebApi application will be set to
-        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:\inetpub\Ed-Fi,
-        and the application files will be in "c:\inetpub\Ed-Fi\WebApi". Installs the most recent full
-        release of the WebApi software.
+        Connect to the database with integrated security. This will create IIS website "Ed-Fi" 
+        with root c:\inetpub\Ed-Fi, and the application files will be in "c:\inetpub\Ed-Fi\WebApi".
+        Installs the most recent full release of the WebApi software.
+
     .EXAMPLE
         PS c:/> $parameters = @{
             AdminDbConnectionInfo = @{
@@ -61,14 +61,7 @@ function Install-EdFiOdsWebApi {
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
-            OdsDbConnectionInfo = @{
-                DatabaseName="EdFi_ODS_Staging"
-                Engine="SqlServer"
-                Server="edfi-stage.my-sql-server.example"
-                Username="ods-write"
-                Password="@#$%^&*(GHJ%^&*YUKSDF"
-            }
-            AdminDbConnectionInfo = @{
+            SecurityDbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
@@ -81,30 +74,6 @@ function Install-EdFiOdsWebApi {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            InstallType="YearSpecific"
-            DbConnectionInfo=@{
-                Engine="PostgreSQL"
-                Server="my-pg-server.example"
-                Username="ods-admin"
-            }
-            WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi"
-            WebApplicationPath="EdFiOdsApi"
-            WebSitePort=843
-            CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
-        }
-        PS c:/> Install-EdFiOdsWebApi @parameters
-
-        Install in Year Specific mode on PostgreSQL, with alternate IIS configuration.
-        Assumes the presence of pgconf file for the password. Note that a Year Specific
-        connection string should include {0}. That token will be injected if it is omitted.
-        Furthermore, this mode expects "Ods" in the database name. Thus for input value
-        "EdFi", the connection string will contain "EdFi_{0}" and the database server
-        should have a database named "EdFi_Ods_2020" (or whatever year is in use).
-
-    .EXAMPLE
-        PS c:/> $parameters = @{
-            InstallType="Sandbox"
             DbConnectionInfo=@{
                 DatabaseName="EdFi_Sandbox"
                 Engine="SqlServer"
@@ -203,21 +172,15 @@ function Install-EdFiOdsWebApi {
         [string]
         $CertThumbprint,
 
-        # API mode / install type: Sandbox, SharedInstance, YearSpecific, DistrictSpecific. Default: SharedInstance.
+        # Install type: Sandbox, SingleTenant, MultiTenant. Default: SingleTenant.
         [string]
-        [ValidateSet("Sandbox", "SharedInstance", "YearSpecific", "DistrictSpecific")]
-        $InstallType = "SharedInstance",
+        [ValidateSet("Sandbox", "SingleTenant", "MultiTenant")]
+        $InstallType = "SingleTenant",
 
         # Name for the Admin database. Default: EdFi_Admin.
         [string]
         [Parameter(ParameterSetName="SharedCredentials")]
         $AdminDatabaseName = "EdFi_Admin",
-
-        # Name for the ODS Database. Replaces "_ODS" with "_{0}" if not present
-        # and InstallType is not SharedInstance. Default: EdFi_ODS.
-        [string]
-        [Parameter(ParameterSetName="SharedCredentials")]
-        $OdsDatabaseName = "EdFi_Ods",
 
         # Name for the Security database. Default: EdFi_Security.
         [string]
@@ -299,7 +262,6 @@ function Install-EdFiOdsWebApi {
         InstallType = $InstallType
         AdminDatabaseName = $AdminDatabaseName
         SecurityDatabaseName = $SecurityDatabaseName
-        OdsDatabaseName = $OdsDatabaseName
         DbConnectionInfo = $DbConnectionInfo
         AdminDbConnectionInfo = $AdminDbConnectionInfo
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
@@ -350,12 +312,22 @@ function Initialize-Configuration {
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        # Validate the input parameters. Couldn't do so in the parameter declaration
+        # because the function is contained in the Configuration module imported above.
+        $Config.usingSharedCredentials = $Config.ContainsKey("DbConnectionInfo") -and (-not $null -eq $Config.DbConnectionInfo)
+        if ($Config.usingSharedCredentials) {
+            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.DbConnectionInfo
+            $Config.DbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+            $Config.engine = $Config.DbConnectionInfo.Engine
+        }
+        else {
         Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
         Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
         $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
         $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
         $Config.engine = $Config.AdminDbConnectionInfo.Engine
     }
+}
 }
 
 function Get-WebApiPackage {
@@ -380,6 +352,7 @@ function Get-WebApiPackage {
         $Config.WebConfigLocation = $packageDir
     }
 }
+
 function Invoke-TransformWebConfigAppSettings {
     [CmdletBinding()]
     param (
@@ -391,7 +364,6 @@ function Invoke-TransformWebConfigAppSettings {
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
-        $settings.ApiSettings.Mode = $Config.InstallType
         $settings.ApiSettings.Engine = $Config.engine
         If ($Config.WebApiFeatures.Features -ne $Null) {
             foreach ($feature in $Config.WebApiFeatures.Features) {
@@ -450,6 +422,15 @@ function Invoke-TransformWebConfigConnectionStrings {
         $Config
     )
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        if ($Config.usingSharedCredentials) {
+            
+            $Config.AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+            $Config.AdminDbConnectionInfo.DatabaseName = $Config.AdminDatabaseName
+
+            $Config.SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+            $Config.SecurityDbConnectionInfo.DatabaseName = $Config.SecurityDatabaseName
+        }
+        else {
             # Inject default database names if not provided
             if (-not $Config.AdminDbConnectionInfo.DatabaseName) {
                 $Config.AdminDbConnectionInfo.DatabaseName = "EdFi_Admin"
@@ -458,7 +439,7 @@ function Invoke-TransformWebConfigConnectionStrings {
             if (-not $Config.SecurityDbConnectionInfo.DatabaseName) {
                 $Config.SecurityDbConnectionInfo.DatabaseName = "EdFi_Security"
             }
-        
+        }
 
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
@@ -474,7 +455,7 @@ function Invoke-TransformWebConfigConnectionStrings {
                 EdFi_Security = $securityConnString 
             }
         }
-
+        
         $mergedSettings = Merge-Hashtables $settings, $connectionstrings
         New-JsonFile $webConfigPath  $mergedSettings -Overwrite
     }
