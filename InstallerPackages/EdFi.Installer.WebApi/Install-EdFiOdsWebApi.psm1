@@ -80,6 +80,7 @@ function Install-EdFiOdsWebApi {
                 Server="localhost"
                 UseIntegratedSecurity=$true
             }
+            IsSandbox=$true
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
@@ -115,7 +116,7 @@ function Install-EdFiOdsWebApi {
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
-        Install in the default mode (shared) instance with basic database
+        Install in a single instance with basic database
         configuration, with override all available web.config app settings.
     #>
     [CmdletBinding()]
