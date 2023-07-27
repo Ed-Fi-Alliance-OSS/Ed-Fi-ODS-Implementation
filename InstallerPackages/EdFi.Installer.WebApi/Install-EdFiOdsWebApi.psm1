@@ -263,6 +263,7 @@ function Install-EdFiOdsWebApi {
         # If empty, it iwll be set with a random New-AESKey key
         $OdsConnectionStringEncryptionKey
     )
+
     Write-InvocationInfo $MyInvocation
 
     Clear-Error
@@ -343,6 +344,7 @@ function Initialize-Configuration {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         # Validate the input parameters. Couldn't do so in the parameter declaration
         # because the function is contained in the Configuration module imported above.
@@ -380,6 +382,7 @@ function Get-WebApiPackage {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $parameters = @{
             PackageName = $Config.PackageName
@@ -403,16 +406,17 @@ function Invoke-TransformWebConfigAppSettings {
         [Parameter(Mandatory=$true)]
         $Config
     )
-   
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
         $settings.ApiSettings.Engine = $Config.engine
         $settings.ApiSettings.OdsConnectionStringEncryptionKey = $Config.OdsConnectionStringEncryptionKey
-        If ($Config.WebApiFeatures.Features -ne $Null) {
+        
+        if ($Config.WebApiFeatures.Features -ne $Null) {
             foreach ($feature in $Config.WebApiFeatures.Features) {
                 foreach ($defaultfeature in $settings.ApiSettings.Features) {
-                    If ( $feature.Name -eq $defaultfeature.Name) {
+                    if ( $feature.Name -eq $defaultfeature.Name) {
                         $defaultfeature.IsEnabled =$feature.IsEnabled
                     }
                 }
@@ -430,25 +434,30 @@ function Invoke-TransformWebConfigAppSettings {
 
         # Add a Log4net property override to specify the log's destination
         $splitPackageVersion = $Config.PackageVersion.Split(".")
+        
         # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
-        if(-not $splitPackageVersion) {
+        if (-not $splitPackageVersion) {
             $packageName = $Config.PackageName
             $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
             $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
         }
+        
         # We only care about Major/Minor for determining the log file name
         if ($splitPackageVersion.Count -lt 3) {
             throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
         }
         $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
-        if($Null -eq $settings.Log4NetCore) { 
+        
+        if ($Null -eq $settings.Log4NetCore) { 
             $settings.Log4NetCore = @{}
         }
-        if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+        
+        if ($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
             $settings.Log4NetCore.PropertyOverrides = @()
         }
+        
         $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
-        if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+        if ($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
             $settings.Log4NetCore.PropertyOverrides += @{
                 XPath = $rollingFileXpath
                 Attributes = @{
@@ -456,9 +465,10 @@ function Invoke-TransformWebConfigAppSettings {
                 }
             }
         }
-        if($Config.IsSandbox) {
+        
+        if ($Config.IsSandbox) {
             $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
-            if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
+            if ($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
                 $settings.ApiSettings.PlainTextSecrets = $true
             }
         }
@@ -475,6 +485,7 @@ function Invoke-TransformWebConfigConnectionStrings {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         if ($Config.usingSharedCredentials) {
             
@@ -522,6 +533,7 @@ function Invoke-TransformWebConfigMultiTenantConnectionStrings {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
@@ -567,6 +579,7 @@ function Install-Application {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $iisParams = @{
             SourceLocation = $Config.PackageDirectory
@@ -591,7 +604,7 @@ function New-SqlLogins {
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
 
-        if($Config.usingSharedCredentials)
+        if ($Config.usingSharedCredentials)
         {
             Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
