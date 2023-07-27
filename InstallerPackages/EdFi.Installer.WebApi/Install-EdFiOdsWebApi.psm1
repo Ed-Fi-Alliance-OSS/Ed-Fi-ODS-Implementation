@@ -192,8 +192,10 @@ function Install-EdFiOdsWebApi {
         # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
         # either UseIntegratedSecurity or Username and Password (Password can be skipped
         # for PostgreSQL when using pgconf file). Optionally can include Port.
+        # This can be used with IsMultiTenant flag.
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="SharedCredentials")]
+        [Parameter(ParameterSetName="MultiTenant")]
         $DbConnectionInfo,
 
         # Database connectivity only for the admin database.
@@ -238,7 +240,23 @@ function Install-EdFiOdsWebApi {
         #    The username provided must be a valid Windows user
         #    pg_ident.conf map needs to be updated to use the username provided
         [switch]
-        $UseAlternateUserName 
+        $UseAlternateUserName,
+        
+        # Deploy WebApi with MultiTenant support. 
+        # Passing this flag, requires to pass Tenants configuration.
+        # When true, this flag will enable the MultiTenancy feature in ApiSettings.Features
+        [switch]
+        [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
+        $IsMultiTenant,
+        
+        # List of Tenants with information required by the Tenants section in appsettings.json
+        #
+        # Each tenant hashtable can include: 
+        #   - AdminDatabaseName and SecurityDatabaseName when used with DbConnectionInfo.
+        #   - AdminDbConnectionInfo and SecurityDbConnectionInfo when DbConnectionInfo is not used.
+        [hashtable]
+        [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
+        $Tenants
     )
     Write-InvocationInfo $MyInvocation
 
@@ -267,14 +285,22 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
-        UseAlternateUserName  = $UseAlternateUserName 
+        UseAlternateUserName  = $UseAlternateUserName
+        IsMultiTenant = $IsMultiTenant.IsPresent
+        Tenants = $Tenants
     }
 
     $elapsed = Use-StopWatch {
         $result += Initialize-Configuration -Config $config
         $result += Get-WebApiPackage -Config $config
         $result += Invoke-TransformWebConfigAppSettings -Config $config
-        $result += Invoke-TransformWebConfigConnectionStrings -Config $config
+        
+        if ($IsMultiTenant.IsPresent) {
+            $result += Invoke-TransformWebConfigMultiTenantConnectionStrings -Config $config
+        } else {
+            $result += Invoke-TransformWebConfigConnectionStrings -Config $config
+        }
+        
         $result += Install-Application -Config $config
         $result += New-SqlLogins -Config $config
 
@@ -321,13 +347,20 @@ function Initialize-Configuration {
             $Config.engine = $Config.DbConnectionInfo.Engine
         }
         else {
-        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
-        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
-        $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-        $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-        $Config.engine = $Config.AdminDbConnectionInfo.Engine
+            if ($Config.IsMultiTenant) {
+                foreach ($tenantKey in $Config.Tenants.Keys) {
+                    Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -RequireDatabaseName
+                    Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -RequireDatabaseName
+                }
+            } else {
+                Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
+                Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
+                $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+                $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+                $Config.engine = $Config.AdminDbConnectionInfo.Engine
+            }
+        }
     }
-}
 }
 
 function Get-WebApiPackage {
@@ -374,6 +407,16 @@ function Invoke-TransformWebConfigAppSettings {
                 }
             }
         }
+
+        # If IsMultiTenant flag was used, enable MultiTenancy feature
+        if ($Config.IsMultiTenant) {
+            if (($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}) -eq $null) {
+                $settings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
+            } else {
+                ($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}).IsEnabled = $true
+            }
+        }
+
         # Add a Log4net property override to specify the log's destination
         $splitPackageVersion = $Config.PackageVersion.Split(".")
         # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
@@ -455,8 +498,53 @@ function Invoke-TransformWebConfigConnectionStrings {
                 EdFi_Security = $securityConnString 
             }
         }
-        
+
         $mergedSettings = Merge-Hashtables $settings, $connectionstrings
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
+    }
+}
+
+function Invoke-TransformWebConfigMultiTenantConnectionStrings {
+    [CmdletBinding()]
+    param (
+        [hashtable]
+        [Parameter(Mandatory=$true)]
+        $Config
+    )
+    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
+
+        Write-Host "Setting database connections in $($Config.WebConfigLocation)"
+
+        $newSettings = @{
+            Tenants = @{}
+        }
+
+        foreach ($tenantKey in $Config.Tenants.Keys) {
+            
+            if ($Config.usingSharedCredentials) {
+                $Config.Tenants[$tenantKey].AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+                $Config.Tenants[$tenantKey].AdminDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].AdminDatabaseName
+
+                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].SecurityDatabaseName
+            }
+            
+            $adminconnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
+            $securityConnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+            $newSettings.Tenants += @{
+                $tenantKey = @{
+                    ConnectionStrings = @{
+                        EdFi_Admin = $adminconnString
+                        EdFi_Security = $securityConnString 
+                    }
+                }
+            }
+        }
+
+        $mergedSettings = Merge-Hashtables $settings, $newSettings
         New-JsonFile $webConfigPath  $mergedSettings -Overwrite
     }
 }
@@ -498,11 +586,21 @@ function New-SqlLogins {
         }
         else
         {
-            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
-            
-            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            if ($Config.IsMultiTenant) {
+                foreach ($tenantKey in $Config.Tenants.Keys) {
+                    if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+                    Add-SqlLogins $Config.Tenants[$tenantKey].AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                    
+                    if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+                    Add-SqlLogins $Config.Tenants[$tenantKey].SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName
+                }
+            } else {
+                if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+                Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                
+                if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+                Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            }
         }
     }
 }

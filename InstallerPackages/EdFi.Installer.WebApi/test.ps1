@@ -84,6 +84,67 @@ function Invoke-CommonConnectionInfo {
     Install-EdFiOdsWebApi @p
 }
 
+function Invoke-MultiTenantCommonConnectionInfo {
+    $p = @{
+        IsMultiTenant = $true
+        ToolsPath = "../../tools"
+        DbConnectionInfo = @{
+            Engine = "SqlServer"
+            Server = "localhost"
+            UseIntegratedSecurity = $true
+        }
+        Tenants = @{
+            Tenant1 = @{
+                AdminDatabaseName = "EdFi_Admin_Tenant1"
+                SecurityDatabaseName = "EdFi_Security_Tenant1"
+            }
+            Tenant2 = @{
+                AdminDatabaseName = "EdFi_Admin_Tenant2"
+                SecurityDatabaseName = "EdFi_Security_Tenant2"
+            }
+        }
+    }
+    Install-EdFiOdsWebApi @p
+}
+
+function Invoke-MultiTenantSeparateConnectionInfo {
+    $p = @{
+        IsMultiTenant = $true
+        ToolsPath = "../../tools"
+        Tenants = @{
+            Tenant1 = @{
+                AdminDbConnectionInfo = @{
+                    Engine = "SqlServer"
+                    Server = "localhost"
+                    DatabaseName = "EdFi_Admin_Tenant1"
+                    UseIntegratedSecurity = $true
+                }
+                SecurityDbConnectionInfo = @{
+                    Engine = "SqlServer"
+                    Server = "localhost"
+                    DatabaseName = "EdFi_Security_Tenant1"
+                    UseIntegratedSecurity = $true
+                }
+            }
+            Tenant2 = @{
+                AdminDbConnectionInfo = @{
+                    Engine = "SqlServer"
+                    Server = "localhost"
+                    DatabaseName = "EdFi_Admin_Tenant2"
+                    UseIntegratedSecurity = $true
+                }
+                SecurityDbConnectionInfo = @{
+                    Engine = "SqlServer"
+                    Server = "localhost"
+                    DatabaseName = "EdFi_Security_Tenant2"
+                    UseIntegratedSecurity = $true
+                }
+            }
+        }
+    }
+    Install-EdFiOdsWebApi @p
+}
+
 function Invoke-FeatureOverride {
     $p = @{
         ToolsPath = "../../tools"
@@ -120,7 +181,7 @@ function Invoke-Uninstall {
         ToolsPath = "../../tools"
         WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi"
         WebApplicationName = "WebApi"
-        WebSiteName = "Ed-Fi"
+        WebSiteName = "Ed-Fi"        
     }
     Uninstall-EdFiOdsWebApi @p
 }
@@ -142,6 +203,8 @@ try {
         "FeatureOverride" { Invoke-FeatureOverride }
         "DifferentWebSite" { Invoke-DifferentWebSite }
         "NonDefaultApplication" { Invoke-NonDefaultApplication }
+        "MultiTenantCommonConnectionInfo" { Invoke-MultiTenantCommonConnectionInfo }
+        "MultiTenantSeparateConnectionInfo" { Invoke-MultiTenantSeparateConnectionInfo }
         "Uninstall" { Invoke-Uninstall }
         "UninstallDifferentWebSite" { Invoke-UninstallDifferentWebSite }
         default { 
@@ -152,6 +215,8 @@ try {
             Write-Host "    FeatureOverride"
             Write-Host "    DifferentWebSite"
             Write-Host "    NonDefaultApplication"
+            Write-Host "    MultiTenantCommonConnectionInfo"
+            Write-Host "    MultiTenantSeparateConnectionInfo"
             Write-Host "    Uninstall"
             Write-Host "    UninstallDifferentWebSite"
         }
