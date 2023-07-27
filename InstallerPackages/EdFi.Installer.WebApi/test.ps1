@@ -195,6 +195,19 @@ function Invoke-UninstallDifferentWebSite {
     Uninstall-EdFiOdsWebApi @p
 }
 
+function Invoke-Sandbox {
+    $p = @{
+        ToolsPath = "../../tools"
+        DbConnectionInfo = @{
+            Engine="SqlServer"
+            Server="localhost"
+            UseIntegratedSecurity=$true
+        }
+        IsSandbox = $true
+    }
+    Install-EdFiOdsWebApi @p
+}
+
 try {
     switch ($Scenario) {
         "DifferentPackageSource" { Invoke-DifferentPackageSource } 
@@ -205,6 +218,7 @@ try {
         "NonDefaultApplication" { Invoke-NonDefaultApplication }
         "MultiTenantCommonConnectionInfo" { Invoke-MultiTenantCommonConnectionInfo }
         "MultiTenantSeparateConnectionInfo" { Invoke-MultiTenantSeparateConnectionInfo }
+        "Sandbox" { Invoke-Sandbox }
         "Uninstall" { Invoke-Uninstall }
         "UninstallDifferentWebSite" { Invoke-UninstallDifferentWebSite }
         default { 
@@ -217,6 +231,7 @@ try {
             Write-Host "    NonDefaultApplication"
             Write-Host "    MultiTenantCommonConnectionInfo"
             Write-Host "    MultiTenantSeparateConnectionInfo"
+            Write-Host "    Sandbox"
             Write-Host "    Uninstall"
             Write-Host "    UninstallDifferentWebSite"
         }

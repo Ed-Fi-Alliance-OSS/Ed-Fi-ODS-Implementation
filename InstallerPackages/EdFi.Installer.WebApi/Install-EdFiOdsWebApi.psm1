@@ -172,15 +172,14 @@ function Install-EdFiOdsWebApi {
         [string]
         $CertThumbprint,
 
-        # Install type: Sandbox, SingleTenant, MultiTenant. Default: SingleTenant.
-        [string]
-        [ValidateSet("Sandbox", "SingleTenant", "MultiTenant")]
-        $InstallType = "SingleTenant",
+        # Used to indicate a sandbox install.
+        [switch]
+        $IsSandbox,
 
         # Name for the Admin database. Default: EdFi_Admin.
         [string]
         [Parameter(ParameterSetName="SharedCredentials")]
-        $AdminDatabaseName = "EdFi_Admin" ,
+        $AdminDatabaseName = "EdFi_Admin",
 
         # Name for the Security database. Default: EdFi_Security.
         [string]
@@ -283,7 +282,7 @@ function Install-EdFiOdsWebApi {
         WebSitePort = $WebsitePort
         CertThumbprint = $CertThumbprint
         WebApplicationName = $WebApplicationName
-        InstallType = $InstallType
+        IsSandbox = $IsSandbox
         AdminDatabaseName = $AdminDatabaseName
         SecurityDatabaseName = $SecurityDatabaseName
         DbConnectionInfo = $DbConnectionInfo
@@ -457,7 +456,7 @@ function Invoke-TransformWebConfigAppSettings {
                 }
             }
         }
-        if($Config.InstallType -eq "Sandbox") {
+        if($Config.IsSandbox) {
             $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
             if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
                 $settings.ApiSettings.PlainTextSecrets = $true
