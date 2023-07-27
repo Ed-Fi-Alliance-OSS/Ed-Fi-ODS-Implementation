@@ -47,8 +47,9 @@ jobs:
       run: | 
         echo "::error::Missing Azure Token"
         exit 1
+
     - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
-      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      uses: dawidd6/action-download-artifact@246dbf4 #v2.27.0
       with:
         workflow: InitDev, Unit tests, Integration tests, Package.yml
         workflow_conclusion: success
@@ -57,8 +58,9 @@ jobs:
         commit: ${{ env.INITDEV_COMMIT }}
         check_artifacts: true
         if_no_artifact_found: fail
+
     - name: EdFi.Ods.Api.TestSdk NugetPackage
-      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      uses: dawidd6/action-download-artifact@246dbf4 #v2.27.0
       with:
         workflow: InitDev, Smoke Tests.yml
         workflow_conclusion: success
@@ -67,9 +69,11 @@ jobs:
         commit: ${{ env.INITDEV_COMMIT }}
         check_artifacts: true
         if_no_artifact_found: fail
+
     - name: Install-credential-handler
       run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
       shell: pwsh
+      
     - name: Publish to Azure Artifacts
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
