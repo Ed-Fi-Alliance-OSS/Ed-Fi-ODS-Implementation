@@ -180,7 +180,7 @@ function Install-EdFiOdsWebApi {
         # Name for the Admin database. Default: EdFi_Admin.
         [string]
         [Parameter(ParameterSetName="SharedCredentials")]
-        $AdminDatabaseName = "EdFi_Admin",
+        $AdminDatabaseName = "EdFi_Admin" ,
 
         # Name for the Security database. Default: EdFi_Security.
         [string]
@@ -256,7 +256,13 @@ function Install-EdFiOdsWebApi {
         #   - AdminDbConnectionInfo and SecurityDbConnectionInfo when DbConnectionInfo is not used.
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
-        $Tenants
+        $Tenants,
+        
+        [string]
+        # Set the encription key used to encrypt ODS connections.
+        # Value should be a Base64 encoded 256-bit encryption key.
+        # If empty, it iwll be set with a random New-AESKey key
+        $OdsConnectionStringEncryptionKey
     )
     Write-InvocationInfo $MyInvocation
 
@@ -288,6 +294,7 @@ function Install-EdFiOdsWebApi {
         UseAlternateUserName  = $UseAlternateUserName
         IsMultiTenant = $IsMultiTenant.IsPresent
         Tenants = $Tenants
+        OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
     }
 
     $elapsed = Use-StopWatch {
@@ -360,6 +367,10 @@ function Initialize-Configuration {
                 $Config.engine = $Config.AdminDbConnectionInfo.Engine
             }
         }
+        
+        if ([string]::IsNullOrWhiteSpace($Config.OdsConnectionStringEncryptionKey)) {
+            $Config.OdsConnectionStringEncryptionKey = New-AESKey
+        }
     }
 }
 
@@ -398,6 +409,7 @@ function Invoke-TransformWebConfigAppSettings {
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
         $settings.ApiSettings.Engine = $Config.engine
+        $settings.ApiSettings.OdsConnectionStringEncryptionKey = $Config.OdsConnectionStringEncryptionKey
         If ($Config.WebApiFeatures.Features -ne $Null) {
             foreach ($feature in $Config.WebApiFeatures.Features) {
                 foreach ($defaultfeature in $settings.ApiSettings.Features) {
@@ -683,4 +695,16 @@ function Uninstall-EdFiOdsWebApi {
     }
 }
 
-Export-ModuleMember -Function Install-EdFiOdsWebApi, Uninstall-EdFiOdsWebApi
+function New-AESKey() {
+    <#
+        .SYNOPSIS
+            Generates and Base64-encodes a 256 bit key appropriate for use with AES encryption.
+    #>
+
+    $aes = [System.Security.Cryptography.Aes]::Create()
+    $aes.KeySize = 256
+    $aes.GenerateKey()
+    [System.Convert]::ToBase64String($aes.Key)
+}
+
+Export-ModuleMember -Function Install-EdFiOdsWebApi, Uninstall-EdFiOdsWebApi, New-AESKey
