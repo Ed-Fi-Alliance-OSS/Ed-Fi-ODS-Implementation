@@ -263,6 +263,9 @@ function Install-EdFiOdsWebApi {
         # Value should be a Base64 encoded 256-bit encryption key.
         # If empty, it iwll be set with a random New-AESKey key
         $OdsConnectionStringEncryptionKey
+        
+        [string]
+        $OdsContextRouteTemplate
     )
 
     Write-InvocationInfo $MyInvocation
@@ -296,6 +299,7 @@ function Install-EdFiOdsWebApi {
         IsMultiTenant = $IsMultiTenant.IsPresent
         Tenants = $Tenants
         OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
+        OdsContextRouteTemplate = $OdsContextRouteTemplate
     }
 
     $elapsed = Use-StopWatch {
@@ -413,6 +417,7 @@ function Invoke-TransformWebConfigAppSettings {
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
         $settings.ApiSettings.Engine = $Config.engine
         $settings.ApiSettings.OdsConnectionStringEncryptionKey = $Config.OdsConnectionStringEncryptionKey
+        $settings.ApiSettings.OdsContextRouteTemplate = $Config.OdsContextRouteTemplate
         
         if ($Config.WebApiFeatures.Features -ne $Null) {
             foreach ($feature in $Config.WebApiFeatures.Features) {
