@@ -153,7 +153,7 @@ function Invoke-Pack-ApiSdk {
 
 function Invoke-Clean-SdkGen-Output {
     try {
-        Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse -Force
+        Remove-Item ("//?/" + (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp")) -Recurse -Force
     }
     catch {
         # catching if this call throws, which just means the path does not exist so sdkgen has not been run yet
