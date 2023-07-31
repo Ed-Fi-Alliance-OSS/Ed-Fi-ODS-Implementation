@@ -59,7 +59,7 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution $noRestore}
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
                 $arguments = @("-v",$sdkCliVersion,"--core-only")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
@@ -86,7 +86,7 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution $noRestore}
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
                 $arguments = @("-v",$sdkCliVersion,"-c","-i","-p")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
@@ -153,7 +153,7 @@ function Invoke-Pack-ApiSdk {
 
 function Invoke-Clean-SdkGen-Output {
     try {
-        Remove-Item (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp") -Recurse -Force
+        Remove-Item ("//?/" + (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp")) -Recurse -Force
     }
     catch {
         # catching if this call throws, which just means the path does not exist so sdkgen has not been run yet
