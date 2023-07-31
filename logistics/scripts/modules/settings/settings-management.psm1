@@ -601,6 +601,18 @@ function Add-MultiTenantSettings([hashtable] $Settings = @{ }, [string] $Project
     return $newSettings
 }
 
+function Add-SwaggerUiTenantSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne (Get-ProjectTypes).SwaggerUI) { return $Settings }
+    
+    $Settings.Tenants = @()
+
+    foreach ($tenant in $Settings.ApiSettings.Tenants -split ';' | ForEach-Object { $_ }) {
+        $Settings.Tenants += @{ Tenant = $tenant; IsDefault = $false }
+    }
+    
+    return $Settings
+}
+
 function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if ($ProjectName -ne (Get-TestProjectTypes).IntegrationTestHarness) { return $Settings }
     
@@ -688,6 +700,7 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         {
             $newDevelopmentSettings = Add-MultiTenantSettings $newDevelopmentSettings $project
             $newDevelopmentSettings = Add-MultiTenantTestHarnessSettings $newDevelopmentSettings $project
+            $newDevelopmentSettings = Add-SwaggerUiTenantSettings $newDevelopmentSettings $project
         }
         
         $projectPath = Get-RepositoryResolvedPath $Project
