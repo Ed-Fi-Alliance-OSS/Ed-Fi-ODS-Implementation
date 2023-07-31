@@ -613,6 +613,29 @@ function Add-SwaggerUiTenantSettings([hashtable] $Settings = @{ }, [string] $Pro
     return $Settings
 }
 
+function Add-SwaggerUiYearSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
+    if ($ProjectName -ne (Get-ProjectTypes).SwaggerUI) { return $Settings }
+    if (-not $Settings.ApiSettings.OdsTokens) { return $Settings }
+
+    $Settings.Years = @()
+
+    foreach ($year in $Settings.ApiSettings.OdsTokens -split ';' | ForEach-Object { $_ }) {
+        # Validate if OdsToken includes a valid year.
+        if ($year -imatch '_?(20[0-9]{2})') {
+            $Settings.Years += @{ Year = $matches[1]; IsDefault = $false }
+        }
+    }
+    
+    # If no years were found, skip adding an empty Year section in config
+    if ($Settings.Years.Count -eq 0) { return $Settings }
+
+    # Clear any duplicated year, taking into account multiple tenants with different school years
+    # Ex. Tenant1_2021;Tenant1_2022;Tenant2_2021;Tenant2_2022;
+    $Settings.Years = @($Settings.Years | Sort-Object | Get-Unique)
+
+    return $Settings
+}
+
 function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [string] $ProjectName) {
     if ($ProjectName -ne (Get-TestProjectTypes).IntegrationTestHarness) { return $Settings }
     
@@ -695,6 +718,8 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         $newDevelopmentSettings = Remove-ODSConnectionString $newDevelopmentSettings $project
 
         $newDevelopmentSettings = Add-OdsConnectionStringEncryptionKey $newDevelopmentSettings $Project $NewAESKey
+
+        $newDevelopmentSettings = Add-SwaggerUiYearSettings $newDevelopmentSettings $Project
 
         if ($Settings.InstallType -eq 'MultiTenant')
         {
