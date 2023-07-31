@@ -118,7 +118,16 @@ function Install-EdFiOdsSwaggerUI {
         # Default SchoolYear to be displayed in the dropdown menu
         # If empty, first SchoolYear from $SchoolYears parameter will be used
         [string]
-        $DefaultSchoolYear
+        $DefaultSchoolYear,
+        
+        # List of Tenants deployed to include in the dropdown
+        [string[]]
+        $Tenants,
+        
+        # Default Tenant to be displayed in the dropdown menu.
+        # If empty, first Tenant from $Tenants parameter will be used
+        [string]
+        $DefaultTenant
     )
 
     Write-InvocationInfo $MyInvocation
@@ -146,6 +155,8 @@ function Install-EdFiOdsSwaggerUI {
         NoDuration = $NoDuration
         SchoolYears = $SchoolYears
         DefaultSchoolYear = $DefaultSchoolYear
+        Tenants = $Tenants
+        DefaultTenant = $DefaultTenant
     }
 
     $elapsed = Use-StopWatch {
@@ -313,6 +324,16 @@ function Invoke-TransformWebConfigAppSettings {
             
             foreach ($schoolYear in $Config.SchoolYears) {
                 $appSettings.Years += @{ Year = $schoolYear; IsDefault = ($schoolYear -eq $Config.DefaultSchoolYear)}
+            }
+        }
+
+        if ($Config.Tenants.Count -gt 0) {
+            if (-not $Config.DefaultTenant) { $Config.DefaultTenant = $Config.Tenants[0] }
+            
+            $appSettings += @{ Tenants = @() }
+            
+            foreach ($tenant in $Config.Tenants) {
+                $appSettings.Tenants += @{ Tenant = $tenant; IsDefault = ($tenant -eq $Config.DefaultTenant)}
             }
         }
         
