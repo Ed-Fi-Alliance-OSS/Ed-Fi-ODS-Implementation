@@ -109,7 +109,16 @@ function Install-EdFiOdsSwaggerUI {
 
         # Turns off display of script run-time duration.
         [switch]
-        $NoDuration
+        $NoDuration,
+        
+        # List of SchoolYears deployed to include in the dropdown
+        [string[]]
+        $SchoolYears,
+        
+        # Default SchoolYear to be displayed in the dropdown menu
+        # If empty, first SchoolYear from $SchoolYears parameter will be used
+        [string]
+        $DefaultSchoolYear
     )
 
     Write-InvocationInfo $MyInvocation
@@ -135,6 +144,8 @@ function Install-EdFiOdsSwaggerUI {
         PrePopulatedSecret = $PrePopulatedSecret
         DisablePrepopulatedCredentials = $DisablePrepopulatedCredentials
         NoDuration = $NoDuration
+        SchoolYears = $SchoolYears
+        DefaultSchoolYear = $DefaultSchoolYear
     }
 
     $elapsed = Use-StopWatch {
@@ -292,6 +303,16 @@ function Invoke-TransformWebConfigAppSettings {
                     ClientId     = $Config.PrePopulatedKey
                     ClientSecret = $Config.PrePopulatedSecret
                 }
+            }
+        }
+
+        if ($Config.SchoolYears.Count -gt 0) {
+            if (-not $Config.DefaultSchoolYear) { $Config.DefaultSchoolYear = $Config.SchoolYears[0] }
+            
+            $appSettings += @{ Years = @() }
+            
+            foreach ($schoolYear in $Config.SchoolYears) {
+                $appSettings.Years += @{ Year = $schoolYear; IsDefault = ($schoolYear -eq $Config.DefaultSchoolYear)}
             }
         }
         
