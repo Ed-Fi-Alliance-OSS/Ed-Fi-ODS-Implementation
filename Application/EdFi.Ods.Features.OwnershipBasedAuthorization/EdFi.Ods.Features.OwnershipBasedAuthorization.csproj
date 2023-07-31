@@ -26,11 +26,10 @@
     </Otherwise>
   </Choose>  
   <ItemGroup>
-    <PackageReference Include="Iesi.Collections" Version="4.0.5" />
+    
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="Remotion.Linq" Version="2.2.0" />
-    <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
+
     <PackageReference Include="NHibernate" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
