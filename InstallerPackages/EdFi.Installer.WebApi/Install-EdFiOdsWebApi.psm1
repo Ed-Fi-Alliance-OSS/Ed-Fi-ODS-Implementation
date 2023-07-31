@@ -30,8 +30,8 @@ function Install-EdFiOdsWebApi {
         Windows Server 2016+. As needed, will create a new "Ed-Fi" website in IIS, configure it
         for HTTPS, and load the WebAPI binaries as an an application. Transforms the web.config
         as needed for the database engine of choice, to set connection strings, and override
-        default feature settings. Supports all API mode/install types: Shared Instance, Year
-        Specific, Sandbox, District.
+        default feature settings. Supports all install types: Sandbox, SingleTenant
+        and MultiTenant.
 
         This function has two different parameter sets for database connectivity: one parameter for
         all three Ed-Fi databases residing the same server, and an alternate set of parameters
@@ -50,10 +50,10 @@ function Install-EdFiOdsWebApi {
         PS c:/> Install-EdFiOdsWebApi @parameters
 
         Use all available default values, connecting to databases on a single SQL Server instance.
-        Connect to the database with integrated security. The WebApi application will be set to
-        Shared Instance mode. This will create IIS website "Ed-Fi" with root c:\inetpub\Ed-Fi,
-        and the application files will be in "c:\inetpub\Ed-Fi\WebApi". Installs the most recent full
-        release of the WebApi software.
+        Connect to the database with integrated security. This will create IIS website "Ed-Fi" 
+        with root c:\inetpub\Ed-Fi, and the application files will be in "c:\inetpub\Ed-Fi\WebApi".
+        Installs the most recent full release of the WebApi software.
+
     .EXAMPLE
         PS c:/> $parameters = @{
             AdminDbConnectionInfo = @{
@@ -61,14 +61,7 @@ function Install-EdFiOdsWebApi {
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
-            OdsDbConnectionInfo = @{
-                DatabaseName="EdFi_ODS_Staging"
-                Engine="SqlServer"
-                Server="edfi-stage.my-sql-server.example"
-                Username="ods-write"
-                Password="@#$%^&*(GHJ%^&*YUKSDF"
-            }
-            AdminDbConnectionInfo = @{
+            SecurityDbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="edfi-auth.my-sql-server.example"
                 UseIntegratedSecurity=$true
@@ -81,36 +74,13 @@ function Install-EdFiOdsWebApi {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            InstallType="YearSpecific"
-            DbConnectionInfo=@{
-                Engine="PostgreSQL"
-                Server="my-pg-server.example"
-                Username="ods-admin"
-            }
-            WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi"
-            WebApplicationPath="EdFiOdsApi"
-            WebSitePort=843
-            CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
-        }
-        PS c:/> Install-EdFiOdsWebApi @parameters
-
-        Install in Year Specific mode on PostgreSQL, with alternate IIS configuration.
-        Assumes the presence of pgconf file for the password. Note that a Year Specific
-        connection string should include {0}. That token will be injected if it is omitted.
-        Furthermore, this mode expects "Ods" in the database name. Thus for input value
-        "EdFi", the connection string will contain "EdFi_{0}" and the database server
-        should have a database named "EdFi_Ods_2020" (or whatever year is in use).
-
-    .EXAMPLE
-        PS c:/> $parameters = @{
-            InstallType="Sandbox"
             DbConnectionInfo=@{
                 DatabaseName="EdFi_Sandbox"
                 Engine="SqlServer"
                 Server="localhost"
                 UseIntegratedSecurity=$true
             }
+            IsSandbox=$true
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
@@ -146,7 +116,7 @@ function Install-EdFiOdsWebApi {
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
-        Install in the default mode (shared) instance with basic database
+        Install in a single instance with basic database
         configuration, with override all available web.config app settings.
     #>
     [CmdletBinding()]
@@ -203,21 +173,14 @@ function Install-EdFiOdsWebApi {
         [string]
         $CertThumbprint,
 
-        # API mode / install type: Sandbox, SharedInstance, YearSpecific, DistrictSpecific. Default: SharedInstance.
-        [string]
-        [ValidateSet("Sandbox", "SharedInstance", "YearSpecific", "DistrictSpecific")]
-        $InstallType = "SharedInstance",
+        # Used to indicate a sandbox install.
+        [switch]
+        $IsSandbox,
 
         # Name for the Admin database. Default: EdFi_Admin.
         [string]
         [Parameter(ParameterSetName="SharedCredentials")]
         $AdminDatabaseName = "EdFi_Admin",
-
-        # Name for the ODS Database. Replaces "_ODS" with "_{0}" if not present
-        # and InstallType is not SharedInstance. Default: EdFi_ODS.
-        [string]
-        [Parameter(ParameterSetName="SharedCredentials")]
-        $OdsDatabaseName = "EdFi_Ods",
 
         # Name for the Security database. Default: EdFi_Security.
         [string]
@@ -229,8 +192,10 @@ function Install-EdFiOdsWebApi {
         # The hashtable must include: Server, Engine (SqlServer or PostgreSQL), and
         # either UseIntegratedSecurity or Username and Password (Password can be skipped
         # for PostgreSQL when using pgconf file). Optionally can include Port.
+        # This can be used with IsMultiTenant flag.
         [hashtable]
         [Parameter(Mandatory=$true, ParameterSetName="SharedCredentials")]
+        [Parameter(ParameterSetName="MultiTenant")]
         $DbConnectionInfo,
 
         # Database connectivity only for the admin database.
@@ -275,8 +240,34 @@ function Install-EdFiOdsWebApi {
         #    The username provided must be a valid Windows user
         #    pg_ident.conf map needs to be updated to use the username provided
         [switch]
-        $UseAlternateUserName 
+        $UseAlternateUserName,
+        
+        # Deploy WebApi with MultiTenant support. 
+        # Passing this flag, requires to pass Tenants configuration.
+        # When true, this flag will enable the MultiTenancy feature in ApiSettings.Features
+        [switch]
+        [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
+        $IsMultiTenant,
+        
+        # List of Tenants with information required by the Tenants section in appsettings.json
+        #
+        # Each tenant hashtable can include: 
+        #   - AdminDatabaseName and SecurityDatabaseName when used with DbConnectionInfo.
+        #   - AdminDbConnectionInfo and SecurityDbConnectionInfo when DbConnectionInfo is not used.
+        [hashtable]
+        [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
+        $Tenants,
+        
+        [string]
+        # Set the encription key used to encrypt ODS connections.
+        # Value should be a Base64 encoded 256-bit encryption key.
+        # If empty, it iwll be set with a random New-AESKey key
+        $OdsConnectionStringEncryptionKey
+        
+        [string]
+        $OdsContextRouteTemplate
     )
+
     Write-InvocationInfo $MyInvocation
 
     Clear-Error
@@ -296,23 +287,32 @@ function Install-EdFiOdsWebApi {
         WebSitePort = $WebsitePort
         CertThumbprint = $CertThumbprint
         WebApplicationName = $WebApplicationName
-        InstallType = $InstallType
+        IsSandbox = $IsSandbox
         AdminDatabaseName = $AdminDatabaseName
         SecurityDatabaseName = $SecurityDatabaseName
-        OdsDatabaseName = $OdsDatabaseName
         DbConnectionInfo = $DbConnectionInfo
         AdminDbConnectionInfo = $AdminDbConnectionInfo
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
-        UseAlternateUserName  = $UseAlternateUserName 
+        UseAlternateUserName  = $UseAlternateUserName
+        IsMultiTenant = $IsMultiTenant.IsPresent
+        Tenants = $Tenants
+        OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
+        OdsContextRouteTemplate = $OdsContextRouteTemplate
     }
 
     $elapsed = Use-StopWatch {
         $result += Initialize-Configuration -Config $config
         $result += Get-WebApiPackage -Config $config
         $result += Invoke-TransformWebConfigAppSettings -Config $config
-        $result += Invoke-TransformWebConfigConnectionStrings -Config $config
+        
+        if ($IsMultiTenant.IsPresent) {
+            $result += Invoke-TransformWebConfigMultiTenantConnectionStrings -Config $config
+        } else {
+            $result += Invoke-TransformWebConfigConnectionStrings -Config $config
+        }
+        
         $result += Install-Application -Config $config
         $result += New-SqlLogins -Config $config
 
@@ -349,12 +349,34 @@ function Initialize-Configuration {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
-        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
-        Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
-        $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-        $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
-        $Config.engine = $Config.AdminDbConnectionInfo.Engine
+        # Validate the input parameters. Couldn't do so in the parameter declaration
+        # because the function is contained in the Configuration module imported above.
+        $Config.usingSharedCredentials = $Config.ContainsKey("DbConnectionInfo") -and (-not $null -eq $Config.DbConnectionInfo)
+        if ($Config.usingSharedCredentials) {
+            Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.DbConnectionInfo
+            $Config.DbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+            $Config.engine = $Config.DbConnectionInfo.Engine
+        }
+        else {
+            if ($Config.IsMultiTenant) {
+                foreach ($tenantKey in $Config.Tenants.Keys) {
+                    Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -RequireDatabaseName
+                    Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -RequireDatabaseName
+                }
+            } else {
+                Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.AdminDbConnectionInfo
+                Assert-DatabaseConnectionInfo -DbConnectionInfo $Config.SecurityDbConnectionInfo
+                $Config.AdminDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+                $Config.SecurityDbConnectionInfo.ApplicationName = "Ed-Fi ODS WebApi"
+                $Config.engine = $Config.AdminDbConnectionInfo.Engine
+            }
+        }
+        
+        if ([string]::IsNullOrWhiteSpace($Config.OdsConnectionStringEncryptionKey)) {
+            $Config.OdsConnectionStringEncryptionKey = New-AESKey
+        }
     }
 }
 
@@ -365,6 +387,7 @@ function Get-WebApiPackage {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $parameters = @{
             PackageName = $Config.PackageName
@@ -380,6 +403,7 @@ function Get-WebApiPackage {
         $Config.WebConfigLocation = $packageDir
     }
 }
+
 function Invoke-TransformWebConfigAppSettings {
     [CmdletBinding()]
     param (
@@ -387,42 +411,59 @@ function Invoke-TransformWebConfigAppSettings {
         [Parameter(Mandatory=$true)]
         $Config
     )
-   
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $settingsFile = Join-Path $Config.WebConfigLocation "appsettings.json"
         $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
-        $settings.ApiSettings.Mode = $Config.InstallType
         $settings.ApiSettings.Engine = $Config.engine
-        If ($Config.WebApiFeatures.Features -ne $Null) {
+        $settings.ApiSettings.OdsConnectionStringEncryptionKey = $Config.OdsConnectionStringEncryptionKey
+        $settings.ApiSettings.OdsContextRouteTemplate = $Config.OdsContextRouteTemplate
+        
+        if ($Config.WebApiFeatures.Features -ne $Null) {
             foreach ($feature in $Config.WebApiFeatures.Features) {
                 foreach ($defaultfeature in $settings.ApiSettings.Features) {
-                    If ( $feature.Name -eq $defaultfeature.Name) {
+                    if ( $feature.Name -eq $defaultfeature.Name) {
                         $defaultfeature.IsEnabled =$feature.IsEnabled
                     }
                 }
             }
         }
+
+        # If IsMultiTenant flag was used, enable MultiTenancy feature
+        if ($Config.IsMultiTenant) {
+            if (($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}) -eq $null) {
+                $settings.ApiSettings.Features += @{Name = 'MultiTenancy'; IsEnabled=$true}
+            } else {
+                ($settings.ApiSettings.Features | Where-Object { $_.Name -eq 'MultiTenancy'}).IsEnabled = $true
+            }
+        }
+
         # Add a Log4net property override to specify the log's destination
         $splitPackageVersion = $Config.PackageVersion.Split(".")
+        
         # If $splitPackageVersion has no value, fetch the latest package version from the PackageDirectory path
-        if(-not $splitPackageVersion) {
+        if (-not $splitPackageVersion) {
             $packageName = $Config.PackageName
             $packageDirectory = $Config.PackageDirectory.Path.Split("\") | Select-Object -Last 1
             $splitPackageVersion = $packageDirectory.Split('.') | Select-Object -Last 3
         }
+        
         # We only care about Major/Minor for determining the log file name
         if ($splitPackageVersion.Count -lt 3) {
             throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major,minor and patch."
         }
         $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
-        if($Null -eq $settings.Log4NetCore) { 
+        
+        if ($Null -eq $settings.Log4NetCore) { 
             $settings.Log4NetCore = @{}
         }
-        if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+        
+        if ($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
             $settings.Log4NetCore.PropertyOverrides = @()
         }
+        
         $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
-        if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+        if ($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
             $settings.Log4NetCore.PropertyOverrides += @{
                 XPath = $rollingFileXpath
                 Attributes = @{
@@ -430,9 +471,10 @@ function Invoke-TransformWebConfigAppSettings {
                 }
             }
         }
-        if($Config.InstallType -eq "Sandbox") {
+        
+        if ($Config.IsSandbox) {
             $settings.ApiSettings.PlainTextSecrets = $Config.WebApiFeatures.PlainTextSecrets
-            if($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
+            if ($Config.WebApiFeatures.PlainTextSecrets -eq $Null) {
                 $settings.ApiSettings.PlainTextSecrets = $true
             }
         }
@@ -449,7 +491,17 @@ function Invoke-TransformWebConfigConnectionStrings {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        if ($Config.usingSharedCredentials) {
+            
+            $Config.AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+            $Config.AdminDbConnectionInfo.DatabaseName = $Config.AdminDatabaseName
+
+            $Config.SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+            $Config.SecurityDbConnectionInfo.DatabaseName = $Config.SecurityDatabaseName
+        }
+        else {
             # Inject default database names if not provided
             if (-not $Config.AdminDbConnectionInfo.DatabaseName) {
                 $Config.AdminDbConnectionInfo.DatabaseName = "EdFi_Admin"
@@ -458,7 +510,7 @@ function Invoke-TransformWebConfigConnectionStrings {
             if (-not $Config.SecurityDbConnectionInfo.DatabaseName) {
                 $Config.SecurityDbConnectionInfo.DatabaseName = "EdFi_Security"
             }
-        
+        }
 
         $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
         $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
@@ -480,6 +532,52 @@ function Invoke-TransformWebConfigConnectionStrings {
     }
 }
 
+function Invoke-TransformWebConfigMultiTenantConnectionStrings {
+    [CmdletBinding()]
+    param (
+        [hashtable]
+        [Parameter(Mandatory=$true)]
+        $Config
+    )
+
+    Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
+        $webConfigPath = "$($Config.PackageDirectory)/appsettings.json"
+        $settings = Get-Content $webConfigPath | ConvertFrom-Json | ConvertTo-Hashtable
+
+        Write-Host "Setting database connections in $($Config.WebConfigLocation)"
+
+        $newSettings = @{
+            Tenants = @{}
+        }
+
+        foreach ($tenantKey in $Config.Tenants.Keys) {
+            
+            if ($Config.usingSharedCredentials) {
+                $Config.Tenants[$tenantKey].AdminDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+                $Config.Tenants[$tenantKey].AdminDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].AdminDatabaseName
+
+                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo = $Config.DbConnectionInfo.Clone()
+                $Config.Tenants[$tenantKey].SecurityDbConnectionInfo.DatabaseName = $Config.Tenants[$tenantKey].SecurityDatabaseName
+            }
+            
+            $adminconnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
+            $securityConnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+            $newSettings.Tenants += @{
+                $tenantKey = @{
+                    ConnectionStrings = @{
+                        EdFi_Admin = $adminconnString
+                        EdFi_Security = $securityConnString 
+                    }
+                }
+            }
+        }
+
+        $mergedSettings = Merge-Hashtables $settings, $newSettings
+        New-JsonFile $webConfigPath  $mergedSettings -Overwrite
+    }
+}
+
 function Install-Application {
     [CmdletBinding()]
     param (
@@ -487,6 +585,7 @@ function Install-Application {
         [Parameter(Mandatory=$true)]
         $Config
     )
+
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
         $iisParams = @{
             SourceLocation = $Config.PackageDirectory
@@ -511,17 +610,27 @@ function New-SqlLogins {
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
 
-        if($Config.usingSharedCredentials)
+        if ($Config.usingSharedCredentials)
         {
             Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
         else
         {
-            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
-            
-            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            if ($Config.IsMultiTenant) {
+                foreach ($tenantKey in $Config.Tenants.Keys) {
+                    if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+                    Add-SqlLogins $Config.Tenants[$tenantKey].AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                    
+                    if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+                    Add-SqlLogins $Config.Tenants[$tenantKey].SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName
+                }
+            } else {
+                if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+                Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                
+                if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+                Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            }
         }
     }
 }
@@ -604,4 +713,16 @@ function Uninstall-EdFiOdsWebApi {
     }
 }
 
-Export-ModuleMember -Function Install-EdFiOdsWebApi, Uninstall-EdFiOdsWebApi
+function New-AESKey() {
+    <#
+        .SYNOPSIS
+            Generates and Base64-encodes a 256 bit key appropriate for use with AES encryption.
+    #>
+
+    $aes = [System.Security.Cryptography.Aes]::Create()
+    $aes.KeySize = 256
+    $aes.GenerateKey()
+    [System.Convert]::ToBase64String($aes.Key)
+}
+
+Export-ModuleMember -Function Install-EdFiOdsWebApi, Uninstall-EdFiOdsWebApi, New-AESKey
