@@ -25,6 +25,20 @@ $BODY$ LANGUAGE plpgsql;
 CREATE TRIGGER TrackDeletes AFTER DELETE ON nmassessments.NmStudentAssessment 
     FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmassessments.NmStudentAssessment_TR_DelTrkg();
 
+CREATE FUNCTION tracked_deletes_nmassessments.ScoringModelCodeDescriptor_TR_DelTrkg()
+    RETURNS trigger AS
+$BODY$
+BEGIN
+    INSERT INTO tracked_deletes_nmassessments.ScoringModelCodeDescriptor(ScoringModelCodeDescriptorId, Id, ChangeVersion)
+    SELECT OLD.ScoringModelCodeDescriptorId, Id, nextval('changes.ChangeVersionSequence')
+    FROM edfi.Descriptor WHERE DescriptorId = OLD.ScoringModelCodeDescriptorId;
+    RETURN NULL;
+END;
+$BODY$ LANGUAGE plpgsql;
+
+CREATE TRIGGER TrackDeletes AFTER DELETE ON nmassessments.ScoringModelCodeDescriptor 
+    FOR EACH ROW EXECUTE PROCEDURE tracked_deletes_nmassessments.ScoringModelCodeDescriptor_TR_DelTrkg();
+
 CREATE FUNCTION tracked_deletes_nmassessments.StandardAchievedCodeDescriptor_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$

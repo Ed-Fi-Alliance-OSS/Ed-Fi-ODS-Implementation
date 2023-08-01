@@ -15,6 +15,7 @@ CREATE TABLE [nmassessments].[NmStudentAssessment] (
     [TestDescriptionDescriptorId] [INT] NOT NULL,
     [StandardAchievedCodeDescriptorId] [INT] NULL,
     [ItemDescriptionCodeDescriptorId] [INT] NULL,
+    [ScoringModelCodeDescriptorId] [INT] NULL,
     [RawScore] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
@@ -33,6 +34,15 @@ GO
 ALTER TABLE [nmassessments].[NmStudentAssessment] ADD CONSTRAINT [NmStudentAssessment_DF_Id] DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [nmassessments].[NmStudentAssessment] ADD CONSTRAINT [NmStudentAssessment_DF_LastModifiedDate] DEFAULT (getdate()) FOR [LastModifiedDate]
+GO
+
+-- Table [nmassessments].[ScoringModelCodeDescriptor] --
+CREATE TABLE [nmassessments].[ScoringModelCodeDescriptor] (
+    [ScoringModelCodeDescriptorId] [INT] NOT NULL,
+    CONSTRAINT [ScoringModelCodeDescriptor_PK] PRIMARY KEY CLUSTERED (
+        [ScoringModelCodeDescriptorId] ASC
+    ) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
 GO
 
 -- Table [nmassessments].[StandardAchievedCodeDescriptor] --

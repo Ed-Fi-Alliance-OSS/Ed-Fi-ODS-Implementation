@@ -19,6 +19,14 @@ CREATE NONCLUSTERED INDEX [FK_NmStudentAssessment_ItemDescriptionCodeDescriptor]
 ON [nmassessments].[NmStudentAssessment] ([ItemDescriptionCodeDescriptorId] ASC)
 GO
 
+ALTER TABLE [nmassessments].[NmStudentAssessment] WITH CHECK ADD CONSTRAINT [FK_NmStudentAssessment_ScoringModelCodeDescriptor] FOREIGN KEY ([ScoringModelCodeDescriptorId])
+REFERENCES [nmassessments].[ScoringModelCodeDescriptor] ([ScoringModelCodeDescriptorId])
+GO
+
+CREATE NONCLUSTERED INDEX [FK_NmStudentAssessment_ScoringModelCodeDescriptor]
+ON [nmassessments].[NmStudentAssessment] ([ScoringModelCodeDescriptorId] ASC)
+GO
+
 ALTER TABLE [nmassessments].[NmStudentAssessment] WITH CHECK ADD CONSTRAINT [FK_NmStudentAssessment_StandardAchievedCodeDescriptor] FOREIGN KEY ([StandardAchievedCodeDescriptorId])
 REFERENCES [nmassessments].[StandardAchievedCodeDescriptor] ([StandardAchievedCodeDescriptorId])
 GO
@@ -41,6 +49,11 @@ GO
 
 CREATE NONCLUSTERED INDEX [FK_NmStudentAssessment_TestDescriptionDescriptor]
 ON [nmassessments].[NmStudentAssessment] ([TestDescriptionDescriptorId] ASC)
+GO
+
+ALTER TABLE [nmassessments].[ScoringModelCodeDescriptor] WITH CHECK ADD CONSTRAINT [FK_ScoringModelCodeDescriptor_Descriptor] FOREIGN KEY ([ScoringModelCodeDescriptorId])
+REFERENCES [edfi].[Descriptor] ([DescriptorId])
+ON DELETE CASCADE
 GO
 
 ALTER TABLE [nmassessments].[StandardAchievedCodeDescriptor] WITH CHECK ADD CONSTRAINT [FK_StandardAchievedCodeDescriptor_Descriptor] FOREIGN KEY ([StandardAchievedCodeDescriptorId])

@@ -151,4 +151,23 @@ SELECT descriptorId FROM edfi.descriptor
 where namespace = 'uri://nmped.org/nmassessments/ItemDescriptionCodeDescriptor';
 
 
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','BRIG','Brigance','Brigance');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','CC','Creative Curriculum','Creative Curriculum');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','WORK','Work Sampling','Work Sampling');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','PETITION','Petition to NMPED','Petition to NMPED');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','NMPKOA','NM Prek Observational Assessment','NM Prek Observational Assessment');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','DLDSC','Dual Discrepancy Model Assessment','Dual Discrepancy Model Assessment');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','TCHREAD','Teach Me to Read','Teach Me to Read');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','LEXISE','Lexercise','Lexercise');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','ISTAT','Istation','Istation');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','IDEL','IDEL','IDEL');
+
+
+INSERT INTO nmassessments.ScoringModelCodeDescriptor (ScoringModelCodeDescriptorId) 
+SELECT descriptorId FROM edfi.descriptor
+where namespace = 'uri://nmped.org/nmassessments/ScoringModelCode';
+
+
+
 commit

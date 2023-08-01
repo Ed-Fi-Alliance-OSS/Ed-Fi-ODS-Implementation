@@ -195,6 +195,7 @@ The Descriptor interchange is used to describe metadata about the descriptors an
         <xs:element name="VisaDescriptor" type="VisaDescriptor" />
         <xs:element name="WeaponDescriptor" type="WeaponDescriptor" />
         <xs:element name="ItemDescriptionCodeDescriptor" type="EXTENSION-ItemDescriptionCodeDescriptor" />
+        <xs:element name="ScoringModelCodeDescriptor" type="EXTENSION-ScoringModelCodeDescriptor" />
         <xs:element name="StandardAchievedCodeDescriptor" type="EXTENSION-StandardAchievedCodeDescriptor" />
         <xs:element name="TestDescriptionDescriptor" type="EXTENSION-TestDescriptionDescriptor" />
       </xs:choice>

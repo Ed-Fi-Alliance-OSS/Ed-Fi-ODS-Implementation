@@ -56,6 +56,14 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
+          <xs:element name="ScoringModelCode" type="EXTENSION-ScoringModelCodeDescriptorReferenceType" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The Measurement used to determine the outcomes the respective assessment.</xs:documentation>
+              <xs:appinfo>
+                <ann:Descriptor>EXTENSION-ScoringModelCodeDescriptor</ann:Descriptor>
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
           <xs:element name="RawScore" type="EXTENSION-RawScore" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Score of administered test. Need not be a RAW Score.</xs:documentation>
@@ -71,6 +79,17 @@
   <xs:complexType name="EXTENSION-ItemDescriptionCodeDescriptor">
     <xs:annotation>
       <xs:documentation>Code that further describes the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Descriptor</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:complexContent>
+      <xs:extension base="DescriptorType" />
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:complexType name="EXTENSION-ScoringModelCodeDescriptor">
+    <xs:annotation>
+      <xs:documentation>The Measurement used to determine the outcomes the respective assessment.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Descriptor</ann:TypeGroup>
       </xs:appinfo>
@@ -165,6 +184,15 @@
   <xs:simpleType name="EXTENSION-ItemDescriptionCodeDescriptorReferenceType">
     <xs:annotation>
       <xs:documentation>Code that further describes the assessment.</xs:documentation>
+      <xs:appinfo>
+        <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="DescriptorReferenceType" />
+  </xs:simpleType>
+  <xs:simpleType name="EXTENSION-ScoringModelCodeDescriptorReferenceType">
+    <xs:annotation>
+      <xs:documentation>The Measurement used to determine the outcomes the respective assessment.</xs:documentation>
       <xs:appinfo>
         <ann:TypeGroup>Extended Descriptor Reference</ann:TypeGroup>
       </xs:appinfo>

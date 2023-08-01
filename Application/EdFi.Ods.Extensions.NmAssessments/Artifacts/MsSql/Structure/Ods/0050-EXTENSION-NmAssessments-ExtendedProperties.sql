@@ -19,7 +19,15 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indication of 
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code that further describes the assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'ItemDescriptionCodeDescriptorId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Measurement used to determine the outcomes the respective assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'ScoringModelCodeDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Score of administered test. Need not be a RAW Score.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'RawScore'
+GO
+
+-- Extended Properties [nmassessments].[ScoringModelCodeDescriptor] --
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Measurement used to determine the outcomes the respective assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'ScoringModelCodeDescriptor'
+GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'ScoringModelCodeDescriptor', @level2type=N'COLUMN', @level2name=N'ScoringModelCodeDescriptorId'
 GO
 
 -- Extended Properties [nmassessments].[StandardAchievedCodeDescriptor] --

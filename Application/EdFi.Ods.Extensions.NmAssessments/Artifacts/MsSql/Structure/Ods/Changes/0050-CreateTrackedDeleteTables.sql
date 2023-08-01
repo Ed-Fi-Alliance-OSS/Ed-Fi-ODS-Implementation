@@ -15,6 +15,13 @@ CREATE TABLE [tracked_deletes_nmassessments].[NmStudentAssessment]
        ChangeVersion bigint NOT NULL,
        CONSTRAINT PK_NmStudentAssessment PRIMARY KEY CLUSTERED (ChangeVersion)
 )
+CREATE TABLE [tracked_deletes_nmassessments].[ScoringModelCodeDescriptor]
+(
+       ScoringModelCodeDescriptorId [INT] NOT NULL,
+       Id uniqueidentifier NOT NULL,
+       ChangeVersion bigint NOT NULL,
+       CONSTRAINT PK_ScoringModelCodeDescriptor PRIMARY KEY CLUSTERED (ChangeVersion)
+)
 CREATE TABLE [tracked_deletes_nmassessments].[StandardAchievedCodeDescriptor]
 (
        StandardAchievedCodeDescriptorId [INT] NOT NULL,

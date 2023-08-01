@@ -17,6 +17,13 @@ REFERENCES nmassessments.ItemDescriptionCodeDescriptor (ItemDescriptionCodeDescr
 CREATE INDEX FK_43017d_ItemDescriptionCodeDescriptor
 ON nmassessments.NmStudentAssessment (ItemDescriptionCodeDescriptorId ASC);
 
+ALTER TABLE nmassessments.NmStudentAssessment ADD CONSTRAINT FK_43017d_ScoringModelCodeDescriptor FOREIGN KEY (ScoringModelCodeDescriptorId)
+REFERENCES nmassessments.ScoringModelCodeDescriptor (ScoringModelCodeDescriptorId)
+;
+
+CREATE INDEX FK_43017d_ScoringModelCodeDescriptor
+ON nmassessments.NmStudentAssessment (ScoringModelCodeDescriptorId ASC);
+
 ALTER TABLE nmassessments.NmStudentAssessment ADD CONSTRAINT FK_43017d_StandardAchievedCodeDescriptor FOREIGN KEY (StandardAchievedCodeDescriptorId)
 REFERENCES nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId)
 ;
@@ -37,6 +44,11 @@ REFERENCES nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId)
 
 CREATE INDEX FK_43017d_TestDescriptionDescriptor
 ON nmassessments.NmStudentAssessment (TestDescriptionDescriptorId ASC);
+
+ALTER TABLE nmassessments.ScoringModelCodeDescriptor ADD CONSTRAINT FK_e0cb2c_Descriptor FOREIGN KEY (ScoringModelCodeDescriptorId)
+REFERENCES edfi.Descriptor (DescriptorId)
+ON DELETE CASCADE
+;
 
 ALTER TABLE nmassessments.StandardAchievedCodeDescriptor ADD CONSTRAINT FK_c7c785_Descriptor FOREIGN KEY (StandardAchievedCodeDescriptorId)
 REFERENCES edfi.Descriptor (DescriptorId)
