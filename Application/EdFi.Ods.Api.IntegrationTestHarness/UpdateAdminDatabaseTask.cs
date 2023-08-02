@@ -11,17 +11,13 @@ using System.Xml;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Common.Configuration;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
-using EdFi.Ods.Common.Extensions;
 using EdFi.Ods.Common.Models;
-using EdFi.Ods.Common.Models.Domain;
-using EdFi.Ods.Common.Specifications;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -100,26 +96,12 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             void CreateEnvironmentFile()
             {
-                var domainModelSchemas = _domainModelProvider.GetDomainModel().Schemas;
-                
-                var edfiDataStandardSchemas = domainModelSchemas
-                    .Where(x => x.PhysicalName.Equals("edfi", StringComparison.OrdinalIgnoreCase))
-                    .ToDictionary(d => d.PhysicalName, x => x.Version);
-                
-                // Declare the data standard version at which Contact should be used instead of Parent.
-                int contactDataStandardVersion = 5;
-
-                if (!edfiDataStandardSchemas.Any())
-                {
-                    throw new Exception("Unable to find Ed-Fi Data Standard schemas.");
-                }
-                
-                if(edfiDataStandardSchemas.Count > 1)
-                {
-                    throw new Exception("Multiple Ed-Fi Data Standard schemas found. This is not supported.");
-                }
-
-                int dataStandardMajorVersion = int.Parse(edfiDataStandardSchemas.First().Value.Split('.').First());
+                // Check if the Ed-Fi Data Standard schema in use has a Parent entity which was replaced by Contact in a later version of the standard.
+                // If it does not, then we assume the Contact entity is the one to use.
+                // This is used to determine which identifiers to include in the Postman environment.
+                var dataStandardHasParentEntity = _domainModelProvider.GetDomainModel().Entities.Any(x =>
+                    x.Schema.Equals("edfi", StringComparison.OrdinalIgnoreCase) &&
+                    (x.Name.Equals("Parent", StringComparison.OrdinalIgnoreCase)));
 
                 var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
 
@@ -153,7 +135,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parentUniqueId" : "contactUniqueId",
+                            Value = dataStandardHasParentEntity ? "parentUniqueId" : "contactUniqueId",
                             Key = "ParentOrContactUniqueIdName" 
                             
                         });
@@ -162,7 +144,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parent" : "contact",
+                            Value = dataStandardHasParentEntity ? "parent" : "contact",
                             Key = "ParentOrContactName" 
                             
                         });
@@ -171,7 +153,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parents" : "contacts",
+                            Value = dataStandardHasParentEntity ? "parents" : "contacts",
                             Key = "ParentOrContactCollectionName" 
                             
                         });
@@ -180,7 +162,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "Parent" : "Contact",
+                            Value = dataStandardHasParentEntity ? "Parent" : "Contact",
                             Key = "ParentOrContactProperName" 
                             
                         });
