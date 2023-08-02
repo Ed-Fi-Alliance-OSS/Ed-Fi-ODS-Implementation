@@ -11,12 +11,17 @@ using System.Xml;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Extensions;
+using EdFi.Ods.Common.Models;
+using EdFi.Ods.Common.Models.Domain;
+using EdFi.Ods.Common.Specifications;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -36,18 +41,21 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly TestHarnessConfiguration _testHarnessConfiguration;
         private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
         private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
+        private readonly IDomainModelProvider _domainModelProvider;
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
-            TestHarnessConfigurationProvider testHarnessConfigurationProvider)
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider,
+            IDomainModelProvider domainModelProvider)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
             _configuration = configuration;
             _apiSettings = apiSettings;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
+            _domainModelProvider = domainModelProvider;
         }
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
@@ -56,8 +64,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             ApiSettings apiSettings,
             TestHarnessConfigurationProvider testHarnessConfigurationProvider,
             IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
-            ITenantConfigurationMapProvider tenantConfigurationMapProvider)
-            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider)
+            ITenantConfigurationMapProvider tenantConfigurationMapProvider,
+            IDomainModelProvider domainModelProvider)
+            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider, domainModelProvider)
         {
             _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
@@ -91,6 +100,27 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             void CreateEnvironmentFile()
             {
+                var domainModelSchemas = _domainModelProvider.GetDomainModel().Schemas;
+                
+                var edfiDataStandardSchemas = domainModelSchemas
+                    .Where(x => x.PhysicalName.Equals("edfi", StringComparison.OrdinalIgnoreCase))
+                    .ToDictionary(d => d.PhysicalName, x => x.Version);
+                
+                // Declare the data standard version at which Contact should be used instead of Parent.
+                int contactDataStandardVersion = 5;
+
+                if (!edfiDataStandardSchemas.Any())
+                {
+                    throw new Exception("Unable to find Ed-Fi Data Standard schemas.");
+                }
+                
+                if(edfiDataStandardSchemas.Count > 1)
+                {
+                    throw new Exception("Multiple Ed-Fi Data Standard schemas found. This is not supported.");
+                }
+
+                int dataStandardMajorVersion = int.Parse(edfiDataStandardSchemas.First().Value.Split('.').First());
+
                 var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
 
                 if (!string.IsNullOrEmpty(environmentFilePath) && new DirectoryInfo(environmentFilePath).Exists)
@@ -107,7 +137,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
+                            Value =  _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -118,8 +148,44 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Value = _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.ToString()),
                             Key = "ProfilesFeatureIsEnabled"
                         });
+                    
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parentUniqueId" : "contactUniqueId",
+                            Key = "ParentOrContactUniqueIdName" 
+                            
+                        });
+                    
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parent" : "contact",
+                            Key = "ParentOrContactName" 
+                            
+                        });
+                    
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "parents" : "contacts",
+                            Key = "ParentOrContactCollectionName" 
+                            
+                        });
+                    
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = dataStandardMajorVersion < contactDataStandardVersion ? "Parent" : "Contact",
+                            Key = "ParentOrContactProperName" 
+                            
+                        });
 
-                    var jsonString = JsonConvert.SerializeObject(
+                        var jsonString = JsonConvert.SerializeObject(
                         postmanEnvironment,
                         Formatting.Indented,
                         new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
