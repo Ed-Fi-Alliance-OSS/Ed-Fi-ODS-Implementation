@@ -23,6 +23,30 @@ function Invoke-Install {
     Install-EdFiOdsSwaggerUI @p
 }
 
+function Invoke-SchoolYears {
+    $p = @{
+        ToolsPath = "../../tools"
+        WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
+        WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
+        SchoolYears = @("2022","2023")
+        DefaultSchoolYear = "2023"
+    }
+
+    Install-EdFiOdsSwaggerUI @p
+}
+
+function Invoke-Tenants {
+    $p = @{
+        ToolsPath = "../../tools"
+        WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
+        WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
+        Tenants = @("Tenant1","Tenant2")
+        DefaultTenant = "Tenant2"
+    }
+
+    Install-EdFiOdsSwaggerUI @p
+}
+
 function Invoke-DifferentPackageSource {
     $p = @{
         ToolsPath = "../../tools"
@@ -69,12 +93,16 @@ function Invoke-Uninstall {
 try {
     switch ($Scenario) {
         "Install" { Invoke-Install }
+        "SchoolYears" { Invoke-SchoolYears }
+        "Tenants" { Invoke-Tenants }
         "DifferentPackageSource" { Invoke-DifferentPackageSource }
         "KeyAndSecret" { Invoke-KeyAndSecret }
         "Uninstall" { Invoke-Uninstall }
         default {
             Write-Host "Valid test scenarios are: "
             Write-Host "    Install"
+            Write-Host "    SchoolYears"
+            Write-Host "    Tenants"
             Write-Host "    DifferentPackageSource"
             Write-Host "    KeyAndSecret"
             Write-Host "    Uninstall"
