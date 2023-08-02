@@ -171,8 +171,17 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "Parent" : "Contact",
+                            Value = dataStandardHasParentEntity ? "StudentParentAssociation" : "StudentContactAssociation",
                             Key = "StudentParentOrContactAssociationName" 
+                            
+                        });
+                    
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = dataStandardHasParentEntity ? "StudentParentAssociations" : "StudentContactAssociations",
+                            Key = "StudentParentOrContactAssociationCollectionName" 
                             
                         });
 
