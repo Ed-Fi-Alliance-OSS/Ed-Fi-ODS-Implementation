@@ -10,7 +10,12 @@ COMMENT ON COLUMN nmassessments.NmStudentAssessment.TestDate IS 'The date the as
 COMMENT ON COLUMN nmassessments.NmStudentAssessment.TestDescriptionDescriptorId IS 'Code that defines the assessment.';
 COMMENT ON COLUMN nmassessments.NmStudentAssessment.StandardAchievedCodeDescriptorId IS 'Indication of whether or not the assessment standard was achieved.';
 COMMENT ON COLUMN nmassessments.NmStudentAssessment.ItemDescriptionCodeDescriptorId IS 'Code that further describes the assessment.';
+COMMENT ON COLUMN nmassessments.NmStudentAssessment.ScoringModelCodeDescriptorId IS 'The Measurement used to determine the outcomes the respective assessment.';
 COMMENT ON COLUMN nmassessments.NmStudentAssessment.RawScore IS 'Score of administered test. Need not be a RAW Score.';
+
+-- Extended Properties [nmassessments].[ScoringModelCodeDescriptor] --
+COMMENT ON TABLE nmassessments.ScoringModelCodeDescriptor IS 'The Measurement used to determine the outcomes the respective assessment.';
+COMMENT ON COLUMN nmassessments.ScoringModelCodeDescriptor.ScoringModelCodeDescriptorId IS 'A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.';
 
 -- Extended Properties [nmassessments].[StandardAchievedCodeDescriptor] --
 COMMENT ON TABLE nmassessments.StandardAchievedCodeDescriptor IS 'Indication of whether or not the assessment standard was achieved.';

@@ -18,6 +18,9 @@ Domain Entity NmStudentAssessment
     descriptor ItemDescriptionCode
         documentation "Code that further describes the assessment."
         is optional
+    descriptor ScoringModelCode
+        documentation "The Measurement used to determine the outcomes the respective assessment."
+        is optional
     integer RawScore
         documentation "Score of administered test. Need not be a RAW Score."
         is optional

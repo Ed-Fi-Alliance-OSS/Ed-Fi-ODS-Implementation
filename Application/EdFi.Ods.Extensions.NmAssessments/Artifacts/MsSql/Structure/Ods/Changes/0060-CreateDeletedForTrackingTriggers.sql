@@ -33,6 +33,24 @@ ALTER TABLE [nmassessments].[NmStudentAssessment] ENABLE TRIGGER [nmassessments_
 GO
 
 
+CREATE TRIGGER [nmassessments].[nmassessments_ScoringModelCodeDescriptor_TR_DeleteTracking] ON [nmassessments].[ScoringModelCodeDescriptor] AFTER DELETE AS
+BEGIN
+    IF @@rowcount = 0 
+        RETURN
+
+    SET NOCOUNT ON
+
+    INSERT INTO [tracked_deletes_nmassessments].[ScoringModelCodeDescriptor](ScoringModelCodeDescriptorId, Id, ChangeVersion)
+    SELECT  d.ScoringModelCodeDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    FROM    deleted d
+            INNER JOIN edfi.Descriptor b ON d.ScoringModelCodeDescriptorId = b.DescriptorId
+END
+GO
+
+ALTER TABLE [nmassessments].[ScoringModelCodeDescriptor] ENABLE TRIGGER [nmassessments_ScoringModelCodeDescriptor_TR_DeleteTracking]
+GO
+
+
 CREATE TRIGGER [nmassessments].[nmassessments_StandardAchievedCodeDescriptor_TR_DeleteTracking] ON [nmassessments].[StandardAchievedCodeDescriptor] AFTER DELETE AS
 BEGIN
     IF @@rowcount = 0 

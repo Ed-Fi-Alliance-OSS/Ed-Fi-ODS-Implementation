@@ -17,6 +17,14 @@ CREATE TABLE tracked_deletes_nmassessments.NmStudentAssessment
        CONSTRAINT NmStudentAssessment_PK PRIMARY KEY (ChangeVersion)
 );
 
+CREATE TABLE tracked_deletes_nmassessments.ScoringModelCodeDescriptor
+(
+       ScoringModelCodeDescriptorId INT NOT NULL,
+       Id UUID NOT NULL,
+       ChangeVersion BIGINT NOT NULL,
+       CONSTRAINT ScoringModelCodeDescriptor_PK PRIMARY KEY (ChangeVersion)
+);
+
 CREATE TABLE tracked_deletes_nmassessments.StandardAchievedCodeDescriptor
 (
        StandardAchievedCodeDescriptorId INT NOT NULL,

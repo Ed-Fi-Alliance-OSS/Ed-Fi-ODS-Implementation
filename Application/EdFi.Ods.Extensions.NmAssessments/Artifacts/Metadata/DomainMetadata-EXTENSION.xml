@@ -6,6 +6,9 @@
   <Aggregate root="NmStudentAssessment">
     <Entity table="NmStudentAssessment" schema="nmassessments"/>
   </Aggregate>
+  <Aggregate root="ScoringModelCodeDescriptor">
+    <Entity table="ScoringModelCodeDescriptor" isA="Descriptor" schema="nmassessments"/>
+  </Aggregate>
   <Aggregate root="StandardAchievedCodeDescriptor">
     <Entity table="StandardAchievedCodeDescriptor" isA="Descriptor" schema="nmassessments"/>
   </Aggregate>

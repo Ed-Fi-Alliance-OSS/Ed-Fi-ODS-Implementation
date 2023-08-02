@@ -12,6 +12,7 @@ CREATE TABLE nmassessments.NmStudentAssessment (
     TestDescriptionDescriptorId INT NOT NULL,
     StandardAchievedCodeDescriptorId INT NULL,
     ItemDescriptionCodeDescriptorId INT NULL,
+    ScoringModelCodeDescriptorId INT NULL,
     RawScore INT NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
@@ -22,6 +23,12 @@ CREATE TABLE nmassessments.NmStudentAssessment (
 ALTER TABLE nmassessments.NmStudentAssessment ALTER COLUMN CreateDate SET DEFAULT current_timestamp;
 ALTER TABLE nmassessments.NmStudentAssessment ALTER COLUMN Id SET DEFAULT gen_random_uuid();
 ALTER TABLE nmassessments.NmStudentAssessment ALTER COLUMN LastModifiedDate SET DEFAULT current_timestamp;
+
+-- Table nmassessments.ScoringModelCodeDescriptor --
+CREATE TABLE nmassessments.ScoringModelCodeDescriptor (
+    ScoringModelCodeDescriptorId INT NOT NULL,
+    CONSTRAINT ScoringModelCodeDescriptor_PK PRIMARY KEY (ScoringModelCodeDescriptorId)
+); 
 
 -- Table nmassessments.StandardAchievedCodeDescriptor --
 CREATE TABLE nmassessments.StandardAchievedCodeDescriptor (

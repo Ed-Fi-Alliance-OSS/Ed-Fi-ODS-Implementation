@@ -34,6 +34,18 @@
     {
       "aggregateRootEntityName": {
         "schema": "nmassessments",
+        "name": "ScoringModelCodeDescriptor"
+      },
+      "aggregateEntityNames": [
+        {
+          "schema": "nmassessments",
+          "name": "ScoringModelCodeDescriptor"
+        }
+      ]
+    },
+    {
+      "aggregateRootEntityName": {
+        "schema": "nmassessments",
         "name": "StandardAchievedCodeDescriptor"
       },
       "aggregateEntityNames": [
@@ -207,6 +219,31 @@
       "tableNames": {
         "sqlServer": "NmStudentAssessment",
         "postgreSql": "NmStudentAssessment"
+      }
+    },
+    {
+      "schema": "nmassessments",
+      "name": "ScoringModelCodeDescriptor",
+      "locallyDefinedProperties": [],
+      "identifiers": [
+        {
+          "identifierName": "ScoringModelCodeDescriptor_PK",
+          "identifyingPropertyNames": [
+            "ScoringModelCodeDescriptorId"
+          ],
+          "isPrimary": true,
+          "isUpdatable": false,
+          "constraintNames": {
+            "sqlServer": "ScoringModelCodeDescriptor_PK",
+            "postgreSql": "ScoringModelCodeDescriptor_PK"
+          }
+        }
+      ],
+      "isAbstract": false,
+      "description": "The Measurement used to determine the outcomes the respective assessment.",
+      "tableNames": {
+        "sqlServer": "ScoringModelCodeDescriptor",
+        "postgreSql": "ScoringModelCodeDescriptor"
       }
     },
     {
@@ -444,6 +481,66 @@
     {
       "fullName": {
         "schema": "nmassessments",
+        "name": "FK_NmStudentAssessment_ScoringModelCodeDescriptor"
+      },
+      "cardinality": "OneToZeroOrMore",
+      "primaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "ScoringModelCodeDescriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "ScoringModelCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ScoringModelCodeDescriptorId",
+            "postgreSql": "ScoringModelCodeDescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "NmStudentAssessment"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ScoringModelCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": true
+          },
+          "description": "The Measurement used to determine the outcomes the respective assessment.",
+          "isIdentifying": false,
+          "isServerAssigned": false,
+          "columnNames": {
+            "sqlServer": "ScoringModelCodeDescriptorId",
+            "postgreSql": "ScoringModelCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": false,
+      "isRequired": false,
+      "constraintNames": {
+        "sqlServer": "FK_NmStudentAssessment_ScoringModelCodeDescriptor",
+        "postgreSql": "FK_43017d_ScoringModelCodeDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
         "name": "FK_NmStudentAssessment_StandardAchievedCodeDescriptor"
       },
       "cardinality": "OneToZeroOrMore",
@@ -618,6 +715,66 @@
       "constraintNames": {
         "sqlServer": "FK_NmStudentAssessment_TestDescriptionDescriptor",
         "postgreSql": "FK_43017d_TestDescriptionDescriptor"
+      },
+      "potentiallyLogical": false
+    },
+    {
+      "fullName": {
+        "schema": "nmassessments",
+        "name": "FK_ScoringModelCodeDescriptor_Descriptor"
+      },
+      "cardinality": "OneToOneInheritance",
+      "primaryEntityFullName": {
+        "schema": "edfi",
+        "name": "Descriptor"
+      },
+      "primaryEntityProperties": [
+        {
+          "propertyName": "DescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "DescriptorId",
+            "postgreSql": "DescriptorId"
+          }
+        }
+      ],
+      "secondaryEntityFullName": {
+        "schema": "nmassessments",
+        "name": "ScoringModelCodeDescriptor"
+      },
+      "secondaryEntityProperties": [
+        {
+          "propertyName": "ScoringModelCodeDescriptorId",
+          "propertyType": {
+            "dbType": "Int32",
+            "maxLength": 0,
+            "precision": 10,
+            "scale": 0,
+            "isNullable": false
+          },
+          "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
+          "isIdentifying": true,
+          "isServerAssigned": true,
+          "columnNames": {
+            "sqlServer": "ScoringModelCodeDescriptorId",
+            "postgreSql": "ScoringModelCodeDescriptorId"
+          }
+        }
+      ],
+      "isIdentifying": true,
+      "isRequired": true,
+      "constraintNames": {
+        "sqlServer": "FK_ScoringModelCodeDescriptor_Descriptor",
+        "postgreSql": "FK_e0cb2c_Descriptor"
       },
       "potentiallyLogical": false
     },
