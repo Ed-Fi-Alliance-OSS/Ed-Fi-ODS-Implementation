@@ -96,12 +96,17 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             void CreateEnvironmentFile()
             {
-                // Check if the Ed-Fi Data Standard schema in use has a Parent entity which was replaced by Contact in a later version of the standard.
-                // If it does not, then we assume the Contact entity is the one to use.
-                // This is used to determine which identifiers to include in the Postman environment.
+                // This checks if the Ed-Fi Data Standard in use has a Parent entity,
+                // which was renamed to Contact in Data Standard version 5.0.0.
+                
+                // If there is not a Parent entity present in the data standard in use,
+                // then we assume that the data standard in use is 5.0.0 or later and therefore use Contact.
+
                 var dataStandardHasParentEntity = _domainModelProvider.GetDomainModel().Entities.Any(x =>
                     x.Schema.Equals("edfi", StringComparison.OrdinalIgnoreCase) &&
-                    (x.Name.Equals("Parent", StringComparison.OrdinalIgnoreCase)));
+                    x.Name.Equals("Parent", StringComparison.OrdinalIgnoreCase));
+                
+                var parentOrContactProperName = dataStandardHasParentEntity ? "Parent" : "Contact";
 
                 var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
 
@@ -131,58 +136,54 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Key = "ProfilesFeatureIsEnabled"
                         });
                     
+                    // The following variables provide the Postman collections with the correct parent/
+                    // contact related names for the Ed-Fi data standard currently in use.
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "parentUniqueId" : "contactUniqueId",
-                            Key = "ParentOrContactUniqueIdName" 
-                            
+                            Value = $"{parentOrContactProperName.ToLower()}UniqueId",
+                            Key = "ParentOrContactUniqueIdName"
                         });
                     
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "parent" : "contact",
-                            Key = "ParentOrContactName" 
-                            
+                            Value = parentOrContactProperName.ToLower(),
+                            Key = "ParentOrContactName"
                         });
                     
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "parents" : "contacts",
-                            Key = "ParentOrContactCollectionName" 
-                            
+                            Value = $"{parentOrContactProperName.ToLower()}s",
+                            Key = "ParentOrContactCollectionName"
                         });
                     
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "Parent" : "Contact",
-                            Key = "ParentOrContactProperName" 
-                            
+                            Value = parentOrContactProperName,
+                            Key = "ParentOrContactProperName"
                         });
                     
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "StudentParentAssociation" : "StudentContactAssociation",
-                            Key = "StudentParentOrContactAssociationName" 
-                            
+                            Value = $"Student{parentOrContactProperName}Association",
+                            Key = "StudentParentOrContactAssociationName"
                         });
                     
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = dataStandardHasParentEntity ? "StudentParentAssociations" : "StudentContactAssociations",
-                            Key = "StudentParentOrContactAssociationCollectionName" 
-                            
+                            Value = $"Student{parentOrContactProperName}Associations",
+                            Key = "StudentParentOrContactAssociationCollectionName"
                         });
 
                         var jsonString = JsonConvert.SerializeObject(
@@ -309,7 +310,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         {
                             _clientAppRepo.AddApiClientOwnershipTokens(client.ApiClientOwnershipTokens, apiClient.ApiClientId);
                         }
-
                     }
 
                     if (app.Profiles != null)
