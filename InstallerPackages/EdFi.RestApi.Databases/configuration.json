@@ -6,6 +6,8 @@
     "EdFi_Master": "server=(local);trusted_connection=True;database=master;Application Name=EdFi.Ods.WebApi"
   },
   "InstallType": "Sandbox",
+  "Tenants": {
+  },
   "ApiSettings": {
     "Engine": "SQLServer",
     "ExtensionVersion": "1.1.0",

@@ -6,6 +6,8 @@
     "EdFi_Master": "host=localhost;port=5432;username=postgres;database=postgres;Application Name=EdFi.Ods.WebApi"
   },
   "InstallType": "Sandbox",
+  "Tenants": {
+  },  
   "ApiSettings": {
     "Engine": "PostgreSQL",
     "ExtensionVersion": "1.1.0",
