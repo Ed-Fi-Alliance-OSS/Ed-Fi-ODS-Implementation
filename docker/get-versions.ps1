@@ -21,10 +21,16 @@
     not exist.
 
 .OUTPUTS
-    Sets the following environment variables: $env:ODS_MINIMAL_VERSION
-        $env:TPDM_MINIMAL_VERSION $env:ODS_POPULATED_VERSION
-        $env:TPDM_POPULATED_VERSION $env:ADMIN_VERSION $env:SECURITY_VERSION
-        $env:API_VERSION $env:SWAGGER_VERSION
+    Sets the following environment variables: 
+    - $env:ODS_MINIMAL_VERSION
+    - $env:TPDM_MINIMAL_VERSION
+    - $env:ODS_POPULATED_VERSION
+    - $env:TPDM_POPULATED_VERSION
+    - $env:ADMIN_VERSION
+    - $env:SECURITY_VERSION
+    - $env:API_VERSION
+    - $env:SWAGGER_VERSION
+    - $env:SANDBOX_VERSION
 #>
 param(
     [string]
@@ -155,3 +161,4 @@ $env:ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin
 $env:SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.PostgreSQL.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
 $env:API_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.WebApi.Standard.4.0.0 -PackageVersion $PackageVersion -Prerelease)".Trim()
 $env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SwaggerUI -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SandboxAdmin -PackageVersion $PackageVersion -Prerelease)".Trim()

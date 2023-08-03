@@ -19,6 +19,7 @@
     Security: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Security.PostgreSQL/overview
     SwaggerUI: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SwaggerUI/overview
     TPDM: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL/overview
+    SandboxAdmin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
 .EXAMPLE
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
     ./build-images.ps1 -TagBase MyName
@@ -66,6 +67,11 @@ param (
     [Parameter()]
     [string]
     $SwaggerVersion = $env:SWAGGER_VERSION,
+
+    # NuGet package version for the Ed-Fi Sandbox Admin web application.
+    [Parameter()]
+    [string]
+    $SandboxVersion = $env:SANDBOX_VERSION,
 
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
@@ -168,3 +174,6 @@ Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -BuildArgs "--build-a
 Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
 Invoke-Build -ImageName ods-api-swaggerui -Path alpine -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
