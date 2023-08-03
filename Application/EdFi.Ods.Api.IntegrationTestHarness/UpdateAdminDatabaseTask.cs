@@ -142,7 +142,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true, 
-                            Value = $"{parentOrContactProperName.ToLower()}UniqueId",
+                            Value = $"{parentOrContactProperName}UniqueId",
                             Key = "ParentOrContactUniqueIdName"
                         });
                     
