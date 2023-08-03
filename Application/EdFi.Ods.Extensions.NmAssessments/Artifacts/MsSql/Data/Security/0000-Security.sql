@@ -19,7 +19,7 @@ INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName]
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
 VALUES ('nmStudentAssessment', 'nmStudentAssessment'
-        ,'http://ed-fi.org/ods/identity/claims/nmped/nmStudentAssessment'
+        ,'http://ed-fi.org/ods/identity/claims/nmassessments/nmStudentAssessment'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 -- *** Descriptors Security -- Adding these under the inherited permissions from System Descriptors ***
@@ -27,8 +27,8 @@ VALUES ('nmStudentAssessment', 'nmStudentAssessment'
 
 
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
-('standardAchievedCodeDescriptor','standardAchievedCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/standardAchievedCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmped/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nmped/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
+('standardAchievedCodeDescriptor','standardAchievedCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/standardAchievedCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
 
 
