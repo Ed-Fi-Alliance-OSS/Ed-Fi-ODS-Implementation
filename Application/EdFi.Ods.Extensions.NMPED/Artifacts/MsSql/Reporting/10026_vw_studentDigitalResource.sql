@@ -1,3 +1,5 @@
+
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -11,6 +13,7 @@
  *
  */
 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentDigitalResources] AS 
 WITH cte_Descriptors AS 
 	(	SELECT DescriptorId, CodeValue, Description
 		FROM edfi.Descriptor WITH (NOLOCK)
@@ -57,6 +60,7 @@ SELECT
 	,InternetPerformanceInResidence.CodeValue			'InternetPerformanceInResidenceCode'
 	,InternetPerformanceInResidence.Description			'InternetPerformanceInResidenceDescription'
 	,SEOA.CreateDate
+	,SEOA.LastModifiedDate
 FROM 
 	edfi.StudentEducationOrganizationAssociation SEOA WITH (NOLOCK)
 
@@ -83,4 +87,6 @@ FROM
 
 	LEFT JOIN cte_Descriptors InternetPerformanceInResidence 
 		ON InternetPerformanceInResidence.DescriptorId = SEOA.InternetPerformanceInResidenceDescriptorId
+
+GO
 

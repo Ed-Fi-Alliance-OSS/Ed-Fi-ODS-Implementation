@@ -8,9 +8,15 @@
  * Date:	03-20-2023
  * Desc:	This script creates a studentSectionAssociations view
  *			from the studentSectionAssociations Ed-Fi Resource
+ 
+ * Alt Id:	 001
+ * By:		 Jesse Kain | IT Contractor
+ * Email:	 douglas.kain@ped.nm.gov
+ * Date:	 07/12/2023
+ * Alt Desc: Added DistOrgType, LocOrgType, and Student Grade Level
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_studentSectionAssociations AS 
+CREATE OR ALTER VIEW [nmped_rpt].[vw_studentSectionAssociations] AS 
 WITH cte_Descriptors AS (
 	SELECT
 		 DescriptorId
@@ -21,21 +27,26 @@ WITH cte_Descriptors AS (
 	WHERE
 		Namespace IN ('uri://ed-fi.org/RepeatIdentifierDescriptor'
 					 ,'uri://ed-fi.org/AttemptStatusDescriptor'
-					 ,'uri://nmped.org/SpecialProgramCodeDescriptor'))
+					 ,'uri://nmped.org/SpecialProgramCodeDescriptor'
+					 ,'uri://nmped.org/GradeLevelDescriptor'))
 
-SELECT
+SELECT DISTINCT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
 	,VDL.DistrictCode
 	,VDL.DistrictName
+	,VDL.DistrictOrgType	-- Alt ID 001							   
 	,VDL.EducationOrganizationId_School
 	,VDL.LocationCode
 	,VDL.SchoolName	
+	,VDL.LocationOrgType	-- Alt ID 001							   
 
 	--resource documentation starts
+	,S.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname
+	,EntryGradeLevel.CodeValue			[GradeLevel]									  
 	,SSA.BeginDate
 	,SSA.LocalCourseCode
 	,SSA.SchoolId
@@ -63,6 +74,10 @@ FROM
 	JOIN edfi.Student S WITH (NOLOCK) 
 		ON S.StudentUSI = SSA.StudentUSI
 
+	-- for student's grade level							
+	JOIN edfi.StudentSchoolAssociation SSA_School WITH (NOLOCK)																	  
+		ON SSA_School.StudentUSI = SSA.StudentUSI																
+		AND SSA_School.SchoolId = SSA.SchoolId													  
 	JOIN nmped.StudentSectionAssociationExtension SSAE WITH (NOLOCK)
 		ON SSAE.BeginDate = SSA.BeginDate
 		AND SSAE.LocalCourseCode = SSA.LocalCourseCode
@@ -83,3 +98,8 @@ FROM
 
 	LEFT JOIN cte_Descriptors SpecialProgramCode WITH (NOLOCK)
 		ON SpecialProgramCode.DescriptorId = SSAE.SpecialProgramCodeDescriptorId
+	-- student's grade level					 
+	LEFT JOIN cte_Descriptors EntryGradeLevel																  
+		ON EntryGradeLevel.DescriptorId = SSA_School.EntryGradeLevelDescriptorId																							
+GO
+

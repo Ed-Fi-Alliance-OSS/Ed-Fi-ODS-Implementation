@@ -18,6 +18,33 @@ BEGIN*/
 	INSERT INTO nmped.LevelOfIntegrationDescriptor (LevelOfIntegrationDescriptorId) values (@@IDENTITY);
 /*END;*/
 
+/* SchoolTypeDescriptors */
+-- Empty the descriptor table, we just want the new descriptors there
+DELETE FROM edfi.SchoolTypeDescriptor
+
+-- Insert new SchoolType Descriptors more in line with EdFacts and more informative
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/SchoolTypeDescriptor','1','Regular School','A regular school is a public elementary/secondary school that does not focus primarily on career and technical, special, or alternative education, although it may provide these programs in addition to a regular curriculum.')
+INSERT INTO edfi.SchoolTypeDescriptor (SchoolTypeDescriptorId) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/SchoolTypeDescriptor','2','Special Education School','A special education school is a public elementary/secondary school that focuses primarily on serving the educational needs of students with disabilities (IDEA) and which adapts curriculum, materials, or instruction for these students.')
+INSERT INTO edfi.SchoolTypeDescriptor (SchoolTypeDescriptorId) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/SchoolTypeDescriptor','3','Career and Technical Education School','A career and technical education school is a public elementary/secondary school that focuses primarily on providing secondary students with an occupationally relevant or career–related curriculum, including formal preparation for technical or professional occupations.')
+INSERT INTO edfi.SchoolTypeDescriptor (SchoolTypeDescriptorId) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/SchoolTypeDescriptor','4','Alternative Education School','An alternative school is a public elementary or secondary school that addresses the needs of students that typically cannot be met in a regular school program and is designed to meet the needs of students with academic difficulties, students with discipline problems, or both students with academic difficulties and discipline problems.')
+INSERT INTO edfi.SchoolTypeDescriptor (SchoolTypeDescriptorId) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description])
+VALUES ('uri://nmped.org/SchoolTypeDescriptor','5','Reportable Program','The permitted value “reportable program” is available for SEAs that have data to report to EDFacts at the school level that the SEA has determined does not meet the definition of a public elementary/secondary school.')
+INSERT INTO edfi.SchoolTypeDescriptor (SchoolTypeDescriptorId) VALUES (@@IDENTITY);
+
+/* END SchoolTypeDescriptors */
+
 -- Charter Status descriptors
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/CharterStatusDescriptor','NOT A CHARTER','NOT A CHARTER','Not a charter');
@@ -3689,6 +3716,14 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 */
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+VALUES ('uri://nmped.org/AttendanceEventCategoryDescriptor','Excused Half Day Absence','Excused Half Day Absence','Excused Half Day Absence');
+INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+VALUES ('uri://nmped.org/AttendanceEventCategoryDescriptor','Unexcused Half Day Absence','Unexcused Half Day Absence','Unexcused Half Day Absence');
+INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) VALUES (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 	values ('uri://nmped.org/AttendanceEventCategoryDescriptor','Excused Absence','Excused Absence','Excused Absence');
 	INSERT INTO edfi.AttendanceEventCategoryDescriptor(AttendanceEventCategoryDescriptorid) values (@@IDENTITY);
 
@@ -3955,7 +3990,7 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	values ('uri://nmped.org/SexDescriptor','F','Female','Female');
 	INSERT INTO edfi.SexDescriptor (SexDescriptorid) values (@@IDENTITY);
 
-
+/*Food Service Participation Descriptors - Used in SchoolFoodServiceProgramService subcollection in SFSPA*/
 DELETE FROM edfi.Descriptor WHERE Namespace = 'uri://ed-fi.org/SchoolFoodServiceProgramServiceDescriptor'
 
 
@@ -3968,8 +4003,23 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 	INSERT INTO edfi.SchoolFoodServiceProgramServiceDescriptor (SchoolFoodServiceProgramServiceDescriptorid) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-	values ('uri://nmped.org/SchoolFoodServiceProgramServiceDescriptor','Not participating.','','Not participating as Free or Reduced. (Students who pay full price for their school meals)');
+	values ('uri://nmped.org/SchoolFoodServiceProgramServiceDescriptor','Not participating','Not participating','Not participating as Free or Reduced. (Students who pay full price for their school meals)');
 	INSERT INTO edfi.SchoolFoodServiceProgramServiceDescriptor (SchoolFoodServiceProgramServiceDescriptorid) values (@@IDENTITY);
+
+/*Food Service Eligibility Descriptors - Used in ParticipationStatus subcollection in SFSPA*/
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/ParticipationStatusDescriptor','F-Eligible','Eligible for Free','Eligible for Free');
+	INSERT INTO edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/ParticipationStatusDescriptor','R-Eligible','Reduced','Reduced');
+	INSERT INTO edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorid) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+	values ('uri://nmped.org/ParticipationStatusDescriptor','Not participating-Eligibility','Not participating Eligibility','Not participating as Free or Reduced. This is for students that pay full price for their school meals.');
+	INSERT INTO edfi.ParticipationStatusDescriptor (ParticipationStatusDescriptorid) values (@@IDENTITY);
+
 
 
 

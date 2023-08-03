@@ -1,3 +1,5 @@
+
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -11,6 +13,7 @@
  *
  */
 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentCharacteristic] AS 
 WITH cte_Descriptors AS (
 	SELECT 
 		 DescriptorId
@@ -42,6 +45,8 @@ SELECT
 	,StudentCharacteristic.Description		'StudentCharacteristicDescription'
 	,GiftedLevelOfIntegration.CodeValue		'GiftedLevelOfIntegrationCode'
 	,GiftedLevelOfIntegration.Description	'GiftedLevelOfIntegrationDescription'
+
+	,SEOASC.CreateDate
 FROM
 	edfi.StudentEducationOrganizationAssociationStudentCharacteristic SEOASC WITH (NOLOCK)
 
@@ -61,3 +66,5 @@ FROM
 
 	LEFT JOIN cte_Descriptors GiftedLevelOfIntegration
 		ON GiftedLevelOfIntegration.DescriptorId = SEOASCE.GiftedLevelOfIntegrationDescriptorId
+GO
+

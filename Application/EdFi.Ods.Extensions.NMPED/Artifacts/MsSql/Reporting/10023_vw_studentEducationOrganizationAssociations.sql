@@ -11,6 +11,7 @@
  * 
  */
 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentEducationOrganizationAssociations] AS 
 WITH cte_Descriptors AS (
 	SELECT 
 		 DescriptorId
@@ -48,7 +49,11 @@ SELECT
 	,LastSurname
 	,Sex.CodeValue								'Sex Code'
 	,Sex.Description							'Sex Description'
-	,HispanicLatinoEthnicity
+	,CASE HispanicLatinoEthnicity
+		WHEN '1' THEN 'Y'
+		WHEN '0' THEN 'N'
+		ELSE NULL
+		END AS 'HispanicLatinoEthnicity'
 	,LimitedEnglishProficiency.CodeValue		'LimitedEnglishProficiencyCode'
 	,LimitedEnglishProficiency.Description		'LimitedEnglishProficiencyDescription'
 	,GenderIdentity.CodeValue					'GenderIdentityCode'
@@ -58,6 +63,9 @@ SELECT
 	,DentalExaminationVerification.CodeValue	'DentalExaminationVerificationCode'
 	,DentalExaminationVerification.Description	'DentalExaminationVerificationDescription'
 	,Grade09Entry
+
+	,SEOA.CreateDate
+	,SEOA.LastModifiedDate
 
 FROM
 	edfi.StudentEducationOrganizationAssociation SEOA WITH (NOLOCK)
@@ -86,3 +94,4 @@ FROM
 
 	LEFT JOIN cte_Descriptors DentalExaminationVerification
 		ON DentalExaminationVerification.DescriptorId = SEOAE.DentalExaminationVerificationCodeDescriptorId
+GO

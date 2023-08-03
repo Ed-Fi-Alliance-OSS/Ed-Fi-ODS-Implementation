@@ -1,3 +1,4 @@
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -11,7 +12,7 @@
  *
  */
 
-
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentAddress] AS 
 WITH cte_Descriptors AS 
 (	SELECT
 		DescriptorId,
@@ -72,3 +73,5 @@ FROM
 
 	LEFT JOIN cte_Descriptors AddressType WITH (NOLOCK) 
 		ON AddressType.DescriptorId = SEOAA.AddressTypeDescriptorId
+GO
+

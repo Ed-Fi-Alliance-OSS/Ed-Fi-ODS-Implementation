@@ -16,7 +16,7 @@
  * Alt Desc:<ALTERATION DESCRIPTION>
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_StudentSchoolSpecialEdGifted AS 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_StudentSchoolSpecialEdGifted] AS 
 
 -- Get Descriptors in CTE to improve performance
 WITH cte_Descriptors AS (
@@ -51,6 +51,7 @@ SELECT
 	,SSA.StudentUSI
 	,S.StudentUniqueId
 	,S.LastSurname + ', ' + S.FirstName AS [StudentName]
+	,S.BirthDate
 	,SSA.EntryDate
 	,SSA.SchoolYear
 	,EntryGradeLevel.CodeValue AS [GradeLevel]
@@ -102,3 +103,4 @@ LEFT JOIN cte_Descriptors Gifted_Integration WITH (NOLOCK)
 LEFT JOIN cte_Descriptors Gifted_Characteristic WITH (NOLOCK)
 	ON (Gifted_Characteristic.DescriptorId = SEOASCE.StudentCharacteristicDescriptorId)
 GO
+

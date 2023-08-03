@@ -27,6 +27,8 @@ SELECT
 	--resource documentation starts
 	,StudentUniqueId
 	,SSAE.StudentUSI
+	,S.FirstName
+	,S.LastSurname
 	,AttendanceEventCategory.CodeValue		[AttendanceEventCategoryCode]
 	,AttendanceEventCategory.Description	[AttendanceEventCategoryDescription]
 	,EventDate

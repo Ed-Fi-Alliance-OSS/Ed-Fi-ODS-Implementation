@@ -8,9 +8,27 @@
  * Date:	03-20-2023
  * Desc:	This script creates a staffEducationOrganizationEmploymentAssociations view
  *			from the staffEducationOrganizationEmploymentAssociations Ed-Fi Resource
- */
+ 
+* Alt Id: 001 (Increment value each change)
+* By: Cody Misplay | App III
+* Email: cody.misplay@ped.nm.gov
+* Date: 07/13/2023
+* Alt Desc: Updated view to query the StaffIdentificationCode table for StaffId and CertNum columns
+*			
+*/
 
 CREATE OR ALTER VIEW nmped_rpt.vw_staffEducationOrganizationEmploymentAssociations AS 
+
+WITH cte_StaffIdentification AS (
+SELECT   SIC.StaffUSI
+		,SIC.AssigningOrganizationIdentificationCode
+		,StaffIdSystem.CodeValue AS [StaffIdSystem]
+		,SIC.IdentificationCode
+FROM edfi.StaffIdentificationCode SIC WITH (NOLOCK)
+LEFT JOIN edfi.Descriptor StaffIdSystem WITH (NOLOCK) ON (StaffIdSystem.DescriptorId = SIC.StaffIdentificationSystemDescriptorId)
+WHERE StaffIdSystem.CodeValue IN ('SSN', 'Professional Certificate')
+)
+
 SELECT 
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -41,6 +59,9 @@ SELECT
 	,NationalCertified
 	,TeacherOrPrincipalYearsInDistrict
 	,TeacherOrPrincipalYearsOverall
+	
+	,ID_SSN.IdentificationCode AS [StaffId]
+	,ID_Cert.IdentificationCode AS [CertNum]
 
 	--table CreateDate/LastModifiedDate
 	,SEOEA.CreateDate										
@@ -74,3 +95,11 @@ FROM
 
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SEOEA.EducationOrganizationId
+		
+	LEFT JOIN cte_StaffIdentification ID_SSN
+		ON (ID_SSN.StaffUSI = SEOEA.StaffUSI AND ID_SSN.StaffIdSystem = 'SSN')
+
+	LEFT JOIN cte_StaffIdentification ID_Cert
+		ON (ID_Cert.StaffUSI = SEOEA.StaffUSI AND ID_Cert.StaffIdSystem = 'Professional Certificate')
+		
+GO

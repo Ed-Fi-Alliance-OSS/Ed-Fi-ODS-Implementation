@@ -52,7 +52,8 @@ SELECT S.[SchoolId]
 	  ,DL.SchoolName
 	  ,S.[LocalEducationAgencyId]
 	  ,DL.DistrictName
-	  ,SchoolTypeDescriptor.[Description] AS [SchoolTypeDescription]
+	  ,SchoolTypeDescriptor.[CodeValue] AS [SchoolTypeCode]
+	  ,SchoolTypeDescriptor.[ShortDescription] AS [SchoolTypeShortDescription]
 	  ,CharterStatusDescriptor.CodeValue AS [CharterStatusCode]
 	  ,CharterStatusDescriptor.[Description] AS [CharterStatusDescription]
 	  ,SchoolCategory.CodeValue AS [SchoolCategoryCode]

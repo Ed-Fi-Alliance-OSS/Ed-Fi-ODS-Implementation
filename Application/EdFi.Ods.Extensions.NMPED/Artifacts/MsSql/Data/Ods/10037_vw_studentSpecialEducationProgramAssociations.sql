@@ -16,7 +16,7 @@
  *
  */
 
-CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentSpecialEducationProgramAssociations]
+CREATE OR ALTER       VIEW [nmped_rpt].[vw_studentSpecialEducationProgramAssociations]
 AS 
 
 WITH cte_Descriptors AS (
@@ -66,81 +66,82 @@ SELECT DISTINCT
 	,VDL.SchoolName
 	
 	--resource documentation starts
-	,StudentUniqueId
+	,S.StudentUniqueId
 	,S.StudentUSI
 	,S.FirstName
 	,S.LastSurname
 	,SSEPA.BeginDate
 	,SSEPA.ProgramName
-	,ProgramType.CodeValue							[ProgramTypeCode]
-	,ProgramType.Description						[ProgramTypeDescription]
+	,ProgramType.CodeValue								AS	[ProgramTypeCode]
+	,ProgramType.[Description]							AS	[ProgramTypeDescription]
 
 
 	--disability subcollection
-	,Disability.CodeValue							[DisabilityCode]
-	,Disability.Description							[DisabilityDescription]
-	,DisabilityDeterminationSourceType.CodeValue	[DisabilityDeterminationSourceTypeCode]
-	,DisabilityDeterminationSourceType.Description	[DisabilityDeterminationSourceTypeDescription]
-	,DisabilityDiagnosis
-	,OrderOfDisability
-	,DisabilityDesignation.CodeValue				[DisabilityDesignationCode]
-	,DisabilityDesignation.Description				[DisabilityDesignationDescription]
+	,Disability.CodeValue								AS	[DisabilityCode]
+	,Disability.[Description]							AS	[DisabilityDescription]
+	,DisabilityDeterminationSourceType.CodeValue		AS	[DisabilityDeterminationSourceTypeCode]
+	,DisabilityDeterminationSourceType.[Description]	AS	[DisabilityDeterminationSourceTypeDescription]
+	,SSEPAD.DisabilityDiagnosis
+	,SSEPAD.OrderOfDisability
+	,DisabilityDesignation.CodeValue					AS	[DisabilityDesignationCode]
+	,DisabilityDesignation.[Description]				AS	[DisabilityDesignationDescription]
 	-- end 
 
-	,EndDate
-	,IdeaEligibility
-	,IEPBeginDate
-	,IEPEndDate
-	,IEPReviewDate
-	,LastEvaluationDate
-	,MedicallyFragile
-	,MultiplyDisabled
---	,participationStatus not collected
---	,programParticipationStatuses not collected
-	,ReasonExited.CodeValue							[ReasonExitedCode]
-	,ReasonExited.Description						[ReasonExitedDescription]
-	,SchoolHoursPerWeek
-	,ServedOutsideOfRegularSession
+	,GSPA.EndDate
+	,SSEPA.IdeaEligibility
+	,SSEPA.IEPBeginDate
+	,SSEPA.IEPEndDate
+	,SSEPA.IEPReviewDate
+	,SSEPA.LastEvaluationDate
+	,SSEPA.MedicallyFragile
+	,SSEPA.MultiplyDisabled
+--	,SSEPA.participationStatus not collected
+--	,SSEPA.programParticipationStatuses not collected
+	,ReasonExited.CodeValue								AS	[ReasonExitedCode]
+	,ReasonExited.[Description]							AS	[ReasonExitedDescription]
+	,SSEPA.SchoolHoursPerWeek
+	,GSPA.ServedOutsideOfRegularSession
 	
 	--serviceProvider subcollection
 	,SSEPASP.PrimaryProvider
-	,Staff.StaffUniqueId							[SpecialEducationStaffUniqueId]
+	,Staff.StaffUniqueId								AS	[SpecialEducationStaffUniqueId]
+	,Staff.StaffUSI
 	--end
 
-	,SpecialEducationHoursPerWeek
+	,SSEPA.SpecialEducationHoursPerWeek
 	
 	--services subcollection
-	,SpecialEducationProgramService.CodeValue		[SpecialEducationProgramServiceCode]
-	,SpecialEducationProgramService.Description		[SpecialEducationProgramServiceDescription]
-	,Staff_Service.StaffUniqueId					[SpecialEducationProgramServiceStaffUniqueId]
-	,PrimaryIndicator
-	,ServiceBeginDate
-	,ServiceEndDate
-	,IntegratedServicesStatus
-	,ServiceDuration
+	,SpecialEducationProgramService.CodeValue			AS	[SpecialEducationProgramServiceCode]
+	,SpecialEducationProgramService.[Description]		AS	[SpecialEducationProgramServiceDescription]
+	,Staff_Service.StaffUniqueId						AS	[SpecialEducationProgramServiceStaffUniqueId]
+	,SSEPASEPS.PrimaryIndicator
+	,SSEPASEPS.ServiceBeginDate
+	,SSEPASEPS.ServiceEndDate
+	,SSEPASEPSE.IntegratedServicesStatus
+	,SSEPASEPSE.ServiceDuration
 	--end
 	
-	,SpecialEducationSetting.CodeValue				[SpecialEducationSettingCode]
-	,SpecialEducationSetting.Description			[SpecialEducationSettingDescription]
+	,SpecialEducationSetting.CodeValue					AS	[SpecialEducationSettingCode]
+	,SpecialEducationSetting.[Description]				AS	[SpecialEducationSettingDescription]
 
 	--extensions
-	,AnnualReviewDelayReason.CodeValue				[AnnualReviewDelayReasonCode]
-	,AnnualReviewDelayReason.Description			[AnnualReviewDelayReasonDescription]
-	,ExpectedDiplomaType.CodeValue					[ExpectedDiplomaTypeCode]
-	,ExpectedDiplomaType.Description				[ExpectedDiplomaTypeDescription]
-	,SpecialEducationLevelOfIntegration.CodeValue	[SpecialEducationLevelOfIntegrationCode]
-	,SpecialEducationLevelOfIntegration.Description [SpecialEducationLevelOfIntegrationDescription]
-	,PlannedPostGraduateActivity.CodeValue			[PlannedPostGraduateActivityCode]
-	,PlannedPostGraduateActivity.Description		[PlannedPostGraduateActivityDescription]
-	,PrimaryAreaOfExceptionality.CodeValue			[PrimaryAreaOfExceptionalityCode]
-	,PrimaryAreaOfExceptionality.Description		[PrimaryAreaOfExceptionalityDescription]
-	,SpecialEducationReferralCode.CodeValue			[SpecialEducationReferralCodeCode]
-	,SpecialEducationReferralCode.Description		[SpecialEducationReferralCodeDescription]
-	,TriennialReviewDelayReason.CodeValue			[TriennialReviewDelayReasonCode]
-	,TriennialReviewDelayReason.Description			[TriennialReviewDelayReasonDescription]
-	,AlternateInstruction
-	,BrailleInstruction
-	,ChildCountEducationOrganizationId
+	,AnnualReviewDelayReason.CodeValue					AS	[AnnualReviewDelayReasonCode]
+	,AnnualReviewDelayReason.[Description]				AS	[AnnualReviewDelayReasonDescription]
+	,ExpectedDiplomaType.CodeValue						AS	[ExpectedDiplomaTypeCode]
+	,ExpectedDiplomaType.[Description]					AS	[ExpectedDiplomaTypeDescription]
+	,SpecialEducationLevelOfIntegration.CodeValue		AS	[SpecialEducationLevelOfIntegrationCode]
+	,SpecialEducationLevelOfIntegration.[Description]	AS	[SpecialEducationLevelOfIntegrationDescription]
+	,PlannedPostGraduateActivity.CodeValue				AS	[PlannedPostGraduateActivityCode]
+	,PlannedPostGraduateActivity.[Description]			AS	[PlannedPostGraduateActivityDescription]
+	,PrimaryAreaOfExceptionality.CodeValue				AS	[PrimaryAreaOfExceptionalityCode]
+	,PrimaryAreaOfExceptionality.[Description]			AS	[PrimaryAreaOfExceptionalityDescription]
+	,SpecialEducationReferralCode.CodeValue				AS	[SpecialEducationReferralCodeCode]
+	,SpecialEducationReferralCode.[Description]			AS	[SpecialEducationReferralCodeDescription]
+	,TriennialReviewDelayReason.CodeValue				AS	[TriennialReviewDelayReasonCode]
+	,TriennialReviewDelayReason.[Description]			AS	[TriennialReviewDelayReasonDescription]
+	,SSEPAE.AlternateInstruction
+	,SSEPAE.BrailleInstruction
+	,SSEPAE.ChildCountEducationOrganizationId
 
 FROM 
 	edfi.StudentSpecialEducationProgramAssociation SSEPA WITH (NOLOCK)
@@ -265,3 +266,4 @@ FROM
 	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SSEPA.EducationOrganizationId
 GO
+

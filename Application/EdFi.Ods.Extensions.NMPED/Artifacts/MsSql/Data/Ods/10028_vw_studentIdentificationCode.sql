@@ -1,3 +1,5 @@
+
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -11,6 +13,7 @@
  *
  */
 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentIdentificationCode] AS 
 SELECT 
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -27,6 +30,8 @@ SELECT
 	,StudentIdentificationSystem.CodeValue		'StudentIdentificationSystemCode'
 	,StudentIdentificationSystem.Description	'StudentIdentificationSystemDescription'
 	,AssigningOrganizationIdentificationCode
+
+	,SEOASIC.CreateDate
 FROM
 	edfi.StudentEducationOrganizationAssociationStudentIdentificationCode SEOASIC WITH (NOLOCK)
 
@@ -38,5 +43,6 @@ FROM
 
 	LEFT JOIN edfi.Descriptor StudentIdentificationSystem WITH (NOLOCK)
 		ON StudentIdentificationSystem.DescriptorId = SEOASIC.StudentIdentificationSystemDescriptorId
-ORDER BY
-	StudentUniqueId
+
+GO
+

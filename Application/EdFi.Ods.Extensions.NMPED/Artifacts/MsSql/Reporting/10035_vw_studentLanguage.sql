@@ -1,3 +1,5 @@
+
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -10,7 +12,7 @@
  *			view, to build into a StudEdOrgAssoc sub report
  *
  */
-
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentLanguage] AS
 WITH cte_Descriptors AS 
 (	SELECT
 		DescriptorId,
@@ -62,3 +64,5 @@ FROM
 
 	LEFT JOIN cte_Descriptors LanguageUse WITH (NOLOCK) 
 		ON LanguageUse.DescriptorId = SEOALU.LanguageUseDescriptorId
+GO
+

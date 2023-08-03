@@ -73,6 +73,7 @@ SELECT
 	  ,LunchProgramType.[Description] AS [LunchProgramTypeDescription]
 	  ,VirtualLocationStatus.CodeValue AS [VirtualLocationStatusCode]
 	  ,VirtualLocationStatus.[Description] AS [VirtualLocationStatusDescription]
+	  ,EOE.MagnetLocationIndicator
 
 	  -- EdOrgAddress Stuff, flattened
 	  ,MailingAddress.StreetNumberName AS [MailingAddress_StreetNumberName]
@@ -106,7 +107,7 @@ LEFT JOIN cte_Descriptors LunchProgramType WITH (NOLOCK)
 	ON (LunchProgramType.DescriptorId = EOE.LunchProgramTypeDescriptorId)
 -- Alt Id: 001 -- Descriptor join for extension table
 LEFT JOIN cte_Descriptors VirtualLocationStatus WITH (NOLOCK) 
-	ON (LunchProgramType.DescriptorId = EOE.VirtualLocationStatusDescriptorId)
+	ON (VirtualLocationStatus.DescriptorId = EOE.VirtualLocationStatusDescriptorId)
 
 LEFT JOIN cte_Descriptors OperationalStatusDescriptor WITH (NOLOCK) 
 	ON (OperationalStatusDescriptor.DescriptorId = EO.OperationalStatusDescriptorId)
