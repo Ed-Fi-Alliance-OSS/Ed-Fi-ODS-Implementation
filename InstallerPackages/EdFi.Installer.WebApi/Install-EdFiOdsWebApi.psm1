@@ -479,8 +479,9 @@ function Invoke-TransformWebConfigAppSettings {
                 $settings.ApiSettings.PlainTextSecrets = $true
             }
         }
-        $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
-        $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+        
+        if ($Config.WebApiFeatures.BearerTokenTimeoutMinutes) { $settings.ApiSettings.BearerTokenTimeoutMinutes = $Config.WebApiFeatures.BearerTokenTimeoutMinutes }
+        if ($Config.WebApiFeatures.ExcludedExtensions) { $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions }
         New-JsonFile $settingsFile $settings -Overwrite
     }
 }
