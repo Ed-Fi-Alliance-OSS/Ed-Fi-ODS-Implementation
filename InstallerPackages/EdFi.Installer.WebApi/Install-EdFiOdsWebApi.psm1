@@ -266,7 +266,12 @@ function Install-EdFiOdsWebApi {
         
         # Set the ContextRouteTemplate.
         [string]
-        $OdsContextRouteTemplate
+        $OdsContextRouteTemplate,
+        
+        # Set Encrypt=false for all connection strings
+        # Not recomended for production environment.
+        [switch]
+        $UnEncryptedConnection
     )
 
     Write-InvocationInfo $MyInvocation
@@ -301,6 +306,7 @@ function Install-EdFiOdsWebApi {
         Tenants = $Tenants
         OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
         OdsContextRouteTemplate = $OdsContextRouteTemplate
+        UnEncryptedConnection = $UnEncryptedConnection
     }
 
     $elapsed = Use-StopWatch {
@@ -522,6 +528,11 @@ function Invoke-TransformWebConfigConnectionStrings {
         $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
         $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
+        if ($Config.UnEncryptedConnection) {
+            $adminconnString += ";Encrypt=false"
+            $securityConnString += ";Encrypt=false"
+        }
+        
         $connectionstrings = @{
             ConnectionStrings = @{
                 EdFi_Admin = $adminconnString
@@ -564,6 +575,11 @@ function Invoke-TransformWebConfigMultiTenantConnectionStrings {
             
             $adminconnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
             $securityConnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+            if ($Config.UnEncryptedConnection) {
+                $adminconnString += ";Encrypt=false"
+                $securityConnString += ";Encrypt=false"
+            }
 
             $newSettings.Tenants += @{
                 $tenantKey = @{

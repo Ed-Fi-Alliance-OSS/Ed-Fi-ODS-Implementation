@@ -156,7 +156,12 @@ function Install-EdFiOdsSandboxAdmin {
         
         # Initial client secret to load into the appSettings.config file. Default: Random string value.
         [string]
-        $PrePopulatedSecret
+        $PrePopulatedSecret,
+        
+        # Set Encrypt=false for all connection strings
+        # Not recomended for production environment.
+        [switch]
+        $UnEncryptedConnection
     )
 
     Write-InvocationInfo $MyInvocation
@@ -181,6 +186,7 @@ function Install-EdFiOdsSandboxAdmin {
         UseAlternateUserName       = $UseAlternateUserName 
         PrePopulatedKey = $PrePopulatedKey
         PrePopulatedSecret = $PrePopulatedSecret
+        UnEncryptedConnection = $UnEncryptedConnection
     }
 
     $elapsed = Use-StopWatch {
@@ -315,6 +321,13 @@ function Set-AppSettings {
             $settings = Merge-Hashtables $settings, (Get-DefaultConnectionStringsByEngine)[$Config.Engine], $engine
             New-JsonFile $settingsPath $settings -Overwrite
 
+        }
+
+        if ($Config.UnEncryptedConnection) {
+            $connectionStrings = $settings.ConnectionStrings.Clone()
+            foreach ($connectionStringKey in $connectionStrings.Keys) {
+                $settings.ConnectionStrings[$connectionStringKey] += ";Encrypt=false"
+            }
         }
 
         $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings -PrepopulatedKey: $Config.PrepopulatedKey -PrepopulatedSecret: $Config.PrepopulatedSecret), $Config.Settings
