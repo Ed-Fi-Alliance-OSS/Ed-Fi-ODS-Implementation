@@ -37,6 +37,8 @@ param(
     $PackageVersion = "7.0"
 )
 
+$ErrorActionPreference = "Stop"
+
 # Azure DevOps hosts the Ed-Fi packages, and it requires TLS 1.2
 if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
     [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12

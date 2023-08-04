@@ -9,10 +9,11 @@
 # and secret with the "Ed-Fi Sandbox" claimset.
 
 param(
-    [string]
-    [ValidateSet("minimal", "populated")]
-    $Template = "minimal"
+    [switch]
+    $Hub
 )
+
+$ErrorActionPreference = "Stop"
 
 if (-not (Test-Path ./gateway/ssl/server.crt)) {
     Push-Location gateway
@@ -20,22 +21,22 @@ if (-not (Test-Path ./gateway/ssl/server.crt)) {
     Pop-Location
 }
 
-$odsVersion = "7.0.847"
-$tpdmVersion = "7.0.701"
-if ($Template -eq "populated") {
-    $odsVersion = "7.0.827"
-    $tpdmVersion = "7.0.665"
+./get-versions.ps1
+
+$template = "shared"
+if ($Hub) {
+    $template = "hub"
 }
 
-docker compose -f .\docker-compose-$Template.yml build `
- --build-arg ADMIN_VERSION=7.0.252 `
- --build-arg SECURITY_VERSION=7.0.233 `
- --build-arg ODS_VERSION=$odsVersion `
- --build-arg TPDM_VERSION=$tpdmVersion `
- --build-arg API_VERSION=7.0.1994 `
- --build-arg SWAGGER_VERSION=7.0.1994
+docker compose -f .\docker-compose-$template.yml build `
+ --build-arg ADMIN_VERSION=$env:ADMIN_VERSION `
+ --build-arg SECURITY_VERSION=$env:SECURITY_VERSION `
+ --build-arg ODS_VERSION=$env:ODS_MINIMAL_VERSION `
+ --build-arg TPDM_VERSION=$env:TPDM_MINIMAL_VERSION `
+ --build-arg API_VERSION=$env:API_VERSION `
+ --build-arg SWAGGER_VERSION=$env:SWAGGER_VERSION
 
-docker compose  -f .\docker-compose-$Template.yml up -d
+docker compose  -f .\docker-compose-$template.yml up -d
 
 Start-Sleep -Seconds 10
 
