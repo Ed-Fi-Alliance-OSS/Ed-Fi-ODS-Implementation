@@ -74,13 +74,13 @@ docker compose -f docker-compose-minimal.yml down -v
 
 ```mermaid
 flowchart LR
-    A(Client Application) -->|Raw API Calls| B[ed-fi-gateway]
-    B -->|Raw API Calls| C[ed-fi-ods-api]
-    C --> D[(ed-fi-db-ods-minimal)]
-    C --> E[(ed-fi-db-admin)]
+    A(Client Application) -->|Raw API Calls| B[gateway]
+    B -->|Raw API Calls| C[api]
+    C --> D[(db-ods)]
+    C --> E[(db-admin)]
 
     F(User) -->|API Testing| B
-    B -->|API Testing| G[ed-fi-swagger]
+    B -->|API Testing| G[swagger]
     G --> C
 
     subgraph Container Network
