@@ -10,13 +10,13 @@
 version: "3.8"
 
 services:
-  db-ods-populated:
+  db-ods-minimal:
     build:
-      context: ods-api-db-ods-populated/alpine/pgsql
+      context: ods-api-db-ods-minimal/alpine/pgsql
       dockerfile: Dockerfile
       args:
-        ODS_VERSION: ${ODS_POPULATED_VERSION:-7.0.827}
-        TPDM_VERSION: ${TPDM_POPULATED_VERSION:-7.0.665}
+        ODS_VERSION: ${ODS_MINIMAL_VERSION:-7.0.847}
+        TPDM_VERSION: ${TPDM_MINIMAL_VERSION:-7.0.701}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -76,7 +76,7 @@ services:
     volumes:
       - ${LOGS_FOLDER}:/app/logs
     depends_on:
-      - db-ods-populated
+      - db-ods-minimal
       - db-admin
     restart: always
     container_name: ed-fi-ods-api
@@ -93,8 +93,8 @@ services:
       args:
         SWAGGER_VERSION: ${SWAGGER_VERSION:-7.0.1994}
     environment:
-      SAMPLE_KEY: ${SAMPLE_KEY}
-      SAMPLE_SECRET: ${SAMPLE_SECRET}
+      MINIMAL_KEY: ${MINIMAL_KEY}
+      MINIMAL_SECRET: ${MINIMAL_SECRET}
       WebApiVersionUrl: https://localhost/${ODS_VIRTUAL_NAME:-api}
       PathBase: ${DOCS_VIRTUAL_NAME:-docs}
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
@@ -120,7 +120,7 @@ services:
       - 80:80
     restart: always
     container_name: ed-fi-gateway
-    hostname: ed-fi-gateway
+    hostname: nginx
     volumes:
       - ./gateway/ssl/:/ssl/
     depends_on:
@@ -133,4 +133,4 @@ volumes:
     name: vol-nuget-db-admin
   vol-db-ods:
     driver: local
-    name: vol-nuget-db-ods-populated
+    name: vol-nuget-db-ods-minimal
