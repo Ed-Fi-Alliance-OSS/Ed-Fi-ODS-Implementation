@@ -50,7 +50,7 @@ services:
       API_MODE: sharedinstance
       ODS_POSTGRES_HOST: ed-fi-db-ods
       ADMIN_POSTGRES_HOST: ed-fi-db-admin
-      PATH_BASE: ${ODS_VIRTUAL_NAME:-api}
+      PATH_BASE: ""
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
       API_HEALTHCHECK_TEST: ${API_HEALTHCHECK_TEST?Please consult env.example to set the API healthcheck test}
       NPG_POOLING_ENABLED: ${NPG_POOLING_ENABLED:-false}
@@ -61,6 +61,8 @@ services:
       ODS_CONNECTION_STRING_ENCRYPTION_KEY: ${ODS_CONNECTION_STRING_ENCRYPTION_KEY}
     volumes:
       - ${LOGS_FOLDER}:/app/logs
+    ports:
+      - 8001:80
     depends_on:
       - db-ods
       - db-admin
@@ -75,11 +77,12 @@ services:
   swagger:
     image: edfialliance/ods-api-swaggerui:pre
     environment:
-      MINIMAL_KEY: ${MINIMAL_KEY}
-      MINIMAL_SECRET: ${MINIMAL_SECRET}
-      WebApiVersionUrl: https://localhost/${ODS_VIRTUAL_NAME:-api}
-      PathBase: ${DOCS_VIRTUAL_NAME:-docs}
+      SAMPLE_KEY: ${MINIMAL_KEY}
+      SAMPLE_SECRET: ${MINIMAL_SECRET}
+      VERSION_URL: http://localhost:8001
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
+    ports:
+      - 8002:80
     depends_on:
       - api
     restart: always
@@ -89,25 +92,6 @@ services:
       test: ${SWAGGER_HEALTHCHECK_TEST}
       start_period: "60s"
       retries: 3
-
-  nginx:
-    build:
-      context: gateway
-      dockerfile: Dockerfile
-    environment:
-      ODS_VIRTUAL_NAME: ${ODS_VIRTUAL_NAME:-api}
-      SWAGGER_VIRTUAL_NAME: ${SWAGGER_VIRTUAL_NAME:-swagger}
-    ports:
-      - 443:443
-      - 80:80
-    restart: always
-    container_name: ed-fi-gateway
-    hostname: ed-fi-gateway
-    volumes:
-      - ./gateway/ssl/:/ssl/
-    depends_on:
-      - api
-      - swagger
 
 volumes:
   vol-db-admin:
