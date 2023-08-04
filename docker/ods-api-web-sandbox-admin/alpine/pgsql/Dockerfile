@@ -17,8 +17,8 @@ ENV POSTGRES_PORT=5432
 ENV PGBOUNCER_LISTEN_PORT=6432
 ENV NPG_POOLING_ENABLED=false
 ENV ODS_VIRTUAL_NAME=api
-ENV PathBase=admin
-ENV OAuthUrl="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
+ENV PATH_BASE=sandbox
+ENV OAUTH_URL="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get fopr LINQ expression to work Disable the
