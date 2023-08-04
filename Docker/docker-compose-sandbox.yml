@@ -67,7 +67,7 @@ services:
       API_MODE: sandbox
       ODS_POSTGRES_HOST: ed-fi-db-ods
       ADMIN_POSTGRES_HOST: ed-fi-db-admin
-      PATH_BASE: ${ODS_VIRTUAL_NAME:-api}
+      PATH_BASE: ""
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
       API_HEALTHCHECK_TEST: ${API_HEALTHCHECK_TEST?Please consult env.example to set the API healthcheck test}
       NPG_POOLING_ENABLED: ${NPG_POOLING_ENABLED:-false}
@@ -78,6 +78,8 @@ services:
       ODS_CONNECTION_STRING_ENCRYPTION_KEY: ${ODS_CONNECTION_STRING_ENCRYPTION_KEY}
     volumes:
       - ${LOGS_FOLDER}:/app/logs
+    ports:
+      - 8001:80
     depends_on:
       - db-ods-sandbox
       - db-admin
@@ -98,8 +100,10 @@ services:
     environment:
       SAMPLE_KEY: ${POPULATED_KEY}
       SAMPLE_SECRET: ${POPULATED_SECRET}
-      VERSION_URL: https://localhost/${ODS_VIRTUAL_NAME:-api}
+      VERSION_URL: http://localhost:8001
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
+    ports:
+      - 8002:80
     depends_on:
       - api
     restart: always
@@ -117,8 +121,8 @@ services:
       args:
         SANDBOX_VERSION: ${SANDBOX_VERSION:-7.0.2195}
     environment:
-      PATH_BASE: "sandbox"
-      OAUTH_URL: "https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
+      PATH_BASE: sandbox
+      OAUTH_URL: http://localhost:8001/oauth/
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_PORT: 5432      
@@ -135,31 +139,13 @@ services:
       MINIMAL_SECRET: ${MINIMAL_SECRET:-minimalSecret}
       POPULATED_KEY: ${POPULATED_KEY:-populatedKey}
       POPULATED_SECRET: ${POPULATED_SECRET:-populatedSecret}
+    ports:
+      - 8003:80
     depends_on:
       - api
     restart: always
     container_name: ed-fi-sandbox-admin
     hostname: ed-fi-sandbox-admin
-
-  nginx:
-    build:
-      context: gateway
-      dockerfile: Dockerfile
-    environment:
-      ODS_VIRTUAL_NAME: ${ODS_VIRTUAL_NAME:-api}
-      SWAGGER_VIRTUAL_NAME: ${SWAGGER_VIRTUAL_NAME:-swagger}
-      SANDBOX_VIRTUAL_NAME: ${SANDBOX_VIRTUAL_NAME:-sandbox}
-    ports:
-      - 443:443
-      - 80:80
-    restart: always
-    container_name: ed-fi-gateway
-    hostname: ed-fi-gateway
-    volumes:
-      - ./gateway/ssl/:/ssl/
-    depends_on:
-      - api
-      - swagger
 
 volumes:
   vol-db-admin:
