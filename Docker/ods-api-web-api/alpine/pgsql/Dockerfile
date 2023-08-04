@@ -17,7 +17,7 @@ ENV POSTGRES_PORT=5432
 ENV PGBOUNCER_LISTEN_PORT=6432
 ENV NPG_POOLING_ENABLED=false
 ENV ODS_VIRTUAL_NAME=api
-ENV ApiSettings__PathBase="${ODS_VIRTUAL_NAME}"
+ENV PATH_BASE="${ODS_VIRTUAL_NAME}"
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get LINQ expression to work and disable the

@@ -14,7 +14,7 @@ LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV ODS_VIRTUAL_NAME=api
-ENV ApiSettings__PathBase="${ODS_VIRTUAL_NAME}"
+ENV PATH_BASE="${ODS_VIRTUAL_NAME}"
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get LINQ expression to work and disable the
