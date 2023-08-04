@@ -136,7 +136,7 @@ function Invoke-Build {
         $mssql = "-mssql"
     }
 
-    Write-Message "Building ods-api-db-admin"
+    Write-Message "Building $ImageName"
     Push-Location $ImageName/$Path
     # Full semantic version
     Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
@@ -148,6 +148,7 @@ function Invoke-Build {
     &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):pre$mssql
 
     if ($Push) {
+        Write-Message "Pushing $ImageName"
         &docker push edfialliance/$($ImageName):$semVer$mssql
         &docker push edfialliance/$($ImageName):$PackageVersion$mssql
         &docker push edfialliance/$($ImageName):$major$mssql
@@ -166,7 +167,7 @@ Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -BuildArgs "--build-
 Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
     -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
 
-Invoke-Build -ImageName ods-api-db-ods-populated -Path alpine/pgsql `
+Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
     -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
 
 Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -BuildArgs "--build-arg API_VERSION=$ApiVersion"

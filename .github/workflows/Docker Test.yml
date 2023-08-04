@@ -28,7 +28,7 @@ jobs:
         image:
           - ods-api-db-admin/alpine/pgsql
           - ods-api-db-ods-minimal/alpine/pgsql
-          - ods-api-db-ods-populated/alpine/pgsql
+          - ods-api-db-ods-sandbox/alpine/pgsql
           - ods-api-swaggerui/alpine
           - ods-api-web-api/alpine/mssql
           - ods-api-web-api/alpine/pgsql
