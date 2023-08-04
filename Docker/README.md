@@ -6,9 +6,9 @@ This directory contains dockerfiles and related scripts, as needed, for the
 official binary release images of the ODS / API platform.
 
 As appropriate, these images are built from the same NuGet packages that are
-distributed as the "binary release" of the platform. This source repository may
-also include dockerfiles that build from source code. These are intended for
-end-to-end and local testing, not for distribution.
+distributed as the "binary release" of the platform. This source repository also
+includes sample Docker Compose files. These are intended for end-to-end and
+local testing, not for production deployments.
 
 The [Ed-Fi-ODS-Docker](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker)
 repository continues to hold more complex Docker Compose scripts that also
@@ -74,17 +74,14 @@ docker compose -f docker-compose-minimal.yml down -v
 
 ```mermaid
 flowchart LR
-    A(Client Application) -->|Raw API Calls| B[gateway]
-    B -->|Raw API Calls| C[api]
+    A(Client Application) -->|Raw API Calls| C[api]
     C --> D[(db-ods)]
     C --> E[(db-admin)]
 
-    F(User) -->|API Testing| B
-    B -->|API Testing| G[swagger]
+    F(User) -->|API Testing| G[swagger]
     G --> C
 
     subgraph Container Network
-        B
         C
         D
         E
@@ -101,20 +98,17 @@ URL's, assuming default virtual names from `.env.example`:
 
 ```mermaid
 flowchart LR
-    A(Client Application) -->|Raw API Calls| B[gateway]
-    B -->|Raw API Calls| C[api]
+    A(Client Application) -->|Raw API Calls| C[api]
     C --> D[(db-ods-sandbox)]
     C --> E[(db-admin)]
-    B --> H[sandbox]
     H --> D
     H --> E
-
-    F(User) -->|API Testing| B
-    B -->|API Testing| G[swagger]
     G --> C
 
+    F(User) -->|API Testing| G[swagger]
+    F -->|Credential Mgmt| H[sandbox]
+
     subgraph Container Network
-        B
         C
         D
         E
