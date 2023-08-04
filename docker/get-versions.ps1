@@ -63,11 +63,16 @@ function Invoke-SemanticSort {
         $Versions
     )
 
+    $major = @{label="major";expression={[int]$_.Split(".")[0]}}
+    $minor = @{label="minor";expression={[int]$_.Split(".")[1]}}
+    $patch = @{label="patch";expression={[int]$_.Split(".")[2]}}
+
     $Versions `
-        | Select-Object {$_.Split(".")} `
-        | Sort-Object {$_.'$_.Split(".")'[0], $_.'$_.Split(".")'[1], $_.'$_.Split(".")'[2]} -Descending `
-        | ForEach-Object { $_.'$_.Split(".")' -Join "." }
+        | Select-Object $major, $minor, $patch `
+        | Sort-Object major, minor, patch -Descending
+        | ForEach-Object { "$($_.major).$($_.minor).$($_.patch)" }
 }
+
 
 <#
 .SYNOPSIS
@@ -125,7 +130,6 @@ function Get-NugetPackageVersion {
                         | Select-Object -Property "@id" -ExpandProperty "@id"
 
     # Pad the package version out to three part semver
-    $versionSearch
     switch ($PackageVersion.split(".").length) {
         1 { $versionSearch = "$PackageVersion.*.*"}
         2 { $versionSearch = "$PackageVersion.*" }
