@@ -6,32 +6,42 @@ This directory contains dockerfiles and related scripts, as needed, for the
 official binary release images of the ODS / API platform.
 
 As appropriate, these images are built from the same NuGet packages that are
-distributed as the "binary release" of the platform. This source repository also
-includes dockerfiles that build from source code. These are intended for
+distributed as the "binary release" of the platform. This source repository may
+also include dockerfiles that build from source code. These are intended for
 end-to-end and local testing, not for distribution.
 
 The [Ed-Fi-ODS-Docker](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker)
-continues to hold more complex Docker Compose scripts that also demonstrate
-loading tools from other repositories, and serve as a basis for potential
-production releases.
+repository continues to hold more complex Docker Compose scripts that also
+demonstrate loading tools from other repositories, and serve as a starting point
+for potential production releases.
 
 ## Docker Compose Files
 
-There are two compose files provided for local testing: one that loads the
-"minimal template" and another that loads the "populated template" version of
-the ODS database.
+There are three compose files provided for local testing:
+
+1. `docker-compose-hub.yml`: loads images that have already been published to
+   Docker Hub, running in "sharedinstance" mode.
+2. `docker-compose-sandbox.yml`: creates and loads local images from NuGet
+   packages, running in "sandbox" mode with both the minimal (descriptors only)
+   and populated (descriptors and fake sample data) templates available.
+3. `docker-compose-shared.yml`: creates and loads local images from NuGet
+   packages, running in "sharedinstance" (aka "single tenant, single year") mode
+   with only the minimal template database containing pre-loaded descriptors.
 
 > **Warning** these are not appropriate for production use!
 
-Both compose files expect the presence of a `.env` file. You can copy
-`.env.example` and customize it for both. The commands below will use your
-`.env` file automatically; you can use an alternate file name if you add an
-argument like `--env-file {filePath}` to the `docker compose up` command.
+These compose files expect the presence of a `.env` file. You can copy
+`.env.example` and customize it for use with any of the three. The commands
+below will use your `.env` file automatically; you can use an alternate file
+name if you add an argument like `--env-file {filePath}` to the `docker compose
+up` command.
 
-In both cases there are no credentials at startup. The script
-[bootstrap.ps1](./bootstrap.ps1) creates a set of initial credentials with
-access to all resources, using the `Ed-Fi Sandbox` claimset. It also creates a
-self-signed TLS certificate.
+### Credentials for Shared Instance
+
+The two "sharedinstance" mode compose files do not have any credentials at
+startup. The script [bootstrap.ps1](./bootstrap.ps1) creates a set of initial
+credentials with access to all resources, using the `Ed-Fi Sandbox` claimset for
+convenience. It also creates a self-signed TLS certificate.
 
 * Key: `sampleKey`
 * Secret: `sampleSecret`.
@@ -39,13 +49,9 @@ self-signed TLS certificate.
 In a real production environment you would use Admin API or Admin App to create
 these credentials, and of course you would want to install a real certificate.
 
-### Minimal Template
+### Example Operational Commands
 
-The file [docker-compose-minimal.yml](./docker-compose-minimal.yml) starts up
-the ODS/API with the minimal template database, which contains the default set
-of Ed-Fi descriptors, and no other data.
-
-Operational commands:
+Substitute the correct `docker-compose-*` filename as needed:
 
 ```shell
 # (optional) Only build the images, don't start them 
@@ -64,7 +70,7 @@ docker compose -f docker-compose-minimal.yml down
 docker compose -f docker-compose-minimal.yml down -v
 ```
 
-Network topology:
+### Shared Instance Network Topology
 
 ```mermaid
 flowchart LR
@@ -86,36 +92,25 @@ flowchart LR
     end
 ```
 
-### Populated Template
+URL's, assuming default virtual names from `.env.example`:
 
-The file [docker-compose-populated.yml](./docker-compose-populated.yml) starts
-up the ODS/API with the populated template database, which contains the default
-set of Ed-Fi descriptors, and no other data.
+* [Ed-Fi API](https://localhost/api)
+* [Swagger UI](https://localhost/swagger)
 
-Operational commands:
-
-```shell
-# (optional) Only build the images, don't start them 
-docker compose -f docker-compose-populated.yml build
-
-# Start
-docker compose -f docker-compose-populated.yml up -d
-
-# Stop
-docker compose -f docker-compose-populated.yml stop
-```
-
-Network topology:
+### Sandbox Network Topology
 
 ```mermaid
 flowchart LR
-    A(Client Application) -->|Raw API Calls| B[ed-fi-gateway]
-    B -->|Raw API Calls| C[ed-fi-ods-api]
-    C --> D[(ed-fi-db-populated)]
-    C --> E[(ed-fi-db-admin)]
+    A(Client Application) -->|Raw API Calls| B[gateway]
+    B -->|Raw API Calls| C[api]
+    C --> D[(db-ods-sandbox)]
+    C --> E[(db-admin)]
+    B --> H[sandbox]
+    H --> D
+    H --> E
 
     F(User) -->|API Testing| B
-    B -->|API Testing| G[ed-fi-swagger]
+    B -->|API Testing| G[swagger]
     G --> C
 
     subgraph Container Network
@@ -124,5 +119,12 @@ flowchart LR
         D
         E
         G
+        H
     end
 ```
+
+URL's, assuming default virtual names from `.env.example`:
+
+* [Ed-Fi API](https://localhost/api)
+* [Swagger UI](https://localhost/swagger)
+* [Sandbox Admin](https://localhost/sandbox)
