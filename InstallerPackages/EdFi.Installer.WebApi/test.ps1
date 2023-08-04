@@ -55,6 +55,19 @@ function Invoke-DifferentPackageSource {
     Install-EdFiOdsWebApi @p
 }
 
+function Invoke-DifferentStandardVersion {
+    $p = @{
+        ToolsPath = "../../tools"
+        DbConnectionInfo = @{
+            Engine="SqlServer"
+            Server="localhost"
+            UseIntegratedSecurity=$true
+        }
+        PackageName = "EdFi.Suite3.Ods.WebApi.Standard.4.0.0"
+    }
+    Install-EdFiOdsWebApi @p
+}
+
 function Invoke-SeparateConnectionInfo {
     $p = @{
         ToolsPath = "../../tools"
@@ -210,7 +223,8 @@ function Invoke-Sandbox {
 
 try {
     switch ($Scenario) {
-        "DifferentPackageSource" { Invoke-DifferentPackageSource } 
+        "DifferentPackageSource" { Invoke-DifferentPackageSource }
+        "DifferentStandardVersion" { Invoke-DifferentStandardVersion }
         "SeparateConnectionInfo" { Invoke-SeparateConnectionInfo } 
         "CommonConnectionInfo" { Invoke-CommonConnectionInfo }
         "FeatureOverride" { Invoke-FeatureOverride }
@@ -224,6 +238,7 @@ try {
         default { 
             Write-Host "Valid test scenarios are: "
             Write-Host "    DifferentPackageSource"
+            Write-Host "    DifferentStandardVersion"
             Write-Host "    SeparateConnectionInfo"
             Write-Host "    CommonConnectionInfo"
             Write-Host "    FeatureOverride"

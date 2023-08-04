@@ -123,7 +123,7 @@ function Install-EdFiOdsWebApi {
     param (
         # NuGet package name. Default: EdFi.Suite3.Ods.WebApi.
         [string]
-        $PackageName = "EdFi.Suite3.Ods.WebApi",
+        $PackageName = "EdFi.Suite3.Ods.WebApi.Standard.5.0.0",
 
         # NuGet package version. If not set, will retrieve the latest full release package.
         [string]
@@ -258,14 +258,20 @@ function Install-EdFiOdsWebApi {
         [Parameter(Mandatory=$true, ParameterSetName="MultiTenant")]
         $Tenants,
         
-        [string]
         # Set the encription key used to encrypt ODS connections.
         # Value should be a Base64 encoded 256-bit encryption key.
         # If empty, it iwll be set with a random New-AESKey key
-        $OdsConnectionStringEncryptionKey
-        
         [string]
-        $OdsContextRouteTemplate
+        $OdsConnectionStringEncryptionKey,
+        
+        # Set the ContextRouteTemplate.
+        [string]
+        $OdsContextRouteTemplate,
+        
+        # Set Encrypt=false for all connection strings
+        # Not recomended for production environment.
+        [switch]
+        $UnEncryptedConnection
     )
 
     Write-InvocationInfo $MyInvocation
@@ -300,6 +306,7 @@ function Install-EdFiOdsWebApi {
         Tenants = $Tenants
         OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
         OdsContextRouteTemplate = $OdsContextRouteTemplate
+        UnEncryptedConnection = $UnEncryptedConnection
     }
 
     $elapsed = Use-StopWatch {
@@ -478,8 +485,9 @@ function Invoke-TransformWebConfigAppSettings {
                 $settings.ApiSettings.PlainTextSecrets = $true
             }
         }
-        $settings.ApiSettings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
-        $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
+        
+        if ($Config.WebApiFeatures.BearerTokenTimeoutMinutes) { $settings.ApiSettings.BearerTokenTimeoutMinutes = $Config.WebApiFeatures.BearerTokenTimeoutMinutes }
+        if ($Config.WebApiFeatures.ExcludedExtensions) { $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions }
         New-JsonFile $settingsFile $settings -Overwrite
     }
 }
@@ -520,6 +528,11 @@ function Invoke-TransformWebConfigConnectionStrings {
         $adminconnString = New-ConnectionString -ConnectionInfo $Config.AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
         $securityConnString = New-ConnectionString -ConnectionInfo $Config.SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
 
+        if ($Config.UnEncryptedConnection) {
+            $adminconnString += ";Encrypt=false"
+            $securityConnString += ";Encrypt=false"
+        }
+        
         $connectionstrings = @{
             ConnectionStrings = @{
                 EdFi_Admin = $adminconnString
@@ -562,6 +575,11 @@ function Invoke-TransformWebConfigMultiTenantConnectionStrings {
             
             $adminconnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].AdminDbConnectionInfo -SspiUsername $Config.WebApplicationName
             $securityConnString = New-ConnectionString -ConnectionInfo $Config.Tenants[$tenantKey].SecurityDbConnectionInfo -SspiUsername $Config.WebApplicationName
+
+            if ($Config.UnEncryptedConnection) {
+                $adminconnString += ";Encrypt=false"
+                $securityConnString += ";Encrypt=false"
+            }
 
             $newSettings.Tenants += @{
                 $tenantKey = @{
