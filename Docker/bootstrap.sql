@@ -26,7 +26,7 @@ where ApplicationName = 'Bootstrap Application'
     and not exists (select 1 from dbo.ApplicationEducationOrganizations where EducationOrganizationId = 255901001);
 
 insert into dbo.ApiClients (Key, Secret, Name, IsApproved, UseSandbox, SandboxType, SecretIsHashed, Application_ApplicationId)
-select 'sampleKey', 'sampleSecret', 'Bootstrap', true, false, 0, false, ApplicationId from dbo.Applications
+select 'minimalKey', 'minimalSecret', 'Bootstrap', true, false, 0, false, ApplicationId from dbo.Applications
 where not exists (select 1 from dbo.ApiClients where Name = 'Bootstrap');
 
 insert into dbo.ApiClientApplicationEducationOrganizations (ApiClient_ApiClientId, ApplicationEdOrg_ApplicationEdOrgId ) 

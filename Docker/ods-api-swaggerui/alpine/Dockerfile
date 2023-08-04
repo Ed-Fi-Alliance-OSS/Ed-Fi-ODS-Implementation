@@ -13,11 +13,9 @@ ARG SWAGGER_VERSION=7.0.1994
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
-ENV DOCS_VIRTUAL_NAME=docs
-ENV ODS_VIRTUAL_NAME=api
-ENV WebApiVersionUrl="https://localhost/${ODS_VIRTUAL_NAME}/"
-ENV UseReverseProxyHeaders=true
-ENV PathBase="${DOCS_VIRTUAL_NAME}"
+ENV VERSION_URL="https://localhost/api/"
+ENV SAMPLE_SECRET=""
+ENV SAMPLE_KEY=""
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get LINQ expression to work and disable the

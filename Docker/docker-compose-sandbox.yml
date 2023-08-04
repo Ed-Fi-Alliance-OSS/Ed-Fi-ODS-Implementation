@@ -98,8 +98,7 @@ services:
     environment:
       SAMPLE_KEY: ${POPULATED_KEY}
       SAMPLE_SECRET: ${POPULATED_SECRET}
-      WebApiVersionUrl: https://localhost/${ODS_VIRTUAL_NAME:-api}
-      PathBase: ${DOCS_VIRTUAL_NAME:-docs}
+      VERSION_URL: https://localhost/${ODS_VIRTUAL_NAME:-api}
       SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     depends_on:
       - api
