@@ -136,32 +136,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Key = "ProfilesFeatureIsEnabled"
                         });
                     
-                    // The following variables provide the Postman collections with the correct parent/
-                    // contact related names for the Ed-Fi data standard currently in use.
-                    postmanEnvironment.Values.Add(
-                        new ValueItem
-                        {
-                            Enabled = true, 
-                            Value = $"{parentOrContactProperName}UniqueId",
-                            Key = "ParentOrContactUniqueIdName"
-                        });
-                    
-                    postmanEnvironment.Values.Add(
-                        new ValueItem
-                        {
-                            Enabled = true, 
-                            Value = parentOrContactProperName.ToLower(),
-                            Key = "ParentOrContactName"
-                        });
-                    
-                    postmanEnvironment.Values.Add(
-                        new ValueItem
-                        {
-                            Enabled = true, 
-                            Value = $"{parentOrContactProperName.ToLower()}s",
-                            Key = "ParentOrContactCollectionName"
-                        });
-                    
+                    // The following variable provides the Postman collections with the correct parent/
+                    // contact related entity name for the Ed-Fi data standard currently in use.
                     postmanEnvironment.Values.Add(
                         new ValueItem
                         {
@@ -169,24 +145,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Value = parentOrContactProperName,
                             Key = "ParentOrContactProperName"
                         });
-                    
-                    postmanEnvironment.Values.Add(
-                        new ValueItem
-                        {
-                            Enabled = true, 
-                            Value = $"Student{parentOrContactProperName}Association",
-                            Key = "StudentParentOrContactAssociationName"
-                        });
-                    
-                    postmanEnvironment.Values.Add(
-                        new ValueItem
-                        {
-                            Enabled = true, 
-                            Value = $"Student{parentOrContactProperName}Associations",
-                            Key = "StudentParentOrContactAssociationCollectionName"
-                        });
 
-                        var jsonString = JsonConvert.SerializeObject(
+                    var jsonString = JsonConvert.SerializeObject(
                         postmanEnvironment,
                         Formatting.Indented,
                         new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
