@@ -29,6 +29,7 @@ VALUES ('nmStudentAssessment', 'nmStudentAssessment'
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
 ('standardAchievedCodeDescriptor','standardAchievedCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/standardAchievedCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('scoringModelCodeDescriptor','scoringModelCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/scoringModelCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
 
 
