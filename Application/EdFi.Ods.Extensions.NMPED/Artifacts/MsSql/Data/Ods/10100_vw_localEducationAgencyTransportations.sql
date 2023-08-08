@@ -1,3 +1,4 @@
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -10,7 +11,7 @@
  *			from the localEducationAgencyTransportations Ed-Fi Resource
  */
  
-CREATE OR ALTER VIEW nmped_rpt.vw_localEducationAgencyTransportation AS 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_localEducationAgencyTransportations] AS 
 SELECT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -43,3 +44,5 @@ FROM
 
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = LEAT.LocalEducationAgencyId
+GO
+
