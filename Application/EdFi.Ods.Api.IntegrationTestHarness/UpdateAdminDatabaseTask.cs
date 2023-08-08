@@ -17,6 +17,7 @@ using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
 using EdFi.Ods.Common.Database;
+using EdFi.Ods.Common.Models;
 using log4net;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -36,18 +37,21 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly TestHarnessConfiguration _testHarnessConfiguration;
         private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
         private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
+        private readonly IDomainModelProvider _domainModelProvider;
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
-            TestHarnessConfigurationProvider testHarnessConfigurationProvider)
+            TestHarnessConfigurationProvider testHarnessConfigurationProvider,
+            IDomainModelProvider domainModelProvider)
         {
             _clientAppRepo = clientAppRepo;
             _defaultApplicationCreator = defaultApplicationCreator;
             _configuration = configuration;
             _apiSettings = apiSettings;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
+            _domainModelProvider = domainModelProvider;
         }
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
@@ -56,8 +60,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             ApiSettings apiSettings,
             TestHarnessConfigurationProvider testHarnessConfigurationProvider,
             IContextProvider<TenantConfiguration> tenantConfigurationContextProvider,
-            ITenantConfigurationMapProvider tenantConfigurationMapProvider)
-            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider)
+            ITenantConfigurationMapProvider tenantConfigurationMapProvider,
+            IDomainModelProvider domainModelProvider)
+            : this (clientAppRepo, defaultApplicationCreator, configuration, apiSettings, testHarnessConfigurationProvider, domainModelProvider)
         {
             _tenantConfigurationMapProvider = tenantConfigurationMapProvider;
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
@@ -91,6 +96,18 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
             void CreateEnvironmentFile()
             {
+                // This checks if the Ed-Fi Data Standard in use has a Parent entity,
+                // which was renamed to Contact in Data Standard version 5.0.0.
+                
+                // If there is not a Parent entity present in the data standard in use,
+                // then we assume that the data standard in use is 5.0.0 or later and therefore use Contact.
+
+                var dataStandardHasParentEntity = _domainModelProvider.GetDomainModel().Entities.Any(x =>
+                    x.Schema.Equals("edfi", StringComparison.OrdinalIgnoreCase) &&
+                    x.Name.Equals("Parent", StringComparison.OrdinalIgnoreCase));
+                
+                var parentOrContactProperName = dataStandardHasParentEntity ? "Parent" : "Contact";
+
                 var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
 
                 if (!string.IsNullOrEmpty(environmentFilePath) && new DirectoryInfo(environmentFilePath).Exists)
@@ -107,7 +124,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         new ValueItem
                         {
                             Enabled = true,
-                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
+                            Value =  _apiSettings.IsFeatureEnabled(ApiFeature.Composites.ToString()),
                             Key = "CompositesFeatureIsEnabled"
                         });
 
@@ -117,6 +134,16 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Enabled = true,
                             Value = _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.ToString()),
                             Key = "ProfilesFeatureIsEnabled"
+                        });
+                    
+                    // The following variable provides the Postman collections with the correct parent/
+                    // contact related entity name for the Ed-Fi data standard currently in use.
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true, 
+                            Value = parentOrContactProperName,
+                            Key = "ParentOrContactProperName"
                         });
 
                     var jsonString = JsonConvert.SerializeObject(
@@ -243,7 +270,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                         {
                             _clientAppRepo.AddApiClientOwnershipTokens(client.ApiClientOwnershipTokens, apiClient.ApiClientId);
                         }
-
                     }
 
                     if (app.Profiles != null)
