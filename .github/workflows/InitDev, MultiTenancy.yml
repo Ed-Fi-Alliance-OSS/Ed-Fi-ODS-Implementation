@@ -5,7 +5,7 @@
 
 name: InitDev, MultiTenancy
 
-run-name: ${{github.event.client_payload.branch}}
+run-name: ${{ github.event.client_payload.branch }}
 
 on:
   pull_request:
