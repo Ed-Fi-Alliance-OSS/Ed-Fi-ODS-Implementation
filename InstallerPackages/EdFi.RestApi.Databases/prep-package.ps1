@@ -66,6 +66,17 @@ $nuspecArgs = @{
 }
 New-Nuspec @nuspecArgs
 
+# Prepare configuration.json and configuration.postgresql.json to have matching StandardVersion
+$settingsFile = Join-Path (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases) "configuration.json"
+$settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+$settings.ApiSettings.StandardVersion = $standardVersion
+New-JsonFile $settingsFile $settings -Overwrite
+
+$settingsFile = Join-Path (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases) "configuration.postgreSQL.json"
+$settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
+$settings.ApiSettings.StandardVersion = $standardVersion
+New-JsonFile $settingsFile $settings -Overwrite
+
 # Add all of the in-repository files which have a relative path that should be preserved in the target
 $repoNuspecFiles = @(
     Select-CumulativeRepositoryResolvedItems "configuration.packages.json"

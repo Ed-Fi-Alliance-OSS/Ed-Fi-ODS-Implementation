@@ -150,9 +150,11 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
+        [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
+        [ValidateSet('1.0.0', '1.1.0')]
         [String] $ExtensionVersion = '1.1.0'
     )
 
@@ -568,14 +570,17 @@ function New-DatabasesPackage {
 
         [string[]] $Properties = @(),
 
-        [string] $OutputDirectory
+        [string] $OutputDirectory,
+
+        [string] $StandardVersion
+
     )
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
         if ([string]::IsNullOrWhiteSpace($PackageId)) { $PackageId = (Split-Path $ProjectPath -Leaf) }
 
-        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId"
-        & "$ProjectPath/prep-package.ps1" $PackageId
+        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId $StandardVersion"
+        & "$ProjectPath/prep-package.ps1" $PackageId $StandardVersion
         Write-Host
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
