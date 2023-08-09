@@ -67,12 +67,12 @@ $nuspecArgs = @{
 New-Nuspec @nuspecArgs
 
 # Prepare configuration.json and configuration.postgresql.json to have matching StandardVersion
-$settingsFile = "configuration.json"
+$settingsFile = Join-Path (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases) "configuration.json"
 $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
 $settings.ApiSettings.StandardVersion = $standardVersion
 New-JsonFile $settingsFile $settings -Overwrite
 
-$settingsFile = "configuration.postgreSQL.json"
+$settingsFile = Join-Path (Get-RepositoryResolvedPath (Get-ProjectTypes).Databases) "configuration.postgreSQL.json"
 $settings = Get-Content $settingsFile | ConvertFrom-Json | ConvertTo-Hashtable
 $settings.ApiSettings.StandardVersion = $standardVersion
 New-JsonFile $settingsFile $settings -Overwrite
