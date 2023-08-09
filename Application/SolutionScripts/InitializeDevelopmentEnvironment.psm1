@@ -568,14 +568,17 @@ function New-DatabasesPackage {
 
         [string[]] $Properties = @(),
 
-        [string] $OutputDirectory
+        [string] $OutputDirectory,
+
+        [string] $StandardVersion
+
     )
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
         if ([string]::IsNullOrWhiteSpace($PackageId)) { $PackageId = (Split-Path $ProjectPath -Leaf) }
 
-        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId"
-        & "$ProjectPath/prep-package.ps1" $PackageId
+        Write-Host -ForegroundColor Magenta "& `"$ProjectPath/prep-package.ps1`" $PackageId $StandardVersion"
+        & "$ProjectPath/prep-package.ps1" $PackageId $StandardVersion
         Write-Host
 
         $nuget = Install-NuGetCli -ToolsPath $ToolsPath
