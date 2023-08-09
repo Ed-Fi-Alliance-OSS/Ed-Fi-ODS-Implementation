@@ -468,7 +468,18 @@ function Test-DatabaseHasScriptsToApply {
         $DatabaseTimeoutInSeconds
     )
 
-    $exitCode = Invoke-DbDeploy -Verb "WhatIf" -Engine $Engine -Database $Database -ConnectionString $ConnectionString -FilePaths $FilePaths -Features $Features -DatabaseTimeoutInSeconds $DatabaseTimeoutInSeconds
+    $params = @{
+        Verb                     = "WhatIf"
+        Engine                   = $Engine
+        Database                 = $Database
+        ConnectionString         = $ConnectionString
+        FilePaths                = $FilePaths
+        Features                 = $Features
+        DatabaseTimeoutInSeconds = $DatabaseTimeoutInSeconds
+        StandardVersion          = $Settings.ApiSettings.StandardVersion
+    }
+
+    $exitCode = Invoke-DbDeploy @params
 
     return $exitCode -eq 1
 }
