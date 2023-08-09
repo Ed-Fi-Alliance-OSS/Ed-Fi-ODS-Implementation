@@ -150,9 +150,11 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
+        [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
+        [ValidateSet('1.0.0', '1.1.0')]
         [String] $ExtensionVersion = '1.1.0'
     )
 
