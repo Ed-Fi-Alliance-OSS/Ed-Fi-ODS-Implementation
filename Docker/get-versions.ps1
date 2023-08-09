@@ -71,7 +71,7 @@ function Invoke-SemanticSort {
 
     $Versions `
         | Select-Object $major, $minor, $patch `
-        | Sort-Object major, minor, patch -Descending
+        | Sort-Object major, minor, patch -Descending `
         | ForEach-Object { "$($_.major).$($_.minor).$($_.patch)" }
 }
 

@@ -15,12 +15,6 @@ param(
 
 $ErrorActionPreference = "Stop"
 
-if (-not (Test-Path ./gateway/ssl/server.crt)) {
-    Push-Location gateway
-    ./generate-cert.ps1
-    Pop-Location
-}
-
 ./get-versions.ps1
 
 $template = "shared"
