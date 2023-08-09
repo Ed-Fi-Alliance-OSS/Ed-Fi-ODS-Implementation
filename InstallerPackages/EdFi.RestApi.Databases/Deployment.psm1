@@ -70,9 +70,9 @@ function Initialize-DeploymentEnvironment {
 
         [switch] $UsePlugins,
 
-        [String] $StandardVersion = '5.0.0',
+        [String] $StandardVersion,
 
-        [String] $ExtensionVersion = '1.1.0'
+        [String] $ExtensionVersion
     )
 
     # if path-resolver is not present assume that the script is being ran in a deployment scenario
@@ -122,6 +122,8 @@ function Initialize-DeploymentEnvironment {
     if ($OdsDatabaseTemplateName) { $settings.ApiSettings.OdsDatabaseTemplateName = $OdsDatabaseTemplateName }
     if ($DropDatabases.IsPresent) { $settings.ApiSettings.DropDatabases = $DropDatabases.IsPresent }
     if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
+    if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
+    if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
 
     Set-DeploymentSettings $settings | Out-Null
     $settings = Get-DeploymentSettings
