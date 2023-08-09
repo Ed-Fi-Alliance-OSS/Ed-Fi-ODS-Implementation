@@ -77,12 +77,15 @@ function Invoke-XmlValidation {
     [System.Xml.Schema.XmlSchemaValidationFlags]::ReportValidationWarnings
     $xmlReaderSettings.Schemas.XmlResolver = New-Object System.Xml.XmlUrlResolver
 
+    $validationErrorCount = 0
+
     $validationHandler = [System.Xml.Schema.ValidationEventHandler] {
         if ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Warning) {
             Write-Warning "$($_.Message)"
         }
         elseif ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Error) {
             Write-Error "$($_.Message)"
+            $validationErrorCount++
         }
     }
     $xmlReaderSettings.add_ValidationEventHandler($validationHandler)
@@ -114,6 +117,10 @@ function Invoke-XmlValidation {
         if ($null -ne $xmlReader -and $xmlReader -is [System.IDisposable]) {
             $xmlReader.Dispose()
         }
+    }
+
+    if($validationErrorCount -gt 0) {
+        throw [System.Xml.Schema.XmlSchemaValidationException] "Schema validation failed with $validationErrorCount error(s)."
     }
 }
 
