@@ -144,7 +144,7 @@ jobs:
       uses: actions/checkout@v3
       with:
         working-directory: ./Ed-Fi-ODS-Implementation/
-        token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+        token: ${{ env.EDFI_ODS_TOKEN }}
         run: |
           git add ./configuration.packages.json
           git commit -m "Updating for new CodeGen version"
