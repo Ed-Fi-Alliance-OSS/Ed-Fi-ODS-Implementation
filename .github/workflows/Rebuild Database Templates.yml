@@ -141,11 +141,14 @@ jobs:
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        git add ./configuration.packages.json
-        git commit -m "Updating for new CodeGen version"
-        git push -u origin ${{ env.current_branch }}
+      uses: actions/checkout@v3
+      with:
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        token: ${{ secrets.REPO_DISPATCH_TOKEN }}
+        run: |
+          git add ./configuration.packages.json
+          git commit -m "Updating for new CodeGen version"
+          git push -u origin ${{ env.current_branch }}
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
