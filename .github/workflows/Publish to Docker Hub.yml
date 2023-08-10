@@ -41,7 +41,7 @@ jobs:
 
           # Note: all images will receive the same version number for this Docker release
           ./build-images.ps1 -Push -PackageVersion 7.0 -Patch ${{ github.run_number }} -PreRelease
-        working-directory: docker
+        working-directory: Docker
         shell: pwsh
 
   

@@ -28,10 +28,12 @@ jobs:
         image:
           - ods-api-db-admin/alpine/pgsql
           - ods-api-db-ods-minimal/alpine/pgsql
-          - ods-api-db-ods-populated/alpine/pgsql
+          - ods-api-db-ods-sandbox/alpine/pgsql
           - ods-api-swaggerui/alpine
           - ods-api-web-api/alpine/mssql
           - ods-api-web-api/alpine/pgsql
+          - ods-api-web-sandbox-admin/alpine/mssql
+          - ods-api-web-sandbox-admin/alpine/pgsql
     steps:
       - name: Checkout code
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
@@ -39,7 +41,7 @@ jobs:
       - uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf # v3.1.0
         name: Run Linter on Local Dockerfile
         with:
-          dockerfile: docker/${{ matrix.image }}/Dockerfile
+          dockerfile: Docker/${{ matrix.image }}/Dockerfile
 
   docker-build:
     runs-on: ubuntu-latest
@@ -54,5 +56,5 @@ jobs:
         run: |
           ./get-versions.ps1
           ./build-images.ps1
-        working-directory: docker
+        working-directory: Docker
         shell: pwsh
