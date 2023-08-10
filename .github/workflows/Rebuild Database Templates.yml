@@ -141,10 +141,8 @@ jobs:
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
-      with:
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        run: |
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
           git add ./configuration.packages.json
           git commit -m "Updating for new CodeGen version"
           git push -u origin ${{ env.current_branch }}
