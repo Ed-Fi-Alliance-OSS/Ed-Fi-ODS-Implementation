@@ -141,7 +141,7 @@ jobs:
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      uses: actions/checkout@v3
+      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
       with:
         working-directory: ./Ed-Fi-ODS-Implementation/
         token: ${{ secrets.REPO_DISPATCH_TOKEN }}
