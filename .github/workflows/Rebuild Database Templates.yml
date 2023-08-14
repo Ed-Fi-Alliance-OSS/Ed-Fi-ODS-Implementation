@@ -140,7 +140,6 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
-    - name: Commit and push updated EdFi.Ods.CodeGen package reference        
     - uses: actions/checkout@v3
     - run: |
           git config user.name "${{ steps.import-gpg.outputs.name }}"
