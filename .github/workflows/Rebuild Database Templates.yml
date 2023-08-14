@@ -142,11 +142,10 @@ jobs:
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
     - uses: actions/checkout@v3
     - run: |
-          git config user.name "${{ steps.import-gpg.outputs.name }}"
-          git config user.email "${{ steps.import-gpg.outputs.email }}"
-          git add .
+          git add ./configuration.packages.json
           git commit -m "Updating for new CodeGen version"
-          git push -u origin ${{ env.current_branch }}        
+          git push -u origin ${{ env.current_branch }} 
+      working-directory: ./Ed-Fi-ODS-Implementation/                 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
