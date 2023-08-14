@@ -143,9 +143,10 @@ jobs:
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
       uses: actions/checkout@v3
       with:
-        working-directory: ./Ed-Fi-ODS-Implementation/
-        token: ${{ env.EDFI_ODS_TOKEN }}
-        run: |
+         ref: ${{ github.ref }}
+         working-directory: ./Ed-Fi-ODS-Implementation/
+         token: ${{ env.EDFI_ODS_TOKEN }}
+         run: |
           git add ./configuration.packages.json
           git commit -m "Updating for new CodeGen version"
           git push -u origin ${{ env.current_branch }}
