@@ -52,20 +52,22 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@v3
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@v3
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
@@ -140,12 +142,12 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
-    - uses: actions/checkout@v3
-    - run: |
-          git add ./configuration.packages.json
-          git commit -m "Updating for new CodeGen version"
-          git push -u origin ${{ env.current_branch }} 
-      working-directory: ./Ed-Fi-ODS-Implementation/                 
+    - name: Commit and push updated EdFi.Ods.CodeGen package reference
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        git add ./configuration.packages.json
+        git commit -m "Updating for new CodeGen version"
+        git push -u origin ${{ env.current_branch }}
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
