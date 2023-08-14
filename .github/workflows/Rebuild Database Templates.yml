@@ -140,16 +140,14 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
-    - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      uses: actions/checkout@v3
-      with:
-         working-directory: ./Ed-Fi-ODS-Implementation/
-         persist-credentials: false
-         run: |
-          git add .${{ github.workspace }}/Ed-Fi-ODS-Implementation/configuration.packages.json
+    - name: Commit and push updated EdFi.Ods.CodeGen package reference        
+    - uses: actions/checkout@v3
+    - run: |
+          git config user.name "${{ steps.import-gpg.outputs.name }}"
+          git config user.email "${{ steps.import-gpg.outputs.email }}"
+          git add .
           git commit -m "Updating for new CodeGen version"
-          git push -u origin ${{ env.current_branch }}
-
+          git push -u origin ${{ env.current_branch }}        
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
       uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
