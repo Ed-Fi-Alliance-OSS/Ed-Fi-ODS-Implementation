@@ -77,7 +77,7 @@ function Invoke-XmlValidation {
     [System.Xml.Schema.XmlSchemaValidationFlags]::ReportValidationWarnings
     $xmlReaderSettings.Schemas.XmlResolver = New-Object System.Xml.XmlUrlResolver
 
-    ($script:validationErrorCount) = 0
+    $script:validationErrorCount = 0
 
     $validationHandler = [System.Xml.Schema.ValidationEventHandler] {
         if ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Warning) {
@@ -85,7 +85,7 @@ function Invoke-XmlValidation {
         }
         elseif ($_.Severity -eq [System.Xml.Schema.XmlSeverityType]::Error) {
             Write-Error "$($_.Message)"
-            ($script:validationErrorCount)++
+            $script:validationErrorCount++
         }
     }
     $xmlReaderSettings.add_ValidationEventHandler($validationHandler)
@@ -119,8 +119,8 @@ function Invoke-XmlValidation {
         }
     }
 
-    if(($script:validationErrorCount) -gt 0) {
-        throw [System.Xml.Schema.XmlSchemaValidationException] "Schema validation failed with ($script:validationErrorCount) error(s)."
+    if($script:validationErrorCount -gt 0) {
+        throw [System.Xml.Schema.XmlSchemaValidationException] "Schema validation failed with $script:validationErrorCount error(s)."
     }
 }
 
