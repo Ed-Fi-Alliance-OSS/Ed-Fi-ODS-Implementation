@@ -140,6 +140,9 @@ function Invoke-Build {
     Push-Location $ImageName/$Path
     # Full semantic version
     Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
+    if ($LASTEXITCODE -gt 0) {
+        Write-Error "Failed to build image $ImageName"
+    }
     # Major / minor version
     &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$PackageVersion$mssql
     # Major version
