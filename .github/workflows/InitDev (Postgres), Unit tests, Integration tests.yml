@@ -10,6 +10,8 @@ run-name: ${{github.event.client_payload.branch}}
 on:
   pull_request:
    branches: [main, 'ODS-*']
+  push:
+   branches: [main]   
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
