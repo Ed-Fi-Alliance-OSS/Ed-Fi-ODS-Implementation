@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM postgres:13-alpine@sha256:fc3670fa23119159394dfdb98eee89b30ef5a506791aea6ff7d8a4e73a8cd4a4 AS base
+FROM postgres:13.12-alpine3.18@sha256:aabd695a63c5bd78e05a8c9c0f897c48e115dea1d590e10049dbf25b81349697 AS base
 RUN apk --no-cache add dos2unix=~7 unzip=~6
 
 # Start a new layer so that the above layer can be cached
