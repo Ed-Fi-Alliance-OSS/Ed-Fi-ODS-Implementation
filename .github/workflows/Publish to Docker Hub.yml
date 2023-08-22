@@ -37,10 +37,10 @@ jobs:
 
       - name: Build and Push
         run: |
-          ./get-versions.ps1 -PackageVersion 7.0
+          ./get-versions.ps1 -PackageVersion 7.1
 
           # Note: all images will receive the same version number for this Docker release
-          ./build-images.ps1 -Push -PackageVersion 7.0 -Patch ${{ github.run_number }} -PreRelease
+          ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }} -PreRelease
         working-directory: Docker
         shell: pwsh
 
