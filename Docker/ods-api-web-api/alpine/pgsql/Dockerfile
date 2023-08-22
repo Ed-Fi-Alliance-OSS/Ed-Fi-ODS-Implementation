@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.16-alpine3.17-amd64@sha256:dabdf423e179383d848889b760a4258a5950b224730762bf39bfd51de344cfa3 AS base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.21-alpine3.17@sha256:2ff3f278d85bd13aa630943c1e624300d9863e200f16d0cab30e09d2f3b0fc8b AS base
 RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 postgresql13-client=~13 icu=~72 curl=~8
 
 # Start a new layer so that the above layer can be cached
