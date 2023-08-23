@@ -22,7 +22,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
 
             Initialize(
-                GetApplication,
                 GetActions,
                 GetClaimSets,
                 GetResourceClaims,
@@ -31,7 +30,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 GetResourceClaimActionAuthorizations);
         }
         
-        protected ResettableLazy<EdFi.Security.DataAccess.Models.Application> Application { get; private set; }
 
         protected ResettableLazy<List<Action>> Actions { get; private set; }
 
@@ -46,7 +44,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         protected ResettableLazy<List<ResourceClaimAction>> ResourceClaimActions { get; private set; }
         
         protected void Initialize(
-            Func<EdFi.Security.DataAccess.Models.Application> application,
             Func<List<Action>> actions,
             Func<List<ClaimSet>> claimSets,
             Func<List<ResourceClaim>> resourceClaims,
@@ -54,7 +51,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             Func<List<ClaimSetResourceClaimAction>> claimSetResourceClaimActions,
             Func<List<ResourceClaimAction>> resourceClaimActions)
         {
-            Application = new ResettableLazy<EdFi.Security.DataAccess.Models.Application>(application);
             Actions = new ResettableLazy<List<Action>>(actions);
             ClaimSets = new ResettableLazy<List<ClaimSet>>(claimSets);
             ResourceClaims = new ResettableLazy<List<ResourceClaim>>(resourceClaims);
@@ -68,7 +64,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         /// </summary>
         protected void Reset()
         {
-            Application.Reset();
             Actions.Reset();
             ClaimSets.Reset();
             ResourceClaims.Reset();
@@ -312,14 +307,12 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var application = context.Applications.First(a=>a.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
 
                 context.ClaimSets.Add(new ClaimSet
                 {
                     ClaimSetName = "Ownership Based Test",
                     IsEdfiPreset = true,
-                    ForApplicationUseOnly = true,
-                    Application = application
+                    ForApplicationUseOnly = true
                 });
                 context.SaveChanges();
 
@@ -396,14 +389,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             }
         }
 
-        private EdFi.Security.DataAccess.Models.Application GetApplication()
-        {
-            using var context = _securityContextFactory.CreateContext();
-
-            return context.Applications.First(
-                app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
-        }
-
         private List<EdFi.Security.DataAccess.Models.Action> GetActions()
         {
             using var context = _securityContextFactory.CreateContext();
@@ -415,7 +400,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.ClaimSets.Include(cs => cs.Application).ToList();
+            return context.ClaimSets.ToList();
         }
 
         private List<ResourceClaim> GetResourceClaims()
@@ -423,9 +408,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             using var context = _securityContextFactory.CreateContext();
 
             return context.ResourceClaims
-                .Include(rc => rc.Application)
                 .Include(rc => rc.ParentResourceClaim)
-                .Where(rc => rc.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
         }
 
@@ -433,10 +416,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.AuthorizationStrategies
-                .Include(auth => auth.Application)
-                .Where(auth => auth.Application.ApplicationId.Equals(Application.Value.ApplicationId))
-                .ToList();
+            return context.AuthorizationStrategies.ToList();
         }
 
         private List<ClaimSetResourceClaimAction> GetClaimSetResourceClaimActions()
@@ -446,10 +426,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var claimSetResourceClaimActions = context.ClaimSetResourceClaimActions
                 .Include(csrc => csrc.Action)
                 .Include(csrc => csrc.ClaimSet)
-                .Include(csrc => csrc.ClaimSet.Application)
                 .Include(csrc => csrc.ResourceClaim)
                 .Include(csrc => csrc.AuthorizationStrategyOverrides.Select(aso => aso.AuthorizationStrategy))
-                .Where(csrc => csrc.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
                 .ToList();
 
             // Replace empty lists with null since some consumers expect it that way
@@ -472,8 +450,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var resourceClaimActionAuthorizations = context.ResourceClaimActions
                 .Include(rcas => rcas.Action)
                 .Include(rcas => rcas.ResourceClaim)
-                .Include(rcas => rcas.AuthorizationStrategies.Select(ast => ast.AuthorizationStrategy.Application))
-                .Where(rcas => rcas.ResourceClaim.Application.ApplicationId.Equals(Application.Value.ApplicationId))
+                .Include(rcas => rcas.AuthorizationStrategies)
                 .ToList();
 
             foreach (var a in resourceClaimActionAuthorizations)
