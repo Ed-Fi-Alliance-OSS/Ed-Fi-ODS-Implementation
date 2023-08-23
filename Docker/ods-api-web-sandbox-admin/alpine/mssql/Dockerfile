@@ -9,7 +9,6 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~72 curl=~8
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-RUN apk --no-cache add postgresql13-client=~13
 ARG SANDBOX_VERSION=7.0.2195
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
