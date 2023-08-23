@@ -96,7 +96,15 @@ param (
     # Patch version number
     [Parameter()]
     [string]
-    $Patch = "0"
+    $Patch = "0",
+
+    [Parameter()]
+    [string]
+    $StandardVersion = $env:STANDARD_VERSION,
+
+    [Parameter()]
+    [string]
+    $ExtensionVersion = $env:EXTENSION_VERSION
 )
 
 $ErrorActionPreference = "Stop"
@@ -166,19 +174,19 @@ function Invoke-Build {
 # Note: "gateway" is for local testing only and therefore should not be included in this script.
 
 Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql `
-    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion"
+    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 
 Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
+    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 
 Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion"
+    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 
 Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
 
 Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
 
 Invoke-Build -ImageName ods-api-swaggerui -Path alpine `
     -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"

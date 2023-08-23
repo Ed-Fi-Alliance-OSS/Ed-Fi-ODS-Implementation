@@ -11,6 +11,8 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~72 curl=~8
 FROM base AS build
 RUN apk --no-cache add postgresql13-client=~13
 ARG API_VERSION=7.0.1994
+ARG STANDARD_VERSION
+
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
@@ -30,7 +32,7 @@ COPY appsettings.template.json /app/appsettings.template.json
 COPY run.sh /app/run.sh
 COPY log4net.config /app/log4net.txt
 
-RUN wget -q -O /app/WebApi.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi.Standard.4.0.0/versions/${API_VERSION}/content && \
+RUN wget -q -O /app/WebApi.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi.Standard.${STANDARD_VERSION}/versions/${API_VERSION}/content && \
     unzip /app/WebApi.zip -d /app && \
     rm -f /app/WebApi.zip && \
     cp /app/log4net.txt /app/log4net.config && \

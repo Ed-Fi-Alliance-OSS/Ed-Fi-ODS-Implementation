@@ -11,12 +11,13 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7
 FROM base AS build
 ARG ADMIN_VERSION=7.0.252
 ARG SECURITY_VERSION=7.0.233
+ARG STANDARD_VERSION
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV POSTGRES_DB=postgres
-ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.PostgreSQL.Standard.4.0.0/versions/${ADMIN_VERSION}/content
-ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.PostgreSQL.Standard.4.0.0/versions/${SECURITY_VERSION}/content
+ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ADMIN_VERSION}/content
+ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${SECURITY_VERSION}/content
 
 COPY init-database.sh /docker-entrypoint-initdb.d/1-init-database.sh
 
