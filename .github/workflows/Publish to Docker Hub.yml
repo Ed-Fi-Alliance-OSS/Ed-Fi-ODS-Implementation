@@ -7,7 +7,7 @@ name: Publish to Docker Hub
 on:
   workflow_run:
     workflows:
-      - "Publish to Azure Artifacts"
+      - "Docker Test"
     types:
       - completed
     branches:
@@ -20,6 +20,7 @@ env:
 
 jobs:
   docker-publish:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     name: Publish to Docker Hub
     runs-on: ubuntu-latest
     steps:

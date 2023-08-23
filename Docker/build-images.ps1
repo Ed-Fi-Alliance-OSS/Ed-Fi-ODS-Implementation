@@ -24,7 +24,7 @@
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
     ./build-images.ps1 -TagBase MyName
 
-    # Result: creates images with tags like "MyName/ods-api-web-api:7.0.1596"
+    # Result: creates images with tags like "MyName/ods-api-web-api:7.1.15"
 #>
 [CmdletBinding()]
 param (
@@ -91,7 +91,7 @@ param (
     # Major/minor version number
     [Parameter()]
     [string]
-    $PackageVersion = "7.0",
+    $PackageVersion = "7.1",
 
     # Patch version number
     [Parameter()]
@@ -140,6 +140,9 @@ function Invoke-Build {
     Push-Location $ImageName/$Path
     # Full semantic version
     Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
+    if ($LASTEXITCODE -gt 0) {
+        Write-Error "Failed to build image $ImageName"
+    }
     # Major / minor version
     &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$PackageVersion$mssql
     # Major version
@@ -162,19 +165,26 @@ function Invoke-Build {
 
 # Note: "gateway" is for local testing only and therefore should not be included in this script.
 
-Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion"
+Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql `
+    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion"
 
 Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
     -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion"
 
 Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_VERSION=$PopulatedVersion --build-arg TPDM_VERSION=$TpdmPopulatedVersion"
+    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion"
 
-Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql -BuildArgs "--build-arg API_VERSION=$ApiVersion"
+Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion"
 
-Invoke-Build -ImageName ods-api-swaggerui -Path alpine -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+Invoke-Build -ImageName ods-api-swaggerui -Path alpine `
+    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
 
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql `
+    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql `
+    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
