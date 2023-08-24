@@ -6,22 +6,21 @@
 name: Docker Test
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - ".github/workflows/on-pullrequest-docker.yml"
-      - "docker/*"
+  workflow_run:
+    workflows:
+      - "Publish to Azure Artifacts"
+    types:
+      - completed
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main, 'ODS-*']
     paths:
-      - ".github/workflows/on-pullrequest-docker.yml"
-      - "docker/*"
+      - "Docker/**/*"
   workflow_dispatch:
 
 jobs:
   docker-lint:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

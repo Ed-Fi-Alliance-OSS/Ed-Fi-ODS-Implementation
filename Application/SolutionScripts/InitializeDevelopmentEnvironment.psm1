@@ -414,7 +414,6 @@ function Invoke-CodeGen {
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
-        [switch] $IncludePlugins,
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
         [String] $StandardVersion = '5.0.0',
@@ -440,13 +439,12 @@ function Invoke-CodeGen {
             "--standardVersion", $StandardVersion,
             "--extensionVersion", $ExtensionVersion
         )
-        if ($IncludePlugins) {
-            $parameters += "--IncludePlugins"
-        }
+        
         if ($ExtensionPaths.Length -gt 0) {
             $parameters += "--ExtensionPaths"
             $parameters += $ExtensionPaths
         }
+        
         Write-Host -ForegroundColor Magenta "& $codeGen $parameters"
         & $codeGen $parameters | Out-Host
     }

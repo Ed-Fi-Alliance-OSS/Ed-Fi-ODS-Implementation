@@ -34,7 +34,7 @@
 #>
 param(
     [string]
-    $PackageVersion = "7.0"
+    $PackageVersion = "7.1"
 )
 
 $ErrorActionPreference = "Stop"
