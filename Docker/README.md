@@ -49,6 +49,17 @@ convenience. It also creates a self-signed TLS certificate.
 In a real production environment you would use Admin API or Admin App to create
 these credentials, and of course you would want to install a real certificate.
 
+### Targeting Standard and Extension Versions
+
+Before running `docker compose` commands, run `get-versions.ps1`. This script takes the following optional parameters
+* `StandardVersion` defaults to "5.0.0"
+* `ExtensionVersion` defaults to "1.1.0"
+
+```shell
+# For example to target the 4.0.0 data standard
+.\get-version.ps1 -StandardVersion "4.0.0"
+```
+
 ### Example Operational Commands
 
 Substitute the correct `docker-compose-*` filename as needed:
