@@ -17,6 +17,7 @@ on:
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
   docker-publish:
@@ -24,19 +25,34 @@ jobs:
     name: Publish to Docker Hub
     runs-on: ubuntu-latest
     steps:
+      - name: Check for Docker Hub Token
+        if: ${{ env.REPOSITORY_OWNER == 'Ed-Fi-Alliance-OSS' && env.DOCKER_HUB_TOKEN == '' }}
+        run: | 
+          echo "::error::Missing Docker Hub Token"
+          exit 1 
+
+      - name: Exit success if Docker Hub Token is missing in forked repository
+        if: ${{ env.DOCKER_HUB_TOKEN == '' }}
+        run: |
+          echo "Skipping Publish"
+          
       - name: Wait 20s for Azure Artifacts caching
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: sleep 20
 
       - name: Checkout Repository
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
 
       - name: Log in to Docker Hub
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a  # v2.1.0
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
       - name: Build and Push
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           ./get-versions.ps1 -PackageVersion 7.1
 
