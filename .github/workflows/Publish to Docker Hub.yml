@@ -35,21 +35,24 @@ jobs:
         if: ${{ env.DOCKER_HUB_TOKEN == '' }}
         run: |
           echo "Skipping Publish"
-          exit 0
-
+          
       - name: Wait 20s for Azure Artifacts caching
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: sleep 20
 
       - name: Checkout Repository
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
 
       - name: Log in to Docker Hub
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a  # v2.1.0
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
       - name: Build and Push
+        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           ./get-versions.ps1 -PackageVersion 7.1
 
