@@ -19,7 +19,7 @@ INSERT INTO [dbo].[ResourceClaims] ([DisplayName], [ResourceName]
 								   ,[ClaimName] 
 								   ,[ParentResourceClaimId], [Application_ApplicationId])
 VALUES ('nmStudentAssessment', 'nmStudentAssessment'
-        ,'http://ed-fi.org/ods/identity/claims/nmassessments/nmStudentAssessment'
+        ,'http://ed-fi.org/ods/identity/claims/nm-assessments/nmStudentAssessment'
         ,@RelationshipBasedDataClaimId, @ApplicationId);
 
 -- *** Descriptors Security -- Adding these under the inherited permissions from System Descriptors ***
@@ -27,9 +27,9 @@ VALUES ('nmStudentAssessment', 'nmStudentAssessment'
 
 
 INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResourceClaimId, Application_ApplicationId) VALUES
-('standardAchievedCodeDescriptor','standardAchievedCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/standardAchievedCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('scoringModelCodeDescriptor','scoringModelCodeDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/scoringModelCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
-('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nmassessments/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
+('standardAchievedCodeDescriptor','standardAchievedCodeDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/standardAchievedCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('scoringModelCodeDescriptor','scoringModelCodeDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/scoringModelCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
+('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
 
 
