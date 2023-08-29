@@ -122,7 +122,7 @@ SELECT DISTINCT
 FROM 
 	edfi.Staff S WITH (NOLOCK)
 
-	JOIN edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
+	JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOEA WITH (NOLOCK)
 		ON SEOEA.StaffUSI = S.StaffUSI
 
 	LEFT JOIN edfi.StaffElectronicMail SEM WITH (NOLOCK)

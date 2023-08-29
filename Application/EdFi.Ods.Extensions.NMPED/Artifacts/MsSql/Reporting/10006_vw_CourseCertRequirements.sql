@@ -23,6 +23,7 @@ AS
 
 SELECT CCR.[SchoolYear]
       ,CCR.[CourseCode]
+	  ,C.[CourseTitle]
       ,LicenseType.CodeValue			AS [CertTypeCode]
 	  ,LicenseType.ShortDescription		AS [CertTypeCategory]
 	  ,LicenseType.[Description]		AS [CertTypeDescription]
@@ -35,6 +36,9 @@ SELECT CCR.[SchoolYear]
       ,CCR.[CreateDate]
       ,CCR.[LastModifiedDate]
 FROM [nmped_rpt].[CourseCertificateRequirement] CCR
+
+LEFT JOIN edfi.Course C WITH (NOLOCK)
+	ON (C.CourseCode = CCR.CourseCode)
 
 LEFT JOIN nmped_rpt.Descriptor LicenseType WITH (NOLOCK)
 	ON (LicenseType.DescriptorId = CCR.LicenseTypeDescriptorId)

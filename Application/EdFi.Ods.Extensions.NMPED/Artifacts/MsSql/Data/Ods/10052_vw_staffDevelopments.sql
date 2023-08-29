@@ -1,4 +1,4 @@
-/* © NMPED 2023
+/* NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
  * Information Technology Division
@@ -10,7 +10,7 @@
  *			from the staffDevelopments Ed-Fi Resource
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_staffDevelopments AS 
+CREATE OR ALTER VIEW [nmped_rpt].[vw_staffDevelopments] AS 
 SELECT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -21,13 +21,15 @@ SELECT
 	,VDL.SchoolName	
 
 	--resource documentation starts
-	,StaffUniqueId
-	,FirstName
-	,LastSurname
+	,S.StaffUniqueId
+	,S.FirstName
+	,S.LastSurname
 	,StartDate
 	,ActivityHours
 	,EndDate
 	,MentorIdUniqueId
+	,Mentor.FirstName 'MentorFirstName'
+	,Mentor.LastSurname 'MentorLastName'
 	,MentorTraining
 	,StaffCreditsEarned
 	,StaffDevelopmentActivityCode.CodeValue		[StaffDevelopmentActivityCode]
@@ -50,5 +52,11 @@ FROM
 	LEFT JOIN edfi.Descriptor StaffDevelopmentPurposeCode WITH (NOLOCK)
 		ON StaffDevelopmentPurposeCode.DescriptorId = SD.StaffDevelopmentPurposeCodeDescriptorId
 
+	LEFT JOIN edfi.Staff Mentor WITH (NOLOCK)	
+		ON Mentor.StaffUniqueId = SD.MentorIdUniqueId
+
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SD.EducationOrganizationId
+GO
+
+

@@ -7,16 +7,25 @@
  * Email:	Cody.Misplay@ped.nm.gov
  * Date:	07-10-2023
  * Desc:	This script creates a view tying together StaffSectionAssociation, SectionProgram and Course.
- *			It also joins to vw_StaffClassifications to get EmploymentStatusCode, StaffId, and CertNum (if available)
+ *			It also joins to StaffEducationOrganizationEmploymentAssociation and StaffIdentificationCode 
+ *			to get EmploymentStatusCode, StaffId, and CertNum (if available).
  */
 
-CREATE OR ALTER   VIEW [nmped_rpt].[vw_StaffSection_Program_Course] AS 
+CREATE OR ALTER     VIEW [nmped_rpt].[vw_StaffSection_Program_Course] AS 
 WITH cte_Descriptors AS (
 SELECT [DescriptorId]
 	  ,[CodeValue]
 	  ,[Description]
 FROM edfi.Descriptor WITH (NOLOCK) 
-WHERE [Namespace] IN ('uri://nmped.org/ProgramTypeDescriptor', 'uri://ed-fi.org/ClassroomPositionDescriptor')
+WHERE [Namespace] IN ('uri://nmped.org/ProgramTypeDescriptor', 'uri://ed-fi.org/ClassroomPositionDescriptor','uri://nmped.org/EmploymentStatusDescriptor')
+), cte_StaffIdentification AS (
+SELECT  SIC.StaffUSI
+		,SIC.AssigningOrganizationIdentificationCode
+		,StaffIdSystem.CodeValue AS [StaffIdSystem]
+		,SIC.IdentificationCode
+FROM edfi.StaffIdentificationCode SIC WITH (NOLOCK)
+LEFT JOIN edfi.Descriptor StaffIdSystem WITH (NOLOCK) ON (StaffIdSystem.DescriptorId = SIC.StaffIdentificationSystemDescriptorId)
+WHERE StaffIdSystem.CodeValue IN ('SSN', 'Professional Certificate')
 )
 
 SELECT DISTINCT
@@ -58,10 +67,10 @@ SELECT DISTINCT
 	,ProgramType.CodeValue AS [ProgramTypeCode]
 
 	-- Extended staff data
-	,SC.EmploymentStatusCode
-	,SC.EmploymentStatusDescription
-	,SC.CertNum
-	,SC.StaffId
+	,Employment.CodeValue AS [EmploymentStatusCode]
+	,Employment.[Description] AS [EmploymentStatusDescription]
+	,ID_SSN.IdentificationCode AS [StaffId]
+	,ID_Cert.IdentificationCode AS [CertNum]
 
 FROM edfi.StaffSectionAssociation SSA WITH (NOLOCK) --65,758 raw
 
@@ -93,10 +102,18 @@ FROM edfi.StaffSectionAssociation SSA WITH (NOLOCK) --65,758 raw
 	LEFT JOIN cte_Descriptors ProgramType
 		ON (ProgramType.DescriptorId = SP.ProgramTypeDescriptorId)
 
-	LEFT JOIN nmped_rpt.vw_StaffClassifications SC
-		ON (SC.StaffUSI = SSA.StaffUSI
-			AND SC.SchoolId = SSA.SchoolId)
+	LEFT JOIN cte_StaffIdentification ID_SSN
+		ON (ID_SSN.StaffUSI = S.StaffUSI AND ID_SSN.StaffIdSystem = 'SSN')
+
+	LEFT JOIN cte_StaffIdentification ID_Cert
+		ON (ID_Cert.StaffUSI = S.StaffUSI AND ID_Cert.StaffIdSystem = 'Professional Certificate')
+
+	LEFT JOIN edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
+		ON (SEOEA.StaffUSI = S.StaffUSI
+			AND (SEOEA.EducationOrganizationId = VDL.EducationOrganizationId_School
+				OR SEOEA.EducationOrganizationId = VDL.EducationOrganizationId_District))
+
+	LEFT JOIN cte_Descriptors Employment
+		ON (Employment.DescriptorId = SEOEA.EmploymentStatusDescriptorId)
 
 GO
-
-
