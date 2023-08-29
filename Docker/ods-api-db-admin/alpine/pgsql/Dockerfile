@@ -9,8 +9,8 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-ARG ADMIN_VERSION=7.0.252
-ARG SECURITY_VERSION=7.0.233
+ARG ADMIN_VERSION
+ARG SECURITY_VERSION
 ARG STANDARD_VERSION
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 

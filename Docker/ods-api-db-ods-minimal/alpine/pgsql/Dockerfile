@@ -9,8 +9,8 @@ RUN apk --no-cache add unzip=~6 dos2unix=~7
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-ARG ODS_VERSION=7.0.847
-ARG TPDM_VERSION=7.0.701
+ARG ODS_VERSION
+ARG TPDM_VERSION
 ARG STANDARD_VERSION
 ARG EXTENSION_VERSION
 
