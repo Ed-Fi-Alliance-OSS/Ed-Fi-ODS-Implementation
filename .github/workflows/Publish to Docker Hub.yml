@@ -68,9 +68,12 @@ jobs:
               if ($preRelease) {
                 $buildImagesParam += "-PreRelease"
               }
-
+          Write-Host "prerelease is " + $preRelease  
+          Write-Host "github_event_name is " + $env:github_event_name  
+          Write-Host "github_event_action is " + $env:github_event_action 
+          Write-Host -ForegroundColor Magenta "&  $buildImagesParam"
           # Note: all images will receive the same version number for this Docker release
-          ./build-images.ps1 $buildImagesParam
+          ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }}
         working-directory: Docker
         shell: pwsh
 
