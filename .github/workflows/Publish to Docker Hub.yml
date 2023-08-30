@@ -60,14 +60,13 @@ jobs:
 
           # Note: all images will receive the same version number for this Docker release
           if ($env:github_event_name -eq "release" -and $env:github_event_action -eq "published") {
-            ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }} -PreRelease 
+            ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }} 
             Write-Host "This step is triggered by a published release."
            }
           else
           {
-           ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }}
+           ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }} -PreRelease
           } 
-
         working-directory: Docker
         shell: pwsh
 
