@@ -64,9 +64,9 @@ jobs:
             Write-Host "This step is triggered by a published release."
            }
 
-          $buildImagesParam = " -Push -PackageVersion 7.1 -Patch ${{ github.run_number }}"
+          $buildImagesParam = "-Push -PackageVersion 7.1 -Patch ${{ github.run_number }} "
               if ($preRelease) {
-                $buildImagesParam += " -PreRelease"
+                $buildImagesParam += "-PreRelease"
               }
 
           # Note: all images will receive the same version number for this Docker release
