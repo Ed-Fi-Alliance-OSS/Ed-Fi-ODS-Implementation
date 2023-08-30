@@ -160,12 +160,13 @@ function Invoke-Build {
 
     if ($Push) {
         Write-Message "Pushing $ImageName"
-        &docker push edfialliance/$($ImageName):$semVer$mssql
-        &docker push edfialliance/$($ImageName):$PackageVersion$mssql
-        &docker push edfialliance/$($ImageName):$major$mssql
-
         if ($PreRelease) { 
             &docker push edfialliance/$($ImageName):pre$mssql
+        }
+        else {
+            &docker push edfialliance/$($ImageName):$semVer$mssql
+            &docker push edfialliance/$($ImageName):$PackageVersion$mssql
+            &docker push edfialliance/$($ImageName):$major$mssql
         }
     }
     Pop-Location
