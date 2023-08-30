@@ -73,7 +73,7 @@ jobs:
           Write-Host "github_event_action is " + $env:github_event_action 
           Write-Host -ForegroundColor Magenta "&  $buildImagesParam"
           # Note: all images will receive the same version number for this Docker release
-          ./build-images.ps1 -Push -PackageVersion 7.1 -Patch ${{ github.run_number }}
+          ./build-images.ps1 $buildImagesParam
         working-directory: Docker
         shell: pwsh
 
