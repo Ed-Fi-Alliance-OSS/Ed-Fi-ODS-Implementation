@@ -18,6 +18,10 @@ on:
       - "Docker/**/*"
   workflow_dispatch:
 
+env:
+  CURRENT_STANDARD_VERSION: "5.0.0"
+  PACKAGE_VERSION: "7.1"
+
 jobs:
   docker-lint:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
@@ -42,9 +46,58 @@ jobs:
         with:
           dockerfile: Docker/${{ matrix.image }}/Dockerfile
 
-  docker-build:
+  FindStandardAndExtensionVersions:
     runs-on: ubuntu-latest
-    needs: docker-lint
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+      ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
+    steps:
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+            path: Ed-Fi-Extensions/
+
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+
+      - name: Set StandardVersions
+        id: Set_StandardVersions
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+          echo "StandardVersions=$output" >> $env:GITHUB_OUTPUT
+          Write-host "StandardVersions is  $output"
+        shell: pwsh
+
+      - name: Set ExtensionVersions
+        id: Set_ExtensionVersions
+        working-directory: ./Ed-Fi-Extensions/
+        run: |
+          $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+          echo "ExtensionVersions=$output" >> $env:GITHUB_OUTPUT
+          Write-host "ExtensionVersions is  $output"
+        shell: pwsh
+
+  docker-build:
+    if: ${{ always() }}
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+    name: Docker Build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+
     steps:
       - name: Checkout code
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
@@ -53,7 +106,7 @@ jobs:
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
         run: |
-          ./get-versions.ps1
-          ./build-images.ps1
+          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+          ./build-images.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }}
         working-directory: Docker
         shell: pwsh
