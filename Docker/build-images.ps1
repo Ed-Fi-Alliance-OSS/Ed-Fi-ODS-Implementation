@@ -148,9 +148,9 @@ function Invoke-Build {
         $mssql = "-mssql"
     }
 
-    $stdVer = ""
+    $stdVer = "-$LatestStandardVersion"
     if ($LatestStandardVersion -eq $StandardVersion) {
-        $stdVer = "-${LatestStandardVersion}"
+        $stdVer = ""
     }
 
     Write-Message "Building $ImageName"
