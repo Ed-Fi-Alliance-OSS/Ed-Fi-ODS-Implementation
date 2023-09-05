@@ -104,11 +104,7 @@ param (
 
     [Parameter()]
     [string]
-    $ExtensionVersion = $env:EXTENSION_VERSION,
-
-    [Parameter()]
-    [string]
-    $LatestStandardVersion = $env:CURRENT_STANDARD_VERSION
+    $ExtensionVersion = $env:EXTENSION_VERSION
 )
 
 $ErrorActionPreference = "Stop"
@@ -148,8 +144,8 @@ function Invoke-Build {
         $mssql = "-mssql"
     }
 
-    $stdVer = "-$LatestStandardVersion"
-    if ($LatestStandardVersion -eq $StandardVersion) {
+    $stdVer = "-$env:CURRENT_STANDARD_VERSION"
+    if ($env:CURRENT_STANDARD_VERSION -eq $StandardVersion) {
         $stdVer = ""
     }
 
