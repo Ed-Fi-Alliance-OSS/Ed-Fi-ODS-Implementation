@@ -144,29 +144,34 @@ function Invoke-Build {
         $mssql = "-mssql"
     }
 
+    $stdVer = "-$env:CURRENT_STANDARD_VERSION"
+    if ($env:CURRENT_STANDARD_VERSION -eq $StandardVersion) {
+        $stdVer = ""
+    }
+
     Write-Message "Building $ImageName"
     Push-Location $ImageName/$Path
     # Full semantic version
-    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer$mssql $BuildArgs ."
+    Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."
     if ($LASTEXITCODE -gt 0) {
         Write-Error "Failed to build image $ImageName"
     }
     # Major / minor version
-    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$PackageVersion$mssql
+    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
     # Major version
-    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):$major$mssql
+    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
     # Pre-release
-    &docker tag edfialliance/$($ImageName):$semVer$mssql edfialliance/$($ImageName):pre$mssql
+    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):pre$stdVer$mssql
 
     if ($Push) {
         Write-Message "Pushing $ImageName"
         if ($PreRelease) { 
-            &docker push edfialliance/$($ImageName):pre$mssql
+            &docker push edfialliance/$($ImageName):pre$stdVer$mssql
         }
         else {
-            &docker push edfialliance/$($ImageName):$semVer$mssql
-            &docker push edfialliance/$($ImageName):$PackageVersion$mssql
-            &docker push edfialliance/$($ImageName):$major$mssql
+            &docker push edfialliance/$($ImageName):$semVer-$StandardVersion$mssql
+            &docker push edfialliance/$($ImageName):$PackageVersion$stdVer$mssql
+            &docker push edfialliance/$($ImageName):$major$stdVer$mssql
         }
     }
     Pop-Location
