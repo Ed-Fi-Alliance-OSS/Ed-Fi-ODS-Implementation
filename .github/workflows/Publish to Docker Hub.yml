@@ -85,7 +85,7 @@ jobs:
         shell: pwsh
 
   docker-publish:
-    if: env.DOCKER_HUB_TOKEN != ''
+    if: needs.FindStandardAndExtensionVersions.outputs.StandardVersions != ''
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
     strategy:
