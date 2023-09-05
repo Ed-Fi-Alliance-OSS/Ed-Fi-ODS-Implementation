@@ -5,15 +5,15 @@
 
 name: Publish to Docker Hub
 on:
-  workflow_run:
-    workflows:
-      - "Docker Test"
-    types:
-      - completed
-    branches:
-      - main
-  release:
-    types: [published]
+  #workflow_run:
+  #  workflows:
+  #    - "Docker Test"
+  #  types:
+  #    - completed
+  #  branches:
+  #    - main
+  #release:
+  #  types: [published]
   workflow_dispatch:
 
 env:
@@ -21,7 +21,7 @@ env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "5.0.0"
-  PACKAGE_VERSION: "7.1"
+  PACKAGE_VERSION: "7.0"
 
 jobs:
 
@@ -111,13 +111,13 @@ jobs:
           ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
 
           # Note: all images will receive the same version number for this Docker release
-          if ($env:github_event_name -eq "release" -and $env:github_event_action -eq "published") {
+          #if ($env:github_event_name -eq "release" -and $env:github_event_action -eq "published") {
             ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }}
-            Write-Host "This step is triggered by a published release."
-          }
-          else
-          {
-           ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
-          }
+          #  Write-Host "This step is triggered by a published release."
+          #}
+          #else
+          #{
+          # ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
+          #}
         working-directory: Docker
         shell: pwsh

@@ -42,7 +42,11 @@ param(
     $StandardVersion = "5.0.0",
 
     [string]
-    $ExtensionVersion = "1.1.0"
+    $ExtensionVersion = "1.1.0",
+
+    # Enable usage of prereleases
+    [Switch]
+    $PreRelease
 )
 
 $ErrorActionPreference = "Stop"
@@ -167,14 +171,14 @@ Invalid version string ``$($PackageVersion)``. Should be one, two, or three comp
     $version
 }
 
-$env:ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:API_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.WebApi.Standard.$StandardVersion -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SwaggerUI -PackageVersion $PackageVersion -Prerelease)".Trim()
-$env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SandboxAdmin -PackageVersion $PackageVersion -Prerelease)".Trim()
+$env:ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.$ExtensionVersion.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.PostgreSQL.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:API_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.WebApi.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SwaggerUI -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SandboxAdmin -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
 $env:STANDARD_VERSION = $StandardVersion
 $env:EXTENSION_VERSION = $ExtensionVersion
