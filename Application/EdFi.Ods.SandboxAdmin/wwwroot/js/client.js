@@ -105,6 +105,20 @@ var TokenDialog = function () {
     };
 };
 
+var ResetDialog = function () {
+    var self = this;
+
+    this.htmlId = "modal-reset";
+    var modal = new ModalController({ htmlId: self.htmlId });
+
+    this.message = ko.observable("");
+
+    this.show = function (options) {
+        self.message(options.message);
+        modal.show(options.callback);
+    };
+};
+
 var AddApplicationDialog = function () {
     var self = this;
 
@@ -155,6 +169,7 @@ function ClientsViewModel() {
     self.confirmationDialog = new ConfirmationDialog();
     self.addApplicationDialog = new AddApplicationDialog();
     self.tokenDialog = new TokenDialog();
+    self.resetDialog = new ResetDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.apiClients().length > 0;
@@ -310,6 +325,41 @@ function ClientsViewModel() {
             callback: deleteClient
         });
     };
+
+    self.resetSandboxClicked = function(client) {
+        var resetClient = function (onComplete) {
+            var clientData = ko.mapping.toJS(client);
+            $.ajax({
+                type: "PUT",
+                data: clientData,
+                url: EdFiAdmin.Urls.client + "/reset",
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    self.resetDialog.show({
+                        message: ("Sandbox reset successfully."),
+                        buttonText: "OK",
+                        callback: null
+                    });
+                    onComplete();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    self.error(errorThrown);
+                    onComplete();
+                    return 0;
+                }
+            });
+        };
+
+        self.error("");
+        self.confirmationDialog.show({
+            message: "This operation will reset this sandbox, and all uploaded data will be lost.  " +
+                "<br/><br/>" +
+                "This operation cannot be undone.",
+            buttonText: "Reset",
+            callback: resetClient
+        });
+    };
+
     self.addApplicationClicked = function () {
         self.addApplicationDialog.show({ callback: self.doAddClient });
     };

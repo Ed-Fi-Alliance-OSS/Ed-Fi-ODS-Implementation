@@ -73,7 +73,24 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
-            return ResetSandboxClient(sandboxName, sandboxOptions, user);
+            var apiClient = ResetSandboxClient(sandboxName, sandboxOptions, user);
+
+            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
+
+            connectionStringBuilder.ConnectionString = _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
+            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi";
+            connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
+
+            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
+            {
+                Name = sandboxName,
+                InstanceType = "Sandbox",
+                ConnectionString = connectionStringBuilder.ConnectionString
+            });
+
+            _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
+
+            return apiClient;
         }
 
         public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
@@ -86,7 +103,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 .Concat(_templateDatabaseLeaQuery.GetCommunityProviderIds(client.Key))
                 .Distinct()
                 .ToList();
-
             _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, client.Application.ApplicationId);
 
             return client;
@@ -97,30 +113,13 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             var defaultApplication = _defaultApplicationCreator
                 .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
 
-            var apiClient = _clientAppRepo.SetupDefaultSandboxClient(
+            return _clientAppRepo.SetupDefaultSandboxClient(
                 sandboxName,
                 sandboxOptions.Type,
                 sandboxOptions.Key,
                 sandboxOptions.Secret,
                 user.UserId,
                 defaultApplication.ApplicationId);
-
-            var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
-
-            connectionStringBuilder.ConnectionString = _configConnectionStringsProvider.GetConnectionString("EdFi_Ods");
-            connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi"; 
-            connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
-            
-            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
-            {
-                Name = sandboxName,
-                InstanceType = "Sandbox",
-                ConnectionString = connectionStringBuilder.ConnectionString
-            });
-
-            _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
-
-            return apiClient;
         }
 
         private void ProvisionSandbox(ApiClient client)
