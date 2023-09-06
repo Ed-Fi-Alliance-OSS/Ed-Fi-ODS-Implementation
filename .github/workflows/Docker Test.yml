@@ -106,7 +106,7 @@ jobs:
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
         run: |
-          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-          ./build-images.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }}
+          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          ./build-images.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease
         working-directory: Docker
         shell: pwsh
