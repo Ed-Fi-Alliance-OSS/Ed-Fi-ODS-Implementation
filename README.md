@@ -33,4 +33,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
+## Ed-Fi ODS Docker Tags with  Ed-Fi ODS / API Releases
+
+|       Ed-Fi ODS / API              |                          Ed-Fi ODS Docker Tag                                                         |
+|------------------------------------|-------------------------------------------------------------------------------------------------------|
+| Ed-Fi ODS / API Suite3 v6.1        | [Ed-Fi ODS Docker v2.3.2 ](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker/releases/tag/v2.3.2)|
+| Ed-Fi ODS / API Suite3 v6.0        | [Ed-Fi ODS Docker v2.2.0](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker/releases/tag/v2.2.0) |
+| Ed-Fi ODS / API Suite3 v5.3        | [Ed-Fi ODS Docker v2.1.5](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker/releases/tag/v2.1.5) |
+| Ed-Fi ODS / API Suite3 v5.2        | [Ed-Fi ODS Docker v2.0.1](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker/releases/tag/v2.0.1) |
+| Ed-Fi ODS / API Suite3 v5.1        | [Ed-Fi ODS Docker v1.1.1](https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Docker/releases/tag/v1.1.1) |
+
 See [NOTICES](NOTICES.md) for additional copyright and license notifications.
+
