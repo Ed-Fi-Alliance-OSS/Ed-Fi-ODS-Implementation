@@ -63,6 +63,9 @@
                                     <a href="javascript:void(0)" data-bind="click: $parent.tokenClientClicked" class="tokenClient dropdown-item">
                                         Get Token
                                     </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.resetSandboxClicked" class="resetSandbox dropdown-item">
+                                        Reset Sandbox
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -168,6 +171,32 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h3 class="modal-title">Your temporary access token for this application is :</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" id="modal-reset" data-bind="with: resetDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Reset Sandbox</h3>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
             </div>
             <div class="modal-body">

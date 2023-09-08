@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using EdFi.Admin.DataAccess;
 using EdFi.Ods.SandboxAdmin.Models.Client;
 using EdFi.Ods.SandboxAdmin.Services;
 using EdFi.Admin.DataAccess.Models;
@@ -205,6 +206,26 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             {
                 _sandboxProvisioner.DeleteSandboxes(client.Key);
             }
+        }
+
+        [HttpPut("reset")]
+        public async Task<IActionResult> ResetClient([FromBody]ClientIndexViewModel clientViewModel)
+        {
+            if (Enum.TryParse(clientViewModel.SandboxTypeName, out SandboxType type))
+            {
+                var client = _clientCreator.ResetSandboxClient(
+                    clientViewModel.Name, new SandboxOptions()
+                    {
+                        Key = clientViewModel.Key,
+                        Secret = clientViewModel.Secret,
+                        Type = type
+                    }, UserProfile);
+
+                await AddClientStatusInfo(client);
+                return Ok(ToClientIndexViewModel(client));
+            }
+
+            return StatusCode((int)HttpStatusCode.NotAcceptable);
         }
     }
 }
