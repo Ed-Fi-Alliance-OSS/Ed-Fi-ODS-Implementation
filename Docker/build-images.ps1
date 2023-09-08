@@ -144,7 +144,7 @@ function Invoke-Build {
         $mssql = "-mssql"
     }
 
-    $stdVer = "-$env:CURRENT_STANDARD_VERSION"
+    $stdVer = "-$StandardVersion"
     if ($env:CURRENT_STANDARD_VERSION -eq $StandardVersion) {
         $stdVer = ""
     }
