@@ -157,3 +157,5 @@ function Invoke-ConfigureOctopusTenant {
 
   Invoke-SqlCmd -ConnectionString $tenantAdminDatabaseCS -Query $sql 
 }
+
+Export-ModuleMember -Function *
