@@ -17,6 +17,9 @@ function Invoke-ConfigureOctopusTenant {
         [string] $TenantIdentifier,
 
         [Parameter(Mandatory = $true)]
+        [string] $TenantOdsIdentifier,
+
+        [Parameter(Mandatory = $true)]
         [string] $TenantVendorName,
 
         [Parameter(Mandatory = $true)]
@@ -27,7 +30,7 @@ function Invoke-ConfigureOctopusTenant {
     )
 
     # Replace "{0}" with the value of the tenantIdentifier variable
-    $tenantODSDatabaseCS = $ConnectionString -f $TenantIdentifier
+    $tenantODSDatabaseCS = $ConnectionString -f $TenantOdsIdentifier
 
     Write-Host "Installing tenant configuration"
     Write-Host "TenantIdentifier: $TenantIdentifier"
@@ -161,6 +164,6 @@ function Invoke-ConfigureOctopusTenant {
     Invoke-SqlCmd -ConnectionString $tenantAdminDatabaseCS -Query $sql 
 }
 
-Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant1Identifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
+Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant1Identifier"] -TenantOdsIdentifier $OctopusParameters["Tenant1OdsIdentifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
 
-Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant2Identifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
+Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant2Identifier"] -TenantOdsIdentifier $OctopusParameters["Tenant2OdsIdentifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
