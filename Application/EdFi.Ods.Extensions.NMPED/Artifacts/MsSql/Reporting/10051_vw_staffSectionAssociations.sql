@@ -26,6 +26,9 @@ SELECT
 	,VDL.EducationOrganizationId_School
 	,VDL.LocationCode
 	,VDL.SchoolName	
+	,VDL.[DistrictOrgType]
+	,VDL.[LocationOrgType]
+	,VDL.[SchoolCategory]
 
 	--resource documentation starts
 	,S.StaffUSI

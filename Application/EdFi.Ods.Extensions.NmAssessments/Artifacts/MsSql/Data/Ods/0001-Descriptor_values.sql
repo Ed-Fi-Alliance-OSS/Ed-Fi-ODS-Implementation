@@ -38,6 +38,18 @@ INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDe
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','N','N','N');
 INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','2','2','2');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','3','3','3');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','4','4','4');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','5','5','5');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
 
 
 
