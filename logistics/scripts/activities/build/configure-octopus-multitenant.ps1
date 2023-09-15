@@ -40,7 +40,7 @@ function Invoke-ConfigureOctopusTenant {
 
     # Now you can access the individual properties of the tenants
 
-    $tenantAdminDatabaseCS = $tenants[$TenantIdentifier].ConnectionStrings.EdFi_Admin
+    $tenantAdminDatabaseCS = $tenants.($TenantIdentifier).ConnectionStrings.EdFi_Admin
 
     # Print the connection strings (just for demonstration purposes)
     Write-Host "Tenant ODS Connection String: $TenantODSDatabaseCS"
