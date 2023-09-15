@@ -1,10 +1,6 @@
 # This script will inject the ODS connection strings and the populatedSandbox 
 # keys and secrets into the Admin database for two Tenants
 
-Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant 1" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
-
-Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant 2" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
-
 <#
 .DESCRIPTION
     Injects the ODS connection string and the populatedSandbox key and secret into the Admin database for a Tenant
@@ -164,3 +160,7 @@ function Invoke-ConfigureOctopusTenant {
 
     Invoke-SqlCmd -ConnectionString $tenantAdminDatabaseCS -Query $sql 
 }
+
+Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant 1" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
+
+Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant 2" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
