@@ -27,24 +27,24 @@ function Invoke-ConfigureOctopusTenant {
     )
 
     # Replace "{0}" with the value of the tenantIdentifier variable
-    $tenantODSDatabaseCS = $connectionString -f $tenantIdentifier
+    $tenantODSDatabaseCS = $ConnectionString -f $TenantIdentifier
 
     Write-Host "Installing tenant configuration"
-    Write-Host "TenantIdentifier: $tenantIdentifier"
+    Write-Host "TenantIdentifier: $TenantIdentifier"
 
-    Write-Host "PrepopulatedKeyTenant: $tenantPopulatedSandboxKey"
-    Write-Host "PrepopulatedSecretTenant: $tenantPopulatedSandboxSecret"
+    Write-Host "PrepopulatedKeyTenant: $TenantPopulatedSandboxKey"
+    Write-Host "PrepopulatedSecretTenant: $TenantPopulatedSandboxSecret"
 
     # Convert the JSON data to a PowerShell object
-    $tenants = ConvertFrom-Json $tenantsJson
+    $tenants = ConvertFrom-Json $TenantsJson
 
     # Now you can access the individual properties of the tenants
 
-    $tenantAdminDatabaseCS = $tenants.tenant2.ConnectionStrings.EdFi_Admin
+    $tenantAdminDatabaseCS = $tenants[$TenantIdentifier].ConnectionStrings.EdFi_Admin
 
     # Print the connection strings (just for demonstration purposes)
-    Write-Host "Tenant ODS Connection String: $tenantODSDatabaseCS"
-    Write-Host "Tenant Admin Connection String: $tenantAdminDatabaseCS"
+    Write-Host "Tenant ODS Connection String: $TenantODSDatabaseCS"
+    Write-Host "Tenant Admin Connection String: $TenantAdminDatabaseCS"
 
     $sql = @"
     -- EdFi_Admin
@@ -64,9 +64,9 @@ function Invoke-ConfigureOctopusTenant {
         VendorName
     )
     VALUES 
-        ('$tenantVendorName');
+        ('$TenantVendorName');
 
-    SELECT @VendorId=VendorId  from dbo.Vendors where VendorName ='$tenantVendorName';
+    SELECT @VendorId=VendorId  from dbo.Vendors where VendorName ='$TenantVendorName';
 
     INSERT INTO dbo.VendorNamespacePrefixes (
         NamespacePrefix,
@@ -104,7 +104,7 @@ function Invoke-ConfigureOctopusTenant {
         Application_ApplicationId
     )
     VALUES 
-        ('$tenantPopulatedSandboxKey', '$tenantPopulatedSandboxSecret', '$tenantIdentifier', 1, 0, 0, 0, @ApplicationId);
+        ('$TenantPopulatedSandboxKey', '$TenantPopulatedSandboxSecret', '$TenantIdentifier', 1, 0, 0, 0, @ApplicationId);
 
     INSERT INTO dbo.ApiClientApplicationEducationOrganizations (
         ApiClient_ApiClientId,
@@ -122,7 +122,7 @@ function Invoke-ConfigureOctopusTenant {
         dbo.ApplicationEducationOrganizations ON
         Applications.ApplicationId = ApplicationEducationOrganizations.Application_ApplicationId
     WHERE
-        ApiClients.Name = '$tenantIdentifier'
+        ApiClients.Name = '$TenantIdentifier'
         AND
         Applications.ApplicationName = 'SwaggerUI'
         AND 
@@ -136,7 +136,7 @@ function Invoke-ConfigureOctopusTenant {
         ConnectionString
     )
     VALUES 
-        ('$tenantIdentifier Populated Sandbox', 'Sandbox', '$tenantODSDatabaseCS');
+        ('$TenantIdentifier Populated Sandbox', 'Sandbox', '$TenantODSDatabaseCS');
 
 
     INSERT INTO dbo.ApiClientOdsInstances (
@@ -151,9 +151,9 @@ function Invoke-ConfigureOctopusTenant {
     CROSS JOIN 
         dbo.ApiClients
     WHERE 
-        OdsInstances.[Name] = 'tenantIdentifier Populated Sandbox'
+        OdsInstances.[Name] = '$TenantIdentifier Populated Sandbox'
         AND
-        ApiClients.[Name] = '$tenantIdentifier'
+        ApiClients.[Name] = '$TenantIdentifier'
         AND  
         ApiClients.Application_ApplicationId = @ApplicationId;
 "@
@@ -161,6 +161,6 @@ function Invoke-ConfigureOctopusTenant {
     Invoke-SqlCmd -ConnectionString $tenantAdminDatabaseCS -Query $sql 
 }
 
-Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant1" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
+Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant1Identifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant1"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant1"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant1.org"
 
-Invoke-ConfigureOctopusTenant -TenantIdentifier "Tenant2" -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
+Invoke-ConfigureOctopusTenant -TenantIdentifier $OctopusParameters["Tenant2Identifier"] -TenantPopulatedSandboxKey $OctopusParameters["PrepopulatedKeyTenant2"] -TenantPopulatedSandboxSecret $OctopusParameters["PrepopulatedSecretTenant2"] -TenantsJson $OctopusParameters["Tenants"] -ConnectionString $OctopusParameters["ConnectionStrings:EdFi_Ods"] -TenantVendorName "tenant2.org"
