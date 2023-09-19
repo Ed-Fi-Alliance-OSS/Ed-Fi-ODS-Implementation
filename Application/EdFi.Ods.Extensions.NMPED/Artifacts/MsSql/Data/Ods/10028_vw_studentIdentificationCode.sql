@@ -23,6 +23,7 @@ SELECT
 	,VDL.LocationCode
 	,VDL.SchoolName 
 
+	,SEOASIC.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname

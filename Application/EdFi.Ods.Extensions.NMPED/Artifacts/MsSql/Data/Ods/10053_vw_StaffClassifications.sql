@@ -89,6 +89,7 @@ SELECT
 	 ,ID_Cert.IdentificationCode AS [CertNum]
 	 ,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		
 	 ,SEOAA.LastModifiedDate AS [AssignmentAssociation_LastModifiedDate]
+	 ,SEOAA.Id AS [AssignmentAssociation_Id]
 FROM edfi.Staff S WITH (NOLOCK)
 
 	RIGHT JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOAA WITH (NOLOCK)

@@ -31,6 +31,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,VM.CreateDate										
 	,VM.LastModifiedDate
+	,VM.Id AS [VehicleMileage_Id]
 FROM
 	nmped.VehicleMileage VM WITH (NOLOCK)
 

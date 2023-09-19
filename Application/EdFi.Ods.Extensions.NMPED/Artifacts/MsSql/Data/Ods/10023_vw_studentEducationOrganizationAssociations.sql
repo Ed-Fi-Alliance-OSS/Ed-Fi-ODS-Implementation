@@ -44,6 +44,7 @@ SELECT
 	,VDL.LocationCode
 	,VDL.SchoolName 
 
+	,SEOA.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname
@@ -66,6 +67,7 @@ SELECT
 
 	,SEOA.CreateDate
 	,SEOA.LastModifiedDate
+	,SEOA.Id AS [StudentEducationOrganizationAssociationId]
 
 FROM
 	edfi.StudentEducationOrganizationAssociation SEOA WITH (NOLOCK)

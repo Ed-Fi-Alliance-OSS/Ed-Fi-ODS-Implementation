@@ -51,6 +51,7 @@ SELECT
 	,DIE.SeriousBodilyInjuryIndicator
 	,DI.CreateDate
 	,DI.LastModifiedDate
+	,DI.Id AS [DisciplineIncident_Id]
  FROM 
 	edfi.DisciplineIncident DI WITH (NOLOCK)
 

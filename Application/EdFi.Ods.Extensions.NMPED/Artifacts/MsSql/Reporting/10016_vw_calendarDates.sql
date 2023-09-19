@@ -31,6 +31,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,CD.CreateDate
 	,CD.LastModifiedDate
+	,CD.Id AS [CalendarDateId]
 FROM 
 	edfi.CalendarDate CD WITH (NOLOCK)
 

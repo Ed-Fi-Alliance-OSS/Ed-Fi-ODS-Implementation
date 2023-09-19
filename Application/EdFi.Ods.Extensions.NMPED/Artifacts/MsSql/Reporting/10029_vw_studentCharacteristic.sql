@@ -38,6 +38,7 @@ SELECT
 	,VDL.LocationCode
 	,VDL.SchoolName 
 
+	,SEOASC.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname
@@ -47,6 +48,7 @@ SELECT
 	,GiftedLevelOfIntegration.Description	'GiftedLevelOfIntegrationDescription'
 
 	,SEOASC.CreateDate
+
 FROM
 	edfi.StudentEducationOrganizationAssociationStudentCharacteristic SEOASC WITH (NOLOCK)
 

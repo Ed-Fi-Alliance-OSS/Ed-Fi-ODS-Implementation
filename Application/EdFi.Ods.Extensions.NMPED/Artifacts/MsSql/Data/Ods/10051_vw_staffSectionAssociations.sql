@@ -5,6 +5,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 
 
+
 /* © NMPED 2023
  * 300 Don Gaspar Ave.
  * Santa Fe, NM 87501
@@ -17,7 +18,7 @@ GO
  *			from the staffSectionAssociations Ed-Fi Resource
  */
 
-CREATE OR ALTER   VIEW [nmped_rpt].[vw_staffSectionAssociations] AS 
+CREATE OR ALTER     VIEW [nmped_rpt].[vw_staffSectionAssociations] AS 
 SELECT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -50,6 +51,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,SSA.CreateDate										
 	,SSA.LastModifiedDate
+	,SSA.Id AS [StaffSectionAssociation_Id]
 FROM
 	edfi.StaffSectionAssociation SSA WITH (NOLOCK)
 
@@ -62,5 +64,3 @@ FROM
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SSA.SchoolId
 GO
-
-

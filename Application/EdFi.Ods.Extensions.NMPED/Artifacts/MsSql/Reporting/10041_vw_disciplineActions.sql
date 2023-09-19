@@ -45,6 +45,7 @@ SELECT
 	,DAE.DisciplineActionDetailedResponse
 	,DA.CreateDate
 	,DA.LastModifiedDate
+	,DA.Id AS [DisciplineAction_Id]
 FROM 
 	edfi.DisciplineAction DA WITH (NOLOCK)
 

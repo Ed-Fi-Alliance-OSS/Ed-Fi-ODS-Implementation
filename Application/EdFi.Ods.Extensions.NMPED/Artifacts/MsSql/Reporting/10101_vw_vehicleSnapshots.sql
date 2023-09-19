@@ -43,6 +43,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,VS.CreateDate										
 	,VS.LastModifiedDate
+	,VS.Id AS [VehicleSnapshot_Id]
 FROM 
 	nmped.VehicleSnapshot VS WITH (NOLOCK)
 	

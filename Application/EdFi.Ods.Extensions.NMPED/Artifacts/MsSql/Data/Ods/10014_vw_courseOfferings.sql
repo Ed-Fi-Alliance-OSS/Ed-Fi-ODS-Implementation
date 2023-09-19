@@ -33,6 +33,7 @@ SELECT
 --	,offeredGradeLevels not collected
 	,CO.CreateDate
 	,CO.LastModifiedDate
+	,CO.Id AS [CourseOfferingId]
 FROM
 	edfi.CourseOffering CO WITH (NOLOCK)
 

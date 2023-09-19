@@ -86,6 +86,7 @@ SELECT * FROM edfi.ResidencyStatusDescriptor WITH (NOLOCK))
 	--table CreateDate/LastModifiedDate
 	,SSA.CreateDate
 	,SSA.LastModifiedDate
+	,SSA.Id AS [StudentSchoolAssociation_Id]
 FROM 
 	edfi.StudentSchoolAssociation SSA WITH (NOLOCK)
 

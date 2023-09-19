@@ -34,6 +34,8 @@ SELECT
 	 VDL.EducationOrganizationId_District
 	,VDL.DistrictCode
 	,VDL.DistrictName
+	,VDL.EducationOrganizationId_School
+	,VDL.SchoolName
 
 	--resource documentation starts
 	,StaffUniqueId
@@ -66,6 +68,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,SEOEA.CreateDate										
 	,SEOEA.LastModifiedDate
+	,SEOEA.Id AS [EmploymentAssociation_Id]
 FROM
 	edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
 

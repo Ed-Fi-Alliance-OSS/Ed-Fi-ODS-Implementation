@@ -70,6 +70,7 @@ SELECT DISTINCT
 					,'')
 	,C.CreateDate
 	,C.LastModifiedDate
+	,C.Id AS [CalendarId]
 FROM
 	edfi.Calendar C WITH (NOLOCK)
 

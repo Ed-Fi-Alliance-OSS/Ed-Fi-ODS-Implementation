@@ -68,6 +68,7 @@ SELECT DISTINCT
 	--table CreateDate/LastModifiedDate
 	,SSA.CreateDate										
 	,SSA.LastModifiedDate
+	,SSA.Id AS [StudentSectionAssociation_Id]
 FROM
 	edfi.StudentSectionAssociation SSA WITH (NOLOCK)
 

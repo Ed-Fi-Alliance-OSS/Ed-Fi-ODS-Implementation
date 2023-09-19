@@ -42,6 +42,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,SSEAE.CreateDate
 	,SSEAE.LastModifiedDate
+	,SSEAE.Id AS [StudentSpecialEducationAssociationEvent_Id]
 FROM
 	nmped.StudentSpecialEducationAssociationEvent SSEAE WITH (NOLOCK)
 

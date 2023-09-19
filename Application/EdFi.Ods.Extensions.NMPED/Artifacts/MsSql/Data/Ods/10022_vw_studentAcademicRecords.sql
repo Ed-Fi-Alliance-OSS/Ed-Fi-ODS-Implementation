@@ -110,6 +110,7 @@ SELECT
 	,SessionGradePointsEarned
 	,SAR.CreateDate
 	,SAR.LastModifiedDate
+	,SAR.Id AS [StudentAcademicRecord_Id]
 FROM
 	edfi.StudentAcademicRecord SAR WITH (NOLOCK)
 

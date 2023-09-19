@@ -99,6 +99,7 @@ SELECT DISTINCT
 	,S.StudentUSI
 	,P.CreateDate
 	,P.LastModifiedDate
+	,P.Id AS [ParentId]
 FROM
 	edfi.Parent P WITH (NOLOCK)
 

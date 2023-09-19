@@ -16,30 +16,14 @@
  *           performance issues when accessing descriptor fields.
  *
  *
- * This query will not show students with a missing record in the StudentSchoolAssociation table
- * Students that join a school, leave, and join another school will have two records in the table,
+ * Alt Id:	002 (Increment value each change)
+ * By:		Collin Neville | App Dev I
+ * Email:	collin.neville@ped.nm.gov
+ * Date:	07/12/2023
+ * Alt Desc: Removed all of the extra columns that PED did not collect.
  */
 
 CREATE OR ALTER VIEW nmped_rpt.vw_students AS 
---Alt Id: 001 - New CTE using control tables for descriptors
-WITH cte_Descriptors AS (
-	SELECT DescriptorId
-		,CodeValue
-		,Description
-	FROM
-		edfi.Descriptor WITH (NOLOCK)
-	WHERE 
-		DescriptorId IN (	SELECT * FROM edfi.CountryDescriptor WITH (NOLOCK)
-							UNION
-							SELECT * FROM edfi.SexDescriptor WITH (NOLOCK)
-							UNION
-							SELECT * FROM edfi.StateAbbreviationDescriptor WITH (NOLOCK)
-							UNION
-							SELECT * FROM edfi.CitizenshipStatusDescriptor WITH (NOLOCK)
-						)
-							
-
-)
 
 SELECT DISTINCT
 	--standard school/district columns
@@ -52,31 +36,11 @@ SELECT DISTINCT
 
 	--resource documentation starts
 	,[S].StudentUniqueId
---  ,[personReference] not collected
-	,[S].BirthCity
-	,[BirthCountry].CodeValue							'BirthCountryCode'							--BirthCountryDescriptorId
-	,[BirthCountry].Description							'BirthCountryDescription'					--BirthCountryDescriptorId
 	,[S].BirthDate
-	,[S].BirthInternationalProvince
-	,[BirthSex].CodeValue								'BirthSexCode'								--BirthSexDescriptorId
-	,[BirthSex].Description								'BirthSexDescription'						--BirthSexDescriptorId
-	,[BirthStateAbbreviation].CodeValue					'BirthStateAbbreviationCode'				--BirthStateAbbreviationDescriptorId
-	,[BirthStateAbbreviation].Description				'BirthStateAbbreviationDescription'			--BirthStateAbbreviationDescriptorId
-	,[CitizenshipStatus].CodeValue						'CitizenshipStatusCode'						--CitizenshipStatusDescriptorId
-	,[CitizenshipStatus].Description					'CitizenshipStatusDescription'				--CitizenshipStatusDescriptorId
 	,[S].DateEnteredUS
-	,[S].FirstName										
-	,[S].GenerationCodeSuffix							
---  ,[identificationDocuments] not collected
-	,[S].LastSurname									
-	,[S].MaidenName										
-	,[S].MiddleName										
-	,[S].MultipleBirthStatus
---  ,[otherNames] not collected
---	,[personalIdentificationDocuments] not collected
-	,[S].PersonalTitlePrefix							
---	,[visas] not collected
-
+	,[S].FirstName	
+	,[S].MiddleName		
+	,[S].LastSurname																						
 	--table CreateDate/LastModifiedDate
 	,[S].CreateDate										
 	,[S].LastModifiedDate
@@ -85,20 +49,6 @@ FROM
 
 	JOIN edfi.StudentSchoolAssociation SSA WITH (NOLOCK)
 		ON SSA.StudentUSI = S.StudentUSI
-
--- Alt Id: 001 - Updated joins to Descriptor table to use the CTE instead
-	LEFT JOIN cte_Descriptors BirthCountry WITH (NOLOCK)
-		ON BirthCountry.DescriptorId = S.BirthCountryDescriptorId
-
-	LEFT JOIN cte_Descriptors BirthSex WITH (NOLOCK)
-		ON BirthSex.DescriptorId = S.BirthSexDescriptorId
-
-	LEFT JOIN cte_Descriptors BirthStateAbbreviation WITH (NOLOCK)
-		ON BirthStateAbbreviation.DescriptorId = S.BirthStateAbbreviationDescriptorId
-
-	LEFT JOIN cte_Descriptors CitizenshipStatus WITH (NOLOCK)
-		ON CitizenshipStatus.DescriptorId = S.CitizenshipStatusDescriptorId
--- Alt Id: 001 - End
 
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SSA.SchoolId

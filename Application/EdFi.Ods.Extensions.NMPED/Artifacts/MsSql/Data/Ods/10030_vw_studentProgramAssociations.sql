@@ -80,6 +80,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,GSPA.CreateDate
 	,GSPA.LastModifiedDate
+	,GSPA.Id AS [StudentProgramAssociation_Id]
 FROM
 	edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
 

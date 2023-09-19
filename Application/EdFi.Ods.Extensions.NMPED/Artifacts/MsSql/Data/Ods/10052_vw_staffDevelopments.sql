@@ -40,6 +40,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,SD.CreateDate										
 	,SD.LastModifiedDate
+	,SD.Id AS [StaffDevelopment_Id]
 FROM
 	nmped.StaffDevelopment SD WITH (NOLOCK)
 

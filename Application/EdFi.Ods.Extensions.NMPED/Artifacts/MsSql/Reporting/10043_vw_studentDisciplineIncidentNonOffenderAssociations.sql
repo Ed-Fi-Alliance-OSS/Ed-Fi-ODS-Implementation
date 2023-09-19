@@ -27,7 +27,9 @@ SELECT
         edfi.Descriptor.Description AS [Incident Description], 
         SDINOA.Discriminator,
 		SDINOA.CreateDate,
-		SDINOA.LastModifiedDate
+		SDINOA.LastModifiedDate,
+		SDINOA.Id AS [StudentDisciplineIncidentNonOffenderAssociation_Id]
+
 FROM    edfi.StudentDisciplineIncidentNonOffenderAssociation SDINOA WITH (NOLOCK)
 
 		INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)

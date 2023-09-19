@@ -35,6 +35,7 @@ SELECT
 	,VDL.SchoolName 
 
 	--resource documentation starts
+	,SEOAL.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname

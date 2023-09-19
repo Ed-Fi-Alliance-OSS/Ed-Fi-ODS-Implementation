@@ -45,6 +45,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,SSAE.CreateDate
 	,SSAE.LastModifiedDate
+	,SSAE.Id AS [StudentSchoolAttendanceEvent_Id]
 FROM
 	edfi.StudentSchoolAttendanceEvent SSAE WITH (NOLOCK)
 

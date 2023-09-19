@@ -36,6 +36,7 @@ SELECT
 	,VDL.LocationCode
 	,VDL.SchoolName 
 
+	,SEOAR.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname
@@ -44,6 +45,7 @@ SELECT
 	,TribalAffiliation.CodeValue	'TribalAffiliationCode'
 	,TribalAffiliation.Description	'TribalAffiliationDescription'
 	,SEOAR.CreateDate
+
 FROM
 	edfi.StudentEducationOrganizationAssociationRace SEOAR WITH (NOLOCK)
 

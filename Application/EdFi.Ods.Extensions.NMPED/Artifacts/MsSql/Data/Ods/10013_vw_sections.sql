@@ -51,6 +51,7 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,S.CreateDate										
 	,S.LastModifiedDate
+	,S.Id AS [SectionId]
 FROM
 	edfi.Section S WITH (NOLOCK)
 

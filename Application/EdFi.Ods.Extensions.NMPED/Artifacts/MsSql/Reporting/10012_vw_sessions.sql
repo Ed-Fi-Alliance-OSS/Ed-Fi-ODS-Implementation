@@ -32,6 +32,7 @@
 	--table CreateDate/LastModifiedDate
 	,S.CreateDate										
 	,S.LastModifiedDate
+	,S.Id AS [Session_Id]
 FROM
 	edfi.Session S WITH (NOLOCK)
 

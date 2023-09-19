@@ -30,6 +30,8 @@ SELECT
 	--table CreateDate/LastModifiedDate
 	,LEAT.CreateDate
 	,LEAT.LastModifiedDate
+	,LEAT.Id AS [LocalEducationAgencyTransportationId]
+
 FROM
 	nmped.LocalEducationAgencyTransportation LEAT WITH (NOLOCK)
 
