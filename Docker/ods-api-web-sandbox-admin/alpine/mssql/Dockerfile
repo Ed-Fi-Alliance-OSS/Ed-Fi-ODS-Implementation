@@ -14,12 +14,9 @@ ARG SANDBOX_VERSION
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
-ENV POSTGRES_PORT=5432
-ENV PGBOUNCER_LISTEN_PORT=6432
-ENV NPG_POOLING_ENABLED=false
-ENV ODS_VIRTUAL_NAME=api
-ENV PathBase=admin
-ENV OAuthUrl="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
+ENV PATH_BASE=admin
+ENV OAUTH_URL="https://localhost/api/oauth/"
+ENV ENCRYPT_CONNECTION=false
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get fopr LINQ expression to work Disable the

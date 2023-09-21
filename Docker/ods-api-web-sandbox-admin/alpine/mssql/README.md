@@ -14,10 +14,17 @@ The only supported image at this time is an Alpine-based implementation.
 
 ```none
 LOGS_FOLDER=<path to store the log files>
+PATH_BASE=<The url path to the sandbox admin, used to define the sandbox admin url> (OPTIONAL, default admin)
+OAUTH_URL=<The url path to the OAuth endpoint.> (OPTIONAL, default https://localhost/api/oauth/)
 SQLSERVER_ODS_DATASOURCE=<DNS or IP Address of the SQL Server Instance, i.e. sql.somedns.org or 10.1.5.9,1433
 SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, i.e. sql.somedns.org or 10.1.5.9,1433>
-SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi databases, edfiadmin>
-SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi databases, password123!>
+SQLSERVER_ADMIN_USER=<SQL Username with access to SQL Server Ed-Fi Admin and Security databases, i.e. edfiadmin>
+SQLSERVER_ADMIN_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi Admin and Security databases, i.e. password123!>
+SQLSERVER_ODS_USER=<SQL Username with access to SQL Server Ed-Fi ODS databases, i.e. edfiadmin>
+SQLSERVER_ODS_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi ODS databases, i.e. password123!>
+SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi databases. If present along with SQLSERVER_PASSWORD, will override SQLSERVER_ODS_USER and SQLSERVER_ADMIN_USER>
+SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi databases. If present along with SQLSERVER_USER, will override SQLSERVER_ODS_PASSWORD and SQLSERVER_ADMIN_PASSWORD>
+ENCRYPT_CONNECTION=<true/false use encrypted connection>(OPTIONAL, default: false)
 ADMIN_USER=<default admin user for sandbox admin>
 ADMIN_PASSWORD=<default password for the sandbox admin user>
 MINIMAL_KEY=<minimal template key>
