@@ -8,7 +8,7 @@ Provides docker deployment for Sandbox Admin tool.
 
 The only supported image at this time is an Alpine-based implementation.
 
-`edfialliance/ods-api-web-sandbox-admin-mssql:<version>`
+`edfialliance/ods-api-web-sandbox-admin:<version>-mssql`
 
 ## Supported Environment Variables
 
