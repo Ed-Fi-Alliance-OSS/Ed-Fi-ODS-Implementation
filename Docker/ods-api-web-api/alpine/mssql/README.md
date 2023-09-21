@@ -9,18 +9,18 @@ Provides docker deployment for Ed-Fi ODS/API.
 
 The only supported image at this time is an Alpine-based implementation.
 
-`edfialliance/ods-api-web-api-mssql:<version>`
+`edfialliance/ods-api-web-api:<version>-mssql`
 
 ## Supported Environment Variables
 
 ```none
-API_MODE=<Value that will replace ApiSettings.Mode in app.settings.json, i.e. YearSpecific>
 LOGS_FOLDER=<path to store the log files>
-SQLSERVER_ODS_DATASOURCE=<DNS or IP Address of the SQL Server Instance, i.e. sql.somedns.org or 10.1.5.9,1433>
+PATH_BASE=<The url path to the api, used to define the api's url> (OPTIONAL, default api)
 SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, i.e. sql.somedns.org or 10.1.5.9,1433>
-SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi databases, edfiadmin>
-SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi databases, password123!>
+SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi Admin and Security databases.>
+SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi Admin and Security databases.>
 TPDM_ENABLED=<true/false load TPDM extension> (OPTIONAL, default: true)
+ENCRYPT_CONNECTION=<true/false use encrypted connection>(OPTIONAL, default: false)
 ```
 
 ## Legal Information

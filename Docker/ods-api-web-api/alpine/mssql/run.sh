@@ -11,6 +11,12 @@ if [[ "$TPDM_ENABLED" != true ]]; then
     export Plugin__Folder="./Plugin_Disabled"
 fi
 
+if [[ "$ENCRYPT_CONNECTION" == true ]]; then
+    export ENCRYPT_CONNECTION=""
+else
+    export ENCRYPT_CONNECTION="Encrypt=false;"
+fi
+
 envsubst < /app/appsettings.template.json > /app/appsettings.json
 
 dotnet EdFi.Ods.WebApi.dll
