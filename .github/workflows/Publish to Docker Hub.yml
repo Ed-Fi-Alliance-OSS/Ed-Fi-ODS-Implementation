@@ -15,6 +15,12 @@ on:
   release:
     types: [published]
   workflow_dispatch:
+    inputs:
+      package_version:
+        description: 'Package Version'
+        required: true
+        default: "7.1"
+        type: string
 
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
@@ -22,6 +28,8 @@ env:
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "5.0.0"
   PACKAGE_VERSION: "7.1"
+  EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
+  EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
 
 jobs:
 
@@ -107,10 +115,16 @@ jobs:
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           # Note: all images will receive the same version number for this Docker release
-          if ($env:github_event_name -eq "release" -and $env:github_event_action -eq "published") {
-            ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }}
-            Write-Host "This step is triggered by a published release."
+          if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch")) {
+
+            $package_version="${{ env.PACKAGE_VERSION }}"
+            if ($env:EVENT_NAME -eq "workflow_dispatch") {
+              $package_version="${{ inputs.package_version }}"
+            }
+
+            ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+            ./build-images.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}
+            Write-Host "This step is triggered manually or by a published release."
           }
           else
           {
