@@ -143,7 +143,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 claimSetResourceClaimActions.Add(
                                     new ClaimSetResourceClaimAction
                                     {
-                                        ResourceClaimId = studentSectionAssociationResourceClaimId.Value,
+                                        ResourceClaimId = studentSectionAssociationResourceClaimId,
                                         ActionId = actionId,
                                         ClaimSetId = edFiSandboxClaimSetId
                                     });
@@ -163,7 +163,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 claimSetResourceClaimActions.Add(
                                     new ClaimSetResourceClaimAction
                                     {
-                                        ResourceClaimId = educationContentsResourceClaimId.Value,
+                                        ResourceClaimId = educationContentsResourceClaimId,
                                         ActionId = actionId,
                                         ClaimSetId = edFiSandboxClaimSetId
                                     });
@@ -178,7 +178,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     claimSetResourceClaimActions.Add(
                         new ClaimSetResourceClaimAction
                         {
-                            ResourceClaimId = seoraResourceClaimId.Value,
+                            ResourceClaimId = seoraResourceClaimId,
                             ActionId = createActionId,
                             ClaimSetId = edFiSandboxClaimSetId
                         });
@@ -346,7 +346,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             claimSetResourceClaimActions.Add(
                                new ClaimSetResourceClaimAction
                                {
-                                   ResourceClaimId = resourceClaim.ResourceClaimId.Value,
+                                   ResourceClaimId = resourceClaim.ResourceClaimId,
                                    ActionId = action.ActionId,
                                    ClaimSetId = ownershipBasedClaimSetId
                                });
