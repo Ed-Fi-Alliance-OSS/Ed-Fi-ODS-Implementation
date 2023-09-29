@@ -3,32 +3,28 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Ods.Api.Security.Authorization;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
-using EdFi.Ods.Common;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Common.Security;
 using EdFi.Ods.Common.Security.Claims;
 using EdFi.Ods.Api.Security.Authorization.Repositories;
-using EdFi.Ods.Api.Security.AuthorizationStrategies.Relationships.Filters;
-using EdFi.Ods.Api.Security.Claims;
 using EdFi.Ods.Common.Context;
-using EdFi.Ods.Common.Infrastructure.Filtering;
-using EdFi.Security.DataAccess.Repositories;
-using NHibernate;
+using EdFi.Ods.Common.Security.Authorization;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
 {
-    public class OwnershipInitializationCreateEntityDecorator<T>
-        : RepositoryOperationAuthorizationDecoratorBase<T>, ICreateEntity<T>
-        where T : AggregateRootWithCompositeKey
+    public class OwnershipInitializationCreateEntityDecorator<TEntity>
+        : RepositoryOperationAuthorizationDecoratorBase<TEntity>, ICreateEntity<TEntity>
+        where TEntity : AggregateRootWithCompositeKey
     {
         private readonly IApiClientContextProvider _apiClientContextProvider;
-        private readonly ICreateEntity<T> _next;
+        private readonly ICreateEntity<TEntity> _next;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OwnershipInitializationCreateEntityDecorator{T}"/> class.
@@ -36,46 +32,31 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
         /// <param name="next">The decorated instance for which authorization is being performed.</param>
         /// <param name="authorizationContextProvider">Provides access to the authorization context, such as the resource and action.</param>
         /// <param name="authorizationFilteringProvider">The component capable of authorizing the request, given necessary context.</param>
-        /// <param name="authorizationFilterDefinitionProvider"></param>
-        /// <param name="explicitObjectValidators"></param>
         /// <param name="authorizationBasisMetadataSelector"></param>
-        /// <param name="securityRepository"></param>
-        /// <param name="sessionFactory"></param>
         /// <param name="apiClientContextProvider"></param>
-        /// <param name="viewBasedSingleItemAuthorizationQuerySupport"></param>
         /// <param name="dataManagementResourceContextProvider"></param>
-        /// <param name="viewBasedAuthorizationQueryContext"></param>
+        /// <param name="entityAuthorizer"></param>
         public OwnershipInitializationCreateEntityDecorator(
-            ICreateEntity<T> next,
+            ICreateEntity<TEntity> next,
             IAuthorizationContextProvider authorizationContextProvider,
             IAuthorizationFilteringProvider authorizationFilteringProvider,
-            IAuthorizationFilterDefinitionProvider authorizationFilterDefinitionProvider,
-            IExplicitObjectValidator[] explicitObjectValidators,
             IAuthorizationBasisMetadataSelector authorizationBasisMetadataSelector,
-            ISecurityRepository securityRepository,
-            ISessionFactory sessionFactory,
             IApiClientContextProvider apiClientContextProvider,
-            IViewBasedSingleItemAuthorizationQuerySupport viewBasedSingleItemAuthorizationQuerySupport,
             IContextProvider<DataManagementResourceContext> dataManagementResourceContextProvider,
-            IContextProvider<ViewBasedAuthorizationQueryContext> viewBasedAuthorizationQueryContext)
+            IEntityAuthorizer entityAuthorizer)
             : base(
                 authorizationContextProvider,
                 authorizationFilteringProvider,
-                authorizationFilterDefinitionProvider,
-                explicitObjectValidators,
                 authorizationBasisMetadataSelector,
-                securityRepository,
-                sessionFactory,
                 apiClientContextProvider,
-                viewBasedSingleItemAuthorizationQuerySupport,
                 dataManagementResourceContextProvider,
-                viewBasedAuthorizationQueryContext)
+                entityAuthorizer)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _apiClientContextProvider = Preconditions.ThrowIfNull(apiClientContextProvider, nameof(apiClientContextProvider));
+            _apiClientContextProvider = apiClientContextProvider ?? throw new ArgumentNullException(nameof(apiClientContextProvider));
         }
 
-        public async Task CreateAsync(T entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
+        public async Task CreateAsync(TEntity entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
         {
             Preconditions.ThrowIfNull(entity, nameof(entity));
 
