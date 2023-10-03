@@ -4,9 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EdFi.Ods.Sandbox.Admin.Initialization
 {
+    [NotMapped]
     public class UserOptions
     {
         public string Email { get; set; }

@@ -11,8 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using System.Data.Entity;
 using EdFi.Common.Configuration;
 using EdFi.Common.Extensions;
 using EdFi.Ods.Sandbox.Admin.Contexts;
@@ -29,7 +29,6 @@ using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 using EdFi.Ods.Sandbox.Admin.Extensions;
 using System;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -221,10 +220,7 @@ namespace EdFi.Ods.SandboxAdmin
             }
 
             Container = app.ApplicationServices.GetAutofacRoot();
-
-            // Set EF Context
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
+            
             app.UseForwardedHeaders();
 
             if (env.IsDevelopment())
