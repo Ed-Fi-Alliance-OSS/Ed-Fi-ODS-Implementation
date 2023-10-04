@@ -21,6 +21,7 @@ function Get-TestProjectTypes {
     return @{
         IntegrationTestHarness      = 'Application/EdFi.Ods.Api.IntegrationTestHarness'
         NHibernateTests             = 'Application/EdFi.Ods.Repositories.NHibernate.Tests'
+        OdsUnitTests                = 'Application/EdFi.Ods.Tests'
         ApiIntegrationTests         = 'tests/EdFi.Ods.Api.IntegrationTests'
         CompositeSpecFlowTests      = 'tests/EdFi.Ods.WebApi.CompositeSpecFlowTests'
         WebApiIntegrationTests      = 'tests/EdFi.Ods.WebApi.IntegrationTests'
@@ -114,6 +115,12 @@ function Get-DefaultDevelopmentSettingsByProject {
             ConnectionStrings = @{ }
         }
         ((Get-TestProjectTypes).DataAccessIntegrationTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).OdsUnitTests) = @{
             ApiSettings       = @{
                 Engine = ""
             }
