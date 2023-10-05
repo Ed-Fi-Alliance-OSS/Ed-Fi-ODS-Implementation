@@ -70,8 +70,8 @@ function mapSections(json) {
   console.log('sections', sections)
 }
 
-function onChangeSchoolYear() {
-    var yearSelected = $("#schoolYearSelect option:selected").text();
+function onChangeschoolYearFromRoute() {
+    var yearSelected = $("#schoolYearFromRouteSelect option:selected").text();
 
     $(".url-link").each(function() {
         var oldUrl = $(this).attr("href");
@@ -104,7 +104,7 @@ function createSectionLinks(sectionName, hasYear, hasTenant) {
         queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
 
         if (hasYear) {
-            var year = $("#schoolYearSelect option:selected").text();
+            var year = $("#schoolYearFromRouteSelect option:selected").text();
             queryParameters.year = year;
         }
 
@@ -128,7 +128,7 @@ async function addYearOptions() {
     if (Years.length > 0) {
 
         Years.forEach(element => {
-            $('#schoolYearSelect').append(new Option(element.Year, element.Year));
+            $('#schoolYearFromRouteSelect').append(new Option(element.Year, element.Year));
         });
 
         var defaultYears = $.grep(Years, function (item) { return item.IsDefault });
@@ -138,11 +138,11 @@ async function addYearOptions() {
     else {
         defaultYear = new Date().getFullYear()
         for (let i = defaultYear - 1; i <= defaultYear + 1; i++) {
-            $('#schoolYearSelect').append(new Option(i, i))
+            $('#schoolYearFromRouteSelect').append(new Option(i, i))
         }
     }
 
-    $("#schoolYearSelect option[value='" + defaultYear + "']").attr("selected", "selected");
+    $("#schoolYearFromRouteSelect option[value='" + defaultYear + "']").attr("selected", "selected");
 }
 
 async function addTenantOptions() {
@@ -249,9 +249,9 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
 
   if (hasYear) {
     addYearOptions();
-    let schoolYearSelected = $("#schoolYearSelect option:selected").text();
-    openApiMetadata = openApiMetadata.replace('{schoolYear}', schoolYearSelected);
-    $("#schoolYear").show();
+    let schoolYearFromRouteSelected = $("#schoolYearFromRouteSelect option:selected").text();
+    openApiMetadata = openApiMetadata.replace('{schoolYearFromRoute}', schoolYearFromRouteSelected);
+    $("#schoolYearFromRoute").show();
   }
 
   if (hasTenant) {
