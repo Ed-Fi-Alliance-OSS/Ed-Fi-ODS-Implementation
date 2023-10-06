@@ -113,7 +113,9 @@ function createSectionLinks(sectionName, hasYear, hasTenant) {
             queryParameters.tenantIdentifier = tenantIdentifier;
         }
         
-        let paramsUrlString = Object.keys(queryParameters).map(k => encodeURIComponent(k) + '=' + encodeURIComponent(queryParameters[k])).join('&');
+        let paramsUrlString = Object.keys(queryParameters)
+          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
+          .join('&');
 
         return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
     })
