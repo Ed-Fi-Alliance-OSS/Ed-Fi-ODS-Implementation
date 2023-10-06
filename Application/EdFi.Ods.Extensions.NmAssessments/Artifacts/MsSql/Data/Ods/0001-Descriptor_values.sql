@@ -152,16 +152,16 @@ where namespace = 'uri://nmped.org/nmassessments/ItemDescriptionCodeDescriptor';
 
 
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','BRIG','Brigance','Brigance');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','CC','Creative Curriculum','Creative Curriculum');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','WORK','Work Sampling','Work Sampling');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','PETITION','Petition to NMPED','Petition to NMPED');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','NMPKOA','NM Prek Observational Assessment','NM Prek Observational Assessment');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','DLDSC','Dual Discrepancy Model Assessment','Dual Discrepancy Model Assessment');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','TCHREAD','Teach Me to Read','Teach Me to Read');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','LEXISE','Lexercise','Lexercise');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','ISTAT','Istation','Istation');
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCode','IDEL','IDEL','IDEL');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','BRIG','Brigance','Brigance');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','CC','Creative Curriculum','Creative Curriculum');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','WORK','Work Sampling','Work Sampling');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','PETITION','Petition to NMPED','Petition to NMPED');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','NMPKOA','NM Prek Observational Assessment','NM Prek Observational Assessment');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','DLDSC','Dual Discrepancy Model Assessment','Dual Discrepancy Model Assessment');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','TCHREAD','Teach Me to Read','Teach Me to Read');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','LEXISE','Lexercise','Lexercise');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','ISTAT','Istation','Istation');
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Description) values ('uri://nmped.org/nmassessments/ScoringModelCodeDescriptor','IDEL','IDEL','IDEL');
 
 
 INSERT INTO nmassessments.ScoringModelCodeDescriptor (ScoringModelCodeDescriptorId) 
