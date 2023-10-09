@@ -6,6 +6,7 @@
 using System.Data.Common;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Configuration;
+using Npgsql;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {
