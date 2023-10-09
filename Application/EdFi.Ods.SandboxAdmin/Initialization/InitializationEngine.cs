@@ -95,7 +95,7 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
                         if (user.Value.Admin)
                         {
-                            roles = new string[] { "Administrator" };
+                            roles = new[] { "Administrator" };
                         }
 
                         _log.Debug($"Adding user: {user.Value} to roles:  {string.Join(",", roles)} in asp net security.");

@@ -4,9 +4,9 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System;
-using Microsoft.AspNetCore.Mvc;
 using EdFi.Ods.SandboxAdmin.Models.Home;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers
 {

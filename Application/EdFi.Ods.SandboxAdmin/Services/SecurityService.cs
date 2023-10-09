@@ -4,11 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Security.Principal;
-using Microsoft.Data.SqlClient;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.SandboxAdmin.Security;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Data.SqlClient;
 
 namespace EdFi.Ods.SandboxAdmin.Services
 {

@@ -81,7 +81,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             connectionStringBuilder.ApplicationName = "EdFi.Ods.WebApi";
             connectionStringBuilder.DatabaseName = _databaseNameBuilder.SandboxNameForKey(apiClient.Key);
 
-            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance()
+            var odsInstance = _clientAppRepo.CreateOdsInstance(new OdsInstance
             {
                 Name = sandboxName,
                 InstanceType = "Sandbox",
