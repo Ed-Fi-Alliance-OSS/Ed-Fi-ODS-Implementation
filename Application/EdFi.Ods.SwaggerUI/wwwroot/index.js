@@ -112,8 +112,10 @@ function createSectionLinks(sectionName, hasYear, hasTenant) {
             var tenantIdentifier = $("#tenantSelect option:selected").text();
             queryParameters.tenantIdentifier = tenantIdentifier;
         }
-
-        const paramsUrlString = new URLSearchParams(queryParameters);
+        
+        let paramsUrlString = Object.keys(queryParameters)
+          .map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryParameters[k])}`)
+          .join('&');
 
         return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
     })
