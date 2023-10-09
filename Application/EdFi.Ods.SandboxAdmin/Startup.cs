@@ -1,35 +1,32 @@
+using System;
+using System.Collections.Generic;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Common.Configuration;
 using EdFi.Ods.Common.Configuration;
+using EdFi.Ods.Sandbox.Admin.Contexts;
+using EdFi.Ods.Sandbox.Admin.Extensions;
 using EdFi.Ods.Sandbox.Admin.Services;
+using EdFi.Ods.SandboxAdmin.Filters;
 using EdFi.Ods.SandboxAdmin.Modules;
+using EdFi.Ods.SandboxAdmin.Services;
 using Hangfire;
+using Hangfire.PostgreSql;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
-using System.Data.Entity;
-using EdFi.Common.Configuration;
-using EdFi.Common.Extensions;
-using EdFi.Ods.Sandbox.Admin.Contexts;
-using EdFi.Ods.SandboxAdmin.Filters;
-using EdFi.Ods.SandboxAdmin.Services;
-using Hangfire.PostgreSql;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
-using EdFi.Ods.Sandbox.Admin.Extensions;
-using System;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -221,10 +218,7 @@ namespace EdFi.Ods.SandboxAdmin
             }
 
             Container = app.ApplicationServices.GetAutofacRoot();
-
-            // Set EF Context
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
+            
             app.UseForwardedHeaders();
 
             if (env.IsDevelopment())

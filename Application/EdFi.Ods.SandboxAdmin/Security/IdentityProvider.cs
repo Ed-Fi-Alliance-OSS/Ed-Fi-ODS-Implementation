@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using log4net;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 
 namespace EdFi.Ods.SandboxAdmin.Security
@@ -101,7 +100,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
         public async Task<bool> CreateUser(string userName, string email, string password, bool confirm = false)
         {
             IdentityResult result = await _userManager.CreateAsync(
-                    new IdentityUser()
+                    new IdentityUser
                     {
                         UserName = userName,
                         Email = email,
@@ -152,7 +151,7 @@ namespace EdFi.Ods.SandboxAdmin.Security
             if (await _roleManager.FindByNameAsync(role) == null)
             {
                 _log.Debug($"Adding role: {role} to asp net security.");
-                await _roleManager.CreateAsync(new IdentityRole() { Name = role });
+                await _roleManager.CreateAsync(new IdentityRole { Name = role });
             }
         }
 

@@ -36,8 +36,8 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.7" />
-        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.1.10" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.1.14" />
+        <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="7.1.11" />
       </ItemGroup>
     </Otherwise>
   </Choose>
@@ -45,7 +45,8 @@
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.13" />
-    <PackageReference Include="Npgsql" Version="6.0.8" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.11" />
+    <PackageReference Include="Npgsql" Version="7.0.6" />
     <PackageReference Include="NHibernate" Version="5.4.0" />
   </ItemGroup>
 
