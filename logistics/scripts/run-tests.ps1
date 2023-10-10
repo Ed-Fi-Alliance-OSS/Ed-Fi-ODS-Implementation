@@ -25,6 +25,8 @@ if (Test-Path $reports) {
 
 New-Item -ItemType Directory -Force -Path $reports
 
+$testAssembliesFailedToExecute = @()
+
 foreach ($assembly in $testAssemblies) {
     Write-Host ( "Testing assembly " + $assembly)
 
@@ -36,5 +38,12 @@ foreach ($assembly in $testAssemblies) {
 
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
 
+    if (($LASTEXITCODE -gt 0)) {
+        $testAssembliesFailedToExecute += $assembly
+    }
     Write-Host "assembly exit code: $LASTEXITCODE"
+}
+
+if ($testAssembliesFailedToExecute.count -gt 0) {
+    Write-Error "Tests failed to execute for `r`n$($testAssembliesFailedToExecute -join "`r`n")"
 }
