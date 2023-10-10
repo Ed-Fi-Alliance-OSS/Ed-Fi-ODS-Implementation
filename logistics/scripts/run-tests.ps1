@@ -45,5 +45,5 @@ foreach ($assembly in $testAssemblies) {
 }
 
 if ($testAssembliesFailedToExecute.count -gt 0) {
-    Write-Error "Tests failed to execute for `r`n$($testAssembliesFailedToExecute -join "`r`n")"
+    Write-Error "Tests failed to execute."
 }
