@@ -113,7 +113,7 @@ jobs:
         if_no_artifact_found: fail
     - name: Import GPG key
       id: import-gpg
-      uses: crazy-max/ghaction-import-gpg@c8bb57c57e8df1be8c73ff3d59deab1dbc00e0d1 # v5.1.0
+      uses: crazy-max/ghaction-import-gpg@82a020f1f7f605c65dd2449b392a52c3fcfef7ef # v6.0.0
       with:
         workdir: ./Ed-Fi-ODS-Implementation/
         gpg_private_key: ${{ secrets.EDFIBUILDAGENT_PRIVATE_KEY }}
