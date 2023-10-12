@@ -39,7 +39,7 @@ jobs:
           - ods-api-web-sandbox-admin/alpine/pgsql
     steps:
       - name: Checkout code
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - uses: hadolint/hadolint-action@54c9adbab1582c2ef04b2016b760714a4bfde3cf # v3.1.0
         name: Run Linter on Local Dockerfile
@@ -53,13 +53,13 @@ jobs:
       ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
     steps:
       - name: Checkout Ed-Fi-ODS
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
 
       - name: Checkout Ed-Fi-Extensions
-        uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
             repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
             path: Ed-Fi-Extensions/
@@ -100,7 +100,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Build all of the images
         # To confirm no errors occur. The "local" one will be built by the e2e

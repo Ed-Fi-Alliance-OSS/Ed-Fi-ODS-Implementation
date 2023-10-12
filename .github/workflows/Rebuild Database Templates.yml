@@ -49,7 +49,7 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
@@ -60,7 +60,7 @@ jobs:
       run: |
             .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # v2
+      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
@@ -113,7 +113,7 @@ jobs:
         if_no_artifact_found: fail
     - name: Import GPG key
       id: import-gpg
-      uses: crazy-max/ghaction-import-gpg@c8bb57c57e8df1be8c73ff3d59deab1dbc00e0d1 # v5.1.0
+      uses: crazy-max/ghaction-import-gpg@82a020f1f7f605c65dd2449b392a52c3fcfef7ef # v6.0.0
       with:
         workdir: ./Ed-Fi-ODS-Implementation/
         gpg_private_key: ${{ secrets.EDFIBUILDAGENT_PRIVATE_KEY }}
