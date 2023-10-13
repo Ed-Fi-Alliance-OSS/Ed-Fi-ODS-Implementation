@@ -14,7 +14,7 @@ Param (
 $saxonVersion = "10.9.0"
 
 Write-Host "Installing Saxon XSLT transformer (nuget)..."
-Install-Package -Name Saxon-HE -RequiredVersion $saxonVersion -ProviderName NuGet -Verbose
+Install-Package -Name Saxon-HE -RequiredVersion $saxonVersion -ProviderName NuGet -Verbose -Source https://www.nuget.org/api/v2
 
 $transform_exe = Get-ChildItem "$env:ProgramFiles\PackageManagement\NuGet\Packages\Saxon-HE.$saxonVersion\tools\Transform.exe"
 
