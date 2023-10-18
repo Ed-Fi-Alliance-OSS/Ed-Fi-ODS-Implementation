@@ -129,10 +129,10 @@
                 }
 
                 let data = await response.json();
-                let openApiMetadataResponse = await fetch(data.urls.openApiMetadata);
+                let openApiMetadataResponse = await fetch(data.urls.openApiMetadata + "?version=3");
 
                 if (openApiMetadataResponse.status !== 200) {
-                    throw new Error(`Failed to retrieve resource from ${data.urls.openApiMetadata}`);
+                    throw new Error(`Failed to retrieve resource from ${data.urls.openApiMetadata} + "?version=3"`);
                 }
 
                 let openApiMetadatadataData = await openApiMetadataResponse.json();

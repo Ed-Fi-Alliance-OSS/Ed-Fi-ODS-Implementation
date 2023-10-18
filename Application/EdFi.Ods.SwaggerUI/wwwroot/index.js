@@ -263,7 +263,7 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
      $("#tenant").show();
   }
   
-  openApiMetadata = openApiMetadata + "?version=3"
+  openApiMetadata = openApiMetadata + "?version=3";
 
   return fetch(openApiMetadata)
     .then(getJSON)
