@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: InitDev (Postgres), Unit tests, Integration tests
+name: InitDev Postgres, Unit tests, Integration tests
 
 run-name: ${{github.event.client_payload.branch}}
 
@@ -13,6 +13,11 @@ on:
   push:
    branches: [main]   
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Trgr InitDev workflows in Implementation repo workflow'
+        required: false
+        default: 'distinct_id'  
   repository_dispatch:
     types: [triggered-from-ods-repo]
 
@@ -80,6 +85,8 @@ jobs:
           - 5432:5432
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"    
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:

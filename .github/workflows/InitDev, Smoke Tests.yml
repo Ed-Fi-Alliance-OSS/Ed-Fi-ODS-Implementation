@@ -13,6 +13,11 @@ on:
   push:
    branches: [main]
   workflow_dispatch:
+    inputs:
+      distinct_id:
+        description: 'distinct ID for Trgr InitDev workflows in Implementation repo workflow'
+        required: false
+        default: 'distinct_id'
   repository_dispatch:
     types: [triggered-from-ods-repo]
 
@@ -65,6 +70,8 @@ jobs:
     name: build (Standard Version ${{ matrix.StandardVersion }}) 
 
     steps:
+    - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
+      run:  echo "${{ github.event.inputs.distinct_id }}"
     - name: Setup .NET
       uses: actions/setup-dotnet@c0d4ad69d8bd405d234f1c9166d383b7a4f69ed8 # 2.1.0
       with:
