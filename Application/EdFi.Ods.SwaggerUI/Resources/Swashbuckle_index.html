@@ -53,15 +53,10 @@
                 var oauthConfigObject = JSON.parse('%(OAuthConfigObject)');
 
                 var currentUrl = window.location.href;
-                var yearMatch = currentUrl.match(/year=(20\d{2})/);
                 var tenantMatch = currentUrl.match(/tenantIdentifier=([A-Za-z0-9]+)/);
 
                 if (tenantMatch !== null && tenantMatch.length > 1) {
                     configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
-                }
-                
-                if (yearMatch !== null && yearMatch.length > 1) {
-                    configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${yearMatch[1]}`;
                 }
 
                 configObject.urls = await getOpenApiUrls(configObject.WebApiVersionUrl);

@@ -70,16 +70,6 @@ function mapSections(json) {
   console.log('sections', sections)
 }
 
-function onChangeschoolYearFromRoute() {
-    var yearSelected = $("#schoolYearFromRouteSelect option:selected").text();
-
-    $(".url-link").each(function() {
-        var oldUrl = $(this).attr("href");
-        var newUrl = oldUrl.replace(/20\d{2}/g, yearSelected);
-        $(this).attr("href", newUrl);
-    });
-}
-
 function onChangeTenant() {
     var tenantSelected = $("#tenantSelect option:selected").text();
 
@@ -90,7 +80,7 @@ function onChangeTenant() {
     });
 }
 
-function createSectionLinks(sectionName, hasYear, hasTenant) {
+function createSectionLinks(sectionName, hasTenant) {
   var section = sections[sectionName]
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
   return section.links
@@ -102,12 +92,7 @@ function createSectionLinks(sectionName, hasYear, hasTenant) {
         let queryParameters = {};
 
         queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
-
-        if (hasYear) {
-            var year = $("#schoolYearFromRouteSelect option:selected").text();
-            queryParameters.year = year;
-        }
-
+        
         if (hasTenant) {
             var tenantIdentifier = $("#tenantSelect option:selected").text();
             queryParameters.tenantIdentifier = tenantIdentifier;
@@ -120,31 +105,6 @@ function createSectionLinks(sectionName, hasYear, hasTenant) {
         return `<li><a class="url-link" href="${linkHrefBase}?${paramsUrlString}">${link.name}</a></li>`
     })
     .join('')
-}
-
-async function addYearOptions() {
-    const { Years } = appSettings;
-
-    let defaultYear = 0;
-
-    if (Years.length > 0) {
-
-        Years.forEach(element => {
-            $('#schoolYearFromRouteSelect').append(new Option(element.Year, element.Year));
-        });
-
-        var defaultYears = $.grep(Years, function (item) { return item.IsDefault });
-
-        defaultYear = defaultYears.length === 0 ? Years[0].Year : defaultYears[0].Year;
-    }
-    else {
-        defaultYear = new Date().getFullYear()
-        for (let i = defaultYear - 1; i <= defaultYear + 1; i++) {
-            $('#schoolYearFromRouteSelect').append(new Option(i, i))
-        }
-    }
-
-    $("#schoolYearFromRouteSelect option[value='" + defaultYear + "']").attr("selected", "selected");
 }
 
 async function addTenantOptions() {
@@ -175,9 +135,7 @@ function createSections() {
     if (section.links <= 0) return
 
     const { Tenants } = appSettings;
-    const { Years } = appSettings;
-
-    var hasYear = Years.length > 0;
+    
     var hasTenant = Tenants.length > 0;
     
     var sectionTemplate = document.getElementById('sectionTemplate')
@@ -193,7 +151,7 @@ function createSections() {
           })
           .join('')
       )
-        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasYear, hasTenant))
+        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasTenant))
 
     section.links.forEach(function(link) {
         console.log("Found: " + link.uri);
@@ -244,17 +202,8 @@ const fetchWebApiVersionUrl = (appSettings) => {
 const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
   var { openApiMetadata } = webApiVersionUrlJson.urls
   const { Tenants } = appSettings;
-  const { Years } = appSettings;
-
-  var hasYear = Years.length > 0;
+  
   var hasTenant = Tenants.length > 0;
-
-  if (hasYear) {
-    addYearOptions();
-    let schoolYearFromRouteSelected = $("#schoolYearFromRouteSelect option:selected").text();
-    openApiMetadata = openApiMetadata.replace('{schoolYearFromRoute}', schoolYearFromRouteSelected);
-    $("#schoolYearFromRoute").show();
-  }
 
   if (hasTenant) {
      addTenantOptions();
@@ -262,8 +211,6 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
      openApiMetadata = openApiMetadata.replace('{tenantIdentifier}', tenantSelected);
      $("#tenant").show();
   }
-  
-  openApiMetadata = openApiMetadata + "?version=3";
 
   return fetch(openApiMetadata)
     .then(getJSON)
