@@ -145,6 +145,12 @@ function Get-SQLServerDatabaseScriptStrategy {
     )
 
     Write-Host "Executing SQLServerDatabaseScriptStrategy..."
+    
+    if([string]::IsNullOrEmpty($Settings.ApiSettings.StandardVersion))
+    {
+        $Settings.ApiSettings.StandardVersion ='5.0.0'
+    }
+    
     $params = @{
         Verb             = "Deploy"
         Engine           = $Settings.ApiSettings.Engine
