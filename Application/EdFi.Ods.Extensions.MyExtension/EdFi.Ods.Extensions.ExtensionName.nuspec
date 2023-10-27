@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>EdFi.Ods.Extensions.MyExtension</id>
+    <version>1.0.0</version>
+    <authors>Ed-Fi Alliance</authors>
+    <owners>Ed-Fi Alliance</owners>
+	  <copyright>$copyright$</copyright>	  
+    <projectUrl>https://github.com/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>EdFi.Ods.Extensions.MyExtension</description>
+    <releaseNotes></releaseNotes>
+  </metadata>
+  <files>
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.sql" target="."/>
+    <file src="Versions/$extensionversion$/Standard/$standardversion$/Artifacts/**/*.json" target="."/>
+    <file src="assemblyMetadata.json" target="."/>
+    <file src="bin\$configuration$\net6.0\EdFi.Ods.Extensions.MyExtension.dll" target="."/>
+  </files>
+</package>

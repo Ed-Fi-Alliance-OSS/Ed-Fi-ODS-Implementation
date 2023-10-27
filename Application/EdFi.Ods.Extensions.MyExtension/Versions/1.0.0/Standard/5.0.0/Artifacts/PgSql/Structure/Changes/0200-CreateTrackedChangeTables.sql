@@ -1,0 +1,22 @@
+DO $$
+BEGIN
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.schemata WHERE schema_name = 'tracked_changes_myextension') THEN
+CREATE SCHEMA tracked_changes_myextension;
+END IF;
+
+IF NOT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_schema = 'tracked_changes_myextension' AND table_name = 'postsecondaryorganization') THEN
+CREATE TABLE tracked_changes_myextension.postsecondaryorganization
+(
+       oldnameofinstitution VARCHAR(75) NOT NULL,
+       newnameofinstitution VARCHAR(75) NULL,
+       id uuid NOT NULL,
+       changeversion bigint NOT NULL,
+       discriminator varchar(128) NULL,
+       createdate timestamp NOT NULL DEFAULT (now()),
+       CONSTRAINT postsecondaryorganization_pk PRIMARY KEY (ChangeVersion)
+);
+END IF;
+
+END
+$$;

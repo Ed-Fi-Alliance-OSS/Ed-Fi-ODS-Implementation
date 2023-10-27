@@ -95,11 +95,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Features.UnitTests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{75DEFF48-FA3B-4461-A889-6C6C26362D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Security.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj", "{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj", "{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj", "{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj", "{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Admin.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj", "{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj", "{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Extensions.MyExtension", "EdFi.Ods.Extensions.MyExtension\EdFi.Ods.Extensions.MyExtension.csproj", "{76421080-E748-4F25-9333-F4D54BDFE008}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -223,6 +225,10 @@ Global
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76421080-E748-4F25-9333-F4D54BDFE008}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76421080-E748-4F25-9333-F4D54BDFE008}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76421080-E748-4F25-9333-F4D54BDFE008}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76421080-E748-4F25-9333-F4D54BDFE008}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -259,6 +265,7 @@ Global
 		{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
+		{76421080-E748-4F25-9333-F4D54BDFE008} = {F25ED154-FB97-4F39-933B-808D1B3B6D3E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}
