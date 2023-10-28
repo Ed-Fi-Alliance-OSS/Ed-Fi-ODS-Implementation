@@ -9,6 +9,7 @@ CREATE TABLE tracked_deletes_nmassessments.ItemDescriptionCodeDescriptor
 CREATE TABLE tracked_deletes_nmassessments.NmStudentAssessment
 (
        EducationOrganizationId INT NOT NULL,
+       ItemDescriptionCodeDescriptorId INT NOT NULL,
        StudentUSI INT NOT NULL,
        TestDate DATE NOT NULL,
        TestDescriptionDescriptorId INT NOT NULL,

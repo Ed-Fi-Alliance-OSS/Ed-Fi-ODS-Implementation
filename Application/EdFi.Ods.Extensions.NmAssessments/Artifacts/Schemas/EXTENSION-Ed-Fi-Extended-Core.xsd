@@ -24,7 +24,7 @@
           </xs:element>
           <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
             <xs:annotation>
-              <xs:documentation>The educaiton organization that is reporting the assessment</xs:documentation>
+              <xs:documentation>The education organization that is reporting the assessment</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="TestDate" type="xs:date">
@@ -48,7 +48,7 @@
               </xs:appinfo>
             </xs:annotation>
           </xs:element>
-          <xs:element name="ItemDescriptionCode" type="EXTENSION-ItemDescriptionCodeDescriptorReferenceType" minOccurs="0">
+          <xs:element name="ItemDescriptionCode" type="EXTENSION-ItemDescriptionCodeDescriptorReferenceType">
             <xs:annotation>
               <xs:documentation>Code that further describes the assessment.</xs:documentation>
               <xs:appinfo>
@@ -141,7 +141,7 @@
       </xs:element>
       <xs:element name="EducationOrganizationReference" type="EducationOrganizationReferenceType">
         <xs:annotation>
-          <xs:documentation>The educaiton organization that is reporting the assessment</xs:documentation>
+          <xs:documentation>The education organization that is reporting the assessment</xs:documentation>
         </xs:annotation>
       </xs:element>
       <xs:element name="TestDate" type="xs:date">
@@ -154,6 +154,14 @@
           <xs:documentation>Code that defines the assessment.</xs:documentation>
           <xs:appinfo>
             <ann:Descriptor>EXTENSION-TestDescriptionDescriptor</ann:Descriptor>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ItemDescriptionCode" type="EXTENSION-ItemDescriptionCodeDescriptorReferenceType">
+        <xs:annotation>
+          <xs:documentation>Code that further describes the assessment.</xs:documentation>
+          <xs:appinfo>
+            <ann:Descriptor>EXTENSION-ItemDescriptionCodeDescriptor</ann:Descriptor>
           </xs:appinfo>
         </xs:annotation>
       </xs:element>

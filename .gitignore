@@ -5,6 +5,7 @@ rcf/
 [Oo]bj
 logistics/bin
 .vs/
+.vscode/
 .idea/
 
 # User-specific files

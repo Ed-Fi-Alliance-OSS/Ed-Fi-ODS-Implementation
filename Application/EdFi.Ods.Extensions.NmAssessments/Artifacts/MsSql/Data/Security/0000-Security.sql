@@ -31,5 +31,3 @@ INSERT INTO ResourceClaims (DisplayName, ResourceName, ClaimName, ParentResource
 ('itemDescriptionCodeDescriptor','itemDescriptionCodeDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/itemDescriptionCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('scoringModelCodeDescriptor','scoringModelCodeDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/scoringModelCodeDescriptor',@DescriptorsClaimId,@ApplicationId),
 ('testDescriptionDescriptor','testDescriptionDescriptor','http://ed-fi.org/ods/identity/claims/nm-assessments/testDescriptionDescriptor',@DescriptorsClaimId,@ApplicationId);
-
-

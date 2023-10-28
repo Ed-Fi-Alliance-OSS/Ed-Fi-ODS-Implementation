@@ -23,8 +23,8 @@ BEGIN
 
     SET NOCOUNT ON
 
-    INSERT INTO [tracked_deletes_nmassessments].[NmStudentAssessment](EducationOrganizationId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, ChangeVersion)
-    SELECT  EducationOrganizationId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
+    INSERT INTO [tracked_deletes_nmassessments].[NmStudentAssessment](EducationOrganizationId, ItemDescriptionCodeDescriptorId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, ChangeVersion)
+    SELECT  EducationOrganizationId, ItemDescriptionCodeDescriptorId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, (NEXT VALUE FOR [changes].[ChangeVersionSequence])
     FROM    deleted d
 END
 GO

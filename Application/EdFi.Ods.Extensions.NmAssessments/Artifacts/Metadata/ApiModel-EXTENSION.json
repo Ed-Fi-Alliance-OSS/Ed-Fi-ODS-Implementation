@@ -190,6 +190,7 @@
           "identifierName": "NmStudentAssessment_PK",
           "identifyingPropertyNames": [
             "EducationOrganizationId",
+            "ItemDescriptionCodeDescriptorId",
             "StudentUSI",
             "TestDate",
             "TestDescriptionDescriptorId"
@@ -439,7 +440,7 @@
             "isNullable": false
           },
           "description": "A unique identifier used as Primary Key, not derived from business logic, when acting as Foreign Key, references the parent table.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "ItemDescriptionCodeDescriptorId",
@@ -459,10 +460,10 @@
             "maxLength": 0,
             "precision": 10,
             "scale": 0,
-            "isNullable": true
+            "isNullable": false
           },
           "description": "Code that further describes the assessment.",
-          "isIdentifying": false,
+          "isIdentifying": true,
           "isServerAssigned": false,
           "columnNames": {
             "sqlServer": "ItemDescriptionCodeDescriptorId",
@@ -470,8 +471,8 @@
           }
         }
       ],
-      "isIdentifying": false,
-      "isRequired": false,
+      "isIdentifying": true,
+      "isRequired": true,
       "constraintNames": {
         "sqlServer": "FK_NmStudentAssessment_ItemDescriptionCodeDescriptor",
         "postgreSql": "FK_43017d_ItemDescriptionCodeDescriptor"

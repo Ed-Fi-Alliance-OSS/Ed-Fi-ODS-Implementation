@@ -4,7 +4,7 @@ Domain Entity NmStudentAssessment
         documentation "References the student who took the assessment"
         is part of identity
     domain entity EdFi.EducationOrganization
-        documentation "The educaiton organization that is reporting the assessment"
+        documentation "The education organization that is reporting the assessment"
         is part of identity
     date TestDate
         documentation "The date the assessment was given"
@@ -17,7 +17,7 @@ Domain Entity NmStudentAssessment
         is optional
     descriptor ItemDescriptionCode
         documentation "Code that further describes the assessment."
-        is optional
+        is part of identity
     descriptor ScoringModelCode
         documentation "The Measurement used to determine the outcomes the respective assessment."
         is optional

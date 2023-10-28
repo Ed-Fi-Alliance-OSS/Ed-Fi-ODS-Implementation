@@ -10,11 +10,11 @@ GO
 -- Table [nmassessments].[NmStudentAssessment] --
 CREATE TABLE [nmassessments].[NmStudentAssessment] (
     [EducationOrganizationId] [INT] NOT NULL,
+    [ItemDescriptionCodeDescriptorId] [INT] NOT NULL,
     [StudentUSI] [INT] NOT NULL,
     [TestDate] [DATE] NOT NULL,
     [TestDescriptionDescriptorId] [INT] NOT NULL,
     [StandardAchievedCodeDescriptorId] [INT] NULL,
-    [ItemDescriptionCodeDescriptorId] [INT] NULL,
     [ScoringModelCodeDescriptorId] [INT] NULL,
     [RawScore] [INT] NULL,
     [Discriminator] [NVARCHAR](128) NULL,
@@ -23,6 +23,7 @@ CREATE TABLE [nmassessments].[NmStudentAssessment] (
     [Id] [UNIQUEIDENTIFIER] NOT NULL,
     CONSTRAINT [NmStudentAssessment_PK] PRIMARY KEY CLUSTERED (
         [EducationOrganizationId] ASC,
+        [ItemDescriptionCodeDescriptorId] ASC,
         [StudentUSI] ASC,
         [TestDate] ASC,
         [TestDescriptionDescriptorId] ASC

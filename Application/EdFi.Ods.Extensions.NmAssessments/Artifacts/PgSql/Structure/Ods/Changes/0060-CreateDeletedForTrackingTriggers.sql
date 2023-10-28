@@ -16,8 +16,8 @@ CREATE FUNCTION tracked_deletes_nmassessments.NmStudentAssessment_TR_DelTrkg()
     RETURNS trigger AS
 $BODY$
 BEGIN
-    INSERT INTO tracked_deletes_nmassessments.NmStudentAssessment(EducationOrganizationId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, ChangeVersion)
-    VALUES (OLD.EducationOrganizationId, OLD.StudentUSI, OLD.TestDate, OLD.TestDescriptionDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
+    INSERT INTO tracked_deletes_nmassessments.NmStudentAssessment(EducationOrganizationId, ItemDescriptionCodeDescriptorId, StudentUSI, TestDate, TestDescriptionDescriptorId, Id, ChangeVersion)
+    VALUES (OLD.EducationOrganizationId, OLD.ItemDescriptionCodeDescriptorId, OLD.StudentUSI, OLD.TestDate, OLD.TestDescriptionDescriptorId, OLD.Id, nextval('changes.ChangeVersionSequence'));
     RETURN NULL;
 END;
 $BODY$ LANGUAGE plpgsql;

@@ -9,6 +9,8 @@ EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Entity that ca
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The identifier assigned to an education organization.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'EducationOrganizationId'
 GO
+EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code that further describes the assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'ItemDescriptionCodeDescriptorId'
+GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'A unique alphanumeric code assigned to a student.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'StudentUSI'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The date the assessment was given', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'TestDate'
@@ -16,8 +18,6 @@ GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code that defines the assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'TestDescriptionDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Indication of whether or not the assessment standard was achieved.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'StandardAchievedCodeDescriptorId'
-GO
-EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'Code that further describes the assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'ItemDescriptionCodeDescriptorId'
 GO
 EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'The Measurement used to determine the outcomes the respective assessment.', @level0type=N'SCHEMA', @level0name=N'nmassessments', @level1type=N'TABLE', @level1name=N'NmStudentAssessment', @level2type=N'COLUMN', @level2name=N'ScoringModelCodeDescriptorId'
 GO
