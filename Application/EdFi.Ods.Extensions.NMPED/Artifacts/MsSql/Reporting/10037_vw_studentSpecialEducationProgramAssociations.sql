@@ -142,6 +142,8 @@ SELECT DISTINCT
 	,SSEPAE.AlternateInstruction
 	,SSEPAE.BrailleInstruction
 	,SSEPAE.ChildCountEducationOrganizationId
+	
+	,GSPA.Id AS [GeneralStudentProgramAssociationId]
 
 FROM 
 	edfi.StudentSpecialEducationProgramAssociation SSEPA WITH (NOLOCK)

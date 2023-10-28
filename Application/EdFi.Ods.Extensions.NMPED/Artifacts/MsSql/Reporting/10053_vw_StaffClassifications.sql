@@ -85,6 +85,12 @@ SELECT
 	 ,SEOAA.BeginDate
 	 ,SEOAA.EmploymentHireDate AS [HireDate]
 	 ,SEOAA.EndDate
+
+	 -- Employment End Date added as a work-around to missing Assignment End Dates
+	 ,(SELECT TOP 1 SEOEA.EndDate FROM edfi.StaffEducationOrganizationEmploymentAssociation SEOEA WITH (NOLOCK)
+		WHERE SEOEA.StaffUSI = SEOAA.StaffUSI
+		AND SEOEA.EducationOrganizationId = School.EducationOrganizationId_District) AS [EmploymentEndDate]
+
 	 ,ID_SSN.IdentificationCode AS [StaffId]
 	 ,ID_Cert.IdentificationCode AS [CertNum]
 	 ,SEOAA.CreateDate AS [AssignmentAssociation_CreateDate]		

@@ -35,7 +35,9 @@ WHERE DescriptorId IN (
 	UNION
 	SELECT GradeLevelDescriptorId FROM edfi.GradeLevelDescriptor WITH (NOLOCK)
 	UNION
-	SELECT ExitWithdrawTypeDescriptorId FROM edfi.ExitWithdrawTypeDescriptor WITH (NOLOCK))
+	SELECT ExitWithdrawTypeDescriptorId FROM edfi.ExitWithdrawTypeDescriptor WITH (NOLOCK)
+	UNION
+	SELECT EntryTypeDescriptorId FROM edfi.EntryTypeDescriptor WITH (NOLOCK))
 )
 
 SELECT 
@@ -53,6 +55,7 @@ SELECT
 	,S.LastSurname + ', ' + S.FirstName AS [StudentName]
 	,S.BirthDate
 	,SSA.EntryDate
+	,EntryType.CodeValue AS [EntryTypeCode]
 	,SSA.SchoolYear
 	,EntryGradeLevel.CodeValue AS [GradeLevel]
 	,SSA.ExitWithdrawDate AS [ExitDate]
@@ -70,11 +73,10 @@ INNER JOIN edfi.Student S WITH (NOLOCK)
 -- District/Location Join
 INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON (VDL.EducationOrganizationId_School = SSA.SchoolId)
--- Special Education Join
+-- Special Education Join - Only on District as Students may be off-site but receiving services from the district
 LEFT JOIN nmped.StudentSpecialEducationProgramAssociationExtension SPED WITH (NOLOCK)
 	ON (SPED.StudentUSI = SSA.StudentUSI
-		AND SPED.EducationOrganizationId = VDL.EducationOrganizationId_School
-		AND SPED.ProgramEducationOrganizationId = VDL.EducationOrganizationId_District)
+		AND (SPED.ProgramEducationOrganizationId = VDL.EducationOrganizationId_District))
 -- Gifted student join (StudentEdOrgAssocStudentCharacteristic)
 LEFT JOIN nmped.StudentEducationOrganizationAssociationStudentCharacteristicExtension SEOASCE WITH (NOLOCK)
 	ON (SEOASCE.StudentUSI = SSA.StudentUSI
@@ -94,6 +96,8 @@ LEFT JOIN cte_Descriptors EntryGradeLevel WITH (NOLOCK)
 	ON (EntryGradeLevel.DescriptorId = SSA.EntryGradeLevelDescriptorId)
 LEFT JOIN cte_Descriptors ExitWithdrawType WITH (NOLOCK)
 	ON (ExitWithdrawType.DescriptorId = SSA.ExitWithdrawTypeDescriptorId)
+LEFT JOIN cte_Descriptors EntryType WITH (NOLOCK)
+	ON (EntryType.DescriptorId = SSA.EntryTypeDescriptorId)
 -- Descriptor Joins - SPED
 LEFT JOIN cte_Descriptors SPED_Integration WITH (NOLOCK)
 	ON (SPED_Integration.DescriptorId = SPED.SpecialEducationLevelOfIntegrationDescriptorId)

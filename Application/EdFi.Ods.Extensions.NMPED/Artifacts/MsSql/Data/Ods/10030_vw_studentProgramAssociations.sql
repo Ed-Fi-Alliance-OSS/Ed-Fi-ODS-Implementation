@@ -16,6 +16,18 @@
  * Date: 04/18/2023
  * Alt Desc: Added CTE to the view to grab all Descriptors after noticing significant
  *           performance issues when accessing descriptor fields.
+ *
+ * Alt Id: 002 (Increment value each change)
+ * By: Collin Neville | App Dev I
+ * Email: Collin.Neville@ped.nm.gov
+ * Date: 10-03-2023
+ * Alt Desc: Added grade level.
+ *
+ * Alt Id: 003 (Increment value each change)
+ * By: Cody Misplay | App Dev III
+ * Email: Cody.Misplay@ped.nm.gov
+ * Date: 10-23-2023
+ * Alt Desc: Adjusted the join to StudentSchoolAssociation and added DISTINCT to resolve issues with duplicate records being returned.
  */
 
 CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentProgramAssociations] AS 
@@ -36,7 +48,10 @@ SELECT * FROM nmped.ParticipationInformationDescriptor WITH (NOLOCK)
 UNION
 SELECT * FROM nmped.ProgramIntensityDescriptor WITH (NOLOCK)
 UNION
-SELECT * FROM edfi.LanguageDescriptor WITH (NOLOCK))
+SELECT * FROM edfi.LanguageDescriptor WITH (NOLOCK)
+UNION
+--Alt Id: 002
+SELECT * FROM edfi.GradeLevelDescriptor WITH (NOLOCK))
 --WHERE DescriptorId IN -- Alternate WHERE clause for descriptors used by this view, in case they aren't in control tables
 --(SELECT D.DescriptorId FROM edfi.Descriptor D WITH (NOLOCK)
 --WHERE D.[Namespace] IN ('uri://nmped.org/ProgramTypeDescriptor'
@@ -44,7 +59,7 @@ SELECT * FROM edfi.LanguageDescriptor WITH (NOLOCK))
 --,'uri://tpdm.ed-fi.org/ReasonExitedDescriptor','uri://nmped.org/ParticipationInformationDescriptor'
 --,'uri://nmped.org/ProgramIntensityDescriptor', 'uri://nmped.org/LanguageDescriptor'))
 )
-SELECT
+SELECT DISTINCT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
 	,VDL.DistrictCode
@@ -58,6 +73,8 @@ SELECT
 	,S.StudentUSI
 	,FirstName
 	,LastSurname
+--Alt Id: 002
+	,Grade.CodeValue 'Grade'
 	,GSPA.BeginDate
 	,P.ProgramName
 	,ProgramType.CodeValue													[ProgramTypeCode]
@@ -114,7 +131,20 @@ FROM
 
 	LEFT JOIN cte_Descriptors BEPProgramLanguage WITH (NOLOCK)
 		ON BEPProgramLanguage.DescriptorId = SPAE.BEPProgramLanguageDescriptorId
+		
 -- Alt Id: 001 - End Changes
 	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = GSPA.EducationOrganizationId
+
+	--Alt Id: 002
+	JOIN edfi.StudentSchoolAssociation SSA WITH (NOLOCK)
+		ON SSA.StudentUSI = S.StudentUSI 
+		AND (SSA.SchoolId = GSPA.EducationOrganizationId
+		   OR (LEFT(SSA.SchoolId, 5)+'000') = GSPA.EducationOrganizationId)
+
+	--Alt Id: 002
+	LEFT JOIN cte_Descriptors Grade 
+		ON Grade.DescriptorId = SSA.EntryGradeLevelDescriptorId
+
 GO
+

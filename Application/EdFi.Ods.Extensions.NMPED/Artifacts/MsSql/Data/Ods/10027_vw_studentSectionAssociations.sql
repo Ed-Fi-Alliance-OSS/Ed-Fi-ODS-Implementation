@@ -14,6 +14,13 @@
  * Email:	 douglas.kain@ped.nm.gov
  * Date:	 07/12/2023
  * Alt Desc: Added DistOrgType, LocOrgType, and Student Grade Level
+
+* Alt Id:    002
+* By:        Jesse Kain | IT Contractor
+* Email:     douglas.kain@ped.nm.gov
+* Date:      07/12/2023
+* Alt Desc: Added Student Middle Initial
+
  */
 
 CREATE OR ALTER VIEW [nmped_rpt].[vw_studentSectionAssociations] AS 
@@ -45,6 +52,7 @@ SELECT DISTINCT
 	,S.StudentUSI
 	,StudentUniqueId
 	,FirstName
+	,MiddleName
 	,LastSurname
 	,EntryGradeLevel.CodeValue			[GradeLevel]									  
 	,SSA.BeginDate

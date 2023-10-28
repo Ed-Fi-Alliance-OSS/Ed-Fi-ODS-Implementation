@@ -74,10 +74,14 @@ SELECT S.[SchoolId]
 	  ,InternetAccessDescriptor.[Description] AS [InternetAccessDescription]
 	  ,CharterApprovalDescriptor.[Description] AS [CharterApprovalDescription]
       ,S.[CharterApprovalSchoolYear]
+	  ,EO.OperationalStatusDescription
 	  ,SUBSTRING(CAST(S.LocalEducationAgencyId AS VARCHAR(10)),3,3) AS [DistrictCode]
 	  ,SUBSTRING(CAST(S.SchoolId AS VARCHAR(10)),6,3) AS [StateLocationId]
 	  ,'35000' + SUBSTRING(CAST(S.LocalEducationAgencyId AS VARCHAR(10)), 3, 3) AS DISTRICT_KEY
 FROM [edfi].[School] S WITH (NOLOCK)
+
+INNER JOIN nmped_rpt.vw_EducationOrganizations_Basic EO
+	ON (EO.EducationOrganizationId = S.SchoolId)
 
 LEFT JOIN nmped_rpt.vw_district_location DL WITH (NOLOCK)
 	ON (DL.EducationOrganizationId_School =  S.SchoolId)

@@ -14,28 +14,29 @@
 
 CREATE OR ALTER VIEW nmped_rpt.vw_studentHomelessProgramAssociations AS 
 
-SELECT	nmped_rpt.vw_district_location.EducationOrganizationId_District, 
-		nmped_rpt.vw_district_location.DistrictCode, 
-		nmped_rpt.vw_district_location.DistrictName, 
-        nmped_rpt.vw_district_location.EducationOrganizationId_School, 
-        nmped_rpt.vw_district_location.LocationCode, 
-        nmped_rpt.vw_district_location.SchoolName, 
-        edfi.Student.StudentUniqueId AS [Student ID], 
-		edfi.Student.FirstName,
-		edfi.Student.LastSurname,
-        edfi.StudentHomelessProgramAssociation.ProgramName, 
+SELECT	VDL.EducationOrganizationId_District, 
+		VDL.DistrictCode, 
+		VDL.DistrictName, 
+        VDL.EducationOrganizationId_School, 
+        VDL.LocationCode, 
+        VDL.SchoolName, 
+        S.StudentUniqueId AS [Student ID], 
+		S.StudentUSI,
+		S.FirstName,
+		S.LastSurname,
+        SHPA.ProgramName, 
         edfi.Descriptor.Description AS [Program Description], 
         Descriptor_1.CodeValue AS [Primary Nighttime Residence], 
-        edfi.StudentHomelessProgramAssociation.AwaitingFosterCare, 
-        edfi.StudentHomelessProgramAssociation.HomelessUnaccompaniedYouth AS [Unaccompanied Youth]
-FROM	edfi.StudentHomelessProgramAssociation WITH (NOLOCK)
-			INNER JOIN edfi.Student WITH (NOLOCK) 
-				ON edfi.StudentHomelessProgramAssociation.StudentUSI = edfi.Student.StudentUSI 
-			INNER JOIN nmped_rpt.vw_district_location WITH (NOLOCK)
-				ON edfi.StudentHomelessProgramAssociation.EducationOrganizationId = nmped_rpt.vw_district_location.EducationOrganizationId_School AND 
-					edfi.StudentHomelessProgramAssociation.ProgramEducationOrganizationId = nmped_rpt.vw_district_location.EducationOrganizationId_District 
+        SHPA.AwaitingFosterCare, 
+        SHPA.HomelessUnaccompaniedYouth AS [Unaccompanied Youth]
+FROM	edfi.StudentHomelessProgramAssociation SHPA WITH (NOLOCK)
+			INNER JOIN edfi.Student S WITH (NOLOCK) 
+				ON SHPA.StudentUSI = S.StudentUSI 
+			INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
+				ON SHPA.EducationOrganizationId = VDL.EducationOrganizationId_School AND 
+					SHPA.ProgramEducationOrganizationId = VDL.EducationOrganizationId_District 
             LEFT JOIN edfi.Descriptor WITH (NOLOCK)
-				ON edfi.StudentHomelessProgramAssociation.ProgramTypeDescriptorId = edfi.Descriptor.DescriptorId 
+				ON SHPA.ProgramTypeDescriptorId = edfi.Descriptor.DescriptorId 
 			LEFT JOIN edfi.Descriptor Descriptor_1 WITH (NOLOCK)
-				ON edfi.StudentHomelessProgramAssociation.HomelessPrimaryNighttimeResidenceDescriptorId = Descriptor_1.DescriptorId
+				ON SHPA.HomelessPrimaryNighttimeResidenceDescriptorId = Descriptor_1.DescriptorId
 

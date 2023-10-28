@@ -42,11 +42,14 @@ SELECT LEA.[LocalEducationAgencyId]
 	   ,LEACategory.[Description] AS [LEACategoryDescription]
 	   ,LEACharterStatus.CodeValue AS [LEACharterStatusCode]
 	   ,LEACharterStatus.[Description] AS [LEACharterStatusDescription]
+	   ,EO.OperationalStatusDescription
 	   ,CASE WHEN 
 		(SELECT TOP 1 SchoolId FROM nmped_rpt.vw_Schools 
 			WHERE LocalEducationAgencyId = LEA.LocalEducationAgencyId 
-			AND CharterStatusCode = 'District Charter') IS NULL THEN 'N' ELSE 'Y' END AS [LocalCharterIndicator]
+			AND CharterStatusCode = 'District Charter') IS NULL THEN 'N' ELSE 'Y' END AS [DistrictHasLocalCharters]
 FROM edfi.LocalEducationAgency LEA WITH (NOLOCK)
+INNER JOIN nmped_rpt.vw_EducationOrganizations_Basic EO
+	ON (EO.EducationOrganizationId = LEA.LocalEducationAgencyId)
 LEFT JOIN cte_Descriptors LEACategory WITH (NOLOCK)
 	ON (LEACategory.DescriptorId = LEA.LocalEducationAgencyCategoryDescriptorId)
 LEFT JOIN cte_Descriptors LEACharterStatus WITH (NOLOCK)
