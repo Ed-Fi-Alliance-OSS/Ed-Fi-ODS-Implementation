@@ -124,6 +124,12 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://nmped.org/DirectCertificationStatusDescriptor','3','3=Family Mems of SNAP identified stus that wereNotFound inthe DirCertReport','3 = Family Members of SNAP identified students that were not found in the Direct Certification report. - Reduced');
 INSERT INTO nmped.DirectCertificationStatusDescriptor(DirectCertificationStatusDescriptorId) values (@@IDENTITY);
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/DirectCertificationStatusDescriptor','4','4 = Medicaid Direct Cert as identified in the direct certification report and certified by the district','4 = Medicaid Direct Cert as identified in the direct certification report and certified by the district');
+INSERT INTO nmped.DirectCertificationStatusDescriptor(DirectCertificationStatusDescriptorId) values (@@IDENTITY);
+
+
+
 /* SpecialProgramCode */
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
 values ('uri://nmped.org/SpecialProgramCodeDescriptor','D','D = Dual Credit Course','D = Dual Credit Course');
