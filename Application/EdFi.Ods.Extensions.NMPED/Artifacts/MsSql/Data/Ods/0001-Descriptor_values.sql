@@ -125,7 +125,7 @@ values ('uri://nmped.org/DirectCertificationStatusDescriptor','3','3=Family Mems
 INSERT INTO nmped.DirectCertificationStatusDescriptor(DirectCertificationStatusDescriptorId) values (@@IDENTITY);
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/DirectCertificationStatusDescriptor','4','4 = Medicaid Direct Cert as identified in the direct certification report and certified by the district','4 = Medicaid Direct Cert as identified in the direct certification report and certified by the district');
+values ('uri://nmped.org/DirectCertificationStatusDescriptor','4','4=Medicaid Direct Cert as identified in the direct certification report','4 = Medicaid Direct Cert as identified in the direct certification report and certified by the district');
 INSERT INTO nmped.DirectCertificationStatusDescriptor(DirectCertificationStatusDescriptorId) values (@@IDENTITY);
 
 
