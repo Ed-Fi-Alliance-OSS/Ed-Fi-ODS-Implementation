@@ -51,6 +51,30 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','5','5','5');
 INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
 
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','A','A','A');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','B','B','B');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','C','C','C');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','D','D','D');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','E','E','E');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','E','E','E');
+INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
+
 
 
 
