@@ -71,12 +71,6 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','E','E','E');
 INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
 
-INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
-values ('uri://nmped.org/nmassessments/StandardAchievedCodeDescriptor','E','E','E');
-INSERT INTO nmassessments.StandardAchievedCodeDescriptor (StandardAchievedCodeDescriptorId) values (@@IDENTITY);
-
-
-
 
 
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) values ('uri://nmped.org/nmassessments/ItemDescriptionCodeDescriptor','SOCIAL EMOTIONAL ENTRY','SOCIAL EMOTIONAL ENTRY','SOCIAL EMOTIONAL ENTRY');
