@@ -146,6 +146,8 @@ function Initialize-TemplateSourceFromScriptName {
 
 function Update-PackageName([string] $scriptName, [string] $filePath) {
 
+    if($scriptName -eq 'Northridge'){  return }
+    
     $config = Get-Content $filePath | ConvertFrom-Json
     $packageName = $config.packages.($scriptName).PackageName
 
