@@ -91,7 +91,7 @@ function Invoke-PsqlCommand {
 
     if ($userName) { $params += @("--username", $userName) }
 
-    $commands | ForEach-Object { $params += @("--command", "`"$_`"") }
+    $commands | ForEach-Object { $params += @("--command", "$_") }
 
     $psql = Get-PSQLPath
     Write-Host -ForegroundColor Magenta "& $psql $params"
@@ -258,9 +258,7 @@ function Remove-PostgreSQLDatabase {
             # This suppresses any non-error messages from outputting through stderr and causing TeamCity build failures
             # while still allowing any errors to fail the build.
             "SET client_min_messages TO ERROR;"
-            # note: the backslash is required for passing quotation mark into psql command line, and
-            # the backtick is required for escaping the quotation mark in PowerShell.
-            "DROP DATABASE IF EXISTS \`"$databaseName\`";"
+            "DROP DATABASE IF EXISTS $databaseName;"
         )
     }
 
