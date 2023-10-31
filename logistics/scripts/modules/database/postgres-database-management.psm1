@@ -82,7 +82,6 @@ function Invoke-PsqlCommand {
     $params = @(
         "--echo-errors",
         "--quiet",
-        "--password postgres",
         "--tuples-only"
         "--host", $serverName,
         "--port", $portNumber,
