@@ -82,7 +82,7 @@ function Invoke-PsqlCommand {
     $params = @(
         "--echo-errors",
         "--quiet",
-        "--no-password",
+        "--password postgres",
         "--tuples-only"
         "--host", $serverName,
         "--port", $portNumber,
@@ -252,7 +252,6 @@ function Remove-PostgreSQLDatabase {
         portNumber   = $portNumber
         userName     = $userName
         databaseName = 'postgres'
-        password     = 'postgres'
         commands     = @(
             "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname='$databaseName';"
             # Since log_destination defaults to stderr we are limmiting messages to errors only.
