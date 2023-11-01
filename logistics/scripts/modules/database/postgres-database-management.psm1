@@ -82,6 +82,7 @@ function Invoke-PsqlCommand {
     $params = @(
         "--echo-errors",
         "--quiet",
+        "--no-password",
         "--tuples-only"
         "--host", $serverName,
         "--port", $portNumber,
@@ -89,7 +90,7 @@ function Invoke-PsqlCommand {
     )
 
     if ($userName) { $params += @("--username", $userName) }
-    $params += @("--password",'postgres')
+
     $commands | ForEach-Object { $params += @("--command", "`"$_`"") }
 
     $psql = Get-PSQLPath
@@ -263,7 +264,7 @@ function Remove-PostgreSQLDatabase {
         )
     }
 
-    Write-Host "Semalai Drop database $databaseName if it already exists..."
+    Write-Host "Drop database $databaseName if it already exists..."
 
     Invoke-PsqlCommand @parameters
     Test-Error
