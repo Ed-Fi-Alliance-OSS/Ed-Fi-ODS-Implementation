@@ -89,7 +89,7 @@ function Invoke-PsqlCommand {
     )
 
     if ($userName) { $params += @("--username", $userName) }
-    $params += @("--password", 'postgres')
+    $params += @("--password")
     $commands | ForEach-Object { $params += @("--command", "`"$_`"") }
 
     $psql = Get-PSQLPath
