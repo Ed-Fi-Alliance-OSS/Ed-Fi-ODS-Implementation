@@ -36,7 +36,8 @@ foreach ($assembly in $testAssemblies) {
         $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".trx"
     }
 
-    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
+    # Log both to file and console. With "minimal" set, only failing tests will be listed in detail in the console.
+    & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName) --logger "console;verbosity=minimal" --nologo
 
     if (($LASTEXITCODE -gt 0)) {
         $testAssembliesFailedToExecute += $assembly
