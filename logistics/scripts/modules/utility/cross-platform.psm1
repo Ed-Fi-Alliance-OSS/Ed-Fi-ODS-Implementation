@@ -70,7 +70,7 @@ function Get-DotnetRuntimes {
         
         $values =  $entry.Split(" ",3)
         $runtime = $values[0]
-        $version = [Version]$values[1]
+        $version = [Version]$values[1].Split("-")[0] # Trim version at any pre-release information
         $path = $values[2] -replace '[][]',''
         $thisRuntime = [ordered]@{
             "Runtime" = $runtime;
