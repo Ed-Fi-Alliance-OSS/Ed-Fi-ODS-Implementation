@@ -10,7 +10,7 @@
           "ApiClients": [
             {
               "ApiClientName": "ODS/API",
-              "LocalEducationOrganizations": [255901, 19255901, 100000, 200000]
+              "LocalEducationOrganizations": [255901, 19255901, 100000, 200000, 300000]
             }
           ]
         }
