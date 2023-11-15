@@ -70,17 +70,8 @@ function mapSections(json) {
   console.log('sections', sections)
 }
 
-function onChangeTenant() {
-    var tenantSelected = $("#tenantSelect option:selected").text();
-
-    $(".url-link").each(function() {
-        var oldUrl = $(this).attr("href");
-        var newUrl = oldUrl.replace(/tenantIdentifier=({?[A-Za-z0-9]+}?)/g, 'tenantIdentifier=' + tenantSelected);
-        $(this).attr("href", newUrl);
-    });
-}
-
-function createSectionLinks(sectionName, hasTenant) {
+function createSectionLinks(sectionName) {
+  const { Tenants } = appSettings;
   var section = sections[sectionName]
   var prefix = sectionName === 'Resources' ? '' : sectionName + ': '
   return section.links
@@ -93,9 +84,8 @@ function createSectionLinks(sectionName, hasTenant) {
 
         queryParameters['urls.primaryName'] = `${prefix}${link.name}`;
         
-        if (hasTenant) {
-            var tenantIdentifier = $("#tenantSelect option:selected").text();
-            queryParameters.tenantIdentifier = tenantIdentifier;
+        if (Tenants.length > 0) {
+            queryParameters.tenantIdentifier = Tenants[0].Tenant;
         }
         
         let paramsUrlString = Object.keys(queryParameters)
@@ -107,37 +97,15 @@ function createSectionLinks(sectionName, hasTenant) {
     .join('')
 }
 
-async function addTenantOptions() {
-    const { Tenants } = appSettings;
-
-    let defaultTenant = '';
-
-    if (Tenants.length > 0) {
-
-        Tenants.forEach(element => {
-            $('#tenantSelect').append(new Option(element.Tenant, element.Tenant));
-        });
-
-        var defaultTenants = $.grep(Tenants, function (item) { return item.IsDefault });
-
-        defaultTenant = defaultTenants.length === 0 ? Tenants[0].Tenant : defaultTenants[0].Tenant;
- 
-        $("#tenantSelect option[value='" + defaultTenant + "']").attr("selected", "selected");
-    }
-}
-
 // dynamically creates the api sections using the #sectionTemplate
 function createSections() {
+    const { Tenants } = appSettings;
     var uri = sections['Resources'].links[0].uri;
 
     Object.keys(sections).forEach(function (sectionName) {
     var section = sections[sectionName]
     if (section.links <= 0) return
-
-    const { Tenants } = appSettings;
-    
-    var hasTenant = Tenants.length > 0;
-    
+        
     var sectionTemplate = document.getElementById('sectionTemplate')
     var templateHtml = sectionTemplate.innerHTML
     var html = templateHtml
@@ -151,7 +119,7 @@ function createSections() {
           })
           .join('')
       )
-        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName, hasTenant))
+        .replace(/{{sectionLink}}/g, createSectionLinks(sectionName))
 
     section.links.forEach(function(link) {
         console.log("Found: " + link.uri);
@@ -167,6 +135,13 @@ function createSections() {
     element.classList.remove('hide')
     element.className = element.className.replace('hide', '') // IE11 support
     })
+
+    if(Tenants.length > 0)
+    $(".url-link").each(function() {
+        var oldUrl = $(this).attr("href");
+        var newUrl = oldUrl.replace(/tenantIdentifier=({?[A-Za-z0-9]+}?)/g, 'tenantIdentifier=' + Tenants[0].Tenant);
+        $(this).attr("href", newUrl);
+    });
 }
 
 const logJSON = (json) => {
@@ -203,13 +178,8 @@ const fetchOpenApiMetadata = (webApiVersionUrlJson) => {
   var { openApiMetadata } = webApiVersionUrlJson.urls
   const { Tenants } = appSettings;
   
-  var hasTenant = Tenants.length > 0;
-
-  if (hasTenant) {
-     addTenantOptions();
-     let tenantSelected = $("#tenantSelect option:selected").text();
-     openApiMetadata = openApiMetadata.replace('{tenantIdentifier}', tenantSelected);
-     $("#tenant").show();
+  if (Tenants.length > 0) {
+     openApiMetadata = openApiMetadata.replace('{tenantIdentifier}', Tenants[0].Tenant);
   }
 
   return fetch(openApiMetadata)

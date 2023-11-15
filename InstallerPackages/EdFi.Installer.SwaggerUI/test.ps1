@@ -28,8 +28,6 @@ function Invoke-SchoolYears {
         ToolsPath = "../../tools"
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
-        SchoolYears = @("2022","2023")
-        DefaultSchoolYear = "2023"
     }
 
     Install-EdFiOdsSwaggerUI @p
@@ -41,7 +39,6 @@ function Invoke-Tenants {
         WebApiMetadataUrl = "https://edfi-wrk118/EdFiOdsWebApi/metadata"
         WebApiVersionUrl = "https://edfi-wrk118/EdFiOdsWebApi"
         Tenants = @("Tenant1","Tenant2")
-        DefaultTenant = "Tenant2"
     }
 
     Install-EdFiOdsSwaggerUI @p
