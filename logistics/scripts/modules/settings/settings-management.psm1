@@ -614,7 +614,7 @@ function Add-SwaggerUiTenantSettings([hashtable] $Settings = @{ }, [string] $Pro
     $Settings.Tenants = @()
 
     foreach ($tenant in $Settings.ApiSettings.Tenants -split ';' | ForEach-Object { $_ }) {
-        $Settings.Tenants += @{ Tenant = $tenant; IsDefault = $false }
+        $Settings.Tenants += @{ Tenant = $tenant }
     }
     
     return $Settings
@@ -629,7 +629,7 @@ function Add-SwaggerUiYearSettings([hashtable] $Settings = @{ }, [string] $Proje
     foreach ($year in $Settings.ApiSettings.OdsTokens -split ';' | ForEach-Object { $_ }) {
         # Validate if OdsToken includes a valid year.
         if ($year -imatch '_?(20[0-9]{2})') {
-            $Settings.Years += @{ Year = $matches[1]; IsDefault = $false }
+            $Settings.Years += @{ Year = $matches[1] }
         }
     }
     

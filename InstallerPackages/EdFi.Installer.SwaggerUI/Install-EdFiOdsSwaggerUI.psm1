@@ -110,24 +110,11 @@ function Install-EdFiOdsSwaggerUI {
         # Turns off display of script run-time duration.
         [switch]
         $NoDuration,
-        
-        # List of SchoolYears deployed to include in the dropdown
+         
+        # List of Tenants deployed
+        # If MultiTenancy is enabled, then at least one valid tenant identifier must be provided
         [string[]]
-        $SchoolYears,
-        
-        # Default SchoolYear to be displayed in the dropdown menu
-        # If empty, first SchoolYear from $SchoolYears parameter will be used
-        [string]
-        $DefaultSchoolYear,
-        
-        # List of Tenants deployed to include in the dropdown
-        [string[]]
-        $Tenants,
-        
-        # Default Tenant to be displayed in the dropdown menu.
-        # If empty, first Tenant from $Tenants parameter will be used
-        [string]
-        $DefaultTenant
+        $Tenants
     )
 
     Write-InvocationInfo $MyInvocation
@@ -153,10 +140,7 @@ function Install-EdFiOdsSwaggerUI {
         PrePopulatedSecret = $PrePopulatedSecret
         DisablePrepopulatedCredentials = $DisablePrepopulatedCredentials
         NoDuration = $NoDuration
-        SchoolYears = $SchoolYears
-        DefaultSchoolYear = $DefaultSchoolYear
         Tenants = $Tenants
-        DefaultTenant = $DefaultTenant
     }
 
     $elapsed = Use-StopWatch {
@@ -317,23 +301,11 @@ function Invoke-TransformWebConfigAppSettings {
             }
         }
 
-        if ($Config.SchoolYears.Count -gt 0) {
-            if (-not $Config.DefaultSchoolYear) { $Config.DefaultSchoolYear = $Config.SchoolYears[0] }
-            
-            $appSettings += @{ Years = @() }
-            
-            foreach ($schoolYear in $Config.SchoolYears) {
-                $appSettings.Years += @{ Year = $schoolYear; IsDefault = ($schoolYear -eq $Config.DefaultSchoolYear)}
-            }
-        }
-
         if ($Config.Tenants.Count -gt 0) {
-            if (-not $Config.DefaultTenant) { $Config.DefaultTenant = $Config.Tenants[0] }
-            
             $appSettings += @{ Tenants = @() }
             
             foreach ($tenant in $Config.Tenants) {
-                $appSettings.Tenants += @{ Tenant = $tenant; IsDefault = ($tenant -eq $Config.DefaultTenant)}
+                $appSettings.Tenants += @{ Tenant = $tenant }
             }
         }
         
