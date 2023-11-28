@@ -75,14 +75,23 @@ INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON (VDL.EducationOrganizationId_School = SSA.SchoolId)
 -- Special Education Join - Only on District as Students may be off-site but receiving services from the district
 LEFT JOIN nmped.StudentSpecialEducationProgramAssociationExtension SPED WITH (NOLOCK)
-	ON (SPED.StudentUSI = SSA.StudentUSI
-		AND (SPED.ProgramEducationOrganizationId = VDL.EducationOrganizationId_District))
+	ON SPED.StudentUSI = SSA.StudentUSI
+	AND (SPED.EducationOrganizationId = SSA.SchoolId
+		OR (VDL.EducationOrganizationId_District = SPED.EducationOrganizationId 
+			AND VDL.EducationOrganizationId_School NOT IN (SELECT EducationOrganizationId
+														FROM nmped.StudentSpecialEducationProgramAssociationExtension SSEPA
+														WHERE SSEPA.StudentUSI = SPED.StudentUSI
+														 )))
 -- Gifted student join (StudentEdOrgAssocStudentCharacteristic)
 LEFT JOIN nmped.StudentEducationOrganizationAssociationStudentCharacteristicExtension SEOASCE WITH (NOLOCK)
-	ON (SEOASCE.StudentUSI = SSA.StudentUSI
-		AND (SEOASCE.EducationOrganizationId = VDL.EducationOrganizationId_School
-			OR SEOASCE.EducationOrganizationId = VDL.EducationOrganizationId_District)
-		AND SEOASCE.StudentCharacteristicDescriptorId = (SELECT DescriptorId FROM cte_Descriptors WHERE CodeValue = 'Gifted'))
+	ON (SEOASCE.StudentUSI = SSA.StudentUSI)
+		AND (SEOASCE.EducationOrganizationId = SSA.SchoolId
+			OR (VDL.EducationOrganizationId_District = SEOASCE.EducationOrganizationId 
+				AND VDL.EducationOrganizationId_School NOT IN (SELECT EducationOrganizationId
+																FROM nmped.StudentEducationOrganizationAssociationStudentCharacteristicExtension SEOA
+																WHERE SEOA.StudentUSI = SEOASCE.StudentUSI
+																)))
+		AND SEOASCE.StudentCharacteristicDescriptorId = (SELECT DescriptorId FROM cte_Descriptors WHERE CodeValue = 'Gifted')
 -- General Student Program Association Join to get SPED EndDate
 LEFT JOIN edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
 	ON (GSPA.StudentUSI = SPED.StudentUSI

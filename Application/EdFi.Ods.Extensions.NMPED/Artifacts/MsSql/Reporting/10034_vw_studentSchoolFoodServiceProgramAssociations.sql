@@ -23,26 +23,34 @@ SELECT
 	,VDL.SchoolName	
 
 	--resource documentation starts
+	,S.StudentUSI
 	,StudentUniqueId
 	,FirstName
 	,LastSurname
 	,SSFSPA.BeginDate
 	,SSFSPA.ProgramName
-	,ProgramType.CodeValue							[ProgramTypeCode]
-	,ProgramType.Description						[ProgramTypeDescription]
+	,ProgramType.CodeValue						[ProgramTypeCode]
+	,ProgramType.Description					[ProgramTypeDescription]
 	,DirectCertification
 --	,participationStatus not collected
 --	,programParticipationStatus not collected
 
+	--captures FRL Eligibility
+	,Eligibility.CodeValue						[FoodServiceEligibilityCode]
+	,Eligibility.Description					[FoodServiceEligibility]
+	,StatusBeginDate
+	,StatusEndDate
+
 	--schoolFoodServiceProgramService subcollection
-	,SchoolFoodServiceProgramService.CodeValue		[SchoolFoodServiceProgramServiceCode]
-	,SchoolFoodServiceProgramService.Description	[SchoolFoodServiceProgramServiceDescription]
+	--captures FRL participation
+	,Participation.CodeValue					[FoodServiceParticipationCode]
+	,Participation.Description					[FoodServiceParticipation]
 	,ServiceBeginDate
 	,ServiceEndDate
 	--end subcollection
-
-	,DirectCertificationStatus.CodeValue			[DirectCertificationStatusCode]
-	,DirectCertificationStatus.Description			[DirectCertificationStatusDescription]
+	
+	,DirectCertificationStatus.CodeValue		[DirectCertificationStatusCode]
+	,DirectCertificationStatus.Description		[DirectCertificationStatusDescription]
 FROM
 	edfi.StudentSchoolFoodServiceProgramAssociation SSFSPA WITH (NOLOCK)
 
@@ -68,11 +76,22 @@ FROM
 		AND SSFSPAE.ProgramTypeDescriptorId = SSFSPA.ProgramTypeDescriptorId
 		AND SSFSPAE.StudentUSI = SSFSPA.StudentUSI
 
+	LEFT JOIN edfi.GeneralStudentProgramAssociationProgramParticipationStatus GSPAP WITH (NOLOCK)
+		ON GSPAP.StudentUSI = S.StudentUSI 
+		AND GSPAP.BeginDate = SSFSPA.BeginDate
+		AND GSPAP.EducationOrganizationId = SSFSPA.EducationOrganizationId
+		AND GSPAP.ProgramEducationOrganizationId = SSFSPA.ProgramEducationOrganizationId
+		AND GSPAP.ProgramName = SSFSPA.ProgramName
+		AND GSPAP.ProgramTypeDescriptorId = SSFSPA.ProgramTypeDescriptorId
+
+	LEFT JOIN edfi.Descriptor Eligibility WITH (NOLOCK)
+		ON Eligibility.DescriptorId = GSPAP.ParticipationStatusDescriptorId
+
 	LEFT JOIN edfi.Descriptor DirectCertificationStatus WITH (NOLOCK)
 		ON DirectCertificationStatus.DescriptorId = SSFSPAE.DirectCertificationStatusDescriptorId
 
-	LEFT JOIN edfi.Descriptor SchoolFoodServiceProgramService WITH (NOLOCK)
-		ON SchoolFoodServiceProgramService.DescriptorId = SSFSPASFSPS.SchoolFoodServiceProgramServiceDescriptorId
+	LEFT JOIN edfi.Descriptor Participation WITH (NOLOCK)
+		ON Participation.DescriptorId = SSFSPASFSPS.SchoolFoodServiceProgramServiceDescriptorId
 
 	LEFT JOIN edfi.Descriptor ProgramType WITH (NOLOCK)
 		ON ProgramType.DescriptorId = SSFSPA.ProgramTypeDescriptorId

@@ -10,7 +10,7 @@
  *			from the sections Ed-Fi Resource
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_sections AS 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_sections] AS 
 SELECT
 	--standard school/district columns
 	 VDL.EducationOrganizationId_District
@@ -23,6 +23,7 @@ SELECT
 	--resource documentation starts
 	,S.SectionIdentifier
 	,S.LocalCourseCode
+	,CO.CourseCode						[StateCourseCode]
 	,S.SchoolId
 	,S.SchoolYear
 	,S.SessionName
@@ -55,6 +56,11 @@ SELECT
 FROM
 	edfi.Section S WITH (NOLOCK)
 
+	JOIN edfi.CourseOffering CO WITH (NOLOCK)
+		ON CO.SchoolId = S.SchoolId
+		AND CO.LocalCourseCode = S.LocalCourseCode
+		AND CO.SessionName = S.SessionName
+
 	LEFT JOIN nmped.SectionExtension SE WITH (NOLOCK)
 		ON SE.LocalCourseCode = S.LocalCourseCode
 		AND SE.SchoolId = S.SchoolId
@@ -85,3 +91,6 @@ FROM
 
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = S.SchoolId
+GO
+
+

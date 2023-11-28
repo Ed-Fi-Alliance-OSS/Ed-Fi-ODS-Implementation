@@ -21,9 +21,15 @@
 * Date:      07/12/2023
 * Alt Desc: Added Student Middle Initial
 
+* Alt Id:    003
+* By:        Collin Neville | IT App Dev 1
+* Email:     collin.neville@ped.nm.gov
+* Date:      11/17/2023
+* Alt Desc: Added State Course Code
+
  */
 
-CREATE OR ALTER VIEW [nmped_rpt].[vw_studentSectionAssociations] AS 
+CREATE OR ALTER   VIEW [nmped_rpt].[vw_studentSectionAssociations] AS 
 WITH cte_Descriptors AS (
 	SELECT
 		 DescriptorId
@@ -57,6 +63,7 @@ SELECT DISTINCT
 	,EntryGradeLevel.CodeValue			[GradeLevel]									  
 	,SSA.BeginDate
 	,SSA.LocalCourseCode
+	,CO.CourseCode						[StateCourseCode] -- AltID 003
 	,SSA.SchoolId
 	,SSA.SchoolYear
 	,SSA.SectionIdentifier
@@ -86,7 +93,8 @@ FROM
 	-- for student's grade level							
 	JOIN edfi.StudentSchoolAssociation SSA_School WITH (NOLOCK)																	  
 		ON SSA_School.StudentUSI = SSA.StudentUSI																
-		AND SSA_School.SchoolId = SSA.SchoolId													  
+		AND SSA_School.SchoolId = SSA.SchoolId	
+		
 	JOIN nmped.StudentSectionAssociationExtension SSAE WITH (NOLOCK)
 		ON SSAE.BeginDate = SSA.BeginDate
 		AND SSAE.LocalCourseCode = SSA.LocalCourseCode
@@ -95,6 +103,11 @@ FROM
 		AND SSAE.SectionIdentifier = SSA.SectionIdentifier
 		AND SSAE.SessionName = SSA.SessionName
 		AND SSAE.StudentUSI = SSA.StudentUSI
+
+	JOIN edfi.CourseOffering CO WITH (NOLOCK)
+		ON CO.SchoolId = SSA.SchoolId
+		AND CO.LocalCourseCode = SSA.LocalCourseCode
+		AND CO.SessionName = SSA.SessionName
 
 	JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = SSA.SchoolId

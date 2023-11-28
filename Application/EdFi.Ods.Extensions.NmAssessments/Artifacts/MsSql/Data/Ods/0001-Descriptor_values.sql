@@ -22,7 +22,21 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription],Descri
 INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId)
 SELECT descriptorId FROM edfi.descriptor
 where namespace = 'uri://nmped.org/nmassessments/TestDescriptionDescriptor';
-
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/TestDescriptionDescriptor','SAT_NEW','Standardized Test','Standardized Test');
+INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/TestDescriptionDescriptor','PSAT_NMSQT','Preliminary Standardized Test','Preliminary Standardized Test');
+INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/TestDescriptionDescriptor','ACT ASPIRE','ACT ASPIRE','ACT ASPIRE');
+INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/TestDescriptionDescriptor','PSAT89','Preliminary Standardized Test','Preliminary Standardized Test');
+INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId) values (@@IDENTITY);
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+values ('uri://nmped.org/nmassessments/TestDescriptionDescriptor','SATSUB','Standardized Subtest','Standardized Subtest');
+INSERT INTO nmassessments.TestDescriptionDescriptor (TestDescriptionDescriptorId) values (@@IDENTITY);
 
 
 

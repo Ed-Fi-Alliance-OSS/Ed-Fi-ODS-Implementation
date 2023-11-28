@@ -136,12 +136,15 @@ FROM
 	INNER JOIN nmped_rpt.vw_district_location VDL WITH (NOLOCK)
 		ON VDL.EducationOrganizationId_School = GSPA.EducationOrganizationId
 
+-- Alt Id: 003 - Moved these joins to the bottom and altered OR statement to only use one LEFT statement and built district Id.
 	--Alt Id: 002
 	JOIN edfi.StudentSchoolAssociation SSA WITH (NOLOCK)
 		ON SSA.StudentUSI = S.StudentUSI 
 		AND (SSA.SchoolId = GSPA.EducationOrganizationId
-		   OR (LEFT(SSA.SchoolId, 5)+'000') = GSPA.EducationOrganizationId)
-
+			OR (LEFT(SSA.SchoolId, 5) + '000' = GSPA.EducationOrganizationId
+				AND GSPA.EducationOrganizationId = GSPA.ProgramEducationOrganizationId
+				)
+			)
 	--Alt Id: 002
 	LEFT JOIN cte_Descriptors Grade 
 		ON Grade.DescriptorId = SSA.EntryGradeLevelDescriptorId

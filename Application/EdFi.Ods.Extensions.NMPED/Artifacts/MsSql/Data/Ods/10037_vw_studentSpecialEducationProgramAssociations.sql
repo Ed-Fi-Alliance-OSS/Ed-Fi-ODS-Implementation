@@ -16,7 +16,7 @@
  *
  */
 
-CREATE OR ALTER       VIEW [nmped_rpt].[vw_studentSpecialEducationProgramAssociations]
+CREATE OR ALTER VIEW [nmped_rpt].[vw_studentSpecialEducationProgramAssociations]
 AS 
 
 WITH cte_Descriptors AS (
@@ -114,6 +114,7 @@ SELECT DISTINCT
 	,SpecialEducationProgramService.CodeValue			AS	[SpecialEducationProgramServiceCode]
 	,SpecialEducationProgramService.[Description]		AS	[SpecialEducationProgramServiceDescription]
 	,Staff_Service.StaffUniqueId						AS	[SpecialEducationProgramServiceStaffUniqueId]
+	,Staff_Service.StaffUSI								AS	[SpecialEducationProgramServiceStaffUSI]
 	,SSEPASEPS.PrimaryIndicator
 	,SSEPASEPS.ServiceBeginDate
 	,SSEPASEPS.ServiceEndDate

@@ -1,10 +1,12 @@
 -- ===========================================================
 /* Author:		Cody Misplay
 -- Create date: 06/20/2023
--- Description:	Seed script to populate edfi.Program table for each LEA. All 42 Program values are assigned to variables
+-- Description:	Seed script to populate edfi.Program table for each LEA. All 49 Program values are assigned to variables
 --	This script contains the following sections
 --    001: Dynamic SQL Declaration and Initialization
---    002: edfi.Program table load
+--    002: edfi.Program table load with join to edfi.School for DISTRICT CHARTERs
+--
+-- Updated 11/2/2023 by Cody Misplay to also load Program data for District Charters.
 --
 --	*NOTE - If any strings need an apostrophe make sure to use double apostrophe in the variable assignment AND 
 --		make sure to use REPLACE(@VariableName,'''','''''') in the dynamic SQL statement for that variable.
@@ -198,6 +200,13 @@ INSERT INTO #Temp_EdOrgDistrict_Val(
 	 [DistrictId]
 ) 
 SELECT [LocalEducationAgencyId] FROM edfi.LocalEducationAgency WITH (NOLOCK)
+UNION
+-- UNION here to add District Charters - CJM 11/2/2023
+SELECT SchoolId 
+FROM edfi.School 
+WHERE CharterStatusDescriptorId = (SELECT DescriptorId FROM edfi.Descriptor 
+									WHERE [Namespace] = 'uri://nmped.org/CharterStatusDescriptor'
+									AND CodeValue = 'DISTRICT CHARTER')
 
 -- Loop through each LEA and create their 42 inserts
 WHILE(@Cnt <= (SELECT COUNT(*) FROM #Temp_EdOrgDistrict_Val))
