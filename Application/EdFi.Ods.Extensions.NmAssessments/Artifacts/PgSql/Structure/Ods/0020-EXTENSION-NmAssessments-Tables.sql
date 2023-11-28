@@ -13,7 +13,7 @@ CREATE TABLE nmassessments.NmStudentAssessment (
     TestDescriptionDescriptorId INT NOT NULL,
     StandardAchievedCodeDescriptorId INT NULL,
     ScoringModelCodeDescriptorId INT NULL,
-    RawScore INT NULL,
+    RawScore DECIMAL(9, 4) NULL,
     Discriminator VARCHAR(128) NULL,
     CreateDate TIMESTAMP NOT NULL,
     LastModifiedDate TIMESTAMP NOT NULL,

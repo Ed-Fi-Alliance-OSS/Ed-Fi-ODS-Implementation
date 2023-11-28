@@ -153,10 +153,10 @@
         {
           "propertyName": "RawScore",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Decimal",
             "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
+            "precision": 9,
+            "scale": 4,
             "isNullable": true
           },
           "description": "Score of administered test. Need not be a RAW Score.",

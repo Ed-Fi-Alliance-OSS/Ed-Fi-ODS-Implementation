@@ -16,7 +16,7 @@ CREATE TABLE [nmassessments].[NmStudentAssessment] (
     [TestDescriptionDescriptorId] [INT] NOT NULL,
     [StandardAchievedCodeDescriptorId] [INT] NULL,
     [ScoringModelCodeDescriptorId] [INT] NULL,
-    [RawScore] [INT] NULL,
+    [RawScore] [DECIMAL](9, 4) NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,

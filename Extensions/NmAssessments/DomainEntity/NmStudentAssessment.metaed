@@ -24,3 +24,5 @@ Domain Entity NmStudentAssessment
     decimal RawScore
         documentation "Score of administered test. Need not be a RAW Score."
         is optional
+        total digits 9
+        decimal places 4

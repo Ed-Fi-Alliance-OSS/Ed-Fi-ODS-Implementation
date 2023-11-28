@@ -244,9 +244,9 @@
         <ann:TypeGroup>Simple</ann:TypeGroup>
       </xs:appinfo>
     </xs:annotation>
-    <xs:restriction base="xs:int">
-      <xs:minInclusive value="0" />
-      <xs:maxInclusive value="9999" />
+    <xs:restriction base="xs:decimal">
+      <xs:totalDigits value="9" />
+      <xs:fractionDigits value="4" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>
