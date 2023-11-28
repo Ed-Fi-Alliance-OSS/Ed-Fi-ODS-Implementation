@@ -4406,6 +4406,10 @@ INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Desc
 INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
         values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', '12', 'The student received a conditional certificate of transition', 'The student received a conditional certificate of transition (Does not end FAPE).');
         INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
+		
+INSERT INTO edfi.Descriptor ([Namespace], [CodeValue], [ShortDescription], [Description]) 
+        values ('uri://nmped.org/SpecialEducationEventReasonDescriptor', 'DNQ', 'Did not qualify', 'Did not qualify.');
+        INSERT INTO nmped.SpecialEducationEventReasonDescriptor (SpecialEducationEventReasonDescriptorId) values (@@IDENTITY);
 
 /**/
 
