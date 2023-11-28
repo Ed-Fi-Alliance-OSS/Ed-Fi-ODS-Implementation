@@ -21,8 +21,6 @@ Domain Entity NmStudentAssessment
     descriptor ScoringModelCode
         documentation "The Measurement used to determine the outcomes the respective assessment."
         is optional
-    integer RawScore
+    decimal RawScore
         documentation "Score of administered test. Need not be a RAW Score."
         is optional
-        min value 0
-        max value 9999
