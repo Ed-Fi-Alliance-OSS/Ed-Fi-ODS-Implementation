@@ -119,7 +119,7 @@ SELECT DISTINCT
 	
 	,GSPA.Id AS [GeneralStudentProgramAssociationId]
 
-FROM nmped.StudentSpecialEducationProgramAssociation SSEPA WITH (NOLOCK)
+FROM edfi.StudentSpecialEducationProgramAssociation SSEPA WITH (NOLOCK)
 
 	JOIN edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
 		ON GSPA.BeginDate = SSEPA.BeginDate
