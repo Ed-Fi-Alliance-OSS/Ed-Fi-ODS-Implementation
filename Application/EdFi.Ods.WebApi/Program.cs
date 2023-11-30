@@ -6,6 +6,8 @@
 using System;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using EdFi.Ods.Api.Helpers;
+using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -17,7 +19,9 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            var host = Host.CreateDefaultBuilder(args)
+            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
+
+            var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(ConfigureLogging)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(
@@ -27,7 +31,11 @@ namespace EdFi.Ods.WebApi
                             serverOptions => { serverOptions.AddServerHeader = false; });
 
                         webBuilder.UseStartup<Startup>();
-                    }).Build();
+                    });
+
+            await ConfigureHostUsingPlugins();
+
+            var host = hostBuilder.Build();
 
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
@@ -45,6 +53,24 @@ namespace EdFi.Ods.WebApi
                     };
 
                 loggingBuilder.AddLog4Net(loggingOptions);
+            }
+
+            async Task ConfigureHostUsingPlugins()
+            {
+                var pluginTypes = TypeHelper.GetPluginTypes();
+
+                foreach (Type pluginType in pluginTypes)
+                {
+                    try
+                    {
+                        var plugin = (IPlugin) Activator.CreateInstance(pluginType);
+                        plugin.ConfigureHost(hostBuilder);
+                    }
+                    catch (Exception ex)
+                    {
+                        await Console.Error.WriteLineAsync($"Error occured during host configuration by plugin '{pluginType.Name}': {ex}");
+                    }
+                }
             }
         }
     }
