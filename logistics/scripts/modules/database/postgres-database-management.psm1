@@ -17,6 +17,7 @@ $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "13.7.74"
 $script:toolsPath = (Get-ToolsPath)
 $script:windowsPostgreSQLBinariesPath = "$script:toolsPath/$script:packageName.$script:packageVersion/tools/"
+$script:PSNativeCommandArgumentPassing = 'Legacy'
 
 function Test-PostgreSQLBinariesInstalled {
 
@@ -260,6 +261,8 @@ function Remove-PostgreSQLDatabase {
             "SET client_min_messages TO ERROR;"
             # note: the backslash is required for passing quotation mark into psql command line, and
             # the backtick is required for escaping the quotation mark in PowerShell.
+            # For PowerShell 7.3 and upwards, this will fail if $PSNativeCommandArgumentPassing is not SET
+            # to 'Legacy'
             "DROP DATABASE IF EXISTS \`"$databaseName\`";"
         )
     }
