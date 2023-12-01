@@ -17,6 +17,7 @@ $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "13.7.74"
 $script:toolsPath = (Get-ToolsPath)
 $script:windowsPostgreSQLBinariesPath = "$script:toolsPath/$script:packageName.$script:packageVersion/tools/"
+$script:PSNativeCommandArgumentPassing = 'Legacy'
 
 function Test-PostgreSQLBinariesInstalled {
 
@@ -91,7 +92,7 @@ function Invoke-PsqlCommand {
 
     if ($userName) { $params += @("--username", $userName) }
 
-    $commands | ForEach-Object { $params += @("--command", "$_") }
+    $commands | ForEach-Object { $params += @("--command", "`"$_`"") }
 
     $psql = Get-PSQLPath
     Write-Host -ForegroundColor Magenta "& $psql $params"
@@ -258,7 +259,11 @@ function Remove-PostgreSQLDatabase {
             # This suppresses any non-error messages from outputting through stderr and causing TeamCity build failures
             # while still allowing any errors to fail the build.
             "SET client_min_messages TO ERROR;"
-            "DROP DATABASE IF EXISTS $databaseName;"
+            # note: the backslash is required for passing quotation mark into psql command line, and
+            # the backtick is required for escaping the quotation mark in PowerShell.
+            # For PowerShell 7.3 and upwards, this will fail if $PSNativeCommandArgumentPassing is not SET
+            # to 'Legacy'
+            "DROP DATABASE IF EXISTS \`"$databaseName\`";"
         )
     }
 
