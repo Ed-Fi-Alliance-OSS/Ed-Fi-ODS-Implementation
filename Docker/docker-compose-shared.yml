@@ -15,8 +15,8 @@ services:
       context: ods-api-db-ods-minimal/alpine/pgsql
       dockerfile: Dockerfile
       args:
-        ODS_VERSION: ${ODS_MINIMAL_VERSION:-pre}
-        TPDM_VERSION: ${TPDM_MINIMAL_VERSION:-pre}
+        ODS_VERSION: ${ODS_MINIMAL_VERSION}
+        TPDM_VERSION: ${TPDM_MINIMAL_VERSION}
         STANDARD_VERSION: ${STANDARD_VERSION}
         EXTENSION_VERSION: ${EXTENSION_VERSION}
     environment:
@@ -38,8 +38,8 @@ services:
       context: ods-api-db-admin/alpine/pgsql
       dockerfile: Dockerfile
       args:
-        ADMIN_VERSION: ${ADMIN_VERSION:-pre}
-        SECURITY_VERSION: ${SECURITY_VERSION:-pre}
+        ADMIN_VERSION: ${ADMIN_VERSION}
+        SECURITY_VERSION: ${SECURITY_VERSION}
         STANDARD_VERSION: ${STANDARD_VERSION}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -60,7 +60,7 @@ services:
       context: ods-api-web-api/alpine/pgsql
       dockerfile: Dockerfile
       args:
-        API_VERSION: ${API_VERSION:-pre}
+        API_VERSION: ${API_VERSION}
         STANDARD_VERSION: ${STANDARD_VERSION}
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
@@ -98,7 +98,7 @@ services:
       context: ods-api-swaggerui/alpine
       dockerfile: Dockerfile
       args:
-        SWAGGER_VERSION: ${SWAGGER_VERSION:-pre}
+        SWAGGER_VERSION: ${SWAGGER_VERSION}
     environment:
       SAMPLE_KEY: ${MINIMAL_KEY}
       SAMPLE_SECRET: ${MINIMAL_SECRET}
