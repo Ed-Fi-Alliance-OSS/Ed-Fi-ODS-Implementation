@@ -53,7 +53,7 @@
                 var oauthConfigObject = JSON.parse('%(OAuthConfigObject)');
 
                 var currentUrl = window.location.href;
-                var tenantMatch = currentUrl.match(/tenantIdentifier=([A-Za-z0-9]+)/);
+                var tenantMatch = currentUrl.match(/tenantIdentifier=(.+)/);
 
                 if (tenantMatch !== null && tenantMatch.length > 1) {
                     configObject.WebApiVersionUrl = `${configObject.WebApiVersionUrl}/${tenantMatch[1]}`;
