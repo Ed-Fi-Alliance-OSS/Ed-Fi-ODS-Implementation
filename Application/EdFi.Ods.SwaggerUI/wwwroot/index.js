@@ -135,13 +135,6 @@ function createSections() {
     element.classList.remove('hide')
     element.className = element.className.replace('hide', '') // IE11 support
     })
-
-    if(Tenants.length > 0)
-    $(".url-link").each(function() {
-        var oldUrl = $(this).attr("href");
-        var newUrl = oldUrl.replace(/tenantIdentifier=({?[A-Za-z0-9]+}?)/g, 'tenantIdentifier=' + Tenants[0].Tenant);
-        $(this).attr("href", newUrl);
-    });
 }
 
 const logJSON = (json) => {
