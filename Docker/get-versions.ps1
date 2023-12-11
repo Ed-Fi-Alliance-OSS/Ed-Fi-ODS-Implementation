@@ -36,7 +36,7 @@
 #>
 param(
     [string]
-    $PackageVersion = "7.1",
+    $PackageVersion = "7.2",
 
     [string]
     $StandardVersion = "5.0.0",
