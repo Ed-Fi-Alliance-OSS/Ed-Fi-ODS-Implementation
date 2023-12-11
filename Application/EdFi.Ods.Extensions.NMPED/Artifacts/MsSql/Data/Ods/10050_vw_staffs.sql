@@ -17,7 +17,7 @@
  *           performance issues when accessing descriptor fields.
  */
 
-CREATE OR ALTER VIEW nmped_rpt.vw_staffs AS 
+CREATE or ALTER  VIEW [nmped_rpt].[vw_staffs] AS 
 
 --Alt Id: 001 - New CTE using control tables for descriptors
 WITH cte_Descriptors AS (
@@ -65,8 +65,11 @@ SELECT DISTINCT
 
 	--resource documentation starts
 	,StaffUniqueId
+	,S.StaffUSI
 	,FirstName
 	,LastSurname
+	,SEOEA.BeginDate
+	,SEOEA.EndDate
 --	,personReference not collected
 --	,addresses not used
 --	,ancestryEthnicOrigins not collected
@@ -114,6 +117,8 @@ SELECT DISTINCT
 	,Visa.Description								[VisaDescription]
 	,YearsOfPriorProfessionalExperience
 	,YearsOfPriorTeachingExperience
+	,SEOAA.HireDate
+	,SEOAA.EndDate employementEndDate
 
 
 	--table CreateDate/LastModifiedDate
@@ -123,7 +128,13 @@ FROM
 	edfi.Staff S WITH (NOLOCK)
 
 	JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOEA WITH (NOLOCK)
-		ON SEOEA.StaffUSI = S.StaffUSI
+		ON SEOEA.StaffUSI = S.StaffUSI 
+
+	LEFT JOIN edfi.School WITH (NOLOCK)
+		ON SEOEA.EducationOrganizationId = school.SchoolId
+	
+	JOIN edfi.StaffEducationOrganizationEmploymentAssociation SEOAA WITH (NOLOCK)
+		ON (SEOAA.EducationOrganizationId = School.LocalEducationAgencyId or SEOAA.EducationOrganizationId = SEOEA.EducationOrganizationId)
 
 	LEFT JOIN edfi.StaffElectronicMail SEM WITH (NOLOCK)
 		ON SEM.StaffUSI = S.StaffUSI

@@ -119,11 +119,22 @@ SELECT DISTINCT
 	--table CreateDate/LastModifiedDate
 	,S.CreateDate										
 	,S.LastModifiedDate
+	,SEOEA.BeginDate AssignmentBeginDate
+	,SEOEA.EndDate AssignmentEndDate
+	,StaffEmployment.HireDate
+	,StaffEmployment.EndDate EmployementEndDate
 FROM 
 	edfi.Staff S WITH (NOLOCK)
 
 	JOIN edfi.StaffEducationOrganizationAssignmentAssociation SEOEA WITH (NOLOCK)
 		ON SEOEA.StaffUSI = S.StaffUSI
+
+	LEFT JOIN edfi.School assignmentSchool
+		ON SEOEA.EducationOrganizationId = assignmentSchool.SchoolId
+
+	JOIN edfi.StaffEducationOrganizationEmploymentAssociation StaffEmployment
+		ON SEOEA.EducationOrganizationId = StaffEmployment.EducationOrganizationId
+		OR StaffEmployment.EducationOrganizationId = assignmentSchool.LocalEducationAgencyId
 
 	LEFT JOIN edfi.StaffElectronicMail SEM WITH (NOLOCK)
 		ON SEM.StaffUSI = S.StaffUSI

@@ -28,6 +28,8 @@ SELECT
 	,FirstName
 	,LastSurname
 	,SSFSPA.BeginDate
+				,GSPA.EndDate
+  
 	,SSFSPA.ProgramName
 	,ProgramType.CodeValue						[ProgramTypeCode]
 	,ProgramType.Description					[ProgramTypeDescription]
@@ -84,6 +86,15 @@ FROM
 		AND GSPAP.ProgramName = SSFSPA.ProgramName
 		AND GSPAP.ProgramTypeDescriptorId = SSFSPA.ProgramTypeDescriptorId
 
+	LEFT JOIN edfi.GeneralStudentProgramAssociation GSPA WITH (NOLOCK)
+		ON GSPA.StudentUSI = S.StudentUSI 
+		AND GSPA.BeginDate = SSFSPA.BeginDate
+		AND GSPA.EducationOrganizationId = SSFSPA.EducationOrganizationId
+		AND GSPA.ProgramEducationOrganizationId = SSFSPA.ProgramEducationOrganizationId
+		AND GSPA.ProgramName = SSFSPA.ProgramName
+		AND GSPA.ProgramTypeDescriptorId = SSFSPA.ProgramTypeDescriptorId
+		
+								
 	LEFT JOIN edfi.Descriptor Eligibility WITH (NOLOCK)
 		ON Eligibility.DescriptorId = GSPAP.ParticipationStatusDescriptorId
 
