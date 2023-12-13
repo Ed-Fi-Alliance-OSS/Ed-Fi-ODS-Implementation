@@ -2,6 +2,23 @@
   "EnableOwnershipBasedAuthorization": true,
   "Vendors": [
     {
+      "Email": "rolenamedprogram@ed-fi-org",
+      "VendorName": "Rolenamedprogram Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "255902",
+              "LocalEducationOrganizations": [255902]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
       "Email": "test1@ed-fi.org",
       "VendorName": "ed-fi.org",
       "Applications": [
