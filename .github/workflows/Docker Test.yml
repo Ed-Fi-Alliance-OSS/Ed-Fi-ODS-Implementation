@@ -20,7 +20,7 @@ on:
 
 env:
   CURRENT_STANDARD_VERSION: "5.0.0"
-  PACKAGE_VERSION: "7.1"
+  PACKAGE_VERSION: "7.2"
 
 jobs:
   docker-lint:
