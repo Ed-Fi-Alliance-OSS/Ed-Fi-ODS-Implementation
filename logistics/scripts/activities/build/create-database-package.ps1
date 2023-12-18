@@ -109,6 +109,7 @@ $tasks = [ordered] @{
             subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
             dropDatabase     = $true
             standardVersion  = $StandardVersion
+            extensionVersion = $ExtensionVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
@@ -122,6 +123,7 @@ $tasks = [ordered] @{
             subTypeNames     = $postgresSettings.ApiSettings.SubTypes
             dropDatabase     = $true
             standardVersion  = $StandardVersion
+            extensionVersion = $ExtensionVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

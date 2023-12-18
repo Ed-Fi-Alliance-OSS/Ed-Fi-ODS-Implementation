@@ -116,6 +116,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -133,6 +134,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -150,6 +152,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -169,6 +172,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -188,6 +192,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }
@@ -205,6 +210,7 @@ $deploymentTasks = @(
                 subTypeNames        = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase        = $true
                 standardVersion     = $StandardVersion
+                extensionVersion    = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -222,6 +228,7 @@ $deploymentTasks = @(
                 subTypeNames      = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase      = $true
                 standardVersion   = $StandardVersion
+                extensionVersion  = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -239,6 +246,7 @@ $deploymentTasks = @(
                 subTypeNames      = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase      = $true
                 standardVersion   = $StandardVersion
+                extensionVersion  = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -258,6 +266,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -277,6 +286,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }
