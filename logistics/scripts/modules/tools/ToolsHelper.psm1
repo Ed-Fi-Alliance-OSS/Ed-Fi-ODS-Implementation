@@ -268,7 +268,7 @@ function Invoke-DbDeploy {
         [Int] $DatabaseTimeoutInSeconds = 600,
 
         [ValidateSet('4.0.0', '5.0.0')]
-        [String] $standardVersion,
+        [String] $StandardVersion,
 
         [String]
         [ValidateSet('1.0.0', '1.1.0')]
