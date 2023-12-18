@@ -39,10 +39,12 @@ param(
     $PackageVersion = "7.2",
 
     [string]
-    $StandardVersion = "5.0.0",
+    [ValidateSet('4.0.0', '5.0.0')]
+    $StandardVersion,
 
     [string]
-    $ExtensionVersion = "1.1.0",
+    [ValidateSet('1.0.0', '1.1.0')]
+    $ExtensionVersion,
 
     # Enable usage of prereleases
     [Switch]

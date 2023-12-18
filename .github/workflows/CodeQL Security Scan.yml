@@ -77,7 +77,7 @@ jobs:
       - name: Restore NuGet packages
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |
-          .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
+          .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln" -StandardVersion ${{ matrix.StandardVersion }}  -ExtensionVersion ${{ matrix.ExtensionVersion }}
         shell: pwsh
       - name: build
         shell: pwsh

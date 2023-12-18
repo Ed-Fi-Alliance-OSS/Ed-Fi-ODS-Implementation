@@ -73,7 +73,8 @@ function Initialize-PopulatedTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $standardVersion
     )
 
     Clear-Error
