@@ -530,6 +530,7 @@ function Invoke-SdkGen {
         [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion,
         [Boolean] $NoRestore,
+        [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
@@ -573,6 +574,7 @@ function New-DatabasesPackage {
 
         [string] $OutputDirectory,
 
+        [ValidateSet('4.0.0', '5.0.0')]
         [string] $StandardVersion
 
     )
