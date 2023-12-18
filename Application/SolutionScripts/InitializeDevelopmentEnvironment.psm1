@@ -418,7 +418,7 @@ function Invoke-CodeGen {
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
         [ValidateSet('4.0.0', '5.0.0')]
-        [string]  $StandardVersion
+        [string]  $StandardVersion,
         [ValidateSet('1.0.0', '1.1.0')]
         [string]  $ExtensionVersion
     )
