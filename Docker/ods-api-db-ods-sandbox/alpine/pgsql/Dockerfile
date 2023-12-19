@@ -42,6 +42,6 @@ RUN \
     apk del unzip dos2unix
 
 EXPOSE 5432
-
+USER postgres
 CMD ["docker-entrypoint.sh", "postgres"]
 

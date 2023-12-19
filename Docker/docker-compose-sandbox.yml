@@ -143,6 +143,8 @@ services:
       MINIMAL_SECRET: ${MINIMAL_SECRET:-minimalSecret}
       POPULATED_KEY: ${POPULATED_KEY:-populatedKey}
       POPULATED_SECRET: ${POPULATED_SECRET:-populatedSecret}
+    volumes:
+      - ${LOGS_FOLDER}:/app/logs
     ports:
       - 8003:80
     depends_on:
