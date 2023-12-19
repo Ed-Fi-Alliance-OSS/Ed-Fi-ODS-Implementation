@@ -115,6 +115,7 @@ function New-DatabaseTemplate {
             subTypeNames = Get-FeatureSubTypesFromSettings $config.appSettings
             transient    = $true
             standardVersion  = $config.StandardVersion
+            extensionVersion = $config.ExtensionVersion
   
     }
     if ($config.createByRestoringBackup) { $params.createByRestoringBackup = $config.createByRestoringBackup }

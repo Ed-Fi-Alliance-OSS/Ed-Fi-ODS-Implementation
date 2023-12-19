@@ -137,7 +137,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }}
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion "1.1.0"
       shell: powershell
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()

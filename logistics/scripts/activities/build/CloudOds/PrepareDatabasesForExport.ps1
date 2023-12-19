@@ -31,9 +31,11 @@ param(
     [Obsolete("This parameter is deprecated, and will be removed in the near future.")]
     [switch] $WhatIf,
 
-    [String] $StandardVersion = '5.0.0',
+    [ValidateSet('4.0.0', '5.0.0')]
+    [String] $StandardVersion,
 
-    [String] $ExtensionVersion = '1.1.0'
+    [ValidateSet('1.0.0', '1.1.0')]
+    [string]  $ExtensionVersion
 )
 
 if (-not (Test-Path $sqlPackagePath)) { throw "Could not find sqlpackage.exe at $sqlPackagePath" }
@@ -114,6 +116,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -131,6 +134,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -148,6 +152,7 @@ $deploymentTasks = @(
                 subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
                 dropDatabase     = $true
                 standardVersion  = $StandardVersion
+                extensionVersion = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -167,6 +172,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -186,6 +192,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }
@@ -203,6 +210,7 @@ $deploymentTasks = @(
                 subTypeNames        = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase        = $true
                 standardVersion     = $StandardVersion
+                extensionVersion    = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -220,6 +228,7 @@ $deploymentTasks = @(
                 subTypeNames      = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase      = $true
                 standardVersion   = $StandardVersion
+                extensionVersion  = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -237,6 +246,7 @@ $deploymentTasks = @(
                 subTypeNames      = $postgresSettings.ApiSettings.SubTypes
                 dropDatabase      = $true
                 standardVersion   = $StandardVersion
+                extensionVersion  = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -256,6 +266,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy @params
         }
@@ -275,6 +286,7 @@ $deploymentTasks = @(
                 dropDatabase            = $true
                 createByRestoringBackup = $backupPath
                 standardVersion         = $StandardVersion
+                extensionVersion        = $ExtensionVersion
             }
             Initialize-EdFiDatabaseWithDbDeploy  @params
         }
