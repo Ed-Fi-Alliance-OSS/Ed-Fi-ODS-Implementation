@@ -52,7 +52,7 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"           
+           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
     - name: Set StandardVersions
       id: Set_StandardVersions
       working-directory: ./Ed-Fi-ODS/
