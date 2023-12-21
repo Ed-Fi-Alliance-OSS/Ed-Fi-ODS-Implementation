@@ -6,7 +6,7 @@
 name: Cleanup Caches by a branch
 on:
   pull_request:
-    branches: ['ODS-*']
+    branches: [main, 'ODS-*']
     types: [ closed ]
 
 jobs:
