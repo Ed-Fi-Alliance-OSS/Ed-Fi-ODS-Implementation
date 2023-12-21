@@ -92,8 +92,10 @@ function Initialize-TPDMMinimalTemplate {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
         [string] $createByRestoringBackup,
-        [String] $standardVersion = '5.0.0',
-        [String] $extensionVersion = '1.1.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
+        [ValidateSet('1.0.0', '1.1.0')]
+        [string]  $ExtensionVersion
     )
 
     Clear-Error

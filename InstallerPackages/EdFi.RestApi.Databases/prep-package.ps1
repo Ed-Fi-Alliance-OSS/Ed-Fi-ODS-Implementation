@@ -23,7 +23,8 @@ while binaries are invoked directly.
 #>
 param(
     [parameter(mandatory = $true)] $packageName,
-    $standardVersion = '5.0.0',
+    [ValidateSet('4.0.0', '5.0.0')]
+    [String] $standardVersion,
     $enabledSources,
     $outputDirectory
 )

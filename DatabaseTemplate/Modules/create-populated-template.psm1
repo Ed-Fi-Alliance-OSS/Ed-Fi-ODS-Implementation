@@ -13,6 +13,7 @@ function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
     $config.StandardVersion =  $config.standardVersion
+    $config.ExtensionVersion =  $config.extensionVersion
     $config.databaseBackupName = "EdFi.Ods.Populated.Template"
     $config.packageNuspecName = "EdFi.Ods.Populated.Template"
     $config.Id = "EdFi.Suite3.Ods.Populated.Template"
@@ -73,7 +74,10 @@ function Initialize-PopulatedTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
+        [ValidateSet('1.0.0', '1.1.0')]
+        [String] $ExtensionVersion
     )
 
     Clear-Error
@@ -84,6 +88,7 @@ function Initialize-PopulatedTemplate {
         noValidation = $noValidation
         engine       = $engine
         standardVersion = $standardVersion
+        extensionVersion = $extensionVersion
     }
 
     $config = (Get-PopulatedConfiguration $paramConfig)
@@ -107,6 +112,7 @@ function Initialize-PopulatedTemplate {
             $script:result += Invoke-Task 'Invoke-LoadSampleData' { Invoke-LoadSampleData $config }
             $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
             $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
+            $config.ExtensionVersion = ""
             $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
         }
         catch {

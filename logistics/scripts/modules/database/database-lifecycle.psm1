@@ -159,6 +159,7 @@ function Get-SQLServerDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $Settings.ApiSettings.StandardVersion
+        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -278,6 +279,7 @@ function Get-PostgreSQLDatabaseScriptStrategy {
         FilePaths        = $Settings.ApiSettings.FilePaths
         Features         = $Settings.ApiSettings.SubTypes
         StandardVersion  = $settings.ApiSettings.StandardVersion
+        ExtensionVersion = $Settings.ApiSettings.ExtensionVersion
     }
     if ($Database -eq $Settings.ApiSettings.DatabaseTypes.Ods) { $params.DatabaseTimeoutInSeconds = $Settings.ApiSettings.PopulatedTemplateDBTimeOutInSeconds }
     Invoke-DbDeploy @params
@@ -483,6 +485,7 @@ function Test-DatabaseHasScriptsToApply {
         Features                 = $Features
         DatabaseTimeoutInSeconds = $DatabaseTimeoutInSeconds
         StandardVersion          = $Settings.ApiSettings.StandardVersion
+        ExtensionVersion         = $Settings.ApiSettings.ExtensionVersion
     }
 
     $exitCode = Invoke-DbDeploy @params
@@ -548,9 +551,11 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [Int] $databaseTimeoutInSeconds = 60,
         
-        [String] $standardVersion = '5.0.0',
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $standardVersion,
 
-        [String] $extensionVersion = '1.1.0'
+        [ValidateSet('1.0.0', '1.1.0')]
+        [string]  $extensionVersion
     )
 
     Write-InvocationInfo $MyInvocation
@@ -591,6 +596,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
             Features                 = $subTypeNames
             DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
             StandardVersion          = $standardVersion
+            ExtensionVersion         = $extensionVersion
           }
         Invoke-DbDeploy @params
         
@@ -637,6 +643,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         Features                 = $subTypeNames
         DatabaseTimeoutInSeconds = $databaseTimeoutInSeconds
         StandardVersion          = $standardVersion
+        ExtensionVersion         = $extensionVersion
     }
     Invoke-DbDeploy @params
 }
