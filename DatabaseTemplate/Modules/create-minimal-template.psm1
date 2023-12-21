@@ -13,6 +13,7 @@ function Get-MinimalConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables (Get-DefaultTemplateConfiguration $config), $config
     $config.StandardVersion = $config.StandardVersion
+    $config.ExtensionVersion = $config.ExtensionVersion
     $config.Remove('apiClientNameSandbox')
 
     $config.testHarnessJsonConfigLEAs = @()
@@ -64,6 +65,11 @@ function Initialize-MinimalTemplate {
     .parameter engine
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
+    .parameter StandardVersion
+        Standard Version.
+    .parameter ExtensionVersion
+        Extension Version.
+
     .EXAMPLE
         PS> Initialize-MinimalTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
@@ -79,7 +85,10 @@ function Initialize-MinimalTemplate {
         [switch] $noValidation,
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $engine = 'SQLServer',
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [String] $StandardVersion,
+        [ValidateSet('1.0.0', '1.1.0')]
+        [String] $ExtensionVersion
     )
 
     Clear-Error
@@ -90,6 +99,7 @@ function Initialize-MinimalTemplate {
         noValidation = $noValidation
         engine       = $engine
         standardVersion = $standardVersion
+        extensionVersion = $extensionVersion
     }
 
     $config = (Get-MinimalConfiguration $paramConfig)
@@ -113,6 +123,7 @@ function Initialize-MinimalTemplate {
 
             $script:result += Invoke-Task 'Stop-TestHarness' { Stop-TestHarness $config }
             $script:result += Invoke-Task 'Backup-DatabaseTemplate' { Backup-DatabaseTemplate $config }
+            $config.ExtensionVersion = ""
             $script:result += Invoke-Task 'New-DatabaseTemplateNuspec' { New-DatabaseTemplateNuspec $config }
         }
         catch {

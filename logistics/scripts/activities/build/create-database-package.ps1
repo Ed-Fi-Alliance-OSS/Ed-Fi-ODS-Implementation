@@ -24,9 +24,11 @@ param(
 
     [string[]] $PathResolverOverride,
 
-    [String] $StandardVersion = '5.0.0',
+    [ValidateSet('4.0.0', '5.0.0')]
+    [String] $standardVersion,
 
-    [String] $ExtensionVersion = '1.1.0'
+    [ValidateSet('1.0.0', '1.1.0')]
+    [string]  $ExtensionVersion
 )
 
 $ErrorActionPreference = 'Stop'
@@ -107,6 +109,7 @@ $tasks = [ordered] @{
             subTypeNames     = $sqlServerSettings.ApiSettings.SubTypes
             dropDatabase     = $true
             standardVersion  = $StandardVersion
+            extensionVersion = $ExtensionVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }
@@ -120,6 +123,7 @@ $tasks = [ordered] @{
             subTypeNames     = $postgresSettings.ApiSettings.SubTypes
             dropDatabase     = $true
             standardVersion  = $StandardVersion
+            extensionVersion = $ExtensionVersion
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

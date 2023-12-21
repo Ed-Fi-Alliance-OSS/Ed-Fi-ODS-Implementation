@@ -151,11 +151,11 @@ function Initialize-DevelopmentEnvironment {
 
         [Parameter(Mandatory=$false)]
         [ValidateSet('4.0.0', '5.0.0')]
-        [String] $StandardVersion = '5.0.0',
+        [String] $StandardVersion,
 
         [Parameter(Mandatory=$false)]
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion = '1.1.0'
+        [String] $ExtensionVersion
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
@@ -301,7 +301,8 @@ Function Invoke-RebuildSolution {
         [string] $verbosity = "minimal",
         [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
         [Boolean] $noRestore = $false,
-        [String] $standardVersion = '5.0.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [string]  $standardVersion
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -416,8 +417,10 @@ function Invoke-CodeGen {
         [String] $Engine,
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
-        [String] $StandardVersion = '5.0.0',
-        [String] $ExtensionVersion = '1.1.0'
+        [ValidateSet('4.0.0', '5.0.0')]
+        [string]  $StandardVersion,
+        [ValidateSet('1.0.0', '1.1.0')]
+        [string]  $ExtensionVersion
     )
 
     Install-CodeGenUtility
@@ -527,6 +530,7 @@ function Invoke-SdkGen {
         [Boolean] $GenerateTestSdkPackage,
         [string] $PackageVersion,
         [Boolean] $NoRestore,
+        [ValidateSet('4.0.0', '5.0.0')]
         [String] $StandardVersion
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
@@ -570,6 +574,7 @@ function New-DatabasesPackage {
 
         [string] $OutputDirectory,
 
+        [ValidateSet('4.0.0', '5.0.0')]
         [string] $StandardVersion
 
     )
