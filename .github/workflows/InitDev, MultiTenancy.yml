@@ -9,7 +9,7 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: [main, 'ODS-*']
+   branches: ['ODS-*']
   push:
    branches: [main]
   workflow_dispatch:
