@@ -34,7 +34,6 @@ RUN umask 0077 && \
     rm -f /app/SwaggerUI.zip && \
     dos2unix /app/*.json && \
     dos2unix /app/*.sh && \
-    chmod 500 /app/run.sh && \
     rm -f /app/*.exe && \
     apk del unzip dos2unix && \
     chown -R edfi /app

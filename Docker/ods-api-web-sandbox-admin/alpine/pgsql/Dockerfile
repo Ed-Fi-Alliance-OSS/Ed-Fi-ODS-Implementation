@@ -42,7 +42,6 @@ RUN umask 0077 && \
     dos2unix /app/*.json && \
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \
-    chmod 500 /app/run.sh && \
     rm -f /app/*.exe && \
     apk del unzip dos2unix && \
     chown -R edfi /app
