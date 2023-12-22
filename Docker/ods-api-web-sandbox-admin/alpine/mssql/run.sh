@@ -7,6 +7,8 @@
 set -e
 set +x
 
+umask 0077
+
 if [[ -n "$SQLSERVER_USER" && -n "$SQLSERVER_PASSWORD" ]]; then
   echo "Overriding SQLSERVER_ADMIN_USER..."
   export SQLSERVER_ADMIN_USER=$SQLSERVER_USER
