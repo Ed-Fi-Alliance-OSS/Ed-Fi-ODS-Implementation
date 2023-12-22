@@ -29,8 +29,8 @@ ENV OAUTH_URL="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
 WORKDIR /app
-COPY appsettings.template.json /app/appsettings.template.json
-COPY run.sh /app/run.sh
+COPY --chmod=600 appsettings.template.json /app/appsettings.template.json
+COPY --chmod=500 run.sh /app/run.sh
 COPY log4net.config /app/log4net.txt
 
 RUN umask 0077 && \
