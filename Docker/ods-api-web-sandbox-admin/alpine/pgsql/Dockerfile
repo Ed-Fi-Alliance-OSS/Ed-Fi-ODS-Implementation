@@ -37,8 +37,8 @@ RUN umask 0077 && \
     wget -q -O /app/SandboxAdmin.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.SandboxAdmin/versions/${SANDBOX_VERSION}/content && \
     unzip /app/SandboxAdmin.zip -d /app && \
     rm -f /app/SandboxAdmin.zip && \
-    rm -f /app/appsettings.json && \
     cp /app/log4net.txt /app/log4net.config && \
+    rm -f /app/log4net.txt && \
     dos2unix /app/*.json && \
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \

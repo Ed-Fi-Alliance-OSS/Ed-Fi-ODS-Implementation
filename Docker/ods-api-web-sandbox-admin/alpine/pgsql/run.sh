@@ -7,8 +7,6 @@
 set -e
 set +x
 
-umask 0077
-
 envsubst < /app/appsettings.template.json > /app/appsettings.json
 
 until PGPASSWORD=$POSTGRES_PASSWORD psql -h $ODS_POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -c '\q';
