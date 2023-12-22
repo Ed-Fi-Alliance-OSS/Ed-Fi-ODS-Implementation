@@ -35,6 +35,7 @@ RUN umask 0077 && \
     unzip /app/WebApi.zip -d /app && \
     rm -f /app/WebApi.zip && \
     cp /app/log4net.txt /app/log4net.config && \
+    rm -f /app/log4net.txt && \
     dos2unix /app/*.json && \
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \
