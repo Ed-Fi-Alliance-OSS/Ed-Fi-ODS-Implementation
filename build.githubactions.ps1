@@ -55,7 +55,10 @@ param(
     $NuspecFilePath,
 
     [string]
-    $RelativeRepoPath
+    $RelativeRepoPath,
+
+    [ValidateSet('4.0.0', '5.0.0')]
+    [string]  $StandardVersion
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -126,7 +129,7 @@ function Restore {
 function Compile {
     Invoke-Execute {
         dotnet --info
-        dotnet build $Solution -c $Configuration --version-suffix $version --no-restore
+        dotnet build $Solution -c $Configuration --version-suffix $version --no-restore -p:StandardVersion=$StandardVersion
     }
 }
 
