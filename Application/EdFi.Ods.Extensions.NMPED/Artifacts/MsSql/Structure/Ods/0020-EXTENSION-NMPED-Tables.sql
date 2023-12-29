@@ -722,7 +722,7 @@ CREATE TABLE [nmped].[VehicleMileage] (
     [RoadTypeDescriptorId] [INT] NOT NULL,
     [VehicleId] [NVARCHAR](255) NOT NULL,
     [VehicleRouteDescriptorId] [INT] NOT NULL,
-    [DailyMileage] [INT] NOT NULL,
+    [DailyMileage] [DECIMAL](5, 1) NOT NULL,
     [Discriminator] [NVARCHAR](128) NULL,
     [CreateDate] [DATETIME2] NOT NULL,
     [LastModifiedDate] [DATETIME2] NOT NULL,

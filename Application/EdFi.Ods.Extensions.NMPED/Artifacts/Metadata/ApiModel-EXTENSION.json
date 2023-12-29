@@ -2800,10 +2800,10 @@
         {
           "propertyName": "DailyMileage",
           "propertyType": {
-            "dbType": "Int32",
+            "dbType": "Decimal",
             "maxLength": 0,
-            "precision": 10,
-            "scale": 0,
+            "precision": 5,
+            "scale": 1,
             "isNullable": false
           },
           "description": "The daily mileage.",

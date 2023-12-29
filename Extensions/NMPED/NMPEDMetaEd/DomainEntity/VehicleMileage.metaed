@@ -19,6 +19,9 @@ descriptor RoadType
 descriptor MileageType
   documentation "The mileage type."
   is part of identity
-integer DailyMileage
+decimal DailyMileage
   documentation "The daily mileage."
   is required
+  total digits 5
+  decimal places 1
+  min value 0
