@@ -94,10 +94,14 @@ function Get-Plugins([hashtable] $Settings) {
         $scriptPath = Get-PluginScript $folder $script
 
         if("profiles.sample" -ne $script){
-            $originalConfig = Get-Content $filePath | ConvertFrom-Json
+            $tempconfig = New-TemporaryFile
+            Copy-Item -Path $filePath -Destination $tempconfig
+
             Update-PackageName $script  $filePath
             $extensionPath = Invoke-PluginScript $scriptPath
-            $originalConfig | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+
+            Copy-Item -Path $tempconfig -Destination $filePath
+            Remove-Item $tempconfig
         }
         else {
             $extensionPath = Invoke-PluginScript $scriptPath

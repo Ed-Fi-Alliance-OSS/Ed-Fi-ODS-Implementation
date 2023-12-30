@@ -130,10 +130,14 @@ function Initialize-TemplateSourceFromScriptName {
     $filePath = (Get-RepositoryResolvedPath 'configuration.packages.json')
     $scriptPath = Get-TemplateScriptPath $scriptName
 
-    $originalConfig = Get-Content $filePath | ConvertFrom-Json
+    $tempconfig = New-TemporaryFile
+    Copy-Item -Path $filePath -Destination $tempconfig
+
     Update-PackageName $scriptName  $filePath
     $returnedPath = Invoke-TemplateScript $scriptPath
-    $originalConfig | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+
+    Copy-Item -Path $tempconfig -Destination $filePath
+    Remove-Item $tempconfig
 
     # $returnedPath can be a valid backup file or a folder with a valid backup inside
     if ((Get-Item $returnedPath) -is  [System.IO.DirectoryInfo]) {
