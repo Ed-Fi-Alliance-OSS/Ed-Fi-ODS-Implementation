@@ -31,8 +31,8 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="5.1.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.43" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.43" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.3.53" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.3.62" />
     <PackageReference Include="log4net" Version="2.0.12" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="3.1.10" />
