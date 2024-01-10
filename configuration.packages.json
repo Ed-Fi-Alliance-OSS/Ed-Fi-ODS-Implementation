@@ -47,7 +47,7 @@
     },
     "profiles.sample": {
       "PackageName": "EdFi.Suite3.Ods.Profiles.Sample",
-      "PackageVersion": "7.2.11",
+      "PackageVersion": "7.2.1",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "sample": {
@@ -67,7 +67,7 @@
     },
     "EdFi.Db.Deploy": {
       "PackageName": "EdFi.Suite3.Db.Deploy",
-      "PackageVersion": "4.0.37",
+      "PackageVersion": "4.0.38",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Admin.PostgreSQL": {
@@ -157,7 +157,7 @@
     },
     "EdFi.Ods.Common": {
       "PackageName": "EdFi.Suite3.Ods.Common",
-      "PackageVersion": "7.2.2",
+      "PackageVersion": "7.2.1",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Api": {
