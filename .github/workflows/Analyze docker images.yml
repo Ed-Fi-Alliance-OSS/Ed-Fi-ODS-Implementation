@@ -1,0 +1,123 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Analyze Docker Images
+
+on:
+  pull_request:
+    branches: [main, 'ODS-*']
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  CURRENT_STANDARD_VERSION: "5.0.0"
+  PACKAGE_VERSION: "7.2"
+  DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
+  DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}  
+
+jobs:
+  FindStandardAndExtensionVersions:
+    runs-on: ubuntu-latest
+    outputs:
+      StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
+      ExtensionVersions: ${{ steps.Set_ExtensionVersions.outputs.ExtensionVersions }}
+    steps:
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+
+      - name: Checkout Ed-Fi-Extensions
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
+            path: Ed-Fi-Extensions/
+
+      - name: Is pull request branch exists in Ed-Fi-Extensions
+        working-directory: ./Ed-Fi-ODS/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+
+      - name: Set StandardVersions
+        id: Set_StandardVersions
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          $output = .\build.githubactions.ps1 StandardVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/EdFi.Ods.Standard/EdFi.Ods.Standard.csproj"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "StandardVersions=$output"
+          Write-host "StandardVersions is  $output"
+          echo "STANDARDVERSIONS=$output">> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Set ExtensionVersions
+        id: Set_ExtensionVersions
+        working-directory: ./Ed-Fi-Extensions/
+        run: |
+          $output = .\build.githubactions.ps1 ExtensionVersions -ProjectFile "$env:GITHUB_WORKSPACE/Ed-Fi-Extensions/Extensions/EdFi.Ods.Extensions.TPDM/EdFi.Ods.Extensions.TPDM.csproj"
+          Add-Content -Path $env:GITHUB_OUTPUT -Value "ExtensionVersions=$output"
+          Write-host "ExtensionVersions is  $output"
+          echo "EXTENSIONVERSIONS=$output">> $env:GITHUB_ENV          
+        shell: pwsh
+
+  analyze-docker-images:
+    needs: FindStandardAndExtensionVersions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}    
+        dockerfile:
+          [
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },            
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
+          ]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d # v3.0.0
+        with:
+          username: ${{ env.DOCKER_USERNAME }}
+          password: ${{ env.DOCKER_HUB_TOKEN }}
+
+      - name: Build  ${{ matrix.dockerfile.name }} image
+        run: |
+          ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+          ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
+          $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
+
+          if ("${{ matrix.dockerfile.path }}" -eq "alpine/mssql") {
+              $image += "-mssql"
+          }          
+          echo "IMAGENAME=$image">> $env:GITHUB_ENV
+        working-directory: Docker
+        shell: pwsh
+
+      - name: Analyze
+        uses: docker/scout-action@7c61653c2736d21969dd4593fde76c670d4a86cb # v1.2.0
+        with:
+          command: cves
+          image: ${{ env.IMAGENAME }}
+          sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+          summary: true
+          only-severities: "critical,high"
+      - name: Upload SARIF result
+        id: upload-sarif
+        if: ${{ github.event_name != 'pull_request_target' }}
+        uses: github/codeql-action/upload-sarif@df32e399139a3050671466d7d9b3cbacc1cfd034 #codeql-bundle-v2.15.2
+        with:
+          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json          
+     
