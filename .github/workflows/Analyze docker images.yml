@@ -54,7 +54,7 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
-      - name: Build  ${{ matrix.dockerfile.name }} image
+      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
         run: |
           ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
           ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
