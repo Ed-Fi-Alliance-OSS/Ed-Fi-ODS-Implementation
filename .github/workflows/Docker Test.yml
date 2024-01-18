@@ -74,7 +74,7 @@ jobs:
             { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
             { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
           ]        
-    name: Docker Build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
+    name: Docker Build (${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
 
     steps:
       - name: Checkout code

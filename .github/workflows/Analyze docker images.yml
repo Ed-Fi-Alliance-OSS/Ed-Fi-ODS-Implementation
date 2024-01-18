@@ -26,7 +26,7 @@ jobs:
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
-  analyze-docker-images:
+  analyze-docker:
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
     strategy:
@@ -44,6 +44,7 @@ jobs:
             { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
             { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
           ]
+    name: Analyze Docker (${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }}) 
     steps:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
