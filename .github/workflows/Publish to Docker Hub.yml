@@ -47,6 +47,17 @@ jobs:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+        dockerfile:
+          [
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },            
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
+          ]        
     name: Publish to Docker Hub (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
     steps:
       - name: Check for Docker Hub Token
@@ -72,7 +83,7 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
-      - name: Build and Push
+      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }} and Push
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
         run: |
           # Note: all images will receive the same version number for this Docker release
@@ -84,13 +95,13 @@ jobs:
             }
 
             ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}
+            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
             Write-Host "This step is triggered manually or by a published release."
           }
           else
           {
             ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
+            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
           }
         working-directory: Docker
         shell: pwsh
