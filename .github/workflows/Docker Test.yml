@@ -63,6 +63,17 @@ jobs:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
+        dockerfile:
+          [
+            { name: "ods-api-db-admin", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
+            { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
+            { name: "ods-api-swaggerui", path: "alpine" },
+            { name: "ods-api-web-api", path: "alpine/pgsql" },
+            { name: "ods-api-web-api", path: "alpine/mssql" },            
+            { name: "ods-api-web-sandbox-admin", path: "alpine/pgsql" },
+            { name: "ods-api-web-sandbox-admin", path: "alpine/mssql" }            
+          ]        
     name: Docker Build (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }})
 
     steps:
@@ -74,6 +85,6 @@ jobs:
         # testing process.
         run: |
           ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-          ./build-images.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease
+          ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
         working-directory: Docker
         shell: pwsh

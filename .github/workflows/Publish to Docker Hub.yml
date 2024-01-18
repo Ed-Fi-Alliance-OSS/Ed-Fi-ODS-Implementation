@@ -84,13 +84,13 @@ jobs:
             }
 
             ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./build-images.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}
+            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}
             Write-Host "This step is triggered manually or by a published release."
           }
           else
           {
             ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-            ./build-images.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
+            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease
           }
         working-directory: Docker
         shell: pwsh

@@ -22,7 +22,7 @@
     SandboxAdmin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
 .EXAMPLE
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
-    ./build-images.ps1 -TagBase MyName
+    ./Invoke-Build.ps1 -TagBase MyName
 
     # Result: creates images with tags like "MyName/ods-api-web-api:7.1.15"
 #>
