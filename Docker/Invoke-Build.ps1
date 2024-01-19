@@ -22,7 +22,7 @@
     SandboxAdmin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
 .EXAMPLE
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
-    ./build-images.ps1 -TagBase MyName
+    ./Invoke-Build.ps1 -TagBase MyName
 
     # Result: creates images with tags like "MyName/ods-api-web-api:7.1.15"
 #>
@@ -104,7 +104,15 @@ param (
 
     [Parameter()]
     [string]
-    $ExtensionVersion = $env:EXTENSION_VERSION
+    $ExtensionVersion = $env:EXTENSION_VERSION,
+
+    [Parameter(Mandatory=$true)]
+    [string]
+    $ImageName,
+
+    [Parameter(Mandatory=$true)]
+    [string]
+    $Path  
 )
 
 $ErrorActionPreference = "Stop"
@@ -112,6 +120,29 @@ $ErrorActionPreference = "Stop"
 
 $semVer = "$PackageVersion.$Patch"
 $major = $($PackageVersion -split "\.")[0]
+
+$BuildArgs = ""
+
+if ($ImageName -eq "ods-api-db-admin") {
+    $BuildArgs = "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
+}
+elseif ($ImageName -eq "ods-api-db-ods-minimal") {
+    $BuildArgs = "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+}
+elseif ($ImageName -eq "ods-api-db-ods-sandbox") {
+    $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+}
+elseif ($ImageName -eq "ods-api-web-api") {
+    # Add more conditions as needed
+    $BuildArgs = "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
+}
+elseif ($ImageName -eq "ods-api-swaggerui") {
+    $BuildArgs = "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+}
+elseif ($ImageName -eq "ods-api-web-sandbox-admin") {
+    $BuildArgs = "--build-arg SANDBOX_VERSION=$SandboxVersion"
+}
+
 
 function Write-Message {
     param(
@@ -125,20 +156,8 @@ function Write-Message {
     $host.UI.RawUI.ForegroundColor = $default
 }
 
+
 function Invoke-Build {
-    param(
-        [Parameter(Mandatory=$true)]
-        [string]
-        $ImageName,
-
-        [Parameter(Mandatory=$true)]
-        [string]
-        $Path,
-
-        [string]
-        $BuildArgs
-    )
-
     $mssql = ""
     if ($Path.EndsWith("mssql")) {
         $mssql = "-mssql"
@@ -177,28 +196,4 @@ function Invoke-Build {
     Pop-Location
 }
 
-# Note: "gateway" is for local testing only and therefore should not be included in this script.
-
-Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql `
-    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-
-Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-
-Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-swaggerui -Path alpine `
-    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
-
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql `
-    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
-
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql `
-    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+Invoke-Build
