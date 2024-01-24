@@ -11,9 +11,9 @@ on:
       - "Publish to Azure Artifacts"
     types:
       - completed
-    branches: [main]
+    branches: [main, 'ODS-*',b-v*-patch*]
   pull_request:
-    branches: [main, 'ODS-*',v*-patch*]
+    branches: [main, 'ODS-*',b-v*-patch*]
     paths:
       - "Docker/**/*"
   workflow_dispatch:
