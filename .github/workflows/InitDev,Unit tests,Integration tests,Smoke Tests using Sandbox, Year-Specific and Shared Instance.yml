@@ -7,9 +7,9 @@ name: InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance
 
 on:
   pull_request:
-   branches: [main]
+   branches: [main, b-v*-patch*]
   push:
-   branches: [main]
+   branches: [main, b-v*-patch*]
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]

@@ -7,9 +7,9 @@ name: Trigger EdFi.Ods.DB.Templates workflow in ODS repo
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, b-v*-patch*]
   push:
-   branches: [main]
+   branches: [main, b-v*-patch*]
   workflow_dispatch:
 
 env:

@@ -15,11 +15,11 @@
     <PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="6.0.1" />
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.35" />
-    <PackageReference Include="EdFi.Suite3.Common" Version="6.1.19" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.38" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="6.1.22" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
-    <PackageReference Include="Hangfire" Version="1.7.28" />
+    <PackageReference Include="Hangfire" Version="1.8.7" />
     <PackageReference Include="Hangfire.PostgreSql" Version="1.9.5" />
     <PackageReference Include="log4net" Version="2.0.14" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.1" />

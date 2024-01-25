@@ -82,7 +82,11 @@ function New-DbConnectionStringBuilder {
         $newDbCSB = New-DbConnectionStringBuilder
         foreach ($key in $existingCSB.keys) {
             $value = $existingCSB[$key]
-            if (-not ($emptySpecificCSB[$key] -eq $value)) {
+            if($key -eq 'Encrypt')
+            {
+                $newDbCSB[$key] =$value
+            }
+            elseif (-not ($emptySpecificCSB[$key] -eq $value)) {
                 $newDbCSB[$key] = [String]::Copy($value)
             }
         }
@@ -617,6 +621,7 @@ Function Clear-DatabaseUsers {
     $csb = Convert-CommonDbCSBtoSqlCSB $csb
     $databaseName = $csb['Initial Catalog']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Initial Catalog' = 'master' }
+    Write-Host "masterCSB is $masterCSB"  -ForegroundColor Blue
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     # Kill all the database processes using T-SQL:
