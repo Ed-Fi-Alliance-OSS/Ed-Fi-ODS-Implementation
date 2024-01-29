@@ -7,11 +7,17 @@ name: InitDev, Unit tests, Integration tests, Package
 
 on:
   pull_request:
-   branches:
-    - main-6x
+    branches:
+      - main-6x
+    paths:
+      - Application/**/*
+      - tests/**/*
   push:
-   branches:
-    - main-6x
+    branches:
+      - main-6x
+    paths:
+      - Application/**/*
+      - tests/**/*
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
@@ -22,120 +28,119 @@ env:
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
   VERSION_MINOR: "1"
-  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
-  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  HEAD_REF: ${{ GITHUB.HEAD_REF }}
+  REF_NAME: ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
-    - name: Support longpaths
-      run: git config --system core.longpaths true
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
-      run: |
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+      - name: Install sql-server-2019 & sqlpackage
+        shell: powershell
+        run: |
           choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
           choco install sqlpackage
-    - name: Update build.props
-      working-directory: ./Ed-Fi-ODS/
-      run: |
-        $buildPropsPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/Directory.Build.props"
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
-        (Get-Content $buildPropsPath).Replace("<FileVersion>1.0.0</FileVersion>","<FileVersion>$version</FileVersion>") | Set-Content $buildPropsPath
-        (Get-Content $buildPropsPath).Replace("<InformationalVersion>1.0.0</InformationalVersion>","<InformationalVersion>${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}</InformationalVersion>") | Set-Content $buildPropsPath
-      shell: pwsh
-    - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
-      shell: pwsh
-    - name: Upload Unit And Integration Test Reports
-      if: success() || failure()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: test-results
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
-    - name: Unit Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
-      if: success() || failure()
-      with:
-        name: Unit Tests
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
-        path-replace-backslashes: 'true'
-        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
-        reporter: dotnet-trx
-    - name: Postman Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
-      if: success() || failure()
-      with:
-        name: Integration Tests
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
-        path-replace-backslashes: 'true'
-        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
-        reporter: java-junit
-    - name: Upload initdev logs
-      if: success() || failure()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: Initdev logs
-        path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
-    - name: Create EdF.Ods.WebApi.Prerelease for Staging
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        $params = @{
-                ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
-                PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
-                PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
-                Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
-                Properties            = (Get-DefaultNuGetProperties)
-                OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
-        }
-        New-WebPackage @params
-      shell: pwsh
-    - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
-      if: success()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg       
+      - name: Update build.props
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          $buildPropsPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/Directory.Build.props"
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+          (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
+          (Get-Content $buildPropsPath).Replace("<FileVersion>1.0.0</FileVersion>","<FileVersion>$version</FileVersion>") | Set-Content $buildPropsPath
+          (Get-Content $buildPropsPath).Replace("<InformationalVersion>1.0.0</InformationalVersion>","<InformationalVersion>${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}</InformationalVersion>") | Set-Content $buildPropsPath
+        shell: pwsh
+      - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+          .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
+        shell: pwsh
+      - name: Upload Unit And Integration Test Reports
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
+      - name: Unit Test Report
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+        if: success() || failure()
+        with:
+          name: Unit Tests
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
+          path-replace-backslashes: "true"
+          working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+          reporter: dotnet-trx
+      - name: Postman Test Report
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+        if: success() || failure()
+        with:
+          name: Integration Tests
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+          path-replace-backslashes: "true"
+          working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+          reporter: java-junit
+      - name: Upload initdev logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Initdev logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+      - name: Create EdF.Ods.WebApi.Prerelease for Staging
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          $params = @{
+                  ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
+                  PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
+                  PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
+                  Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
+                  Properties            = (Get-DefaultNuGetProperties)
+                  OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
+          }
+          New-WebPackage @params
+        shell: pwsh
+      - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
+        if: success()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: NugetPackages.Artifacts
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg

@@ -7,8 +7,11 @@ name: InitDev (Postgres), Unit tests, Integration tests
 
 on:
   pull_request:
-   branches:
-    - main-6x
+    branches:
+      - main-6x
+    paths:
+      - Application/**/*
+      - tests/**/*
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
@@ -19,85 +22,84 @@ env:
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
   VERSION_MINOR: "1"
-  HEAD_REF:  ${{ GITHUB.HEAD_REF }}
-  REF_NAME:  ${{ GITHUB.REF_NAME }}
+  HEAD_REF: ${{ GITHUB.HEAD_REF }}
+  REF_NAME: ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
-    - name: Support longpaths
-      run: git config --system core.longpaths true
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-      with:
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-    - name: Install & Start PostgreSQL 13
-      run: |
-        choco install postgresql13 --params '/Password:postgres'
-        $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
-        (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-        Restart-Service postgresql-x64-13 
-    - name: ODS/API InitDev, SdkGen,Run Integration Tests, Run Unit Tests
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        $ErrorActionPreference = 'Stop'
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging
-      shell: pwsh
-    - name: Upload Unit And Integration Test Reports
-      if: success() || failure()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: test-results
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
-    - name: Unit Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
-      if: success() || failure()
-      with:
-        name: Unit Tests
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
-        path-replace-backslashes: 'true'
-        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
-        reporter: dotnet-trx
-    - name: Postman Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
-      if: success() || failure()
-      with:
-        name: Integration Tests
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
-        path-replace-backslashes: 'true'
-        working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
-        reporter: java-junit
-    - name: Upload initdev logs
-      if: success() || failure()
-      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
-      with:
-        name: Initdev logs
-        path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+      - name: Install & Start PostgreSQL 13
+        run: |
+          choco install postgresql13 --params '/Password:postgres'
+          $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
+          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
+          Restart-Service postgresql-x64-13
+      - name: ODS/API InitDev, SdkGen,Run Integration Tests, Run Unit Tests
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+          .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging
+        shell: pwsh
+      - name: Upload Unit And Integration Test Reports
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: test-results
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
+      - name: Unit Test Report
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+        if: success() || failure()
+        with:
+          name: Unit Tests
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
+          path-replace-backslashes: "true"
+          working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+          reporter: dotnet-trx
+      - name: Postman Test Report
+        uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+        if: success() || failure()
+        with:
+          name: Integration Tests
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.xml
+          path-replace-backslashes: "true"
+          working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
+          reporter: java-junit
+      - name: Upload initdev logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Initdev logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
