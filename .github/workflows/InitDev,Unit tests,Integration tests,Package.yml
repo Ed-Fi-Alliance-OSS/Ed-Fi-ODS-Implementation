@@ -85,7 +85,7 @@ jobs:
       shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: test-results
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/
@@ -109,7 +109,7 @@ jobs:
         reporter: java-junit
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: Initdev logs
         path: |
@@ -135,7 +135,7 @@ jobs:
       shell: pwsh
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackages.Artifacts
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg       

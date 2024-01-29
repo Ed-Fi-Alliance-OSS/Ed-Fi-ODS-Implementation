@@ -74,7 +74,7 @@ jobs:
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: Initdev logs
         path: |
@@ -114,7 +114,7 @@ jobs:
       shell: pwsh
     - name: Upload Smoke Test Sandbox Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: Smoke Test Sandbox Logs
         path: |
@@ -147,7 +147,7 @@ jobs:
       shell: pwsh
     - name: Upload Smoke Test YearSpecific Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: Smoke Test YearSpecific Logs
         path: |
@@ -178,7 +178,7 @@ jobs:
       shell: pwsh
     - name: Upload Smoke Test Shared Instance Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: Smoke Test Shared Instance Logs
         path: |
