@@ -7,7 +7,8 @@ name: InitDev (Postgres), Unit tests, Integration tests
 
 on:
   pull_request:
-   branches: [main]
+   branches:
+    - main-6x
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]

@@ -7,9 +7,11 @@ name: InitDev, Unit tests, Integration tests, Package
 
 on:
   pull_request:
-   branches: [main]
+   branches:
+    - main-6x
   push:
-   branches: [main]
+   branches:
+    - main-6x
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
