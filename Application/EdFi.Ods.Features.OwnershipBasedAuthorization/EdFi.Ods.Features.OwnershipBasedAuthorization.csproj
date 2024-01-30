@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <RootNamespace>EdFi.Ods.Features.OwnershipBasedAuthorization</RootNamespace>
     <AssemblyName>EdFi.Ods.Features.OwnershipBasedAuthorization</AssemblyName>
     <Product>EdFi.Ods.Api.Startup</Product>
@@ -24,11 +24,11 @@
         <PackageReference Include="EdFi.Suite3.Common" Version="7.2.4" />
       </ItemGroup>
     </Otherwise>
-  </Choose>  
-  <ItemGroup>    
+  </Choose>
+  <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="NHibernate" Version="5.4.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
