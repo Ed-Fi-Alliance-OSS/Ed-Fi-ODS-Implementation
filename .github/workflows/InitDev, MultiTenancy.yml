@@ -82,7 +82,7 @@ jobs:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: build (Standard Version ${{ matrix.StandardVersion }})) 
+    name: build (Standard Version ${{ matrix.StandardVersion }}) 
 
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}

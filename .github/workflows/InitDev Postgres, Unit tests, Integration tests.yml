@@ -83,7 +83,7 @@ jobs:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
-    name: build (Standard Version ${{ matrix.StandardVersion }})) 
+    name: build (Standard Version ${{ matrix.StandardVersion }}) 
     services:
       postgres:
         image: postgres:13
