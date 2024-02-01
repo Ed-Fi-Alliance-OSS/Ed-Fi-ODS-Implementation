@@ -29,7 +29,6 @@ using Newtonsoft.Json.Serialization;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 using EdFi.Ods.Sandbox.Admin.Extensions;
 using System;
-using EdFi.Admin.DataAccess.DbConfigurations;
 
 namespace EdFi.Ods.SandboxAdmin
 {
@@ -221,10 +220,7 @@ namespace EdFi.Ods.SandboxAdmin
             }
 
             Container = app.ApplicationServices.GetAutofacRoot();
-
-            // Set EF Context
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
+            
             app.UseForwardedHeaders();
 
             if (env.IsDevelopment())
