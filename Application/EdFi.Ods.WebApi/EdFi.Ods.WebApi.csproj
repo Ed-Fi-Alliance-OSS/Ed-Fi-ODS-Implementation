@@ -19,7 +19,7 @@
     <Content Update="log4net.development.config" CopyToPublishDirectory="Never" CopyToOutputDirectory="Always" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.1.35" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.80" />
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.22.0" />
