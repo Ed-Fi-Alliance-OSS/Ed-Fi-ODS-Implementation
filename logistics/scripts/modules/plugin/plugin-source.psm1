@@ -107,6 +107,10 @@ function Get-Plugins([hashtable] $Settings) {
             $extensionPath = Invoke-PluginScript $scriptPath
         }
 
+        if ([string]::IsNullOrEmpty($extensionPath)) {
+            throw "An error ocurred obtaining the plugin package."
+        }
+
         Write-Host "Extension path" $extensionPath -ForegroundColor Green
         $extensionFolder = Split-Path $extensionPath -leaf
 
