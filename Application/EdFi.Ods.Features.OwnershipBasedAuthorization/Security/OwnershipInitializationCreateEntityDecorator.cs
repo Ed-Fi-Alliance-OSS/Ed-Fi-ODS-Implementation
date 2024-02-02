@@ -19,6 +19,7 @@ using EdFi.Ods.Common.Infrastructure.Filtering;
 using EdFi.Security.DataAccess.Repositories;
 using NHibernate;
 using EdFi.Ods.Common.Context;
+using System;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
 {
@@ -68,7 +69,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Security
                 dataManagementResourceContextProvider)
         {
             _next = Preconditions.ThrowIfNull(next, nameof(next));
-            _apiKeyContextProvider = Preconditions.ThrowIfNull(apiKeyContextProvider, nameof(apiKeyContextProvider));
+            _apiKeyContextProvider = apiKeyContextProvider ?? throw new ArgumentNullException(nameof(apiKeyContextProvider));
         }
 
         public async Task CreateAsync(T entity, bool enforceOptimisticLock, CancellationToken cancellationToken)
