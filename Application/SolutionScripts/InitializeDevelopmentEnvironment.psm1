@@ -151,11 +151,11 @@ function Initialize-DevelopmentEnvironment {
 
         [Parameter(Mandatory=$false)]
         [ValidateSet('4.0.0', '5.0.0')]
-        [String] $StandardVersion,
+        [String] $StandardVersion = '5.0.0',
 
         [Parameter(Mandatory=$false)]
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion = '1.1.0'
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {

@@ -53,10 +53,12 @@ param(
     [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
     
     [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
-    
+
+    [Parameter(Mandatory=$true)]
     [ValidateSet('4.0.0', '5.0.0')]
     [String] $StandardVersion,
-    
+
+    [Parameter(Mandatory=$true)]
     [ValidateSet('1.0.0', '1.1.0')]
     [String] $ExtensionVersion
 )
