@@ -9,7 +9,7 @@
     <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ea</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="6.2.79" />
+    
     <PackageReference Include="EdFi.Suite3.Common" Version="6.2.2" />
   </ItemGroup>
   <ItemGroup>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Sandbox\EdFi.Ods.Sandbox.csproj" />
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Content Update="log4net.config">
