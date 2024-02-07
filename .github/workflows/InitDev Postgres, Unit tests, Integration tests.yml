@@ -9,9 +9,9 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: [main, 'ODS-*']
+   branches: [main, 'b-v*-patch*']
   push:
-   branches: [main]   
+   branches: [main, 'b-v*-patch*']   
   workflow_dispatch:
     inputs:
       distinct_id:
