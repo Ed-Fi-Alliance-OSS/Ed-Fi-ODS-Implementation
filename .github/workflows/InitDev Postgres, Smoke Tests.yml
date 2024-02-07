@@ -125,7 +125,6 @@ jobs:
       with:
         name: Initdev logs
         path: |
-          ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: Run Unit Tests for EdFi.LoadTools 
       working-directory: ./Ed-Fi-ODS-Implementation/
