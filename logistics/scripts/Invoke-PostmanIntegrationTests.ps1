@@ -35,7 +35,7 @@ function Install-Newman {
       $packages = @{
       newman         = @{
         name            = "newman"
-        requiredVersion = "5.2.2"
+        requiredVersion = "6.1.1"
       }
       newmanTeamcity = @{
         name            = "newman-reporter-teamcity"
@@ -45,9 +45,13 @@ function Install-Newman {
         name            = "newman-reporter-junitfull"
         requiredVersion = "1.1.1"
       }
+      newmanHtmlExtra    = @{
+        name            = "newman-reporter-htmlextra"
+        requiredVersion = "1.23.0"
+      }
     }
     $teamcityPackages = @($packages.newman, $packages.newmanTeamcity, $packages.newmanJunit)
-    $githubActionsPackages = @($packages.newman, $packages.newmanJunit)
+    $githubActionsPackages = @($packages.newman, $packages.newmanJunit, $packages.newmanHtmlExtra)
     $developerPackages = @($packages.newman)
     If (Test-TeamCityVersion) {
       Write-Host "teamcityPackages" -ForegroundColor Green
@@ -98,7 +102,7 @@ function Invoke-Newman {
         }
         else {
             $testFile = $collectionFile.Name -Replace ".postman_collection.json",""
-            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode --reporters 'junit,cli' --reporter-junit-export "$reportPath/$testFile.xml"
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode --reporters 'junit,cli,htmlextra' --reporter-junit-export "$reportPath/$testFile.xml" --reporter-htmlextra-export "$reportPath/$testFile.html"
         }
     }
 }
