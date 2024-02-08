@@ -88,6 +88,8 @@ function Initialize-DevelopmentEnvironment {
         Standard Version.
     .parameter ExtensionVersion
         Extension Version.
+	.parameter JavaPath
+        Path to the java executable (used for SDK generation).
     #>
     param(
         [ValidateSet('Sandbox', 'SingleTenant', 'MultiTenant')]
@@ -155,7 +157,10 @@ function Initialize-DevelopmentEnvironment {
 
         [Parameter(Mandatory=$false)]
         [ValidateSet('1.0.0', '1.1.0')]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion,
+		
+		[Parameter(Mandatory=$false)]
+        [String] $JavaPath
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'SingleTenant') -and ($InstallType -ine 'MultiTenant')) {
