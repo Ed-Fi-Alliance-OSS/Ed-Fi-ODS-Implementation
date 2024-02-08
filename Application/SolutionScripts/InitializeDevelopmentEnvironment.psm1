@@ -241,7 +241,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $NoRestore $StandardVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $NoRestore $StandardVersion $JavaPath }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -536,10 +536,11 @@ function Invoke-SdkGen {
         [string] $PackageVersion,
         [Boolean] $NoRestore,
         [ValidateSet('4.0.0', '5.0.0')]
-        [String] $StandardVersion
+        [String] $StandardVersion,
+		[String] $JavaPath
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore -standardVersion $StandardVersion
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -noRestore $NoRestore -standardVersion $StandardVersion -javaPath $JavaPath
     }
 }
 
