@@ -79,7 +79,8 @@ function Invoke-SdkGenConsole {
         [string[]] $arguments = @("-p","-c","-i")
 
     )
-    
+    Write-Host "args for invoke-sdkgenconsole below"
+	Write-Host $arguments 
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
     $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
     $argumentList = @('-m', $apiMetadataUrl) + $arguments
