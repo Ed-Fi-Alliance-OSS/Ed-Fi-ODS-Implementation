@@ -80,7 +80,7 @@ jobs:
         Write-Host "Current Branch: $current_branch"   
         echo "current_branch=$current_branch" >> $Env:GITHUB_ENV                   
     - name: Dispatch EdFi.Ods.CodeGen workflow
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_codegen
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -148,7 +148,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_homograph
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -160,7 +160,7 @@ jobs:
 
     - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_sample
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -172,7 +172,7 @@ jobs:
 
     - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -294,7 +294,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_populated_template
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -306,7 +306,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_populated_template_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -318,7 +318,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_minimal_template
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -330,7 +330,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_minimal_template_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -486,7 +486,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_populated_template_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -498,7 +498,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM.PostgreSQL workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_populated_template_TPDM_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -510,7 +510,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_minimal_template_TPDM
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -522,7 +522,7 @@ jobs:
 
     - name: Dispatch EdFi.Ods.Minimal.Template.TPDM.PostgreSQL  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/return-dispatch@290d1ad3ca0a323120745aea7a44ce63ed91a982 #v1.8.0
+      uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_minimal_template_TPDM_postgresql
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
