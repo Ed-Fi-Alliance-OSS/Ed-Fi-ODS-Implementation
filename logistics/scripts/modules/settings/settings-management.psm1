@@ -587,6 +587,18 @@ function Get-UserSecretsIdByProject {
     }
 }
 
+function Add-EncryptValueToConnectionStrings([hashtable] $Settings = @{ }, [string] $EncryptValue) {
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
+    $newConnectionStrings = @{ }
+    foreach ($key in $csbs.Keys) {
+        if (-not [string]::IsNullOrEmpty($csbs[$key]['Encrypt'])) { continue }
+        $csbs[$key]['Encrypt'] = (Split-Path -Leaf $EncryptValue).ToString()
+        $newConnectionStrings[$key] = $csbs[$key].ToString()
+    }
+    $newSettings = Merge-Hashtables $Settings, @{ ConnectionStrings = $newConnectionStrings }
+    return $newSettings
+}
+
 function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     $newSettingsFiles = @()
     $developmentSettingsByProject = Get-DefaultDevelopmentSettingsByProject
@@ -596,6 +608,12 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     foreach ($project in $developmentSettingsByProject.Keys) {
         $newDevelopmentSettings = (Get-DefaultConnectionStringsByEngine)[$Settings.ApiSettings.Engine]
         $newDevelopmentSettings = Add-ApplicationNameToConnectionStrings $newDevelopmentSettings $project
+
+        if ($Settings.ApiSettings.Engine -eq 'SQLServer')
+        {
+            $newDevelopmentSettings = Add-EncryptValueToConnectionStrings $newDevelopmentSettings $false
+        }
+
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
 
         $newDevelopmentSettings = Add-TestSpecificAppSettings $newDevelopmentSettings $project
