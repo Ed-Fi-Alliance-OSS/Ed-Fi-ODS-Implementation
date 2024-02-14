@@ -7,7 +7,7 @@ name: Analyze Docker Images
 
 on:
   pull_request:
-    branches: [main, 'b-v*-patch*',feature-*]
+    branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 concurrency:
