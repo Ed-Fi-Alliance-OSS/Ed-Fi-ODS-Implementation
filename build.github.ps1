@@ -53,6 +53,8 @@ param(
     [String] $WebApiId  = 'EdFi.Suite3.Ods.WebApi',
     
     [String] $DatabasesId = 'EdFi.Suite3.RestApi.Databases',
+	
+	[String] $JavaPath = 'java',
     
     [ValidateSet('4.0.0', '5.0.0')]
     [String] $StandardVersion,
@@ -88,6 +90,7 @@ $params = @{
     RepositoryRoot         = $RepositoryRoot
     StandardVersion        = $StandardVersion
     ExtensionVersion       = $ExtensionVersion
+	JavaPath               = $JavaPath
 }
 
 Write-FlatHashtable $params

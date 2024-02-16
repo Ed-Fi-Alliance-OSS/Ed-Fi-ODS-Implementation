@@ -146,7 +146,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}" + "." + $newRevision.ToString()
-        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
@@ -179,13 +179,13 @@ jobs:
         }
         Initialize-DeploymentEnvironment @params
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
         }
        
         $params = @{
                 testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
-                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net6.0/EdFi.OdsApi.Sdk.dll"
+                smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                 testHarnessLogNamePrefix = "SmokeTestSandbox"
         }
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params

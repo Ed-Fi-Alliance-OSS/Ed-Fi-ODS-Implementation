@@ -145,7 +145,7 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+        .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging  -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
       shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
