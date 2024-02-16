@@ -26,7 +26,8 @@ param(
     [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion,
     [Boolean] $noRestore = $false,
-    [String] $standardVersion
+    [String] $standardVersion,
+	[String] $javaPath 
 )
 
 $ErrorActionPreference = 'Stop'
@@ -59,8 +60,8 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution $noRestore $standardVersion }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
-                $arguments = @("-v",$sdkCliVersion,"--core-only")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.2.0'
+                $arguments = @("-v",$sdkCliVersion,"--core-only","-j","""$javaPath""")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
@@ -86,8 +87,8 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkGenSolution $noRestore $standardVersion }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
-                $arguments = @("-v",$sdkCliVersion,"-c","-i","-p")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.2.0'
+                $arguments = @("-v",$sdkCliVersion,"-c","-i","-p","-j","""$javaPath""")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
