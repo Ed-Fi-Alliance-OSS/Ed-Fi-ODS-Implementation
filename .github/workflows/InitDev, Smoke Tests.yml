@@ -172,8 +172,8 @@ jobs:
         }
         Initialize-DeploymentEnvironment @params
 
-        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish) {
-          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net6.0/publish -Recurse
+        if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+          Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
         }
        
         $params = @{
