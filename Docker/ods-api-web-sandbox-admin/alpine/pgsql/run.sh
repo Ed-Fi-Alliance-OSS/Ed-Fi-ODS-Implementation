@@ -9,7 +9,11 @@ set +x
 
 envsubst < /app/appsettings.template.json > /app/appsettings.json
 
-until PGPASSWORD=$POSTGRES_PASSWORD psql -h $ODS_POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -c '\q';
+until PGPASSWORD=$POSTGRES_PASSWORD \
+      PGHOST=$ODS_POSTGRES_HOST \
+      PGPORT=$POSTGRES_PORT \
+      PGUSER=$POSTGRES_USER \
+      pg_isready > /dev/null
 do
   >&2 echo "Postgres is unavailable - sleeping"
   sleep 10
