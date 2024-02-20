@@ -43,7 +43,7 @@ RUN umask 0077 && \
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \
     rm -f /app/*.exe && \
-    apk del unzip dos2unix && \
+    apk del unzip dos2unix curl && \
     chown -R edfi /app
 
 EXPOSE 80

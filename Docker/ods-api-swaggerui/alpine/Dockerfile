@@ -35,7 +35,7 @@ RUN umask 0077 && \
     dos2unix /app/*.json && \
     dos2unix /app/*.sh && \
     rm -f /app/*.exe && \
-    apk del unzip dos2unix && \
+    apk del unzip dos2unix curl && \
     chown -R edfi /app
 
 EXPOSE 80
