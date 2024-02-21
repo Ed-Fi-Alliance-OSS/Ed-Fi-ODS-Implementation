@@ -82,12 +82,12 @@
     },
     "EdFi.Database.Security": {
       "PackageName": "EdFi.Database.Security",
-      "PackageVersion": "6.2.42",
+      "PackageVersion": "6.2.61",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Database.Security.PostgreSQL": {
       "PackageName": "EdFi.Database.Security.PostgreSQL",
-      "PackageVersion": "6.2.42",
+      "PackageVersion": "6.2.61",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.BulkLoadClient.Console": {
