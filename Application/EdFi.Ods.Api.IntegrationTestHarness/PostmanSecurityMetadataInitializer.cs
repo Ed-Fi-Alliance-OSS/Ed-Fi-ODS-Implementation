@@ -265,7 +265,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using (var context = _securityContextFactory.CreateContext())
             {
-                var application = context.Applications.First(a=>a.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
+                var application = context.Applications.AsEnumerable()
+                    .First(a=>a.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
 
                 context.ClaimSets.Add(new ClaimSet
                 {
@@ -353,7 +354,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         {
             using var context = _securityContextFactory.CreateContext();
 
-            return context.Applications.First(
+            return context.Applications.AsEnumerable().First(
                 app => app.ApplicationName.Equals("Ed-Fi ODS API", StringComparison.InvariantCultureIgnoreCase));
         }
 
