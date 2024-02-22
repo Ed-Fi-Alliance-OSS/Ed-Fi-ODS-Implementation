@@ -21,14 +21,19 @@ fi
 export ODS_WAIT_POSTGRES_HOSTS_ARR=($ODS_WAIT_POSTGRES_HOSTS)
 for HOST in ${ODS_WAIT_POSTGRES_HOSTS_ARR[@]}
 do
-  until PGPASSWORD=$POSTGRES_PASSWORD psql -h $HOST -p $POSTGRES_PORT -U $POSTGRES_USER -c '\q';
+  until PGPASSWORD=$POSTGRES_PASSWORD \
+      PGHOST=$HOST \
+      PGPORT=$POSTGRES_PORT \
+      PGUSER=$POSTGRES_USER \
+      pg_isready > /dev/null
   do
     >&2 echo "Postgres '$HOST' is unavailable - sleeping"
     sleep 10
   done
+  >&2 echo "Postgres '$HOST' is up"
 done
 
->&2 echo "Postgres is up - executing command"
+>&2 echo "All Postgres hosts are up - executing command"
 exec $cmd
 
 dotnet EdFi.Ods.WebApi.dll
