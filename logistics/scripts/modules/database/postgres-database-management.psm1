@@ -17,6 +17,7 @@ $script:packageName = "PostgreSQL.Binaries"
 $script:packageVersion = "13.7.74"
 $script:toolsPath = (Get-ToolsPath)
 $script:windowsPostgreSQLBinariesPath = "$script:toolsPath/$script:packageName.$script:packageVersion/tools/"
+$script:PSNativeCommandArgumentPassing = 'Legacy'
 
 function Test-PostgreSQLBinariesInstalled {
 
