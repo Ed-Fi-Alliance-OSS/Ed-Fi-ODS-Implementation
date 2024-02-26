@@ -82,7 +82,11 @@ function New-DbConnectionStringBuilder {
         $newDbCSB = New-DbConnectionStringBuilder
         foreach ($key in $existingCSB.keys) {
             $value = $existingCSB[$key]
-            if (-not ($emptySpecificCSB[$key] -eq $value)) {
+            if($key -eq 'Encrypt')
+            {
+                $newDbCSB[$key] =$value
+            }
+            elseif (-not ($emptySpecificCSB[$key] -eq $value)) {
                 $newDbCSB[$key] = [String]::Copy($value)
             }
         }
