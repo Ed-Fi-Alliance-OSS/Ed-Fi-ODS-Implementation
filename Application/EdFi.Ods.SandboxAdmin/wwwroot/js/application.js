@@ -108,7 +108,6 @@ var editApplicationDialog = function () {
         self.educationOrganizationId(options.application.EducationOrganizationId());
         self.applicationId(options.application.Id());
 
-        self.vendorList([]);
         $.each(options.vendors, function (Id, data) {
             self.vendorList.push(new VendorTemplate(data));
         });
@@ -144,8 +143,8 @@ var addApplicationDialog = function () {
     }
 
     this.show = function (options) {
-        self.applicationName = ko.observable('');
-        self.educationOrganizationId = ko.observable('');
+        self.applicationName('');
+        self.educationOrganizationId('');
         $.each(options.vendors, function (Id, Name) {
             self.vendorList.push(new VendorTemplate(Name));
         });
