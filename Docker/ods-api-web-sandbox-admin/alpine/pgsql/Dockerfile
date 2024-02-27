@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:6.0.27-alpine3.19@sha256:a56c0c8156c072e9de702ac42ffaef75ef01853738d847eb715ebe7ea13808bc AS base
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.2-alpine3.19@sha256:95f27052830db1c7a00e55f098ebda507204757907919f506a468387f7d856a4 AS base
 RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
@@ -46,6 +46,7 @@ RUN umask 0077 && \
     apk del unzip dos2unix curl && \
     chown -R edfi /app
 
+ENV ASPNETCORE_HTTP_PORTS=80
 EXPOSE 80
 USER edfi
 ENTRYPOINT ["/app/run.sh"]
