@@ -1,0 +1,209 @@
+﻿<!--
+  SPDX-License-Identifier: Apache-2.0
+  Licensed to the Ed-Fi Alliance under one or more agreements.
+  The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+  See the LICENSE and NOTICES files in the project root for more information.
+-->
+
+@{
+    ViewBag.Title = "Sandbox Administration Portal";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+
+<script src="~/js/application.js"></script>
+
+
+<div class="row">
+    <div class="jumbotron">
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
+            This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="alert alert-danger" data-bind="visible: error">
+        <strong>Error:</strong> <span data-bind="text: error"></span>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="float-md-right">
+                <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Application</button>
+            </div>
+    <fieldset>
+        <legend>Existing Applications   </legend>
+        <table class="table table-hover" id="clients-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th>Application Name </th>
+                    <th>EducationOrganizationId</th>
+                    <th>Vendor Name</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody data-bind="foreach: applications">
+                <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
+                    <td>
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="sandbox-menu">
+                                    <a href="javascript:void(0)" data-bind="click: $parent.updateApplicationClicked" class="editApplication dropdown-item">
+                                        Edit
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteApplicationClicked" class="deleteApplication dropdown-item">
+                                        Delete
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td data-bind="text: Id" class="application-id"></td>
+                    <td data-bind="text: ApplicationName" class="application-name"></td>
+                    <td data-bind="text: EducationOrganizationId" class="application-key"></td>
+                    <td data-bind="text: VendorName" class="operational-context-name"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="5" data-bind="text: applicationStatus"></th>
+                </tr>
+            </tfoot>
+        </table>
+    </fieldset>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Add Application</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName1">Application Name:</label>
+                        <div class="controls">
+                            <input id="txtName1" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Application" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName2">EducationOrganizationId:</label>
+                        <div class="controls">
+                            <input id="txtName2" type="text" data-bind="value: educationOrganizationId, valueUpdate: 'keyup'" class="form-control" placeholder="EducationOrganizationId" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" >Vendor :</label>
+                        <div class="controls">
+                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="click: onOkClicked">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" tabindex="-1" data-bind="with: editApplicationDialog, attr: { id: editApplicationDialog.htmlId }" id="modal-edit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Application</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <fieldset>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName5" style="display: none;">Application Id:</label>
+                        <div class="controls">
+                            <input id="txtName5" type="text" data-bind="value: applicationId, valueUpdate: 'keyup'" style="display: none;" class="form-control" placeholder="Application Id" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName3">Application Name:</label>
+                        <div class="controls">
+                            <input id="txtName3" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Application" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName4">EducationOrganizationId:</label>
+                        <div class="controls">
+                            <input id="txtName4" type="text" data-bind="value: educationOrganizationId, valueUpdate: 'keyup'" class="form-control" placeholder="EducationOrganizationId" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label">Vendor :</label>
+                        <div class="controls">
+                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="click: onOkClicked">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" id="modal-confirm" data-bind="with: confirmationDialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Are You Sure?</h3>
+                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
+            </div>
+            <div class="modal-body">
+                <div class="row-fluid">
+                    <div class="span2">
+                        <span class="confirmModalIcon icon-4x icon-exclamation-sign"></span>
+                    </div>
+                    <div class="span10">
+                        <p data-bind="html: message"></p>
+                        <div class="checkbox">
+                            <label>
+                                <input id="checkbox-confirmoperation" type="checkbox" data-bind="checked: confirmChecked" />
+                                <strong>I understand the danger!</strong>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

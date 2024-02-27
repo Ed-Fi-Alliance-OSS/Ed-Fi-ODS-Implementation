@@ -64,6 +64,12 @@
                         <a class="nav-link" href="@Url.Action("Index", "Home")">Home</a>
                     </li>
                     <li class="nav-item mx-2">
+                        <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Vendor")">Manage Vendors</a>
+                    </li>
+                    <li class="nav-item mx-2">
+                        <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Application")">Manage Applications</a>
+                    </li>
+                    <li class="nav-item mx-2">
                         <a class="nav-link @showOnAuthenticated" href="@Url.Action("Index", "Client")">Manage Sandboxes</a>
                     </li>
                     @if (isAdmin)
