@@ -207,7 +207,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                    FullName = vendor.VendorName,
                                    Email = vendor.Email,
                                    Vendor = _clientAppRepo.CreateOrGetVendor(
-                                     vendor.VendorName, vendor.NamespacePrefixes)
+                                       vendor.Email, vendor.VendorName, vendor.NamespacePrefixes)
                                });
 
                 foreach (var app in vendor.Applications)
