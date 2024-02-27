@@ -118,7 +118,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             }
             else
             {
-                application = _defaultApplicationCreator.GetApplication((int)applicationId);
+                application = _clientAppRepo.GetApplication((int)applicationId);
             }
 
             return _clientAppRepo.SetupDefaultSandboxClient(
