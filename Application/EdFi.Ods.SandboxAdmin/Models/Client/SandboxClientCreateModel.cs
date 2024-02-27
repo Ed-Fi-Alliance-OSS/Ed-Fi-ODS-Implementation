@@ -12,5 +12,8 @@ namespace EdFi.Ods.SandboxAdmin.Models.Client
         public string Name { get; set; }
 
         public SandboxType SandboxType { get; set; }
+
+        public int ApplicationId { get; set; }
+
     }
 }

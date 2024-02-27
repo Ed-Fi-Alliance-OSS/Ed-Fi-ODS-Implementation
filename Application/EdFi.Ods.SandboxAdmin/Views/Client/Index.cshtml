@@ -113,6 +113,12 @@
                             <input id="txtName" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Sandbox" />
                         </div>
                     </div>
+                    <div class="control-group">
+                        <label class="control-label">Application :</label>
+                        <div class="controls">
+                            <select data-bind="options: applicationList, value:selectedApplication, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                        </div>
+                    </div>
                     <div class="control-group mt-2">
                         <div class="checkbox">
                             <label>

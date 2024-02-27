@@ -78,9 +78,6 @@ var confirmationDialog = function () {
     };
 };
 
-
-
-
 var addApplicationDialog = function () {
     var self = this;
 
