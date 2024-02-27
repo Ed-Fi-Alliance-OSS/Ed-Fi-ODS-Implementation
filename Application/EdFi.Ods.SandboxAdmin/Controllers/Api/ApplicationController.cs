@@ -127,16 +127,5 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             _clientAppRepo.DeleteApplication(application.ApplicationId);
             return NoContent();
         }
-
-        private VendorDropdownModel ToVendorDropdownModel(Vendor vendor)
-        {
-            var namespacePrefix = vendor.VendorNamespacePrefixes.Select(a => a.NamespacePrefix).FirstOrDefault();
-            VendorDropdownModel viewModel = new VendorDropdownModel
-            {
-                Id = vendor.VendorId,
-                Name = vendor.VendorName
-            };
-            return viewModel;
-        }
     }
 }
