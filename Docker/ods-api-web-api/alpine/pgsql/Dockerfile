@@ -46,6 +46,7 @@ RUN umask 0077 && \
     apk del unzip dos2unix && \
     chown -R edfi /app
 
+ENV ASPNETCORE_HTTP_PORTS=80
 EXPOSE 80
 USER edfi
 ENTRYPOINT [ "/app/run.sh" ]
