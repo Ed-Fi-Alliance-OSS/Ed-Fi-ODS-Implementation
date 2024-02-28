@@ -62,7 +62,7 @@
     },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
-      "PackageVersion": "6.2.2444",
+      "PackageVersion": "6.2.2451",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Db.Deploy": {
@@ -92,17 +92,17 @@
     },
     "EdFi.BulkLoadClient.Console": {
       "PackageName": "EdFi.Suite3.BulkLoadClient.Console",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.SmokeTest.Console": {
       "PackageName": "EdFi.Suite3.SmokeTest.Console",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.LoadTools": {
       "PackageName": "EdFi.Suite3.LoadTools",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.SandboxAdmin": {
