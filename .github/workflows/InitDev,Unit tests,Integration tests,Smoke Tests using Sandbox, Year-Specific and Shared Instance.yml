@@ -1,0 +1,192 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance
+
+on:
+  pull_request:
+    branches: [main-5x, 'b-v*-patch*','feature-*']
+    paths:
+      - Application/**/*
+      - tests/**/*
+  push:
+    branches: [main-5x, 'b-v*-patch*','feature-*']
+    paths:
+      - Application/**/*
+      - tests/**/*
+  workflow_dispatch:
+  repository_dispatch:
+    types: [triggered-from-ods-repo]
+
+env:
+  INFORMATIONAL_VERSION: "5.4"
+  BUILD_INCREMENTER: "1"
+  CONFIGURATION: "Release"
+  VERSION_MAJOR: "6"
+  VERSION_MINOR: "1"
+  HEAD_REF: ${{ GITHUB.HEAD_REF }}
+  REF_NAME: ${{ GITHUB.REF_NAME }}
+  REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
+  EDFI_SUITE_NUMBER: "Suite3"
+  msbuild_buildConfiguration: "release"
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Setup .NET
+        uses: actions/setup-dotnet@607fce577a46308457984d59e4954e075820f10a # v3.0.3
+        with:
+          dotnet-version: 3.1.x    
+      - name: Support longpaths
+        run: git config --system core.longpaths true
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+          path: Ed-Fi-ODS-Implementation/
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
+      - name: Checkout Ed-Fi-ODS
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
+          path: Ed-Fi-ODS/
+      - name: Is pull request branch exists in Ed-Fi-ODS
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: pwsh
+        run: |
+          .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+      - name: Install sql-server-2019 & sqlpackage
+        shell: powershell
+        run: |
+          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
+          choco install sqlpackage
+      - name: ODS/API InitDev and SdkGen
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+          .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging
+        shell: pwsh
+      - name: Upload initdev logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Initdev logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+      - name: Run Unit tests for EdFi.LoadTools
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          dotnet test "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln" --filter TestCategory!~'RunManually'
+        shell: pwsh
+      - name: ODS/API Smoke Test Sandbox
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+          Reset-TestPopulatedTemplateDatabase
+          $params = @{
+                  InstallType   = 'Sandbox'
+                  Engine        = 'SQLServer'
+                  DropDatabases = $true
+                  NoDuration    = $true
+                  UsePlugins    = $true
+          }
+          Initialize-DeploymentEnvironment @params
+
+          if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
+            Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
+          }
+
+          $params = @{
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
+                  testHarnessLogNamePrefix = "SmokeTestSandbox"
+          }
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+        shell: pwsh
+      - name: Upload Smoke Test Sandbox Logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Smoke Test Sandbox Logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
+      - name: ODS/API Smoke Test YearSpecific
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+          Reset-TestPopulatedTemplateDatabase
+          $params = @{
+                  InstallType   = 'YearSpecific'
+                  Engine        = 'SQLServer'
+                  OdsTokens     = '2022'
+                  DropDatabases = $true
+                  NoDuration    = $true
+                  UsePlugins    = $true
+          }
+          Initialize-DeploymentEnvironment @params
+
+          $params = @{
+                  schoolYear               = "2022"
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
+                  testHarnessLogNamePrefix = "SmokeTestYearSpecific"
+          }
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+        shell: pwsh
+      - name: Upload Smoke Test YearSpecific Logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Smoke Test YearSpecific Logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestYearSpecific.TestHarnessLog.log
+      - name: ODS/API Smoke Test Shared Instance
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+
+          Reset-TestPopulatedTemplateDatabase
+          $params = @{
+                  InstallType   = 'SharedInstance'
+                  Engine        = 'SQLServer'
+                  DropDatabases = $true
+                  NoDuration    = $true
+                  UsePlugins    = $true
+          }
+          Initialize-DeploymentEnvironment @params
+
+          $params = @{
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
+                  testHarnessLogNamePrefix = "SmokeTestSharedInstance"
+          }
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
+        shell: pwsh
+      - name: Upload Smoke Test Shared Instance Logs
+        if: success() || failure()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: Smoke Test Shared Instance Logs
+          path: |
+            ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
+            ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSharedInstance.TestHarnessLog.log

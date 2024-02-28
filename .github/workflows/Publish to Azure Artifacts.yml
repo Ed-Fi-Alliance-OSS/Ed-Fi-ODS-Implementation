@@ -1,0 +1,50 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+name: Publish to Azure Artifacts
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance"]
+    types:
+      - completed
+    branches: [main-5x, 'b-v*-patch*','feature-*']
+env:
+  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
+  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+    - name: Download SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
+      uses: dawidd6/action-download-artifact@1cf11afe3f1874cee82a8d5a2b45c0fd63f0fa22 #v2.19.0
+      with:
+        workflow: InitDev,Unit tests,Integration tests,Package.yml
+        workflow_conclusion: success
+        name: NugetPackages.Artifacts
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/
+        commit: ${{ env.INITDEV_COMMIT }}
+        check_artifacts: true
+        if_no_artifact_found: fail
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: pwsh
+    - name: Publish to Azure Artifacts
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      run: |
+        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg | 
+        Foreach-Object {
+            Write-Host "nupkg full path is " $_.FullName
+            $packagePath = $_.FullName
+            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
+        }
+      shell: pwsh
