@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,7 +40,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             
             await CreateAndScheduleNewJob<CreateIdentityRolesJob>("createIdentityRoles", "setupAdminDatabase", scheduler);
             await CreateAndScheduleNewJob<CreateIdentityUsersJob>("createIdentityUsers", "setupAdminDatabase", scheduler);
-            await CreateAndScheduleNewJob<CreateVendorsJob>("createVendors", "setupAdminDatabase", scheduler);
             
             await CreateAndScheduleNewJob<CreateSandboxesJob>("createSandboxes", "setupAdminDatabase", scheduler);
             
@@ -49,38 +49,38 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
                 {
                     // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                    await CreateAndScheduleNewJob<CreateSandboxesJob>("createSandboxes", "setupAdminDatabase", scheduler, "* */24 * * *");
+                    await CreateAndScheduleNewJob<RebuildSandboxesJob>("createSandboxes", "setupAdminDatabase", scheduler, "* */24 * * *");
                 }
             }
-        }
-
-        private async Task<IJobDetail> CreateAndScheduleNewJob<T>(string idName, string idGroup, IScheduler scheduler, string cronExpression = null)
-            where T : IJob
-        {
-            var newJob = JobBuilder.Create<T>().WithIdentity(idName, idGroup).Build();
-            newJob.JobDataMap.Put("engine", _engine);
-            ITrigger newTrigger;
             
-            // If no cron expression is provided, then use a simple schedule that runs once
-            if (string.IsNullOrEmpty(cronExpression))
+            async Task<IJobDetail> CreateAndScheduleNewJob<T>(string idName, string idGroup, IScheduler scheduler, string cronExpression = null)
+                where T : IJob
             {
-                newTrigger = TriggerBuilder.Create()
-                    .WithIdentity(idName, idGroup)
-                    .WithSimpleSchedule()
-                    .StartNow()
-                    .Build();
-            }
-            else
-            {
-                newTrigger = TriggerBuilder.Create()
-                    .WithIdentity(idName, idGroup)
-                    .WithCronSchedule(cronExpression)
-                    .StartNow()
-                    .Build();
-            }
+                var newJob = JobBuilder.Create<T>().WithIdentity(idName, idGroup).Build();
+                newJob.JobDataMap.Put("engine", _engine);
+                ITrigger newTrigger;
+            
+                // If no cron expression is provided, then use a simple schedule that runs once
+                if (string.IsNullOrEmpty(cronExpression))
+                {
+                    newTrigger = TriggerBuilder.Create()
+                        .WithIdentity(idName, idGroup)
+                        .WithSimpleSchedule()
+                        .StartNow()
+                        .Build();
+                }
+                else
+                {
+                    newTrigger = TriggerBuilder.Create()
+                        .WithIdentity(idName, idGroup)
+                        .WithCronSchedule(cronExpression)
+                        .StartNow()
+                        .Build();
+                }
 
-            await scheduler.ScheduleJob(newJob, newTrigger);
-            return newJob;
+                await scheduler.ScheduleJob(newJob, newTrigger);
+                return newJob;
+            }
         }
     }
 
@@ -99,15 +99,6 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         public async Task Execute(IJobExecutionContext context)
         {
             await ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateIdentityUsers();
-        }
-    }
-
-    [DisallowConcurrentExecution]
-    public class CreateVendorsJob : IJob
-    {
-        public async Task Execute(IJobExecutionContext context)
-        {
-            ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateVendors();
         }
     }
 
