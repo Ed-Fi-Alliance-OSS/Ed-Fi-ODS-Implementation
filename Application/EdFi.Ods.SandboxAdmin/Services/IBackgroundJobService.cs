@@ -2,6 +2,6 @@
 {
     public interface IBackgroundJobService
     {
-        void Configure();
+        void Configure(bool exitAfterSandboxCreation = false);
     }
 }

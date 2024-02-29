@@ -223,7 +223,7 @@ namespace EdFi.Ods.SandboxAdmin
             app.UseAuthorization();
 
             var backgroundJob = Container.Resolve<IBackgroundJobService>();
-            backgroundJob.Configure();
+            backgroundJob.Configure(Configuration.GetValue<bool>("ExitAfterSandboxCreation"));
 
             app.UseEndpoints(endpoints =>
             {

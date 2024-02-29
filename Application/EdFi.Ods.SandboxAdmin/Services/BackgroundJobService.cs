@@ -31,7 +31,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         /// Create background jobs to populate users and sandboxes
         /// This class separates the initialization engine from Quartz
         /// </summary>
-        public async void Configure()
+        public async void Configure(bool exitAfterSandboxCreation = false)
         {
             StdSchedulerFactory factory = new StdSchedulerFactory();
             IScheduler scheduler = await factory.GetScheduler();
@@ -58,6 +58,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             {
                 var newJob = JobBuilder.Create<T>().WithIdentity(idName, idGroup).Build();
                 newJob.JobDataMap.Put("engine", _engine);
+                newJob.JobDataMap.Put("exitAfterSandboxCreation", exitAfterSandboxCreation);
                 ITrigger newTrigger;
             
                 // If no cron expression is provided, then use a simple schedule that runs once
@@ -117,6 +118,11 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         public async Task Execute(IJobExecutionContext context)
         {
             ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateSandboxes();
+
+            if (context.MergedJobDataMap.GetBoolean("exitAfterSandboxCreation"))
+            {
+                Environment.Exit(0);
+            }
         }
     }
 }
