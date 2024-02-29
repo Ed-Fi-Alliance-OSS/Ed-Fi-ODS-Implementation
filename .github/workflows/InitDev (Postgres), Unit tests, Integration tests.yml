@@ -14,14 +14,14 @@ on:
       - tests/**/*
   workflow_dispatch:
   repository_dispatch:
-    types: [triggered-from-ods-repo]
+    types: [triggered-from-ods-repo-6x]
 
 env:
   INFORMATIONAL_VERSION: "6.2"
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
-  VERSION_MINOR: "1"
+  VERSION_MINOR: "2"
   HEAD_REF: ${{ GITHUB.HEAD_REF }}
   REF_NAME: ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}

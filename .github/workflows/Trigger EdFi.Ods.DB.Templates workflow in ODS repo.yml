@@ -41,5 +41,5 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-        event-type: triggered-from-implementation-repo
+        event-type: triggered-from-implementation-repo-6x
         client-payload: '{"branch": "${{ env.current_branch }}"}'
