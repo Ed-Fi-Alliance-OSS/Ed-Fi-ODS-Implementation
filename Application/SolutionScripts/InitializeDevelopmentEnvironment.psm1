@@ -120,7 +120,6 @@ function Initialize-DevelopmentEnvironment {
 
         [string] $PackageVersion,
 
-        [Parameter(Mandatory=$false)]
         [String] $JavaPath
     )
 
