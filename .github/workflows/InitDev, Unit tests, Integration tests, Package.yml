@@ -3,10 +3,16 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: InitDev (Postgres), Unit tests, Integration tests
+name: InitDev, Unit tests, Integration tests, Package
 
 on:
   pull_request:
+    branches:
+      - main-6x
+    paths:
+      - Application/**/*
+      - tests/**/*
+  push:
     branches:
       - main-6x
     paths:
@@ -21,7 +27,7 @@ env:
   BUILD_INCREMENTER: "1"
   CONFIGURATION: "Release"
   VERSION_MAJOR: "6"
-  VERSION_MINOR: "1"
+  VERSION_MINOR: "2"
   HEAD_REF: ${{ GITHUB.HEAD_REF }}
   REF_NAME: ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
@@ -55,13 +61,24 @@ jobs:
         shell: pwsh
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-      - name: Install & Start PostgreSQL 13
+      - name: Install sql-server-2019 & sqlpackage
+        shell: powershell
         run: |
-          choco install postgresql13 --params '/Password:postgres'
-          $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
-          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-          Restart-Service postgresql-x64-13
-      - name: ODS/API InitDev, SdkGen,Run Integration Tests, Run Unit Tests
+          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
+          choco install sqlpackage
+      - name: Update build.props
+        working-directory: ./Ed-Fi-ODS/
+        run: |
+          $buildPropsPath = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Application/Directory.Build.props"
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
+          (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
+          (Get-Content $buildPropsPath).Replace("<FileVersion>1.0.0</FileVersion>","<FileVersion>$version</FileVersion>") | Set-Content $buildPropsPath
+          (Get-Content $buildPropsPath).Replace("<InformationalVersion>1.0.0</InformationalVersion>","<InformationalVersion>${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}</InformationalVersion>") | Set-Content $buildPropsPath
+        shell: pwsh
+      - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |
           $ErrorActionPreference = 'Stop'
@@ -69,7 +86,7 @@ jobs:
           [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
           [int]$newRevision =  $BuildCounter + $BuildIncrementer
           [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
-          .\build.github.ps1 -Engine PostgreSQL -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -NoPackaging
+          .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -GenerateTestSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -JavaPath $env:JAVA_HOME_11_X64\bin\java.ex
         shell: pwsh
       - name: Upload Unit And Integration Test Reports
         if: success() || failure()
@@ -103,3 +120,27 @@ jobs:
           path: |
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
+      - name: Create EdF.Ods.WebApi.Prerelease for Staging
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        run: |
+          $ErrorActionPreference = 'Stop'
+          . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
+          [int]$BuildCounter =  "${{ github.run_number }}"
+          [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
+          [int]$newRevision =  $BuildCounter + $BuildIncrementer
+          $params = @{
+                  ProjectPath           = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi'
+                  PackageDefinitionFile = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.WebApi/bin/**/**/publish/EdFi.Ods.WebApi.Prerelease.nuspec'
+                  PackageId             = 'EdFi.' + $env:EDFI_SUITE_NUMBER + '.Ods.WebApi.Prerelease'
+                  Version               = '${{ env.VERSION_MAJOR}}.${{ env.VERSION_MINOR}}.' + $newRevision.ToString()
+                  Properties            = (Get-DefaultNuGetProperties)
+                  OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
+          }
+          New-WebPackage @params
+        shell: pwsh
+      - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
+        if: success()
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: NugetPackages.Artifacts
+          path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg

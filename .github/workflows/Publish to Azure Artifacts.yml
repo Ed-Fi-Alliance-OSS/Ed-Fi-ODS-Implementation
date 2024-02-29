@@ -8,7 +8,7 @@ name: Publish to Azure Artifacts
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["InitDev, Smoke Tests Sandbox, Year-Specific, and Shared Instance"]
+    workflows: ["InitDev, Smoke Tests"]
     types:
       - completed
     branches:

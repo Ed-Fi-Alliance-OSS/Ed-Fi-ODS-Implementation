@@ -79,6 +79,8 @@ function Initialize-DevelopmentEnvironment {
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
+    .parameter JavaPath
+        Path to the java executable (used for SDK generation).
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -116,7 +118,10 @@ function Initialize-DevelopmentEnvironment {
 
         [String] $RepositoryRoot,
 
-        [string] $PackageVersion
+        [string] $PackageVersion,
+
+        [Parameter(Mandatory=$false)]
+        [String] $JavaPath
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -184,7 +189,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $JavaPath }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -450,11 +455,12 @@ function Invoke-SdkGen {
     param(
         [Boolean] $GenerateApiSdkPackage,
         [Boolean] $GenerateTestSdkPackage,
-        [string] $PackageVersion
+        [string] $PackageVersion,
+        [String] $JavaPath
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -javaPath $JavaPath
     }
 }
 
