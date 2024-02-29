@@ -76,7 +76,7 @@ jobs:
           [int]$newRevision =  $BuildCounter + $BuildIncrementer
           [string]$version = "${{ env.VERSION_MAJOR}}"+ "." +"${{ env.VERSION_MINOR}}" + "." + $newRevision.ToString()
           .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -NoPackaging -JavaPath $env:JAVA_HOME_11_X64\bin\java.ex
-        shell: pwsh
+        shell: powershell
       - name: Upload initdev logs
         if: success() || failure()
         uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
