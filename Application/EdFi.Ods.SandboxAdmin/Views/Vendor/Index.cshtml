@@ -27,12 +27,7 @@
     </div>
 </div>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="float-md-right">
-                <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreVendors, click: addVendorClicked">Add Vendor</button>
-            </div>
+<div class="row">
     <fieldset>
         <legend>Existing Vendors</legend>
         <table class="table table-hover" id="clients-table">
@@ -75,9 +70,8 @@
                 </tr>
             </tfoot>
         </table>
+        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreVendors, click: addVendorClicked">Add Vendor</button>
     </fieldset>
-        </div>
-    </div>
 </div>
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
     <div class="modal-dialog">
