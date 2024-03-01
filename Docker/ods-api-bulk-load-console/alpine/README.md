@@ -24,7 +24,7 @@ ENV_FILE_LOG_LEVEL=<log level for file logs. default: DEBUG>
  |:------------:|---------------------|-----------------------------------------------------------------------------------------------------------|
  | -b           | `--baseurl`         | The base url used to derived api, metadata, oauth, and dependency urls (e.g., http://server)              |
  | -c           | `--connectionlimit` | Maximum concurrent connections to api                                                                     |
- | -d           | `--data`            | Path to folder containing the data files to be submitted                                                  |
+ | -d           | `--data`            | Path to folder containing the data files to be submitted. (This will always point to /var/bulkLoad/data inside the container; a mount bind to this folder is required)                                                  |
  | -e           | `--extension`       | The extension name to download Xsd Schema files for                                                       |
  | -f           | `--force`           | (Default: false) Force reload of metadata from metadata url                                               |
  | -k           | `--key`             | The web API OAuth key                                                                                     |
@@ -34,7 +34,7 @@ ENV_FILE_LOG_LEVEL=<log level for file logs. default: DEBUG>
  | -r           | `--retries`         | The number of times to retry submitting a resource                                                        |
  | -s           | `--secret`          | The web API OAuth secret                                                                                  |
  | -t           | `--taskcapacity`    | Maximum concurrent tasks to be buffered                                                                   |
- | -w           | `--working`         | Path to a writable folder containing the working files, such as the swagger metadata cache and hash cache |
+ | -w           | `--working`         | Path to a writable folder containing the working files, such as the swagger metadata cache and hash cache. (This will always point to /var/bulkLoad/working inside the container; a mount bind to this folder is optional) |
  | -z           | `--xsdmetadataurl`  | The XSD metadata url (i.e. http://server/metadata)                                                        |
  |              | `--help`            | Display this list of options.                                                                             |
  |              | `--include-stats`   | Include timing stats.                                                                                     |
