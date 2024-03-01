@@ -271,7 +271,7 @@ function VendorsViewModel() {
 
         self.error("");
         self.confirmationDialog.show({
-            message: "This operation will permanently delete this vendor, and all dependency data will be lost.  " +
+            message: "Proceeding with this operation will permanently delete the selected vendor, along with all associated data. This action cannot be undone." +
                 "<br/><br/>" +
                 "This operation cannot be undone.",
             buttonText: "Delete",

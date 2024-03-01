@@ -123,34 +123,70 @@ var editApplicationDialog = function () {
 var addApplicationDialog = function () {
     var self = this;
 
-    self.applicationName = ko.observable('');
-    self.educationOrganizationId = ko.observable('');
+    self.applicationName = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter only letters',
+            params: /^[A-Za-z]+$/
+        }
+    });
+
+    self.educationOrganizationId = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter a valid number with at least six digits of educationOrganizationId',
+            params: /^\d{6,}$/
+        }
+    });
     self.vendorList = ko.observableArray();
     self.selectedVendor = ko.observable();
 
-    self.canAdd = ko.computed(function () {
-        return self.applicationName().length > 0;
-    });
 
     self.htmlId = "modal-add";
     var modal = new ModalController({ htmlId: self.htmlId });
+
+    var firstStepValidation = [
+        self.applicationName,
+        self.educationOrganizationId,
+        self.selectedVendor
+    ];
+
     this.onOkClicked = modal.onOkClicked;
 
     function VendorTemplate(data) {
         var self = this;
-        self.Id = ko.observable(data.id);
-        self.Name = ko.observable(data.name);
+        self.Id = ko.observable(data.Id);
+        self.Name = ko.observable(data.Name);
     }
 
     this.show = function (options) {
         self.applicationName('');
         self.educationOrganizationId('');
-        $.each(options.vendors, function (Id, Name) {
-            self.vendorList.push(new VendorTemplate(Name));
+        self.vendorList = ko.observableArray();
+
+        $.each(options.vendors, function (Id, data) {
+            if (data.Name !== "") {
+                self.vendorList.push(new VendorTemplate(data));
+            }
         });
+
+        var selectVendorData = {
+            Id: -1,
+            Name: "Select Vendor"
+        };
+        self.vendorList.push(new VendorTemplate(selectVendorData));
+
+        self.selectedVendor(self.vendorList().find(function (vendor) {
+            return vendor.Name === 'Select Vendor';
+        }));
 
         modal.show(options.callback);
     };
+
+    self.canAdd = ko.computed(function () {
+        var errors = ko.validation.group(firstStepValidation);
+        return errors().length === 0;
+    });
 };
 
 var ApplicationViewModel = function (data) {
@@ -230,9 +266,13 @@ function ApplicationsViewModel() {
                 url: EdFiAdmin.Urls.vendor,
                 dataType: 'json',
                 success: function (data, textStatus, jqXHR) {
-                    var vendors = data.map(function (item) {
-                        return { Id: item.Id, Name: item.Name };
-                    });
+                    var vendors = data
+                        .filter(function (item) {
+                            return item.Name.trim() !== ""; 
+                        })
+                        .map(function (item) {
+                            return { Id: item.Id, Name: item.Name };
+                        });
 
                     if (typeof callback === 'function') {
                         callback(vendors); 
@@ -333,7 +373,7 @@ function ApplicationsViewModel() {
 
         self.error("");
         self.confirmationDialog.show({
-            message: "This operation will permanently delete this application, and all dependency data will be lost.  " +
+            message: "Proceeding with this operation will permanently delete the selected application, along with all associated data." +
                 "<br/><br/>" +
                 "This operation cannot be undone.",
             buttonText: "Delete",
@@ -371,6 +411,17 @@ $(function () {
             options.data = JSON.stringify(options.data);
         }
     });
+
+    ko.validation.init({
+
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        errorClass: 'errorStyle',
+        messageTemplate: null
+
+    }, true);
 
     var viewModel = new ApplicationsViewModel();
     boundModel = viewModel;

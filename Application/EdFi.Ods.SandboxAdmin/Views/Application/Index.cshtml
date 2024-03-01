@@ -40,9 +40,9 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>Application Name </th>
+                    <th>Name </th>
                     <th>EducationOrganizationId</th>
-                    <th>Vendor Name</th>
+                    <th>Vendor</th>
                     <th></th>
                 </tr>
             </thead>
@@ -106,7 +106,7 @@
                     <div class="control-group">
                         <label class="control-label" >Vendor :</label>
                         <div class="controls">
-                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', optionsValue: 'Id'" class="dropdown"></select>
                         </div>
                     </div>
                 </fieldset>
@@ -117,7 +117,7 @@
                 </div>
                 <div>
                     <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="click: onOkClicked">Add</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
                 </div>
             </div>
         </div>
@@ -154,7 +154,7 @@
                     <div class="control-group">
                         <label class="control-label">Vendor :</label>
                         <div class="controls">
-                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Select a Vendor'" class="dropdown"></select>
                         </div>
                     </div>
                 </fieldset>
