@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 env:
-  INFORMATIONAL_VERSION: "13.7"
+  INFORMATIONAL_VERSION: "12.2"
   BUILD_INCREMENTER: "5"
   CONFIGURATION: "Release"
   SCRIPT_BUILD_POSTGRES_BINARIES: "Ed-Fi-ODS-Implementation/logistics/scripts/modules/postgres-binaries/build-postgres-binaries.psm1"
