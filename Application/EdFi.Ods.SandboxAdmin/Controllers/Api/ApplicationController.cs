@@ -77,7 +77,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 
             _clientAppRepo.DeleteApplication(application.ApplicationId);
 
-            var editApplication = _clientAppRepo.CreateOrGetApplication(applicationCreateModel.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId);
+            var editApplication = _clientAppRepo.CreateOrGetApplication(applicationCreateModel.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId, "Ed-Fi Sandbox", "uri://ed-fi-api-host.org");
 
             return Ok(ToApplicationIndexViewModel(editApplication));
         }
@@ -96,7 +96,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             {
                 return NotFound();
             }
-            var newApplication = _clientAppRepo.CreateOrGetApplication(vendor.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId);
+            var newApplication = _clientAppRepo.CreateOrGetApplication(vendor.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId, "Ed-Fi Sandbox", "uri://ed-fi-api-host.org");
             return Ok(ToApplicationIndexViewModel(newApplication));
 
 
