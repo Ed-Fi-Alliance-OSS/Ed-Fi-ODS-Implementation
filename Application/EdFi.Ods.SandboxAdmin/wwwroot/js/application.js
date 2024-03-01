@@ -292,7 +292,7 @@ function ApplicationsViewModel() {
         self.error("");
         var applicationName = self.addApplicationDialog.applicationName();
         var educationOrganizationId = parseInt(self.addApplicationDialog.educationOrganizationId());
-        var vendorId = self.addApplicationDialog.selectedVendor().Id;
+        var vendorId = self.addApplicationDialog.selectedVendor();
         $.ajax({
             type: "POST",
             data: { "ApplicationName": applicationName, "EducationOrganizationId": educationOrganizationId, "VendorId": vendorId },
@@ -321,7 +321,7 @@ function ApplicationsViewModel() {
         self.error("");
         var applicationName = self.editApplicationDialog.applicationName();
         var educationOrganizationId = parseInt(self.editApplicationDialog.educationOrganizationId());
-        var vendorId = self.editApplicationDialog.selectedVendor().Id();
+        var vendorId = self.editApplicationDialog.selectedVendor();
         var vendorName = self.editApplicationDialog.selectedVendor().Name();
         var applicationId = self.editApplicationDialog.applicationId();
         var application = self.editApplicationDialog.applicationObject();

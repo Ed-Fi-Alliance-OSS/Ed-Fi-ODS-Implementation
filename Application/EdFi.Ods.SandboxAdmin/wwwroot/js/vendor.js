@@ -88,11 +88,7 @@ var addApplicationDialog = function () {
         }
     });
     self.namespacePrefix = ko.observable().extend({
-        required: true,
-        pattern: {
-            message: 'Please enter a valid URL like uri://ed-fi.org',
-            params: /^uri:\/\/[\w.-]+\.[A-Za-z]{2,}$/
-        }
+        required: true
     });
 
     self.htmlId = "modal-add";
@@ -127,11 +123,7 @@ var editApplicationDialog = function () {
         }
     });
     self.namespacePrefix = ko.observable().extend({
-        required: true,
-        pattern: {
-            message: 'Please enter a valid URL like uri://ed-fi.org',
-            params: /^uri:\/\/[\w.-]+\.[A-Za-z]{2,}$/
-        }
+        required: true
     });
     self.vendorId = ko.observable('');
     self.vendorObject = ko.observable('');
