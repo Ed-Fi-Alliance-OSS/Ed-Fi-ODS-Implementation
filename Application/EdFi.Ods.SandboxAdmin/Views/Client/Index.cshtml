@@ -26,6 +26,11 @@
     </div>
 </div>
 <div class="row">
+    <div class="col text-right">
+        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Sandbox</button>
+    </div>
+</div>
+<div class="row">
     <fieldset>
         <legend>Existing Sandboxes</legend>
         <table class="table table-hover" id="clients-table">
@@ -86,7 +91,6 @@
                 </tr>
             </tfoot>
         </table>
-        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Sandbox</button>
     </fieldset>
 </div>
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">

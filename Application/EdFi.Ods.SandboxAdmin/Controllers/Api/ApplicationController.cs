@@ -57,31 +57,6 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             }
         }
 
-
-        [HttpPut("{id}")]
-        public IActionResult PutApplication(ApplicationIndexViewModel applicationCreateModel)
-        {
-
-            var applications = _clientAppRepo.GetApplications();
-            if (applications != null && applications.Any(a => a.ApplicationName == applicationCreateModel.ApplicationName))
-            {
-                var message = $"The Application {applicationCreateModel.ApplicationName} already exists, So Please edit the different application name. ";
-                return BadRequest(message);
-            }
-
-            var application = applications.Where(a => a.ApplicationId == applicationCreateModel.Id).FirstOrDefault();
-            if (application == null)
-            {
-                return NotFound();
-            }
-
-            _clientAppRepo.DeleteApplication(application.ApplicationId);
-
-            var editApplication = _clientAppRepo.CreateOrGetApplication(applicationCreateModel.VendorId, applicationCreateModel.ApplicationName, applicationCreateModel.EducationOrganizationId, "Ed-Fi Sandbox", "uri://ed-fi-api-host.org");
-
-            return Ok(ToApplicationIndexViewModel(editApplication));
-        }
-
         [HttpPost]
         public IActionResult PostApplication([FromBody] ApplicationCreateModel applicationCreateModel)
         {

@@ -27,10 +27,15 @@
         <strong>Error:</strong> <span data-bind="text: error"></span>
     </div>
 </div>
-
 <div class="row">
+    <div class="col text-right">
+        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Application</button>
+    </div>
+</div>
+<div class="container-fluid">
     <fieldset>
         <legend>Existing Applications</legend>
+        <div class="table-responsive">
         <table class="table table-hover" id="clients-table">
             <thead>
                 <tr>
@@ -51,9 +56,6 @@
                                     <span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sandbox-menu">
-                                    <a href="javascript:void(0)" data-bind="click: $parent.updateApplicationClicked" class="editApplication dropdown-item">
-                                        Edit
-                                    </a>
                                     <a href="javascript:void(0)" data-bind="click: $parent.deleteApplicationClicked" class="deleteApplication dropdown-item">
                                         Delete
                                     </a>
@@ -73,9 +75,9 @@
                 </tr>
             </tfoot>
         </table>
-        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Application</button>
+        </div>
     </fieldset>
-</div>
+ </div>
 
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
     <div class="modal-dialog">
@@ -113,54 +115,6 @@
                 <div>
                     <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
                     <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" data-bind="with: editApplicationDialog, attr: { id: editApplicationDialog.htmlId }" id="modal-edit">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Edit Application</h3>
-                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-            </div>
-            <div class="modal-body">
-                <fieldset>
-                    <div class="control-group">
-                        <label class="control-label" for="txtName5" style="display: none;">Application Id:</label>
-                        <div class="controls">
-                            <input id="txtName5" type="text" data-bind="value: applicationId, valueUpdate: 'keyup'" style="display: none;" class="form-control" placeholder="Application Id" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="txtName3">Application Name:</label>
-                        <div class="controls">
-                            <input id="txtName3" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Application" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label" for="txtName4">EducationOrganizationId:</label>
-                        <div class="controls">
-                            <input id="txtName4" type="text" data-bind="value: educationOrganizationId, valueUpdate: 'keyup'" class="form-control" placeholder="EducationOrganizationId" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <label class="control-label">Vendor :</label>
-                        <div class="controls">
-                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', optionsValue: 'Id', optionsCaption: 'Select a Vendor'" class="dropdown"></select>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-            <div class="modal-footer">
-                <div style="flex: 1">
-                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
-                </div>
-                <div>
-                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="click: onOkClicked">Save</button>
                 </div>
             </div>
         </div>

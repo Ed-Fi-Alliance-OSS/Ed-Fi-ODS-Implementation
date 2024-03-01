@@ -112,46 +112,6 @@ var addApplicationDialog = function () {
     });
 };
 
-var editApplicationDialog = function () {
-    var self = this;
-
-    self.vendorName = ko.observable().extend({
-        required: true,
-        pattern: {
-            message: 'Please enter only letters',
-            params: /^[A-Za-z]+$/
-        }
-    });
-    self.namespacePrefix = ko.observable().extend({
-        required: true
-    });
-    self.vendorId = ko.observable('');
-    self.vendorObject = ko.observable('');
-
-
-    self.htmlId = "modal-edit";
-    var modal = new ModalController({ htmlId: self.htmlId });
-    this.onOkClicked = modal.onOkClicked;
-
-    var firstStepValidation = [
-        self.vendorName,
-        self.namespacePrefix
-    ];
-
-    this.show = function (options, vendor) {
-        self.vendorName(vendor.Name());
-        self.namespacePrefix(vendor.NamespacePrefix());
-        self.vendorId(vendor.Id());
-        self.vendorObject(vendor);
-        modal.show(options.callback);
-    };
-
-    self.canEdit = ko.computed(function () {
-        var errors = ko.validation.group(firstStepValidation);
-        return errors().length === 0;
-    });
-};
-
 var VendorViewModel = function (data) {
     ko.mapping.fromJS(data, {}, this);
 
@@ -178,7 +138,6 @@ function VendorsViewModel() {
     self.error = ko.observable();
     self.confirmationDialog = new confirmationDialog();
     self.addApplicationDialog = new addApplicationDialog();
-    self.editApplicationDialog = new editApplicationDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.vendors().length > 0;
@@ -253,32 +212,6 @@ function VendorsViewModel() {
         });
     };
 
-    self.doEditVendor = function (onComplete) {
-
-        self.error("");
-        var vendorName = self.editApplicationDialog.vendorName();
-        var namespacePrefix = self.editApplicationDialog.namespacePrefix();
-        var vendorId = self.editApplicationDialog.vendorId();
-        var vendor = self.editApplicationDialog.vendorObject();
-        
-        $.ajax({
-            type: "PUT",
-            data: { "Name": vendorName, "NamespacePrefix": namespacePrefix, "Id": vendorId },
-            url: EdFiAdmin.Urls.vendor + "/" + vendorId,
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                var updatedVendor = new VendorViewModel(data);
-                self.vendors.replace(vendor, updatedVendor);
-                onComplete();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                self.error(jqXHR.responseText);
-                onComplete();
-                return 0;
-            }
-        });
-    };
-
     self.deleteVendorClicked = function (Vendor) {
         var deleteVendor = function (onComplete) {
            var VendorData = ko.mapping.toJS(Vendor);
@@ -311,10 +244,6 @@ function VendorsViewModel() {
     self.addVendorClicked = function () {
         self.addApplicationDialog.show({ callback: self.doAddVendor });
     };
-    self.updateVendorClicked = function (vendor) {
-        self.editApplicationDialog.show({ callback: self.doEditVendor }, vendor);
-    };
-
     // Load the original data
     self.getData();
 }

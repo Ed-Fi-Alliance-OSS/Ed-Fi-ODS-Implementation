@@ -77,49 +77,6 @@ var confirmationDialog = function () {
     };
 };
 
-var editApplicationDialog = function () {
-    var self = this;
-
-    self.applicationName = ko.observable('');
-    self.educationOrganizationId = ko.observable('');
-    self.vendorList = ko.observableArray();
-    self.selectedVendor = ko.observable();
-    self.applicationId = ko.observable('');
-    self.applicationObject = ko.observable('');
-
-    self.canAdd = ko.computed(function () {
-        return self.applicationName().length > 0;
-    });
-
-    self.htmlId = "modal-edit";
-    var modal = new ModalController({ htmlId: self.htmlId });
-    this.onOkClicked = modal.onOkClicked;
-
-    function VendorTemplate(data) {
-        var self = this;
-        self.Id = ko.observable(data.Id);
-        self.Name = ko.observable(data.Name);
-    }
-
-    this.show = function (options) {
-
-        self.applicationObject(options.application);
-        self.applicationName(options.application.ApplicationName());
-        self.educationOrganizationId(options.application.EducationOrganizationId());
-        self.applicationId(options.application.Id());
-
-        $.each(options.vendors, function (Id, data) {
-            self.vendorList.push(new VendorTemplate(data));
-        });
-
-        var selectedVendor = self.vendorList().find(function (vendor) {
-            return vendor.Name() === options.application.VendorName();
-        });
-
-        self.selectedVendor(selectedVendor || null);
-        modal.show(options.callback);
-    };
-};
 var addApplicationDialog = function () {
     var self = this;
 
@@ -214,7 +171,6 @@ function ApplicationsViewModel() {
     self.error = ko.observable();
     self.confirmationDialog = new confirmationDialog();
     self.addApplicationDialog = new addApplicationDialog();
-    self.editApplicationDialog = new editApplicationDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.applications().length > 0;
@@ -317,40 +273,6 @@ function ApplicationsViewModel() {
         });
     };
 
-    self.doEditApplication = function (onComplete) {
-        self.error("");
-        var applicationName = self.editApplicationDialog.applicationName();
-        var educationOrganizationId = parseInt(self.editApplicationDialog.educationOrganizationId());
-        var vendorId = self.editApplicationDialog.selectedVendor();
-        var vendorName = self.editApplicationDialog.selectedVendor().Name();
-        var applicationId = self.editApplicationDialog.applicationId();
-        var application = self.editApplicationDialog.applicationObject();
-
-        $.ajax({
-            type: "PUT",
-            data: { "ApplicationName": applicationName, "EducationOrganizationId": educationOrganizationId, "VendorId": vendorId, "Id": applicationId, "VendorName": vendorName },
-            url: EdFiAdmin.Urls.application + "/" + applicationId,
-            dataType: 'json',
-            success: function (data, textStatus, jqXHR) {
-                
-                var updatedApplication = new ApplicationViewModel(data);
-                self.applications.replace(application, updatedApplication);
-                onComplete();
-                if (updatedApplication.IsLoading) {
-                    with (self) { setTimeout(function () { getData(); }, 3000); }
-                }
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                onComplete();
-                switch (jqXHR.status) {
-                    default:
-                        self.error(textStatus);
-                }
-                return 0;
-            }
-        });
-    };
-
     self.deleteApplicationClicked = function (application) {
         var deleteApplication = function (onComplete) {
             var applicationData = ko.mapping.toJS(application);
@@ -388,12 +310,6 @@ function ApplicationsViewModel() {
         });
     };
 
-    self.updateApplicationClicked = function (application) {
-        self.getVendors(function (vendors) {
-            self.editApplicationDialog.vendorList(vendors);
-            self.editApplicationDialog.show({ callback: self.doEditApplication, application, vendors });
-        });
-    };
     // Load the original data
     self.getData();
 }

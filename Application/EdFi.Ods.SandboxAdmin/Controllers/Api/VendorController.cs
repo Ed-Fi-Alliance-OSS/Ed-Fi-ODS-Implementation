@@ -85,29 +85,6 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
             return Ok(ToVendorIndexViewModel(newVendor));
         }
 
-        [HttpPut("{id}")]
-        public IActionResult PutVendor(VendorIndexViewModel vendorCreateModel)
-        {
-            var vendors = _clientAppRepo.GetVendors();
-            if (vendors != null && vendors.Any(a => a.VendorName == vendorCreateModel.Name))
-            {
-                var message = $"The Vendor {vendorCreateModel.Name} already exists, So Please edit the different vendor name. ";
-                return BadRequest(message);
-            }
-
-            var vendor = vendors.Where(a => a.VendorId == vendorCreateModel.Id).FirstOrDefault();
-
-            if (vendor == null)
-            {
-                return NotFound();
-            }
-
-            _clientAppRepo.DeleteVendor(vendor.VendorId);
-
-            var editVendor = _clientAppRepo.CreateOrGetVendor(vendorCreateModel.Name, new string[] { vendorCreateModel.NamespacePrefix });
-            return Ok(ToVendorIndexViewModel(editVendor));
-        }
-
         [HttpDelete("{id}")]
         public IActionResult DeleteVendor(int id)
         {
