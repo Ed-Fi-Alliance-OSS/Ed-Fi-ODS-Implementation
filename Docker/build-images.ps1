@@ -73,6 +73,11 @@ param (
     [string]
     $SandboxVersion = $env:SANDBOX_VERSION,
 
+    # NuGet package version for the Ed-Fi BulkLoad Client Console application.
+    [Parameter()]
+    [string]
+    $BulkLoadVersion = $env:BULKLOAD_VERSION,
+
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
     [string]
@@ -202,3 +207,6 @@ Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql `
 
 Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql `
     -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+
+Invoke-Build -ImageName ods-api-bulk-load-console -Path alpine `
+    -BuildArgs "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
