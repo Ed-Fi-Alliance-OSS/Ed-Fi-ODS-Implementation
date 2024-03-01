@@ -80,11 +80,19 @@ var confirmationDialog = function () {
 
 var addApplicationDialog = function () {
     var self = this;
-
-    self.vendorName = ko.observable('');
-    self.namespacePrefix = ko.observable('');
-    self.canAdd = ko.computed(function () {
-        return self.vendorName().length > 0;
+    self.vendorName = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter only letters',
+            params: /^[A-Za-z]+$/
+        }
+    });
+    self.namespacePrefix = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter a valid URL like uri://ed-fi.org',
+            params: /^uri:\/\/[\w.-]+\.[A-Za-z]{2,}$/
+        }
     });
 
     self.htmlId = "modal-add";
@@ -96,22 +104,47 @@ var addApplicationDialog = function () {
         self.namespacePrefix('');
         modal.show(options.callback);
     };
+
+    var firstStepValidation = [
+        self.vendorName,
+        self.namespacePrefix
+    ];
+
+    self.canAdd = ko.computed(function () {
+        var errors = ko.validation.group(firstStepValidation);
+        return errors().length === 0;
+    });
 };
 
 var editApplicationDialog = function () {
     var self = this;
 
-    self.vendorName = ko.observable('');
-    self.namespacePrefix = ko.observable('');
+    self.vendorName = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter only letters',
+            params: /^[A-Za-z]+$/
+        }
+    });
+    self.namespacePrefix = ko.observable().extend({
+        required: true,
+        pattern: {
+            message: 'Please enter a valid URL like uri://ed-fi.org',
+            params: /^uri:\/\/[\w.-]+\.[A-Za-z]{2,}$/
+        }
+    });
     self.vendorId = ko.observable('');
     self.vendorObject = ko.observable('');
-    self.canEdit = ko.computed(function () {
-        return self.vendorName().length > 0;
-    });
+
 
     self.htmlId = "modal-edit";
     var modal = new ModalController({ htmlId: self.htmlId });
     this.onOkClicked = modal.onOkClicked;
+
+    var firstStepValidation = [
+        self.vendorName,
+        self.namespacePrefix
+    ];
 
     this.show = function (options, vendor) {
         self.vendorName(vendor.Name());
@@ -120,10 +153,14 @@ var editApplicationDialog = function () {
         self.vendorObject(vendor);
         modal.show(options.callback);
     };
+
+    self.canEdit = ko.computed(function () {
+        var errors = ko.validation.group(firstStepValidation);
+        return errors().length === 0;
+    });
 };
 
 var VendorViewModel = function (data) {
-    var self = this;
     ko.mapping.fromJS(data, {}, this);
 
 };
@@ -302,6 +339,18 @@ $(function () {
             options.data = JSON.stringify(options.data);
         }
     });
+
+
+    ko.validation.init({
+
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        errorClass: 'errorStyle',
+        messageTemplate: null
+
+    }, true);
 
     var viewModel = new VendorsViewModel();
     boundModel = viewModel;

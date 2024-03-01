@@ -190,7 +190,6 @@ var addApplicationDialog = function () {
 };
 
 var ApplicationViewModel = function (data) {
-    var self = this;
     ko.mapping.fromJS(data, {}, this);
 };
 
