@@ -16,7 +16,6 @@ using log4net;
 using log4net.Config;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 
 namespace EdFi.Ods.SandboxAdmin
 {
