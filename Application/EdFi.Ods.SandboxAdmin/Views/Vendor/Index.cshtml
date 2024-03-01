@@ -41,6 +41,8 @@
                     <th></th>
                     <th>Name</th>
                     <th>Namespace Prefix</th>
+                    <th>Contact Name</th>
+                    <th>Contact Email Address</th>
                     <th></th>
                 </tr>
             </thead>
@@ -63,6 +65,8 @@
                     </td>
                     <td data-bind="text: Name" class="vendor-name"></td>
                     <td data-bind="text: NamespacePrefix" class="namespaceprefix-name"></td>
+                    <td data-bind="text: ContactName" class="contactName-name"></td>
+                    <td data-bind="text: ContactEmailAddress" class="contactEmailAddress-name"></td>
                     <td data-bind="text: Id" class="vendor-id" style="display: none;"></td>
                 </tr>
             </tbody>
@@ -94,6 +98,18 @@
                         <label class="control-label" for="txtName2">Namespace Prefix:</label>
                         <div class="controls">
                             <input id="txtName2" type="text" data-bind="value: namespacePrefix, valueUpdate: 'keyup'" class="form-control" placeholder="Namespace Prefix" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName1">Contact Name:</label>
+                        <div class="controls">
+                            <input id="txtName3" type="text" data-bind="value: contactName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Contact" />
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <label class="control-label" for="txtName1">Contact Email Adress:</label>
+                        <div class="controls">
+                            <input id="txtName4" type="email" data-bind="value: contactEmailAddress, valueUpdate: 'keyup'" class="form-control" placeholder="Email Address" />
                         </div>
                     </div>
                 </fieldset>

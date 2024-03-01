@@ -63,11 +63,16 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         private VendorIndexViewModel ToVendorIndexViewModel(Vendor vendor)
         {
             var namespacePrefix = vendor.VendorNamespacePrefixes.Select(a => a.NamespacePrefix).FirstOrDefault();
+
+            var user = vendor.Users.Where(a => a.Vendor.VendorId == vendor.VendorId).FirstOrDefault();
+
             VendorIndexViewModel viewModel = new VendorIndexViewModel
             {
                 Id = vendor.VendorId,
                 Name = vendor.VendorName,
-                NamespacePrefix = namespacePrefix
+                NamespacePrefix = namespacePrefix,
+                ContactName = user.FullName,
+                ContactEmailAddress = user.Email
             };
             return viewModel;
         }
@@ -81,7 +86,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 var message = $"The Vendor {vendorCreateModel.VendorName} already exists!";
                 return BadRequest(message);
             }
-            var newVendor = _clientAppRepo.CreateOrGetVendor(vendorCreateModel.VendorName, new string[] { vendorCreateModel.NamespacePrefix });
+            var newVendor = _clientAppRepo.CreateOrGetVendor(vendorCreateModel.VendorName, new string[] { vendorCreateModel.NamespacePrefix },vendorCreateModel.ContactName,vendorCreateModel.ContactEmailAddress);
             return Ok(ToVendorIndexViewModel(newVendor));
         }
 

@@ -91,6 +91,14 @@ var addApplicationDialog = function () {
         required: true
     });
 
+    self.contactName = ko.observable().extend({
+        required: true
+    });
+
+    self.contactEmailAddress = ko.observable().extend({
+        required: true
+    });
+
     self.htmlId = "modal-add";
     var modal = new ModalController({ htmlId: self.htmlId });
     this.onOkClicked = modal.onOkClicked;
@@ -98,6 +106,8 @@ var addApplicationDialog = function () {
     this.show = function (options) {
         self.vendorName('');
         self.namespacePrefix('');
+        self.contactName('');
+        self.contactEmailAddress('');
         modal.show(options.callback);
     };
 
@@ -185,9 +195,11 @@ function VendorsViewModel() {
         self.error("");
         var vendorName = self.addApplicationDialog.vendorName();
         var namespacePrefix = self.addApplicationDialog.namespacePrefix();
+        var contactName = self.addApplicationDialog.contactName();
+        var contactEmailAddress = self.addApplicationDialog.contactEmailAddress();
         $.ajax({
             type: "POST",
-            data: { "VendorName": vendorName, "NamespacePrefix": namespacePrefix },
+            data: { "VendorName": vendorName, "NamespacePrefix": namespacePrefix, "ContactName": contactName, "ContactEmailAddress": contactEmailAddress },
             url: EdFiAdmin.Urls.vendor,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {

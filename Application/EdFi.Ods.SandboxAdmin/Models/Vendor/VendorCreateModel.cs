@@ -10,5 +10,9 @@ namespace EdFi.Ods.SandboxAdmin.Models.Vendor
         public string VendorName { get; set; }
 
         public string NamespacePrefix { get; set; }
+
+        public string ContactName { get; set; }
+
+        public string ContactEmailAddress { get; set; }
     }
 }
