@@ -3,7 +3,7 @@
   "profiles": {
     "EdFi.Ods.Api.IntegrationTestHarness": {
       "commandName": "Project",
-      "commandLineArgs": "--configurationFilePath=C:\\edfi\\Ed-Fi-ODS-Implementation\\logistics\\scripts\\modules\\postmanTestHarnessConfiguration.json --environmentFilePath=C:\\edfi\\Ed-Fi-ODS-Implementation\\logistics\\scripts\\modules --environment=Development",
+      "commandLineArgs": "--configurationFilePath=$(ProjectDir)\\..\\..\\logistics\\scripts\\modules\\postmanTestHarnessConfiguration.json --environmentFilePath=$(ProjectDir)\\..\\..\\logistics\\scripts\\modules --environment=Development",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
