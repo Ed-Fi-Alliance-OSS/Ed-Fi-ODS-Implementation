@@ -272,7 +272,10 @@ Function Invoke-RebuildSolution {
 
         $engine = (Get-DeploymentSettings).Engine
         if ([string]::IsNullOrEmpty($engine)){
-            $engine = "SQLServer"
+            $engine = "SqlServer"
+        } 
+        if ($engine -eq "SQLServer"){
+            $engine = "SqlServer"
         }
 
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
