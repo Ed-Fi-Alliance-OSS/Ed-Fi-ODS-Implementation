@@ -160,7 +160,8 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                         {
                             Type = sandboxClient.SandboxType
                         },
-                        profile);
+                        profile,
+                        sandboxClient.ApplicationId);
 
                     await AddClientStatusInfo(newClient);
                     return Ok(ToClientIndexViewModel(newClient));

@@ -3,17 +3,12 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using EdFi.Admin.DataAccess;
-
-namespace EdFi.Ods.SandboxAdmin.Models.Client
+namespace EdFi.Ods.SandboxAdmin.Models.Application
 {
-    public class SandboxClientCreateModel
+    public class ApplicationCreateModel
     {
-        public string Name { get; set; }
-
-        public SandboxType SandboxType { get; set; }
-
-        public int ApplicationId { get; set; }
-
+        public string ApplicationName { get; set; }
+        public long EducationOrganizationId { get; set; }
+        public int VendorId { get; set; }
     }
 }

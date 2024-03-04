@@ -10,7 +10,8 @@
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
-<script src="~/js/client.js"></script>
+<script src="~/js/application.js"></script>
+
 
 <div class="row">
     <div class="jumbotron">
@@ -20,6 +21,7 @@
         </p>
     </div>
 </div>
+
 <div class="row">
     <div class="alert alert-danger" data-bind="visible: error">
         <strong>Error:</strong> <span data-bind="text: error"></span>
@@ -27,27 +29,24 @@
 </div>
 <div class="row">
     <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Sandbox</button>
+        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Application</button>
     </div>
 </div>
-<div class="row">
+<div class="container-fluid">
     <fieldset>
-        <legend>Existing Sandboxes</legend>
+        <legend>Existing Applications</legend>
+        <div class="table-responsive">
         <table class="table table-hover" id="clients-table">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Application</th>
-                    <th>Name</th>
-                    <th>Key</th>
-                    <th>Secret</th>
-                    <th>Operational Context</th>
-                    <th>Sample Data</th>
-                    <th>Status</th>
+                    <th>Name </th>
+                    <th>EducationOrganizationId</th>
+                    <th>Vendor</th>
                     <th></th>
                 </tr>
             </thead>
-            <tbody data-bind="foreach: apiClients">
+            <tbody data-bind="foreach: applications">
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
                         <div class="btn-group">
@@ -57,70 +56,54 @@
                                     <span class="caret"></span>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="sandbox-menu">
-                                    <a href="javascript:void(0)" data-bind="click: $parent.updateClientClicked" class="changeSecret dropdown-item">
-                                        Change Secret
-                                    </a>
-                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteClientClicked" class="deleteApplication dropdown-item">
+                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteApplicationClicked" class="deleteApplication dropdown-item">
                                         Delete
-                                    </a>
-                                    <a href="javascript:void(0)" data-bind="click: $parent.tokenClientClicked" class="tokenClient dropdown-item">
-                                        Get Token
-                                    </a>
-                                    <a href="javascript:void(0)" data-bind="click: $parent.resetSandboxClicked" class="resetSandbox dropdown-item">
-                                        Reset Sandbox
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </td>
+                    <td data-bind="text: Id" class="application-id" style="display: none;"></td>
                     <td data-bind="text: ApplicationName" class="application-name"></td>
-                    <td data-bind="text: Name" class="client-name"></td>
-                    <td data-bind="text: Key" class="application-key"></td>
-                    <td data-bind="text: Secret" class="application-secret"></td>
-                    <td data-bind="text: OperationalContextUri" class="operational-context-name"></td>
-                    <td data-bind="text: HasSampleData" class="application-has-sample-data"></td>
-                    <td data-bind="text: Status" class="application-status"></td>
-                    <td>
-                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon wait-spinner" data-bind="visible: IsLoading"></span>
-                    </td>
+                    <td data-bind="text: EducationOrganizationId" class="application-key"></td>
+                    <td data-bind="text: VendorName" class="operational-context-name"></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="8" data-bind="text: clientStatus"></th>
+                    <th colspan="5" data-bind="text: applicationStatus"></th>
                 </tr>
             </tfoot>
         </table>
+        </div>
     </fieldset>
-</div>
+ </div>
+
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title">Add Sandbox</h3>
+                <h3 class="modal-title">Add Application</h3>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
             </div>
             <div class="modal-body">
                 <fieldset>
-                    <p>Creating new sandboxes -- especially populated sandboxes may take a few minutes.</p>
                     <div class="control-group">
-                        <label class="control-label" for="txtName">Sandbox Name:</label>
+                        <label class="control-label" for="txtName1">Application Name:</label>
                         <div class="controls">
-                            <input id="txtName" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Sandbox" />
+                            <input id="txtName1" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Application" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Application:</label>
+                        <label class="control-label" for="txtName2">EducationOrganizationId:</label>
                         <div class="controls">
-                            <select data-bind="options: applicationList, value:selectedApplication, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                            <input id="txtName2" type="text" data-bind="value: educationOrganizationId, valueUpdate: 'keyup'" class="form-control" placeholder="EducationOrganizationId" />
                         </div>
                     </div>
-                    <div class="control-group mt-2">
-                        <div class="checkbox">
-                            <label>
-                                <input id="checkbox-usesampledata" type="checkbox" data-bind="checked: useSampleData" />
-                                <strong>Populate with sample data</strong>
-                            </label>
+                    <div class="control-group">
+                        <label class="control-label" >Vendor :</label>
+                        <div class="controls">
+                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', optionsValue: 'Id'" class="dropdown"></select>
                         </div>
                     </div>
                 </fieldset>
@@ -137,7 +120,6 @@
         </div>
     </div>
 </div>
-
 <div class="modal fade" tabindex="-1" id="modal-confirm" data-bind="with: confirmationDialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -168,58 +150,6 @@
                 <div>
                     <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
                     <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" id="modal-token" data-bind="with: tokenDialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Your temporary access token for this application is :</h3>
-                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-            </div>
-            <div class="modal-body">
-                <div class="row-fluid">
-                    <div class="span10">
-                        <p data-bind="html: message"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div style="flex: 1">
-                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
-                </div>
-                <div>
-                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="modal fade" tabindex="-1" id="modal-reset" data-bind="with: resetDialog">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Reset Sandbox</h3>
-                <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-            </div>
-            <div class="modal-body">
-                <div class="row-fluid">
-                    <div class="span10">
-                        <p data-bind="html: message"></p>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div style="flex: 1">
-                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
-                </div>
-                <div>
-                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

@@ -63,7 +63,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             return Int32.Parse(configValue);
         }
 
-        public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
+        public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null)
         {
             if (user.ApiClients.Count >= _maximumSandboxesPerUser)
             {
@@ -73,7 +73,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
-            var apiClient = ResetSandboxClient(sandboxName, sandboxOptions, user);
+            var apiClient = ResetSandboxClient(sandboxName, sandboxOptions, user, applicationId);
 
             var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
 
@@ -93,9 +93,9 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             return apiClient;
         }
 
-        public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
+        public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null)
         {
-            var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user);
+            var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user, applicationId);
 
             ProvisionSandbox(client);
 
@@ -108,10 +108,18 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             return client;
         }
 
-        private ApiClient SetupDefaultSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user)
+        private ApiClient SetupDefaultSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null)
         {
-            var defaultApplication = _defaultApplicationCreator
-                .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
+            Application application;
+            if (applicationId == null)
+            {
+                application = _defaultApplicationCreator
+                    .FindOrCreateUpdatedDefaultSandboxApplication(user.Vendor.VendorId, sandboxOptions.Type);
+            }
+            else
+            {
+                application = _clientAppRepo.GetApplication((int)applicationId);
+            }
 
             return _clientAppRepo.SetupDefaultSandboxClient(
                 sandboxName,
@@ -119,7 +127,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 sandboxOptions.Key,
                 sandboxOptions.Secret,
                 user.UserId,
-                defaultApplication.ApplicationId);
+                application.ApplicationId);
         }
 
         private void ProvisionSandbox(ApiClient client)

@@ -124,6 +124,8 @@ var AddApplicationDialog = function () {
 
     self.applicationName = ko.observable('');
     self.useSampleData = ko.observable(false);
+    self.applicationList = ko.observableArray();
+    self.selectedApplication = ko.observable();
     self.canAdd = ko.computed(function () {
         return self.applicationName().length > 0;
     });
@@ -132,9 +134,17 @@ var AddApplicationDialog = function () {
     var modal = new ModalController({ htmlId: self.htmlId });
     this.onOkClicked = modal.onOkClicked;
 
+    function ApplicationTemplate(data) {
+        var self = this;
+        self.Id = ko.observable(data.id);
+        self.Name = ko.observable(data.name);
+    }
     this.show = function (options) {
         self.applicationName('');
         self.useSampleData(false);
+        $.each(options.applications, function (Id, Name) {
+            self.applicationList.push(new ApplicationTemplate(Name));
+        });
         modal.show(options.callback);
     };
 };
@@ -217,9 +227,10 @@ function ClientsViewModel() {
         self.error("");
         var applicationName = self.addApplicationDialog.applicationName();
         var sandboxType = self.addApplicationDialog.useSampleData() ? "sample" : "minimal";
+        var applicationId = self.addApplicationDialog.selectedApplication().Id;
         $.ajax({
             type: "POST",
-            data: { "Name": applicationName, "SandboxType": sandboxType, "IsDedicated": true },
+            data: { "Name": applicationName, "SandboxType": sandboxType, "IsDedicated": true, "ApplicationId": applicationId },
             url: EdFiAdmin.Urls.client,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
@@ -360,8 +371,36 @@ function ClientsViewModel() {
         });
     };
 
+    self.getApplications = function (callback) {
+        $.ajax(
+            {
+                type: "GET",
+                url: EdFiAdmin.Urls.application,
+                dataType: 'json',
+                success: function (data, textStatus, jqXHR) {
+                    var applications = data.map(function (item) {
+                        return { Id: item.Id, Name: item.ApplicationName };
+                    });
+
+                    if (typeof callback === 'function') {
+                        callback(applications);
+                    }
+
+                    if (!IsFullyLoaded(data)) {
+                        with (self) { setTimeout(function () { getApplications(); }, 3000); }
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    self.error(errorThrown);
+                    return 0;
+                }
+            });
+    };
     self.addApplicationClicked = function () {
-        self.addApplicationDialog.show({ callback: self.doAddClient });
+        self.getApplications(function (applications) {
+            self.addApplicationDialog.applicationList(applications);
+            self.addApplicationDialog.show({ callback: self.doAddClient, applications });
+        });
     };
 
     // Load the original data

@@ -13,6 +13,8 @@ function setUrls() {
     urls.logout = urls.home + '/account/logout';
     urls.client = urls.apiBase + '/client';
     urls.sandbox = urls.apiBase + '/sandbox';
+    urls.vendor = urls.apiBase + '/vendor';
+    urls.application = urls.apiBase + '/application';
 }
 
 function setWindowOrigin() {

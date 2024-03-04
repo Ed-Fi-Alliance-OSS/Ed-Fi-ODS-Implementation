@@ -10,8 +10,8 @@ namespace EdFi.Ods.SandboxAdmin.Services
 {
     public interface IClientCreator
     {
-        ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user);
+        ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null);
 
-        ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user);
+        ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null);
     }
 }
