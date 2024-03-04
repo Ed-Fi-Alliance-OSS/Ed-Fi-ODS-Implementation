@@ -159,7 +159,7 @@ function Initialize-DevelopmentEnvironment {
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
-            $script:result += Invoke-RebuildSolution
+            $script:result += Invoke-RebuildSolution -engine $Engine
         }
 
         $script:result += Install-DbDeploy
@@ -251,7 +251,8 @@ Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
+        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
+        [string] $engine = "SqlServer"
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -261,6 +262,7 @@ Function Invoke-RebuildSolution {
             Path               = $solutionPath
             BuildConfiguration = $buildConfiguration
             LogVerbosityLevel  = $verbosity
+            Engine             = $engine
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
@@ -270,14 +272,18 @@ Function Invoke-RebuildSolution {
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
-        $engine = (Get-DeploymentSettings).Engine
+        
         if ([string]::IsNullOrEmpty($engine)){
             $engine = "SqlServer"
         } 
         if ($engine -eq "SQLServer"){
             $engine = "SqlServer"
-        }
+        } 
 
+        Write-Host ("----------------------------------------------------------")
+        Write-Host $engine
+        Write-Host ("----------------------------------------------------------")
+        
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
         & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath -p:Engine=$engine | Out-Host
 
