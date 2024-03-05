@@ -25,22 +25,20 @@ namespace EdFi.Ods.SandboxAdmin
 
         public static async Task Main(string[] args)
         {
-            ConfigureLogging(args.Any(x => x.EqualsIgnoreCase("development")));
-
-            var logger = LogManager.GetLogger(typeof(Program));
-            logger.Debug("Loading configuration files");
-
             var result = Parser.Default.ParseArguments<Options>(args);
 
             await result.MapResult(
                 async (Options opts) =>
                 {
+                    ConfigureLogging(opts.CommandLineEnvironment.Equals("development", StringComparison.OrdinalIgnoreCase));
+
                     var host = Host.CreateDefaultBuilder(args)
                         .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                         .ConfigureWebHostDefaults(
                             webBuilder =>
                             {
                                 webBuilder.ConfigureKestrel(serverOptions => serverOptions.AddServerHeader = false);
+                                webBuilder.UseSetting("ExitAfterSandboxCreation", opts.ExitAfterSandboxCreation.ToString());
                                 webBuilder.UseStartup<Startup>();
                             }).Build();
                     
@@ -50,8 +48,6 @@ namespace EdFi.Ods.SandboxAdmin
                 {
                     var helpText = HelpText.AutoBuild(
                         result, h => { return HelpText.DefaultParsingErrorsHandler(result, h); }, e => { return e; });
-
-                    logger.Info(helpText);
                     Environment.Exit(Error);
                     return Task.CompletedTask;
                 });
