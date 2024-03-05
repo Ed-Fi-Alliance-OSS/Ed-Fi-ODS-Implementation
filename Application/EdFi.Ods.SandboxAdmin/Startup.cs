@@ -25,7 +25,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Quartz;
-using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
+using UserOptions = EdFi.Ods.Sandbox.Admin.Services.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
 {

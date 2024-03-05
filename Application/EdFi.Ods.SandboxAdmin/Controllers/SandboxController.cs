@@ -9,7 +9,7 @@ using System.Linq;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.Ods.SandboxAdmin.Models.Sandbox;
+using EdFi.Ods.SandboxAdmin.Services.Models.Sandbox;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

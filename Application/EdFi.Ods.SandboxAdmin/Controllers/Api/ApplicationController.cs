@@ -8,8 +8,8 @@ using System.Diagnostics;
 using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Ods.SandboxAdmin.Models.Application;
-using EdFi.Ods.SandboxAdmin.Models.Vendor;
+using EdFi.Ods.SandboxAdmin.Services.Models.Application;
+using EdFi.Ods.SandboxAdmin.Services.Models.Vendor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 

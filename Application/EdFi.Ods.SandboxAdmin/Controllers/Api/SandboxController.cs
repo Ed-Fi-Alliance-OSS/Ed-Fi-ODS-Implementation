@@ -4,7 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.Ods.SandboxAdmin.Security;
+using EdFi.Ods.SandboxAdmin.Services.Security;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
