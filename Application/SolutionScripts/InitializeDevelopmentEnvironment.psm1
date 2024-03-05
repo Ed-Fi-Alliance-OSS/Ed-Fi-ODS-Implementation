@@ -79,6 +79,8 @@ function Initialize-DevelopmentEnvironment {
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
+    .parameter JavaPath
+        Path to the java executable (used for SDK generation).
     #>
     param(
         [ValidateSet('Sandbox', 'SharedInstance', 'YearSpecific', 'DistrictSpecific')]
@@ -116,7 +118,9 @@ function Initialize-DevelopmentEnvironment {
 
         [String] $RepositoryRoot,
 
-        [string] $PackageVersion
+        [string] $PackageVersion,
+
+        [String] $JavaPath
     )
 
     if ((-not [string]::IsNullOrWhiteSpace($OdsTokens)) -and ($InstallType -ine 'YearSpecific') -and ($InstallType -ine 'DistrictSpecific')) {
@@ -155,7 +159,7 @@ function Initialize-DevelopmentEnvironment {
         if (-not $ExcludeCodeGen) { $script:result += Invoke-CodeGen -Engine $Engine -RepositoryRoot $RepositoryRoot }
 
         if (-not $NoRebuild) {
-            $script:result += Invoke-RebuildSolution
+            $script:result += Invoke-RebuildSolution -engine $Engine
         }
 
         $script:result += Install-DbDeploy
@@ -184,7 +188,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $JavaPath }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -247,7 +251,8 @@ Function Invoke-RebuildSolution {
     Param(
         [string] $buildConfiguration = "Debug",
         [string] $verbosity = "minimal",
-        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln")
+        [string] $solutionPath = (Get-RepositoryResolvedPath "Application/Ed-Fi-Ods.sln"),
+        [string] $engine = "SqlServer"
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         if ((Get-DeploymentSettings).Engine -eq 'PostgreSQL') { $buildConfiguration = 'Npgsql' }
@@ -257,6 +262,7 @@ Function Invoke-RebuildSolution {
             Path               = $solutionPath
             BuildConfiguration = $buildConfiguration
             LogVerbosityLevel  = $verbosity
+            Engine             = $engine
         }
 
         ($params).GetEnumerator() | Sort-Object -Property Name | Format-Table -HideTableHeaders -AutoSize -Wrap | Out-Host
@@ -266,8 +272,20 @@ Function Invoke-RebuildSolution {
         $solutionFileName = (Get-ItemProperty -LiteralPath $solutionPath).Name
         $buildLogFilePath = (Join-Path -Path $BuildLogDirectoryPath -ChildPath $solutionFileName) + ".msbuild.log"
 
+        
+        if ([string]::IsNullOrEmpty($engine)){
+            $engine = "SqlServer"
+        } 
+        if ($engine -eq "SQLServer"){
+            $engine = "SqlServer"
+        } 
+
+        Write-Host ("----------------------------------------------------------")
+        Write-Host $engine
+        Write-Host ("----------------------------------------------------------")
+        
         Write-Host -ForegroundColor Magenta "& dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath"
-        & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath | Out-Host
+        & dotnet build $solutionPath -c $buildConfiguration -v $verbosity /flp:v=$verbosity /flp:logfile=$buildLogFilePath -p:Engine=$engine | Out-Host
 
         # If we can't find the build's log file in order to inspect it, write a warning and return null.
         if (!(Test-Path -LiteralPath $buildLogFilePath -PathType Leaf)) {
@@ -450,11 +468,12 @@ function Invoke-SdkGen {
     param(
         [Boolean] $GenerateApiSdkPackage,
         [Boolean] $GenerateTestSdkPackage,
-        [string] $PackageVersion
+        [string] $PackageVersion,
+        [String] $JavaPath
     )
     
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -javaPath $JavaPath
     }
 }
 

@@ -30,6 +30,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
+          ref: ${{ github.head_ref }}
     - name: New-PostgresBinariesPackage
       shell: pwsh
       run: |
