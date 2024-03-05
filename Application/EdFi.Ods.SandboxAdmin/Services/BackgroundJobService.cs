@@ -7,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Sandbox.Admin.Initialization;
-using log4net;
 using Microsoft.Extensions.Options;
 using Quartz;
 using Quartz.Impl;
@@ -118,7 +116,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
     [DisallowConcurrentExecution]
     public class CreateSandboxesJob : IJob
     {
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateSandboxes();
 
@@ -126,6 +124,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             {
                 Environment.Exit(0);
             }
+
+            return Task.CompletedTask;
         }
     }
 }
