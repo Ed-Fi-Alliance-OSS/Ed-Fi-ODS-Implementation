@@ -1,4 +1,9 @@
-﻿using System;
+﻿// SPDX-License-Identifier: Apache-2.0
+// Licensed to the Ed-Fi Alliance under one or more agreements.
+// The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+// See the LICENSE and NOTICES files in the project root for more information.
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,17 +18,13 @@ namespace EdFi.Ods.Sandbox.Admin.Services
 {
     public class BackgroundJobService : IBackgroundJobService
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(BackgroundJobService));
         private readonly IInitializationEngine _engine;
         private readonly Dictionary<string, UserOptions> _users;
-        private readonly ApiSettings _apiSettings;
 
-        public BackgroundJobService(IInitializationEngine engine, IOptions<Dictionary<string, UserOptions>> users,
-            ApiSettings apiSettings)
+        public BackgroundJobService(IInitializationEngine engine, IOptions<Dictionary<string, UserOptions>> users)
         {
             _engine = engine;
             _users = users.Value;
-            _apiSettings = apiSettings;
         }
 
         /// <summary>
@@ -37,10 +38,10 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             
             await scheduler.Start();
             
-            await CreateAndScheduleNewJob<CreateIdentityRolesJob>("createIdentityRoles", "setupAdminDatabase", scheduler);
-            await CreateAndScheduleNewJob<CreateIdentityUsersJob>("createIdentityUsers", "setupAdminDatabase", scheduler);
+            await CreateAndScheduleNewJob<CreateIdentityRolesJob>("createIdentityRoles", "setupAdminDatabase");
+            await CreateAndScheduleNewJob<CreateIdentityUsersJob>("createIdentityUsers", "setupAdminDatabase");
             
-            await CreateAndScheduleNewJob<CreateSandboxesJob>("createSandboxes", "setupAdminDatabase", scheduler);
+            await CreateAndScheduleNewJob<CreateSandboxesJob>("createSandboxes", "setupAdminDatabase");
             
             foreach (var user in _users)
             {
@@ -48,11 +49,11 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
                 {
                     // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                    await CreateAndScheduleNewJob<RebuildSandboxesJob>("createSandboxes", "setupAdminDatabase", scheduler, "* */24 * * *");
+                    await CreateAndScheduleNewJob<RebuildSandboxesJob>("createSandboxes", "setupAdminDatabase", "* */24 * * *");
                 }
             }
             
-            async Task<IJobDetail> CreateAndScheduleNewJob<T>(string idName, string idGroup, IScheduler scheduler, string cronExpression = null)
+            async Task<IJobDetail> CreateAndScheduleNewJob<T>(string idName, string idGroup, string cronExpression = null)
                 where T : IJob
             {
                 var newJob = JobBuilder.Create<T>().WithIdentity(idName, idGroup).Build();
@@ -87,27 +88,30 @@ namespace EdFi.Ods.Sandbox.Admin.Services
     [DisallowConcurrentExecution]
     public class CreateIdentityRolesJob : IJob
     {
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
-            await ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateIdentityRoles();
+            ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateIdentityRoles();
+            return Task.CompletedTask;
         }
     }
 
     [DisallowConcurrentExecution]
     public class CreateIdentityUsersJob : IJob
     {
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
-            await ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateIdentityUsers();
+            ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateIdentityUsers();
+            return Task.CompletedTask;
         }
     }
 
     [DisallowConcurrentExecution]
     public class RebuildSandboxesJob : IJob
     {
-        public async Task Execute(IJobExecutionContext context)
+        public Task Execute(IJobExecutionContext context)
         {
             ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateSandboxes();
+            return Task.CompletedTask;
         }
     }
 

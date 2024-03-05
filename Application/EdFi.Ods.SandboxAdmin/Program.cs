@@ -21,7 +21,6 @@ namespace EdFi.Ods.SandboxAdmin
 {
     public class Program
     {
-        private const int Success = 0;
         private const int Error = 2;
 
         public static async Task Main(string[] args)
