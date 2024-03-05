@@ -21,6 +21,6 @@ namespace EdFi.Ods.SandboxAdmin
             "environment",
             Default = "production",
             HelpText = "the execution environment (default: production)")]
-        public bool CommandLineEnvironment { get; set; }
+        public string CommandLineEnvironment { get; set; }
     }
 }
