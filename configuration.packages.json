@@ -107,22 +107,22 @@
     },
     "EdFi.Installer.SandboxAdmin": {
       "PackageName": "EdFi.Suite3.Installer.SandboxAdmin",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.Sdk": {
       "PackageName": "EdFi.Suite3.OdsApi.Sdk",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.TestSdk": {
       "PackageName": "EdFi.Suite3.OdsApi.TestSdk",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.SwaggerUI": {
       "PackageName": "EdFi.Suite3.Installer.SwaggerUI",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.WebApi": {
@@ -142,12 +142,12 @@
     },
     "EdFi.Ods.WebApi": {
       "PackageName": "EdFi.Suite3.Ods.WebApi",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.RestApi.Databases": {
       "PackageName": "EdFi.Suite3.RestApi.Databases",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2324",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "AppCommon": {
@@ -162,7 +162,7 @@
     },
     "EdFi.Ods.Api": {
       "PackageName": "EdFi.Suite3.Ods.Api",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.105",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Standard": {
