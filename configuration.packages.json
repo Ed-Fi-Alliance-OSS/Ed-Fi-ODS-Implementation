@@ -122,12 +122,12 @@
     },
     "EdFi.Installer.SwaggerUI": {
       "PackageName": "EdFi.Suite3.Installer.SwaggerUI",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.26",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.WebApi": {
       "PackageName": "EdFi.Suite3.Installer.WebApi",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.32",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.SandboxAdmin": {
