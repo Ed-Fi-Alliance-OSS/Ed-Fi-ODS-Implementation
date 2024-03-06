@@ -73,6 +73,11 @@ param (
     [string]
     $SandboxVersion = $env:SANDBOX_VERSION,
 
+    # NuGet package version for the Ed-Fi BulkLoad Client Console application.
+    [Parameter()]
+    [string]
+    $BulkLoadVersion = $env:BULKLOAD_VERSION,
+
     # Base of the tag, which is combined with the version when tagging.
     [Parameter()]
     [string]
@@ -196,4 +201,31 @@ function Invoke-Build {
     Pop-Location
 }
 
-Invoke-Build
+# Note: "gateway" is for local testing only and therefore should not be included in this script.
+
+Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql `
+    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
+
+Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
+    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+
+Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
+    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+
+Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
+
+Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql `
+    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
+
+Invoke-Build -ImageName ods-api-swaggerui -Path alpine `
+    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql `
+    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+
+Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql `
+    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
+
+Invoke-Build -ImageName ods-api-bulk-load-console -Path alpine `
+    -BuildArgs "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
