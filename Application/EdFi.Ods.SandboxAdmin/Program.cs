@@ -3,11 +3,14 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
+using CommandLine;
+using CommandLine.Text;
 using EdFi.Common.Extensions;
 using log4net;
 using log4net.Config;
@@ -18,23 +21,37 @@ namespace EdFi.Ods.SandboxAdmin
 {
     public class Program
     {
+        private const int Error = 2;
+
         public static async Task Main(string[] args)
         {
-            ConfigureLogging(args.Any(x => x.EqualsIgnoreCase("development")));
+            var result = Parser.Default.ParseArguments<Options>(args);
 
-            var logger = LogManager.GetLogger(typeof(Program));
-            logger.Debug("Loading configuration files");
+            await result.MapResult(
+                async (Options opts) =>
+                {
+                    ConfigureLogging(opts.CommandLineEnvironment.Equals("development", StringComparison.OrdinalIgnoreCase));
 
-            var host = Host.CreateDefaultBuilder(args)
-                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
-                .ConfigureWebHostDefaults(
-                    webBuilder =>
-                    {
-                        webBuilder.ConfigureKestrel(serverOptions => serverOptions.AddServerHeader = false);
-                        webBuilder.UseStartup<Startup>();
-                    }).Build();
+                    var host = Host.CreateDefaultBuilder(args)
+                        .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                        .ConfigureWebHostDefaults(
+                            webBuilder =>
+                            {
+                                webBuilder.ConfigureKestrel(serverOptions => serverOptions.AddServerHeader = false);
+                                webBuilder.UseSetting("ExitAfterSandboxCreation", opts.ExitAfterSandboxCreation.ToString());
+                                webBuilder.UseStartup<Startup>();
+                            }).Build();
+                    
+                    await host.RunAsync();
+                },
+                errors =>
+                {
+                    var helpText = HelpText.AutoBuild(
+                        result, h => { return HelpText.DefaultParsingErrorsHandler(result, h); }, e => { return e; });
+                    Environment.Exit(Error);
+                    return Task.CompletedTask;
+                });
 
-            await host.RunAsync();
 
             static void ConfigureLogging(bool isDevelopment)
             {

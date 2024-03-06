@@ -22,8 +22,6 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
 
         Task CreateIdentityUsers();
 
-        void CreateVendors();
-
         void CreateSandboxes();
 
         void RebuildSandboxes();
@@ -109,32 +107,23 @@ namespace EdFi.Ods.Sandbox.Admin.Initialization
             }
         }
 
-        public void CreateVendors()
-        {
-            try
-            {
-                foreach (var user in _users)
-                {
-                    var namespacePrefixes = user.Value.NamespacePrefixes.ToList();
-
-                    _log.Info($"Creating vendor {user.Value} with namespace prefixes {string.Join(",", namespacePrefixes)}");
-                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Value.Email, user.Key, namespacePrefixes);
-                }
-            }
-            catch (Exception ex)
-            {
-                _log.Error(ex);
-            }
-        }
-
         public void CreateSandboxes()
         {
             try
             {
+                
                 foreach (var user in _users)
                 {
+                    // Ensure the necessary vendor records exist
+                    
+                    var namespacePrefixes = user.Value.NamespacePrefixes.ToList();
+
+                    _log.Info($"Creating vendor {user.Value} with namespace prefixes {string.Join(",", namespacePrefixes)}");
+                    _clientAppRepo.SetDefaultVendorOnUserFromEmailAndName(user.Value.Email, user.Key, namespacePrefixes);
+          
                     var clientProfile = _clientAppRepo.GetUser(user.Value.Email);
 
+                    // Create the sandboxes for the user
                     foreach (var sandboxKeyValuePair in user.Value.Sandboxes)
                     {
                         var sandboxName = sandboxKeyValuePair.Key;

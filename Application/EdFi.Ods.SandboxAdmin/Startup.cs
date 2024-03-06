@@ -10,8 +10,6 @@ using EdFi.Ods.Sandbox.Admin.Services;
 using EdFi.Ods.SandboxAdmin.Filters;
 using EdFi.Ods.SandboxAdmin.Modules;
 using EdFi.Ods.SandboxAdmin.Services;
-using Hangfire;
-using Hangfire.PostgreSql;
 using log4net;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -26,6 +24,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Quartz;
 using UserOptions = EdFi.Ods.Sandbox.Admin.Initialization.UserOptions;
 
 namespace EdFi.Ods.SandboxAdmin
@@ -81,26 +80,12 @@ namespace EdFi.Ods.SandboxAdmin
                     var factory = serviceProvider.GetRequiredService<IUrlHelperFactory>();
                     return factory.GetUrlHelper(actionContext);
                 });
-
-            // Add Hangfire services.
-            services.AddHangfire(
-                config =>
-                {
-                    config
-                        .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
-                        .UseSimpleAssemblyNameTypeSerializer()
-                        .UseRecommendedSerializerSettings()
-                        .UseLog4NetLogProvider();
-
-                    if (ApiSettings.GetDatabaseEngine() == DatabaseEngine.SqlServer)
-                    {
-                        config.UseSqlServerStorage(Configuration.GetConnectionString("EdFi_Admin"));
-                    }
-                    else
-                    {
-                        config.UsePostgreSqlStorage(Configuration.GetConnectionString("EdFi_Admin"));
-                    }
-                });
+            
+            services.AddQuartz();
+            services.AddQuartzHostedService(opt =>
+            {
+                opt.WaitForJobsToComplete = true;
+            });
 
             var identityBuilder = services.AddIdentityCore<IdentityUser>(
                     options =>
@@ -131,10 +116,7 @@ namespace EdFi.Ods.SandboxAdmin
                 .AddCookie(IdentityConstants.ApplicationScheme, options => { options.LoginPath = "/Account/Login"; });
 
             services.AddAuthorization();
-
-            // Add the processing server as IHostedService
-            services.AddHangfireServer();
-
+            
             services.Configure<Dictionary<string, UserOptions>>(Configuration.GetSection("User"));
 
             services.AddControllersWithViews()
@@ -241,7 +223,7 @@ namespace EdFi.Ods.SandboxAdmin
             app.UseAuthorization();
 
             var backgroundJob = Container.Resolve<IBackgroundJobService>();
-            backgroundJob.Configure();
+            backgroundJob.Configure(Configuration.GetValue<bool>("ExitAfterSandboxCreation"));
 
             app.UseEndpoints(endpoints =>
             {
