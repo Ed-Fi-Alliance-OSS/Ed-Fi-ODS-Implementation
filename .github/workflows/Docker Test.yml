@@ -33,6 +33,7 @@ jobs:
     strategy:
       matrix:
         image:
+          - ods-api-bulk-load-console/alpine
           - ods-api-db-admin/alpine/pgsql
           - ods-api-db-ods-minimal/alpine/pgsql
           - ods-api-db-ods-sandbox/alpine/pgsql
