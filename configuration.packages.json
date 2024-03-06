@@ -62,7 +62,7 @@
     },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
-      "PackageVersion": "6.2.2444",
+      "PackageVersion": "6.2.2451",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Db.Deploy": {
@@ -92,62 +92,62 @@
     },
     "EdFi.BulkLoadClient.Console": {
       "PackageName": "EdFi.Suite3.BulkLoadClient.Console",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.SmokeTest.Console": {
       "PackageName": "EdFi.Suite3.SmokeTest.Console",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.LoadTools": {
       "PackageName": "EdFi.Suite3.LoadTools",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.SandboxAdmin": {
       "PackageName": "EdFi.Suite3.Installer.SandboxAdmin",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.25",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.Sdk": {
       "PackageName": "EdFi.Suite3.OdsApi.Sdk",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.OdsApi.TestSdk": {
       "PackageName": "EdFi.Suite3.OdsApi.TestSdk",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.SwaggerUI": {
       "PackageName": "EdFi.Suite3.Installer.SwaggerUI",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.26",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Installer.WebApi": {
       "PackageName": "EdFi.Suite3.Installer.WebApi",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.32",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.SandboxAdmin": {
       "PackageName": "EdFi.Suite3.Ods.SandboxAdmin",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.SwaggerUI": {
       "PackageName": "EdFi.Suite3.Ods.SwaggerUI",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.WebApi": {
       "PackageName": "EdFi.Suite3.Ods.WebApi",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.RestApi.Databases": {
       "PackageName": "EdFi.Suite3.RestApi.Databases",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.2329",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "AppCommon": {
@@ -162,12 +162,12 @@
     },
     "EdFi.Ods.Api": {
       "PackageName": "EdFi.Suite3.Ods.Api",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.105",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Standard": {
       "PackageName": "EdFi.Suite3.Ods.Standard",
-      "PackageVersion": "latest",
+      "PackageVersion": "6.2.32",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
   }

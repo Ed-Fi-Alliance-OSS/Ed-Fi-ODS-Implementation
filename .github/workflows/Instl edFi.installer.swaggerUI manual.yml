@@ -1,4 +1,4 @@
-name: EdFi.Installer.WebApi Manually triggered build
+name: EdFi.Installer.SwaggerUI Manually triggered build
 
 on:
   workflow_dispatch:
@@ -13,19 +13,19 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
     - name: build
       run: |
         .\build-package.ps1 -InformationalVersion ${{env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NugetFeed ${{env.AZURE_ARTIFACT_URL}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }}
-      shell: pwsh
-      working-directory: Scripts/NuGet/EdFi.Installer.WebApi
-    - name: Upload EdFi.Installer.WebApi Artifacts
+      shell: powershell
+      working-directory: Scripts/NuGet/EdFi.Installer.SwaggerUI
+    - name: Upload EdFi.Installer.SwaggerUI Artifacts
       if: success()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: NugetPackages.Artifacts
-        path: ${{ github.workspace }}/Scripts/NuGet/EdFi.Installer.WebApi/EdFi.Suite3.Installer.WebApi.*.nupkg      
+        path: ${{ github.workspace }}/Scripts/NuGet/EdFi.Installer.SwaggerUI/EdFi.Suite3.Installer.SwaggerUI.*.nupkg      
 
