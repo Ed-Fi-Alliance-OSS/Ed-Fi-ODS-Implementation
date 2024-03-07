@@ -11,7 +11,7 @@
     <When Condition="'$(UseProjectsOverPackages)' == 'true'" />
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.10" />
+        <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="7.2.70" />
         <PackageReference Include="EdFi.Suite3.Common" Version="7.2.79" />
       </ItemGroup>
     </Otherwise>
