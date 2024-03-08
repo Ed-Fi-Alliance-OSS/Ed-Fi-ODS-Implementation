@@ -5,15 +5,15 @@
 
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
-using EdFi.Ods.Sandbox.Provisioners;
-using EdFi.Ods.SandboxAdmin.Models.Vendor;
-using EdFi.Ods.SandboxAdmin.Services;
+using EdFi.Ods.SandboxAdmin.Services.Models.Vendor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EdFi.Ods.SandboxAdmin.Services;
+using EdFi.Ods.Sandbox.Provisioners;
 
 namespace EdFi.Ods.SandboxAdmin.Controllers.Api
 {

@@ -95,13 +95,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Features.UnitTests
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Packages", "Packages", "{75DEFF48-FA3B-4461-A889-6C6C26362D3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Security.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj", "{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Security.DataAccess\EdFi.Security.DataAccess.csproj", "{BD4FEDA5-528C-4033-A35F-A6F03E83E3B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj", "{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Common\EdFi.Common.csproj", "{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Admin.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj", "{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Admin.DataAccess", "..\..\Ed-Fi-ODS\Application\EdFi.Admin.DataAccess\EdFi.Admin.DataAccess.csproj", "{58CC50F2-2768-43C1-844C-7BA9DC6E16FE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.Features.IdentityManagement", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features.IdentityManagement\EdFi.Ods.Features.IdentityManagement.csproj", "{2CE388E3-98D7-48C1-94CB-BB0392B9267F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Features.IdentityManagement", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features.IdentityManagement\EdFi.Ods.Features.IdentityManagement.csproj", "{2CE388E3-98D7-48C1-94CB-BB0392B9267F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EdFi.Ods.SandboxAdmin.Services", "EdFi.Ods.SandboxAdmin.Services\EdFi.Ods.SandboxAdmin.Services.csproj", "{01815E05-73FB-4AF0-BB6C-B5F8F69756B7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -229,6 +231,10 @@ Global
 		{2CE388E3-98D7-48C1-94CB-BB0392B9267F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2CE388E3-98D7-48C1-94CB-BB0392B9267F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CE388E3-98D7-48C1-94CB-BB0392B9267F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01815E05-73FB-4AF0-BB6C-B5F8F69756B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01815E05-73FB-4AF0-BB6C-B5F8F69756B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01815E05-73FB-4AF0-BB6C-B5F8F69756B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01815E05-73FB-4AF0-BB6C-B5F8F69756B7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +272,7 @@ Global
 		{B29F1C5B-EA1D-4A3F-8965-1BF5003C78A3} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{58CC50F2-2768-43C1-844C-7BA9DC6E16FE} = {75DEFF48-FA3B-4461-A889-6C6C26362D3C}
 		{2CE388E3-98D7-48C1-94CB-BB0392B9267F} = {E214F607-B637-4AF5-9A68-61CB86507E4A}
+		{01815E05-73FB-4AF0-BB6C-B5F8F69756B7} = {DC40CF8E-5A05-454E-8D56-6157F3A25C82}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}

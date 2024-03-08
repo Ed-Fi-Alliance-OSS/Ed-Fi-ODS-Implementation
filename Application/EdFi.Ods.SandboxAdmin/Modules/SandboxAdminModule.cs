@@ -13,9 +13,9 @@ using EdFi.Common.Database;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Sandbox.Admin.Contexts;
-using EdFi.Ods.Sandbox.Admin.Initialization;
+using EdFi.Ods.Sandbox.Admin.Services.Initialization;
 using EdFi.Ods.Sandbox.Admin.Services;
-using EdFi.Ods.SandboxAdmin.Security;
+using EdFi.Ods.SandboxAdmin.Services.Security;
 using EdFi.Ods.SandboxAdmin.Services;
 
 namespace EdFi.Ods.SandboxAdmin.Modules
