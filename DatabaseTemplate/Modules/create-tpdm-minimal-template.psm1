@@ -31,6 +31,12 @@ function Get-TPDMMinimalConfiguration([hashtable] $config = @{ }) {
 
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template.TPDM.Core"
     $config.packageNuspecName = "EdFi.Ods.Minimal.Template.TPDM.Core"
+    $config.Id = "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core"
+    $config.Title = "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core"
+    $config.Description = "EdFi Ods Minimal Template TPDM Core"
+    $config.Authors = "Ed-Fi Alliance"
+    $config.Owners = "Ed-Fi Alliance"
+    $config.Copyright = "Copyright @ 2024 Ed-Fi Alliance, LLC and Contributors"
 
     return $config
 }

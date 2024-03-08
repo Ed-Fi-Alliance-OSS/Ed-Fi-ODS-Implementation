@@ -9,6 +9,21 @@ $ErrorActionPreference = "Stop"
 & "$PSScriptRoot\..\..\logistics\scripts\modules\load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\create-database-template.psm1")
 
+function Get-PopulatedConfiguration([hashtable] $config = @{ }) {
+
+    $config = Merge-Hashtables (Get-DefaultTemplateConfiguration), $config
+
+    $config.databaseBackupName = "EdFi.Ods.Populated.Template"
+    $config.packageNuspecName = "EdFi.Ods.Populated.Template"
+    $config.Id = "EdFi.Suite3.Ods.Populated.Template"
+    $config.Title = "EdFi.Suite3.Ods.Populated.Template"
+    $config.Description = "EdFi Ods Populated Template Database"
+    $config.Authors = "Ed-Fi Alliance"
+    $config.Owners = "Ed-Fi Alliance"
+    $config.Copyright = "Copyright @ 2024 Ed-Fi Alliance, LLC and Contributors"
+    return $config
+}
+
 Set-Alias -Scope Global initpop Initialize-PopulatedTemplate
 function Initialize-PopulatedTemplate {
     <#
@@ -69,7 +84,7 @@ function Initialize-PopulatedTemplate {
         engine       = $engine
     }
 
-    $config = (Get-DefaultTemplateConfiguration $paramConfig)
+    $config = (Get-PopulatedConfiguration $paramConfig)
     Write-FlatHashtable $config
 
     $script:result = @()
