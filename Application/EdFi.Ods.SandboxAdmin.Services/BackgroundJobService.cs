@@ -41,8 +41,8 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 // refresh existing sandboxes periodically
                 if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
                 {
-                    // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                    await CreateAndScheduleNewJob<RebuildSandboxesJob>("createSandboxes", "setupAdminDatabase", "* */24 * * *");
+                    // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "0 */6 * * * ?" = every 6 hours)
+                    await CreateAndScheduleNewJob<RebuildSandboxesJob>($"refreshSandboxes-{user.Value.Email}", "setupAdminDatabase", "0 */24 * * * ?");
                 }
             }
             
