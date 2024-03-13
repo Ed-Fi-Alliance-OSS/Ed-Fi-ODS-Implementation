@@ -184,3 +184,4 @@ $env:SWAGGER_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.S
 $env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.SandboxAdmin -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
 $env:STANDARD_VERSION = $StandardVersion
 $env:EXTENSION_VERSION = $ExtensionVersion
+$env:BULKLOAD_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.BulkLoadClient.Console -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
