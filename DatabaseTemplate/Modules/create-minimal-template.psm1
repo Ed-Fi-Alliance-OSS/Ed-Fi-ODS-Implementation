@@ -26,7 +26,7 @@ function Get-MinimalConfiguration([hashtable] $config = @{ }) {
     $config.Description = "EdFi Ods Minimal Template Database"
     $config.Authors = "Ed-Fi Alliance"
     $config.Owners = "Ed-Fi Alliance"
-    $config.Copyright = "Copyright @ 2021 Ed-Fi Alliance, LLC and Contributors"
+    $config.Copyright = "Copyright @ 2024 Ed-Fi Alliance, LLC and Contributors"
 
     return $config
 }

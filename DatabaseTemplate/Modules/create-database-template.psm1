@@ -27,6 +27,16 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
 
     $config = Merge-Hashtables $config, (Get-EnvironmentConfiguration $config)
     $config.outputFolder = (Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*").FullName
+    
+    # Since not all features are enabled by default for database templates, an appsettings.json specifically intended for database generation is copied to
+    # the Integration Test Harness output folder to overwrite the appsettings.json file otherwise used by the Integration Test Harness
+    $config.appSettingsFolder = (Get-RepositoryResolvedPath "DatabaseTemplate\Modules\")
+	
+    $sourceAppSettings = Join-Path $config.appSettingsFolder "appsettings.json"
+    $destinationAppSettings = Join-Path $config.outputFolder "appsettings.json"
+    Copy-Item $sourceAppSettings -Destination $destinationAppSettings
+
+
     $config.appSettingsFiles = @(
         (Join-Path $config.outputFolder "appsettings.json"),
         (Join-Path $config.outputFolder "appsettings.development.json")
@@ -57,8 +67,6 @@ function Get-DefaultTemplateConfiguration([hashtable] $config = @{ }) {
     $config.databaseConnectionStringKey = (Get-ConnectionStringKeyByDatabaseTypes)[$config.database]
     $config.databaseConnectionString = (Get-ConnectionStringBuildersFromSettings($config.appSettings))[$config.databaseConnectionStringKey]
     $config.databaseAllowedSchemas = @('auth', 'edfi', 'interop', 'util', 'changes', 'tracked_deletes_edfi')
-    $config.databaseBackupName = "EdFi.Ods.Populated.Template"
-    $config.packageNuspecName = "EdFi.Ods.Populated.Template"
 
     return $config
 }
@@ -496,22 +504,42 @@ function New-DatabaseTemplateNuspec {
         [hashtable] $config
     )
     $packageNuspecName = $config.packageNuspecName
-    if ($config.engine -eq 'PostgreSQL') { $packageNuspecName += ".PostgreSQL" }
+    if ($config.engine -eq 'PostgreSQL') {
+        $packageNuspecName += ".PostgreSQL"
+        $config.databaseBackupName += ".PostgreSQL"
+        $config.Id += ".PostgreSQL"
+        $config.Title += ".PostgreSQL"
+        $config.Description += "for PostgreSQL"
+    }
 
     if (-not $config.backupDirectory) { $populatedTemplatePath = $global:templateDatabaseFolder }
     else { $populatedTemplatePath = $config.backupDirectory }
     
     $nuspecPath = Join-Path $populatedTemplatePath "$packageNuspecName.nuspec"
 
+    $Id = '$id$'
+    $Title = '$title$'
+    $Description = '$description$'
+    $Authors = '$authors$'
+    $Owners = '$owners$'
+    $CopyRight = '$copyright$'
+    
+    if ($config.Id) { $Id = $config.Id }
+    if ($config.Title) { $Title = $config.Title }
+    if ($config.Description) { $Description = $config.Description }
+    if ($config.Authors) { $Authors = $config.Authors }
+    if ($config.Owners) { $Owners = $config.Owners }
+    if ($config.CopyRight) { $CopyRight = $config.CopyRight }
+
     $params = @{
         nuspecPath               = $nuspecPath
-        id                       = '$id$'
-        title                    = '$title$'
-        description              = '$description$'
+        id                       = $Id
+        title                    = $Title
+        description              = $Description
         version                  = '$version$'
-        authors                  = '$authors$'
-        copyright                = '$copyright$'
-        owners                   = '$owners$'
+        authors                  = $Authors
+        copyright                = $CopyRight
+        owners                   = $Owners
         requireLicenseAcceptance = $false
     }
     New-Nuspec @params
