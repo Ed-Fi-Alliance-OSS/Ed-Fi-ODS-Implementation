@@ -870,33 +870,12 @@
           "ApiClients": [
             {
               "ApiClientName": "MultipleEdorg_255901999_5001_51",
-              "LocalEducationOrganizations": [ 255901999, 51, 5001 ]
+              "LocalEducationOrganizations": [255901999, 51, 5001]
             }
           ]
         }
       ],
-      "NamespacePrefixes": [ "uri://ed-fi.org" ]
-    },
-    {
-      "Email": "RecordOwnership@ed-fi.org",
-      "VendorName": "Record Ownership",
-      "Applications": [
-        {
-          "ApplicationName": "ODS/API",
-          "ClaimSetName": "Ed-Fi Sandbox",
-          "ApiClients": [
-            {
-              "ApiClientName": "255901-A",
-              "LocalEducationOrganizations": [ 255901 ]
-            },
-            {
-              "ApiClientName": "255901-B",
-              "LocalEducationOrganizations": [ 255901 ]
-            }
-          ]
-        }
-      ],
-      "NamespacePrefixes": [ "uri://ed-fi.org" ]
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     }
   ]
 }
