@@ -47,6 +47,7 @@ jobs:
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false     
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}

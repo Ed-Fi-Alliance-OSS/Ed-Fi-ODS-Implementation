@@ -46,6 +46,7 @@ jobs:
     needs: FindStandardAndExtensionVersions
     runs-on: windows-latest
     strategy:
+      fail-fast: false    
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
