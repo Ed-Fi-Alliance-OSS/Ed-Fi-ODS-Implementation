@@ -49,6 +49,7 @@ jobs:
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
         dockerfile:
           [
+            { name: "ods-api-bulk-load-console", path: "alpine" },
             { name: "ods-api-db-admin", path: "alpine/pgsql" },
             { name: "ods-api-db-ods-minimal", path: "alpine/pgsql" },
             { name: "ods-api-db-ods-sandbox", path: "alpine/pgsql" },
