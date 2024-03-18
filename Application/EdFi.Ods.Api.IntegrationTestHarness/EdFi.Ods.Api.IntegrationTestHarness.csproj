@@ -25,7 +25,7 @@
     <None Update="AdminCredential.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-	<Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*Profiles.Sample*\**;..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never" />
+	<Content Include="..\..\Plugin\**" LinkBase="Plugin\" Exclude="..\..\Plugin\*.ps1;..\..\Plugin\**\*.nupkg" CopyToPublishDirectory="Always" CopyToOutputDirectory="Never" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,7 +50,6 @@
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Composites.Enrollment\EdFi.Ods.Composites.Enrollment.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Composites.Test\EdFi.Ods.Composites.Test.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Features\EdFi.Ods.Features.csproj" />
-    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Profiles.Test\EdFi.Ods.Profiles.Test.csproj" />
     <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Standard\EdFi.Ods.Standard.csproj" />
   </ItemGroup>
 
