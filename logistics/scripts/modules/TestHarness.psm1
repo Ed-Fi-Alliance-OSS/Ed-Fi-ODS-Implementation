@@ -78,10 +78,14 @@ function Start-TestHarness {
         [Parameter(Mandatory = $true)] [string] $apiUrl,
         [string] $configurationFilePath,
         [string] $environmentFilePath,
-        [string] $testHarnessExecutable
+        [string] $testHarnessExecutable,
+        [string] $testHarnessLogNamePrefix = ""
     )
 
     Stop-TestHarness
+
+    if (![string]::IsNullOrEmpty($testHarnessLogNamePrefix)) { $testHarnessLogNamePrefix += "." }
+    $Env:TEST_HARNESS_LOG_NAME_PREFIX = $testHarnessLogNamePrefix
 
     if ([string]::IsNullOrEmpty($testHarnessExecutable)) { $testHarnessExecutable = (Get-TestHarnessExecutable) }
 
@@ -114,7 +118,8 @@ function Start-TestHarness {
             Write-Host
         }
         catch {
-            Write-Host "Waiting for TestHarness startup at $apiUrl..."
+            Write-Host "Waiting for TestHarness startup at $apiUrl..."]
+            Start-Sleep -s 1
         }
     }
 

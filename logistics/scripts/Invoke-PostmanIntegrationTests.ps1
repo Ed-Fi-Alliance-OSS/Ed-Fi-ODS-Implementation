@@ -26,44 +26,94 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics\script
 $script:postmanFolder = (Split-Path -Parent $configurationFile)
 $script:environmentJson = (Join-Path $script:postmanFolder "environment.json")
 
+function Test-GithubActions { return (Test-Path env:GITHUB_ACTIONS) }
+
 function Install-Newman {
-    $nodeVersion = Get-ValueOrDefault (Get-TeamCityParameters)['node.version'] '12.4.0'
-
-    Select-NodeVersion $nodeVersion
-
-    try {
-        npm install -g newman@5.2.2 newman-reporter-teamcity@0.1.12 newman-reporter-html@1.0.5
-        newman --version
+  try {
+      $packages = @{
+      newman         = @{
+        name            = "newman"
+        requiredVersion = "5.2.2"
+      }
+      newmanTeamcity = @{
+        name            = "newman-reporter-teamcity"
+        requiredVersion = "0.1.12"
+      }
+      newmanJunit    = @{
+        name            = "newman-reporter-junitfull"
+        requiredVersion = "1.1.1"
+      }
     }
-    catch {
-        Write-Host $_ -ForegroundColor Red
-        Clear-Error
+    $teamcityPackages = @($packages.newman, $packages.newmanTeamcity, $packages.newmanJunit)
+    $githubActionsPackages = @($packages.newman, $packages.newmanJunit)
+    $developerPackages = @($packages.newman)
+    If (Test-TeamCityVersion) {
+      Write-Host "teamcityPackages" -ForegroundColor Green
+      Install-NpmPackages $teamcityPackages
     }
+    elseIf (Test-GithubActions) {
+      Write-Host "githubActionsPackages" -ForegroundColor Green
+      Install-NpmPackages $githubActionsPackages
+    }
+    else {
+      Write-Host "developerPackages" -ForegroundColor Green
+      Install-NpmPackages $developerPackages
+    }
+  }
+  catch {
+      Write-Host $_ -ForegroundColor Red
+      Clear-Error
+  }
+}
+
+function Install-NpmPackages {
+  param(
+    [Hashtable[]] $packages
+  )
+  foreach ($package in $packages) {
+    $does_corresponding_package_exist = npm list -g --depth=0 |Out-String -Stream | Select-String -Pattern $package.name -SimpleMatch -Quiet
+    if (!$does_corresponding_package_exist -eq $true) {
+      if (Get-IsWindows) {
+        npm install -g "$($package.name)@$($package.requiredVersion)" --verbose
+      }
+      else {
+        sudo npm install -g "$($package.name)@$($package.requiredVersion)" --verbose
+      }
+    }
+  }
 }
 
 function Invoke-Newman {
     $collectionFileDirectory = (Get-RepositoryResolvedPath "Postman Test Suite\")
     $collectionFiles = Get-ChildItem $collectionFileDirectory -Filter "*.postman_collection.json"
+    $reportPath = (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") + "\reports\"
 
     foreach ($collectionFile in $collectionFiles) {
         Write-host $script:environmentJson
         if (Test-TeamCityVersion) {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters teamcity,cli,html --reporter-html-export newman/report.html
+            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters 'teamcity,cli'
         }
         else {
-            newman run $collectionFile.FullName -e $script:environmentJson --suppress-exit-code --disable-unicode --reporters cli
+            $testFile = $collectionFile.Name -Replace ".postman_collection.json",""
+            newman run $collectionFile.FullName -e $script:environmentJson --disable-unicode --reporters 'junit,cli' --reporter-junit-export "$reportPath\$testFile.xml"
         }
     }
 }
 
 function Invoke-PostmanIntegrationTests {
+    $logPath = ((Get-ChildItem "$(Get-RepositoryResolvedPath "Application\EdFi.Ods.Api.IntegrationTestHarness")\bin\**\*")  | Select-Object -First 1).FullName
+    if ($Null -eq $logPath) {
+        $logPath = (Get-RepositoryRoot "Ed-Fi-Ods-Implementation")
+    }
+    $logPath += "\PostmanIntegrationTestsLog.log"
+
     $script:result = @()
 
     $elapsed = Use-StopWatch {
         try {
             $script:result += Invoke-Task -name "Install-Newman" -task { Install-Newman }
-            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath }
-            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Write-Host }
+            $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "PostmanIntegrationTests" }
+            $script:result += Invoke-Task -name "Invoke-Newman" -task { Invoke-Newman | Tee-Object -FilePath $logPath | Write-Host }
         }
         finally {
             $script:result += Invoke-Task -name "Stop-TestHarness" -task { Stop-TestHarness }
