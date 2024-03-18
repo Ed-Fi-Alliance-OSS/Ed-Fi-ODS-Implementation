@@ -512,9 +512,6 @@ function Add-TestHarnessSpecificAppSettings([hashtable] $Settings = @{ }, [strin
         ApiSettings       = @{
             Mode = "SharedInstance"
         }
-        Plugin = @{
-            Folder  = "Plugin"
-        }
     }
 
     $csbs = Get-ConnectionStringBuildersFromSettings $Settings
