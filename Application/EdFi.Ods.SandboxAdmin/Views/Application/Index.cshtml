@@ -49,19 +49,9 @@
             <tbody data-bind="foreach: applications">
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
-                        <div class="btn-group">
-                            <div class="dropdown">
-                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-cog" aria-hidden="true"></i>
-                                    <span class="caret"></span>
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="sandbox-menu">
-                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteApplicationClicked" class="deleteApplication dropdown-item">
-                                        Delete
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteApplicationClicked, disable: $data.IsDefaultVendor()">
+                             Delete
+                        </button>
                     </td>
                     <td data-bind="text: Id" class="application-id" style="display: none;"></td>
                     <td data-bind="text: ApplicationName" class="application-name"></td>

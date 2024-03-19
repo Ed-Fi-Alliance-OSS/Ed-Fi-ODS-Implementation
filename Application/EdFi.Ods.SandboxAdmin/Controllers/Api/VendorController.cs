@@ -22,14 +22,11 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
     [Authorize]
     public class VendorController : ControllerBase
     {
-        private readonly ISandboxProvisioner _sandboxProvisioner;
-        private readonly IClientCreator _clientCreator;
         private readonly IClientAppRepo _clientAppRepo;
 
         public VendorController(IClientAppRepo clientAppRepo, IClientCreator clientCreator)
         {
             _clientAppRepo = clientAppRepo;
-            _clientCreator = clientCreator;
         }
 
         [HttpGet]
@@ -72,7 +69,8 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 Name = vendor.VendorName,
                 NamespacePrefix = namespacePrefix,
                 ContactName = user.FullName,
-                ContactEmailAddress = user.Email
+                ContactEmailAddress = user.Email,
+                IsDefaultVendor = vendor.VendorName.Trim() == "Test Admin"? true : false
             };
             return viewModel;
         }

@@ -17,5 +17,7 @@ namespace EdFi.Ods.SandboxAdmin.Services.Models.Vendor
 
         public string ContactEmailAddress { get; set; }
 
+        public bool IsDefaultVendor { get; set; }
+
     }
 }
