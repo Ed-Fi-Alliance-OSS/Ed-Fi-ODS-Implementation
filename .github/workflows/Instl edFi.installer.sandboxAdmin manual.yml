@@ -2,7 +2,9 @@ name: EdFi.Installer.SandboxAdmin Manually triggered build
 
 on:
   workflow_dispatch:
-
+  pull_request:
+    branches:
+      - main-6x
 env:
   INFORMATIONAL_VERSION: "6.2"
   BUILD_INCREMENTER: "1"
