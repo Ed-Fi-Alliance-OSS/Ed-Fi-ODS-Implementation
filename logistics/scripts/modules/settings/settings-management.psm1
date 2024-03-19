@@ -43,13 +43,6 @@ function Get-DefaultDevelopmentSettingsByProject {
                 }
             }
         }
-        ((Get-ProjectTypes).IntegrationTestHarness) = @{
-            Urls              = "http://localhost:8765"
-            ApiSettings       = @{
-                Engine = ""
-            }
-            ConnectionStrings = @{ }
-        }
         ((Get-ProjectTypes).SandboxAdmin)           = @{
             Urls                         = "http://localhost:38928"
             ApiSettings                  = @{
@@ -602,7 +595,7 @@ function Get-UserSecretsIdByProject {
         ((Get-ProjectTypes).SandboxAdmin)           = "f1506d66-289c-44cb-a2e2-80411cc690ea"
         ((Get-ProjectTypes).SwaggerUI)              = "f1506d66-289c-44cb-a2e2-80411cc690eb"
         ((Get-ProjectTypes).WebApi)                 = "f1506d66-289c-44cb-a2e2-80411cc690ec"
-        ((Get-ProjectTypes).IntegrationTestHarness) = "f1506d66-289c-44cb-a2e2-80411cc690ed"
+        ((Get-TestProjectTypes).IntegrationTestHarness) = "f1506d66-289c-44cb-a2e2-80411cc690ed"
     }
 }
 
