@@ -22,7 +22,6 @@ env:
   AZURE_ARTIFACT_USER_NAME: ${{ secrets.AZURE_ARTIFACTS_USER_NAME }}  
   AZURE_ARTIFACTS_API_FEEDS : "https://feeds.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
   AZURE_ARTIFACTS_API_PACKAGING : "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi"
-  HEAD_REF:  ${{ GITHUB.HEAD_REF }}  
 
 jobs:
   build:
@@ -30,12 +29,7 @@ jobs:
     runs-on: windows-latest
  
     steps:
-    - name: Print Triggered Branch Name
-      shell: pwsh
-      run: |
-        Write-Host "Branch Name:  $Env:HEAD_REF"  
-        Write-Host "Branch Name: ${{ github.head_ref }}"
-        Write-Host "Branch Name: ${{ GITHUB.HEAD_REF }}"              
+            
     - name: Support longpaths
       run: git config --system core.longpaths true
     - name: Checkout Ed-Fi-ODS-Implementation
@@ -49,6 +43,11 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
           ref: ${{ github.head_ref }}
+    - name: Is pull request branch exists in Ed-Fi-ODS
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"          
     - name: Promote Packages
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
