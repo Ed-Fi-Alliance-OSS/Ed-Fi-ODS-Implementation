@@ -68,7 +68,7 @@ function Invoke-SdkGenConsole {
     )
     
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
-    $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/netcoreapp3.1"
+    $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/net6.0"
     $sdkGenConsoleExecutableFolderFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console.exe')
     Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList @('-m', $apiMetadataUrl, '-p', '-c', '-i') -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
 }
