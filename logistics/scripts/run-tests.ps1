@@ -5,7 +5,7 @@
 
 & "$PSScriptRoot\modules\load-path-resolver.ps1"
 
-$testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" })
+$testAssemblies = (Get-ChildItem -recurse -File $((Get-RepositoryRoot "ed-fi-ods") + "\*Tests.dll") | Where-Object { $_.FullName -match "\\bin\\?" -and $_.FullName -notmatch "\\net48\\?" -and $_.fullName -notmatch "ApprovalTests.dll" -and $_.fullName -notmatch "\\ref\\?" })
 $reports = (Get-RepositoryRoot "ed-fi-ods-implementation") + "\reports\"
 
 if (Test-Path $reports) {
@@ -17,7 +17,13 @@ New-Item -ItemType Directory -Force -Path $reports
 foreach ($assembly in $testAssemblies) {
     Write-Host ( "Testing assembly " + $assembly)
 
-    $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
+    if (Test-TeamCityVersion) {
+        $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".xml"
+    } else {
+        $reportName = $reports + (Get-ChildItem $assembly | Select-Object -ExpandProperty Name) + ".trx"
+    }
 
     & dotnet test $assembly --logger ("trx;LogFileName=" + $reportName)
+
+    Write-Host "assembly exit code: $LASTEXITCODE"
 }
