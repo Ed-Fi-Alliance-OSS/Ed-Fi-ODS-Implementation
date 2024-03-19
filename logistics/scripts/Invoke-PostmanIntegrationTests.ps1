@@ -73,12 +73,7 @@ function Install-NpmPackages {
   foreach ($package in $packages) {
     $does_corresponding_package_exist = npm list -g --depth=0 |Out-String -Stream | Select-String -Pattern $package.name -SimpleMatch -Quiet
     if (!$does_corresponding_package_exist -eq $true) {
-      if (Get-IsWindows) {
         npm install -g "$($package.name)@$($package.requiredVersion)" --verbose
-      }
-      else {
-        sudo npm install -g "$($package.name)@$($package.requiredVersion)" --verbose
-      }
     }
   }
 }
