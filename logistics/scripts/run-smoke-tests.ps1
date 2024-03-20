@@ -28,7 +28,7 @@
     The secret used to authenticate for the smoke test (Default: sandbox generated secret)
 
     .PARAMETER namespaceUri
-    Overrride the URI to use when generating namespace values (Default: http://edfi.org)
+    Overrride the URI to use when generating namespace values (Default: uri://ed-fi.org/)
 
     .PARAMETER schoolYear
     The School Year to use for all api requests (Default: (Get-Date).year)
@@ -46,12 +46,13 @@ param(
     [string] $apiUrl = "http://localhost:8765",
     [string] $key = $null,
     [string] $secret = $null,
-    [string] $namespaceUri = "http://edfi.org",
+    [string] $namespaceUri = "uri://ed-fi.org/,
     [string] $schoolYear = $null,
     [string[]] $testSets = @("NonDestructiveApi"),
     [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
     [string] $smokeTestDll = ".\EdFi.OdsApi.Sdk\lib\EdFi.OdsApi.Sdk.dll",
-    [switch] $noRebuild
+    [switch] $noRebuild,
+    [string] $testHarnessLogNamePrefix
 )
 
 $ErrorActionPreference = 'Stop'
@@ -127,6 +128,7 @@ try {
         $params = @{
             apiUrl                = $config.apiUrlBase
             configurationFilePath = $config.bulkLoadTempJsonConfig
+            testHarnessLogNamePrefix = $testHarnessLogNamePrefix
         }
         Start-TestHarness @params
     }
