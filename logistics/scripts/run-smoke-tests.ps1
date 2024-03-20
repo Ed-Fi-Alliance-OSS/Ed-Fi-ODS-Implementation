@@ -46,7 +46,7 @@ param(
     [string] $apiUrl = "http://localhost:8765",
     [string] $key = $null,
     [string] $secret = $null,
-    [string] $namespaceUri = "uri://ed-fi.org/,
+    [string] $namespaceUri = "uri://ed-fi.org/",
     [string] $schoolYear = $null,
     [string[]] $testSets = @("NonDestructiveApi"),
     [string] $smokeTestExe = ".\EdFi.SmokeTest.Console\tools\EdFi.SmokeTest.Console.exe",
