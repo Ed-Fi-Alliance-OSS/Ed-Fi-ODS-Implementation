@@ -29,7 +29,7 @@
 </div>
 <div class="row">
     <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Application</button>
+        <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Application</button>
     </div>
 </div>
 <div class="container-fluid">
@@ -79,21 +79,30 @@
             <div class="modal-body">
                 <fieldset>
                     <div class="control-group">
-                        <label class="control-label" for="txtName1">Application Name:</label>
+                        <label class="control-label" for="txtApplicationName">Application Name:</label>
                         <div class="controls">
-                            <input id="txtName1" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Application" />
+                            <input id="txtApplicationName" type="text" data-bind="value: applicationName" class="form-control" placeholder="Name of Application" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" for="txtName2">EducationOrganizationId:</label>
+                        <label class="control-label" for="txtEducationOrganizationId">EducationOrganizationId:</label>
                         <div class="controls">
-                            <input id="txtName2" type="text" data-bind="value: educationOrganizationId, valueUpdate: 'keyup'" class="form-control" placeholder="EducationOrganizationId" />
+                            <input id="txtEducationOrganizationId" type="text" data-bind="value: educationOrganizationId" class="form-control" placeholder="EducationOrganizationId" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label" >Vendor :</label>
+                        
                         <div class="controls">
-                            <select data-bind="options: vendorList, value:selectedVendor, optionsText: 'Name', optionsValue: 'Id'" class="dropdown"></select>
+                            <div class="dropdown">
+                                <label class="control-label" for="txtEducationOrganizationId">Vendor:</label>
+                                <a href="#" class="nav-link dropdown-toggle" id="vendor-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Vendor
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="vendor-dropdown" data-bind="foreach: vendorList">
+                                    <a class="dropdown-item" href="#" data-bind="text: Name, click: $parent.selectVendor"></a>
+                                </div>
+                            </div>
+                            <span class="alert alert-danger show" style="" data-bind="visible: addApplicationDialogInstance && addApplicationDialogInstance.selectedVendor && addApplicationDialogInstance.selectedVendor.error, text: addApplicationDialogInstance && addApplicationDialogInstance.selectedVendor && addApplicationDialogInstance.selectedVendor.error"></span>
                         </div>
                     </div>
                 </fieldset>
@@ -104,7 +113,7 @@
                 </div>
                 <div>
                     <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="text: buttonText, click: function() { onOkClicked(buttonText); }">Add</button>
                 </div>
             </div>
         </div>
@@ -139,7 +148,7 @@
                 </div>
                 <div>
                     <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: function() { onOkClicked(buttonText); }"></button>
                 </div>
             </div>
         </div>

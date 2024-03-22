@@ -25,11 +25,6 @@
     border: 2px solid #e74c3c
 }
 
-.errorStyle {
-    background-color: #ffd800;
-    color: #808080;
-    font-size: 13px;
-    padding: 5px 5px;
-    border-radius: 5px;
-    margin-top: 7px;
+.controls .alert {
+    padding: 4px;
 }

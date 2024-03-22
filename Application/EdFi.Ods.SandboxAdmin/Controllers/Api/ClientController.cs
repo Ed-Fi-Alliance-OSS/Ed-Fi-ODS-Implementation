@@ -153,6 +153,13 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 try
                 {
                     var profile = _repository.GetUser(UserProfile.Email);
+                    var clients = UserProfile.ApiClients;
+
+                    if (clients != null && clients.Any(a => a.Name == sandboxClient.Name))
+                    {
+                        var message = $"The Sandbox  {sandboxClient.Name} already exists!";
+                        return BadRequest(message);
+                    }
 
                     var newClient = _clientCreator.CreateNewSandboxClient(
                         sandboxClient.Name,
@@ -166,9 +173,9 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                     await AddClientStatusInfo(newClient);
                     return Ok(ToClientIndexViewModel(newClient));
                 }
-                catch (ArgumentOutOfRangeException)
+                catch (ArgumentOutOfRangeException ex)
                 {
-                    return BadRequest(ModelState);
+                    return BadRequest(ex.ParamName);
                 }
             }
 

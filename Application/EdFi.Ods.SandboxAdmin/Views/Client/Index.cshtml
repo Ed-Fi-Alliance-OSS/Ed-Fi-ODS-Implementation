@@ -27,7 +27,7 @@
 </div>
 <div class="row">
     <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="enable: canAddMoreApplications, click: addApplicationClicked">Add Sandbox</button>
+        <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Sandbox</button>
     </div>
 </div>
 <div class="row">
@@ -104,15 +104,23 @@
                 <fieldset>
                     <p>Creating new sandboxes -- especially populated sandboxes may take a few minutes.</p>
                     <div class="control-group">
-                        <label class="control-label" for="txtName">Sandbox Name:</label>
+                        <label class="control-label" for="txtSandboxName">Sandbox Name:</label>
                         <div class="controls">
-                            <input id="txtName" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Sandbox" />
+                            <input id="txtSandboxName" type="text" data-bind="value: sandboxName" class="form-control" placeholder="Name of Sandbox" />
                         </div>
                     </div>
                     <div class="control-group">
-                        <label class="control-label">Application:</label>
                         <div class="controls">
-                            <select data-bind="options: applicationList, value:selectedApplication, optionsText: 'Name', valueUpdate: 'keyup' " class="dropdown"></select>
+                            <div class="dropdown">
+                                <label class="control-label" for="txtApplication">Application:</label>
+                                <a href="#" class="nav-link dropdown-toggle" id="application-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Select Application
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="application-dropdown" data-bind="foreach: applicationList">
+                                    <a class="dropdown-item" href="#" data-bind="text: Name, click: $parent.selectApplication"></a>
+                                </div>
+                            </div>
+                            <span class="alert alert-danger show" style="" data-bind="visible: addApplicationDialogInstance && addApplicationDialogInstance.selectedApplication && addApplicationDialogInstance.selectedApplication.error, text: addApplicationDialogInstance && addApplicationDialogInstance.selectedApplication && addApplicationDialogInstance.selectedApplication.error"></span>
                         </div>
                     </div>
                     <div class="control-group mt-2">
@@ -131,7 +139,7 @@
                 </div>
                 <div>
                     <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="text: buttonText, click: function() { onOkClicked(buttonText); }">Add</button>
                 </div>
             </div>
         </div>
@@ -167,7 +175,7 @@
                 </div>
                 <div>
                     <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
-                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: function() { onOkClicked(buttonText); }"></button>
                 </div>
             </div>
         </div>

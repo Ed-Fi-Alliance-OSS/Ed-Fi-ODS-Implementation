@@ -21,6 +21,8 @@ var Sandbox = function (sandboxType, dedicated) {
     };
 };
 
+var addApplicationDialogInstance = null;
+
 var ModalController = function (modalOptions) {
     var self = this;
 
@@ -55,7 +57,17 @@ var ModalController = function (modalOptions) {
         getModal().modal('hide');
     };
 
-    this.onOkClicked = function () {
+
+    this.onOkClicked = function (buttonText) {
+
+        if (buttonText() !== "Delete") {
+            addApplicationDialogInstance.markFieldsAsTouched(true);
+
+            if (!addApplicationDialogInstance.canAdd()) {
+                return;
+            }
+        }
+
         if (modalOptions.closeOnOk) {
             self.hide();
             self.callback();
@@ -122,28 +134,77 @@ var ResetDialog = function () {
 var AddApplicationDialog = function () {
     var self = this;
 
-    self.applicationName = ko.observable('');
-    self.useSampleData = ko.observable(false);
-    self.applicationList = ko.observableArray();
-    self.selectedApplication = ko.observable();
-    self.canAdd = ko.computed(function () {
-        return self.applicationName().length > 0;
+    self.fieldsTouched = ko.observable(false);
+    self.buttonText = ko.observable("");
+    self.sandboxName = ko.observable(null).extend({
+        required: {
+            message: 'The Sandbox Name field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        },
+        pattern: {
+        message: 'Please enter only letters',
+        params: /^[A-Za-z]+$/
+    }
     });
 
+    self.useSampleData = ko.observable(false);
+    self.applicationList = ko.observableArray();
+
+    self.selectedApplication = ko.observable().extend({
+        required: {
+            message: 'Please select a application.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        }
+    });
+
+    self.selectApplication = function (data, event) {
+        self.selectedApplication(event.target.text);
+    };
+
+    self.errors = ko.validation.group(self);
+
+
     self.htmlId = "modal-add";
+
+    addApplicationDialogInstance = self;
+
+    self.markFieldsAsTouched = function (value) {
+        self.fieldsTouched(value);
+    };
+
     var modal = new ModalController({ htmlId: self.htmlId });
+
+    this.disableOkButton = ko.computed(function () {
+        return !modal.confirmChecked();
+    });
     this.onOkClicked = modal.onOkClicked;
+    this.confirmChecked = modal.confirmChecked;
+
+    var firstStepValidation = [
+        self.sandboxName,
+        self.selectedApplication
+    ];
+
+    self.canAdd = ko.computed(function () {
+        var errors = ko.validation.group(firstStepValidation);
+        return errors().length === 0;
+    });
 
     function ApplicationTemplate(data) {
         var self = this;
-        self.Id = ko.observable(data.id);
-        self.Name = ko.observable(data.name);
+        self.Id = ko.observable(data.Id);
+        self.Name = ko.observable(data.Name);
     }
-    this.show = function (options) {
-        self.applicationName('');
+
+    self.show = function (options) {
+        self.sandboxName('');
         self.useSampleData(false);
-        $.each(options.applications, function (Id, Name) {
-            self.applicationList.push(new ApplicationTemplate(Name));
+        self.applicationList([]);
+        self.buttonText('Add');
+        $.each(options.applications, function (Id, data) {
+            if (data.Name !== "") {
+                self.applicationList.push(new ApplicationTemplate(data));
+            }
         });
         modal.show(options.callback);
     };
@@ -185,8 +246,6 @@ function ClientsViewModel() {
         return self.apiClients().length > 0;
     });
 
-    self.canAddMoreApplications = ko.observable(true);
-
     self.clientStatus = ko.computed(function () {
         switch (self.apiClients().length) {
             case 0:
@@ -225,12 +284,19 @@ function ClientsViewModel() {
 
     self.doAddClient = function (onComplete) {
         self.error("");
-        var applicationName = self.addApplicationDialog.applicationName();
+        var sandboxName = self.addApplicationDialog.sandboxName();
         var sandboxType = self.addApplicationDialog.useSampleData() ? "sample" : "minimal";
-        var applicationId = self.addApplicationDialog.selectedApplication().Id;
+
+        var selectedApplicationName = self.addApplicationDialog.selectedApplication();
+        var applicationId = null;
+        self.addApplicationDialog.applicationList().forEach(function (application) {
+            if (application.Name() === selectedApplicationName) {
+                applicationId = application.Id();
+            }
+        });
         $.ajax({
             type: "POST",
-            data: { "Name": applicationName, "SandboxType": sandboxType, "IsDedicated": true, "ApplicationId": applicationId },
+            data: { "Name": sandboxName, "SandboxType": sandboxType, "IsDedicated": true, "ApplicationId": applicationId },
             url: EdFiAdmin.Urls.client,
             dataType: 'json',
             success: function (data, textStatus, jqXHR) {
@@ -245,7 +311,7 @@ function ClientsViewModel() {
                 onComplete();
                 switch (jqXHR.status) {
                     case 400:
-                        self.error("Maximum number of sandboxes reached. Please reuse or delete an existing sandbox.");
+                        self.error(jqXHR.responseText);
                         break;
                     case 406:
                         self.error("You must provide a name for your client application sandbox.");
@@ -398,6 +464,7 @@ function ClientsViewModel() {
     };
     self.addApplicationClicked = function () {
         self.getApplications(function (applications) {
+            addApplicationDialogInstance.markFieldsAsTouched(false);            
             self.addApplicationDialog.applicationList(applications);
             self.addApplicationDialog.show({ callback: self.doAddClient, applications });
         });
@@ -407,7 +474,6 @@ function ClientsViewModel() {
     self.getData();
 }
 
-var boundModel;
 $(function () {
 
     $.ajaxSetup({
@@ -420,7 +486,17 @@ $(function () {
         }
     });
 
+    ko.validation.init({
+
+        registerExtenders: true,
+        messagesOnModified: true,
+        insertMessages: true,
+        parseInputAttributes: true,
+        errorClass: 'alert alert-danger show',
+        messageTemplate: null
+
+    }, true);
+
     var viewModel = new ClientsViewModel();
-    boundModel = viewModel;
     ko.applyBindings(viewModel);
 });
