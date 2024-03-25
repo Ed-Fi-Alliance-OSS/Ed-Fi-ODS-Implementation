@@ -57,7 +57,6 @@ var ModalController = function (modalOptions) {
         getModal().modal('hide');
     };
 
-
     this.onOkClicked = function (buttonText) {
 
         if (buttonText() !== "Delete") {
@@ -150,10 +149,16 @@ var AddApplicationDialog = function () {
     self.useSampleData = ko.observable(false);
     self.applicationList = ko.observableArray();
 
-    self.selectedApplication = ko.observable().extend({
+    self.selectedApplication = ko.observable(null).extend({
         required: {
             message: 'Please select a application.',
             onlyIf: function () { return self.fieldsTouched(); }
+        },
+        validation: {
+            validator: function (value) {
+                return value !== 'Select Application';
+            },
+            message: 'Please select a application.'
         }
     });
 
@@ -201,11 +206,21 @@ var AddApplicationDialog = function () {
         self.useSampleData(false);
         self.applicationList([]);
         self.buttonText('Add');
+
+        var selectApplicationData = {
+            Id: -1,
+            Name: "Select Application"
+        };
+        self.applicationList.push(new ApplicationTemplate(selectApplicationData));
+
         $.each(options.applications, function (Id, data) {
             if (data.Name !== "") {
                 self.applicationList.push(new ApplicationTemplate(data));
             }
         });
+
+        self.selectedApplication('Select Application');
+
         modal.show(options.callback);
     };
 };

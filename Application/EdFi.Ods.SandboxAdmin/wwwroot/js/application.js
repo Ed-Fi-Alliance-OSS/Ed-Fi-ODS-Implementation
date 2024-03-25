@@ -118,10 +118,16 @@ var addApplicationDialog = function () {
     });
     self.vendorList = ko.observableArray();
 
-    self.selectedVendor = ko.observable().extend({
+    self.selectedVendor = ko.observable(null).extend({
         required: {
             message: 'Please select a vendor.',
             onlyIf: function () { return self.fieldsTouched(); }
+        },
+        validation: {
+            validator: function (value) {
+                return value !== 'Select Vendor';
+            },
+            message: 'Please select a vendor.'
         }
     });
 
@@ -165,11 +171,20 @@ var addApplicationDialog = function () {
         self.educationOrganizationId('');
         self.vendorList([]);
         self.buttonText('Add');
+
+        var selectVendorData = {
+            Id: -1,
+            Name: "Select Vendor"
+        };
+        self.vendorList.push(new VendorTemplate(selectVendorData));
+
         $.each(options.vendors, function (Id, data) {
             if (data.Name !== "" && data.Name !== "Test Admin") {
                 self.vendorList.push(new VendorTemplate(data));
             }
         });
+
+        self.selectedVendor('Select Vendor');
 
         modal.show(options.callback);
     };
@@ -350,7 +365,6 @@ function ApplicationsViewModel() {
         });
     };
 
-    // Load the original data
     self.getData();
 }
 
