@@ -151,14 +151,14 @@ var AddApplicationDialog = function () {
 
     self.selectedApplication = ko.observable(null).extend({
         required: {
-            message: 'Please select a application.',
+            message: 'Please select an application.',
             onlyIf: function () { return self.fieldsTouched(); }
         },
         validation: {
             validator: function (value) {
-                return value !== 'Select Application';
+                return value == 'Select Application' && !self.fieldsTouched();
             },
-            message: 'Please select a application.'
+            message: 'Please select an application.'
         }
     });
 

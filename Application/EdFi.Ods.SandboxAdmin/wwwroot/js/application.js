@@ -125,7 +125,7 @@ var addApplicationDialog = function () {
         },
         validation: {
             validator: function (value) {
-                return value !== 'Select Vendor';
+                return value == 'Select Vendor' && !self.fieldsTouched();
             },
             message: 'Please select a vendor.'
         }

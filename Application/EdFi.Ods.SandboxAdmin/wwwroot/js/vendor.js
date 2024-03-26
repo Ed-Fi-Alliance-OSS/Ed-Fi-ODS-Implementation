@@ -7,7 +7,7 @@
 
 /*global EdFiAdmin*/
 
-var addApplicationDialogInstance = null;
+var addVendorDialogInstance = null;
 
 var ModalController = function (modalOptions) {
     var self = this;
@@ -46,9 +46,9 @@ var ModalController = function (modalOptions) {
     this.onOkClicked = function (buttonText) {
 
          if (buttonText() !== "Delete") {
-                addApplicationDialogInstance.markFieldsAsTouched(true);
+                addVendorDialogInstance.markFieldsAsTouched(true);
 
-                if (!addApplicationDialogInstance.canAdd()) {
+                if (!addVendorDialogInstance.canAdd()) {
                     return; 
                 }
          }
@@ -88,7 +88,7 @@ var confirmationDialog = function () {
     };
 };
 
-var addApplicationDialog = function () {
+var addVendorDialog = function () {
     var self = this;
 
     self.fieldsTouched = ko.observable(false);
@@ -136,7 +136,7 @@ var addApplicationDialog = function () {
 
     self.htmlId = "modal-add";
 
-    addApplicationDialogInstance = self;
+    addVendorDialogInstance = self;
     var modal = new ModalController({ htmlId: self.htmlId });
 
     this.disableOkButton = ko.computed(function () {
@@ -192,7 +192,7 @@ function VendorsViewModel() {
     self.vendors = ko.mapping.fromJS([], VendorMapping);
     self.error = ko.observable();
     self.confirmationDialog = new confirmationDialog();
-    self.addApplicationDialog = new addApplicationDialog();
+    self.addVendorDialog = new addVendorDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.vendors().length > 0;
@@ -236,10 +236,10 @@ function VendorsViewModel() {
 
     self.doAddVendor = function (onComplete) {
         self.error("");
-        var vendorName = self.addApplicationDialog.vendorName();
-        var namespacePrefix = self.addApplicationDialog.namespacePrefix();
-        var contactName = self.addApplicationDialog.contactName();
-        var contactEmailAddress = self.addApplicationDialog.contactEmailAddress();
+        var vendorName = self.addVendorDialog.vendorName();
+        var namespacePrefix = self.addVendorDialog.namespacePrefix();
+        var contactName = self.addVendorDialog.contactName();
+        var contactEmailAddress = self.addVendorDialog.contactEmailAddress();
         $.ajax({
             type: "POST",
             data: { "VendorName": vendorName, "NamespacePrefix": namespacePrefix, "ContactName": contactName, "ContactEmailAddress": contactEmailAddress },
@@ -298,8 +298,8 @@ function VendorsViewModel() {
 
     self.addVendorClicked = function () {
 
-        addApplicationDialogInstance.markFieldsAsTouched(false);
-        self.addApplicationDialog.show({ callback: self.doAddVendor });
+        addVendorDialogInstance.markFieldsAsTouched(false);
+        self.addVendorDialog.show({ callback: self.doAddVendor });
     };
     // Load the original data
     self.getData();
