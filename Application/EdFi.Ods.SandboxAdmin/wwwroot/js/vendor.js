@@ -99,11 +99,6 @@ var addVendorDialog = function () {
         required: {
             message: 'The Vendor Name field is required.',
             onlyIf: function () { return self.fieldsTouched(); }
-        },
-        pattern: {
-            message: 'Please enter only letters',
-            params: /^[A-Za-z]+$/,
-            onlyIf: function () { return self.fieldsTouched(); }
         }
     });
 

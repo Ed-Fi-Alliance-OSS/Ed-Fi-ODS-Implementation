@@ -99,11 +99,7 @@ var addApplicationDialog = function () {
         required: {
             message: 'The Application Name field is required.',
             onlyIf: function () { return self.fieldsTouched(); }
-        },
-        pattern: {
-        message: 'Please enter only letters',
-        params: /^[A-Za-z]+$/
-    }
+        }
     });
 
     self.educationOrganizationId = ko.observable(null).extend({

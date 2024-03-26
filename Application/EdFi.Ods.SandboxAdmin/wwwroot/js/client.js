@@ -139,11 +139,7 @@ var AddApplicationDialog = function () {
         required: {
             message: 'The Sandbox Name field is required.',
             onlyIf: function () { return self.fieldsTouched(); }
-        },
-        pattern: {
-        message: 'Please enter only letters',
-        params: /^[A-Za-z]+$/
-    }
+        }
     });
 
     self.useSampleData = ko.observable(false);
