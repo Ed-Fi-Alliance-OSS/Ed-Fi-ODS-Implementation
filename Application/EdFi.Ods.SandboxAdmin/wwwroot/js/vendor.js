@@ -7,6 +7,7 @@
 
 /*global EdFiAdmin*/
 
+var addVendorDialogInstance = null;
 
 var ModalController = function (modalOptions) {
     var self = this;
@@ -42,7 +43,16 @@ var ModalController = function (modalOptions) {
         getModal().modal('hide');
     };
 
-    this.onOkClicked = function () {
+    this.onOkClicked = function (buttonText) {
+
+         if (buttonText() !== "Delete") {
+                addVendorDialogInstance.markFieldsAsTouched(true);
+
+                if (!addVendorDialogInstance.canAdd()) {
+                    return; 
+                }
+         }
+
         if (modalOptions.closeOnOk) {
             self.hide();
             self.callback();
@@ -78,42 +88,72 @@ var confirmationDialog = function () {
     };
 };
 
-var addApplicationDialog = function () {
+var addVendorDialog = function () {
     var self = this;
-    self.vendorName = ko.observable().extend({
-        required: true,
-        pattern: {
-            message: 'Please enter only letters',
-            params: /^[A-Za-z]+$/
+
+    self.fieldsTouched = ko.observable(false);
+
+    self.buttonText = ko.observable("");
+
+    self.vendorName = ko.observable(null).extend({
+        required: {
+            message: 'The Vendor Name field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
         }
     });
-    self.namespacePrefix = ko.observable().extend({
-        required: true
+
+    self.namespacePrefix = ko.observable(null).extend({
+        required: {
+            message: 'The Namespace Prefix field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        }
     });
 
-    self.contactName = ko.observable().extend({
-        required: true
+    self.contactName = ko.observable(null).extend({
+        required: {
+            message: 'The Contact Name field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        }
     });
 
-    self.contactEmailAddress = ko.observable().extend({
-        required: true
+    self.contactEmailAddress = ko.observable(null).extend({
+        required: {
+            message: 'The Contact EmailAddress field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        }
     });
+
+    self.markFieldsAsTouched = function (value) {
+        self.fieldsTouched(value);
+    };
+
+
 
     self.htmlId = "modal-add";
+
+    addVendorDialogInstance = self;
     var modal = new ModalController({ htmlId: self.htmlId });
+
+    this.disableOkButton = ko.computed(function () {
+        return !modal.confirmChecked();
+    });
     this.onOkClicked = modal.onOkClicked;
+    this.confirmChecked = modal.confirmChecked;
 
     this.show = function (options) {
         self.vendorName('');
         self.namespacePrefix('');
         self.contactName('');
         self.contactEmailAddress('');
+        self.buttonText('Add');
         modal.show(options.callback);
     };
 
     var firstStepValidation = [
         self.vendorName,
-        self.namespacePrefix
+        self.namespacePrefix,
+        self.contactName,
+        self.contactEmailAddress
     ];
 
     self.canAdd = ko.computed(function () {
@@ -147,13 +187,11 @@ function VendorsViewModel() {
     self.vendors = ko.mapping.fromJS([], VendorMapping);
     self.error = ko.observable();
     self.confirmationDialog = new confirmationDialog();
-    self.addApplicationDialog = new addApplicationDialog();
+    self.addVendorDialog = new addVendorDialog();
 
     self.shouldShowTable = ko.computed(function () {
         return self.vendors().length > 0;
     });
-
-    self.canAddMoreVendors = ko.observable(true);
 
     self.vendorStatus = ko.computed(function () {
         switch (self.vendors().length) {
@@ -193,10 +231,10 @@ function VendorsViewModel() {
 
     self.doAddVendor = function (onComplete) {
         self.error("");
-        var vendorName = self.addApplicationDialog.vendorName();
-        var namespacePrefix = self.addApplicationDialog.namespacePrefix();
-        var contactName = self.addApplicationDialog.contactName();
-        var contactEmailAddress = self.addApplicationDialog.contactEmailAddress();
+        var vendorName = self.addVendorDialog.vendorName();
+        var namespacePrefix = self.addVendorDialog.namespacePrefix();
+        var contactName = self.addVendorDialog.contactName();
+        var contactEmailAddress = self.addVendorDialog.contactEmailAddress();
         $.ajax({
             type: "POST",
             data: { "VendorName": vendorName, "NamespacePrefix": namespacePrefix, "ContactName": contactName, "ContactEmailAddress": contactEmailAddress },
@@ -254,13 +292,14 @@ function VendorsViewModel() {
     };
 
     self.addVendorClicked = function () {
-        self.addApplicationDialog.show({ callback: self.doAddVendor });
+
+        addVendorDialogInstance.markFieldsAsTouched(false);
+        self.addVendorDialog.show({ callback: self.doAddVendor });
     };
     // Load the original data
     self.getData();
 }
 
-var boundModel;
 $(function () {
 
     $.ajaxSetup({
@@ -280,12 +319,11 @@ $(function () {
         messagesOnModified: true,
         insertMessages: true,
         parseInputAttributes: true,
-        errorClass: 'errorStyle',
+        errorClass: 'alert alert-danger show',
         messageTemplate: null
 
     }, true);
 
     var viewModel = new VendorsViewModel();
-    boundModel = viewModel;
     ko.applyBindings(viewModel);
 });

@@ -7,6 +7,8 @@
 
 /*global EdFiAdmin*/
 
+var addApplicationDialogInstance = null;
+
 var ModalController = function (modalOptions) {
     var self = this;
 
@@ -41,7 +43,16 @@ var ModalController = function (modalOptions) {
         getModal().modal('hide');
     };
 
-    this.onOkClicked = function () {
+    this.onOkClicked = function (buttonText) {
+
+        if (buttonText() !== "Delete") {
+            addApplicationDialogInstance.markFieldsAsTouched(true);
+
+            if (!addApplicationDialogInstance.canAdd()) {
+                return;
+            }
+        }
+
         if (modalOptions.closeOnOk) {
             self.hide();
             self.callback();
@@ -80,52 +91,82 @@ var confirmationDialog = function () {
 var addApplicationDialog = function () {
     var self = this;
 
-    self.applicationName = ko.observable().extend({
-        required: true,
-        pattern: {
-            message: 'Please enter only letters',
-            params: /^[A-Za-z]+$/
+    self.fieldsTouched = ko.observable(false);
+
+    self.buttonText = ko.observable("");
+
+    self.applicationName = ko.observable(null).extend({
+        required: {
+            message: 'The Application Name field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
         }
     });
 
-    self.educationOrganizationId = ko.observable().extend({
-        required: true,
+    self.educationOrganizationId = ko.observable(null).extend({
+        required: {
+            message: 'The EducationOrganizationId field is required.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        },
         pattern: {
             message: 'Please enter a valid number with at least six digits of educationOrganizationId',
             params: /^\d{6,}$/
         }
     });
     self.vendorList = ko.observableArray();
-    self.selectedVendor = ko.observable();
+
+    self.selectedVendor = ko.observable(null).extend({
+        required: {
+            message: 'Please select a vendor.',
+            onlyIf: function () { return self.fieldsTouched(); }
+        },
+        validation: {
+            validator: function (value) {
+                return value == 'Select Vendor' && !self.fieldsTouched();
+            },
+            message: 'Please select a vendor.'
+        }
+    });
+
+    self.selectVendor = function (data, event) {
+        self.selectedVendor(event.target.text);
+    };
+
+    self.errors = ko.validation.group(self);
 
 
     self.htmlId = "modal-add";
+
+    addApplicationDialogInstance = self;
+
+    self.markFieldsAsTouched = function (value) {
+        self.fieldsTouched(value);
+    };
+
     var modal = new ModalController({ htmlId: self.htmlId });
+
+
+    this.disableOkButton = ko.computed(function () {
+        return !modal.confirmChecked();
+    });
+    this.onOkClicked = modal.onOkClicked;
+    this.confirmChecked = modal.confirmChecked;
 
     var firstStepValidation = [
         self.applicationName,
         self.educationOrganizationId,
         self.selectedVendor
     ];
-
-    this.onOkClicked = modal.onOkClicked;
-
     function VendorTemplate(data) {
         var self = this;
         self.Id = ko.observable(data.Id);
         self.Name = ko.observable(data.Name);
     }
 
-    this.show = function (options) {
+    self.show = function (options) {
         self.applicationName('');
         self.educationOrganizationId('');
-        self.vendorList = ko.observableArray();
-
-        $.each(options.vendors, function (Id, data) {
-            if (data.Name !== "") {
-                self.vendorList.push(new VendorTemplate(data));
-            }
-        });
+        self.vendorList([]);
+        self.buttonText('Add');
 
         var selectVendorData = {
             Id: -1,
@@ -133,9 +174,13 @@ var addApplicationDialog = function () {
         };
         self.vendorList.push(new VendorTemplate(selectVendorData));
 
-        self.selectedVendor(self.vendorList().find(function (vendor) {
-            return vendor.Name === 'Select Vendor';
-        }));
+        $.each(options.vendors, function (Id, data) {
+            if (data.Name !== "" && data.Name !== "Test Admin") {
+                self.vendorList.push(new VendorTemplate(data));
+            }
+        });
+
+        self.selectedVendor('Select Vendor');
 
         modal.show(options.callback);
     };
@@ -175,8 +220,6 @@ function ApplicationsViewModel() {
     self.shouldShowTable = ko.computed(function () {
         return self.applications().length > 0;
     });
-
-    self.canAddMoreApplications = ko.observable(true);
 
     self.applicationStatus = ko.computed(function () {
         switch (self.applications().length) {
@@ -248,7 +291,14 @@ function ApplicationsViewModel() {
         self.error("");
         var applicationName = self.addApplicationDialog.applicationName();
         var educationOrganizationId = parseInt(self.addApplicationDialog.educationOrganizationId());
-        var vendorId = self.addApplicationDialog.selectedVendor();
+        var selectedVendorName = self.addApplicationDialog.selectedVendor();
+        var vendorId =  null;
+        self.addApplicationDialog.vendorList().forEach(function (vendor) {
+            if (vendor.Name() === selectedVendorName) {
+                vendorId = vendor.Id();
+            }
+        });
+
         $.ajax({
             type: "POST",
             data: { "ApplicationName": applicationName, "EducationOrganizationId": educationOrganizationId, "VendorId": vendorId },
@@ -305,16 +355,15 @@ function ApplicationsViewModel() {
 
    self.addApplicationClicked = function () {
        self.getVendors(function (vendors) {
+            addApplicationDialogInstance.markFieldsAsTouched(false);
             self.addApplicationDialog.vendorList(vendors);
             self.addApplicationDialog.show({ callback: self.doAddApplication ,vendors });
         });
     };
 
-    // Load the original data
     self.getData();
 }
 
-var boundModel;
 $(function () {
 
     $.ajaxSetup({
@@ -333,12 +382,11 @@ $(function () {
         messagesOnModified: true,
         insertMessages: true,
         parseInputAttributes: true,
-        errorClass: 'errorStyle',
+        errorClass: 'alert alert-danger show',
         messageTemplate: null
 
     }, true);
 
     var viewModel = new ApplicationsViewModel();
-    boundModel = viewModel;
     ko.applyBindings(viewModel);
 });

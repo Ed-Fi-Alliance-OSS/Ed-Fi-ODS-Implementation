@@ -9,7 +9,6 @@ using System.Linq;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Ods.SandboxAdmin.Services.Models.Application;
-using EdFi.Ods.SandboxAdmin.Services.Models.Vendor;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -84,7 +83,8 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
                 ApplicationName =application.ApplicationName,
                 EducationOrganizationId = application.ApplicationEducationOrganizations.Select(a=>a.EducationOrganizationId).FirstOrDefault(),
                 VendorName = application.Vendor.VendorName,
-                Id=application.ApplicationId
+                Id=application.ApplicationId,
+                IsDefaultVendor = application.Vendor.VendorName.Trim() == "Test Admin" ? true : false
             };
 
             return viewModel;

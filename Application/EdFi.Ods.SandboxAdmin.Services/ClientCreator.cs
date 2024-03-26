@@ -64,7 +64,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
         {
             if (user.ApiClients.Count >= _maximumSandboxesPerUser)
             {
-                var message = $"The maximum of {_maximumSandboxesPerUser} sandboxes for user id {user.UserId} has been reached!";
+                var message = $"The maximum of {_maximumSandboxesPerUser} sandboxes for user {user.FullName} has been reached!";
                 message += " To configure please update the 'MaximumSandboxesPerUser' app setting in the web.config.";
                 _log.Error(message);
                 throw new ArgumentOutOfRangeException(message);
