@@ -7,10 +7,7 @@ name: InitDev (Postgres), Unit tests, Integration tests
 
 on:
   pull_request:
-    branches: [main-5x, 'b-v*-patch*','feature-*']
-    paths:
-      - Application/**/*
-      - tests/**/*
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
@@ -58,12 +55,12 @@ jobs:
         shell: pwsh
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
-      - name: Install & Start PostgreSQL 13
+      - name: Install & Start PostgreSQL 11
         run: |
-          choco install postgresql13 --params '/Password:postgres'
-          $confPath = "C:\Program Files\PostgreSQL\13\data\pg_hba.conf"
-          (Get-Content $confPath).Replace("scram-sha-256","trust") | Set-Content $confPath
-          Restart-Service postgresql-x64-13
+          choco install postgresql11 --params '/Password:postgres'
+          $confPath = "C:\Program Files\PostgreSQL\11\data\pg_hba.conf"
+          (Get-Content $confPath).Replace("md5","trust") | Set-Content $confPath
+          Restart-Service postgresql-x64-11
       - name: ODS/API InitDev, SdkGen,Run Integration Tests, Run Unit Tests
         working-directory: ./Ed-Fi-ODS-Implementation/
         run: |

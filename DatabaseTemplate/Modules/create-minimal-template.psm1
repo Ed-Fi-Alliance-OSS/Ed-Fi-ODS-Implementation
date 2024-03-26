@@ -21,6 +21,12 @@ function Get-MinimalConfiguration([hashtable] $config = @{ }) {
     $config.bulkLoadBootstrapInterchanges = @("InterchangeDescriptors")
     $config.databaseBackupName = "EdFi.Ods.Minimal.Template"
     $config.packageNuspecName = "EdFi.Ods.Minimal.Template"
+    $config.Id = "EdFi.Suite3.Ods.Minimal.Template"
+    $config.Title = "EdFi.Suite3.Ods.Minimal.Template"
+    $config.Description = "EdFi Ods Minimal Template Database"
+    $config.Authors = "Ed-Fi Alliance"
+    $config.Owners = "Ed-Fi Alliance"
+    $config.Copyright = "Copyright @ 2024 Ed-Fi Alliance, LLC and Contributors"
 
     return $config
 }

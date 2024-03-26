@@ -34,9 +34,13 @@ Describe 'ConvertTo-Hashtable' {
 
     It "converts arrays to hashtable" {
         $a = '{ "x": [ 0, 1, 2 ] }' | ConvertFrom-Json | ConvertTo-Hashtable
-
+        # When you use a pipe, PowerShell "unrolls" the collection and 
+        #   pipes in one element at a time, breaking our array check
+        # Use PowerShell's unary comma operator to wrap the collection in a one-element array
         $a | Should -Not -BeNullOrEmpty
-        $a.x | Should -BeOfType [int]
+        $a | Should -BeOfType [System.Collections.Hashtable]
+        ,$a.x | Should -BeOfType [System.Array]
+        #$a.x | Should -BeOfType [int]
         $a.x[0] | Should -Be 0
         $a.x[1] | Should -Be 1
         $a.x[2] | Should -Be 2
@@ -46,8 +50,10 @@ Describe 'ConvertTo-Hashtable' {
         $a = '{ "x": { "y": [ 0, 1, 2 ] } }' | ConvertFrom-Json | ConvertTo-Hashtable
 
         $a | Should -Not -BeNullOrEmpty
+        $a | Should -BeOfType [System.Collections.Hashtable]
         $a.x | Should -BeOfType [System.Collections.Hashtable]
-        $a.x.y | Should -BeOfType [int]
+        ,$a.x.y | Should -BeOfType [System.Array]
+        #$a.x.y | Should -BeOfType [int]
         $a.x.y[0] | Should -Be 0
         $a.x.y[1] | Should -Be 1
         $a.x.y[2] | Should -Be 2
@@ -57,9 +63,11 @@ Describe 'ConvertTo-Hashtable' {
         $a = '{ "x": { "y": { "z": [ 0, 1, 2 ] } } }' | ConvertFrom-Json | ConvertTo-Hashtable
 
         $a | Should -Not -BeNullOrEmpty
+        $a | Should -BeOfType [System.Collections.Hashtable]
         $a.x | Should -BeOfType [System.Collections.Hashtable]
         $a.x.y | Should -BeOfType [System.Collections.Hashtable]
-        $a.x.y.z | Should -BeOfType [int]
+        ,$a.x.y.z | Should -BeOfType [System.Array]
+        #$a.x.y.z | Should -BeOfType [int]
         $a.x.y.z[0] | Should -Be 0
         $a.x.y.z[1] | Should -Be 1
         $a.x.y.z[2] | Should -Be 2

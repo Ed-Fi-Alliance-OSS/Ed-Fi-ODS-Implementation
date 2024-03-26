@@ -254,6 +254,7 @@ $tasks = [ordered] @{
 $script:result = @()
 
 $elapsed = Use-StopWatch {
+    if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder)) { $script:result += Install-Plugins }
     # only the security database currently has codegen artifacts
     if ($DatabaseType -eq 'Security') { $script:result += Invoke-CodeGen }
     $script:result += Install-DbDeploy
