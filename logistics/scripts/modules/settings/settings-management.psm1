@@ -119,11 +119,13 @@ function Get-DefaultDevelopmentSettingsByProject {
             ApiSettings       = @{
                 Engine = ""
             }
+            ConnectionStrings = @{ }
         }
         ((Get-TestProjectTypes).SecurityDataAccessIntegrationTests) = @{
             ApiSettings       = @{
                 Engine = ""
             }
+            ConnectionStrings = @{ }
         }
         ((Get-TestProjectTypes).OdsUnitTests) = @{
             ApiSettings       = @{
