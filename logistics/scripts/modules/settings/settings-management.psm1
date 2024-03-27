@@ -25,7 +25,8 @@ function Get-TestProjectTypes {
         ApiIntegrationTests         = 'tests/EdFi.Ods.Api.IntegrationTests'
         CompositeSpecFlowTests      = 'tests/EdFi.Ods.WebApi.CompositeSpecFlowTests'
         WebApiIntegrationTests      = 'tests/EdFi.Ods.WebApi.IntegrationTests'
-        DataAccessIntegrationTests  = 'tests/EdFi.Admin.DataAccess.IntegrationTests'
+        AdminDataAccessIntegrationTests  = 'tests/EdFi.Admin.DataAccess.IntegrationTests'
+        SecurityDataAccessIntegrationTests  = 'tests/EdFi.Security.DataAccess.IntegrationTests'
     }
 }
 
@@ -114,7 +115,13 @@ function Get-DefaultDevelopmentSettingsByProject {
             }
             ConnectionStrings = @{ }
         }
-        ((Get-TestProjectTypes).DataAccessIntegrationTests) = @{
+        ((Get-TestProjectTypes).AdminDataAccessIntegrationTests) = @{
+            ApiSettings       = @{
+                Engine = ""
+            }
+            ConnectionStrings = @{ }
+        }
+        ((Get-TestProjectTypes).SecurityDataAccessIntegrationTests) = @{
             ApiSettings       = @{
                 Engine = ""
             }
