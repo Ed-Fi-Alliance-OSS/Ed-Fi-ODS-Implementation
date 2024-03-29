@@ -34,6 +34,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); }).Build();
 
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true); 
+            
             await host.RunAsync();
 
             static void ConfigureLogging()
