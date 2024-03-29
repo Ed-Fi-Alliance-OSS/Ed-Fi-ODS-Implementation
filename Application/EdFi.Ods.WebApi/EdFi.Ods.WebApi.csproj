@@ -32,7 +32,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="NHibernate" Version="5.3.11" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
     <PackageReference Include="Npgsql" Version="6.0.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />

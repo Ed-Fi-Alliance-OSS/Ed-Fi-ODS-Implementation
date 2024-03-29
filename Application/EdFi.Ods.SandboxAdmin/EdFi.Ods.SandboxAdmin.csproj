@@ -31,7 +31,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Npgsql" Version="4.1.5" />
-    <PackageReference Include="NHibernate" Version="5.3.10" />
+    <PackageReference Include="NHibernate" Version="5.3.11" />
   </ItemGroup>
 
   <ItemGroup>
