@@ -56,7 +56,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             var apiClient = new ApiClient
             {
                 ApiClientName = "Api",
-                LocalEducationOrganizations = new List<long> { 255901 }
+                LocalEducationOrganizations = new() { 255901 }
             };
 
             var application = new Application

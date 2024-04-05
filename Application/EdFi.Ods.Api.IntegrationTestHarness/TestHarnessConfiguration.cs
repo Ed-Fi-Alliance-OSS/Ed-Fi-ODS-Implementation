@@ -45,11 +45,16 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
 
         public string Secret { get; set; }
 
-        public List<long> LocalEducationOrganizations { get; set; }
+        public List<EducationOrganizationRange> LocalEducationOrganizations { get; set; }
 
         public string OwnershipToken { get; set; }
 
         public List<string> ApiClientOwnershipTokens { get; set; }
-
     }
+
+    public record EducationOrganizationRange(long Start, long Count = 1)
+    {
+        public static implicit operator EducationOrganizationRange(long start) => 
+            new EducationOrganizationRange(start);
+    };
 }

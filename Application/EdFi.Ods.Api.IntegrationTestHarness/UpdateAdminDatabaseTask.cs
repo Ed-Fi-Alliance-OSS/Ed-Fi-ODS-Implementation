@@ -7,15 +7,18 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Xml;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
+using EdFi.Common.Extensions;
 using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
+using EdFi.Ods.Common.Conventions;
 using EdFi.Ods.Common.Database;
 using EdFi.Ods.Common.Models;
 using log4net;
@@ -38,6 +41,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly ITenantConfigurationMapProvider _tenantConfigurationMapProvider;
         private readonly IContextProvider<TenantConfiguration> _tenantConfigurationContextProvider;
         private readonly IDomainModelProvider _domainModelProvider;
+        private readonly Version _edfiDomainModelVersion;
+        private readonly long _maxSafeEducationOrganizationId;
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
@@ -52,6 +57,19 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             _apiSettings = apiSettings;
             _testHarnessConfiguration = testHarnessConfigurationProvider.GetTestHarnessConfiguration();
             _domainModelProvider = domainModelProvider;
+
+            _edfiDomainModelVersion = Version.Parse(
+                _domainModelProvider
+                    .GetDomainModel()
+                    .Schemas
+                    .Single(x => x.LogicalName.EqualsIgnoreCase(EdFiConventions.LogicalName))
+                    .Version
+            );
+
+            // The biggest int64 value that can be stored in a double precision floating point format
+            // that can be used in Javascript for Postman tests. See Number.MAX_SAFE_INTEGER for reference.
+            const long maxSafeInt64 = 9007199254740991;
+            _maxSafeEducationOrganizationId = _edfiDomainModelVersion.Major < 5 ? int.MaxValue : maxSafeInt64;
         }
 
         public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
@@ -98,15 +116,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             {
                 // This checks if the Ed-Fi Data Standard in use has a Parent entity,
                 // which was renamed to Contact in Data Standard version 5.0.0.
-                
-                // If there is not a Parent entity present in the data standard in use,
-                // then we assume that the data standard in use is 5.0.0 or later and therefore use Contact.
-
-                var dataStandardHasParentEntity = _domainModelProvider.GetDomainModel().Entities.Any(x =>
-                    x.Schema.Equals("edfi", StringComparison.OrdinalIgnoreCase) &&
-                    x.Name.Equals("Parent", StringComparison.OrdinalIgnoreCase));
-                
-                var parentOrContactProperName = dataStandardHasParentEntity ? "Parent" : "Contact";
+                var parentOrContactProperName = _edfiDomainModelVersion.Major < 5 ? "Parent" : "Contact";
 
                 var environmentFilePath = _configuration.GetValue<string>("environmentFilePath");
 
@@ -144,6 +154,14 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Enabled = true, 
                             Value = parentOrContactProperName,
                             Key = "ParentOrContactProperName"
+                        });
+
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true,
+                            Value = _maxSafeEducationOrganizationId,
+                            Key = "MaxSafeEducationOrganizationId"
                         });
 
                     var jsonString = JsonConvert.SerializeObject(
@@ -229,7 +247,12 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     var application = _clientAppRepo.CreateApplicationForVendor(
                         user.Vendor.VendorId, app.ApplicationName, app.ClaimSetName);
 
-                    var edOrgIds = app.ApiClients.SelectMany(s => s.LocalEducationOrganizations).Distinct().ToList();
+                    var edOrgIds = app.ApiClients
+                        .SelectMany(s => s.LocalEducationOrganizations)
+                        .SelectMany(l => Range(l.Start, l.Count))
+                        .Select(PreventEducationOrganizationIdOverflow)
+                        .Distinct()
+                        .ToList();
 
                     _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, application.ApplicationId);
 
@@ -261,8 +284,14 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                                 Key = "ApiSecret_" + client.ApiClientName
                             });
 
+                        var clientEdOrgIds = client.LocalEducationOrganizations
+                            .SelectMany(l => Range(l.Start, l.Count))
+                            .Select(PreventEducationOrganizationIdOverflow)
+                            .Distinct()
+                            .ToList();
+
                         _clientAppRepo.AddEdOrgIdsToApiClient(
-                            user.UserId, apiClient.ApiClientId, client.LocalEducationOrganizations,
+                            user.UserId, apiClient.ApiClientId, clientEdOrgIds,
                             application.ApplicationId);
 
                         _clientAppRepo.AddOdsInstanceToApiClient(apiClient.ApiClientId, odsInstance.OdsInstanceId);
@@ -304,6 +333,24 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             string GetGuid()
             {
                 return Guid.NewGuid().ToString("N").Substring(0, 20);
+            }
+        }
+
+        private long PreventEducationOrganizationIdOverflow(long educationOrganizationId)
+        {
+            return Math.Min(educationOrganizationId, _maxSafeEducationOrganizationId);
+        }
+
+        /// <summary>
+        /// Similar to Enumerable.Range(). 
+        /// Allows any numeric range (instead of only int32 ranges).
+        /// </summary>
+        private IEnumerable<T> Range<T>(T start, T count)
+            where T : INumber<T>
+        {
+            for (var i = start; i < start + count; i++)
+            {
+                yield return i;
             }
         }
     }
