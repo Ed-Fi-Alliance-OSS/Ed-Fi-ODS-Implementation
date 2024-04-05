@@ -12,7 +12,7 @@
     },
     "PostgreSqlMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL",
-      "PackageVersion": "5.3.289",
+      "PackageVersion": "5.4.894",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "PostgreSqlPopulatedTemplate": {
@@ -27,7 +27,7 @@
     },
     "TPDMCorePopulatedTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Populated.Template.TPDM.Core",
-      "PackageVersion": "5.4.690",
+      "PackageVersion": "5.4.697",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "TPDMCorePostgreSqlMinimalTemplate": {
