@@ -227,12 +227,11 @@ Function Backup-Database {
         $backupActionType = "Database"
     )
 
-    Use-SqlServerModule
-
-    # TODO: Not sure why this is a trap... research in git history to figure out why & refactor using try/catch. ODS-4053
-    trap [Exception] {
+    try {
+        Use-SqlServerModule
+    }
+    catch {
         Write-Error $("ERROR: " + $_.Exception.ToString());
-        break;
     }
 
     if ($PsCmdlet.ParameterSetName -match "legacy") {
@@ -524,11 +523,7 @@ Function Invoke-SqlScript {
             }
             $sqlToExecute = $variableBlock + [Environment]::NewLine + $batch.script
             try {
-                trap [Exception] {
-                    #Enhance error output to include full stack from inside DLL call.
-                    Write-Error $("ERROR: " + $_.Exception.ToString());
-                    break;
-                }
+
                 for ($i = 0; $i -lt $batch.executionCount; $i++) {
                     if ($returnDataSet.IsPresent) {
                         $resultDataSets += $srv.ConnectionContext.ExecuteWithResults($sqlToExecute)
@@ -548,6 +543,9 @@ Function Invoke-SqlScript {
             # Make note of last successful command to aid in any troubleshooting
             $previousBatch = $sqlToExecute
         }
+    }
+    catch {
+        Write-Error $("ERROR: " + $_.Exception.ToString());
     }
     finally {
         # Clean up
@@ -887,11 +885,11 @@ Function Restore-Database {
         $restoreActionType = "Database"
     )
 
-    Use-SqlServerModule
-
-    trap [Exception] {
+    try {
+        Use-SqlServerModule
+    }
+    catch {
         Write-Error $("ERROR: " + $_.Exception.ToString());
-        break;
     }
 
     if ($PsCmdlet.ParameterSetName -match "legacy") {
@@ -956,7 +954,6 @@ Function Restore-Database {
     }
 
     # Restore the database
-    # Trap { Write-Host -Fore Red -back White $_.Exception.ToString(); Break; };
     $smoRestore.SqlRestore($server)
 
     $db = $server.Databases[$csb.Database]
