@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -213,6 +213,55 @@ function CheckoutBranch {
         }
     }
 }
+
+function Get-IsWindows {
+    <#
+    .SYNOPSIS
+        Checks to see if the current machine is a Windows machine.
+    .EXAMPLE
+        Get-IsWindows returns $True
+    #>
+    if ($null -eq $IsWindows) {
+        # This section will only trigger when the automatic $IsWindows variable is not detected.
+        # Every version of PS released on Linux contains this variable so it will always exist.
+        # $IsWindows does not exist pre PS 6.
+        return $true
+    }
+    return $IsWindows
+}
+
+function InstallCredentialHandler {
+    if (Get-IsWindows)  {
+        $moduleNames = Get-Module -ListAvailable | Select-Object -ExpandProperty Name
+        if ($moduleNames -contains '7Zip4Powershell') {
+            Write-Host "'7Zip4Powershell' exists in available modules."
+        } else {
+            Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+            Write-Host "Installed 7Zip4Powershell."
+        }
+    }
+    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
+    $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
+    $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
+    Write-Host "Downloading file from $sourceUrl..."
+    $webClient = New-Object System.Net.WebClient
+    $webClient.DownloadFile($sourceUrl, $zipFilePath)
+    Write-Host "Download complete." 
+    if (-not (Test-Path $zipFilePath)) {
+        Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+        return
+    }
+    $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
+    if ($fileName.EndsWith('.zip')) {
+        Write-Host "Extracting $fileName..."
+        if (Test-Path $zipFilePath) {
+            Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder
+        }
+        Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
+        Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+    }
+}
+
 
 function StandardVersions {
 
