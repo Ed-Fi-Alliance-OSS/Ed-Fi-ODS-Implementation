@@ -53,21 +53,20 @@ jobs:
           $ErrorActionPreference = 'Stop'
           Import-Module -Force -Scope Global $env:GITHUB_WORKSPACE/${{ env.SCRIPT_BUILD_POSTGRES_BINARIES }}
           New-PostgresBinariesPackage
-    - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
-      with:
-        nuget-version: '5.x'
+    - name: update BUILD_INCREMENTER 
+      run: |      
+            $newRevision = ([int]${{ github.run_number }}) + ([int]${{env.BUILD_INCREMENTER}})
+            if ($newRevision -lt 0) {
+                $newRevision = 1
+                echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
+            }
+      shell: pwsh 
     - name: Pack Release version
-      working-directory: ./Ed-Fi-ODS-Implementation
-      shell: pwsh
+      working-directory: ./Ed-Fi-ODS/
       run: |
-        [int]$BuildCounter =  "${{ github.run_number }}"
-        [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
-        [int]$newRevision =  $BuildCounter + $BuildIncrementer
-        [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
         $NuspecFilePath = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries/package/package.nuspec'
-        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
+        .\build.githubactions.ps1 pack -Configuration ${{ env.CONFIGURATION }} -InformationalVersion ${{ env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}} -PackageName "PostgreSQL.Binaries"  -NuspecFilePath $NuspecFilePath
+      shell: pwsh
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS/      
