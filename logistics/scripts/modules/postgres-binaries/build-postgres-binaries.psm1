@@ -174,6 +174,8 @@ function New-PackageNuspec([hashtable] $config = (Get-DefaultConfiguration)) {
 
     Write-Host "Nuspec Created: " -NoNewline
     Write-Host (Get-ChildItem $nuspecPath).FullName -ForegroundColor Green
+    Get-Content (Get-ChildItem $nuspecPath).FullName
+
     Write-Host
 }
 
