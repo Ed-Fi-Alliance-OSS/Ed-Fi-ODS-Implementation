@@ -140,7 +140,7 @@ function Pack {
         }
     }
     if ($NuspecFilePath -Like "*.nuspec" -and $null -ne $PackageName ){
-       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
+       nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties configuration=$Configuration -Properties Authors="Ed-Fi Alliance" -Properties Description="PostgreSQL.Binaries" -Properties id=$PackageName -NoPackageAnalysis -NoDefaultExcludes
     }
     if ([string]::IsNullOrWhiteSpace($NuspecFilePath) -and $null -ne $PackageName){
         Invoke-Execute {
