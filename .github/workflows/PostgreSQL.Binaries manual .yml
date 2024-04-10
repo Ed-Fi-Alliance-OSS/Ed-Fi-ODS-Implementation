@@ -6,8 +6,6 @@
 name: PostgreSQL.Binaries Manually triggered build
 
 on:
-  pull_request:
-    branches: [main, 'b-v*-patch*','feature-*']
   workflow_dispatch:
 
 env:
