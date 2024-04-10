@@ -229,31 +229,52 @@ function Get-IsWindows {
     }
     return $IsWindows
 }
-
 function InstallCredentialHandler {
     if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
          Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
          Write-Host "Installed 7Zip4Powershell."
     }
-    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.0.0/Microsoft.NuGet.CredentialProvider.zip'
-    $fileName = 'Microsoft.NuGet.CredentialProvider.zip'
-    $zipFilePath = Join-Path ([IO.Path]::GetTempPath()) $fileName
-    Write-Host "Downloading file from $sourceUrl..."
-    $webClient = New-Object System.Net.WebClient
-    $webClient.DownloadFile($sourceUrl, $zipFilePath)
+    $userProfilePath = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile);
+    if ($userProfilePath -ne '') {
+        $profilePath = $userProfilePath
+    } else {
+        $profilePath = $env:UserProfile
+    }
+
+    $tempPath = [System.IO.Path]::GetTempPath()
+
+    $pluginLocation = [System.IO.Path]::Combine($profilePath, ".nuget", "plugins");
+    $tempZipLocation = [System.IO.Path]::Combine($tempPath, "CredProviderZip");
+    $localNetcoreCredProviderPath = [System.IO.Path]::Combine("netcore", "CredentialProvider.Microsoft");
+    $fullNetcoreCredProviderPath = [System.IO.Path]::Combine($pluginLocation, $localNetcoreCredProviderPath)    
+    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.1.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
+    $zipFile = 'Microsoft.Net6.NuGet.CredentialProvider.zip'
+    $pluginZip = Join-Path ([IO.Path]::GetTempPath()) $zipFile
+    Write-Host "Downloading $sourceUrl to $pluginZip"
+    try {
+        $client = New-Object System.Net.WebClient
+        $client.DownloadFile($sourceUrl, $pluginZip)
+    } catch {
+        Write-Error "Unable to download $sourceUrl to the location $pluginZip"
+    }
     Write-Host "Download complete." 
-    if (-not (Test-Path $zipFilePath)) {
-        Write-Warning "Microsoft.NuGet.CredentialProvider file '$fileName' not found."
+    if (-not (Test-Path $pluginZip)) {
+        Write-Warning "Microsoft.Net6.NuGet.CredentialProvider file '$zipFile' not found."
         return
     }
-    $packageFolder = Join-Path ([IO.Path]::GetTempPath()) 'Microsoft.NuGet.CredentialProvider/'
-    if ($fileName.EndsWith('.zip')) {
-        Write-Host "Extracting $fileName..."
-        if (Test-Path $zipFilePath) {
-            Expand-Archive -Force -Path $zipFilePath -DestinationPath $packageFolder
+    $tempZipLocation = Join-Path ([IO.Path]::GetTempPath()) 'CredProviderZip'
+    if ($zipFile.EndsWith('.zip')) {
+        Write-Host "Extracting $zipFile..."
+        if (Test-Path $pluginZip) {
+            Expand-Archive -Force -Path $pluginZip -DestinationPath $tempZipLocation
         }
-        Copy-Item -Path $packageFolder\* -Destination "~/.nuget/" -Recurse -Force
-        Write-Host "Extracted to: ~\.nuget\plugins\" -ForegroundColor Green
+        $tempNetcorePath = Join-Path $tempZipLocation 'plugins' $localNetcoreCredProviderPath
+        Write-Verbose "Copying Credential Provider from $tempNetcorePath to $fullNetcoreCredProviderPath"
+        Copy-Item $tempNetcorePath -Destination $fullNetcoreCredProviderPath -Force -Recurse
+
+        # Remove $tempZipLocation directory
+        Write-Verbose "Removing the Credential Provider temp directory $tempZipLocation"
+        Remove-Item $tempZipLocation -Force -Recurse
     }
 }
 
