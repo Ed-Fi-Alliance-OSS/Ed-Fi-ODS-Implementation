@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -214,6 +214,71 @@ function CheckoutBranch {
     }
 }
 
+function Get-IsWindows {
+    <#
+    .SYNOPSIS
+        Checks to see if the current machine is a Windows machine.
+    .EXAMPLE
+        Get-IsWindows returns $True
+    #>
+    if ($null -eq $IsWindows) {
+        # This section will only trigger when the automatic $IsWindows variable is not detected.
+        # Every version of PS released on Linux contains this variable so it will always exist.
+        # $IsWindows does not exist pre PS 6.
+        return $true
+    }
+    return $IsWindows
+}
+function InstallCredentialHandler {
+    if (Get-IsWindows -and -not Get-InstalledModule | Where-Object -Property Name -eq "7Zip4Powershell") {
+         Install-Module -Force -Scope CurrentUser -Name 7Zip4Powershell
+         Write-Host "Installed 7Zip4Powershell."
+    }
+    $userProfilePath = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile);
+    if ($userProfilePath -ne '') {
+        $profilePath = $userProfilePath
+    } else {
+        $profilePath = $env:UserProfile
+    }
+
+    $tempPath = [System.IO.Path]::GetTempPath()
+
+    $pluginLocation = [System.IO.Path]::Combine($profilePath, ".nuget", "plugins");
+    $tempZipLocation = [System.IO.Path]::Combine($tempPath, "CredProviderZip");
+    $localNetcoreCredProviderPath = [System.IO.Path]::Combine("netcore", "CredentialProvider.Microsoft");
+    $fullNetcoreCredProviderPath = [System.IO.Path]::Combine($pluginLocation, $localNetcoreCredProviderPath)    
+    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.1.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
+    $zipFile = 'Microsoft.Net6.NuGet.CredentialProvider.zip'
+    $pluginZip = Join-Path ([IO.Path]::GetTempPath()) $zipFile
+    Write-Host "Downloading $sourceUrl to $pluginZip"
+    try {
+        $client = New-Object System.Net.WebClient
+        $client.DownloadFile($sourceUrl, $pluginZip)
+    } catch {
+        Write-Error "Unable to download $sourceUrl to the location $pluginZip"
+    }
+    Write-Host "Download complete." 
+    if (-not (Test-Path $pluginZip)) {
+        Write-Warning "Microsoft.Net6.NuGet.CredentialProvider file '$zipFile' not found."
+        return
+    }
+    $tempZipLocation = Join-Path ([IO.Path]::GetTempPath()) 'CredProviderZip'
+    if ($zipFile.EndsWith('.zip')) {
+        Write-Host "Extracting $zipFile..."
+        if (Test-Path $pluginZip) {
+            Expand-Archive -Force -Path $pluginZip -DestinationPath $tempZipLocation
+        }
+        $tempNetcorePath = Join-Path $tempZipLocation 'plugins' $localNetcoreCredProviderPath
+        Write-Verbose "Copying Credential Provider from $tempNetcorePath to $fullNetcoreCredProviderPath"
+        Copy-Item $tempNetcorePath -Destination $fullNetcoreCredProviderPath -Force -Recurse
+
+        # Remove $tempZipLocation directory
+        Write-Verbose "Removing the Credential Provider temp directory $tempZipLocation"
+        Remove-Item $tempZipLocation -Force -Recurse
+    }
+}
+
+
 function StandardVersions {
 
     $standardProjectDirectory = Split-Path $Solution  -Resolve
@@ -257,6 +322,10 @@ function Invoke-CheckoutBranch {
     Invoke-Step { CheckoutBranch }
 }
 
+function Invoke-InstallCredentialHandler {
+    Invoke-Step { InstallCredentialHandler }
+}
+
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -266,6 +335,7 @@ Invoke-Main {
         Pack { Invoke-Pack }
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
+        InstallCredentialHandler { Invoke-InstallCredentialHandler }
         StandardVersions { Invoke-StandardVersions }        
         default { throw "Command '$Command' is not recognized" }
     }

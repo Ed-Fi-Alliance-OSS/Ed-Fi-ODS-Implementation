@@ -62,7 +62,9 @@ jobs:
         nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      working-directory: ./Ed-Fi-ODS-Implementation/      
+      run: |      
+        .\build.githubactions.ps1 InstallCredentialHandler
       shell: pwsh
     - name: Publish release Version
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
