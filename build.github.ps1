@@ -57,7 +57,7 @@ param(
 	[String] $JavaPath = 'java',
     
     [Parameter(Mandatory=$true)]    
-    [ValidateSet('4.0.0', '5.0.0')]
+    [ValidateSet('4.0.0', '5.1.0')]
     [String] $StandardVersion,
 
     [Parameter(Mandatory=$true)]
