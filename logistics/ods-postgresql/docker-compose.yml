@@ -1,0 +1,30 @@
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+ 
+
+version: '3'
+services:
+  db:
+    container_name: ODS-PostgreSQL
+    image: postgres:16.2-alpine3.19@sha256:1d74239810c19ed0dbb317acae40974e673865b2d565a0d369e206159d483957
+    restart: always
+    environment:
+      # If username and password not provided through and env file
+      # default to postgres/abcdefgh1!
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-P@ssw0rd}
+    ports:
+      # If no port provided through an env file, default to 5432
+      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - ed-fi-ods-dev:/var/lib/postgresql/data
+
+volumes:
+  ed-fi-ods-dev:
+    driver: local
+
+networks:
+  ed-fi-ods-dev:
+    external: true
