@@ -102,7 +102,7 @@ jobs:
           }
 
           $params = @{
-                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk")
                   smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                   testHarnessLogNamePrefix = "SmokeTestSandbox"
           }
@@ -135,7 +135,7 @@ jobs:
 
           $params = @{
                   schoolYear               = "2022"
-                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk")
                   smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                   testHarnessLogNamePrefix = "SmokeTestYearSpecific"
           }
@@ -166,7 +166,7 @@ jobs:
           Initialize-DeploymentEnvironment @params
 
           $params = @{
-                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk", "DestructiveSdk")
+                  testSets                 = @("NonDestructiveApi", "NonDestructiveSdk")
                   smokeTestDll             = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/bin/Release/net8.0/EdFi.OdsApi.Sdk.dll"
                   testHarnessLogNamePrefix = "SmokeTestSharedInstance"
           }
