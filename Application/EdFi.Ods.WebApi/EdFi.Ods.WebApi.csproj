@@ -24,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.300" />
     <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.292" />
-    <PackageReference Include="FluentValidation" Version="8.6.3" />
+    <PackageReference Include="FluentValidation" Version="10.4.0" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.19.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.16.0" />
