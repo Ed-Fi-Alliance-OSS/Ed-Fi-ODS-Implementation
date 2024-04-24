@@ -40,7 +40,7 @@ param(
     $PackageVersion = "7.2",
 
     [string]
-    [ValidateSet('4.0.0', '5.0.0')]
+    [ValidateSet('4.0.0', '5.1.0')]
     $StandardVersion,
 
     [string]
