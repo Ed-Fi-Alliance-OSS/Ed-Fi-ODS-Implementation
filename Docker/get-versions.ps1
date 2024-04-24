@@ -33,6 +33,7 @@
     - $env:SANDBOX_VERSION
     - $env:STANDARD_VERSION
     - $env:EXTENSION_VERSION
+    - $env:BULKLOAD_VERSION
 #>
 param(
     [string]

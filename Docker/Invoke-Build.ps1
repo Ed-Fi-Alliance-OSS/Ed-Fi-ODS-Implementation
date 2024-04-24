@@ -20,6 +20,7 @@
     SwaggerUI: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SwaggerUI/overview
     TPDM: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.5.0.0/overview
     SandboxAdmin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
+    BulkLoad Console: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.BulkLoadClient.Console/overview/
 .EXAMPLE
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
     ./Invoke-Build.ps1 -TagBase MyName
@@ -138,7 +139,6 @@ elseif ($ImageName -eq "ods-api-db-ods-sandbox") {
     $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 }
 elseif ($ImageName -eq "ods-api-web-api") {
-    # Add more conditions as needed
     $BuildArgs = "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
 }
 elseif ($ImageName -eq "ods-api-swaggerui") {
@@ -147,7 +147,9 @@ elseif ($ImageName -eq "ods-api-swaggerui") {
 elseif ($ImageName -eq "ods-api-web-sandbox-admin") {
     $BuildArgs = "--build-arg SANDBOX_VERSION=$SandboxVersion"
 }
-
+elseif ($ImageName -eq "ods-api-bulk-load-console") {
+    $BuildArgs = "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
+}
 
 function Write-Message {
     param(
@@ -160,7 +162,6 @@ function Write-Message {
     Write-Output "$Message ---->"
     $host.UI.RawUI.ForegroundColor = $default
 }
-
 
 function Invoke-Build {
     $mssql = ""
@@ -201,31 +202,4 @@ function Invoke-Build {
     Pop-Location
 }
 
-# Note: "gateway" is for local testing only and therefore should not be included in this script.
-
-Invoke-Build -ImageName ods-api-db-admin -Path alpine/pgsql `
-    -BuildArgs "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-db-ods-minimal -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-
-Invoke-Build -ImageName ods-api-db-ods-sandbox -Path alpine/pgsql `
-    -BuildArgs "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-
-Invoke-Build -ImageName ods-api-web-api -Path alpine/pgsql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-web-api -Path alpine/mssql `
-    -BuildArgs "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
-
-Invoke-Build -ImageName ods-api-swaggerui -Path alpine `
-    -BuildArgs "--build-arg SWAGGER_VERSION=$SwaggerVersion"
-
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/mssql `
-    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
-
-Invoke-Build -ImageName ods-api-web-sandbox-admin -Path alpine/pgsql `
-    -BuildArgs "--build-arg SANDBOX_VERSION=$SandboxVersion"
-
-Invoke-Build -ImageName ods-api-bulk-load-console -Path alpine `
-    -BuildArgs "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
+Invoke-Build
