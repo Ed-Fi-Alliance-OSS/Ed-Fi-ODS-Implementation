@@ -4,7 +4,6 @@
   The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
   See the LICENSE and NOTICES files in the project root for more information.
 -->
-
 @{
     ViewBag.Title = "Sandbox Administration Portal";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -12,30 +11,26 @@
 
 <script src="~/js/vendor.js"></script>
 
-<div class="row">
+<div class="container-fluid">
     <div class="jumbotron">
         <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
         <p class="lead">
             This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
         </p>
     </div>
-</div>
-
-<div class="row">
-    <div class="alert alert-danger" data-bind="visible: error">
-        <strong>Error:</strong> <span data-bind="text: error"></span>
+    <div class="row">
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="click: addVendorClicked">Add Vendor</button>
+    <div class="row">
+        <div class="col text-right">
+            <button id="add-application" class="btn btn-primary" data-bind="click: addVendorClicked">Add Vendor</button>
+        </div>
     </div>
-</div>
-<div class="container-fluid">
     <fieldset>
-       <legend> Existing Vendors</legend>
-         <div class="table-responsive">
-            <table class="table table-hover" id="clients-table">
+        <legend> Existing Vendors</legend>
+        <table class="table table-hover" id="clients-table">
             <thead>
                 <tr>
                     <th></th>
@@ -43,30 +38,27 @@
                     <th>Namespace Prefix</th>
                     <th>Contact Name</th>
                     <th>Contact Email Address</th>
-                    <th></th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: vendors">
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
-                         <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteVendorClicked, disable: $data.IsDefaultVendor()">
-                                Delete
-                         </button>
+                        <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteVendorClicked, disable: $data.IsDefaultVendor()">
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
+                        </button>
                     </td>
                     <td data-bind="text: Name" class="vendor-name"></td>
                     <td data-bind="text: NamespacePrefix" class="namespaceprefix-name"></td>
                     <td data-bind="text: ContactName" class="contactName-name"></td>
                     <td data-bind="text: ContactEmailAddress" class="contactEmailAddress-name"></td>
-                    <td data-bind="text: Id" class="vendor-id" style="display: none;"></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <th data-bind="text: vendorStatus"></th>
+                    <th colspan="5" data-bind="text: vendorStatus"></th>
                 </tr>
             </tfoot>
         </table>
-        </div>
     </fieldset>
 </div>
 <div class="modal fade" tabindex="-1" data-bind="with: addVendorDialog, attr: { id: addVendorDialog.htmlId }" id="modal-add">
@@ -78,29 +70,21 @@
             </div>
             <div class="modal-body">
                 <fieldset>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label" for="txtVendorName">Vendor Name:</label>
-                        <div class="controls">
-                            <input id="txtVendorName" type="text" data-bind="value: vendorName" class="form-control" placeholder="Name of Vendor" />
-                        </div>
+                        <input id="txtVendorName" type="text" data-bind="value: vendorName" class="form-control" placeholder="Name of Vendor" />
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label" for="txtNamespacePrefix">Namespace Prefix:</label>
-                        <div class="controls">
-                            <input id="txtNamespacePrefix" type="text" data-bind="value: namespacePrefix" class="form-control" placeholder="Namespace Prefix" />
-                        </div>
+                        <input id="txtNamespacePrefix" type="text" data-bind="value: namespacePrefix" class="form-control" placeholder="Namespace Prefix" />
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label" for="txtContactName">Contact Name:</label>
-                        <div class="controls">
-                            <input id="txtContactName" type="text" data-bind="value: contactName" class="form-control" placeholder="Name of Contact" />
-                        </div>
+                        <input id="txtContactName" type="text" data-bind="value: contactName" class="form-control" placeholder="Name of Contact" />
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label" for="txtContactEmailAddress">Contact Email Adress:</label>
-                        <div class="controls">
-                            <input id="txtContactEmailAddress" type="email" data-bind="value: contactEmailAddress" class="form-control" placeholder="Email Address" />
-                        </div>
+                        <input id="txtContactEmailAddress" type="email" data-bind="value: contactEmailAddress" class="form-control" placeholder="Email Address" />
                     </div>
                 </fieldset>
             </div>

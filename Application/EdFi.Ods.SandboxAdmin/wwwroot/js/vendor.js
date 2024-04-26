@@ -283,7 +283,7 @@ function VendorsViewModel() {
 
         self.error("");
         self.confirmationDialog.show({
-            message: "Proceeding with this operation will permanently delete the selected vendor, along with all associated data. This action cannot be undone." +
+            message: "Proceeding with this operation will permanently delete the selected vendor, along with all associated data." +
                 "<br/><br/>" +
                 "This operation cannot be undone.",
             buttonText: "Delete",
@@ -319,7 +319,9 @@ $(function () {
         messagesOnModified: true,
         insertMessages: true,
         parseInputAttributes: true,
-        errorClass: 'alert alert-danger show',
+        decorateInputElement: true,
+        errorElementClass: 'is-invalid',
+        errorClass: 'invalid-feedback',
         messageTemplate: null
 
     }, true);
