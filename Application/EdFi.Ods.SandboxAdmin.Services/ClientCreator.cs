@@ -60,7 +60,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             return Int32.Parse(configValue);
         }
 
-        public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null)
+        public ApiClient CreateNewSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null, bool addRestoredEdOrgIdsToApplication = true)
         {
             if (user.ApiClients.Count >= _maximumSandboxesPerUser)
             {
@@ -70,7 +70,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 throw new ArgumentOutOfRangeException(message);
             }
 
-            var apiClient = ResetSandboxClient(sandboxName, sandboxOptions, user, applicationId);
+            var apiClient = ResetSandboxClient(sandboxName, sandboxOptions, user, applicationId, addRestoredEdOrgIdsToApplication);
 
             var connectionStringBuilder = _dbConnectionStringBuilderAdapterFactory.Get();
 
@@ -90,17 +90,21 @@ namespace EdFi.Ods.Sandbox.Admin.Services
             return apiClient;
         }
 
-        public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null)
+        public ApiClient ResetSandboxClient(string sandboxName, SandboxOptions sandboxOptions, User user, int? applicationId = null, bool addRestoredEdOrgIdsToApplication = true)
         {
             var client = SetupDefaultSandboxClient(sandboxName, sandboxOptions, user, applicationId);
 
             ProvisionSandbox(client);
 
-            var edOrgIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key)
-                .Concat(_templateDatabaseLeaQuery.GetCommunityProviderIds(client.Key))
-                .Distinct()
-                .ToList();
-            _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, client.Application.ApplicationId);
+            if (addRestoredEdOrgIdsToApplication)
+            {
+                var edOrgIds = _templateDatabaseLeaQuery.GetLocalEducationAgencyIds(client.Key)
+                    .Concat(_templateDatabaseLeaQuery.GetCommunityProviderIds(client.Key))
+                    .Distinct()
+                    .ToList();
+
+                _defaultApplicationCreator.AddEdOrgIdsToApplication(edOrgIds, client.Application.ApplicationId);
+            }
 
             return client;
         }

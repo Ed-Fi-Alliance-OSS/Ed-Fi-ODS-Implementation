@@ -149,18 +149,9 @@ var AddApplicationDialog = function () {
         required: {
             message: 'Please select an application.',
             onlyIf: function () { return self.fieldsTouched(); }
-        },
-        validation: {
-            validator: function (value) {
-                return value == 'Select Application' && !self.fieldsTouched();
-            },
-            message: 'Please select an application.'
         }
     });
 
-    self.selectApplication = function (data, event) {
-        self.selectedApplication(event.target.text);
-    };
 
     self.errors = ko.validation.group(self);
 
@@ -203,19 +194,11 @@ var AddApplicationDialog = function () {
         self.applicationList([]);
         self.buttonText('Add');
 
-        var selectApplicationData = {
-            Id: -1,
-            Name: "Select Application"
-        };
-        self.applicationList.push(new ApplicationTemplate(selectApplicationData));
-
         $.each(options.applications, function (Id, data) {
             if (data.Name !== "") {
                 self.applicationList.push(new ApplicationTemplate(data));
             }
         });
-
-        self.selectedApplication('Select Application');
 
         modal.show(options.callback);
     };
@@ -297,14 +280,8 @@ function ClientsViewModel() {
         self.error("");
         var sandboxName = self.addApplicationDialog.sandboxName();
         var sandboxType = self.addApplicationDialog.useSampleData() ? "sample" : "minimal";
+        var applicationId = self.addApplicationDialog.selectedApplication().Id();
 
-        var selectedApplicationName = self.addApplicationDialog.selectedApplication();
-        var applicationId = null;
-        self.addApplicationDialog.applicationList().forEach(function (application) {
-            if (application.Name() === selectedApplicationName) {
-                applicationId = application.Id();
-            }
-        });
         $.ajax({
             type: "POST",
             data: { "Name": sandboxName, "SandboxType": sandboxType, "IsDedicated": true, "ApplicationId": applicationId },
@@ -503,7 +480,9 @@ $(function () {
         messagesOnModified: true,
         insertMessages: true,
         parseInputAttributes: true,
-        errorClass: 'alert alert-danger show',
+        decorateInputElement: true,
+        errorElementClass: 'is-invalid',
+        errorClass: 'invalid-feedback',
         messageTemplate: null
 
     }, true);

@@ -118,18 +118,9 @@ var addApplicationDialog = function () {
         required: {
             message: 'Please select a vendor.',
             onlyIf: function () { return self.fieldsTouched(); }
-        },
-        validation: {
-            validator: function (value) {
-                return value == 'Select Vendor' && !self.fieldsTouched();
-            },
-            message: 'Please select a vendor.'
         }
     });
 
-    self.selectVendor = function (data, event) {
-        self.selectedVendor(event.target.text);
-    };
 
     self.errors = ko.validation.group(self);
 
@@ -168,19 +159,11 @@ var addApplicationDialog = function () {
         self.vendorList([]);
         self.buttonText('Add');
 
-        var selectVendorData = {
-            Id: -1,
-            Name: "Select Vendor"
-        };
-        self.vendorList.push(new VendorTemplate(selectVendorData));
-
         $.each(options.vendors, function (Id, data) {
             if (data.Name !== "" && data.Name !== "Test Admin") {
                 self.vendorList.push(new VendorTemplate(data));
             }
         });
-
-        self.selectedVendor('Select Vendor');
 
         modal.show(options.callback);
     };
@@ -291,13 +274,7 @@ function ApplicationsViewModel() {
         self.error("");
         var applicationName = self.addApplicationDialog.applicationName();
         var educationOrganizationId = parseInt(self.addApplicationDialog.educationOrganizationId());
-        var selectedVendorName = self.addApplicationDialog.selectedVendor();
-        var vendorId =  null;
-        self.addApplicationDialog.vendorList().forEach(function (vendor) {
-            if (vendor.Name() === selectedVendorName) {
-                vendorId = vendor.Id();
-            }
-        });
+        var vendorId = self.addApplicationDialog.selectedVendor().Id();
 
         $.ajax({
             type: "POST",
@@ -315,6 +292,9 @@ function ApplicationsViewModel() {
             error: function (jqXHR, textStatus, errorThrown) {
                 onComplete();
                 switch (jqXHR.status) {
+                    case 400:
+                        self.error(jqXHR.responseText);
+                        break;
                     default:
                         self.error(textStatus);
                 }
@@ -382,7 +362,9 @@ $(function () {
         messagesOnModified: true,
         insertMessages: true,
         parseInputAttributes: true,
-        errorClass: 'alert alert-danger show',
+        decorateInputElement: true,
+        errorElementClass: 'is-invalid',
+        errorClass: 'invalid-feedback',
         messageTemplate: null
 
     }, true);

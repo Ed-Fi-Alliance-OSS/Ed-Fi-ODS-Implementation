@@ -4,33 +4,29 @@
   The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
   See the LICENSE and NOTICES files in the project root for more information.
 -->
-
 @{
     ViewBag.Title = "Sandbox Administration Portal";
     Layout = "~/Views/Shared/Layout.cshtml";
 }
 
 <script src="~/js/client.js"></script>
-
-<div class="row">
+<div class="container-fluid">
     <div class="jumbotron">
         <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
         <p class="lead">
             This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
         </p>
     </div>
-</div>
-<div class="row">
-    <div class="alert alert-danger" data-bind="visible: error">
-        <strong>Error:</strong> <span data-bind="text: error"></span>
+    <div class="row">
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Sandbox</button>
+    <div class="row">
+        <div class="col text-right">
+            <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Sandbox</button>
+        </div>
     </div>
-</div>
-<div class="row">
     <fieldset>
         <legend>Existing Sandboxes</legend>
         <table class="table table-hover" id="clients-table">
@@ -52,7 +48,7 @@
                     <td>
                         <div class="btn-group">
                             <div class="dropdown">
-                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-cog" aria-hidden="true"></i>
                                     <span class="caret"></span>
                                 </button>
@@ -87,12 +83,13 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="8" data-bind="text: clientStatus"></th>
+                    <th colspan="9" data-bind="text: clientStatus"></th>
                 </tr>
             </tfoot>
         </table>
     </fieldset>
 </div>
+
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -103,26 +100,15 @@
             <div class="modal-body">
                 <fieldset>
                     <p>Creating new sandboxes -- especially populated sandboxes may take a few minutes.</p>
-                    <div class="control-group">
+                    <div class="form-group">
+                        <label class="control-label" for="application">Application:</label>
+                        <select id="application" class="custom-select" data-bind="options: applicationList, optionsCaption: 'Select Application', optionsText: 'Name', value: selectedApplication"></select>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label" for="txtSandboxName">Sandbox Name:</label>
-                        <div class="controls">
-                            <input id="txtSandboxName" type="text" data-bind="value: sandboxName" class="form-control" placeholder="Name of Sandbox" />
-                        </div>
+                        <input id="txtSandboxName" type="text" data-bind="value: sandboxName" class="form-control" placeholder="Name of Sandbox" />
                     </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="dropdown">
-                                <label class="control-label" for="txtApplication">Application:</label>
-                                <a href="#" class="nav-link dropdown-toggle" id="application-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bind="text: selectedApplication">
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="application-dropdown" data-bind="foreach: applicationList">
-                                    <a class="dropdown-item" href="#" data-bind="text: Name, click: $parent.selectApplication"></a>
-                                </div>
-                            </div>
-                            <span class="alert alert-danger show" style="" data-bind="visible: addApplicationDialogInstance && addApplicationDialogInstance.selectedApplication && addApplicationDialogInstance.selectedApplication.error, text: addApplicationDialogInstance && addApplicationDialogInstance.selectedApplication && addApplicationDialogInstance.selectedApplication.error"></span>
-                        </div>
-                    </div>
-                    <div class="control-group mt-2">
+                    <div class="form-group mt-2">
                         <div class="checkbox">
                             <label>
                                 <input id="checkbox-usesampledata" type="checkbox" data-bind="checked: useSampleData" />

@@ -4,7 +4,6 @@
   The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
   See the LICENSE and NOTICES files in the project root for more information.
 -->
-
 @{
     ViewBag.Title = "Sandbox Administration Portal";
     Layout = "~/Views/Shared/Layout.cshtml";
@@ -12,62 +11,54 @@
 
 <script src="~/js/application.js"></script>
 
-
-<div class="row">
+<div class="container-fluid">
     <div class="jumbotron">
         <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
         <p class="lead">
             This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
         </p>
     </div>
-</div>
-
-<div class="row">
-    <div class="alert alert-danger" data-bind="visible: error">
-        <strong>Error:</strong> <span data-bind="text: error"></span>
+    <div class="row">
+        <div class="alert alert-danger" data-bind="visible: error">
+            <strong>Error:</strong> <span data-bind="text: error"></span>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col text-right">
-        <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Application</button>
+    <div class="row">
+        <div class="col text-right">
+            <button id="add-application" class="btn btn-primary" data-bind="click: addApplicationClicked">Add Application</button>
+        </div>
     </div>
-</div>
-<div class="container-fluid">
     <fieldset>
         <legend>Existing Applications</legend>
-        <div class="table-responsive">
         <table class="table table-hover" id="clients-table">
             <thead>
                 <tr>
                     <th></th>
-                    <th>Name </th>
-                    <th>EducationOrganizationId</th>
                     <th>Vendor</th>
-                    <th></th>
+                    <th>Name</th>
+                    <th>EducationOrganizationId</th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: applications">
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
                         <button type="button" class="btn btn-danger" data-bind="click: $parent.deleteApplicationClicked, disable: $data.IsDefaultVendor()">
-                             Delete
+                            <i class="fa fa-trash-o" aria-hidden="true"></i>
                         </button>
                     </td>
-                    <td data-bind="text: Id" class="application-id" style="display: none;"></td>
+                    <td data-bind="text: VendorName" class="operational-context-name"></td>
                     <td data-bind="text: ApplicationName" class="application-name"></td>
                     <td data-bind="text: EducationOrganizationId" class="application-key"></td>
-                    <td data-bind="text: VendorName" class="operational-context-name"></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="5" data-bind="text: applicationStatus"></th>
+                    <th colspan="4" data-bind="text: applicationStatus"></th>
                 </tr>
             </tfoot>
         </table>
-        </div>
     </fieldset>
- </div>
+</div>
 
 <div class="modal fade" tabindex="-1" data-bind="with: addApplicationDialog, attr: { id: addApplicationDialog.htmlId }" id="modal-add">
     <div class="modal-dialog">
@@ -78,30 +69,20 @@
             </div>
             <div class="modal-body">
                 <fieldset>
-                    <div class="control-group">
+                    <div class="form-group">
+                        <label class="control-label" for="vendor">Vendor:</label>
+                        <div data-bind="if: vendorList().length">
+                            <select id="vendor" class="custom-select" data-bind="options: vendorList, optionsCaption: 'Select Vendor', optionsText: 'Name', value: selectedVendor"></select>
+                        </div>
+                        <div class="alert alert-warning" data-bind="visible: !vendorList().length">Begin by adding a Vendor on the Manage Vendors page.</div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label" for="txtApplicationName">Application Name:</label>
-                        <div class="controls">
-                            <input id="txtApplicationName" type="text" data-bind="value: applicationName" class="form-control" placeholder="Name of Application" />
-                        </div>
+                        <input id="txtApplicationName" type="text" data-bind="value: applicationName" class="form-control" placeholder="Name of Application" />
                     </div>
-                    <div class="control-group">
+                    <div class="form-group">
                         <label class="control-label" for="txtEducationOrganizationId">EducationOrganizationId:</label>
-                        <div class="controls">
-                            <input id="txtEducationOrganizationId" type="text" data-bind="value: educationOrganizationId" class="form-control" placeholder="EducationOrganizationId" />
-                        </div>
-                    </div>
-                    <div class="control-group">
-                        <div class="controls">
-                            <div class="dropdown">
-                                <label class="control-label">Vendor:</label>
-                                <a href="#" class="nav-link dropdown-toggle" id="vendor-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bind="text: selectedVendor">
-                                </a>
-                                <div class="dropdown-menu" aria-labelledby="vendor-dropdown" data-bind="foreach: vendorList">
-                                    <a class="dropdown-item" href="#" data-bind="text: Name, click: $parent.selectVendor"></a>
-                                </div>
-                            </div>
-                            <span class="alert alert-danger show" style="" data-bind="visible: addApplicationDialogInstance && addApplicationDialogInstance.selectedVendor && addApplicationDialogInstance.selectedVendor.error, text: addApplicationDialogInstance && addApplicationDialogInstance.selectedVendor && addApplicationDialogInstance.selectedVendor.error"></span>
-                        </div>
+                        <input id="txtEducationOrganizationId" type="text" data-bind="value: educationOrganizationId" class="form-control" placeholder="EducationOrganizationId" />
                     </div>
                 </fieldset>
             </div>
