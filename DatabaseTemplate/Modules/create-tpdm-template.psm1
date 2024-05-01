@@ -87,7 +87,7 @@ function Initialize-TPDMTemplate {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
         [string] $createByRestoringBackup,
-        [ValidateSet('4.0.0', '5.0.0')]
+        [ValidateSet('4.0.0', '5.1.0')]
         [String] $standardVersion,
         [ValidateSet('1.0.0', '1.1.0')]
         [string]  $extensionVersion

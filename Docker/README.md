@@ -52,7 +52,7 @@ these credentials, and of course you would want to install a real certificate.
 ### Targeting Standard and Extension Versions
 
 Before running `docker compose` commands, run `get-versions.ps1`. This script takes the following optional parameters
-* `StandardVersion` defaults to "5.0.0"
+* `StandardVersion` defaults to "5.1.0"
 * `ExtensionVersion` defaults to "1.1.0"
 
 ```shell
