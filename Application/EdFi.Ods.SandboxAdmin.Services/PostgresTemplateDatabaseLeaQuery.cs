@@ -16,6 +16,12 @@ namespace EdFi.Ods.SandboxAdmin.Services
             : base(configConnectionStringsProvider, databaseNameBuilder) { }
 
         protected override DbConnection CreateConnection(string templateDatabaseName)
-            => new NpgsqlConnection(string.Format(_connectionStringTemplate, templateDatabaseName));
+        {
+            var builder = new NpgsqlConnectionStringBuilder(_connectionStringTemplate);
+            var database = (string)builder["database"];
+            builder["database"] = string.Format(database, templateDatabaseName);
+
+            return new NpgsqlConnection(builder.ConnectionString);
+        }
     }
 }
