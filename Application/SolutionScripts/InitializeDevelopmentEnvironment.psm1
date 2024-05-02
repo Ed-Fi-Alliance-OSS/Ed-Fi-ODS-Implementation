@@ -156,7 +156,7 @@ function Initialize-DevelopmentEnvironment {
         [String] $StandardVersion = '5.1.0',
 
         [Parameter(Mandatory=$false)]
-        [ValidateSet('1.0.0', '1.1.0')]
+        [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
         [String] $ExtensionVersion = '1.1.0',
 		
 		[Parameter(Mandatory=$false)]
@@ -424,7 +424,7 @@ function Invoke-CodeGen {
         [String] $RepositoryRoot,
         [ValidateSet('4.0.0', '5.1.0')]
         [string]  $StandardVersion,
-        [ValidateSet('1.0.0', '1.1.0')]
+        [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
         [string]  $ExtensionVersion
     )
 

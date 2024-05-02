@@ -44,7 +44,7 @@ param(
     $StandardVersion,
 
     [string]
-    [ValidateSet('1.0.0', '1.1.0')]
+    [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
     $ExtensionVersion,
 
     # Enable usage of prereleases

@@ -61,7 +61,7 @@ param(
     [String] $StandardVersion,
 
     [Parameter(Mandatory=$true)]
-    [ValidateSet('1.0.0', '1.1.0')]
+    [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
     [String] $ExtensionVersion
 )
 

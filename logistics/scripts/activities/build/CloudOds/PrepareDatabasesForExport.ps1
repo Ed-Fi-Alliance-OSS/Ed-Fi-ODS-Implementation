@@ -34,7 +34,7 @@ param(
     [ValidateSet('4.0.0', '5.1.0')]
     [String] $StandardVersion,
 
-    [ValidateSet('1.0.0', '1.1.0')]
+    [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
     [string]  $ExtensionVersion
 )
 
