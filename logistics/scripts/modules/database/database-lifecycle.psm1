@@ -554,7 +554,13 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         [ValidateSet('4.0.0', '5.1.0')]
         [String] $standardVersion,
 
-        [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
+        [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+        })]
         [string]  $extensionVersion
     )
 

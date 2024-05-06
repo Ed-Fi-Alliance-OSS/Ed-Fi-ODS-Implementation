@@ -61,7 +61,13 @@ param(
     [String] $StandardVersion,
 
     [Parameter(Mandatory=$true)]
-    [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
+    [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+    })]
     [String] $ExtensionVersion
 )
 

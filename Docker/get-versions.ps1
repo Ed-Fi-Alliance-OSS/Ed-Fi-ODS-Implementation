@@ -44,7 +44,13 @@ param(
     $StandardVersion,
 
     [string]
-    [ValidatePattern('^(?!0\.0\.0)\d+\.\d+(\.\d+)?$')]
+    [ValidateScript({
+                if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
+                    $true
+                } else {
+                    throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
+                }
+    })]
     $ExtensionVersion,
 
     # Enable usage of prereleases
