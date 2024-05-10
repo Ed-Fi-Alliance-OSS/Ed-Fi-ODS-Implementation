@@ -20,6 +20,9 @@ Association StudentArtProgramAssociation based on EdFi.GeneralStudentProgramAsso
     common EdFi.Service
         documentation "Indicates the Service(s) being provided to the Student by the Program."
         is optional collection
+    common FavoriteBook
+        documentation "The student's favorite art book. Used to test support for Common fields in extension subclasses of EdFi.GeneralStudentProgramAssociation, EdFi.EducationOrganization."
+        is optional
     shared decimal EdFi.NumberOfDaysInAttendance
         documentation "Number of days the student is in attendance at the program."
         is optional
