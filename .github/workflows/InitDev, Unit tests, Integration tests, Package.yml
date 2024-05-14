@@ -134,7 +134,7 @@ jobs:
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html
     - name: Unit Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
       with:
         name: Unit Tests
@@ -143,7 +143,7 @@ jobs:
         working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
         reporter: dotnet-trx
     - name: Postman Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
       with:
         name: Integration Tests
