@@ -31,15 +31,15 @@
   <ItemGroup>
     <PackageReference Include="Autofac" Version="6.3.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.2.0" />
-    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.300" />
-    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.292" />
+    <PackageReference Include="EdFi.Suite3.Admin.DataAccess" Version="5.4.406" />
+    <PackageReference Include="EdFi.Suite3.Security.DataAccess" Version="5.4.397" />
     <PackageReference Include="log4net" Version="2.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Npgsql" Version="6.0.3" />
+    <PackageReference Include="Npgsql" Version="6.0.11" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
     <PackageReference Include="NHibernate" Version="5.3.11" />
   </ItemGroup>
