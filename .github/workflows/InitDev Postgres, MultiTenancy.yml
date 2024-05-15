@@ -120,7 +120,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Initdev logs-${{ github.run_id }}
+        name: MultiTenant Initdev logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: ODS/API MultiTenancy Smoke Tests
@@ -148,7 +148,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Smoke Tests Logs-${{ github.run_id }}
+        name: MultiTenant Smoke Tests Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
@@ -178,7 +178,7 @@ jobs:
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Postman Tests Logs-${{ github.run_id }}
+        name: MultiTenant Postman Tests Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log
