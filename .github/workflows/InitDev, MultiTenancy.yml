@@ -111,9 +111,9 @@ jobs:
       shell: powershell
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Initdev logs
+        name: MultiTenant Initdev logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: ODS/API MultiTenancy Smoke Tests
@@ -139,9 +139,9 @@ jobs:
       shell: powershell
     - name: Upload MultiTenancy Smoke Tests Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Smoke Tests Logs
+        name: MultiTenant Smoke Tests Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
@@ -159,7 +159,7 @@ jobs:
         ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
       shell: powershell
     - name: Postman MultiTenancy Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
       with:
         name: MultiTenant Postman Tests
@@ -169,9 +169,9 @@ jobs:
         reporter: java-junit
     - name: Upload MultiTenancy Postman Tests Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: MultiTenant Postman Tests Logs
+        name: MultiTenant Postman Tests Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessRequestResponseDetailsLog.log

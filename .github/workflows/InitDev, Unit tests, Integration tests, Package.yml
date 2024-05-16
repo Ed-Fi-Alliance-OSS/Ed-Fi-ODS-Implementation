@@ -127,14 +127,14 @@ jobs:
       shell: powershell
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: test-results
+        name: test-results-${{ matrix.StandardVersion }}
         path: |
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.trx
             ${{ github.workspace }}/Ed-Fi-ODS-Implementation/reports/*.html
     - name: Unit Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
       with:
         name: Unit Tests
@@ -143,7 +143,7 @@ jobs:
         working-directory: ${{ github.workspace }}/Ed-Fi-ODS-Implementation
         reporter: dotnet-trx
     - name: Postman Test Report
-      uses: dorny/test-reporter@c9b3d0e2bd2a4e96aaf424dbaa31c46b42318226 # v1.6
+      uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
       with:
         name: Integration Tests
@@ -153,9 +153,9 @@ jobs:
         reporter: java-junit
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: Initdev logs
+        name: Initdev logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/PostmanIntegrationTestsLog.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
@@ -180,7 +180,7 @@ jobs:
       shell: powershell
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg

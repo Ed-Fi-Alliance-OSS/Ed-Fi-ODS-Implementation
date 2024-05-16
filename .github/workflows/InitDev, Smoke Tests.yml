@@ -119,9 +119,9 @@ jobs:
       shell: powershell
     - name: Upload initdev logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: Initdev logs
+        name: Initdev logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/*TestHarnessLog.log
     - name: Run Unit tests for EdFi.LoadTools 
@@ -160,15 +160,15 @@ jobs:
       shell: powershell
     - name: Upload Smoke Test Sandbox Logs
       if: success() || failure()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: Smoke Test Sandbox Logs
+        name: Smoke Test Sandbox Logs-${{ matrix.StandardVersion }}
         path: |
           ${{ github.workspace }}/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/**/EdFi.SmokeTest.log
           ${{ github.workspace }}/Ed-Fi-ODS-Implementation/Application/EdFi.Ods.Api.IntegrationTestHarness/bin/**/SmokeTestSandbox.TestHarnessLog.log
     - name: Upload EdFi.Ods.Api.TestSdk NugetPackage
       if: success()
-      uses: actions/upload-artifact@3cea5372237819ed00197afe530f5a7ea3e805c8 # v3.1.0
+      uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
-        name: NugetPackages.Artifacts
+        name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*TestSdk*.nupkg
