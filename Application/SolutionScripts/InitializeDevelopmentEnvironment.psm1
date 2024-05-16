@@ -429,7 +429,7 @@ function Invoke-CodeGen {
         [string[]] $ExtensionPaths,
         [String] $RepositoryRoot,
         [ValidateSet('4.0.0', '5.1.0')]
-        [string]  $StandardVersion,
+        [string] $StandardVersion = '5.1.0',
         [ValidateScript({
                 if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
                     $true
@@ -437,7 +437,7 @@ function Invoke-CodeGen {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
-        [string]  $ExtensionVersion
+        [string] $ExtensionVersion = '1.1.0'
     )
 
     Install-CodeGenUtility
