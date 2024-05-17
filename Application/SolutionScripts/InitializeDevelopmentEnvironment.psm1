@@ -101,6 +101,12 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSdkGen,
 
+        [switch] $GenerateApiSdkPackage,
+
+        [switch] $GenerateTestSdkPackage,
+
+        [string] $PackageVersion,
+        
         [switch] $UsePlugins
     )
 
@@ -157,7 +163,8 @@ function Initialize-DevelopmentEnvironment {
                 NoDuration    = $true
                 UsePlugins    = $UsePlugins.IsPresent
             }
-            $script:result += Initialize-DeploymentEnvironment @params
+            $script:result += Initialize-Depl
+            oymentEnvironment @params
         }
 
         if ($RunPester) { $script:result += Invoke-PesterTests }
