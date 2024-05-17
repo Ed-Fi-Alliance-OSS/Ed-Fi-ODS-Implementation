@@ -3,7 +3,7 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-name: InitDev (Postgres), Smoke Tests Sandbox, Year-Specific, and Shared Instance
+name: InitDev (Postgres), Tests using Sandbox, Year-Specific and Shared Instance
 
 on:
   pull_request:
