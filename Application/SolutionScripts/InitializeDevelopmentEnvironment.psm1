@@ -170,7 +170,7 @@ function Initialize-DevelopmentEnvironment {
                 NoDuration    = $true
                 UsePlugins    = $UsePlugins.IsPresent
             }
-            $script:result += Initialize-Depl
+            $script:result += Initialize-DeploymentEnvironment @params
             oymentEnvironment @params
         }
 
