@@ -171,7 +171,6 @@ function Initialize-DevelopmentEnvironment {
                 UsePlugins    = $UsePlugins.IsPresent
             }
             $script:result += Initialize-DeploymentEnvironment @params
-            oymentEnvironment @params
         }
 
         if ($RunPester) { $script:result += Invoke-PesterTests }
