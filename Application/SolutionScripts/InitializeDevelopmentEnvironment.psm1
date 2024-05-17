@@ -423,13 +423,31 @@ function Reset-TestPopulatedTemplateDatabase {
 
 Set-Alias -Scope Global Run-CodeGen Invoke-CodeGen
 function Invoke-CodeGen {
+    <#
+    .description
+        Generates the solution and extensions code.
+    .parameter Engine
+        The database engine provider, either "SQLServer" or "PostgreSQL".
+    .parameter ExtensionPaths
+        Array of paths for the extension location, required only if extensions are located outside the CodeRepositoryPath.
+    .parameter RepositoryRoot
+        Path to the code repository where the ODS is located.
+    .parameter StandardVersion
+        EdFi Standard Version.
+    .parameter ExtensionVersion
+        Extension Version. Required only if the extension version is different than 1.0.0 .
+    #>
     param(
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [String] $Engine,
+        
         [string[]] $ExtensionPaths,
+        
         [String] $RepositoryRoot,
+        
         [ValidateSet('4.0.0', '5.1.0')]
-        [string] $StandardVersion = '5.1.0',
+        [string] $StandardVersion,
+        
         [ValidateScript({
                 if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {
                     $true
@@ -437,7 +455,7 @@ function Invoke-CodeGen {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
-        [string] $ExtensionVersion = '1.1.0'
+        [string] $ExtensionVersion
     )
 
     Install-CodeGenUtility
