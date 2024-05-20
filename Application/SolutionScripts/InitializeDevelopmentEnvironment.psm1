@@ -446,6 +446,7 @@ function Invoke-CodeGen {
         [String] $RepositoryRoot,
         
         [ValidateSet('4.0.0', '5.1.0')]
+        [Parameter(Mandatory=$true)]
         [string] $StandardVersion,
         
         [ValidateScript({
@@ -455,6 +456,7 @@ function Invoke-CodeGen {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
+        [Parameter(Mandatory=$true)]
         [string] $ExtensionVersion
     )
 
