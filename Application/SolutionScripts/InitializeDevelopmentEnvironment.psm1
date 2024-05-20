@@ -180,8 +180,11 @@ function Initialize-DevelopmentEnvironment {
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
+         Write-Host "GenerateApiSdkPackage" $GenerateApiSdkPackage    -ForegroundColor Green -NoNewline
+         Write-Host "GenerateTestSdkPackage" $GenerateTestSdkPackage    -ForegroundColor Green -NoNewline
+         Write-Host "PackageVersion" $PackageVersion    -ForegroundColor Green -NoNewline
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion   }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion  }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'

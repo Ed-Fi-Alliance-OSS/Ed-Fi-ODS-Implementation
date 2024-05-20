@@ -54,10 +54,10 @@ function Invoke-SdkGen {
 
             try {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
-                $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution  }
+                $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.2.0'
-                $arguments = @("-v",$sdkCliVersion,"--core-only","-j","""$javaPath""")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $arguments = @("-v",$sdkCliVersion,"--core-only")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
@@ -81,10 +81,10 @@ function Invoke-SdkGen {
         if($generateTestSdkPackage) {
             try {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
-                $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkGenSolution  }
+                $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.2.0'
-                $arguments = @("-v",$sdkCliVersion,"-c","-i","-p","-j","""$javaPath""")
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $arguments = @("-v",$sdkCliVersion,"-c","-i")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
@@ -93,7 +93,7 @@ function Invoke-SdkGen {
 
             $sdkSolutionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/EdFi.OdsApi.Sdk.sln")
             $script:result += Invoke-Task "Restore-TestSdk-Packages" { Invoke-Restore-ApiSdk-Packages $sdkSolutionFile }
-            $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile  }
+            $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal" $sdkSolutionFile }
 
             $nuspecFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
             $suffix = Get-ValueOrDefault $teamCityParameters['odsapi.package.suffix'] ".Suite3"

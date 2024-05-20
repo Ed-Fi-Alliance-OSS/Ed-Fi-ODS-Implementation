@@ -55,22 +55,34 @@ function Add-RandomKeySecret {
 }
 
 function Get-TestHarnessExecutable {
-    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "\Application\$($script:testHarnessName)")\bin\**\$($script:testHarnessName).exe"
+    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "/Application/$($script:testHarnessName)")/bin/**/$($script:testHarnessName)$(GetExeExtension)"
     $testHarnessExecutable = (Get-ChildItem -Recurse -Path $testHarnessExecutableFilter).FullName
 
     return $testHarnessExecutable
 }
 
+function Get-SdkGenExecutable {
+    Param(
+        [string] $buildConfiguration = "Debug"
+    )
+    $sdkGenExecutableFilter = "$(Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/EdFi.SdkGen.Console$(GetExeExtension)")"
+    $sdkGenExecutable = (Get-ChildItem -Recurse -Path $sdkGenExecutableFilter).FullName
+
+    return $sdkGenExecutable
+}
+
 function Invoke-SdkGenConsole {
     Param(
         [Parameter(Mandatory = $true)] [string] $apiMetadataUrl,
-        [string] $buildConfiguration = "Debug"
+        [string] $buildConfiguration = "Debug",
+        [string[]] $arguments = @("-p","-c","-i")
+
     )
     
     $sdkGenConsoleFolder = (Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console")
-    $sdkGenConsoleExecutableFolder = Join-Path -Path $sdkGenConsoleFolder -ChildPath "/bin/$buildConfiguration/net6.0"
-    $sdkGenConsoleExecutableFolderFullPath = (Join-Path $sdkGenConsoleExecutableFolder 'EdFi.SdkGen.Console.exe')
-    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList @('-m', $apiMetadataUrl, '-p', '-c', '-i') -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
+    $sdkGenConsoleExecutableFolderFullPath = (Get-SdkGenExecutable $buildConfiguration)
+    $argumentList = @('-m', $apiMetadataUrl) + $arguments
+    Start-Process $sdkGenConsoleExecutableFolderFullPath -ArgumentList $argumentList -WorkingDirectory $sdkGenConsoleFolder -NoNewWindow -Wait | Out-Host
 }
 
 function Start-TestHarness {
@@ -118,7 +130,7 @@ function Start-TestHarness {
             Write-Host
         }
         catch {
-            Write-Host "Waiting for TestHarness startup at $apiUrl..."]
+            Write-Host "Waiting for TestHarness startup at $apiUrl..."
             Start-Sleep -s 1
         }
     }
