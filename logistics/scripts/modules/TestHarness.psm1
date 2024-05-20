@@ -55,7 +55,7 @@ function Add-RandomKeySecret {
 }
 
 function Get-TestHarnessExecutable {
-    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "/Application/$($script:testHarnessName)")/bin/**/$($script:testHarnessName)$(GetExeExtension)"
+    $testHarnessExecutableFilter = "$(Get-RepositoryResolvedPath "/Application/$($script:testHarnessName)")/bin/**/$($script:testHarnessName).exe"
     $testHarnessExecutable = (Get-ChildItem -Recurse -Path $testHarnessExecutableFilter).FullName
 
     return $testHarnessExecutable
@@ -65,7 +65,7 @@ function Get-SdkGenExecutable {
     Param(
         [string] $buildConfiguration = "Debug"
     )
-    $sdkGenExecutableFilter = "$(Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/EdFi.SdkGen.Console$(GetExeExtension)")"
+    $sdkGenExecutableFilter = "$(Get-RepositoryResolvedPath "/Utilities/SdkGen/EdFi.SdkGen.Console/bin/$buildConfiguration/**/EdFi.SdkGen.Console.exe")"
     $sdkGenExecutable = (Get-ChildItem -Recurse -Path $sdkGenExecutableFilter).FullName
 
     return $sdkGenExecutable
