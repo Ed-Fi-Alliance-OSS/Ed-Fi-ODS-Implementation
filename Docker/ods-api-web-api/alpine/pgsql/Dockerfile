@@ -4,13 +4,13 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # Base image with additional packages
-FROM mcr.microsoft.com/dotnet/aspnet:8.0.2-alpine3.19@sha256:95f27052830db1c7a00e55f098ebda507204757907919f506a468387f7d856a4 AS base
-RUN apk --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 && \
+FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19@sha256:646b1c5ff36375f35f6149b0ce19ca095f97b4b882b90652801e9fbe82bcfa8a AS base
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 busybox=~1.36 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
-RUN apk --no-cache add postgresql13-client=~13
+RUN apk --upgrade --no-cache add postgresql13-client=~13
 ARG API_VERSION
 ARG STANDARD_VERSION
 
