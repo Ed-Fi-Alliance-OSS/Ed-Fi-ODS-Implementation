@@ -15,7 +15,7 @@ RUN dotnet tool install -g \
 
 # Smaller image
 FROM mcr.microsoft.com/dotnet/runtime:8.0.3-alpine3.19@sha256:1d1ddab7d571bb995f8a6e9e7f7b441d0c1a2b3a12a42ad0fda085bb4e8e9e94
-RUN apk --upgrade --no-cache add gettext=~0 bash=~5 && \
+RUN apk --upgrade --no-cache add gettext=~0 bash=~5 busybox=~1.36 openssl=~3.1 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"

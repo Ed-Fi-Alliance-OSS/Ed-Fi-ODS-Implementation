@@ -5,7 +5,7 @@
 
 # Base image with additional packages
 FROM postgres:13.15-alpine3.19@sha256:3f9f1b822982df932fe36b6edee4b0a754b88f6a10949e310cabffc0cfbb6a89 AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 busybox=~1.36 openssl=~3.1 libxml2=~2.11
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build5
