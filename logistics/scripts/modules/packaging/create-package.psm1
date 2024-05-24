@@ -65,7 +65,10 @@ function Invoke-CreatePackage {
 
         # Path to download and store nuget.exe if not already present in the path.
         [string]
-        $ToolsPath
+        $ToolsPath,
+
+        [string[]]
+        $Properties = @()
     )
 
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
@@ -79,6 +82,7 @@ function Invoke-CreatePackage {
         OutputDirectory       = $OutputDirectory
         NuGet                 = $nuget
         Verbose               = $verbose
+        Properties            = $Properties
     }
     New-Package @parameters
 
@@ -142,7 +146,7 @@ function New-Package {
     )
 
     if ($Suffix) {
-        $parameters += "-Suffix"
+        $parameters += "-SuffixProperties
         $parameters += $Suffix
     }
 

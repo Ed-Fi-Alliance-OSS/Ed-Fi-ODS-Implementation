@@ -144,6 +144,8 @@ function Invoke-Pack-ApiSdk {
         ToolsPath             = "../../../tools"
         Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright © $((Get-Date).year) Ed-Fi Alliance, LLC and Contributors" )
     }
+
+    Write-Host "Invoke-CreatePackage Parameters: $($parameters | Out-String)"
     
     Invoke-CreatePackage @parameters -Verbose:$verbose
 }
