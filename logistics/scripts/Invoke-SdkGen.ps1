@@ -56,7 +56,7 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
                 $arguments = @("-v",$sdkCliVersion,"--core-only")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
@@ -83,7 +83,7 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Clean-SdkGen-Console-Output" { Invoke-Clean-SdkGen-Output }
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
-                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.0.1'
+                $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '6.6.0'
                 $arguments = @("-v",$sdkCliVersion,"-c","-i")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
