@@ -180,11 +180,8 @@ function Initialize-DevelopmentEnvironment {
         if ($RunPostman) { $script:result += Invoke-PostmanIntegrationTests }
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
-         Write-Host "GenerateApiSdkPackage" $GenerateApiSdkPackage    -ForegroundColor Green -NoNewline
-         Write-Host "GenerateTestSdkPackage" $GenerateTestSdkPackage    -ForegroundColor Green -NoNewline
-         Write-Host "PackageVersion" $PackageVersion    -ForegroundColor Green -NoNewline
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion  }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -458,8 +455,13 @@ function Invoke-PostmanIntegrationTests {
 }
 
 function Invoke-SdkGen {
+     param(
+        [Boolean] $GenerateApiSdkPackage,
+        [Boolean] $GenerateTestSdkPackage,
+        [string] $PackageVersion
+    )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1")
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion
     }
 }
 
