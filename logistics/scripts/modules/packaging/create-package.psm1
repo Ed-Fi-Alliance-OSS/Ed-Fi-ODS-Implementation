@@ -146,7 +146,7 @@ function New-Package {
     )
 
     if ($Suffix) {
-        $parameters += "-SuffixProperties
+        $parameters += "-Suffix"
         $parameters += $Suffix
     }
 
