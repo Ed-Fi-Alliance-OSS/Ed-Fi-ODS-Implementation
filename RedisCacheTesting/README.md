@@ -38,15 +38,6 @@ In appsettings.json, update the caching section similar to the following:
 ```
 "Caching": {
     "ExternalCacheProvider": "Redis",
-    "Redis":{
-        "Configuration": "localhost",    
-        "Password": "",
-    },
-    "SQLServer":{
-        "ConnectionString": "",    
-        "SchemaName": "",
-        "TableName": "",
-    },
     "Descriptors": {
         "UseExternalCache": true,
         "AbsoluteExpirationSeconds": 1800
@@ -55,15 +46,31 @@ In appsettings.json, update the caching section similar to the following:
         "UseExternalCache": true,
         "AbsoluteExpirationSeconds": 0,
         "SlidingExpirationSeconds": 14400,
-        "SuppressStudentCache": false,
-        "SuppressStaffCache": false,
-        "SuppressParentCache": false
+        "UseProgressiveLoading": false,
+        "CacheSuppression": {
+            "Student": false,
+            "Staff": false,
+            "Parent": false,
+            "Contact": false
+        }
     },
     "ApiClientDetails":{
-        "UseExternalCache": true
+        "UseExternalCache": true,
+        "AbsoluteExpirationSeconds": 900
     },
     "Security": {
         "AbsoluteExpirationMinutes": 10
+    },
+    "Profiles": {
+        "AbsoluteExpirationSeconds": 1800
+    },
+    "OdsInstances": {
+        "AbsoluteExpirationSeconds": 300
+    }
+},
+"Services": {
+    "Redis": {
+        "Configuration": "localhost"
     }
 }
 ```
