@@ -70,6 +70,14 @@ function Initialize-DevelopmentEnvironment {
         Runs the Invoke-PostmanIntegrationTests task which will run the Postman integration tests in addition to the other initdev pipeline tasks.
     .parameter RunSmokeTest
         Runs the Invoke-SmokeTests task which will run the smoke tests, against the in-memory api, in addition to the other initdev pipeline tasks.
+    .parameter RunSdkGen
+        Runs the Invoke-SdkGen task which will build and run the sdk gen console        
+    .parameter GenerateApiSdkPackage
+        Generates ApiSdk package after running SdkGen
+    .parameter GenerateTestSdkPackage
+        Generates TestSdk package after running SdkGen 
+    .parameter PackageVersion
+        Package version passed from CI that is used in Invoke-SdkGen               
     .parameter UsePlugins
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     #>
@@ -101,6 +109,11 @@ function Initialize-DevelopmentEnvironment {
 
         [switch] $RunSdkGen,
 
+        [switch] $GenerateApiSdkPackage,
+
+        [switch] $GenerateTestSdkPackage,
+
+        [string] $PackageVersion,
         [switch] $UsePlugins
     )
 
@@ -168,7 +181,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
@@ -442,8 +455,13 @@ function Invoke-PostmanIntegrationTests {
 }
 
 function Invoke-SdkGen {
+     param(
+        [Boolean] $GenerateApiSdkPackage,
+        [Boolean] $GenerateTestSdkPackage,
+        [string] $PackageVersion
+    )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
-        & (Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1")
+        & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion
     }
 }
 
