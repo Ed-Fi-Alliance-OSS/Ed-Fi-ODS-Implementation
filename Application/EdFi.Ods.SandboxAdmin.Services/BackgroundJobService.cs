@@ -103,7 +103,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
     {
         public Task Execute(IJobExecutionContext context)
         {
-            ((IInitializationEngine)context.MergedJobDataMap["engine"]).CreateSandboxes();
+            ((IInitializationEngine)context.MergedJobDataMap["engine"]).RebuildSandboxes();
             return Task.CompletedTask;
         }
     }
