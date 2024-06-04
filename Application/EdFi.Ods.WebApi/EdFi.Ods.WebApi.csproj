@@ -38,7 +38,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />    
     <PackageReference Include="NHibernate" Version="5.4.0" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
-    <PackageReference Include="Npgsql" Version="7.0.6" />    
+    <PackageReference Include="Npgsql" Version="7.0.7" />    
   </ItemGroup>
 
   <ItemGroup>
