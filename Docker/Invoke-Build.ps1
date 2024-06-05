@@ -97,7 +97,7 @@ param (
     # Major/minor version number
     [Parameter()]
     [string]
-    $PackageVersion = "7.2",
+    $PackageVersion = "7.3",
 
     # Patch version number
     [Parameter()]
