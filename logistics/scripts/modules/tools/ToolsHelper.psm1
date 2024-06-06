@@ -156,22 +156,41 @@ function Install-ToolCodeGenUtility {
 }
 
 function Test-DotNetCore {
-    $requiredMajor = 6
-    $requiredMinor = 0
+    [CmdletBinding()]
+    param (
+        [Parameter()]
+        [int]
+        $RequiredMajor = 8,
+        [Parameter()]
+        [int]
+        $RequiredMinor = 0
+    )
 
     try {
-        ($dotnet = Get-Command dotnet -ErrorAction Stop) | Out-Null
+        $runtimes = Get-DotnetRuntimes
+        
+        # This will check both runtimes for the specific major and greater than or equal to minor version
+        # All Microsoft.AspNetCore.App runtimes equal to major and greater than or equal to minor version
+        $validAsp = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.AspNetCore.App"} `
+            | Where-Object { $_.Version.Major -eq $RequiredMajor} `
+            | Where-Object { $_.Version.Minor -ge $RequiredMinor})
+        # All Microsoft.NETCore.App runtimes equal to major and greater than or equal to minor version
+        $validCore = ($runtimes | Where-Object {$_.Runtime -eq "Microsoft.NETCore.App"} `
+            | Where-Object { $_.Version.Major -eq $RequiredMajor} `
+            | Where-Object { $_.Version.Minor -ge $RequiredMinor})
 
-        if ($dotnet.Version.Major -lt $requiredMajor) {
+        if (($validCore | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
+            Write-Verbose "No valid runtime versions were found for: Microsoft.NETCore.App"
+            throw
+        }
+        if (($validAsp | Measure-Object | Select-Object -ExpandProperty Count) -lt 1) {
+            Write-Verbose "No valid runtime versions were found for: Microsoft.AspNetCore.App"
             throw
         }
 
-        if ($dotnet.Version.Major -eq $requiredMajor -and $dotnet.Version.Minor -lt $requiredMinor) {
-            throw
-        }
     }
     catch {
-        throw "Running scripts require .NET Core SDK $($requiredMajor).$($requiredMinor)+, available from https://dotnet.microsoft.com/download."
+        throw "Running scripts require .NET Core SDK $($RequiredMajor).$($RequiredMinor)+, available from https://dotnet.microsoft.com/download."
     }
 }
 
