@@ -7,6 +7,7 @@
 $ErrorActionPreference = 'Stop'
 
 & "$PSScriptRoot\..\..\..\..\logistics\scripts\modules\load-path-resolver.ps1"
+Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
 function Get-ToolsPath {
     if (-not [string]::IsNullOrWhiteSpace($env:toolsPath)) { return $env:toolsPath }
