@@ -19,7 +19,7 @@ on:
       package_version:
         description: 'Package Version'
         required: true
-        default: "7.2"
+        default: "7.3"
         type: string
 
 env:
@@ -27,7 +27,7 @@ env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "5.1.0"
-  PACKAGE_VERSION: "7.2"
+  PACKAGE_VERSION: "7.3"
   EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
 
