@@ -9,6 +9,8 @@ on:
     branches: [main, 'b-v*-patch*','feature-*']
     types: [ closed ]
 
+permissions: read-all
+
 jobs:
   cleanup:
     runs-on: ubuntu-latest

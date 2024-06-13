@@ -19,6 +19,8 @@ on:
         options:
         - Prerelease
         - Release
+
+permissions: read-all
       
 env:
   AZURE_ARTIFACT_PERSONAL_ACCESS_TOKEN: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}

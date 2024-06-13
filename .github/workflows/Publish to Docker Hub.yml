@@ -22,6 +22,8 @@ on:
         default: "7.3"
         type: string
 
+permissions: read-all
+
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}

@@ -22,6 +22,9 @@ on:
     types:
       - completed
     branches: [main, 'b-v*-patch*','feature-*']
+
+permissions: read-all
+
 env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
