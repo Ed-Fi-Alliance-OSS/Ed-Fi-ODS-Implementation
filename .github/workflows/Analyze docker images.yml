@@ -33,6 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+      security-events: write
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
