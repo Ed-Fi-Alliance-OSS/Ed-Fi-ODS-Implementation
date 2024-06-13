@@ -31,6 +31,8 @@ jobs:
   analyze-docker:
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
