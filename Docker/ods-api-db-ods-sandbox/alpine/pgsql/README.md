@@ -24,7 +24,7 @@ TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the
