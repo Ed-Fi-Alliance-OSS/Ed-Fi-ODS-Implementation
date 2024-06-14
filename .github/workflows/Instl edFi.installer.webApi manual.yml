@@ -9,6 +9,8 @@ name: Instl EdFi.Installer.WebApi Manually triggered build
 on:
   workflow_dispatch:
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   BUILD_INCREMENTER: "-34"

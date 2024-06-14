@@ -30,6 +30,8 @@ on:
           - DotNetPackages
           - DatabaseTemplates
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "7.3"
   CONFIGURATION: "Release"
@@ -42,6 +44,9 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
 
     steps:
     - name: Checkout Ed-Fi-ODS-Implementation

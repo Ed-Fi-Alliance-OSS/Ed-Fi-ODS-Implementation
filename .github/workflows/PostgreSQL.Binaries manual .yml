@@ -8,6 +8,8 @@ name: PostgreSQL.Binaries Manually triggered build
 on:
   workflow_dispatch:
 
+permissions: read-all
+
 env:
   INFORMATIONAL_VERSION: "13.7"
   BUILD_INCREMENTER: "5"
