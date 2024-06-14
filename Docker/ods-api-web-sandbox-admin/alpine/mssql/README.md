@@ -2,7 +2,8 @@
 
 Provides docker deployment for Sandbox Admin tool.
 
-> **NOTE**: This image is not recommended for production use.**
+> [!NOTE]
+> This image is not recommended for production use.
 
 ## Image Variants
 
@@ -13,10 +14,9 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-LOGS_FOLDER=<path to store the log files>
 PATH_BASE=<The url path to the sandbox admin, used to define the sandbox admin url> (OPTIONAL, default admin)
 OAUTH_URL=<The url path to the OAuth endpoint.> (OPTIONAL, default https://localhost/api/oauth/)
-SQLSERVER_ODS_DATASOURCE=<DNS or IP Address of the SQL Server Instance, i.e. sql.somedns.org or 10.1.5.9,1433
+SQLSERVER_ODS_DATASOURCE=<DNS or IP Address of the SQL Server Instance, i.e. sql.somedns.org or 10.1.5.9,1433>
 SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, i.e. sql.somedns.org or 10.1.5.9,1433>
 SQLSERVER_ADMIN_USER=<SQL Username with access to SQL Server Ed-Fi Admin and Security databases, i.e. edfiadmin>
 SQLSERVER_ADMIN_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi Admin and Security databases, i.e. password123!>
@@ -35,7 +35,7 @@ POPULATED_SECRET=<populated template secret>
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the

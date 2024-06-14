@@ -4,9 +4,6 @@
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
 
-set -e
-set +x
-
 if [[ -n "$SQLSERVER_USER" && -n "$SQLSERVER_PASSWORD" ]]; then
   echo "Overriding SQLSERVER_ADMIN_USER..."
   export SQLSERVER_ADMIN_USER=$SQLSERVER_USER
@@ -40,5 +37,18 @@ elif [[ "$ENCRYPT_CONNECTION" != true ]]; then
 fi
 
 envsubst < /app/appsettings.template.json > /app/appsettings.json
+
+STATUS_ODS=1
+STATUS_ADMIN=1 
+until [[ $STATUS_ODS -eq 0 && $STATUS_ADMIN -eq 0 ]]; do
+  >&2 echo "ODS SQL Server is unavailable - sleeping"
+  /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S $SQLSERVER_ODS_DATASOURCE -C > /dev/null 2>&1
+  STATUS_ODS=$?
+
+  >&2 echo "ADMIN SQL Server is unavailable - sleeping"
+  /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S $SQLSERVER_ADMIN_DATASOURCE -C > /dev/null 2>&1
+  STATUS_ADMIN=$?
+  sleep 8
+done
 
 dotnet EdFi.Ods.Sandbox.Admin.dll
