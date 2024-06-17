@@ -10,17 +10,21 @@
     Builds and tags Ed-Fi ODS/API Dockerfiles for publishing. Optionally pushes to a registry.
 .DESCRIPTION
     * Does not include the Gateway image, which is only for local testing.
-    * Pre-configured for PostgreSQL using the "minimal template".
     * See the following links to find the latest available versions of the various packages:
 
-    Admin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Admin.PostgreSQL.Standard.5.1.0/overview
-    Api: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.WebApi.Standard.5.1.0/overview
-    ODS: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.5.1.0/overview
-    Security: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Security.PostgreSQL.Standard.5.1.0/overview
-    SwaggerUI: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SwaggerUI/overview
-    TPDM: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.5.1.0/overview
-    SandboxAdmin: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
+    Admin:            https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Admin.PostgreSQL.Standard.5.1.0/overview
+    Api:              https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.WebApi.Standard.5.1.0/overview
+    ODS:              https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.5.1.0/overview
+    Security:         https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Security.PostgreSQL.Standard.5.1.0/overview
+    SwaggerUI:        https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SwaggerUI/overview
+    TPDM:             https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.PostgreSQL.Standard.5.1.0/overview
+    SandboxAdmin:     https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.SandboxAdmin/overview/
     BulkLoad Console: https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.BulkLoadClient.Console/overview/
+    MsSql Admin:      https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Admin.Standard.5.1.0/overview
+    MsSql ODS:        https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.Standard.5.1.0/overview
+    MsSql Security:   https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Database.Security.Standard.5.1.0/overview
+    MsSql TPDM:       https://dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_artifacts/feed/EdFi/NuGet/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.1.1.0.Standard.5.1.0/overview
+
 .EXAMPLE
     # Override to apply a custom image repository base name as an alternative to "edfialliance"
     ./Invoke-Build.ps1 -TagBase MyName
@@ -34,30 +38,60 @@ param (
     [string]
     $MinimalVersion = $env:ODS_MINIMAL_VERSION,
 
+    # NuGet package version for the ODS minimal template database script (MsSql minimal template).
+    [Parameter()]
+    [string]
+    $MSSQL_MinimalVersion = $env:MSSQL_ODS_MINIMAL_VERSION,
+
     # NuGet package version for the ODS minimal template database script (PostgreSQL populated template).
     [Parameter()]
     [string]
     $PopulatedVersion = $env:ODS_POPULATED_VERSION,
+
+    # NuGet package version for the ODS minimal template database script (MsSql populated template).
+    [Parameter()]
+    [string]
+    $MSSQL_PopulatedVersion = $env:MSSQL_ODS_POPULATED_VERSION,
 
     # NuGet package version for the TPDM extension database script (PostgreSQL minimal template).
     [Parameter()]
     [string]
     $TpdmMinimalVersion = $env:TPDM_MINIMAL_VERSION,
 
+    # NuGet package version for the TPDM extension database script (MsSql minimal template).
+    [Parameter()]
+    [string]
+    $MSSQL_TpdmMinimalVersion = $env:MSSQL_TPDM_MINIMAL_VERSION,
+
     # NuGet package version for the TPDM extension database script (PostgreSQL populated template).
     [Parameter()]
     [string]
     $TpdmPopulatedVersion = $env:TPDM_POPULATED_VERSION,
+
+    # NuGet package version for the TPDM extension database script (MsSql populated template).
+    [Parameter()]
+    [string]
+    $MSSQL_TpdmPopulatedVersion = $env:MSSQL_TPDM_POPULATED_VERSION,
 
     # NuGet package version for the Admin database scripts (PostgreSQL).
     [Parameter()]
     [string]
     $AdminVersion = $env:ADMIN_VERSION,
 
+    # NuGet package version for the Admin database scripts (MsSql).
+    [Parameter()]
+    [string]
+    $MSSQL_AdminVersion = $env:MSSQL_ADMIN_VERSION,
+
     # NuGet package version for the Security database scripts (PostgreSQL).
     [Parameter()]
     [string]
     $SecurityVersion = $env:SECURITY_VERSION,
+
+    # NuGet package version for the Security database scripts (MsSql).
+    [Parameter()]
+    [string]
+    $MSSQL_SecurityVersion = $env:MSSQL_SECURITY_VERSION,
 
     # NuGet package version for the Web API binaries (configured for PostgreSQL).
     [Parameter()]
@@ -129,14 +163,23 @@ $major = $($PackageVersion -split "\.")[0]
 
 $BuildArgs = ""
 
-if ($ImageName -eq "ods-api-db-admin") {
+if ($ImageName -eq "ods-api-db-admin" && -n $Path.EndsWith("mssql")) {
     $BuildArgs = "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
 }
-elseif ($ImageName -eq "ods-api-db-ods-minimal") {
+elseif ($ImageName -eq "ods-api-db-admin" && $Path.EndsWith("mssql")) {
+  $BuildArgs = "--build-arg ADMIN_VERSION=$MSSQL_AdminVersion --build-arg SECURITY_VERSION=$MSSQL_SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
+}
+elseif ($ImageName -eq "ods-api-db-ods-minimal" && -n $Path.EndsWith("mssql")) {
     $BuildArgs = "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 }
-elseif ($ImageName -eq "ods-api-db-ods-sandbox") {
+elseif ($ImageName -eq "ods-api-db-ods-minimal" && $Path.EndsWith("mssql")) {
+  $BuildArgs = "--build-arg ODS_VERSION=$MSSQL_MinimalVersion --build-arg TPDM_VERSION=$MSSQL_TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+}
+elseif ($ImageName -eq "ods-api-db-ods-sandbox" && -n $Path.EndsWith("mssql")) {
     $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+}
+elseif ($ImageName -eq "ods-api-db-ods-sandbox" && $Path.EndsWith("mssql")) {
+  $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MSSQL_MinimalVersion --build-arg ODS_POPULATED_VERSION=$MSSQL_PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$MSSQL_TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$MSSQL_TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
 }
 elseif ($ImageName -eq "ods-api-web-api") {
     $BuildArgs = "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"

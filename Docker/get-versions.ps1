@@ -34,6 +34,12 @@
     - $env:STANDARD_VERSION
     - $env:EXTENSION_VERSION
     - $env:BULKLOAD_VERSION
+    - $env:MSSQL_ODS_MINIMAL_VERSION
+    - $env:MSSQL_TPDM_MINIMAL_VERSION
+    - $env:MSSQL_ODS_POPULATED_VERSION
+    - $env:MSSQL_TPDM_POPULATED_VERSION
+    - $env:MSSQL_ADMIN_VERSION
+    - $env:MSSQL_SECURITY_VERSION
 #>
 param(
     [string]
@@ -192,3 +198,9 @@ $env:SANDBOX_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.S
 $env:STANDARD_VERSION = $StandardVersion
 $env:EXTENSION_VERSION = $ExtensionVersion
 $env:BULKLOAD_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.BulkLoadClient.Console -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ODS_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_TPDM_MINIMAL_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.$ExtensionVersion.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ODS_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_TPDM_POPULATED_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Suite3.Ods.Populated.Template.TPDM.Core.$ExtensionVersion.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_ADMIN_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Admin.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
+$env:MSSQL_SECURITY_VERSION = "$(Get-NugetPackageVersion -PackageName EdFi.Database.Security.Standard.$StandardVersion -PackageVersion $PackageVersion -PreRelease:$PreRelease)".Trim()
