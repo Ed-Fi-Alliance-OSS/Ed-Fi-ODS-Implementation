@@ -21,9 +21,10 @@ ARG TPDM_MINIMAL_VERSION
 ARG TPDM_POPULATED_VERSION
 ARG STANDARD_VERSION
 ARG EXTENSION_VERSION
+
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
-# # These variables can be overwritten at runtime
+# These variables can be overwritten at runtime
 ENV MSSQL_PID=Express
 
 ENV ODS_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.Standard.${STANDARD_VERSION}/versions/${ODS_MINIMAL_VERSION}/content
@@ -36,7 +37,7 @@ WORKDIR /app
 RUN umask 0077 && \
     mkdir backups && \
     # Download and extract Minimal and Populated Templates for core Ed-Fi Data Model
-    wget -q -O /app/backups/OdsPopulatedDatabase.zip ${ODS_POPULATED_URL} && \
+    wget -q -O ./backups/backups/OdsPopulatedDatabase.zip ${ODS_POPULATED_URL} && \
     unzip -p ./backups/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.bak >> ./backups/EdFi_Ods_Populated_Template.bak && \
     wget -q -O ./backups/OdsMinimalDatabase.zip ${ODS_MINIMAL_URL} && \
     unzip -p ./backups/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.bak >> ./backups/EdFi_Ods_Minimal_Template.bak && \

@@ -12,6 +12,7 @@ FROM base AS build
 ARG ADMIN_VERSION
 ARG SECURITY_VERSION
 ARG STANDARD_VERSION
+
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
