@@ -6,12 +6,14 @@
 # Base image with additional packages
 FROM mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04@sha256:c4369c38385eba011c10906dc8892425831275bb035d5ce69656da8e29de50d8 AS base
 USER root
-RUN apt update && \
-    apt upgrade -y && \
-    apt install unzip dos2unix &&\
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 &&\
+    rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
     mkdir -p /var/opt/mssql/data &&\
     chown -R mssql: /var/opt/mssql/data
+USER mssql
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
@@ -27,6 +29,7 @@ ENV MSSQL_PID=Express
 ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.Standard.${STANDARD_VERSION}/versions/${ADMIN_VERSION}/content
 ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.Standard.${STANDARD_VERSION}/versions/${SECURITY_VERSION}/content
 
+USER root
 WORKDIR /app
 
 RUN umask 0077 && \
@@ -37,14 +40,14 @@ RUN umask 0077 && \
     unzip -p ./backups/EdFi_Admin.zip EdFi_Admin.bak >> ./backups/EdFi_Admin.bak && \
     unzip -p ./backups/EdFi_Security.zip EdFi_Security.bak >> ./backups/EdFi_Security.bak && \
     rm -f ./backups/*.zip && \
-    apt --purge autoremove unzip -y
+    apt-get --purge autoremove unzip -y
 
-COPY --chmod=500 *.sh .
+COPY --chmod=500 ./*.sh .
 
 RUN umask 0077 && \
-    dos2unix *.sh && \
+    dos2unix ./*.sh && \
     chown -R mssql . && \ 
-    apt --purge autoremove dos2unix -y
+    apt-get --purge autoremove dos2unix -y
 
 EXPOSE 1433
 USER mssql

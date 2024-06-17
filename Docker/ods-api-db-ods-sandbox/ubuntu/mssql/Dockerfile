@@ -6,12 +6,14 @@
 # Base image with additional packages
 FROM mcr.microsoft.com/mssql/server:2022-CU13-ubuntu-22.04@sha256:c4369c38385eba011c10906dc8892425831275bb035d5ce69656da8e29de50d8 AS base
 USER root
-RUN apt update && \
-    apt upgrade -y && \
-    apt install unzip dos2unix &&\
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 &&\
+    rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
     mkdir -p /var/opt/mssql/data &&\
     chown -R mssql: /var/opt/mssql/data
+USER mssql
 
 # Start a new layer so that the above layer can be cached
 FROM base AS build
@@ -32,12 +34,13 @@ ENV ODS_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-O
 ENV TPDM_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_MINIMAL_VERSION}/content
 ENV TPDM_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_POPULATED_VERSION}/content
 
+USER root
 WORKDIR /app
 
 RUN umask 0077 && \
     mkdir backups && \
     # Download and extract Minimal and Populated Templates for core Ed-Fi Data Model
-    wget -q -O ./backups/backups/OdsPopulatedDatabase.zip ${ODS_POPULATED_URL} && \
+    wget -q -O ./backups/OdsPopulatedDatabase.zip ${ODS_POPULATED_URL} && \
     unzip -p ./backups/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.bak >> ./backups/EdFi_Ods_Populated_Template.bak && \
     wget -q -O ./backups/OdsMinimalDatabase.zip ${ODS_MINIMAL_URL} && \
     unzip -p ./backups/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.bak >> ./backups/EdFi_Ods_Minimal_Template.bak && \
@@ -47,14 +50,14 @@ RUN umask 0077 && \
     wget -q -O ./backups/TPDMOdsMinimalDatabase.zip ${TPDM_MINIMAL_URL} && \
     unzip -p ./backups/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.bak > ./backups/EdFi_Ods_Minimal_Template_TPDM_Core.bak && \
     rm -f ./backups/*.zip && \
-    apt --purge autoremove unzip -y
+    apt-get --purge autoremove unzip -y
 
-COPY --chmod=500 *.sh .
+COPY --chmod=500 ./*.sh .
 
 RUN umask 0077 && \
-    dos2unix *.sh && \
+    dos2unix ./*.sh && \
     chown -R mssql . && \ 
-    apt --purge autoremove dos2unix -y
+    apt-get --purge autoremove dos2unix -y
 
 EXPOSE 1433
 USER mssql

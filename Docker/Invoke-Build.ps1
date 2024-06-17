@@ -163,35 +163,41 @@ $major = $($PackageVersion -split "\.")[0]
 
 $BuildArgs = ""
 
-if ($ImageName -eq "ods-api-db-admin" && -n $Path.EndsWith("mssql")) {
+if ($ImageName -eq "ods-api-db-admin") {
+  if ($Path.EndsWith("mssql")) {
+    $BuildArgs = "--build-arg ADMIN_VERSION=$MSSQL_AdminVersion --build-arg SECURITY_VERSION=$MSSQL_SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
+  }
+  else {
     $BuildArgs = "--build-arg ADMIN_VERSION=$AdminVersion --build-arg SECURITY_VERSION=$SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
+  }
 }
-elseif ($ImageName -eq "ods-api-db-admin" && $Path.EndsWith("mssql")) {
-  $BuildArgs = "--build-arg ADMIN_VERSION=$MSSQL_AdminVersion --build-arg SECURITY_VERSION=$MSSQL_SecurityVersion --build-arg STANDARD_VERSION=$StandardVersion"
-}
-elseif ($ImageName -eq "ods-api-db-ods-minimal" && -n $Path.EndsWith("mssql")) {
+elseif ($ImageName -eq "ods-api-db-ods-minimal") {
+  if ($Path.EndsWith("mssql")) {
+    $BuildArgs = "--build-arg ODS_VERSION=$MSSQL_MinimalVersion --build-arg TPDM_VERSION=$MSSQL_TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"  
+  }
+  else {
     $BuildArgs = "--build-arg ODS_VERSION=$MinimalVersion --build-arg TPDM_VERSION=$TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+  }
 }
-elseif ($ImageName -eq "ods-api-db-ods-minimal" && $Path.EndsWith("mssql")) {
-  $BuildArgs = "--build-arg ODS_VERSION=$MSSQL_MinimalVersion --build-arg TPDM_VERSION=$MSSQL_TpdmMinimalVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-}
-elseif ($ImageName -eq "ods-api-db-ods-sandbox" && -n $Path.EndsWith("mssql")) {
+elseif ($ImageName -eq "ods-api-db-ods-sandbox") {
+  if ($Path.EndsWith("mssql")) {
+    $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MSSQL_MinimalVersion --build-arg ODS_POPULATED_VERSION=$MSSQL_PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$MSSQL_TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$MSSQL_TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"  
+  }
+  else {
     $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MinimalVersion --build-arg ODS_POPULATED_VERSION=$PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
-}
-elseif ($ImageName -eq "ods-api-db-ods-sandbox" && $Path.EndsWith("mssql")) {
-  $BuildArgs = "--build-arg ODS_MINIMAL_VERSION=$MSSQL_MinimalVersion --build-arg ODS_POPULATED_VERSION=$MSSQL_PopulatedVersion --build-arg TPDM_MINIMAL_VERSION=$MSSQL_TpdmMinimalVersion --build-arg TPDM_POPULATED_VERSION=$MSSQL_TpdmPopulatedVersion --build-arg STANDARD_VERSION=$StandardVersion --build-arg EXTENSION_VERSION=$ExtensionVersion"
+  }
 }
 elseif ($ImageName -eq "ods-api-web-api") {
-    $BuildArgs = "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
+  $BuildArgs = "--build-arg API_VERSION=$ApiVersion --build-arg STANDARD_VERSION=$StandardVersion"
 }
 elseif ($ImageName -eq "ods-api-swaggerui") {
-    $BuildArgs = "--build-arg SWAGGER_VERSION=$SwaggerVersion"
+  $BuildArgs = "--build-arg SWAGGER_VERSION=$SwaggerVersion"
 }
 elseif ($ImageName -eq "ods-api-web-sandbox-admin") {
-    $BuildArgs = "--build-arg SANDBOX_VERSION=$SandboxVersion"
+  $BuildArgs = "--build-arg SANDBOX_VERSION=$SandboxVersion"
 }
 elseif ($ImageName -eq "ods-api-bulk-load-console") {
-    $BuildArgs = "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
+  $BuildArgs = "--build-arg BULKLOAD_VERSION=$BulkLoadVersion"
 }
 
 function Write-Message {
@@ -217,7 +223,7 @@ function Invoke-Build {
         $stdVer = ""
     }
 
-    Write-Message "Building $ImageName"
+    Write-Message "Building $ImageName with $BuildArgs"
     Push-Location $ImageName/$Path
     # Full semantic version
     Invoke-Expression "docker build -t edfialliance/$($ImageName):$semVer-$StandardVersion$mssql $BuildArgs ."

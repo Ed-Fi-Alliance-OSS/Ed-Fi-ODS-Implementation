@@ -70,7 +70,7 @@ jobs:
           ./Invoke-Build.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -PreRelease -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
           $image ="edfialliance/${{ matrix.dockerfile.name }}:${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
 
-          if ("${{ matrix.dockerfile.path }}" -eq "alpine/mssql") {
+          if ("${{ matrix.dockerfile.path }}".EndsWith("mssql")) {
               $image += "-mssql"
           }          
           echo "IMAGENAME=$image">> $env:GITHUB_ENV
