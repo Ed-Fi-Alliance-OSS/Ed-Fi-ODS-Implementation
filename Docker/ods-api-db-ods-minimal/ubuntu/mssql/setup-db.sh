@@ -1,0 +1,43 @@
+#!/bin/bash
+# SPDX-License-Identifier: Apache-2.0
+# Licensed to the Ed-Fi Alliance under one or more agreements.
+# The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
+# See the LICENSE and NOTICES files in the project root for more information.
+
+STATUS_SA=1
+STATUS_USER=1 
+while [[ $STATUS_SA -ne 0 && $STATUS_USER -ne 0 ]]; do
+  echo "Waiting for server to be online... "
+  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U sa -P "${SQLSERVER_PASSWORD}" > /dev/null 2>&1
+  STATUS_SA=$?
+  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" > /dev/null 2>&1
+  STATUS_USER=$?
+  sleep 8
+done
+
+echo "Configuring user..."
+# If conneciton fails, it means we already have configured logins, so we can redirect the error to /dev/null
+/opt/mssql-tools/bin/sqlcmd -U sa -P "${SQLSERVER_PASSWORD}" -Q "
+    CREATE LOGIN ${SQLSERVER_USER} WITH PASSWORD = '${SQLSERVER_PASSWORD}';
+    CREATE USER ${SQLSERVER_USER} FOR LOGIN ${SQLSERVER_USER}; 
+    ALTER SERVER ROLE [sysadmin] ADD MEMBER ${SQLSERVER_USER};
+    ALTER LOGIN [SA] DISABLE;" > /dev/null 2>&1
+
+export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template.bak
+
+if [[ "$TPDM_ENABLED" = true ]]; then
+  export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template_TPDM_Core.bak
+fi
+
+if [[ -z "$ODS_DB" ]]; then
+  export ODS_DB="EdFi_Ods"
+fi
+
+# If the EdFi_Ods_Minimal_Template is restored, we skip restoring it again
+if [[ ! -f "/var/opt/mssql/data/EdFi_Ods_Minimal_Template.mdf" ]]; then
+  echo "Loading EdFi_Ods_Minimal_Template database from backup..."
+  /opt/mssql-tools/bin/sqlcmd -U ${SQLSERVER_USER} -P ${SQLSERVER_PASSWORD} -Q "
+    RESTORE DATABASE [${ODS_DB}] FROM DISK = N'/app/backups/${MINIMAL_BACKUP}'
+    WITH MOVE 'EdFi_Ods_Populated_Template_Test' TO '/var/opt/mssql/data/EdFi_Ods_Minimal_Template.mdf', 
+         MOVE 'EdFi_Ods_Populated_Template_Test_Log' TO '/var/opt/mssql/log/EdFi_Ods_Minimal_Template_log.ldf';"
+fi
