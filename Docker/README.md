@@ -28,7 +28,8 @@ There are three compose files provided for local testing:
    packages, running in "single tenant, single year" mode
    with only the minimal template database containing pre-loaded descriptors.
 
-> [!Warning] these are not appropriate for production use!
+> [!Warning]
+> These images are not appropriate for production use!
 
 These compose files expect the presence of a `.env` file. You can copy
 `.env.example` and customize it for use with any of the three. The commands

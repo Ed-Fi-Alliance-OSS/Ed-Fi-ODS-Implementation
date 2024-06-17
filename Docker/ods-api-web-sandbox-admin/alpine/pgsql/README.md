@@ -2,7 +2,8 @@
 
 Provides docker deployment for Sandbox Admin tool.
 
-> **NOTE**: This image is not recommended for production use.
+> [!NOTE]
+> This image is not recommended for production use.
 
 ## Image Variants
 

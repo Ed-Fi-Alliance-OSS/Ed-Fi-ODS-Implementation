@@ -6,7 +6,7 @@ Microsoft SQL Server 2022.
 
 SA user is disabled after initial setup.
 
-> [!Warning]
+> [!WARNING]
 > This image is not recommended for a production environment.
 
 ## Image Variants

@@ -4,7 +4,7 @@ Provides a Docker image of the Ed-Fi ODS database's "populated template",
 containing a small set of sample (fake) school and student data, running on
 PostgreSQL 13.
 
-> **Note** 
+> [!NOTE] 
 > This image is recommended for production environments.
 
 ## Image Variants

@@ -8,7 +8,7 @@ SA user is disabled after initial setup.
 
 > [!NOTE]
 > This image does not include any pre-installed vendors and is suitable for
-> [production use](#sql-server-2022-express-license-overview).**
+> [production use](#sql-server-2022-express-license-overview).
 
 ## Image Variants
 
