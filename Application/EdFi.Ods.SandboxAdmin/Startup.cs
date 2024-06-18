@@ -213,9 +213,6 @@ namespace EdFi.Ods.SandboxAdmin
 
             Container = app.ApplicationServices.GetAutofacRoot();
 
-            // Set EF Context
-            DbConfiguration.SetConfiguration(new DatabaseEngineDbConfiguration(Container.Resolve<DatabaseEngine>()));
-
             app.UseForwardedHeaders();
 
             if (env.IsDevelopment())
