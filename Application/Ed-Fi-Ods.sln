@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29609.76
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 15.0.28307.852
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Common", "..\..\Ed-Fi-ODS\Application\EdFi.Ods.Common\EdFi.Ods.Common.csproj", "{8D7CB143-8818-47A8-89E8-702D485E8DA0}"
 EndProject
@@ -92,6 +92,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.WebApi", "EdFi.Ods.WebApi\EdFi.Ods.WebApi.csproj", "{538782E7-25DC-494D-902D-3EE2EC839DC6}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Ods.Api.IntegrationTests", "..\..\Ed-Fi-ODS\tests\EdFi.Ods.Api.IntegrationTests\EdFi.Ods.Api.IntegrationTests.csproj", "{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EdFi.Security.DataAccess.IntegrationTests", "..\..\Ed-Fi-ODS\tests\EdFi.Security.DataAccess.IntegrationTests\EdFi.Security.DataAccess.IntegrationTests.csproj", "{6D93C15C-11AE-455F-8370-56CC9716EC7A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -203,6 +205,10 @@ Global
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D93C15C-11AE-455F-8370-56CC9716EC7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D93C15C-11AE-455F-8370-56CC9716EC7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D93C15C-11AE-455F-8370-56CC9716EC7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D93C15C-11AE-455F-8370-56CC9716EC7A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -236,6 +242,7 @@ Global
 		{A7A3038A-B1B8-47EF-82A0-8EBD97BA020A} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
 		{538782E7-25DC-494D-902D-3EE2EC839DC6} = {26FBA24F-2F1E-47EA-BDE2-EF57AE81D65D}
 		{3ED34C57-BFEF-4FA1-9497-28D7D611D1B9} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
+		{6D93C15C-11AE-455F-8370-56CC9716EC7A} = {3AD03A98-4A2C-42F1-997D-2468A0CCB77D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {91F27EA2-CFF0-4054-A019-B8AA23AF9319}
