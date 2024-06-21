@@ -47,6 +47,12 @@ jobs:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
 
+      - name: Checkout Ed-Fi-ODS-Implementation
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+        with:
+            repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
+            path: Ed-Fi-ODS-Implementation/ 
+
       - name: Checkout Ed-Fi-Extensions
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
@@ -58,6 +64,12 @@ jobs:
         shell: pwsh
         run: |
           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-Extensions"
+
+      - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
+        working-directory: ./Ed-Fi-ODS-Implementation/
+        shell: powershell
+        run: |
+            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."          
 
       - name: Set StandardVersions
         id: Set_StandardVersions
