@@ -1,6 +1,6 @@
 # Ed-Fi ODS Database
 
-Provides a Docker image of the Ed-Fi ODS database's "populated template",
+Provides a Docker image of the Ed-Fi ODS database's "minimal template",
 containing a small set of sample (fake) school and student data, running on
 Microsoft SQL Server 2022.
 

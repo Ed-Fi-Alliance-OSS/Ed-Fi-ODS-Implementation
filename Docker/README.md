@@ -44,8 +44,8 @@ startup. The script [bootstrap.ps1](./bootstrap.ps1) creates a set of initial
 credentials with access to all resources, using the `Ed-Fi Sandbox` claimset for
 convenience.
 
-* Key: `sampleKey`
-* Secret: `sampleSecret`.
+* Key: `minimalKey`
+* Secret: `minimalSecret`.
 
 In a real production environment you would use Admin API or Admin App to create
 these credentials, and of course you would want to install a real certificate.
@@ -58,7 +58,7 @@ Before running `docker compose` commands, run `get-versions.ps1`. This script ta
 
 ```shell
 # For example to target the 4.0.0 data standard
-.\get-version.ps1 -StandardVersion "4.0.0" -ExtensionVersion 1.1.0
+.\get-versions.ps1 -StandardVersion "4.0.0" -ExtensionVersion 1.1.0
 ```
 
 ### Example Operational Commands

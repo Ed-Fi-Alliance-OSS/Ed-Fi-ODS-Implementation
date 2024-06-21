@@ -16,7 +16,8 @@ services:
       SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
     volumes:
-      - vol-db-ods:/var/lib/postgresql/data
+      - vol-db-ods:/var/opt/mssql/data
+      - vol-db-ods:/var/opt/mssql/log
     restart: always
     container_name: ed-fi-db-ods
     hostname: ed-fi-db-ods
@@ -31,7 +32,8 @@ services:
       SQLSERVER_USER: ${SQLSERVER_USER}
       SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
     volumes:
-      - vol-db-admin:/var/lib/postgresql/data
+      - vol-db-admin:/var/opt/mssql/data
+      - vol-db-admin:/var/opt/mssql/log
     restart: always
     container_name: ed-fi-db-admin
     hostname: ed-fi-db-admin

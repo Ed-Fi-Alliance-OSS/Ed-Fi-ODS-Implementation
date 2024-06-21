@@ -1,8 +1,8 @@
 # Ed-Fi ODS Database
 
-Provides a Docker image of the Ed-Fi ODS database's "populated template",
-containing a small set of sample (fake) school and student data, running on
-Microsoft SQL Server 2022.
+Provides a Docker image of the Ed-Fi ODS database's "minimal template",
+containing a small set of sample (fake) school and student data, running
+on PostgreSQL 13.
 
 SA user is disabled after initial setup.
 
@@ -11,17 +11,16 @@ SA user is disabled after initial setup.
 
 ## Image Variants
 
-The only supported image at this time is an Ubuntu-based implementation using
-[Microsoft SQL Server 2022](https://mcr.microsoft.com/product/mssql/server/about).
+The only supported image at this time is an Alpine-based implementation using
+[PostgreSQL 13](https://hub.docker.com/_/postgres).
 
-`edfialliance/ods-api-db-ods-minimal:<version>-mssql`
+`edfialliance/ods-api-db-ods-minimal:<version>`
 
 ## Supported Environment Variables
 
 ```none
-MSSQL_PID=<Set the SQL Server edition or product key. Default: Express>
-SQLSERVER_USER=<default SqlServer database user>
-SQLSERVER_PASSWORD=<password for default SqlServer user. This value is also used for SA user.>
+POSTGRES_USER=<default PostgreSQL database user>
+POSTGRES_PASSWORD=<password for default PostgreSQL user>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 ```
 
@@ -47,28 +46,3 @@ any direct or indirect dependencies of the primary software being contained).
 As for any pre-built image usage, it is the image user's responsibility to
 ensure that any use of this image complies with any relevant licenses for all
 software contained within.
-
-### SQL Server 2022 Express License Overview
-
-[SQL Server 2022 Express license](https://www.microsoft.com/en-us/Useterms/Retail/SQLServer2022/SQLServer2022DeveloperExpressEvaluation/Useterms_Retail_SQLServer2022_SQLServer2022DeveloperExpressEvaluation_English.htm) is suitable for production use in certain scenarios,
-particularly for small-scale applications with limited resource needs.
-
-Limitations in Production are
-- Maximum database size is 10 GB per database
-- Supports 1 socket or 4 cores, and a maximum of 1410 MB of memory per instance.
-- Lacks some advanced features available in paid editions, such as SQL Server Agent
-for job scheduling, integration services, and advanced analytics.
-
-If you need to use/have aquired a different license, you can specify the 
-SQL Server edition or product key using the `MSSQL_PID` environment variable.
-Valid values are:
-
-- Express
-- Web
-- Standard
-- Enterprise
-- EnterpriseCore
-- A product key
-
-If specifying a product key, it must be in the form of #####-#####-#####-#####-#####,
-where '#' is a number or a letter.
