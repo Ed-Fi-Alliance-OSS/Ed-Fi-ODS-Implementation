@@ -11,8 +11,8 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 &&\
     rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
-    mkdir -p /var/opt/mssql/data &&\
-    chown -R mssql: /var/opt/mssql/data
+    mkdir -p /var/opt/mssql/data /var/opt/mssql/log &&\
+    chown -R mssql: /var/opt/mssql/data /var/opt/mssql/log
 USER mssql
 
 # Start a new layer so that the above layer can be cached
@@ -20,14 +20,13 @@ FROM base AS build
 ARG ADMIN_VERSION
 ARG SECURITY_VERSION
 ARG STANDARD_VERSION
+ARG ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.Standard.${STANDARD_VERSION}/versions/${ADMIN_VERSION}/content
+ARG SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.Standard.${STANDARD_VERSION}/versions/${SECURITY_VERSION}/content
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV MSSQL_PID=Express
-
-ENV ADMIN_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Admin.Standard.${STANDARD_VERSION}/versions/${ADMIN_VERSION}/content
-ENV SECURITY_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Database.Security.Standard.${STANDARD_VERSION}/versions/${SECURITY_VERSION}/content
 
 USER root
 WORKDIR /app
@@ -44,8 +43,7 @@ RUN umask 0077 && \
 
 COPY --chmod=500 ./*.sh .
 
-RUN umask 0077 && \
-    dos2unix ./*.sh && \
+RUN dos2unix ./*.sh && \
     chown -R mssql . && \ 
     apt-get --purge autoremove dos2unix -y
 

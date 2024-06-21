@@ -3,14 +3,17 @@
 # Licensed to the Ed-Fi Alliance under one or more agreements.
 # The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 # See the LICENSE and NOTICES files in the project root for more information.
- 
+
+set -e
+set +x
+
 STATUS_SA=1
 STATUS_USER=1 
 while [[ $STATUS_SA -ne 0 && $STATUS_USER -ne 0 ]]; do
   echo "Waiting for server to be online... "
-  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U sa -P "${SQLSERVER_PASSWORD}" > /dev/null 2>&1
+  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U sa -P "${SQLSERVER_PASSWORD}" || : > /dev/null 2>&1
   STATUS_SA=$?
-  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" > /dev/null 2>&1
+  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" || : > /dev/null 2>&1
   STATUS_USER=$?
   sleep 8
 done

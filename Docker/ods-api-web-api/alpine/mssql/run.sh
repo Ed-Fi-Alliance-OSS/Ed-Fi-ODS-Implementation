@@ -28,14 +28,11 @@ export ODS_WAIT_HOSTS_ARR=($ODS_WAIT_HOSTS)
 for HOST in ${ODS_WAIT_HOSTS_ARR[@]}
 do
   STATUS_ODS=1
-  STATUS_ADMIN=1 
-  until [[ $STATUS_ODS -eq 0 && $STATUS_ADMIN -eq 0 ]]; do
+  until [[ $STATUS_ODS -eq 0 ]]; do
     >&2 echo "SQL Server '$HOST' is unavailable - sleeping"
     sleep 10
-    /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S $SQLSERVER_ODS_DATASOURCE -C > /dev/null 2>&1
+    /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S ${HOST} -C || : > /dev/null 2>&1
     STATUS_ODS=$?
-    /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S $SQLSERVER_ADMIN_DATASOURCE -C > /dev/null 2>&1
-    STATUS_ADMIN=$?
   done
   >&2 echo "SQL Server '$HOST' is up"
 done

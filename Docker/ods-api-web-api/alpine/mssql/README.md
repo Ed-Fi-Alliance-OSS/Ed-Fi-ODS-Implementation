@@ -14,7 +14,7 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-PATH_BASE=<The url path to the api, used to define the api's url> (OPTIONAL, default api)
+PATH_BASE=<Segment of the url to use as base for all request.> (OPTIONAL, default api)
 SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, can also be a docker container, i.e. sql.somedns.org, ed-fi-db-admin, or 10.1.5.9,1433>
 SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi Admin and Security databases.>
 SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi Admin and Security databases.>

@@ -17,18 +17,18 @@ for potential production releases.
 
 ## Docker Compose Files
 
-There are three compose files provided for local testing:
+There are three compose files for each database server (PgSql and MsSql) provided for local testing:
 
-1. `docker-compose-hub.yml`: loads images that have already been published to
-   Docker Hub, running in "sharedinstance" mode.
-2. `docker-compose-sandbox.yml`: creates and loads local images from NuGet
+1. `docker-compose-hub-{pgsql/mssql}.yml`: loads images that have already been published to
+   Docker Hub, running in "single tenant, single year" mode.
+2. `docker-compose-sandbox-{pgsql/mssql}.yml`: creates and loads local images from NuGet
    packages, running in "sandbox" mode with both the minimal (descriptors only)
    and populated (descriptors and fake sample data) templates available.
-3. `docker-compose-local.yml`: creates and loads local images from NuGet
+3. `docker-compose-local-{pgsql/mssql}.yml`: creates and loads local images from NuGet
    packages, running in "single tenant, single year" mode
    with only the minimal template database containing pre-loaded descriptors.
 
-> [!Warning]
+> [!WARNING]
 > These images are not appropriate for production use!
 
 These compose files expect the presence of a `.env` file. You can copy
@@ -39,7 +39,7 @@ up` command.
 
 ### Credentials for Single Tenant Instance
 
-The two (msslq/pgsql) compose files do not have any credentials at
+The "single tenant, single year" (hub and local) compose files do not have any credentials at
 startup. The script [bootstrap.ps1](./bootstrap.ps1) creates a set of initial
 credentials with access to all resources, using the `Ed-Fi Sandbox` claimset for
 convenience.
@@ -52,8 +52,8 @@ these credentials, and of course you would want to install a real certificate.
 
 ### Targeting Standard and Extension Versions
 
-Before running `docker compose` commands, run `get-versions.ps1`. This script takes the following optional parameters
-* `StandardVersion` defaults to "5.1.0"
+Before running `docker compose` commands, run `get-versions.ps1`. This script takes the following required parameters
+* `StandardVersion`
 * `ExtensionVersion`
 
 ```shell

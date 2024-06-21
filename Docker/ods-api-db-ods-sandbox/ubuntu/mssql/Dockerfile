@@ -11,8 +11,8 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends unzip=6.0-26ubuntu3 dos2unix=7.4.2-2 &&\
     rm -rf /var/lib/apt/lists/* &&\
     # These steps are needed in order to mount the database to a host volume
-    mkdir -p /var/opt/mssql/data &&\
-    chown -R mssql: /var/opt/mssql/data
+    mkdir -p /var/opt/mssql/data /var/opt/mssql/log &&\
+    chown -R mssql: /var/opt/mssql/data /var/opt/mssql/log
 USER mssql
 
 # Start a new layer so that the above layer can be cached
@@ -23,16 +23,15 @@ ARG TPDM_MINIMAL_VERSION
 ARG TPDM_POPULATED_VERSION
 ARG STANDARD_VERSION
 ARG EXTENSION_VERSION
+ARG ODS_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.Standard.${STANDARD_VERSION}/versions/${ODS_MINIMAL_VERSION}/content
+ARG ODS_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.Standard.${STANDARD_VERSION}/versions/${ODS_POPULATED_VERSION}/content
+ARG TPDM_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_MINIMAL_VERSION}/content
+ARG TPDM_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_POPULATED_VERSION}/content
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
 ENV MSSQL_PID=Express
-
-ENV ODS_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.Standard.${STANDARD_VERSION}/versions/${ODS_MINIMAL_VERSION}/content
-ENV ODS_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.Standard.${STANDARD_VERSION}/versions/${ODS_POPULATED_VERSION}/content
-ENV TPDM_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_MINIMAL_VERSION}/content
-ENV TPDM_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${EXTENSION_VERSION}.Standard.${STANDARD_VERSION}/versions/${TPDM_POPULATED_VERSION}/content
 
 USER root
 WORKDIR /app
@@ -54,8 +53,7 @@ RUN umask 0077 && \
 
 COPY --chmod=500 ./*.sh .
 
-RUN umask 0077 && \
-    dos2unix ./*.sh && \
+RUN dos2unix ./*.sh && \
     chown -R mssql . && \ 
     apt-get --purge autoremove dos2unix -y
 

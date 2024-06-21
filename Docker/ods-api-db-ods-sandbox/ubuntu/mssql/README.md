@@ -1,6 +1,6 @@
-# ods-api-db-ods-populated
+# ods-api-db-ods-sandbox
 
-Provides a Docker image of the Ed-Fi ODS database's "populated template",
+Provides a Docker image of the Ed-Fi ODS database's "minimal" and "populated" templates,
 containing a small set of sample (fake) school and student data, running on
 Microsoft SQL Server 2022.
 
@@ -14,7 +14,7 @@ SA user is disabled after initial setup.
 The only supported image at this time is an Ubuntu-based implementation using
 [Microsoft SQL Server 2022](https://mcr.microsoft.com/product/mssql/server/about).
 
-`edfialliance/ods-api-db-ods-populated:<version>-mssql`
+`edfialliance/ods-api-db-ods-sandbox:<version>-mssql`
 
 ## Supported Environment Variables
 

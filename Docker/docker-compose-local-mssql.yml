@@ -13,10 +13,8 @@ services:
       context: ods-api-db-ods-minimal/ubuntu/mssql
       dockerfile: Dockerfile
       args:
-        ODS_POPULATED_VERSION: ${MSSQL_ODS_POPULATED_VERSION}
-        TPDM_POPULATED_VERSION: ${MSSQL_TPDM_POPULATED_VERSION}
-        ODS_MINIMAL_VERSION: ${MSSQL_ODS_MINIMAL_VERSION}
-        TPDM_MINIMAL_VERSION: ${MSSQL_TPDM_MINIMAL_VERSION}
+        ODS_VERSION: ${MSSQL_ODS_MINIMAL_VERSION}
+        TPDM_VERSION: ${MSSQL_TPDM_MINIMAL_VERSION}
         STANDARD_VERSION: ${STANDARD_VERSION}
         EXTENSION_VERSION: ${EXTENSION_VERSION}
     environment:
@@ -68,7 +66,6 @@ services:
       SQLSERVER_ADMIN_DATASOURCE: ed-fi-db-admin
       PATH_BASE: ""
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
-      API_HEALTHCHECK_TEST: ${API_HEALTHCHECK_TEST?Please consult env.example to set the API healthcheck test}
       ODS_CONNECTION_STRING_ENCRYPTION_KEY: ${ODS_CONNECTION_STRING_ENCRYPTION_KEY}
     volumes:
       - ${LOGS_FOLDER}:/app/logs
@@ -95,7 +92,6 @@ services:
       SAMPLE_KEY: ${MINIMAL_KEY}
       SAMPLE_SECRET: ${MINIMAL_SECRET}
       VERSION_URL: http://localhost:8001
-      SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     ports:
       - 8002:80
     depends_on:

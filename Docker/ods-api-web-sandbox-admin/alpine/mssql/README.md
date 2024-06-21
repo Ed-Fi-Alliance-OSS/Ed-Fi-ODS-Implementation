@@ -14,7 +14,7 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-PATH_BASE=<The url path to the sandbox admin, used to define the sandbox admin url> (OPTIONAL, default admin)
+PATH_BASE=<Segment of the url to use as base for all request.> (OPTIONAL, default admin)
 OAUTH_URL=<The url path to the OAuth endpoint.> (OPTIONAL, default https://localhost/api/oauth/)
 SQLSERVER_ODS_DATASOURCE=<DNS or IP Address of the SQL Server Instance, i.e. sql.somedns.org or 10.1.5.9,1433>
 SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, i.e. sql.somedns.org or 10.1.5.9,1433>

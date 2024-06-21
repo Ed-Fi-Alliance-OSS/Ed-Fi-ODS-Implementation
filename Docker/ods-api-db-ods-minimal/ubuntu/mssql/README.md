@@ -2,30 +2,32 @@
 
 Provides a Docker image of the Ed-Fi ODS database's "populated template",
 containing a small set of sample (fake) school and student data, running on
-PostgreSQL 13.
+Microsoft SQL Server 2022.
+
+SA user is disabled after initial setup.
 
 > [!NOTE]
 > This image is recommended for production environments.
 
 ## Image Variants
 
-The only supported image at this time is an Alpine-based implementation using
-[PostgreSQL 13](https://hub.docker.com/_/postgres).
+The only supported image at this time is an Ubuntu-based implementation using
+[Microsoft SQL Server 2022](https://mcr.microsoft.com/product/mssql/se
 
-`edfialliance/ods-api-db-ods-minimal:<version>`
+`edfialliance/ods-api-db-ods-minimal:<version>-mssql`
 
 ## Supported Environment Variables
 
 ```none
-POSTGRES_USER=<default PostgreSQL database user>
-POSTGRES_PASSWORD=<password for default PostgreSQL user>
-ODS_DB=<name for the edfi database>
+MSSQL_PID=<Set the SQL Server edition or product key. Default: Express>
+SQLSERVER_USER=<default SqlServer database user>
+SQLSERVER_PASSWORD=<password for default SqlServer user. This value is also used for SA user.>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the
