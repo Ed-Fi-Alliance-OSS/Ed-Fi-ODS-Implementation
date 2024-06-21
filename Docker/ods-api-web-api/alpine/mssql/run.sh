@@ -30,13 +30,14 @@ do
   STATUS_ODS=1
   until [[ $STATUS_ODS -eq 0 ]]; do
     >&2 echo "SQL Server '$HOST' is unavailable - sleeping"
+    STATUS_ODS=$(/opt/mssql-tools18/bin/sqlcmd -W -h -1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S ${HOST} -C -Q "SET NOCOUNT ON; SELECT SUM(state) FROM sys.databases" 2> /dev/null || echo 1) 
+
     sleep 10
-    /opt/mssql-tools18/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -S ${HOST} -C || : > /dev/null 2>&1
-    STATUS_ODS=$?
   done
   >&2 echo "SQL Server '$HOST' is up"
 done
 
 >&2 echo "All SQL Server hosts are up - executing command"
+exec $cmd
 
 dotnet EdFi.Ods.WebApi.dll

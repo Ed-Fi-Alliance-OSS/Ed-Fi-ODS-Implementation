@@ -15,6 +15,7 @@ services:
       SQLSERVER_USER: ${SQLSERVER_USER}
       SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
+      MSSQL_PID: ${MSSQL_PID:-Express}
     volumes:
       - vol-db-ods:/var/opt/mssql/data
       - vol-db-ods:/var/opt/mssql/log
@@ -31,6 +32,7 @@ services:
     environment:
       SQLSERVER_USER: ${SQLSERVER_USER}
       SQLSERVER_PASSWORD: ${SQLSERVER_PASSWORD}
+      MSSQL_PID: ${MSSQL_PID:-Express}
     volumes:
       - vol-db-admin:/var/opt/mssql/data
       - vol-db-admin:/var/opt/mssql/log
