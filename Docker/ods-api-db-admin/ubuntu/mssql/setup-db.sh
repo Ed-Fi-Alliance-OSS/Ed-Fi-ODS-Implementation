@@ -10,12 +10,12 @@ set +x
 STATUS_SA=1
 STATUS_USER=1 
 while [[ $STATUS_SA -ne 0 && $STATUS_USER -ne 0 ]]; do
-  echo "Waiting for server to be online... "
-  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U sa -P "${SQLSERVER_PASSWORD}" || : > /dev/null 2>&1
-  STATUS_SA=$?
-  /opt/mssql-tools/bin/sqlcmd -W -h -1 -l 1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" || : > /dev/null 2>&1
-  STATUS_USER=$?
-  sleep 8
+  >&2 echo "Waiting for server to be online... "
+  STATUS_SA=$(/opt/mssql-tools/bin/sqlcmd -W -h -1 -U sa -P "${SQLSERVER_PASSWORD}" -Q "SET NOCOUNT ON; SELECT SUM(state) FROM sys.databases" > /dev/null 2>&1 || echo 1)
+
+  STATUS_USER=$(/opt/mssql-tools/bin/sqlcmd -W -h -1 -U ${SQLSERVER_USER} -P "${SQLSERVER_PASSWORD}" -Q "SET NOCOUNT ON; SELECT SUM(state) FROM sys.databases" > /dev/null 2>&1 || echo 1)
+
+  sleep 10
 done
 
 echo "Configuring user..."
