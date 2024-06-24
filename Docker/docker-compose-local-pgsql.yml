@@ -23,13 +23,14 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     volumes:
       - vol-db-ods:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-ods
     hostname: ed-fi-db-ods
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       start_period: "60s"
       retries: 3
 
@@ -44,14 +45,14 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      API_MODE: SharedInstsance
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     volumes:
       - vol-db-admin:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-admin
     hostname: ed-fi-db-admin
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       start_period: "60s"
       retries: 3
 

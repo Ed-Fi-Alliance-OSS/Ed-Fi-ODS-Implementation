@@ -8,34 +8,39 @@ FROM postgres:13.15-alpine3.19@sha256:3f9f1b822982df932fe36b6edee4b0a754b88f6a10
 RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 busybox=~1.36 openssl=~3.1 libxml2=~2.11
 
 # Start a new layer so that the above layer can be cached
-FROM base AS build5
+FROM base AS build
 ARG ODS_MINIMAL_VERSION
 ARG ODS_POPULATED_VERSION
 ARG TPDM_MINIMAL_VERSION
 ARG TPDM_POPULATED_VERSION
 ARG STANDARD_VERSION
 ARG EXTENSION_VERSION
+ARG ODS_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ODS_MINIMAL_VERSION}/content
+ARG ODS_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ODS_POPULATED_VERSION}/content
+ARG TPDM_MINIMAL_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${TPDM_MINIMAL_VERSION}/content
+ARG TPDM_POPULATED_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${EXTENSION_VERSION}.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${TPDM_POPULATED_VERSION}/content
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
-ENV POSTGRES_DB=${POSTGRES_DB}
+ENV POSTGRES_DB=postgres
 ENV POSTGRES_USER=${POSTGRES_USER}
 ENV POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+ENV TPDM_ENABLED=true
 
 COPY init-database.sh /docker-entrypoint-initdb.d/init-database.sh
 
 RUN \
     # Download and extract Minimal and Populated Templates for core Ed-Fi Data Model
-    wget -q -O /tmp/OdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ODS_POPULATED_VERSION}/content && \
-    unzip -p /tmp/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.sql > /tmp/EdFi_Ods_Populated_Template.sql && \
-    wget -q -O /tmp/OdsMinimalDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${ODS_MINIMAL_VERSION}/content && \
+    wget -q -O /tmp/OdsMinimalDatabase.zip ${ODS_MINIMAL_URL} && \
     unzip -p /tmp/OdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.sql > /tmp/EdFi_Ods_Minimal_Template.sql && \
+    wget -q -O /tmp/OdsPopulatedDatabase.zip ${ODS_POPULATED_URL} && \
+    unzip -p /tmp/OdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.sql > /tmp/EdFi_Ods_Populated_Template.sql && \
     # Download and extract Minimal and Populated Templates for Teacher Prep Data Model (TPDM)
-    wget -q -O /tmp/TPDMOdsPopulatedDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Populated.Template.TPDM.Core.${EXTENSION_VERSION}.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${TPDM_POPULATED_VERSION}/content && \
-    unzip -p /tmp/TPDMOdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Populated_Template_TPDM_Core.sql && \
-    wget -q -O /tmp/TPDMOdsMinimalDatabase.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.${EXTENSION_VERSION}.PostgreSQL.Standard.${STANDARD_VERSION}/versions/${TPDM_MINIMAL_VERSION}/content && \
+    wget -q -O /tmp/TPDMOdsMinimalDatabase.zip ${TPDM_MINIMAL_URL} && \
     unzip -p /tmp/TPDMOdsMinimalDatabase.zip EdFi.Ods.Minimal.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Minimal_Template_TPDM_Core.sql && \
+    wget -q -O /tmp/TPDMOdsPopulatedDatabase.zip ${TPDM_POPULATED_URL} && \
+    unzip -p /tmp/TPDMOdsPopulatedDatabase.zip EdFi.Ods.Populated.Template.TPDM.Core.sql > /tmp/EdFi_Ods_Populated_Template_TPDM_Core.sql && \
     rm -f /tmp/*.zip && \
     dos2unix /docker-entrypoint-initdb.d/init-database.sh && \
     dos2unix /tmp/*.sql && \
