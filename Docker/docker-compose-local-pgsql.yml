@@ -104,7 +104,6 @@ services:
       SAMPLE_KEY: ${MINIMAL_KEY}
       SAMPLE_SECRET: ${MINIMAL_SECRET}
       VERSION_URL: http://localhost:8001
-      SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     ports:
       - 8002:80
     depends_on:
