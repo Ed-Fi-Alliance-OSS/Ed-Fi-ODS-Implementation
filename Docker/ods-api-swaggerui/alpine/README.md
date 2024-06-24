@@ -2,7 +2,7 @@
 
 Provides docker deployment for SwaggerUI.
 
-> **NOTE**
+> [!NOTE]
 > This image is not recommended for production use.
 
 ## Image Variants

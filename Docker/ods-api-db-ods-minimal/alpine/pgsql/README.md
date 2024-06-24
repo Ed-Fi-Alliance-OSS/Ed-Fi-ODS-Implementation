@@ -1,10 +1,12 @@
 # Ed-Fi ODS Database
 
-Provides a Docker image of the Ed-Fi ODS database's "populated template",
-containing a small set of sample (fake) school and student data, running on
-PostgreSQL 13.
+Provides a Docker image of the Ed-Fi ODS database's "minimal template",
+containing a small set of sample (fake) school and student data, running
+on PostgreSQL 13.
 
-> **Note** 
+SA user is disabled after initial setup.
+
+> [!NOTE] 
 > This image is recommended for production environments.
 
 ## Image Variants
@@ -19,13 +21,12 @@ The only supported image at this time is an Alpine-based implementation using
 ```none
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
-ODS_DB=<name for the edfi database>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the

@@ -4,9 +4,9 @@ Provides docker deployment for **_EdFi_Admin_** and **_EdFi_Security_** database
 implementations on PostgreSQL 13. The databases are installed when the image is
 started for the first time.
 
-> **Note**
+> [!NOTE]
 > This image does not include any pre-installed vendors and is suitable for
-> production use.**
+> production use.
 
 ## Image Variants
 

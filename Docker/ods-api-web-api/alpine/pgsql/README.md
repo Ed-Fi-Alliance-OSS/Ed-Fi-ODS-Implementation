@@ -2,7 +2,7 @@
 
 Provides docker deployment for Ed-Fi ODS/API.
 
-> **NOTE**
+> [!NOTE]
 > This image is suitable for production use.
 
 ## Image Variants

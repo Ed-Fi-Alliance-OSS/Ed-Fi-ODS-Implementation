@@ -2,7 +2,7 @@
 
 Provides docker deployment for Ed-Fi ODS/API.
 
-> **NOTE**
+> [!NOTE]
 > This image is suitable for production use.
 
 ## Image Variants
@@ -14,18 +14,18 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-LOGS_FOLDER=<path to store the log files>
-PATH_BASE=<The url path to the api, used to define the api's url> (OPTIONAL, default api)
-SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, i.e. sql.somedns.org or 10.1.5.9,1433>
+PATH_BASE=<Segment of the url to use as base for all request.> (OPTIONAL, default api)
+SQLSERVER_ADMIN_DATASOURCE=<DNS or IP Address of the SQL Server Instance that contains the Admin/Security/Master databases, can also be a docker container, i.e. sql.somedns.org, ed-fi-db-admin, or 10.1.5.9,1433>
 SQLSERVER_USER=<SQL Username with access to SQL Server Ed-Fi Admin and Security databases.>
 SQLSERVER_PASSWORD=<SQL Password for the SQLSERVER_USER with access to SQL Server Ed-Fi Admin and Security databases.>
 TPDM_ENABLED=<true/false load TPDM extension> (OPTIONAL, default: true)
 ENCRYPT_CONNECTION=<true/false use encrypted connection>(OPTIONAL, default: false)
+ODS_CONNECTION_STRING_ENCRYPTION_KEY=<base64-encoded 256-bit key>
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the
