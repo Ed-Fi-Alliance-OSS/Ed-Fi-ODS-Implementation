@@ -7,12 +7,14 @@ Microsoft SQL Server 2022.
 SA user is disabled after initial setup.
 
 > [!NOTE]
-> This image is recommended for production environments.
+> By running this container on an Ubuntu 16.04 host (per the
+> [published guidelines](https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/install/windows/support-policy-sql-server#guidelines)), 
+> this image is suitable for production use (under the [Express License](#sql-server-2022-express-license-overview)). 
 
 ## Image Variants
 
 The only supported image at this time is an Ubuntu-based implementation using
-[Microsoft SQL Server 2022](https://mcr.microsoft.com/product/mssql/se
+[Microsoft SQL Server 2022](https://mcr.microsoft.com/product/mssql/server/about).
 
 `edfialliance/ods-api-db-ods-minimal:<version>-mssql`
 
