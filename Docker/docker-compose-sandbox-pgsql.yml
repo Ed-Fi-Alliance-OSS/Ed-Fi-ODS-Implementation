@@ -131,10 +131,10 @@ services:
       ODS_POSTGRES_HOST: ed-fi-db-ods
       ADMIN_POSTGRES_HOST: ed-fi-db-admin
       NPG_POOLING_ENABLED: ${NPG_POOLING_ENABLED:-false}
-      NPG_API_MAX_POOL_SIZE_ODS: ${NPG_API_MAX_POOL_SIZE_ODS}
-      NPG_API_MAX_POOL_SIZE_ADMIN: ${NPG_API_MAX_POOL_SIZE_ADMIN}
-      NPG_API_MAX_POOL_SIZE_SECURITY: ${NPG_API_MAX_POOL_SIZE_SECURITY}
-      NPG_API_MAX_POOL_SIZE_MASTER: ${NPG_API_MAX_POOL_SIZE_MASTER}
+      NPG_API_MAX_POOL_SIZE_ODS: ${NPG_API_MAX_POOL_SIZE_ODS:-1}
+      NPG_API_MAX_POOL_SIZE_ADMIN: ${NPG_API_MAX_POOL_SIZE_ADMIN:-1}
+      NPG_API_MAX_POOL_SIZE_SECURITY: ${NPG_API_MAX_POOL_SIZE_SECURITY:-1}
+      NPG_API_MAX_POOL_SIZE_MASTER: ${NPG_API_MAX_POOL_SIZE_MASTER:-1}
       ADMIN_USER: ${ADMIN_USER:-test@ed-fi.org}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:-***REMOVED***}
       MINIMAL_KEY: ${MINIMAL_KEY:-minimalKey}
@@ -150,6 +150,10 @@ services:
     restart: always
     container_name: ed-fi-sandbox-admin
     hostname: ed-fi-sandbox-admin
+    healthcheck:
+      test: ${SANDBOX_HEALTHCHECK_TEST}
+      start_period: "60s"
+      retries: 3
 
 volumes:
   vol-db-admin:
