@@ -51,7 +51,7 @@ Association StudentGraduationPlanAssociation
     shared string EdFi.DesignatedBy
         documentation "The entity governing this graduation plan."
         is required collection
-    common EdFi.CTEProgram
+    common EdFi.CTEProgramService
         documentation "The career and technical program in which the student participates."
         is optional
     descriptor EdFi.AcademicSubject

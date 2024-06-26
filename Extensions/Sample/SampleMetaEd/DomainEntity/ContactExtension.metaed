@@ -48,7 +48,7 @@ Domain Entity EdFi.Contact additions
     shared string EdFi.Author
         documentation "The contact's favorite authors."
         is optional collection
-    common EdFi.CTEProgram
+    common EdFi.CTEProgramService
         documentation "A CTE program the contact has completed."
         is optional
     descriptor EdFi.CredentialField
