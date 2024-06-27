@@ -39,7 +39,7 @@ namespace EdFi.Ods.Sandbox.Admin.Services
                 if (user.Value.Sandboxes.Any(s => s.Value.Refresh))
                 {
                     // Change the recurrence to suit your needs using Cron functions or a unix CRON expressions (i.e. "* */6 * * *" = every 6 hours)
-                    RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), TimeZoneInfo.Local);
+                    RecurringJob.AddOrUpdate("RebuildSandboxes", () => _engine.RebuildSandboxes(), Cron.Daily(), new RecurringJobOptions { TimeZone = TimeZoneInfo.Local });
                 }
             }
         }
