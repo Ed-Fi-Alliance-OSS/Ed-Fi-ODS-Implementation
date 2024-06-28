@@ -48,7 +48,7 @@ Domain Entity EdFi.Parent additions
     shared string EdFi.Author
         documentation "The parent's favorite authors."
         is optional collection
-    common EdFi.CTEProgram
+    common EdFi.CTEProgramService
         documentation "A CTE program the parent has completed."
         is optional
     descriptor EdFi.CredentialField
