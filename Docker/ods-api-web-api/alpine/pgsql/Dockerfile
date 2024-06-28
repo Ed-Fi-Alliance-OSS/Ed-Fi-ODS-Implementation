@@ -5,7 +5,7 @@
 
 # Base image with additional packages
 FROM mcr.microsoft.com/dotnet/aspnet:8.0.3-alpine3.19@sha256:646b1c5ff36375f35f6149b0ce19ca095f97b4b882b90652801e9fbe82bcfa8a AS base
-RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 curl=~8 busybox=~1.36 && \
+RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74 busybox=~1.36 && \
     addgroup -S edfi && adduser -S edfi -G edfi
 
 # Start a new layer so that the above layer can be cached
@@ -13,15 +13,17 @@ FROM base AS build
 RUN apk --upgrade --no-cache add postgresql13-client=~13
 ARG API_VERSION
 ARG STANDARD_VERSION
+ARG API_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi.Standard.${STANDARD_VERSION}/versions/${API_VERSION}/content
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
+ENV POSTGRES_DB=postgres
 ENV POSTGRES_PORT=5432
-ENV PGBOUNCER_LISTEN_PORT=6432
-ENV NPG_POOLING_ENABLED=false
 ENV ODS_VIRTUAL_NAME=api
 ENV PATH_BASE="${ODS_VIRTUAL_NAME}"
+ENV TPDM_ENABLED=true
+ENV NPG_POOLING_ENABLED=false
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get LINQ expression to work and disable the
@@ -34,7 +36,7 @@ COPY --chmod=500 run.sh /app/run.sh
 COPY log4net.config /app/log4net.txt
 
 RUN umask 0077 && \
-    wget -q -O /app/WebApi.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.WebApi.Standard.${STANDARD_VERSION}/versions/${API_VERSION}/content && \
+    wget -q -O /app/WebApi.zip ${API_URL} && \
     unzip /app/WebApi.zip -d /app && \
     rm -f /app/WebApi.zip && \
     cp /app/log4net.txt /app/log4net.config && \
@@ -43,7 +45,7 @@ RUN umask 0077 && \
     dos2unix /app/*.sh && \
     dos2unix /app/log4net.config && \
     rm -f /app/*.exe && \
-    apk del unzip dos2unix curl && \
+    apk del unzip dos2unix && \
     chown -R edfi /app
 
 ENV ASPNETCORE_HTTP_PORTS=80

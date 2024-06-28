@@ -15,13 +15,14 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     volumes:
       - vol-db-ods:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-ods
     hostname: ed-fi-db-ods
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       start_period: "60s"
       retries: 3
 
@@ -30,14 +31,14 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      API_MODE: SharedInstsance
+      POSTGRES_DB: ${POSTGRES_DB:-postgres}
     volumes:
       - vol-db-admin:/var/lib/postgresql/data
     restart: always
     container_name: ed-fi-db-admin
     hostname: ed-fi-db-admin
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready  -U ${POSTGRES_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
       start_period: "60s"
       retries: 3
 
@@ -47,17 +48,15 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_PORT: 5432
-      API_MODE: sharedinstance
       ODS_POSTGRES_HOST: ed-fi-db-ods
       ADMIN_POSTGRES_HOST: ed-fi-db-admin
       PATH_BASE: ""
       TPDM_ENABLED: ${TPDM_ENABLED:-true}
-      API_HEALTHCHECK_TEST: ${API_HEALTHCHECK_TEST?Please consult env.example to set the API healthcheck test}
       NPG_POOLING_ENABLED: ${NPG_POOLING_ENABLED:-false}
-      NPG_API_MAX_POOL_SIZE_ODS: ${NPG_API_MAX_POOL_SIZE_ODS}
-      NPG_API_MAX_POOL_SIZE_ADMIN: ${NPG_API_MAX_POOL_SIZE_ADMIN}
-      NPG_API_MAX_POOL_SIZE_SECURITY: ${NPG_API_MAX_POOL_SIZE_SECURITY}
-      NPG_API_MAX_POOL_SIZE_MASTER: ${NPG_API_MAX_POOL_SIZE_MASTER}
+      NPG_API_MAX_POOL_SIZE_ODS: ${NPG_API_MAX_POOL_SIZE_ODS:-1}
+      NPG_API_MAX_POOL_SIZE_ADMIN: ${NPG_API_MAX_POOL_SIZE_ADMIN:-1}
+      NPG_API_MAX_POOL_SIZE_SECURITY: ${NPG_API_MAX_POOL_SIZE_SECURITY:-1}
+      NPG_API_MAX_POOL_SIZE_MASTER: ${NPG_API_MAX_POOL_SIZE_MASTER:-1}
       ODS_CONNECTION_STRING_ENCRYPTION_KEY: ${ODS_CONNECTION_STRING_ENCRYPTION_KEY}
     volumes:
       - ${LOGS_FOLDER}:/app/logs
@@ -80,7 +79,6 @@ services:
       SAMPLE_KEY: ${MINIMAL_KEY}
       SAMPLE_SECRET: ${MINIMAL_SECRET}
       VERSION_URL: http://localhost:8001
-      SWAGGER_HEALTHCHECK_TEST: ${SWAGGER_HEALTHCHECK_TEST?Please consult env.example to set the SWAGGER healthcheck test}
     ports:
       - 8002:80
     depends_on:

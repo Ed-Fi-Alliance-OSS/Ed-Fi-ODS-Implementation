@@ -14,13 +14,14 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-MINIMAL_KEY=<populated template key>
-MINIMAL_SECRET=<populated template secret>
+VERSION_URL=<Valid URL to the ODS API> (OPTIONAL, default: https://localhost/api/)
+SAMPLE_KEY=<populated template key>
+SAMPLE_SECRET=<populated template secret>
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the

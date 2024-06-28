@@ -14,7 +14,11 @@ The only supported image at this time is an Alpine-based implementation.
 ## Supported Environment Variables
 
 ```none
-LOGS_FOLDER=<path to store the logs file>
+ODS_VIRTUAL_NAME=<The url path to the api, used to define the api's url> (OPTIONAL, default: api)
+OAUTH_URL="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
+PATH_BASE=<Segment of the url to use as base for all request.> (OPTIONAL, default sandbox)
+TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
+POSTGRES_DB=<default PostgreSQL database> (OPTIONAL, default: postgres)
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
 POSTGRES_PORT=<port that PostgreSQL run on> (OPTIONAL, default: 5432)
@@ -26,11 +30,16 @@ MINIMAL_KEY=<minimal template key>
 MINIMAL_SECRET=<minimal template secret>
 POPULATED_KEY=<populated template key>
 POPULATED_SECRET=<populated template secret>
+NPG_POOLING_ENABLED=<Enables or disables client-side pooling> (OPTIONAL, default: false)
+NPG_SANDBOX_MAX_POOL_SIZE_ODS=<The maximum number of connections for each distinct ODS database from the Ed-Fi Sandbox Admin container> (REQUIRED if NPG_POOLING_ENABLED is set to true)
+NPG_SANDBOX_MAX_POOL_SIZE_SECURITY=<The maximum number of connections for the EdFi_Security database from each Ed-Fi Sandbox Admin container> (REQUIRED if NPG_POOLING_ENABLED is set to true)
+NPG_SANDBOX_MAX_POOL_SIZE_ADMIN=<The maximum number of connections for the EdFi_Admin database from each Ed-Fi Sandbox Admin container> (REQUIRED if NPG_POOLING_ENABLED is set to true)
+NPG_SANDBOX_MAX_POOL_SIZE_MASTER=<The maximum number of connections for the ${POSTGRES_DB} database from each Ed-Fi Sandbox Admin container> (REQUIRED if NPG_POOLING_ENABLED is set to true)
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the

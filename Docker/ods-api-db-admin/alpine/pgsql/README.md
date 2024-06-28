@@ -18,14 +18,14 @@ The only supported image at this time is an Alpine-based implementation using
 ## Supported Environment Variables
 
 ```none
-API_MODE=<Sandbox | SharedInstance>
+POSTGRES_DB=<default PostgreSQL database> (OPTIONAL, default: postgres)
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
 ```
 
 ## Legal Information
 
-Copyright (c) 2023 Ed-Fi Alliance, LLC and contributors.
+Copyright (c) 2024 Ed-Fi Alliance, LLC and contributors.
 
 Licensed under the [Apache License, Version
 2.0]([LICENSE](https://www.apache.org/licenses/LICENSE-2.0.txt)) (the
