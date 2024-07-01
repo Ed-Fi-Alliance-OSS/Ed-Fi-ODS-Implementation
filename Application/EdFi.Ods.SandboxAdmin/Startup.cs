@@ -96,7 +96,7 @@ namespace EdFi.Ods.SandboxAdmin
                     }
                     else
                     {
-                        config.UsePostgreSqlStorage(Configuration.GetConnectionString("EdFi_Admin"));
+                        config.UsePostgreSqlStorage(options => options.UseNpgsqlConnection(Configuration.GetConnectionString("EdFi_Admin")));
                     }
                 });
 
