@@ -230,9 +230,11 @@ function Install-EdFiOdsWebApi {
         [switch]
         $NoDuration,
         
-        # Create the database server login for the application
+        # Create the database server login for the application if they do not already exist
+        # IMPORTANT: Logins created by the installer will have database system administrator rights. 
+        #            If more restrictive permissions are required, the SQL login used by the WebApi should be created manually.
         # If login credentials are provided in the DB connection information parameter, the new login will use these.
-        # If no database credentials are provided in the DB connection information, integrated security must be selected and a SQL login matching the 
+        # If no database credentials are provided in the DB connection information, integrated security must be selected and a new SQL login matching the 
         # application pool identity used by WebAPI will be created.
         # 
         # To create a custom login for SQL Server:
