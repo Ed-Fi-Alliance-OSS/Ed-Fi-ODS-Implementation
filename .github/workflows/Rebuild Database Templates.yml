@@ -88,17 +88,14 @@ jobs:
       shell: pwsh
       run: |
             $accessToken = "${{ env.EDFI_ODS_TOKEN }}"      
-            $repositoryName = "Ed-Fi-ODS-Implementation"
             $branch = "${{ env.current_branch }}"
-
-            $url = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/$repositoryName/actions/runs?branch=$branch&status=failure"
+            $url = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}&status=failure"
             
             $headers = @{
               Authorization = "Bearer $accessToken"
               Accept = "application/vnd.github.v3+json"
             }
-            
-            $response = Invoke-RestMethod -Uri $url -Headers $headers
+            $response = Invoke-WebRequest -Uri $url -Headers $headers
             if ($response.workflow_runs.Count -gt 0) {
               Write-Host "Found previous failed of $response.workflow_runs.Count workflow runs on branch $branch. Stopping the build."
               exit 1
