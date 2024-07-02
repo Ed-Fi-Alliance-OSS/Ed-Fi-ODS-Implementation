@@ -210,8 +210,7 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-Extensions
-        owner: ${{ github.
-        }}
+        owner: ${{ github.repository_owner }}
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
