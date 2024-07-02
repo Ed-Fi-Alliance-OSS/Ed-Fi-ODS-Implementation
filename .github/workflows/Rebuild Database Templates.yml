@@ -95,11 +95,10 @@ jobs:
               Accept = "application/vnd.github.v3+json"
             }
             $response = Invoke-WebRequest -Uri $url -Headers $headers
-            $responseJson = $response | ConvertTo-Json -Depth 10 
-            Write-Host "Response JSON: $responseJson"
 
-            if ($response.workflow_runs.Count -gt 0) {
-              Write-Host "Found previous failed of $response.workflow_runs.Count workflow runs on branch $branch. Stopping the build."
+
+            if ($response.total_count -gt 0) {
+              Write-Host "Found previous failed of $response.total_count workflow runs on branch $branch. Stopping the build."
                     $response.workflow_runs | ForEach-Object {
               Write-Host "Run ID: $_.id"
               Write-Host "Run Name: $_.name"
