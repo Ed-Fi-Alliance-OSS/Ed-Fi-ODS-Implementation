@@ -87,9 +87,8 @@ jobs:
     - name: Check Previous Workflow Runs
       shell: pwsh
       run: |
- 
             $branch = "${{ env.current_branch }}"
-            $url = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}&status=failure"
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}&status=failure"
             
             $headers = @{
               Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
@@ -211,7 +210,8 @@ jobs:
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-Extensions
-        owner: ${{ github.repository_owner }}
+        owner: ${{ github.
+        }}
         run_id: ${{ steps.return_dispatch_homograph.outputs.run_id }}
         run_timeout_seconds: 4800
         poll_interval_ms: 5000
