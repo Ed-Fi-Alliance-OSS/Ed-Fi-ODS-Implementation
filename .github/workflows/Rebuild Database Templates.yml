@@ -94,7 +94,7 @@ jobs:
               Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
               Accept = "application/vnd.github.v3+json"
             }
-            $response = Invoke-WebRequest -Uri $url -Headers $headers
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
 
 
             if ($response.total_count -gt 0) {
