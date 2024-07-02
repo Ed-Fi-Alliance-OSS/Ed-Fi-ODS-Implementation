@@ -88,7 +88,7 @@ jobs:
       shell: pwsh
       run: |
             $branch = "${{ env.current_branch }}"
-            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}&status=failure"
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}"
             
             $headers = @{
               Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
@@ -97,6 +97,17 @@ jobs:
             $response = Invoke-WebRequest -Uri $url -Headers $headers
             if ($response.workflow_runs.Count -gt 0) {
               Write-Host "Found previous failed of $response.workflow_runs.Count workflow runs on branch $branch. Stopping the build."
+                    $response.workflow_runs | ForEach-Object {
+              Write-Host "Run ID: $_.id"
+              Write-Host "Run Name: $_.name"
+              Write-Host "Run Number: $_.run_number"
+              Write-Host "Event: $_.event"
+              Write-Host "Status: $_.status"
+              Write-Host "Conclusion: $_.conclusion"
+              Write-Host "Created At: $_.created_at"
+              Write-Host "Updated At: $_.updated_at"
+              Write-Host "URL: $_.html_url"
+            }
               exit 1
             } else {
               Write-Host "No previous failed workflow runs found on branch $branch."
