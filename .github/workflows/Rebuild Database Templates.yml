@@ -95,8 +95,7 @@ jobs:
               Accept = "application/vnd.github.v3+json"
             }
             $response = Invoke-WebRequest -Uri $url -Headers $headers
-            $response | ForEach-Object { $_.Remove("Content") }
-            $responseJson = $response | ConvertTo-Json -Depth 10
+            $responseJson = $response | ConvertTo-Json | Format-Json |
             Write-Host "Response JSON: $responseJson"
 
             if ($response.workflow_runs.Count -gt 0) {
