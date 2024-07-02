@@ -79,7 +79,31 @@ jobs:
           $current_branch = '${{env.HEAD_REF}}'
         }
         Write-Host "Current Branch: $current_branch"   
-        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV                   
+        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV
+        if ($current_branch -eq 'main') {
+          Write-Host "Current branch is main. Stopping the build."
+          exit 1
+        }
+    - name: Check Previous Workflow Runs
+      shell: pwsh
+      run: |
+            $repo = 'Ed-Fi-ODS-Implementation'
+            $branch = '${{ env.current_branch }}'
+            $token = '${{ env.EDFI_ODS_TOKEN }}'
+            $url = "https://api.github.com/repos/$repo/actions/runs?branch=$branch&status=failure"
+            
+            $headers = @{
+              Authorization = "Bearer $token"
+              Accept        = "application/vnd.github.v3+json"
+            }
+            
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
+            if ($response.workflow_runs.Count -gt 0) {
+              Write-Host "Found previous failed of $response.workflow_runs.Count workflow runs on branch $branch. Stopping the build."
+              exit 1
+            } else {
+              Write-Host "No previous failed workflow runs found on branch $branch."
+            }        
     - name: Dispatch EdFi.Ods.CodeGen workflow
       uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_codegen
