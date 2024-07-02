@@ -87,14 +87,15 @@ jobs:
     - name: Check Previous Workflow Runs
       shell: pwsh
       run: |
-            $repo = 'Ed-Fi-ODS-Implementation'
-            $branch = '${{ env.current_branch }}'
-            $token = '${{ env.EDFI_ODS_TOKEN }}'
-            $url = "https://api.github.com/repos/$repo/actions/runs?branch=$branch&status=failure"
+            $accessToken = "${{ env.EDFI_ODS_TOKEN }}"      
+            $repositoryName = "Ed-Fi-ODS-Implementation"
+            $branch = "${{ env.current_branch }}"
+
+            $url = "https://api.github.com/repos/${{ env.REPOSITORY_OWNER }}/$repositoryName/actions/runs?branch=$branch&status=failure"
             
             $headers = @{
-              Authorization = "Bearer $token"
-              Accept        = "application/vnd.github.v3+json"
+              Authorization = "Bearer $accessToken"
+              Accept = "application/vnd.github.v3+json"
             }
             
             $response = Invoke-RestMethod -Uri $url -Headers $headers
