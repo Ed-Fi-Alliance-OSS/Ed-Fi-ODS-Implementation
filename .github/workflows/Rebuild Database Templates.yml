@@ -133,7 +133,44 @@ jobs:
             } else {
               Write-Host "No successful workflow runs found for '$workflow_file_name' on branch $branch."
             }
+    - name: Compare Codegen Package Version
+      shell: pwsh
+      run: |
+        $branch = '${{ env.current_branch }}'
+        $filePath = "configuration.packages.json"
+        
+        $headers = @{
+          Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
+          Accept = "application/vnd.github.v3+json"
+        }
 
+        # Function to get the file content from a specific branch
+        function Get-FileContent($branch) {
+          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/contents/$filePath?ref=$branch"
+          $response = Invoke-RestMethod -Uri $url -Headers $headers
+          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+        }
+
+        # Get the file content from both branches
+        $mainContent = Get-FileContent "main"
+        $currentContent = Get-FileContent $branch
+
+        # Convert JSON strings to objects
+        $mainPackages = $mainContent | ConvertFrom-Json
+        $currentPackages = $currentContent | ConvertFrom-Json
+
+        # Extract the package version for EdFi.Suite3.Ods.CodeGen
+        $mainVersion = $mainPackages.packages."EdFi.Ods.CodeGen".PackageVersion
+        $currentVersion = $currentPackages.packages."EdFi.Ods.CodeGen".PackageVersion
+
+        # Compare the versions
+        if ($mainVersion -eq $currentVersion) {
+          Write-Host "The package version for EdFi.Suite3.Ods.CodeGen is the same in both branches: $mainVersion"
+        } else {
+          Write-Host "The package version for EdFi.Suite3.Ods.CodeGen has changed."
+          Write-Host "Main branch version: $mainVersion"
+          Write-Host "Current branch version: $currentVersion"
+        }
     - name: Dispatch EdFi.Ods.CodeGen workflow
       uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_codegen
