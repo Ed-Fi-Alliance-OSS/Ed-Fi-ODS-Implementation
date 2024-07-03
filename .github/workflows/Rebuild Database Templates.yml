@@ -137,16 +137,15 @@ jobs:
       shell: pwsh
       run: |
         $branch = '${{ env.current_branch }}'
-        $filePath = "configuration.packages.json"
         
         $headers = @{
           Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
-          Accept = "application/vnd.github.v3+json"
+           Accept        = "application/vnd.github.v3.raw"
         }
 
         # Function to get the file content from a specific branch
         function Get-FileContent($branch) {
-          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/contents/$filePath?ref=$branch"
+          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/contents/configuration.packages.json?ref=$branch"
           $response = Invoke-RestMethod -Uri $url -Headers $headers
           [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
         }
