@@ -147,7 +147,7 @@ jobs:
         function Get-FileContent($branch) {
           $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$branch"
           $response = Invoke-RestMethod -Uri $url -Headers $headers
-          [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+          return [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
         }
 
         Write-Host "branch name is  $branch"
