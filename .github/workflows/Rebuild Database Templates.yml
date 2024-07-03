@@ -156,6 +156,8 @@ jobs:
         $mainContent = Get-FileContent "main"
         $currentContent = Get-FileContent $branch
 
+        Write-Host "Response JSON: $mainContent"
+        Write-Host "Response JSON: $$currentContent"
         # Convert JSON strings to objects
         $mainPackages = $mainContent | ConvertFrom-Json
         $currentPackages = $currentContent | ConvertFrom-Json
