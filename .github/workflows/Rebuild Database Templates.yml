@@ -140,12 +140,12 @@ jobs:
         
         $headers = @{
           Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
-           Accept        = "application/vnd.github.v3.raw"
+           Accept = "application/vnd.github+json"
         }
 
         # Function to get the file content from a specific branch
         function Get-FileContent($branch) {
-          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/contents/configuration.packages.json?ref=$branch"
+          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$branch"
           $response = Invoke-RestMethod -Uri $url -Headers $headers
           [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
         }
