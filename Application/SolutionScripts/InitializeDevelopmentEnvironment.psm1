@@ -463,7 +463,8 @@ function Invoke-SdkGen {
      param(
         [Boolean] $GenerateApiSdkPackage,
         [Boolean] $GenerateTestSdkPackage,
-        [string] $PackageVersion
+        [string] $PackageVersion,
+        [string] $JavaPath
     )
     Invoke-Task -name $MyInvocation.MyCommand.Name -task {
         & $(Get-RepositoryResolvedPath "logistics/scripts/Invoke-SdkGen.ps1") -generateApiSdkPackage $GenerateApiSdkPackage -generateTestSdkPackage $GenerateTestSdkPackage -packageVersion $PackageVersion -javaPath $JavaPath

@@ -25,7 +25,7 @@ param(
     [Boolean] $generateApiSdkPackage = $false,
     [Boolean] $generateTestSdkPackage = $false,
     [string] $packageVersion,
-    [String] $javaPath
+    [string] $javaPath = "java"
 )
 
 $ErrorActionPreference = 'Stop'
