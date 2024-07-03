@@ -157,14 +157,12 @@ jobs:
         $currentContent = Get-FileContent $branch
 
         Write-Host "Response JSON: $mainContent"
-        Write-Host "Response JSON: $$currentContent"
-        # Convert JSON strings to objects
-        $mainPackages = $mainContent | ConvertFrom-Json
-        $currentPackages = $currentContent | ConvertFrom-Json
+        Write-Host "Response JSON: $currentContent"
+
 
         # Extract the package version for EdFi.Suite3.Ods.CodeGen
-        $mainVersion = $mainPackages.packages."EdFi.Ods.CodeGen".PackageVersion
-        $currentVersion = $currentPackages.packages."EdFi.Ods.CodeGen".PackageVersion
+        $mainVersion = $mainContent.packages."EdFi.Ods.CodeGen".PackageVersion
+        $currentVersion = $currentContent.packages."EdFi.Ods.CodeGen".PackageVersion
 
         # Compare the versions
         if ($mainVersion -eq $currentVersion) {
