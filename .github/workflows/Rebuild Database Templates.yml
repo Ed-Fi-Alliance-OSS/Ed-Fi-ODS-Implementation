@@ -150,6 +150,8 @@ jobs:
           [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
         }
 
+        Write-Host "branch name is  $branch"
+
         # Get the file content from both branches
         $mainContent = Get-FileContent "main"
         $currentContent = Get-FileContent $branch
