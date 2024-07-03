@@ -230,17 +230,22 @@ function Install-EdFiOdsWebApi {
         [switch]
         $NoDuration,
         
-        # Prompts user to enter an alternate username to be used for SQL Login
-        # To use for SQL Server:
-        #    UseIntegratedSecurity must be set to true
-        #    The username provided must be a valid Windows user
-        #    The application pool identity used by WebAPI needs to be updated to use the same Windows username 
-        # To user for Postgres:
-        #    UseIntegratedSecurity must be set to true
-        #    The username provided must be a valid Windows user
-        #    pg_ident.conf map needs to be updated to use the username provided
-        [switch]
-        $UseAlternateUserName,
+        # Create the database server login for the application if they do not already exist
+        # IMPORTANT: Logins created by the installer will have database system administrator rights. 
+        #            If more restrictive permissions are required, the SQL login used by the WebApi should be created manually.
+        # If login credentials are provided in the DB connection information parameter, the new login will use these.
+        # If no database credentials are provided in the DB connection information, integrated security must be selected and a new SQL login matching the 
+        # application pool identity used by WebAPI will be created.
+        # 
+        # To create a custom login for SQL Server:
+        #    If integrated security is not enabled, a username and password must be provided in the database conection information parameter(s)
+        #    If integrated security is enabled, the username provided must be a valid Windows user
+        #    If integrated security is enabled, the application pool identity used by WebAPI needs to be updated to use the same Windows username 
+        # To create a custom login for Postgres:
+        #    If integrated security is not enabled, a username and password must be provided in the database conection information parameter(s)
+        #    If integrated security is enabled, pg_ident.conf map needs to be updated to use the username provided
+        [bool]
+        $CreateSqlLogin = $true,
         
         # Deploy WebApi with MultiTenant support. 
         # Passing this flag, requires to pass Tenants configuration.
@@ -301,7 +306,7 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
-        UseAlternateUserName  = $UseAlternateUserName
+        CreateSqlLogin  = $CreateSqlLogin
         IsMultiTenant = $IsMultiTenant.IsPresent
         Tenants = $Tenants
         OdsConnectionStringEncryptionKey = $OdsConnectionStringEncryptionKey
@@ -628,26 +633,30 @@ function New-SqlLogins {
 
     Invoke-Task -Name ($MyInvocation.MyCommand.Name) -Task {
 
+        if(-not $Config.CreateSqlLogin) {
+            return;
+        }
+
         if ($Config.usingSharedCredentials)
         {
-            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName
         }
         else
         {
             if ($Config.IsMultiTenant) {
                 foreach ($tenantKey in $Config.Tenants.Keys) {
                     if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
-                    Add-SqlLogins $Config.Tenants[$tenantKey].AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
-                    
+                    Add-SqlLogins $Config.Tenants[$tenantKey].AdminDbConnectionInfo $Config.WebApplicationName
+
                     if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-                    Add-SqlLogins $Config.Tenants[$tenantKey].SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName
+                    Add-SqlLogins $Config.Tenants[$tenantKey].SecurityDbConnectionInfo $Config.WebApplicationName
                 }
             } else {
                 if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
-                Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
                 
                 if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
-                Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+                Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
             }
         }
     }
