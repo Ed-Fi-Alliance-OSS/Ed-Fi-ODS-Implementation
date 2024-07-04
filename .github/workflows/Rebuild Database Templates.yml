@@ -147,43 +147,22 @@ jobs:
         function Get-FileContent($branch) {
           $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$branch"
           $response = Invoke-RestMethod -Uri $url -Headers $headers
-          return [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+          $content = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+          return $content | ConvertFrom-Json
         }
 
 
-        function Remove-BOM($content) {
-                      if ($content.StartsWith([char]65279)) {
-                          return $content.Substring(1)
-                      }
-                      return $content
-                  }
-
-                  function TryConvertFromJson($content) {
-                      try {
-                          $cleanContent = Remove-BOM $content
-                          return $cleanContent | ConvertFrom-Json
-                      } catch {
-                          Write-Host "Failed to convert JSON content:"
-                          Write-Host $content
-                          throw
-                      }
-                  }
-
-        Write-Host "branch name is  $branch"
+         Write-Host "branch name is  $branch"
 
         # Get the file content from both branches
         $mainContent = Get-FileContent "main"
         $currentContent = Get-FileContent $branch
 
-        Write-Host "Response JSON: $mainContent"
-        Write-Host "Response JSON: $currentContent"
+        #Write-Host "Response JSON: $mainContent"
+        #Write-Host "Response JSON: $currentContent"
 
-          # Remove BOM if present
-          $mainContent = Remove-BOM $mainContent
-          $currentContent = Remove-BOM $currentContent
-
-          Write-Host "Main Content: $($mainContent | ConvertTo-Json -Depth 10)"
-          Write-Host "Current Content: $($currentContent | ConvertTo-Json -Depth 10)"
+        Write-Host "Main Content: $($mainContent | ConvertTo-Json -Depth 10)"
+        Write-Host "Current Content: $($currentContent | ConvertTo-Json -Depth 10)"
 
         # Extract the package version for EdFi.Suite3.Ods.CodeGen
         $mainVersion = $mainContent.packages."EdFi.Ods.CodeGen".PackageVersion
