@@ -148,6 +148,7 @@ jobs:
           $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$branch"
           $response = Invoke-RestMethod -Uri $url -Headers $headers
           $content = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+          #Write-Host "Response content: $content"
           return $content | ConvertFrom-Json
         }
 
