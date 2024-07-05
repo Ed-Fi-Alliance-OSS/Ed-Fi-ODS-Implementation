@@ -14,8 +14,8 @@
 
 <div class="row">
     <div class="jumbotron">
-        <h2>Sandbox Administration Portal for the Ed-Fi ODS API</h2>
-        <p>
+        <h3>Sandbox Administration Portal for the Ed-Fi ODS API</h3>
+        <p class="lead">
             This portal enables you to manage sandboxes for the Ed-Fi ODS API, including the keys and secrets for accessing these sandboxes.
         </p>
     </div>
@@ -48,20 +48,23 @@
                 <tr data-bind="attr: { 'data-applicationId': $data.Id, 'data-applicationname': $data.Name }">
                     <td>
                         <div class="btn-group">
-                            <button class="btn btn-warning btn-xs dropdown-toggle actionButton" data-toggle="dropdown">
-                                <span class="glyphicon glyphicon-cog"></span>&nbsp;<span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li>
-                                    <a href="#" data-bind="click: $parent.updateClientClicked" class="changeSecret">Change Secret</a>
-                                </li>
-                                <li>
-                                    <a href="#" data-bind="click: $parent.deleteClientClicked" class="deleteApplication">Delete</a>
-                                </li>
-                                <li>
-                                    <a href="#" data-bind="click: $parent.tokenClientClicked" class="tokenClient">Get Token</a>
-                                </li>
-                            </ul>
+                            <div class="dropdown">
+                                <button class="btn btn-warning dropdown-toggle" id="sandbox-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="sandbox-menu">
+                                    <a href="javascript:void(0)" data-bind="click: $parent.updateClientClicked" class="changeSecret dropdown-item">
+                                        Change Secret
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.deleteClientClicked" class="deleteApplication dropdown-item">
+                                        Delete
+                                    </a>
+                                    <a href="javascript:void(0)" data-bind="click: $parent.tokenClientClicked" class="tokenClient dropdown-item">
+                                        Get Token
+                                    </a>
+                                </div>
+                            </div>
                         </div>
                     </td>
                     <td data-bind="text: ApplicationName" class="application-name"></td>
@@ -89,8 +92,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Add Sandbox</h3>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-                <h2>Add Sandbox</h2>
             </div>
             <div class="modal-body">
                 <fieldset>
@@ -101,7 +104,7 @@
                             <input id="txtName" type="text" data-bind="value: applicationName, valueUpdate: 'keyup'" class="form-control" placeholder="Name of Sandbox" />
                         </div>
                     </div>
-                    <div class="control-group">
+                    <div class="control-group mt-2">
                         <div class="checkbox">
                             <label>
                                 <input id="checkbox-usesampledata" type="checkbox" data-bind="checked: useSampleData" />
@@ -112,14 +115,12 @@
                 </fieldset>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
-                    </div>
-                    <div class="col-10">
-                        <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
-                        <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
-                    </div>
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-add" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-add" type="submit" class="btn btn-primary" data-bind="enable: canAdd, click: onOkClicked">Add</button>
                 </div>
             </div>
         </div>
@@ -130,8 +131,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Are You Sure?</h3>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-                <h2>Are You Sure?</h2>
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
@@ -150,14 +151,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
-                    </div>
-                    <div class="col-10">
-                        <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
-                        <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
-                    </div>
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">Cancel</button>
+                    <button id="btn-ok-confirm" class="btn btn-danger confirmButton" data-bind="text: buttonText, attr: { disabled: disableOkButton }, click: onOkClicked"></button>
                 </div>
             </div>
         </div>
@@ -168,8 +167,8 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
+                <h3 class="modal-title">Your temporary access token for this application is :</h3>
                 <button type="button" class="close icon icon-remove" data-dismiss="modal">x</button>
-                <h3>Your temporary access token for this application is :</h3>
             </div>
             <div class="modal-body">
                 <div class="row-fluid">
@@ -179,13 +178,11 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="fa fa-spinner fa-spin pull-left dialog-footer-icon hidden wait-spinner"></span>
-                    </div>
-                    <div class="col-10">
-                        <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
-                    </div>
+                <div style="flex: 1">
+                    <span class="fa fa-spinner fa-spin dialog-footer-icon d-none wait-spinner"></span>
+                </div>
+                <div>
+                    <button id="btn-cancel-confirm" class="btn" data-dismiss="modal">OK</button>
                 </div>
             </div>
         </div>

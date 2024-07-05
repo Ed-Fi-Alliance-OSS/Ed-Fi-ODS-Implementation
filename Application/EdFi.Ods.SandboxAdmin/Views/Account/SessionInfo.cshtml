@@ -22,7 +22,7 @@
                     var sessionJson = JSON.stringify(data, null, 3);
                     $('#session-info-output')
                         .text(sessionJson)
-                        .removeClass('hidden');
+                        .removeClass('d-none');
                 });
             });
         });
@@ -35,5 +35,5 @@
     <button id="btn-session">Session</button>
 </div>
 <div style="margin-top: 20px;">
-    <pre id="session-info-output" class="hidden"></pre>
+    <pre id="session-info-output" class="d-none"></pre>
 </div>
