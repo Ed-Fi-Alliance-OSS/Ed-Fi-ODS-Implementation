@@ -12,16 +12,17 @@ RUN apk --upgrade --no-cache add unzip=~6 dos2unix=~7 bash=~5 gettext=~0 icu=~74
 FROM base AS build
 RUN apk --upgrade --no-cache add postgresql13-client=~13
 ARG SANDBOX_VERSION
+ARG SANDBOX_URL=https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.SandboxAdmin/versions/${SANDBOX_VERSION}/content
 
 LABEL maintainer="Ed-Fi Alliance, LLC and Contributors <techsupport@ed-fi.org>"
 
 # These variables can be overwritten at runtime
+ENV POSTGRES_DB=postgres
 ENV POSTGRES_PORT=5432
-ENV PGBOUNCER_LISTEN_PORT=6432
-ENV NPG_POOLING_ENABLED=false
 ENV ODS_VIRTUAL_NAME=api
 ENV PATH_BASE=sandbox
 ENV OAUTH_URL="https://localhost/${ODS_VIRTUAL_NAME}/oauth/"
+ENV NPG_POOLING_ENABLED=false
 
 # Alpine image does not contain Globalization Cultures library so we need to
 # install ICU library to get fopr LINQ expression to work Disable the
@@ -34,7 +35,7 @@ COPY --chmod=500 run.sh /app/run.sh
 COPY log4net.config /app/log4net.txt
 
 RUN umask 0077 && \
-    wget -q -O /app/SandboxAdmin.zip https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_apis/packaging/feeds/EdFi/nuget/packages/EdFi.Suite3.Ods.SandboxAdmin/versions/${SANDBOX_VERSION}/content && \
+    wget -q -O /app/SandboxAdmin.zip ${SANDBOX_URL} && \
     unzip /app/SandboxAdmin.zip -d /app && \
     rm -f /app/SandboxAdmin.zip && \
     cp /app/log4net.txt /app/log4net.config && \

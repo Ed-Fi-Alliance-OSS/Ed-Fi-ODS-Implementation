@@ -17,6 +17,7 @@ The only supported image at this time is an Alpine-based implementation using
 ## Supported Environment Variables
 
 ```none
+POSTGRES_DB=<default PostgreSQL database> (OPTIONAL, default: postgres)
 POSTGRES_USER=<default PostgreSQL database user>
 POSTGRES_PASSWORD=<password for default PostgreSQL user>
 TPDM_ENABLED=<true/false include TPDM tables> (OPTIONAL, default: true)
