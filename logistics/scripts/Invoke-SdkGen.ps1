@@ -85,7 +85,7 @@ function Invoke-SdkGen {
                 $script:result += Invoke-Task "Invoke-RebuildSolution" { Invoke-RebuildSolution $buildConfiguration "minimal"  $sdkGenSolution }
                 $script:result += Invoke-Task -name "Start-TestHarness" -task { Start-TestHarness $apiUrl $configurationFile $environmentFilePath $null "EdFiOdsApiSdk" }
                 $sdkCliVersion = Get-ValueOrDefault $teamCityParameters['SdkCliVersion'] '7.2.0'
-                $arguments = @("-v",$sdkCliVersion,"--core-only","-j","""$javaPath""")
+                $arguments = @("-v",$sdkCliVersion,"-c","-i","-j","""$javaPath""")
                 $script:result += Invoke-Task "Invoke-SdkGenConsole" { Invoke-SdkGenConsole $apiMetadataUrl $buildConfiguration $arguments }
             }
             finally {
