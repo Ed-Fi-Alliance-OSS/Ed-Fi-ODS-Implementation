@@ -15,13 +15,13 @@
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.452" />
+    <PackageReference Include="EdFi.Suite3.Common" Version="5.4.459" />
     <PackageReference Include="Iesi.Collections" Version="4.1.1" />
     <PackageReference Include="log4net" Version="2.0.17" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="Remotion.Linq" Version="2.2.0" />
     <PackageReference Include="Remotion.Linq.EagerFetching" Version="2.2.0" />
-    <PackageReference Include="NHibernate" Version="5.5.1" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
   </ItemGroup>
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
