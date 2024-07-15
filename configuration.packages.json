@@ -2,67 +2,67 @@
   "packages": {
     "EdFiMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template",
-      "PackageVersion": "5.4.994",
+      "PackageVersion": "5.4.998",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "GrandBend": {
       "PackageName": "EdFi.Suite3.Ods.Populated.Template",
-      "PackageVersion": "5.4.994",
+      "PackageVersion": "5.4.998",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "PostgreSqlMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template.PostgreSQL",
-      "PackageVersion": "5.4.1038",
+      "PackageVersion": "5.4.1042",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "PostgreSqlPopulatedTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Populated.Template.PostgreSQL",
-      "PackageVersion": "5.4.995",
+      "PackageVersion": "5.4.999",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "TPDMCoreMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core",
-      "PackageVersion": "5.4.826",
+      "PackageVersion": "5.4.830",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "TPDMCorePopulatedTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Populated.Template.TPDM.Core",
-      "PackageVersion": "5.4.823",
+      "PackageVersion": "5.4.827",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "TPDMCorePostgreSqlMinimalTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.PostgreSQL",
-      "PackageVersion": "5.4.828",
+      "PackageVersion": "5.4.832",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "TPDMCorePostgreSqlPopulatedTemplate": {
       "PackageName": "EdFi.Suite3.Ods.Populated.Template.TPDM.Core.PostgreSQL",
-      "PackageVersion": "5.4.821",
+      "PackageVersion": "5.4.825",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "homograph": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Homograph",
-      "PackageVersion": "5.4.683",
+      "PackageVersion": "5.4.686",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "profiles.sample": {
       "PackageName": "EdFi.Suite3.Ods.Profiles.Sample",
-      "PackageVersion": "5.4.123",
+      "PackageVersion": "5.4.130",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "sample": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.Sample",
-      "PackageVersion": "5.4.572",
+      "PackageVersion": "5.4.574",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "tpdm": {
       "PackageName": "EdFi.Suite3.Ods.Extensions.TPDM.Core.1.1.0",
-      "PackageVersion": "5.4.576",
+      "PackageVersion": "5.4.579",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.CodeGen": {
       "PackageName": "EdFi.Suite3.Ods.CodeGen",
-      "PackageVersion": "5.4.3319",
+      "PackageVersion": "5.4.3323",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Db.Deploy": {
