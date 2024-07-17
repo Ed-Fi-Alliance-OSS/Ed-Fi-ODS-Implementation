@@ -5,24 +5,24 @@
 
 #requires -version 5
 param (
+    # Informational version number, defaults 1.0    
     [string]
     [Parameter(Mandatory = $true)]
-    $SemanticVersion,
+    $InformationalVersion = "1.0",
 
+    # Build counter from the automation tool, defaults to 1
     [string]
-    $BuildCounter,
+    $BuildCounter = "1",
 
+    # Build incrementer to add to the build counter to offset number from TeamCity builds, defaults to 0
     [string]
-    $PreReleaseLabel,
-
-    [switch]
-    $Publish,
+    $BuildIncrementer = "0",
 
     [string]
     $NuGetFeed,
 
     [string]
-    $NuGetApiKey 
+    $NuGetApiKey
 )
 $ErrorActionPreference = "Stop"
 
@@ -32,16 +32,17 @@ $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
 Import-Module "$PSScriptRoot/../../../logistics/scripts/modules/packaging/create-package.psm1" -Force
 
+$newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
+$SemanticVersion = "$InformationalVersion.$newRevision"
+
 $parameters = @{
     PackageDefinitionFile = Resolve-Path ("$PSScriptRoot/EdFi.Installer.SwaggerUI.nuspec")
     Version               = $SemanticVersion
     OutputDirectory       = Resolve-Path $PSScriptRoot
-    Publish               = $Publish
+    Publish               = $true
     Source                = $NuGetFeed
     ApiKey                = $NuGetApiKey
     ToolsPath             = "../../../tools"
 }
-
-if ($BuildCounter) { $parameters.Suffix = "$PreReleaseLabel$($BuildCounter.PadLeft(4,'0'))" }
 
 Invoke-CreatePackage @parameters -Verbose:$verbose

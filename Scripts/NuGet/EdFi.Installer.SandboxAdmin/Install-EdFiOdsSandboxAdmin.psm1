@@ -33,22 +33,23 @@ function Install-EdFiOdsSandboxAdmin {
         SandboxAdmin binaries as an an application.
 
     .EXAMPLE
-        PS c:\> Install-EdFiOdsSandboxAdmin
+        PS c:/> Install-EdFiOdsSandboxAdmin
 
         Using all available default settings.
 
     .EXAMPLE
-        PS c:\> Install-EdFiOdsSandboxAdmin -Engine PostgreSQL
+        PS c:/> Install-EdFiOdsSandboxAdmin -Engine PostgreSQL
 
         Using default connection strings for PostgreSQL
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             PackageVersion     = '5.1.0'
-            WebSitePath        = 'c:\inetpub\SandboxAdmin'
+            WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
-            WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
+            WebApplicationPath = 'SandboxAdmin'
             WebApplicationName = 'SandboxAdmin5.1.0'
+            UseAlternateUserName       = $false
             Settings           = @{
                 ConnectionStrings            = @{
                     EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
@@ -84,7 +85,7 @@ function Install-EdFiOdsSandboxAdmin {
                 }
             }
         }
-        PS c:\> Install-EdFiOdsSandboxAdmin @parameters
+        PS c:/> Install-EdFiOdsSandboxAdmin @parameters
 
         Detailed example setting many customizations.
     #>
@@ -121,9 +122,9 @@ function Install-EdFiOdsSandboxAdmin {
         [int]
         $WebSitePort = 443,
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\SandboxAdmin".
+        # Path for the web application. Default: "SandboxAdmin".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\SandboxAdmin", # NB: _must_ use backslash with IIS settings
+        $WebApplicationPath = "SandboxAdmin", # NB: _must_ use backslash with IIS settings
 
         # Web application name. Default: "SandboxAdmin".
         [string]
@@ -136,7 +137,26 @@ function Install-EdFiOdsSandboxAdmin {
 
         # Optional hashtable containing appSettings override values.
         [hashtable]
-        $Settings = @{ OAuthUrl = "https://localhost/EdFiOdsWebApi" }
+        $Settings = @{ OAuthUrl = "https://localhost/EdFiOdsWebApi" },
+        
+        # Prompts user to enter an alternate username to be used for SQL Login
+        # To use for SQL Server:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    The application pool identity used by the Sandbox Admin app needs to be updated to use the same Windows username 
+        # To user for Postgres:
+        #    UsedIntegratedSecurity must be set to true or no provide password
+        #    The username provided must be mapped to use passwordless authentication
+        [switch]
+        $UseAlternateUserName, 
+        
+        # Initial client key to load into the appSettings.config file. Default: Random string value.
+        [string]
+        $PrePopulatedKey,
+        
+        # Initial client secret to load into the appSettings.config file. Default: Random string value.
+        [string]
+        $PrePopulatedSecret
     )
 
     Write-InvocationInfo $MyInvocation
@@ -146,7 +166,7 @@ function Install-EdFiOdsSandboxAdmin {
     $result = @()
 
     $config = @{
-        WebApplicationPath = $WebApplicationPath
+        WebApplicationPath = (Join-Path $WebSitePath $WebApplicationPath)
         PackageName        = $PackageName
         PackageVersion     = $PackageVersion
         PackageSource      = $PackageSource
@@ -158,6 +178,9 @@ function Install-EdFiOdsSandboxAdmin {
         WebApplicationName = $WebApplicationName
         Engine             = $Engine
         Settings           = $Settings
+        UseAlternateUserName       = $UseAlternateUserName 
+        PrePopulatedKey = $PrePopulatedKey
+        PrePopulatedSecret = $PrePopulatedSecret
     }
 
     $elapsed = Use-StopWatch {
@@ -211,16 +234,22 @@ function Get-DefaultConnectionStringsByEngine {
         }
         PostgreSQL = @{
             ConnectionStrings = @{
-                EdFi_Ods      = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Admin    = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Security = "Host=localhost; Port=5402; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
-                EdFi_Master   = "Host=localhost; Port=5402; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Ods      = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_{0}; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Admin    = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Admin; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Security = "Host=localhost; Port=5432; Username=postgres; Database=EdFi_Security; Pooling=true; Minimum Pool Size=10; Maximum Pool Size=50; Application Name=EdFi.Ods.SandboxAdmin"
+                EdFi_Master   = "Host=localhost; Port=5432; Username=postgres; Database=postgres; Pooling=false; Application Name=EdFi.Ods.SandboxAdmin"
             }
         }
     }
 }
 
 function Get-DefaultCredentialSettings {
+    param(
+        [string] $PrePopulatedKey,
+
+        [string] $PrePopulatedSecret
+    )
+    
     function Get-RandomString([int] $length = 20) {
         return ([char[]]([char]65..[char]90) + ([char[]]([char]97..[char]122)) + 0..9 | Sort-Object { Get-Random })[0..$length] -join ''
     }
@@ -238,8 +267,8 @@ function Get-DefaultCredentialSettings {
                 )
                 Sandboxes         = @{
                     "Populated Demonstration Sandbox" = @{
-                        Key     = Get-RandomString
-                        Secret  = Get-RandomString
+                        Key     = if ($PrePopulatedKey.Length -ne 0) {$PrePopulatedKey} else {Get-RandomString}
+                        Secret  = if ($PrePopulatedSecret.Length -ne 0) {$PrePopulatedSecret} else {Get-RandomString}
                         Type    = "Sample"
                         Refresh = "false"
                     }
@@ -288,7 +317,7 @@ function Set-AppSettings {
 
         }
 
-        $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings), $Config.Settings
+        $settings = Merge-Hashtables $settings, (Get-DefaultCredentialSettings -PrepopulatedKey: $Config.PrepopulatedKey -PrepopulatedSecret: $Config.PrepopulatedSecret), $Config.Settings
         New-JsonFile $settingsPath $settings -Overwrite
 
         $Config.MergedSettings = $settings
@@ -332,8 +361,17 @@ function Convert-ConnectionStringtoDatabaseConnectionInfo {
     # using set_ConnectionString correctly uses the underlying C# setter functionality resulting in a dictionary of connection string properties
     $csb.set_ConnectionString($ConnectionString)
 
+    $useIntegratedSecurity = $false;
+    if($ConnectionString.Replace(" ","").ToLower().Contains("integratedsecurity=true")) {
+        $useIntegratedSecurity = $true
+    }
+    
+    if($ConnectionString.Replace(" ","").ToLower().Contains("trusted_connection=true")) {
+        $useIntegratedSecurity = $true
+    }
+    
     $dbConnectionInfo = @{
-        UseIntegratedSecurity = $true
+        UseIntegratedSecurity = $useIntegratedSecurity
         Engine                = $Config.MergedSettings.ApiSettings.Engine
     }
     if ($null -ne $csb.Server) { $dbConnectionInfo.Server = $csb.Server }
@@ -355,9 +393,15 @@ function New-SqlLogins {
         $odsDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Admin)
         $securityDbConnectionInfo = (Convert-ConnectionStringtoDatabaseConnectionInfo $Config.MergedSettings.ConnectionStrings.EdFi_Security)
 
-        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName
-        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName
-        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+        
+        Add-SqlLogins $adminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+        
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
+        Add-SqlLogins $odsDbConnectionInfo $WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+        
+        if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+        Add-SqlLogins $securityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
     }
 }
 
@@ -374,16 +418,16 @@ function Uninstall-EdFiOdsSandboxAdmin {
         Does not remove IIS or the URL Rewrite module.
 
     .EXAMPLE
-        PS c:\> Uninstall-EdFiOdsSandboxAdmin
+        PS c:/> Uninstall-EdFiOdsSandboxAdmin
 
         Uninstall using all default values.
     .EXAMPLE
-        PS c:\> $p = @{
+        PS c:/> $p = @{
             WebSiteName="Ed-Fi"
             WebApplicationPath="d:/octopus/applications/staging/Sandbox-3"
             WebApplicationName = "Sandbox"
         }
-        PS c:\> Uninstall-EdFiOdsSandboxAdmin @p
+        PS c:/> Uninstall-EdFiOdsSandboxAdmin @p
 
         Uninstall when the web application and web site were setup with non-default values.
     #>

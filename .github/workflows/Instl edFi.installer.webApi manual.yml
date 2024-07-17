@@ -2,6 +2,8 @@ name: EdFi.Installer.WebApi Manually triggered build
 
 on:
   workflow_dispatch:
+  pull_request:
+    branches: ['main-5x', 'b-v*-patch*','feature-*']  
 
 env:
   INFORMATIONAL_VERSION: "5.4"
@@ -9,19 +11,35 @@ env:
   AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
   AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
+  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
+  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}  
+
 
 jobs:
   build:
 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
     - name: build
       run: |
         .\build-package.ps1 -InformationalVersion ${{env.INFORMATIONAL_VERSION}} -BuildCounter ${{ github.run_number }} -BuildIncrementer ${{env.BUILD_INCREMENTER}}  -NugetFeed ${{env.AZURE_ARTIFACT_URL}} -NuGetApiKey ${{ env.AZURE_ARTIFACT_NUGET_KEY }}
-      shell: pwsh
+      shell: powershell
       working-directory: Scripts/NuGet/EdFi.Installer.WebApi
+    - name: Install-credential-handler
+      run: iex "& { $(irm https://aka.ms/install-artifacts-credprovider.ps1) } -AddNetfx"
+      shell: powershell
+    - name: Publish to Azure Artifacts
+      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
+      run: |
+        Get-ChildItem "$env:GITHUB_WORKSPACE/Scripts/NuGet/EdFi.Installer.WebApi/" -Filter *.nupkg | 
+        Foreach-Object {
+            Write-Host "nupkg full path is " $_.FullName
+            $packagePath = $_.FullName
+            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
+        }
+      shell: powershell        
     - name: Upload EdFi.Installer.WebApi Artifacts
       if: success()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0

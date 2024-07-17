@@ -9,7 +9,7 @@ Param(
     $Scenario
 )
 
-import-module -force "$PSScriptRoot\Install-EdFiOdsWebApi.psm1"
+import-module -force "$PSScriptRoot/Install-EdFiOdsWebApi.psm1"
 
 function Invoke-DifferentWebSite {
     $p = @{

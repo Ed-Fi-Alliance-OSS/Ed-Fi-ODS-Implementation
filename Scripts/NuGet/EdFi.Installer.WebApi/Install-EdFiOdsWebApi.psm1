@@ -40,14 +40,14 @@ function Install-EdFiOdsWebApi {
         PostgreSQL.
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             DbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="my-sql-server.example"
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Use all available default values, connecting to databases on a single SQL Server instance.
         Connect to the database with integrated security. The WebApi application will be set to
@@ -55,7 +55,7 @@ function Install-EdFiOdsWebApi {
         and the application files will be in "c:\inetpub\Ed-Fi\WebApi". Installs the most recent full
         release of the WebApi software.
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             AdminDbConnectionInfo = @{
                 Engine="SqlServer"
                 Server="edfi-auth.my-sql-server.example"
@@ -74,13 +74,13 @@ function Install-EdFiOdsWebApi {
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install with all web application defaults, but using separate database connections.
         Override the name of the ODS database and use username/password for the ODS connection.
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             InstallType="YearSpecific"
             DbConnectionInfo=@{
                 Engine="PostgreSQL"
@@ -88,12 +88,12 @@ function Install-EdFiOdsWebApi {
                 Username="ods-admin"
             }
             WebSiteName="Ed-Fi-3"
-            WebSitePath="c:\inetpub\Ed-Fi-3"
-            WebApplicationPath="d:/octopus/applications/staging/EdFiOdsApi-3"
+            WebSitePath="c:\inetpub\Ed-Fi"
+            WebApplicationPath="EdFiOdsApi"
             WebSitePort=843
             CertThumbprint="a909502dd82ae41433e6f83886b00d4277a32a7b"
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in Year Specific mode on PostgreSQL, with alternate IIS configuration.
         Assumes the presence of pgconf file for the password. Note that a Year Specific
@@ -103,7 +103,7 @@ function Install-EdFiOdsWebApi {
         should have a database named "EdFi_Ods_2020" (or whatever year is in use).
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             InstallType="Sandbox"
             DbConnectionInfo=@{
                 DatabaseName="EdFi_Sandbox"
@@ -112,7 +112,7 @@ function Install-EdFiOdsWebApi {
                 UseIntegratedSecurity=$true
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in Sandbox mode on SQL Server with default IIS configuration.
         Override the default ODS database name. Note that a Sandbox connection string
@@ -123,7 +123,7 @@ function Install-EdFiOdsWebApi {
         and "EdFi_Sandbox_Ods_Populated_Template".
 
     .EXAMPLE
-        PS c:\> $parameters = @{
+        PS c:/> $parameters = @{
             DbConnectionInfo=@{
                 Engine="SqlServer"
                 Server="my-sql-server.example"
@@ -144,7 +144,7 @@ function Install-EdFiOdsWebApi {
                 )
             }
         }
-        PS c:\> Install-EdFiOdsWebApi @parameters
+        PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install in the default mode (shared) instance with basic database
         configuration, with override all available web.config app settings.
@@ -179,13 +179,21 @@ function Install-EdFiOdsWebApi {
         [string]
         $WebsiteName = "Ed-Fi",
 
+        # Log destination path. 
+        # 
+        # Use {version} template string to include API's version.
+        # To include a value from an environment variable use ${myVar}
+        # Default: "${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log".
+        [string]
+        $LogDestinationPath = "`${PROGRAMDATA}/Ed-Fi-ODS/WebApiLog.{version}.log",
+
         # Web site port number. Default: 443.
         [int]
         $WebSitePort = 443,
 
-        # Path for the web application. Default: "c:\inetpub\Ed-Fi\WebApi".
+        # Directory for the web application. Default: "WebApi".
         [string]
-        $WebApplicationPath = "c:\inetpub\Ed-Fi\WebApi", # NB: _must_ use backslash with IIS settings
+        $WebApplicationPath = "WebApi", # NB: _must_ use backslash with IIS settings
 
         # Web application name. Default: "WebApi".
         [string]
@@ -265,7 +273,19 @@ function Install-EdFiOdsWebApi {
 
         # Turns off display of script run-time duration.
         [switch]
-        $NoDuration
+        $NoDuration,
+        
+        # Prompts user to enter an alternate username to be used for SQL Login
+        # To use for SQL Server:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    The application pool identity used by WebAPI needs to be updated to use the same Windows username 
+        # To user for Postgres:
+        #    UseIntegratedSecurity must be set to true
+        #    The username provided must be a valid Windows user
+        #    pg_ident.conf map needs to be updated to use the username provided
+        [switch]
+        $UseAlternateUserName 
     )
     Write-InvocationInfo $MyInvocation
 
@@ -274,7 +294,7 @@ function Install-EdFiOdsWebApi {
     $result = @()
 
     $config = @{
-        WebApplicationPath = $WebApplicationPath
+        WebApplicationPath = (Join-Path $WebSitePath $WebApplicationPath)
         PackageName = $PackageName
         PackageVersion = $PackageVersion
         PackageSource = $PackageSource
@@ -282,6 +302,7 @@ function Install-EdFiOdsWebApi {
         DownloadPath = $DownloadPath
         WebSitePath = $WebSitePath
         WebSiteName = $WebsiteName
+        LogDestinationPath = $LogDestinationPath
         WebSitePort = $WebsitePort
         CertThumbprint = $CertThumbprint
         WebApplicationName = $WebApplicationName
@@ -295,6 +316,7 @@ function Install-EdFiOdsWebApi {
         SecurityDbConnectionInfo = $SecurityDbConnectionInfo
         WebApiFeatures = $WebApiFeatures
         NoDuration = $NoDuration
+        UseAlternateUserName  = $UseAlternateUserName 
     }
 
     $elapsed = Use-StopWatch {
@@ -403,6 +425,28 @@ function Invoke-TransformWebConfigAppSettings {
                     }
                 }
             }
+            # Add a Log4net property override to specify the log's destination
+            $splitPackageVersion = $Config.PackageVersion.Split(".")
+            # We only care about Major/Minor for determining the log file name
+            if ($splitPackageVersion.Count -lt 2) {
+                throw "Invalid PackageVersion provided $($Config.PackageVersion). PackageVersion must include major and minor."
+            }
+            $logDestination = $Config.LogDestinationPath.replace("{version}", -join($splitPackageVersion[0], ".", $splitPackageVersion[1]))
+            if($Null -eq $settings.Log4NetCore) { 
+                $settings.Log4NetCore = @{}
+            }
+            if($Null -eq $settings.Log4NetCore.PropertyOverrides) { 
+                $settings.Log4NetCore.PropertyOverrides = @()
+            }
+            $rollingFileXpath = "/log4net/appender[@name='RollingFile']/file"
+            if($settings.Log4NetCore.PropertyOverrides.Where({$_.XPath -eq $rollingFileXpath}).Count -eq 0) {
+                $settings.Log4NetCore.PropertyOverrides += @{
+                    XPath = $rollingFileXpath
+                    Attributes = @{
+                        Value = $logDestination
+                    }
+                }
+            }
            $settings.BearerTokenTimeoutMinutes=$Config.WebApiFeatures.BearerTokenTimeoutMinutes
            $settings.ApiSettings.ExcludedExtensions=$Config.WebApiFeatures.ExcludedExtensions
            New-JsonFile $settingsFile $settings -Overwrite
@@ -508,13 +552,18 @@ function New-SqlLogins {
 
         if($Config.usingSharedCredentials)
         {
-            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName
+            Add-SqlLogins $Config.DbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
         else
         {
-            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName
-            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Admin DB:"; }
+            Add-SqlLogins $Config.AdminDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Ed-Fi ODS:"; }
+            Add-SqlLogins $Config.OdsDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
+            
+            if ($Config.UseAlternateUserName ) { Write-Host ""; Write-Host "Regarding the Security DB:"; }
+            Add-SqlLogins $Config.SecurityDbConnectionInfo $Config.WebApplicationName -IsCustomLogin:$Config.UseAlternateUserName 
         }
     }
 }
@@ -534,17 +583,17 @@ function Uninstall-EdFiOdsWebApi {
     .EXAMPLE
         Uninstall using all default values.
 
-        PS c:\> Uninstall-EdFiOdsWebApi
+        PS c:/> Uninstall-EdFiOdsWebApi
 
     .EXAMPLE
         Uninstall when the web application and web site were setup with non-default values.
 
-        PS c:\> $p = @{
+        PS c:/> $p = @{
             WebSiteName="Ed-Fi-3"
             WebApplicationPath="d:/octopus/applications/staging/EdFiOdsApi-3"
             WebApplicationName = "EdFiOdsWebApi"
         }
-        PS c:\> Uninstall-EdFiOdsWebApi @p
+        PS c:/> Uninstall-EdFiOdsWebApi @p
     #>
     [CmdletBinding()]
     param (
