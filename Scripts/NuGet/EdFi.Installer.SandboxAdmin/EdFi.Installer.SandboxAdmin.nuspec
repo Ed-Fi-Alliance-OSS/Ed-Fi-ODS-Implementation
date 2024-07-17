@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>EdFi.Installer.SandboxAdmin</id>
+    <id>EdFi.Suite3.Installer.SandboxAdmin</id>
     <version>1.0.0</version>
     <title>Ed-Fi SwaggerUI Installer Scripts</title>
     <authors>Ed-Fi Alliance</authors>

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>EdFi.Installer.WebApi</id>
+    <id>EdFi.Suite3.Installer.WebApi</id>
     <version>1.0.0</version>
     <title>ODS/API WebApi Installer Scripts</title>
     <authors>Ed-Fi Alliance</authors>
