@@ -79,7 +79,109 @@ jobs:
           $current_branch = '${{env.HEAD_REF}}'
         }
         Write-Host "Current Branch: $current_branch"   
-        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV                   
+        echo "current_branch=$current_branch" >> $Env:GITHUB_ENV
+        if ($current_branch -eq 'main') {
+          Write-Host "Current branch is main. Stopping the build."
+          exit 1
+        }
+    - name: Check Previous Workflow Runs
+      shell: pwsh
+      run: |
+            $branch = "${{ env.current_branch }}"
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}"
+            
+            $headers = @{
+              Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
+              Accept = "application/vnd.github.v3+json"
+            }
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
+
+            if ($response.total_count -gt 0) {
+              Write-Host "Found previous failed of $response.total_count workflow runs on branch ${{ env.current_branch }}. Stopping the build."
+              $response.workflow_runs | ForEach-Object {
+                  Write-Host "Run ID: $_.id"
+                  Write-Host "Run Name: $_.name"
+                  Write-Host "Run Number: $_.run_number"
+                  Write-Host "Event: $_.event"
+                  Write-Host "Status: $_.status"
+                  Write-Host "Conclusion: $_.conclusion"
+                  Write-Host "Created At: $_.created_at"
+                  Write-Host "Updated At: $_.updated_at"
+                  Write-Host "URL: $_.html_url"
+            }
+             ## exit 1
+            } else {
+              Write-Host "No previous failed workflow runs found on branch $branch."
+            }    
+    - name: Check for Successful Workflow Runs of Pkg EdFi.Ods.CodeGen.yml
+      shell: pwsh
+      run: |
+            $branch = "${{ env.current_branch }}"
+            $workflow_file_name = "Pkg EdFi.Ods.CodeGen.yml"
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=$branch&status=success"
+
+            $headers = @{
+              Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
+              Accept = "application/vnd.github.v3+json"
+            }
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
+
+            if ($response.workflow_runs.Count -gt 0) {
+              Write-Host "Found successful workflow runs for '$workflow_file_name' on branch $branch."
+              $responseJson = $response | ConvertTo-Json -Depth 10
+              Write-Host "Response JSON: $responseJson"
+            } else {
+              Write-Host "No successful workflow runs found for '$workflow_file_name' on branch $branch."
+            }
+    - name: Compare Codegen Package Version
+      shell: pwsh
+      run: |
+        $branch = '${{ env.current_branch }}'
+        
+        $headers = @{
+          Authorization = "Bearer ${{ env.EDFI_ODS_TOKEN }}"
+           Accept = "application/vnd.github+json"
+        }
+
+        # Function to get the file content from a specific branch
+        function Get-FileContent($branch) {
+          $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$branch"
+          $response = Invoke-RestMethod -Uri $url -Headers $headers
+          $content = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response.content))
+          #Write-Host "Response content: $content"
+          return $content | ConvertFrom-Json
+        }
+
+
+         Write-Host "branch name is  $branch"
+
+        # Get the file content from both branches
+        $mainContent = Get-FileContent "main"
+        $currentContent = Get-FileContent $branch
+
+        #Write-Host "Response JSON: $mainContent"
+        #Write-Host "Response JSON: $currentContent"
+
+        Write-Host "Main Content: $($mainContent | ConvertTo-Json -Depth 10)"
+        Write-Host "Current Content: $($currentContent | ConvertTo-Json -Depth 10)"
+
+        # Extract the package version for EdFi.Suite3.Ods.CodeGen
+        $mainVersion = $mainContent.packages."EdFi.Ods.CodeGen".PackageVersion
+        $currentVersion = $currentContent.packages."EdFi.Ods.CodeGen".PackageVersion
+
+
+        Write-Host "mainVersion: $mainVersion"
+        Write-Host "currentVersion: $currentVersion"
+
+
+        # Compare the versions
+        if ($mainVersion -eq $currentVersion) {
+          Write-Host "The package version for EdFi.Suite3.Ods.CodeGen is the same in both branches: $mainVersion"
+        } else {
+          Write-Host "The package version for EdFi.Suite3.Ods.CodeGen has changed."
+          Write-Host "Main branch version: $mainVersion"
+          Write-Host "Current branch version: $currentVersion"
+        }
     - name: Dispatch EdFi.Ods.CodeGen workflow
       uses: codex-/return-dispatch@03a7fcd260cce601805567f86c892bd06d2719e1 #v1.12.0
       id: return_dispatch_codegen
