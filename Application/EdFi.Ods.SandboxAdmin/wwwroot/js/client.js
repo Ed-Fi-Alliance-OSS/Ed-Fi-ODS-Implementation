@@ -59,7 +59,7 @@ var ModalController = function (modalOptions) {
 
     this.onOkClicked = function (buttonText) {
 
-        if (buttonText() !== "Delete") {
+        if (buttonText() === "Add") {
             addApplicationDialogInstance.markFieldsAsTouched(true);
 
             if (!addApplicationDialogInstance.canAdd()) {
