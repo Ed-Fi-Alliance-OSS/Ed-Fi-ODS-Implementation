@@ -14,7 +14,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 $script:providerName = 'NuGet'
 $script:packageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
 $script:packageName = "PostgreSQL.Binaries"
-$script:packageVersion = "16.2.111"
+$script:packageVersion = "16.3.112"
 $script:toolsPath = (Get-ToolsPath)
 $script:windowsPostgreSQLBinariesPath = "$script:toolsPath/$script:packageName.$script:packageVersion/tools/"
 $script:PSNativeCommandArgumentPassing = 'Legacy'
