@@ -8,7 +8,7 @@ version: '3'
 services:
   db:
     container_name: ODS-PostgreSQL
-    image: postgres:16.2-alpine3.19@sha256:1d74239810c19ed0dbb317acae40974e673865b2d565a0d369e206159d483957
+    image: postgres:16.3-alpine3.19@sha256:eb98285d1b37703deb53543d0d5f1b19124616bae59a6d42d1c98531f7c2677a
     restart: always
     environment:
       # If username and password not provided through and env file
