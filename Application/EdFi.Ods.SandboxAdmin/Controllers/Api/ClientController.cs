@@ -176,7 +176,7 @@ namespace EdFi.Ods.SandboxAdmin.Controllers.Api
         [HttpPut("{id}")]
         public async Task<IActionResult> PutClient(ClientIndexViewModel clientViewModel)
         {
-            var client = _repository.GetClient(clientViewModel.Key);
+            var client = _repository.GetClientIncludingApplication(clientViewModel.Key);
 
             if (client == null)
             {
