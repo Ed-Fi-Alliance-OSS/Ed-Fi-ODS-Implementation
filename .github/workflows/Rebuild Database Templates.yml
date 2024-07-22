@@ -100,7 +100,7 @@ jobs:
         workflow: Pkg EdFi.Ods.CodeGen.yml
         workflow_timeout_seconds: 4800
     - name: Await to complete the execution for EdFi.Ods.CodeGen RunID ${{ steps.return_dispatch_codegen.outputs.run_id }}
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -192,7 +192,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-Extensions
@@ -203,7 +203,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Sample RunID ${{ steps.return_dispatch_sample.outputs.run_id }}
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-Extensions
@@ -214,7 +214,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.TPDM RunID ${{ steps.return_dispatch_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-Extensions
@@ -347,7 +347,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -358,7 +358,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template RunID ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -369,7 +369,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -380,7 +380,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -534,7 +534,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_TPDM_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -545,7 +545,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.TPDM RunID ${{ steps.return_dispatch_minimal_template_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -556,7 +556,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM RunID ${{ steps.return_dispatch_populated_template_TPDM.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
@@ -567,7 +567,7 @@ jobs:
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template.TPDM.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_TPDM_postgresql.outputs.run_id }}
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      uses: codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
+      uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
         repo: Ed-Fi-ODS
