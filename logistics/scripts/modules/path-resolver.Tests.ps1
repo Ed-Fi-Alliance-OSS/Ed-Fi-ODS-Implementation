@@ -5,13 +5,13 @@ BeforeAll {
 Describe 'Select-RepositoryResolvedFiles' {
     It 'Returns a valid and reachable path' {
         $RepositoryFiles = Select-RepositoryResolvedFiles "logistics"
-        Test-Path $RepositoryFiles.FullName | Should -Be $true
+        Test-Path $RepositoryFiles.FullName | Should -Be ($true, $true)
     }
 }
 Describe 'Select-CumulativeRepositoryResolvedItems' {
     It 'Returns a valid and reachable path' {
         $RepositoryFiles = Select-CumulativeRepositoryResolvedItems "logistics"
-        Test-Path $RepositoryFiles.FullName | Should -Be $true
+        Test-Path $RepositoryFiles.FullName | Should -Be ($true, $true)
     }
 }
 
