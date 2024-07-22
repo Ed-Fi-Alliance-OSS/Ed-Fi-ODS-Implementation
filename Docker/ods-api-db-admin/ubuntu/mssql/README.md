@@ -7,8 +7,9 @@ started for the first time.
 SA user is disabled after initial setup.
 
 > [!NOTE]
-> This image does not include any pre-installed vendors and is suitable for
-> [production use](#sql-server-2022-express-license-overview).
+> This image does not include any pre-installed vendors and running as a container on an Ubuntu 22.04 host (as per the
+> [published guidelines](https://learn.microsoft.com/en-us/troubleshoot/sql/database-engine/install/windows/support-policy-sql-server#guidelines)), 
+> is suitable for production use (under the [Express License](#sql-server-2022-express-license-overview)).
 
 ## Image Variants
 
