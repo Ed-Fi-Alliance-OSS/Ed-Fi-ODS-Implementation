@@ -9,9 +9,9 @@ param (
     $TearDown
 )
 
-$flag = ""
+$flag = $null
 if ($TearDown) {
     $flag = "-v"
 }
 
-&docker compose -f $PSScriptRoot/docker-compose.yml down $flag
+docker compose -f $PSScriptRoot/docker-compose.yml down $flag
