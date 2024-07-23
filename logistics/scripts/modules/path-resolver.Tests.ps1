@@ -3,13 +3,13 @@ BeforeAll {
     Import-Module -Force -Scope Global ($PSCommandPath.Replace('.tests.ps1', '.psm1'))
 }
 Describe 'Select-RepositoryResolvedFiles' {
-    It 'Returns a valid and reachable path' {
+    It 'Returns two valid and reachable paths' {
         $RepositoryFiles = Select-RepositoryResolvedFiles "logistics"
         Test-Path $RepositoryFiles.FullName | Should -Be ($true, $true)
     }
 }
 Describe 'Select-CumulativeRepositoryResolvedItems' {
-    It 'Returns a valid and reachable path' {
+    It 'Returns two valid and reachable paths' {
         $RepositoryFiles = Select-CumulativeRepositoryResolvedItems "logistics"
         Test-Path $RepositoryFiles.FullName | Should -Be ($true, $true)
     }
