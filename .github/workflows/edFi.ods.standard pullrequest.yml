@@ -2,7 +2,7 @@ name: EdFi.Ods.Standard Pull request build and test
 
 on:
   pull_request:
-    branches: ['main', 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
 
 env:
   INFORMATIONAL_VERSION: "5.4"

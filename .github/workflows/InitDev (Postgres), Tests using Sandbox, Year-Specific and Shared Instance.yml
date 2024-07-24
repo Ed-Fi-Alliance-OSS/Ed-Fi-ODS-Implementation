@@ -7,9 +7,9 @@ name: InitDev (Postgres), Tests using Sandbox, Year-Specific and Shared Instance
 
 on:
   pull_request:
-    branches: ['main', 'b-v*-patch*','feature-*']
+    branches: ['main-5x', 'b-v*-patch*','feature-*']
   push:
-    branches: ['main', 'b-v*-patch*','feature-*']    
+    branches: ['main-5x', 'b-v*-patch*','feature-*']    
   workflow_dispatch:
   repository_dispatch:
     types: [triggered-from-ods-repo]
