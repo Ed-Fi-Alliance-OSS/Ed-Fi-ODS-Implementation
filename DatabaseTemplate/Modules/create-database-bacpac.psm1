@@ -68,7 +68,7 @@ function Export-BacPac {
     $params += "/sdn:" + $database
     $params += "/tf:" + $artifactOutput
     $params += "/ssn:" + $server
-    $params += "/sec:=False"
+    $params += "/sec:False"
     
 
     Write-Host -ForegroundColor Magenta $executable $params
