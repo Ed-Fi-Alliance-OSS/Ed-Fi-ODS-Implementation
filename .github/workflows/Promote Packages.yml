@@ -9,8 +9,6 @@
 name: Promote Packages
 
 on:
-  pull_request:
-    branches: ['main-5x', 'b-v*-patch*','feature-*']
   workflow_dispatch:
     inputs:
       promote_packages_view:
