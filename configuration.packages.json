@@ -162,7 +162,7 @@
     },
     "EdFi.Ods.Standard": {
       "PackageName": "EdFi.Suite3.Ods.Standard",
-      "PackageVersion": "latest",
+      "PackageVersion": "5.4.33",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     }
   }
