@@ -7,6 +7,7 @@ name: Dependency Review Pull request
 
 on:
   pull_request:
+    types: [opened, synchronize, reopened, labeled]
     branches: [main, 'b-v*-patch*','feature-*']
 
 permissions: read-all
@@ -22,10 +23,12 @@ env:
 
 jobs:
   scan-actions:
+    if: ${{ github.event.action != 'labeled' || (github.event.label.name == 'do not merge') }}
     name: Scan Actions
     uses: ed-fi-alliance-oss/ed-fi-actions/.github/workflows/repository-scanner.yml@main
 
   analyze-code:
+    if: ${{ github.event.action != 'labeled' || (github.event.label.name == 'do not merge') }}
     name: Analyze Code Dependencies
     runs-on: ubuntu-latest
     permissions:
