@@ -8,6 +8,7 @@ name: Analyze Docker Images
 on:
   pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
+    types: [opened, synchronize, reopened, unlabeled]
   workflow_dispatch:
 
 permissions: read-all
