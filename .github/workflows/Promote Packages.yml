@@ -38,7 +38,6 @@ jobs:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
   build:
-    if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     runs-on: ubuntu-latest
     strategy:
