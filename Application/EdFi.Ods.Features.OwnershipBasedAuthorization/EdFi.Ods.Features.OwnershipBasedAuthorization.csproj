@@ -21,13 +21,13 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.0" />
+        <PackageReference Include="EdFi.Suite3.Common" Version="7.3.33" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.15" />
-    <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="log4net" Version="2.0.17" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
   <ItemGroup>
