@@ -26,7 +26,6 @@ jobs:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
   analyze:
-    if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
     name: Analyze Code (Standard Version ${{ matrix.StandardVersion }})
     runs-on: ubuntu-latest
