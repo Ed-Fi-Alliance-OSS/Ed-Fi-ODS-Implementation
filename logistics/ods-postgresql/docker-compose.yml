@@ -11,10 +11,9 @@ services:
     image: postgres:16.3-alpine3.19@sha256:eb98285d1b37703deb53543d0d5f1b19124616bae59a6d42d1c98531f7c2677a
     restart: always
     environment:
-      # If username and password not provided through and env file
-      # default to postgres/abcdefgh1!
-      - POSTGRES_USER=${POSTGRES_USER:-postgres}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-P@ssw0rd}
+      # The default connection strings when using 'initdev -Engine PostgreSql' don't include a password, 
+      # and, because this container it is intended to aid in local developement, postgres is configured to allow all connections
+      POSTGRES_HOST_AUTH_METHOD=trust
     ports:
       # If no port provided through an env file, default to 5432
       - ${POSTGRES_PORT:-5432}:5432
