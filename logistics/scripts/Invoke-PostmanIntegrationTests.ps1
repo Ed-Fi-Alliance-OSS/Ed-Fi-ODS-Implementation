@@ -52,7 +52,7 @@ function Install-Newman {
     }
     $teamcityPackages = @($packages.newman, $packages.newmanTeamcity, $packages.newmanJunit)
     $githubActionsPackages = @($packages.newman, $packages.newmanJunit, $packages.newmanHtmlExtra)
-    $developerPackages = @($packages.newman)
+    $developerPackages = @($packages.newman, $packages.newmanJunit, $packages.newmanHtmlExtra)
     If (Test-TeamCityVersion) {
       Write-Host "teamcityPackages" -ForegroundColor Green
       Install-NpmPackages $teamcityPackages
