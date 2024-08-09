@@ -89,10 +89,11 @@
                                           // This plugin method is called whenever the authentication dialog is about to open, and, if applicable, 
                                           // rewrites the token URL so that the route context value displayed in it match the user's selections in the main UI
                                         showDefinitions: (oriAction, system) => (args) => {
-                                            
-                                            // If args is 'false', the authentication window is closing and no token url 
+
+                                            // If args is 'false', the authentication window is closing. If 'serverVariableValues' is not defined, 
+                                            // no route context or tenant options are available in the main UI. In either case, no token URL  
                                             // modification is needed, so we short-circuit the procedure here
-                                            if (!args) {
+                                            if (!args || system.getState().get('oas3').get('serverVariableValues') === undefined) {
                                                 return oriAction(args)
                                             }
 
