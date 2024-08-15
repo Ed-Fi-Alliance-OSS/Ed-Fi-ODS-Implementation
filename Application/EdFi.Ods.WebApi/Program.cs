@@ -57,18 +57,18 @@ namespace EdFi.Ods.WebApi
 
             async Task ConfigureHostUsingPlugins()
             {
-                var pluginTypes = TypeHelper.GetPluginTypes();
+                var hostConfigurationActivities = TypeHelper.GetAssemblyTypes<IHostConfigurationActivity>();
 
-                foreach (Type pluginType in pluginTypes)
+                foreach (Type hostConfigurationActivity in hostConfigurationActivities)
                 {
                     try
                     {
-                        var plugin = (IPlugin) Activator.CreateInstance(pluginType);
-                        plugin.ConfigureHost(hostBuilder);
+                        var plugin = (IHostConfigurationActivity) Activator.CreateInstance(hostConfigurationActivity);
+                        plugin!.ConfigureHost(hostBuilder);
                     }
                     catch (Exception ex)
                     {
-                        await Console.Error.WriteLineAsync($"Error occured during host configuration by plugin '{pluginType.Name}': {ex}");
+                        await Console.Error.WriteLineAsync($"Error occured during host configuration by plugin '{hostConfigurationActivity.Name}': {ex}");
                     }
                 }
             }
