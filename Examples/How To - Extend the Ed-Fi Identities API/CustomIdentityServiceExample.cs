@@ -14,9 +14,9 @@ using EdFi.Ods.Features.IdentityManagement.Models;
 namespace CustomIdentityService;
 
 // ----------------------------------------
-//            Plugin Module
+//            Custom Module
 // ----------------------------------------
-public class CustomIdentityServiceModule : ConditionalModule, IPluginModule
+public class CustomIdentityServiceModule : ConditionalModule, ICustomModule
 {
     public CustomIdentityServiceModule(ApiSettings apiSettings)
         : base(apiSettings, nameof(CustomIdentityServiceModule)) { }
