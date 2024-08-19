@@ -19,8 +19,16 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
-
+            using (var config = new ConfigurationBuilder()
+                       .AddJsonFile("appsettings.json", true)
+                       .AddJsonFile("appsettings.Development.json", true)
+                       .Build() as IDisposable)
+            {
+                AssemblyLoaderHelper.LoadAssembliesFromFolder(
+                    AssemblyLoaderHelper.GetPluginFolder(
+                        (config as IConfiguration)?.GetValue<string>("Plugin:Folder") ?? string.Empty));
+            }
+            
             var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(ConfigureLogging)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
