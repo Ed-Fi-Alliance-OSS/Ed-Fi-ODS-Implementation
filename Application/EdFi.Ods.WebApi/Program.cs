@@ -68,7 +68,7 @@ namespace EdFi.Ods.WebApi
                     }
                     catch (Exception ex)
                     {
-                        await Console.Error.WriteLineAsync($"Error occured during host configuration by plugin '{hostConfigurationActivity.Name}': {ex}");
+                        await Console.Error.WriteLineAsync($"Error occured during host configuration activity '{hostConfigurationActivity.Name}': {ex}");
                     }
                 }
             }
