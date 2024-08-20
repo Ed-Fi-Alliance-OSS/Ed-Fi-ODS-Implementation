@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -19,14 +20,12 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            using (var config = new ConfigurationBuilder()
-                       .AddJsonFile("appsettings.json", true)
-                       .AddJsonFile("appsettings.Development.json", true)
-                       .Build() as IDisposable)
+            using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
             {
+                var config = hostBuilderInitial.Services.GetService<IConfiguration>();
                 AssemblyLoaderHelper.LoadAssembliesFromFolder(
                     AssemblyLoaderHelper.GetPluginFolder(
-                        (config as IConfiguration)?.GetValue<string>("Plugin:Folder") ?? string.Empty));
+                        config?.GetValue<string>("Plugin:Folder") ?? string.Empty));
             }
             
             var hostBuilder = Host.CreateDefaultBuilder(args)
