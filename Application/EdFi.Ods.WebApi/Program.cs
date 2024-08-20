@@ -10,6 +10,7 @@ using EdFi.Ods.Api.Helpers;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -19,8 +20,14 @@ namespace EdFi.Ods.WebApi
     {
         public static async Task Main(string[] args)
         {
-            AssemblyLoaderHelper.LoadAssembliesFromExecutingFolder();
-
+            using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
+            {
+                var config = hostBuilderInitial.Services.GetService<IConfiguration>();
+                AssemblyLoaderHelper.LoadAssembliesFromFolder(
+                    AssemblyLoaderHelper.GetPluginFolder(
+                        config?.GetValue<string>("Plugin:Folder") ?? string.Empty));
+            }
+            
             var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureLogging(ConfigureLogging)
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
@@ -57,18 +64,18 @@ namespace EdFi.Ods.WebApi
 
             async Task ConfigureHostUsingPlugins()
             {
-                var pluginTypes = TypeHelper.GetPluginTypes();
+                var hostConfigurationActivities = TypeHelper.GetAssemblyTypes<IHostConfigurationActivity>();
 
-                foreach (Type pluginType in pluginTypes)
+                foreach (Type hostConfigurationActivity in hostConfigurationActivities)
                 {
                     try
                     {
-                        var plugin = (IPlugin) Activator.CreateInstance(pluginType);
-                        plugin.ConfigureHost(hostBuilder);
+                        var plugin = (IHostConfigurationActivity) Activator.CreateInstance(hostConfigurationActivity);
+                        plugin!.ConfigureHost(hostBuilder);
                     }
                     catch (Exception ex)
                     {
-                        await Console.Error.WriteLineAsync($"Error occured during host configuration by plugin '{pluginType.Name}': {ex}");
+                        await Console.Error.WriteLineAsync($"Error occured during host configuration activity '{hostConfigurationActivity.Name}': {ex}");
                     }
                 }
             }
