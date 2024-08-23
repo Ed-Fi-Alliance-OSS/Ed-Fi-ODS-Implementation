@@ -151,7 +151,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-        Write-Host "IsSameCommitinAllthreeRepository is ${{ env.IsSameCommitinAllthreeRepository }}"
 
         $oneeightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
         Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneeightyDaysAgo"
@@ -164,7 +163,6 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-        Write-Host "IsSameCommitinAllthreeRepository is ${{ env.IsSameCommitinAllthreeRepository }}"
 
         $oneeightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
         Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneeightyDaysAgo"
@@ -286,13 +284,22 @@ jobs:
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'false' || (env.IsSameCommitinAllthreeRepository == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}    
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        git add ./configuration.packages.json
-        git commit -m "Updating for new CodeGen version"
-        git push -u origin ${{ env.current_branch }}
+          # Define the file path
+          $filePath = "./configuration.packages.json"
 
+          # Check if there are any changes in the file
+          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
+
+          if ($changesDetected) {
+              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
+              git add $filePath
+              git commit -m "Updating for new CodeGen version"
+              git push -u origin $env:current_branch
+          } else {
+              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          }
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Homograph.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
@@ -487,17 +494,19 @@ jobs:
     - name: Commit and push updated Extensions- TPDM, Sample, Homograph package references
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-          # Check if there are any changes in the configuration.packages.json file
-          git diff --quiet ./configuration.packages.json
+          # Define the file path
+          $filePath = "./configuration.packages.json"
 
-          # $? holds the exit code of the last executed command
-          if (-not $?) {
-            Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          # Check if there are any changes in the file
+          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
+
+          if ($changesDetected) {
+              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
+              git add $filePath
+              git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
+              git push -u origin $env:current_branch
           } else {
-            Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
-            git add ./configuration.packages.json
-            git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
-            git push -u origin ${{ env.current_branch }}
+              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
           }
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.yml
@@ -756,19 +765,20 @@ jobs:
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
+          # Define the file path
+          $filePath = "./configuration.packages.json"
 
-          # Check if there are any changes in the configuration.packages.json file
-          git diff --quiet ./configuration.packages.json
+          # Check if there are any changes in the file
+          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
 
-          # $? holds the exit code of the last executed command
-          if (-not $?) {
-            Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          if ($changesDetected) {
+              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
+              git add $filePath
+              git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
+              git push -u origin $env:current_branch
           } else {
-            Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
-            git add ./configuration.packages.json
-            git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
-            git push -u origin ${{ env.current_branch }}
-          }        
+              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          }
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
