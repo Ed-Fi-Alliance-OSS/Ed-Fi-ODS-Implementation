@@ -420,7 +420,7 @@ function AddOrUpdateRepositoriesJson {
         exit 1
     }
 
-    $jsonContent = null
+    $jsonContent = $null
 
     # Check if the file exists
     if (Test-Path $FilePath) {
