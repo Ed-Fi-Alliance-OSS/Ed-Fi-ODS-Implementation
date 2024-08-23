@@ -465,7 +465,15 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
+        Write-Host "IsSameCommitinAllthreeRepository is $env:IsSameCommitinAllthreeRepository"
+        Write-Host "inputs_rebuildLevel is $env:inputs_rebuildLevel"
+        Write-Host "Homograph_package_alreadyupdated is $env:Homograph_package_alreadyupdated"
+        Write-Host "Sample_package_alreadyupdated is $env:Sample_package_alreadyupdated"                              
+        Write-Host "TPDM_package_alreadyupdated is $env:TPDM_package_alreadyupdated"
+
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'))
+           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+           {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
@@ -474,7 +482,9 @@ jobs:
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'))
+           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+        {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
@@ -483,7 +493,9 @@ jobs:
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'))
+           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+        {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
