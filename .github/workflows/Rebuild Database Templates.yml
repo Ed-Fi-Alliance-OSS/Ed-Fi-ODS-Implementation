@@ -426,8 +426,7 @@ jobs:
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-Extensions
         check_artifacts: true
 
-    - name: Update configuration.packages.json with all Extensions Homograph ,TPDM , Sample new package version
-      if: ${{ (env.Homograph_package_alreadyupdated == 'false' || env.Sample_package_alreadyupdated == 'false' || env.Homograph_package_alreadyupdated == 'false') && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates') }}
+    - name: Update configuration.packages.json with all Extensions Homograph, TPDM, Sample new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -435,45 +434,50 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        if ($env:Homograph_package_alreadyupdated -eq 'false' )
-        {
+        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
-            $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+            $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
             Write-Host "Extensions.Homograph latestVersion"  $packageversion
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        if ($env:Sample_package_alreadyupdated -eq 'false' )
-        {
+        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
-            $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
+            $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
             Write-Host "Extensions.Sample latestVersion"  $packageversion
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        if ($env:TPDM_package_alreadyupdated -eq 'false' )
-        {
-          $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
-          $folderParts = $packageFolder -split "\."
-          $newRevision =$folderParts[$folderParts.Count- 2]
-          $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
-          Write-Host " Extensions.TPDM latestVersion"  $packageversion
-          $config.packages.'tpdm'.PackageVersion = $packageversion
+        if (($env:IsSameCommitinAllthreeRepository -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates')) -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false' -and ($env:inputs_rebuildLevel -eq 'DotNetPackages' -or $env:inputs_rebuildLevel -eq 'DatabaseTemplates'))){
+            $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
+            $folderParts = $packageFolder -split "\."
+            $newRevision =$folderParts[$folderParts.Count- 2]
+            $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"
+            Write-Host "Extensions.TPDM latestVersion"  $packageversion
+            $config.packages.'tpdm'.PackageVersion = $packageversion
         }
 
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 
     - name: Commit and push updated Extensions- TPDM, Sample, Homograph package references
-      if: ${{ (env.Homograph_package_alreadyupdated == 'false' || env.Sample_package_alreadyupdated == 'false' || env.Homograph_package_alreadyupdated == 'false') && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates') }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        git add ./configuration.packages.json
-        git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
-        git push -u origin ${{ env.current_branch }}
+          # Check if there are any changes in the configuration.packages.json file
+          git diff --quiet ./configuration.packages.json
+
+          # $? holds the exit code of the last executed command
+          if (-not $?) {
+            Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          } else {
+            Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
+            git add ./configuration.packages.json
+            git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
+            git push -u origin ${{ env.current_branch }}
+          }
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -680,7 +684,6 @@ jobs:
         check_artifacts: true
 
     - name: Update configuration.packages.json with all EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
-      if: ${{ ((env.minimal_template_postgreSQL_package_alreadyupdated == 'false' || env.populated_template_postgreSQL_package_alreadyupdated == 'false' || env.populated_template_package_alreadyupdated == 'false' || env.minimal_template_postgreSQL_package_alreadyupdated == 'false') && ( inputs.rebuildLevel == 'DatabaseTemplates')) }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -688,7 +691,7 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        if ($env:minimal_template_package_alreadyupdated -eq 'false' )
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:minimal_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates'))) 
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -698,7 +701,7 @@ jobs:
             $config.packages.'EdFiMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        if ($env:minimal_template_postgreSQL_package_alreadyupdated -eq 'false' )
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -708,7 +711,7 @@ jobs:
             $config.packages.'PostgreSqlMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        if ($env:populated_template_package_alreadyupdated -eq 'false' )
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -718,7 +721,7 @@ jobs:
             $config.packages.'GrandBend'.PackageVersion = $packageversion
         }
 
-        if ($env:populated_template_postgreSQL_package_alreadyupdated -eq 'false' )
+        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_postgreSQL_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -730,12 +733,21 @@ jobs:
         $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
-      if: ${{ ( env.minimal_template_package_alreadyupdated == 'false' || env.minimal_template_postgreSQL_package_alreadyupdated == 'false' || env.populated_template_package_alreadyupdated == 'false' || env.populated_template_postgreSQL_package_alreadyupdated == 'false') && ( inputs.rebuildLevel == 'DatabaseTemplates') }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
-        git add ./configuration.packages.json
-        git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
-        git push -u origin ${{ env.current_branch }}
+
+          # Check if there are any changes in the configuration.packages.json file
+          git diff --quiet ./configuration.packages.json
+
+          # $? holds the exit code of the last executed command
+          if (-not $?) {
+            Write-Host "No changes detected in configuration.packages.json. Skipping commit."
+          } else {
+            Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
+            git add ./configuration.packages.json
+            git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
+            git push -u origin ${{ env.current_branch }}
+          }        
 
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
