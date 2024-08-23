@@ -58,7 +58,7 @@ jobs:
 
     - name: Extract StandardVersion
       id: extract_version
-      run: echo "standard_version=4.0.0" >> $GITHUB_ENV
+      run: echo "standard_version=${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions)[0] }}" >> $GITHUB_ENV
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
