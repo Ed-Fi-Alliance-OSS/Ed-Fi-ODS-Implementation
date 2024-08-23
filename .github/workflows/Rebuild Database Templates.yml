@@ -291,7 +291,8 @@ jobs:
           $filePath = "./configuration.packages.json"
 
           # Check if there are any changes in the file
-          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
+          git diff --quiet $filePath
+          $changesDetected = $LASTEXITCODE -eq 1
 
           if ($changesDetected) {
               Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
@@ -301,6 +302,7 @@ jobs:
           } else {
               Write-Host "No changes detected in configuration.packages.json. Skipping commit."
           }
+          exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Homograph.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
@@ -500,7 +502,8 @@ jobs:
           $filePath = "./configuration.packages.json"
 
           # Check if there are any changes in the file
-          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
+          git diff --quiet $filePath
+          $changesDetected = $LASTEXITCODE -eq 1
 
           if ($changesDetected) {
               Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
@@ -510,7 +513,7 @@ jobs:
           } else {
               Write-Host "No changes detected in configuration.packages.json. Skipping commit."
           }
-
+          exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
@@ -772,7 +775,8 @@ jobs:
           $filePath = "./configuration.packages.json"
 
           # Check if there are any changes in the file
-          $changesDetected = git diff --quiet $filePath; $LASTEXITCODE -eq 1
+          git diff --quiet $filePath
+          $changesDetected = $LASTEXITCODE -eq 1
 
           if ($changesDetected) {
               Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
@@ -782,7 +786,7 @@ jobs:
           } else {
               Write-Host "No changes detected in configuration.packages.json. Skipping commit."
           }
-
+          exit 0
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
