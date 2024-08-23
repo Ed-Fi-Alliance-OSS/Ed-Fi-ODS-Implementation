@@ -478,18 +478,23 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        Write-Host "IsSameCommitinAllthreeRepository: ${{ env.IsSameCommitinAllthreeRepository }}"
+        Write-Host "IsSameCommitinAllthreeRepository: $env:IsSameCommitinAllthreeRepository"
         Write-Host "inputs.rebuildLevel: ${{ github.event.inputs.rebuildLevel }}"
-        Write-Host "Homograph_package_alreadyupdated: ${{ env.Homograph_package_alreadyupdated }}"
-        Write-Host "Sample_package_alreadyupdated: ${{ env.Sample_package_alreadyupdated }}"
-        Write-Host "TPDM_package_alreadyupdated: ${{ env.TPDM_package_alreadyupdated }}"
+        Write-Host "Homograph_package_alreadyupdated: $env:Homograph_package_alreadyupdated"
+        Write-Host "Sample_package_alreadyupdated: $env:Sample_package_alreadyupdated"
+        Write-Host "TPDM_package_alreadyupdated: $env:TPDM_package_alreadyupdated"
 
-        $isCommitNotChanged = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'false'
-        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.Homograph_package_alreadyupdated }} -eq 'false'
+        # Evaluate conditions based on environment variables
+        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'
         $rebuildLevel = '${{ github.event.inputs.rebuildLevel }}'
         $isRebuildLevelValid = $rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')
 
-        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
+        Write-Host "isCommitNotChanged: $isCommitNotChanged"
+        Write-Host "isCommitChangedAndNotUpdated: $isCommitChangedAndNotUpdated"
+        Write-Host "isRebuildLevelValid: $isRebuildLevelValid"
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
            {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -499,8 +504,7 @@ jobs:
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.Sample_package_alreadyupdated }} -eq 'false'
-
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
@@ -511,7 +515,7 @@ jobs:
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.TPDM_package_alreadyupdated }} -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
