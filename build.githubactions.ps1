@@ -418,9 +418,6 @@ function AddOrUpdateRepositoriesJson {
         exit 1
     }
 
-    # # Define the user who triggered the workflow
-    # $triggeredBy = $Env:GITHUB_ACTOR
-
     # # Filter out the commits with the ignored messages
     $filteredCommits = $response | Where-Object { $ignoreMessages -notcontains $_.commit.message }
 
@@ -457,13 +454,16 @@ function AddOrUpdateRepositoriesJson {
                 Write-Host "Printing before updating new Commit ID"
                 Get-Content $filePath | Write-Host
                 Write-Host "New commit ID   is different with old Commit Id "
+                $repoEntry.repo_name = $RepoName                
                 $repoEntry.commit_message = $commitMessage
                 $repoEntry.commit_id = $commitId
                 Write-Host "Updated repository entry for $RepoName with new commit ID."
                 echo "$statusEnvName=false" >> $Env:GITHUB_ENV
+                Write-Host "$statusEnvName is false."
             } else {
                 Write-Host "The commit ID for $RepoName is already up to date."
                 echo "$statusEnvName=true" >> $Env:GITHUB_ENV
+                Write-Host "$statusEnvName is true."                
             }
         } else {
             # Add new entry if the repository entry does not exist
@@ -475,6 +475,7 @@ function AddOrUpdateRepositoriesJson {
             $jsonContent.repositories += $newRepoEntry
             Write-Host "Added new repository entry for $RepoName."
             echo "$statusEnvName=true" >> $Env:GITHUB_ENV
+            Write-Host "$statusEnvName is true."            
         }
 
         # Write updated content back to the file
