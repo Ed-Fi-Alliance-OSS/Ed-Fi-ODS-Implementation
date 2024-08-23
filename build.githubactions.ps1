@@ -398,12 +398,12 @@ function AddOrUpdateRepositoriesJson {
 
     foreach ($commit in $response) {
         $commitMessage = $commit.commit.message
-        $authorName = $commit.commit.author.name
-        Write-Host "----------------------------"        
+        # $authorName = $commit.commit.author.name
+        # Write-Host "----------------------------"        
         Write-Host "Commit Message: $commitMessage"
-        Write-Host "Author Name: $authorName"
-        Write-Host "Row Number: $rowNumber"
-        Write-Host "----------------------------"
+        # Write-Host "Author Name: $authorName"
+        # Write-Host "Row Number: $rowNumber"
+        # Write-Host "----------------------------"
         $rowNumber++
     }
     #Define the messages to ignore
@@ -437,6 +437,8 @@ function AddOrUpdateRepositoriesJson {
 
     # Check if the file exists
     if (Test-Path $FilePath) {
+
+        Write-Host "File Exists $FilePath ."
         # Read the existing content
         $jsonContent = Get-Content -Path $FilePath -Raw | ConvertFrom-Json
 
@@ -447,6 +449,9 @@ function AddOrUpdateRepositoriesJson {
         # Find the repository entry or create a new one
         $repoEntry = $jsonContent.repositories | Where-Object { $_.repo_name -eq $RepoName }
         
+        Write-Host "Printing before checking where new  Commit ID exists or not "
+        Get-Content $filePath | Write-Host
+
         if ($repoEntry) {
             # Check if the existing commit ID is different from the latest commit ID
             if ($repoEntry.commit_id -ne $commitId) {
@@ -482,6 +487,7 @@ function AddOrUpdateRepositoriesJson {
         $jsonContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
     } else {
         # Create a new file with the initial content
+        Write-Host "File not Exists $FilePath .new file is created"        
         $initialContent = @{
             repositories = @(
                 @{
@@ -493,6 +499,7 @@ function AddOrUpdateRepositoriesJson {
         }
         $initialContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
         echo "$statusEnvName=true" >> $Env:GITHUB_ENV
+        Write-Host "$statusEnvName is true."  
     }
 
     # Print the repositories.json content for verification
