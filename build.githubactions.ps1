@@ -449,10 +449,10 @@ function AddOrUpdateRepositoriesJson {
                 $repoEntry.commit_id = $commitId
                 $repoEntry.IscommitChanged = 'true'
                 Write-Host "Updated repository entry for $RepoName with new commit ID."
-                Write-Host "IscommitChanged is false."
+                Write-Host "IscommitChanged is true."
             } else {
                 Write-Host "The commit ID for $RepoName is already up to date."
-                Write-Host "IscommitChanged is true."               
+                Write-Host "IscommitChanged is false."               
             }
         } else {
             # Add new entry if the repository entry does not exist
@@ -464,7 +464,7 @@ function AddOrUpdateRepositoriesJson {
             }
             $jsonContent.repositories += $newRepoEntry
             Write-Host "Added new repository entry for $RepoName."
-            Write-Host "IscommitChanged is false."         
+            Write-Host "IscommitChanged is true."         
         }
 
         # Write updated content back to the file
@@ -483,7 +483,7 @@ function AddOrUpdateRepositoriesJson {
             )
         }
         $initialContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
-        Write-Host "IscommitChanged is false." 
+        Write-Host "IscommitChanged is true." 
     }
 
     # Print the repositories.json content for verification
