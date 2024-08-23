@@ -391,21 +391,6 @@ function AddOrUpdateRepositoriesJson {
     # Fetch the last commit details
     $response = Invoke-RestMethod -Uri $url -Headers $headers
 
-    Write-Host "Printing response from API using URL $url without any fliter"
-
-    # Initialize a counter
-    $rowNumber = 1
-
-    foreach ($commit in $response) {
-        $commitMessage = $commit.commit.message
-        # $authorName = $commit.commit.author.name
-        # Write-Host "----------------------------"        
-        Write-Host "Commit Message: $commitMessage"
-        # Write-Host "Author Name: $authorName"
-        # Write-Host "Row Number: $rowNumber"
-        # Write-Host "----------------------------"
-        $rowNumber++
-    }
     #Define the messages to ignore
     $ignoreMessages = @(
         "Updating for new CodeGen version",
@@ -498,8 +483,8 @@ function AddOrUpdateRepositoriesJson {
             )
         }
         $initialContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
-        echo "$statusEnvName=true" >> $Env:GITHUB_ENV
-        Write-Host "$statusEnvName is true."  
+        echo "$statusEnvName=false" >> $Env:GITHUB_ENV
+        Write-Host "$statusEnvName is false."  
     }
 
     # Print the repositories.json content for verification
