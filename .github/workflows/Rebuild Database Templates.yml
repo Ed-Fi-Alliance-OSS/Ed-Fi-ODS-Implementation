@@ -471,8 +471,11 @@ jobs:
         Write-Host "Sample_package_alreadyupdated is $env:Sample_package_alreadyupdated"                              
         Write-Host "TPDM_package_alreadyupdated is $env:TPDM_package_alreadyupdated"
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'))
-           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'
+        $isRebuildLevelValid = $env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
            {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -482,8 +485,9 @@ jobs:
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'))
-           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -493,8 +497,9 @@ jobs:
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -or ($env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'))
-           -and ($env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')))
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
