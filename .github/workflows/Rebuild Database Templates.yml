@@ -465,15 +465,15 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        Write-Host "IsSameCommitinAllthreeRepository is $env:IsSameCommitinAllthreeRepository"
-        Write-Host "inputs_rebuildLevel is $env:inputs_rebuildLevel"
-        Write-Host "Homograph_package_alreadyupdated is $env:Homograph_package_alreadyupdated"
-        Write-Host "Sample_package_alreadyupdated is $env:Sample_package_alreadyupdated"                              
-        Write-Host "TPDM_package_alreadyupdated is $env:TPDM_package_alreadyupdated"
+        Write-Host "IsSameCommitinAllthreeRepository: ${{ env.IsSameCommitinAllthreeRepository }}"
+        Write-Host "inputs_rebuildLevel: ${{ github.event.inputs.inputs_rebuildLevel }}"
+        Write-Host "Homograph_package_alreadyupdated: ${{ env.Homograph_package_alreadyupdated }}"
+        Write-Host "Sample_package_alreadyupdated: ${{ env.Sample_package_alreadyupdated }}"
+        Write-Host "TPDM_package_alreadyupdated: ${{ env.TPDM_package_alreadyupdated }}"
 
-        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'
-        $isRebuildLevelValid = $env:inputs_rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')
+        $isCommitNotChanged = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'false'
+        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.Homograph_package_alreadyupdated }} -eq 'false'
+        $isRebuildLevelValid = ${{ github.event.inputs.inputs_rebuildLevel }} -in @('DotNetPackages', 'DatabaseTemplates')
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
            {
@@ -485,7 +485,7 @@ jobs:
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.Sample_package_alreadyupdated }} -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
@@ -497,7 +497,7 @@ jobs:
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.TPDM_package_alreadyupdated }} -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
