@@ -115,7 +115,8 @@ jobs:
       working-directory: ./Ed-Fi-ODS-Implementation/ 
       shell: pwsh
       run: |
-        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/runs?branch=${{ env.current_branch }}"
+        $workflow_file_name = "Rebuild Database Templates.yml"
+        $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         $expectedConclusions = @('failure', 'cancelled')
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions $expectedConclusions -StatusEnvName 'failed_buildexists'
               
@@ -144,10 +145,9 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo 
         $implementationUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1 'AddOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation' -StatusEnvName 'IsSameCommitinAllthreeRepository'
+        .\build.githubactions.ps1 'AddOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
     - name: Read each repo last commit for repo Ed-Fi-ODS and stored it in repositories.json 
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -158,10 +158,9 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo 
         $odsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS' -StatusEnvName 'IsSameCommitinAllthreeRepository'
+        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
 
     - name: Read each repo last commit for repo Ed-Fi-Extensions and stored it in repositories.json 
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -172,7 +171,29 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo        
         $extensionsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions' -StatusEnvName 'IsSameCommitinAllthreeRepository'
+        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
+
+    - name: Check for IscommitChanged in repositories.json
+      working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
+      run: |
+        $FilePath = "repositories.json"
+        
+        # Read and parse the JSON file
+        $jsonContent = Get-Content -Path $FilePath | ConvertFrom-Json
+        
+        # Check if any repository has IscommitChanged set to true
+        $isCommitChanged = $jsonContent.repositories | Where-Object { $_.IscommitChanged -eq 'true' }
+
+        if ($isCommitChanged) {
+          # Set environment variable if any repository has IscommitChanged set to true
+          echo "IsSameCommitinAllthreeRepository=true" >> $Env:GITHUB_ENV
+          Write-Host "IsSameCommitinAllthreeRepository is true."
+        } else {
+          # Optionally, you can set it to false if no repository has IscommitChanged set to true
+          echo "IsSameCommitinAllthreeRepository=false" >> $Env:GITHUB_ENV
+           Write-Host "IsSameCommitinAllthreeRepository is false."
+        }
 
     - name: Upload repositories.json as an artifact
       if: success() 

@@ -447,13 +447,12 @@ function AddOrUpdateRepositoriesJson {
                 $repoEntry.repo_name = $RepoName                
                 $repoEntry.commit_message = $commitMessage
                 $repoEntry.commit_id = $commitId
+                $repoEntry.IscommitChanged = 'true'
                 Write-Host "Updated repository entry for $RepoName with new commit ID."
-                echo "$statusEnvName=false" >> $Env:GITHUB_ENV
-                Write-Host "$statusEnvName is false."
+                Write-Host "IscommitChanged is false."
             } else {
                 Write-Host "The commit ID for $RepoName is already up to date."
-                echo "$statusEnvName=true" >> $Env:GITHUB_ENV
-                Write-Host "$statusEnvName is true."                
+                Write-Host "IscommitChanged is true."               
             }
         } else {
             # Add new entry if the repository entry does not exist
@@ -461,11 +460,11 @@ function AddOrUpdateRepositoriesJson {
                 repo_name      = $RepoName
                 commit_message = $commitMessage
                 commit_id      = $commitId
+                IscommitChanged = 'true'
             }
             $jsonContent.repositories += $newRepoEntry
             Write-Host "Added new repository entry for $RepoName."
-            echo "$statusEnvName=true" >> $Env:GITHUB_ENV
-            Write-Host "$statusEnvName is true."            
+            Write-Host "IscommitChanged is false."         
         }
 
         # Write updated content back to the file
@@ -479,12 +478,12 @@ function AddOrUpdateRepositoriesJson {
                     repo_name      = $RepoName
                     commit_message = $CommitMessage
                     commit_id      = $CommitId
+                    IscommitChanged = 'true'
                 }
             )
         }
         $initialContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
-        echo "$statusEnvName=false" >> $Env:GITHUB_ENV
-        Write-Host "$statusEnvName is false."  
+        Write-Host "IscommitChanged is false." 
     }
 
     # Print the repositories.json content for verification
