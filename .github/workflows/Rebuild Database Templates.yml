@@ -192,7 +192,20 @@ jobs:
           echo "IsSameCommitinAllthreeRepository=true" >> $Env:GITHUB_ENV
            Write-Host "IsSameCommitinAllthreeRepository is true."
         }
-
+        
+        echo "Homograph_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "Sample_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "TPDM_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "codeGen_successful_runexist=false" >> $Env:GITHUB_ENV
+        echo "populated_template_successful_runexist=false" >> $Env:GITHUB_ENV
+        echo "populated_template_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "populated_template_postgreSQL_successful_runexist=false" >> $Env:GITHUB_ENV
+        echo "populated_template_postgreSQL_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "minimal_template_successful_runexist=false" >> $Env:GITHUB_ENV
+        echo "minimal_template_package_alreadyupdated=false" >> $Env:GITHUB_ENV
+        echo "minimal_template_postgreSQL_successful_runexist=false" >> $Env:GITHUB_ENV
+        echo "minimal_template_postgreSQL_package_alreadyupdated=false" >> $Env:GITHUB_ENV                                                
+ 
     - name: Upload repositories.json as an artifact
       if: success() 
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
