@@ -495,7 +495,7 @@ jobs:
         Write-Host "isRebuildLevelValid: $isRebuildLevelValid"
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
-           {
+        {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Homograph.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
             $newRevision =$folderParts[$folderParts.Count- 2]
@@ -761,7 +761,35 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:minimal_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates'))) 
+
+        Write-Host "IsSameCommitinAllthreeRepository: $env:IsSameCommitinAllthreeRepository"
+        Write-Host "inputs.rebuildLevel: ${{ github.event.inputs.rebuildLevel }}"
+
+        Write-Host "populated_template_successful_runexist: $env:populated_template_successful_runexist"
+        Write-Host "populated_template_package_alreadyupdated: $env:populated_template_package_alreadyupdated"
+
+        Write-Host "populated_template_postgreSQL_successful_runexist: $env:populated_template_postgreSQL_successful_runexist"
+        Write-Host "populated_template_postgreSQL_package_alreadyupdated: $env:populated_template_postgreSQL_package_alreadyupdated"
+
+        Write-Host "minimal_template_successful_runexist: $env:minimal_template_successful_runexist"
+        Write-Host "minimal_template_package_alreadyupdated: $env:minimal_template_package_alreadyupdated"
+
+        Write-Host "minimal_template_postgreSQL_successful_runexist: $env:minimal_template_postgreSQL_successful_runexist"
+        Write-Host "minimal_template_postgreSQL_package_alreadyupdated: $env:minimal_template_postgreSQL_package_alreadyupdated"  
+
+
+
+        # Evaluate conditions based on environment variables
+        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:minimal_template_package_alreadyupdated -eq 'false'
+        $rebuildLevel = '${{ github.event.inputs.rebuildLevel }}'
+        $isRebuildLevelValid = $rebuildLevel -in @('DatabaseTemplates')
+
+        Write-Host "isCommitNotChanged: $isCommitNotChanged"
+        Write-Host "isCommitChangedAndNotUpdated: $isCommitChangedAndNotUpdated"
+        Write-Host "isRebuildLevelValid: $isRebuildLevelValid"
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -771,7 +799,9 @@ jobs:
             $config.packages.'EdFiMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:minimal_template_postgreSQL_package_alreadyupdated -eq 'false'
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -781,7 +811,9 @@ jobs:
             $config.packages.'PostgreSqlMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:populated_template_package_alreadyupdated -eq 'false'
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
@@ -791,7 +823,9 @@ jobs:
             $config.packages.'GrandBend'.PackageVersion = $packageversion
         }
 
-        if ((($env:IsSameCommitinAllthreeRepository -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')) -or (($env:IsSameCommitinAllthreeRepository -eq 'true') -and ($env:populated_template_postgreSQL_package_alreadyupdated -eq 'false') -and ($inputs:rebuildLevel -eq 'DatabaseTemplates')))
+        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:populated_template_postgreSQL_package_alreadyupdated -eq 'false'
+
+        if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Populated.Template.PostgreSQL.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
             $folderParts = $packageFolder -split "\."
