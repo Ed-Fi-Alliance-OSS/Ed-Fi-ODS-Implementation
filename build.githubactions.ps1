@@ -420,6 +420,8 @@ function AddOrUpdateRepositoriesJson {
         exit 1
     }
 
+    $jsonContent = null
+
     # Check if the file exists
     if (Test-Path $FilePath) {
 
@@ -452,7 +454,8 @@ function AddOrUpdateRepositoriesJson {
                 Write-Host "IscommitChanged is true."
             } else {
                 Write-Host "The commit ID for $RepoName is already up to date."
-                Write-Host "IscommitChanged is false."               
+                Write-Host "IscommitChanged is false."  
+                $repoEntry.IscommitChanged = 'false'                      
             }
         } else {
             # Add new entry if the repository entry does not exist
@@ -466,13 +469,10 @@ function AddOrUpdateRepositoriesJson {
             Write-Host "Added new repository entry for $RepoName."
             Write-Host "IscommitChanged is true."         
         }
-
-        # Write updated content back to the file
-        $jsonContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
     } else {
         # Create a new file with the initial content
         Write-Host "File not Exists $FilePath .new file is created"        
-        $initialContent = @{
+        $jsonContent = @{
             repositories = @(
                 @{
                     repo_name      = $RepoName
@@ -482,13 +482,15 @@ function AddOrUpdateRepositoriesJson {
                 }
             )
         }
-        $initialContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
         Write-Host "IscommitChanged is true." 
     }
 
+    # Write updated content back to the file
+    $jsonContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
+
     # Print the repositories.json content for verification
      Write-Host "Print the repositories.json content for verification"
-      Get-Content $filePath | Write-Host
+     Get-Content $filePath | Write-Host
 }
 
 function TestBranchExists {
