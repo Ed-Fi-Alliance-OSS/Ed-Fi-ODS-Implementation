@@ -285,6 +285,7 @@ jobs:
 
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
       working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh
       run: |
           # Define the file path
           $filePath = "./configuration.packages.json"
@@ -493,6 +494,7 @@ jobs:
 
     - name: Commit and push updated Extensions- TPDM, Sample, Homograph package references
       working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh      
       run: |
           # Define the file path
           $filePath = "./configuration.packages.json"
@@ -764,6 +766,7 @@ jobs:
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
       working-directory: ./Ed-Fi-ODS-Implementation/
+      shell: pwsh      
       run: |
           # Define the file path
           $filePath = "./configuration.packages.json"
