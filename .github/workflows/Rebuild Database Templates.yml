@@ -466,14 +466,15 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
 
         Write-Host "IsSameCommitinAllthreeRepository: ${{ env.IsSameCommitinAllthreeRepository }}"
-        Write-Host "inputs_rebuildLevel: ${{ github.event.inputs.inputs_rebuildLevel }}"
+        Write-Host "inputs.rebuildLevel: ${{ github.event.inputs.rebuildLevel }}"
         Write-Host "Homograph_package_alreadyupdated: ${{ env.Homograph_package_alreadyupdated }}"
         Write-Host "Sample_package_alreadyupdated: ${{ env.Sample_package_alreadyupdated }}"
         Write-Host "TPDM_package_alreadyupdated: ${{ env.TPDM_package_alreadyupdated }}"
 
         $isCommitNotChanged = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'false'
         $isCommitChangedAndNotUpdated = ${{ env.IsSameCommitinAllthreeRepository }} -eq 'true' -and ${{ env.Homograph_package_alreadyupdated }} -eq 'false'
-        $isRebuildLevelValid = ${{ github.event.inputs.inputs_rebuildLevel }} -in @('DotNetPackages', 'DatabaseTemplates')
+        $rebuildLevel = '${{ github.event.inputs.rebuildLevel }}'
+        $isRebuildLevelValid = $rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
            {
