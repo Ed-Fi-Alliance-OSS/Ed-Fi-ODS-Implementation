@@ -187,12 +187,12 @@ jobs:
 
         if ($isCommitChanged) {
           # Set environment variable if any repository has IscommitChanged set to true
-          echo "IsSameCommitinAllthreeRepository=true" >> $Env:GITHUB_ENV
-          Write-Host "IsSameCommitinAllthreeRepository is true."
+          echo "IsSameCommitinAllthreeRepository=false" >> $Env:GITHUB_ENV
+          Write-Host "IsSameCommitinAllthreeRepository is false."
         } else {
           # Optionally, you can set it to false if no repository has IscommitChanged set to true
-          echo "IsSameCommitinAllthreeRepository=false" >> $Env:GITHUB_ENV
-           Write-Host "IsSameCommitinAllthreeRepository is false."
+          echo "IsSameCommitinAllthreeRepository=true" >> $Env:GITHUB_ENV
+           Write-Host "IsSameCommitinAllthreeRepository is true."
         }
 
     - name: Upload repositories.json as an artifact
