@@ -123,7 +123,7 @@ jobs:
 
       - name: Log in to Docker Hub
         if: ${{ env.DOCKER_HUB_TOKEN != '' }}
-        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a  # v2.1.0
+        uses: docker/login-action@343f7c4344506bcbf9b4de18042ae17996df046d  # v3.0.0
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
