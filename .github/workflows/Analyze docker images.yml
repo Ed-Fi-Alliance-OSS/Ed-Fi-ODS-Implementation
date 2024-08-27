@@ -70,7 +70,7 @@ jobs:
         shell: pwsh
 
       - name: Analyze
-        uses: docker/scout-action@7c61653c2736d21969dd4593fde76c670d4a86cb # v1.2.0
+        uses: docker/scout-action@67eb1afe777307506aaecb9acd9a0e0389cb99ae # v1.5.0
         with:
           command: cves
           image: ${{ env.IMAGENAME }}
