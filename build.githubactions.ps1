@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler","WorkflowCheck","ComparePackageVersions","CreateOrUpdateRepositoriesJson","TestBranchExists")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -58,7 +58,19 @@ param(
     $RelativeRepoPath,
 
     [ValidateSet('4.0.0', '5.1.0')]
-    [string]  $StandardVersion
+    [string]  $StandardVersion,
+
+    [string]$Url,
+
+    [string]$ExpectedStatus = 'completed',
+
+    [string[]]$ExpectedConclusions = 'success',
+
+    [string]$StatusEnvName,
+
+    [string]$RepoName,
+
+    [string]$BranchName
 )
 
 $newRevision = ([int]$BuildCounter) + ([int]$BuildIncrementer)
@@ -288,6 +300,223 @@ function StandardVersions {
     return $standardVersions
 }
 
+function WorkflowCheck {
+    $headers = @{
+        Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+        Accept = "application/vnd.github.v3+json"
+    }
+    
+    $response = Invoke-RestMethod -Uri $Url -Headers $headers
+    
+    if ( $response.workflow_runs.Count -gt 0) {
+        Write-Host "Found workflow runs for URL: $Url."
+    
+        $runTracker = @{}  # Create an empty hash table to track printed run_numbers
+    
+        $response.workflow_runs | Where-Object { $_.status -eq $ExpectedStatus -and $ExpectedConclusions -contains $_.conclusion } | 
+         Sort-Object -Property run_number -Descending | Select-Object -First 1| ForEach-Object {
+            if (-not $runTracker.ContainsKey($_.run_number)) {
+                Write-Host "Run ID: $($_.id)"
+                Write-Host "Run Name: $($_.name)"
+                Write-Host "Run Number: $($_.run_number)"
+                Write-Host "Event: $($_.event)"
+                Write-Host "Status: $($_.status)"
+                Write-Host "Conclusion: $($_.conclusion)"
+                Write-Host "Created At: $($_.created_at)"
+                Write-Host "Updated At: $($_.updated_at)"
+                Write-Host "URL: $($_.html_url)"
+    
+                # Mark this run_number as printed
+                $runTracker[$_.run_number] = $true
+                echo "$StatusEnvName=true" >> $Env:GITHUB_ENV
+                echo "rebuild_database_templates_lastrunId=$($_.id)" >> $Env:GITHUB_ENV
+            }
+        }
+    } else {
+        Write-Host "No matching workflow runs found for URL: $Url."
+        echo "$StatusEnvName=false" >> $Env:GITHUB_ENV
+    }
+}
+
+function ComparePackageVersions {
+    # API URLs for branch and main
+    $url_branch = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=$Env:current_branch"
+    $url_main = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/contents/configuration.packages.json?ref=main"
+
+    $headers = @{
+        Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+        Accept = "application/vnd.github.v3+json"
+    }
+
+    # Get the file content for the branch
+    $response_branch = Invoke-RestMethod -Uri $url_branch -Headers $headers
+    $content_branch = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response_branch.content))
+    $json_branch = $content_branch | ConvertFrom-Json
+
+    # Get the file content for the main branch
+    $response_main = Invoke-RestMethod -Uri $url_main -Headers $headers
+    $content_main = [System.Text.Encoding]::UTF8.GetString([System.Convert]::FromBase64String($response_main.content))
+    $json_main = $content_main | ConvertFrom-Json
+    # Extract the PackageVersion for the package name
+    $branch_version = $json_branch.packages.$PackageName.PackageVersion
+    $main_version = $json_main.packages.$PackageName.PackageVersion
+
+    # Convert versions to a comparable format 
+    $branch_version = [Version]$branch_version
+    $main_version = [Version]$main_version
+
+    # Compare the versions and print
+    if ($branch_version -gt $main_version) {
+        Write-Host "Package versions are different:"
+        Write-Host "Branch ($branch): $branch_version"
+        Write-Host "Main: $main_version"
+        echo "$StatusEnvName=true" >> $Env:GITHUB_ENV
+    } else {
+        Write-Host "Package versions are the same:"
+        Write-Host "Branch ($branch): $branch_version"
+        Write-Host "Main: $main_version"
+        echo "$StatusEnvName=false" >> $Env:GITHUB_ENV
+    }
+}
+
+function CreateOrUpdateRepositoriesJson {
+
+    $FilePath = "repositories.json"
+
+    $headers = @{
+        Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+        Accept = "application/vnd.github.v3+json"
+    }
+
+    # Fetch the last commit details
+    $response = Invoke-RestMethod -Uri $url -Headers $headers
+
+    #Define the messages to ignore
+    $ignoreMessages = @(
+        "Updating for new CodeGen version",
+        "Updating for new Extensions- TPDM, Sample, Homograph package version",
+        "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
+    )
+
+    if ($null -eq $response -or $response.Length -eq 0) {
+        Write-Host "API response is null or empty. Stopping the build."
+        exit 1
+    }
+
+    # # Filter out the commits with the ignored messages
+    $filteredCommits = $response | Where-Object { $ignoreMessages -notcontains $_.commit.message }
+
+    if ($null -eq $filteredCommits) {
+        Write-Host "Stopping the build. filteredCommits returns null"
+        exit 1
+    }
+
+    if ($filteredCommits -and $filteredCommits.Count -gt 0) {
+        $latestCommit = $filteredCommits[0]
+        $commitMessage = $latestCommit.commit.message
+        $commitId = $latestCommit.sha
+    } else {
+        Write-Host "No valid commits found after filtering. Stopping the build."
+        exit 1
+    }
+
+    $jsonContent = $null
+
+    # Check if the file exists
+    if (Test-Path $FilePath) {
+
+        Write-Host "File Exists $FilePath ."
+        # Read the existing content
+        $jsonContent = Get-Content -Path $FilePath -Raw | ConvertFrom-Json
+
+        if ($null -eq $jsonContent.repositories) {
+            $jsonContent.repositories = @()
+        }
+
+        # Find the repository entry or create a new one
+        $repoEntry = $jsonContent.repositories | Where-Object { $_.repo_name -eq $RepoName }
+        
+        Write-Host "Printing before checking where new  Commit ID exists or not "
+        Get-Content $filePath | Write-Host
+
+        if ($repoEntry) {
+            # Check if the existing commit ID is different from the latest commit ID
+            if ($repoEntry.commit_id -ne $commitId) {
+                # Update the entry if the commit ID is different
+                Write-Host "Printing before updating new Commit ID"
+                Get-Content $filePath | Write-Host
+                Write-Host "New commit ID   is different with old Commit Id "
+                $repoEntry.repo_name = $RepoName                
+                $repoEntry.commit_message = $commitMessage
+                $repoEntry.commit_id = $commitId
+                $repoEntry.IscommitChanged = 'true'
+                Write-Host "Updated repository entry for $RepoName with new commit ID."
+                Write-Host "IscommitChanged is true."
+            } else {
+                Write-Host "The commit ID for $RepoName is already up to date."
+                Write-Host "IscommitChanged is false."  
+                $repoEntry.IscommitChanged = 'false'                      
+            }
+        } else {
+            # Add new entry if the repository entry does not exist
+            $newRepoEntry = @{
+                repo_name      = $RepoName
+                commit_message = $commitMessage
+                commit_id      = $commitId
+                IscommitChanged = 'true'
+            }
+            $jsonContent.repositories += $newRepoEntry
+            Write-Host "Added new repository entry for $RepoName."
+            Write-Host "IscommitChanged is true."         
+        }
+    } else {
+        # Create a new file with the initial content
+        Write-Host "File not Exists $FilePath .new file is created"        
+        $jsonContent = @{
+            repositories = @(
+                @{
+                    repo_name      = $RepoName
+                    commit_message = $CommitMessage
+                    commit_id      = $CommitId
+                    IscommitChanged = 'true'
+                }
+            )
+        }
+        Write-Host "IscommitChanged is true." 
+    }
+
+    # Write updated content back to the file
+    $jsonContent | ConvertTo-Json -Depth 4 | Out-File -FilePath $FilePath -Encoding UTF8
+
+    # Print the repositories.json content for verification
+     Write-Host "Print the repositories.json content for verification"
+     Get-Content $filePath | Write-Host
+}
+
+function TestBranchExists {
+
+    $headers = @{
+        Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+        Accept        = "application/vnd.github.v3+json"
+    }
+
+    try {
+        $response = Invoke-RestMethod -Uri $url -Headers $headers
+        if ($response.name -eq $BranchName) {
+            Write-Host "Branch '$BranchName' exists in repository '$RepoName'."
+            return
+        } else {
+            Write-Host "Branch '$BranchName' does not exist in repository '$RepoName'."
+            Write-Host "Stopping the build."
+            exit 1
+        }
+    } catch {
+        Write-Host "Branch '$BranchName' does not exist in repository '$RepoName'."
+        Write-Host "Stopping the build."
+        exit 1
+    }
+}
+
 function Invoke-StandardVersions {
     Invoke-Step { StandardVersions }
 }
@@ -326,6 +555,22 @@ function Invoke-InstallCredentialHandler {
     Invoke-Step { InstallCredentialHandler }
 }
 
+function Invoke-WorkflowCheck {
+    Invoke-Step { WorkflowCheck }
+}
+
+function Invoke-ComparePackageVersions {
+    Invoke-Step { ComparePackageVersions }
+}
+
+function Invoke-CreateOrUpdateRepositoriesJson {
+    Invoke-Step { CreateOrUpdateRepositoriesJson }
+}
+
+function Invoke-TestBranchExists {
+    Invoke-Step { TestBranchExists }
+}
+
 Invoke-Main {
     switch ($Command) {
         DotnetClean { Invoke-DotnetClean }
@@ -336,7 +581,12 @@ Invoke-Main {
         Publish { Invoke-Publish }
         CheckoutBranch { Invoke-CheckoutBranch }
         InstallCredentialHandler { Invoke-InstallCredentialHandler }
-        StandardVersions { Invoke-StandardVersions }        
+        StandardVersions { Invoke-StandardVersions }
+        WorkflowCheck { Invoke-WorkflowCheck }
+        ComparePackageVersions { Invoke-ComparePackageVersions }
+        CreateOrUpdateRepositoriesJson { Invoke-CreateOrUpdateRepositoriesJson } 
+        TestBranchExists { Invoke-TestBranchExists }               
+        
         default { throw "Command '$Command' is not recognized" }
     }
 }
