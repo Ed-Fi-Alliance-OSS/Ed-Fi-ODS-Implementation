@@ -7,7 +7,7 @@
 param(
     # Command to execute, defaults to "Build".
     [string]
-    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler","WorkflowCheck","ComparePackageVersions","AddOrUpdateRepositoriesJson","TestBranchExists")]
+    [ValidateSet("DotnetClean", "Restore", "Build", "Test", "Pack", "Publish", "CheckoutBranch","StandardVersions", "InstallCredentialHandler","WorkflowCheck","ComparePackageVersions","CreateOrUpdateRepositoriesJson","TestBranchExists")]
     $Command = "Build",
 
     [switch] $SelfContained,
@@ -379,7 +379,7 @@ function ComparePackageVersions {
     }
 }
 
-function AddOrUpdateRepositoriesJson {
+function CreateOrUpdateRepositoriesJson {
 
     $FilePath = "repositories.json"
 
@@ -563,8 +563,8 @@ function Invoke-ComparePackageVersions {
     Invoke-Step { ComparePackageVersions }
 }
 
-function Invoke-AddOrUpdateRepositoriesJson {
-    Invoke-Step { AddOrUpdateRepositoriesJson }
+function Invoke-CreateOrUpdateRepositoriesJson {
+    Invoke-Step { CreateOrUpdateRepositoriesJson }
 }
 
 function Invoke-TestBranchExists {
@@ -584,7 +584,7 @@ Invoke-Main {
         StandardVersions { Invoke-StandardVersions }
         WorkflowCheck { Invoke-WorkflowCheck }
         ComparePackageVersions { Invoke-ComparePackageVersions }
-        AddOrUpdateRepositoriesJson { Invoke-AddOrUpdateRepositoriesJson } 
+        CreateOrUpdateRepositoriesJson { Invoke-CreateOrUpdateRepositoriesJson } 
         TestBranchExists { Invoke-TestBranchExists }               
         
         default { throw "Command '$Command' is not recognized" }

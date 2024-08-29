@@ -111,7 +111,7 @@ jobs:
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/branches/${{ env.current_branch }}"
         .\build.githubactions.ps1  TestBranchExists -RepoName "Ed-Fi-Extensions" -BranchName "${{ env.current_branch }}" -Url $url
 
-    - name: Check any failed previous Workflow Run exist in current branch
+    - name: Check for any failed previous workflow runs in the current branch
       working-directory: ./Ed-Fi-ODS-Implementation/ 
       shell: pwsh
       run: |
@@ -135,7 +135,7 @@ jobs:
         if_no_artifact_found: ignore
       continue-on-error: true
 
-    - name: Read each repo last commit for repo Ed-Fi-ODS-Implementation and stored it in repositories.json 
+    - name: Read the last commit for Ed-Fi-ODS-Implementation and store it in repositories.json 
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -145,9 +145,9 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo 
         $implementationUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1 'AddOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
+        .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
-    - name: Read each repo last commit for repo Ed-Fi-ODS and stored it in repositories.json 
+    - name: Read the last commit for Ed-Fi-ODS and store it in repositories.json 
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -157,9 +157,9 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo 
         $odsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
+        .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
 
-    - name: Read each repo last commit for repo Ed-Fi-Extensions and stored it in repositories.json 
+    - name: Read the last commit for Ed-Fi-Extensions and store it in repositories.json 
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -169,7 +169,7 @@ jobs:
         $branchName = "${{ env.current_branch }}"
         $sinceDate = $oneeightyDaysAgo        
         $extensionsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
-        .\build.githubactions.ps1  'AddOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
+        .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
 
     - name: Check for IscommitChanged in repositories.json
       working-directory: ./Ed-Fi-ODS-Implementation/
@@ -185,12 +185,12 @@ jobs:
 
         if ($isCommitChanged) {
           # Set environment variable if any repository has IscommitChanged set to true
-          echo "IsSameCommitinAllthreeRepository=false" >> $Env:GITHUB_ENV
-          Write-Host "IsSameCommitinAllthreeRepository is false."
+          echo "NoNewCommitsInAllThreeRepositories=false" >> $Env:GITHUB_ENV
+          Write-Host "NoNewCommitsInAllThreeRepositories is false."
         } else {
           # Optionally, you can set it to false if no repository has IscommitChanged set to true
-          echo "IsSameCommitinAllthreeRepository=true" >> $Env:GITHUB_ENV
-           Write-Host "IsSameCommitinAllthreeRepository is true."
+          echo "NoNewCommitsInAllThreeRepositories=true" >> $Env:GITHUB_ENV
+           Write-Host "NoNewCommitsInAllThreeRepositories is true."
         }
         
         echo "Homograph_package_alreadyupdated=false" >> $Env:GITHUB_ENV
@@ -215,7 +215,7 @@ jobs:
  
     - name: Check if any successful workflow run in Pkg EdFi.Ods.CodeGen.yml
       working-directory: ./Ed-Fi-ODS-Implementation/     
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.CodeGen.yml"
@@ -230,7 +230,7 @@ jobs:
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'EdFi.Ods.CodeGen' -StatusEnvName 'EdFi.Ods.CodeGen_package_alreadyupdated'
 
     - name: Dispatch EdFi.Ods.CodeGen workflow
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'false' || (env.IsSameCommitinAllthreeRepository == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_codegen
       with:
@@ -242,7 +242,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.CodeGen RunID ${{ steps.return_dispatch_codegen.outputs.run_id }}
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'false' || (env.IsSameCommitinAllthreeRepository == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -253,7 +253,7 @@ jobs:
         poll_interval_ms: 5000
         
     - name: Download Codegen artifact using Run Id ${{ steps.return_dispatch_codegen.outputs.run_id }}
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'false' || (env.IsSameCommitinAllthreeRepository == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.CodeGen.yml
@@ -281,7 +281,7 @@ jobs:
         git config user.email "${{ steps.import-gpg.outputs.email }}"
 
     - name: Update configuration.packages.json with EdFi.Ods.CodeGen new package version
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'false' || (env.IsSameCommitinAllthreeRepository == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}  
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}  
       working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
@@ -318,7 +318,7 @@ jobs:
           exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Homograph.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
 
@@ -335,7 +335,7 @@ jobs:
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Sample.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.Sample.yml"
@@ -351,14 +351,14 @@ jobs:
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.TPDM.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Extensions.TPDM.yml"
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'TPDM_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Extensions.TPDM package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.TPDM package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.TPDM_successful_runexist == 'true' }}
       shell: pwsh
@@ -366,7 +366,7 @@ jobs:
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'tpdm' -StatusEnvName 'TPDM_package_alreadyupdated'
 
     - name: Dispatch EdFi.Ods.Extensions.Homograph workflow
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_homograph
       with:
@@ -378,7 +378,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.Sample workflow
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_sample
       with:
@@ -390,7 +390,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Dispatch  EdFi.Ods.Extensions.TPDM worflow
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_TPDM
       with:
@@ -402,7 +402,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Homograph RunID ${{ steps.return_dispatch_homograph.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -413,7 +413,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.Sample RunID ${{ steps.return_dispatch_sample.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -424,7 +424,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Extensions.TPDM RunID ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -435,7 +435,7 @@ jobs:
         poll_interval_ms: 5000
        
     - name: Download EdFi.Ods.Extensions.Homograph artifact using Run Id ${{ steps.return_dispatch_homograph.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Homograph_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Extensions.Homograph.yml
@@ -447,7 +447,7 @@ jobs:
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.Sample artifact using Run Id ${{ steps.return_dispatch_sample.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.Sample_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}            
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Extensions.Sample.yml
@@ -459,7 +459,7 @@ jobs:
         check_artifacts: true
 
     - name: Download EdFi.Ods.Extensions.TPDM artifact using Run Id ${{ steps.return_dispatch_TPDM.outputs.run_id }}
-      if: ${{ ( env.IsSameCommitinAllthreeRepository == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.IsSameCommitinAllthreeRepository == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
+      if: ${{ ( env.NoNewCommitsInAllThreeRepositories == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates')) || ((env.NoNewCommitsInAllThreeRepositories == 'true' && env.TPDM_package_alreadyupdated == 'false' && (inputs.rebuildLevel == 'DotNetPackages' || inputs.rebuildLevel == 'DatabaseTemplates'))) }}      
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Extensions.TPDM.yml
@@ -478,15 +478,15 @@ jobs:
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
-        Write-Host "IsSameCommitinAllthreeRepository: $env:IsSameCommitinAllthreeRepository"
+        Write-Host "NoNewCommitsInAllThreeRepositories: $env:NoNewCommitsInAllThreeRepositories"
         Write-Host "inputs.rebuildLevel: ${{ github.event.inputs.rebuildLevel }}"
         Write-Host "Homograph_package_alreadyupdated: $env:Homograph_package_alreadyupdated"
         Write-Host "Sample_package_alreadyupdated: $env:Sample_package_alreadyupdated"
         Write-Host "TPDM_package_alreadyupdated: $env:TPDM_package_alreadyupdated"
 
         # Evaluate conditions based on environment variables
-        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'
+        $isCommitNotChanged = $env:NoNewCommitsInAllThreeRepositories -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:Homograph_package_alreadyupdated -eq 'false'
         $rebuildLevel = '${{ github.event.inputs.rebuildLevel }}'
         $isRebuildLevelValid = $rebuildLevel -in @('DotNetPackages', 'DatabaseTemplates')
 
@@ -504,7 +504,7 @@ jobs:
             $config.packages.'homograph'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:Sample_package_alreadyupdated -eq 'false'
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
             $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Extensions.Sample.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
@@ -515,7 +515,7 @@ jobs:
             $config.packages.'sample'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:TPDM_package_alreadyupdated -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid )
         {
@@ -551,14 +551,14 @@ jobs:
           exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Populated.Template.yml"
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Populated.Template package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.populated_template_successful_runexist == 'true' }}
       shell: pwsh
@@ -567,14 +567,14 @@ jobs:
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml"
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_postgreSQL_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Populated.Template.PostgreSQL package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template.PostgreSQL package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.populated_template_postgreSQL_successful_runexist == 'true' }}
       shell: pwsh
@@ -583,14 +583,14 @@ jobs:
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Minimal.Template.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Minimal.Template.yml"
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Minimal.Template package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.minimal_template_successful_runexist == 'true' }}
       shell: pwsh
@@ -599,14 +599,14 @@ jobs:
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
       working-directory: ./Ed-Fi-ODS-Implementation/
-      if: ${{ env.IsSameCommitinAllthreeRepository == 'true' }}
+      if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
         $workflow_file_name = "Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml"
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_postgreSQL_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Minimal.Template.PostgreSQL package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template.PostgreSQL package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.minimal_template_postgreSQL_successful_runexist == 'true' }}
       shell: pwsh
@@ -614,7 +614,7 @@ jobs:
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'PostgreSqlMinimalTemplate' -StatusEnvName 'minimal_template_postgreSQL_package_alreadyupdated'
 
     - name: Dispatch EdFi.Ods.Populated.Template workflow
-      if: ${{ ((env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ ((env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_populated_template
       with:
@@ -626,7 +626,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Populated.Template.PostgreSQL workflow
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_populated_template_postgresql
       with:
@@ -638,7 +638,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template  workflow
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_minimal_template
       with:
@@ -650,7 +650,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Dispatch EdFi.Ods.Minimal.Template.PostgreSQL  workflow
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
       id: return_dispatch_minimal_template_postgresql
       with:
@@ -662,7 +662,7 @@ jobs:
         workflow_timeout_seconds: 4800
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template.PostgreSQL RunID ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -673,7 +673,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Minimal.Template RunID ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -684,7 +684,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template RunID ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -695,7 +695,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Await to complete the execution for EdFi.Ods.Populated.Template.PostgreSQL RunID ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: Codex-/await-remote-run@d4a6dbf57245924ff4f23e0db929b8e3ef65486b #v1.12.2
       with:
         token: ${{ env.EDFI_ODS_TOKEN }}
@@ -706,7 +706,7 @@ jobs:
         poll_interval_ms: 5000
 
     - name: Download EdFi.Ods.Minimal.Template artifact using Run Id ${{ steps.return_dispatch_minimal_template.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.yml
@@ -718,7 +718,7 @@ jobs:
         check_artifacts: true
 
     - name: Download EdFi.Ods.Minimal.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_minimal_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.minimal_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
@@ -730,7 +730,7 @@ jobs:
         check_artifacts: true
 
     - name: Download EdFi.Ods.Populated.Template artifact using Run Id ${{ steps.return_dispatch_populated_template.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.yml
@@ -742,7 +742,7 @@ jobs:
         check_artifacts: true
 
     - name: Download EdFi.Ods.Populated.Template.PostgreSQL artifact using Run Id ${{ steps.return_dispatch_populated_template_postgresql.outputs.run_id }}
-      if: ${{ (( env.IsSameCommitinAllthreeRepository == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.IsSameCommitinAllthreeRepository == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
+      if: ${{ (( env.NoNewCommitsInAllThreeRepositories == 'false' && inputs.rebuildLevel == 'DatabaseTemplates') || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.populated_template_postgreSQL_package_alreadyupdated == 'false' &&  inputs.rebuildLevel == 'DatabaseTemplates')) }}
       uses: dawidd6/action-download-artifact@71072fbb1229e1317f1a8de6b04206afb461bd67  #v3.1.2
       with:
         workflow: Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
@@ -762,7 +762,7 @@ jobs:
         $config = Get-Content $filePath | ConvertFrom-Json
 
 
-        Write-Host "IsSameCommitinAllthreeRepository: $env:IsSameCommitinAllthreeRepository"
+        Write-Host "NoNewCommitsInAllThreeRepositories: $env:NoNewCommitsInAllThreeRepositories"
         Write-Host "inputs.rebuildLevel: ${{ github.event.inputs.rebuildLevel }}"
 
         Write-Host "populated_template_successful_runexist: $env:populated_template_successful_runexist"
@@ -780,8 +780,8 @@ jobs:
 
 
         # Evaluate conditions based on environment variables
-        $isCommitNotChanged = $env:IsSameCommitinAllthreeRepository -eq 'false'
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:minimal_template_package_alreadyupdated -eq 'false'
+        $isCommitNotChanged = $env:NoNewCommitsInAllThreeRepositories -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:minimal_template_package_alreadyupdated -eq 'false'
         $rebuildLevel = '${{ github.event.inputs.rebuildLevel }}'
         $isRebuildLevelValid = $rebuildLevel -in @('DatabaseTemplates')
 
@@ -799,7 +799,7 @@ jobs:
             $config.packages.'EdFiMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:minimal_template_postgreSQL_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:minimal_template_postgreSQL_package_alreadyupdated -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
@@ -811,7 +811,7 @@ jobs:
             $config.packages.'PostgreSqlMinimalTemplate'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:populated_template_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:populated_template_package_alreadyupdated -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
@@ -823,7 +823,7 @@ jobs:
             $config.packages.'GrandBend'.PackageVersion = $packageversion
         }
 
-        $isCommitChangedAndNotUpdated = $env:IsSameCommitinAllthreeRepository -eq 'true' -and $env:populated_template_postgreSQL_package_alreadyupdated -eq 'false'
+        $isCommitChangedAndNotUpdated = $env:NoNewCommitsInAllThreeRepositories -eq 'true' -and $env:populated_template_postgreSQL_package_alreadyupdated -eq 'false'
 
         if (($isCommitNotChanged -or $isCommitChangedAndNotUpdated) -and $isRebuildLevelValid)
         {
