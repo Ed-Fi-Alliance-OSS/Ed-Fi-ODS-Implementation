@@ -140,10 +140,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneeightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")        
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneeightyDaysAgo"
+        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")        
+        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneeightyDaysAgo 
+        $sinceDate = $oneEightyDaysAgo 
         $implementationUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
@@ -152,10 +152,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneeightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneeightyDaysAgo"
+        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneeightyDaysAgo 
+        $sinceDate = $oneEightyDaysAgo 
         $odsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
 
@@ -164,10 +164,10 @@ jobs:
       shell: pwsh
       run: |
 
-        $oneeightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
-        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneeightyDaysAgo"
+        $oneEightyDaysAgo = (Get-Date).AddDays(-180).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
+        Write-Host "oneeightyDaysAgo Date and Time in ISO 8601 format: $oneEightyDaysAgo"
         $branchName = "${{ env.current_branch }}"
-        $sinceDate = $oneeightyDaysAgo        
+        $sinceDate = $oneEightyDaysAgo        
         $extensionsUrl = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/commits?sha=$branchName&since=$sinceDate&page=1&per_page=200"
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
 
@@ -222,7 +222,7 @@ jobs:
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'codeGen_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.CodeGen package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.CodeGen package version
       working-directory: ./Ed-Fi-ODS-Implementation/    
       if: ${{ env.codeGen_successful_runexist == 'true' }}    
       shell: pwsh
@@ -326,7 +326,7 @@ jobs:
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Homograph_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Extensions.Homograph package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Homograph package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.Homograph_successful_runexist == 'true' }}
       shell: pwsh
@@ -342,7 +342,7 @@ jobs:
         $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-Extensions/actions/workflows/$workflow_file_name/runs?branch=${{ env.current_branch }}"
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Sample_successful_runexist'
   
-    - name: Compare already configuration.packages.json updated with EdFi.Ods.Extensions.Sample package Version
+    - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Sample package Version
       working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.Sample_successful_runexist == 'true' }}
       shell: pwsh
