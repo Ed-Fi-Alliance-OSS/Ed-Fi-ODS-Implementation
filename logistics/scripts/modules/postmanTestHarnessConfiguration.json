@@ -665,6 +665,25 @@
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
     },
     {
+      "Email": "CustomView@ed-fi.org",
+      "VendorName": "Custom View Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Custom View Test",
+          "ApiClients": [
+            {
+              "ApiClientName": "CustomView_255901",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_255901",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_255901" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
       "Email": "MultipleAuthorizationStrategyBased@ed-fi.org",
       "VendorName": "Multiple Authorization Strategy Based Test",
       "Applications": [
