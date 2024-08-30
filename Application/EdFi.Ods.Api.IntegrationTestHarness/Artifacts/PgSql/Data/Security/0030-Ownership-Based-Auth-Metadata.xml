@@ -1,0 +1,305 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationOrganizations">
+      <ClaimSets>
+        <ClaimSet name="Ownership Based Test">
+          <Actions>
+            <Action name="Create">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+      <ClaimSets>
+        <ClaimSet name="Ownership Based Test">
+          <Actions>
+            <Action name="Create">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="ReadChanges">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/course">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/courseOffering">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/gradingPeriod">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/section">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/session">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolAssociation">
+          <ClaimSets>
+            <ClaimSet name="Ownership Based Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>

@@ -1,0 +1,88 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="OwnershipBased" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+      <ClaimSets>
+        <ClaimSet name="Ed-Fi Sandbox">
+          <Actions>
+            <Action name="Create">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="NamespaceBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Read">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="NamespaceBased" />
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Update">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="NamespaceBased" />
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="Delete">
+              <AuthorizationStrategyOverrides>
+                <AuthorizationStrategy name="NamespaceBased" />
+                <AuthorizationStrategy name="OwnershipBased" />
+              </AuthorizationStrategyOverrides>
+            </Action>
+            <Action name="ReadChanges" />
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>

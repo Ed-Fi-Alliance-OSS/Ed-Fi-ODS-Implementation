@@ -1,0 +1,239 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentProgramAssociation">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim claimId="317"
+          name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="RelationshipsWithStudentsOnlyThroughResponsibility" />
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+                    <AuthorizationStrategy
+                      name="RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes" />
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentTransportation">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="TransportationTypeDescriptorWithABus" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="TransportationTypeDescriptorWithABus" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="TransportationTypeDescriptorWithABus" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeople" />
+                    <AuthorizationStrategy name="TransportationTypeDescriptorWithABus" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
+                    <AuthorizationStrategy name="TransportationTypeDescriptorWithABus" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/accountabilityRating">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="EducationOrganizationWithACategoryContainingAnSWord" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="EducationOrganizationWithACategoryContainingAnSWord" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="EducationOrganizationWithACategoryContainingAnSWord" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="EducationOrganizationWithACategoryContainingAnSWord" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="EducationOrganizationWithACategoryContainingAnSWord" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/studentAssessment">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="AssessmentWithAnACTIdentifier" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Read">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="AssessmentWithAnACTIdentifier" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Update">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="AssessmentWithAnACTIdentifier" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="Delete">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="AssessmentWithAnACTIdentifier" />
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" />
+                  </AuthorizationStrategyOverrides>
+                </Action>
+                <Action name="ReadChanges">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="AssessmentWithAnACTIdentifier" />
+                    <!-- 
+                    This authorization strategy does not work with with reading Changes because
+                    it uses ReportedSchoolId for authorization context, but the tracked_changes_edfi
+                    table only include the entity's primary key columns, so the query fails.
+                    -->
+                    <!-- <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" /> -->
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
