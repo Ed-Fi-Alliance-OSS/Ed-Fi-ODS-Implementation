@@ -13,5 +13,6 @@ public interface IDatabaseMigrationsApplicator
         Assembly assembly,
         string connectionString,
         MigrationArtifactType migrationArtifactType,
-        MigrationDatabaseType migrationDatabaseType);
+        MigrationDatabaseType migrationDatabaseType,
+        string standardVersion = null);
 }

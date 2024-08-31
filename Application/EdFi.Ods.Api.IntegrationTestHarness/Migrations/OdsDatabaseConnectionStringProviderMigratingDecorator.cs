@@ -4,6 +4,7 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Reflection;
 using EdFi.Common.Database;
 using EdFi.Ods.Common.Caching;
@@ -19,13 +20,16 @@ public class OdsDatabaseConnectionStringProviderMigratingDecorator : IOdsDatabas
     private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProviderMigratingDecorator));
     private readonly HashSet<ulong> _migratedConnections = new();
     private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
+    private readonly DbProviderFactory _dbProviderFactory;
 
     public OdsDatabaseConnectionStringProviderMigratingDecorator(
         IDatabaseMigrationsApplicator databaseMigrationsApplicator,
-        IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider)
+        IOdsDatabaseConnectionStringProvider odsDatabaseConnectionStringProvider,
+        DbProviderFactory dbProviderFactory)
     {
         _databaseMigrationsApplicator = databaseMigrationsApplicator;
         _odsDatabaseConnectionStringProvider = odsDatabaseConnectionStringProvider;
+        _dbProviderFactory = dbProviderFactory;
     }
 
     string IDatabaseConnectionStringProvider.GetConnectionString()
@@ -34,14 +38,41 @@ public class OdsDatabaseConnectionStringProviderMigratingDecorator : IOdsDatabas
 
         if (_migratedConnections.Add(XxHash3Code.Combine(connectionString)))
         {
-            _logger.Info("Applying ODS migrations...");
+            // Get the Standard version
+            string standardVersionText;
+            string standardVersion = null;
+
+            // Introspect the standard version from the target ODS
+            using (var conn = _dbProviderFactory.CreateConnection())
+            {
+                conn.ConnectionString = connectionString;
+                var cmd = conn.CreateCommand();
+                cmd.CommandText = "select util.GetEdFiStandardVersion()";
+                standardVersionText = cmd.ExecuteScalar()?.ToString();
+            }
+
+            if (!string.IsNullOrWhiteSpace(standardVersionText))
+            {
+                string[] versionParts = standardVersionText.Split('.');
+                string major = versionParts[0];
+                string minor = versionParts[1];
+                string revision = (versionParts.Length > 2) ? versionParts[2] : "0";
+                
+                standardVersion = $"{major}.{minor}.{revision}";
+                _logger.Info($"Applying ODS migrations (Standard Version: {standardVersion})...");
+            }
+            else
+            {
+                _logger.Info("Applying ODS migrations (no Standard Version identified)...");
+            }
 
             // Apply migrations
             _databaseMigrationsApplicator.ApplyMigrations(
                 Assembly.GetExecutingAssembly(),
                 connectionString,
                 MigrationArtifactType.Structure,
-                MigrationDatabaseType.Ods);
+                MigrationDatabaseType.Ods,
+                standardVersion);
         }
 
         return connectionString;

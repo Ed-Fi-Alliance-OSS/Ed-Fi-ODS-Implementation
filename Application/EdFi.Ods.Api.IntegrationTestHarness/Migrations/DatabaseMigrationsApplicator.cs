@@ -21,36 +21,34 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
     private readonly DatabaseEngine _databaseEngine;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DatabaseMigrationsApplicator));
-    private readonly string _standardVersion;
 
     public DatabaseMigrationsApplicator(
         DatabaseEngine databaseEngine,
         IConfiguration configuration)
     {
         _databaseEngine = databaseEngine;
-        _standardVersion = configuration.GetSection("ApiSettings").GetValue<string>("StandardVersion")
-            ?? Environment.GetEnvironmentVariable("StandardVersion");
     }
 
     public void ApplyMigrations(
         Assembly assembly,
         string connectionString,
         MigrationArtifactType migrationArtifactType,
-        MigrationDatabaseType migrationDatabaseType)
+        MigrationDatabaseType migrationDatabaseType,
+        string standardVersion = null)
     {
         string dbFolderName = _databaseEngine.ScriptsFolderName;
 
-        string scriptPattern =
-            @$"^{assembly.GetName().Name}\.Artifacts\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
-
-        string standardVersionScriptPattern =
-            @$"^{assembly.GetName().Name}\.Standard\.{_standardVersion}\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
-
-        if (!string.IsNullOrEmpty(_standardVersion))
+        if (!string.IsNullOrEmpty(standardVersion))
         {
+            string standardVersionScriptPattern =
+                @$"^{assembly.GetName().Name}\.Standard\.{standardVersion}\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
+
             var standardVersionExecutableScripts = GetMigrationScripts(assembly, standardVersionScriptPattern);
             ApplyMigrations(assembly, standardVersionExecutableScripts, GetUpgradeEngineBuilder(_databaseEngine, connectionString));
         }
+
+        string scriptPattern =
+            @$"^{assembly.GetName().Name}\.Artifacts\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
 
         var executableScripts = GetMigrationScripts(assembly, scriptPattern);
         ApplyMigrations(assembly, executableScripts, GetUpgradeEngineBuilder(_databaseEngine, connectionString));
