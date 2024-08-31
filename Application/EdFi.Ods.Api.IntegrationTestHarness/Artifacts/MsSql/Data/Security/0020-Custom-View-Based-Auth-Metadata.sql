@@ -121,9 +121,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentProgramAssociation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -325,9 +325,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -699,9 +699,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentTransportation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -988,9 +988,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/accountabilityRating
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -1192,9 +1192,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId
@@ -1363,14 +1363,6 @@ BEGIN
     -- Pop the stack
     DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
 
-
-    -- Pop the stack
-    DELETE FROM @claimIdStack WHERE Id = (SELECT Max(Id) FROM @claimIdStack)
-
-    -- Push claimId to the stack
-    INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
-
-    -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1447,9 +1439,9 @@ BEGIN
   
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentAssessment
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimSetName = 'Ed-Fi Sandbox'
+    SET @claimSetName = 'Custom View Test'
     SET @claimSetId = NULL
 
     SELECT @claimSetId = ClaimSetId

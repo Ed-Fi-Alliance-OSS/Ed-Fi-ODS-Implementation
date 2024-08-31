@@ -106,9 +106,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentProgramAssociation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id
@@ -296,9 +296,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id
@@ -636,9 +636,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentTransportation
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id
@@ -901,9 +901,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/accountabilityRating
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id
@@ -1091,9 +1091,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id
@@ -1254,14 +1254,6 @@ BEGIN
     -- Pop the stack
     claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
 
-
-    -- Pop the stack
-    claim_id_stack := (select claim_id_stack[1:array_upper(claim_id_stack, 1) - 1]);
-
-    -- Push claimId to the stack
-    claim_id_stack := array_append(claim_id_stack, claim_id);
-
-    -- Processing children of root
     ----------------------------------------------------------------------------------------------------------------------------
     -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1326,9 +1318,9 @@ BEGIN
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentAssessment
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Claim set: 'Ed-Fi Sandbox'
+    -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_set_name := 'Ed-Fi Sandbox';
+    claim_set_name := 'Custom View Test';
     claim_set_id := NULL;
 
     SELECT ClaimSetId INTO claim_set_id

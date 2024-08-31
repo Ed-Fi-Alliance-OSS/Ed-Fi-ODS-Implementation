@@ -186,8 +186,6 @@
         </Claim>
       </Claims>
     </Claim>
-  </Claims>
-  <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
       <Claims>
         <Claim name="http://ed-fi.org/ods/identity/claims/studentAssessment">
