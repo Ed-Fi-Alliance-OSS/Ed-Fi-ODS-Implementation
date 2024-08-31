@@ -10,7 +10,9 @@ using System.Text.RegularExpressions;
 using DbUp;
 using DbUp.Builder;
 using EdFi.Common.Configuration;
+using EdFi.Ods.Common.Configuration;
 using log4net;
+using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Migrations;
 
@@ -19,10 +21,15 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
     private readonly DatabaseEngine _databaseEngine;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(DatabaseMigrationsApplicator));
+    private readonly string _standardVersion;
 
-    public DatabaseMigrationsApplicator(DatabaseEngine databaseEngine)
+    public DatabaseMigrationsApplicator(
+        DatabaseEngine databaseEngine,
+        IConfiguration configuration)
     {
         _databaseEngine = databaseEngine;
+        _standardVersion = configuration.GetSection("ApiSettings").GetValue<string>("StandardVersion")
+            ?? Environment.GetEnvironmentVariable("StandardVersion");
     }
 
     public void ApplyMigrations(
@@ -36,8 +43,16 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
         string scriptPattern =
             @$"^{assembly.GetName().Name}\.Artifacts\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
 
-        var executableScripts = GetMigrationScripts(assembly, scriptPattern);
+        string standardVersionScriptPattern =
+            @$"^{assembly.GetName().Name}\.Standard\.{_standardVersion}\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
 
+        if (!string.IsNullOrEmpty(_standardVersion))
+        {
+            var standardVersionExecutableScripts = GetMigrationScripts(assembly, standardVersionScriptPattern);
+            ApplyMigrations(assembly, standardVersionExecutableScripts, GetUpgradeEngineBuilder(_databaseEngine, connectionString));
+        }
+
+        var executableScripts = GetMigrationScripts(assembly, scriptPattern);
         ApplyMigrations(assembly, executableScripts, GetUpgradeEngineBuilder(_databaseEngine, connectionString));
     }
 
@@ -60,7 +75,7 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
     {
         // Get all embedded resources that match the pattern
         var scripts = assembly.GetManifestResourceNames()
-            .Where(r => Regex.IsMatch((string)r, searchPattern))
+            .Where(rn => Regex.IsMatch(rn, searchPattern))
             .OrderBy(r => r)
             .ToArray();
 

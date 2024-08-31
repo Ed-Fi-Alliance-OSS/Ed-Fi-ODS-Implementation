@@ -70,6 +70,13 @@
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Artifacts\**\*.sql" />
+    <!-- 
+    IMPORTANT: Only migration scripts that should be supported here are:
+      * ODS structure (for adding auth views)
+      * Security Data (for adding security metadata) 
+    -->
+    <EmbeddedResource Include="Artifacts\*\Data\Security\*.sql" />
+    <EmbeddedResource Include="Artifacts\*\Structure\ODS\*.sql" />
+    <EmbeddedResource Include="Standard\*\*\Structure\ODS\*.sql" />
   </ItemGroup>
 </Project>
