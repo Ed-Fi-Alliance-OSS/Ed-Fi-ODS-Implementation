@@ -46,6 +46,7 @@ public class OdsDatabaseConnectionStringProviderMigratingDecorator : IOdsDatabas
             using (var conn = _dbProviderFactory.CreateConnection())
             {
                 conn.ConnectionString = connectionString;
+                conn.Open();
                 var cmd = conn.CreateCommand();
                 cmd.CommandText = "select util.GetEdFiStandardVersion()";
                 standardVersionText = cmd.ExecuteScalar()?.ToString();
