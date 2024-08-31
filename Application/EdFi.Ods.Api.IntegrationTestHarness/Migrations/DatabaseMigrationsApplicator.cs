@@ -45,12 +45,12 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
     {
         if (databaseEngine == DatabaseEngine.SqlServer)
         {
-            return DeployChanges.To.SqlDatabase(connectionString);
+            return DeployChanges.To.SqlDatabase(connectionString).JournalToSqlTable("dbo", "DeployJournal");
         }
 
         if (databaseEngine == DatabaseEngine.Postgres)
         {
-            return DeployChanges.To.PostgresqlDatabase(connectionString);
+            return DeployChanges.To.PostgresqlDatabase(connectionString).JournalToPostgresqlTable("dbo", "DeployJournal");
         }
 
         throw new NotSupportedException($"Unsupported database engine: {databaseEngine}.");
@@ -70,7 +70,6 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
     private void ApplyMigrations(Assembly assembly, string[] executableScripts, UpgradeEngineBuilder upgradeEngineBuilder)
     {
         var upgrader = upgradeEngineBuilder.WithScriptsEmbeddedInAssembly(assembly, executableScripts.Contains)
-            .JournalToSqlTable("dbo", "DeployJournal")
             .LogToConsole()
             .LogToTrace()
             .Build();
