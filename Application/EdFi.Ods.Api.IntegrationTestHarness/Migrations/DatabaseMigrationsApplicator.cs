@@ -50,7 +50,7 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
 
         if (databaseEngine == DatabaseEngine.Postgres)
         {
-            return DeployChanges.To.PostgresqlDatabase(connectionString).JournalToPostgresqlTable("dbo", "DeployJournal");
+            return DeployChanges.To.PostgresqlDatabase(connectionString).JournalToPostgresqlTable("public", "DeployJournal");
         }
 
         throw new NotSupportedException($"Unsupported database engine: {databaseEngine}.");
