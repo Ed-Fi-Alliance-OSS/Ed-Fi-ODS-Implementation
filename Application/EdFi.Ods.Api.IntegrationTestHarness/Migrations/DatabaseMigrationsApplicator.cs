@@ -40,8 +40,10 @@ public class DatabaseMigrationsApplicator : IDatabaseMigrationsApplicator
 
         if (!string.IsNullOrEmpty(standardVersion))
         {
+            string standardVersionPattern = Regex.Replace(standardVersion, @"(\d)", "_$1").Replace(".", @"\.");
+
             string standardVersionScriptPattern =
-                @$"^{assembly.GetName().Name}\.Standard\.{standardVersion}\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
+                @$"^{assembly.GetName().Name}\.Standard\.{standardVersionPattern}\.{dbFolderName}\.{migrationArtifactType}\.{migrationDatabaseType}\.[\d\s\w\-]+\.sql$";
 
             var standardVersionExecutableScripts = GetMigrationScripts(assembly, standardVersionScriptPattern);
             ApplyMigrations(assembly, standardVersionExecutableScripts, GetUpgradeEngineBuilder(_databaseEngine, connectionString));
