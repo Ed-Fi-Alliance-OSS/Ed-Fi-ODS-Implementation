@@ -85,9 +85,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -103,7 +103,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation', @parentResourceClaimId)
+            VALUES ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -119,7 +119,7 @@ BEGIN
             END
         END
   
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentProgramAssociation
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -289,9 +289,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -307,7 +307,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation', @parentResourceClaimId)
+            VALUES ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -323,7 +323,7 @@ BEGIN
             END
         END
   
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -663,9 +663,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentTransportation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentTransportation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -681,7 +681,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/studentTransportation', @parentResourceClaimId)
+            VALUES ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -697,7 +697,7 @@ BEGIN
             END
         END
   
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentTransportation
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -952,9 +952,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/accountabilityRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/accountabilityRating'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -970,7 +970,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/accountabilityRating', @parentResourceClaimId)
+            VALUES ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -986,7 +986,7 @@ BEGIN
             END
         END
   
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/accountabilityRating
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1403,9 +1403,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentAssessment'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentAssessment'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1421,7 +1421,7 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/studentAssessment', @parentResourceClaimId)
+            VALUES ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
@@ -1437,7 +1437,7 @@ BEGIN
             END
         END
   
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentAssessment
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------

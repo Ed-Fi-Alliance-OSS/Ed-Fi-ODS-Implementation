@@ -266,6 +266,10 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+      <Claims>
         <Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolAssociation">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">

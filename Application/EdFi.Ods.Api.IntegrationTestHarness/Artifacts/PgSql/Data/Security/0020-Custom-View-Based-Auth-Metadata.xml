@@ -2,7 +2,7 @@
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
       <Claims>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentProgramAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation">
           <ClaimSets>
             <ClaimSet name="Custom View Test">
               <Actions>
@@ -35,8 +35,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim claimId="317"
-               name="http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation">
           <ClaimSets>
             <ClaimSet name="Custom View Test">
               <Actions>
@@ -80,7 +79,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentTransportation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation">
           <ClaimSets>
             <ClaimSet name="Custom View Test">
               <Actions>
@@ -118,7 +117,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/accountabilityRating">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating">
           <ClaimSets>
             <ClaimSet name="Custom View Test">
               <Actions>
@@ -188,7 +187,7 @@
     </Claim>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata">
       <Claims>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentAssessment">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment">
           <ClaimSets>
             <ClaimSet name="Custom View Test">
               <Actions>

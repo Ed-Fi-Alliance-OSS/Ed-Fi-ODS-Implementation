@@ -76,9 +76,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -91,7 +91,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/studentProgramAssociation', parent_resource_claim_id)
+        VALUES ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -104,7 +104,7 @@ BEGIN
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentProgramAssociation
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -266,9 +266,9 @@ BEGIN
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -281,7 +281,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation', parent_resource_claim_id)
+        VALUES ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -294,7 +294,7 @@ BEGIN
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentSpecialEducationProgramEligibilityAssociation
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -606,9 +606,9 @@ BEGIN
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentTransportation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/studentTransportation';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -621,7 +621,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/studentTransportation', parent_resource_claim_id)
+        VALUES ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -634,7 +634,7 @@ BEGIN
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentTransportation
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -871,9 +871,9 @@ BEGIN
     VALUES (claim_set_resource_claim_action_id, authorization_strategy_id);
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/accountabilityRating'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/accountabilityRating';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -886,7 +886,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/accountabilityRating', parent_resource_claim_id)
+        VALUES ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -899,7 +899,7 @@ BEGIN
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/accountabilityRating
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1288,9 +1288,9 @@ BEGIN
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentAssessment'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment'
     ----------------------------------------------------------------------------------------------------------------------------
-    claim_name := 'http://ed-fi.org/ods/identity/claims/studentAssessment';
+    claim_name := 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment';
     claim_id := NULL;
 
     SELECT ResourceClaimId, ParentResourceClaimId INTO claim_id, existing_parent_resource_claim_id
@@ -1303,7 +1303,7 @@ BEGIN
         RAISE NOTICE 'Creating new claim: %', claim_name;
 
         INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-        VALUES ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/studentAssessment', parent_resource_claim_id)
+        VALUES ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
     ELSE
@@ -1316,7 +1316,7 @@ BEGIN
         END IF;
     END IF;
   
-    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/studentAssessment
+    -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Custom View Test'
     ----------------------------------------------------------------------------------------------------------------------------
