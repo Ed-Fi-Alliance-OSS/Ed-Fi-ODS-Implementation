@@ -260,11 +260,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     {
                         var key = !string.IsNullOrEmpty(client.Key)
                             ? client.Key
-                            : GetGuid();
+                            : client.ApiClientName; //GetGuid();
 
                         var secret = !string.IsNullOrEmpty(client.Secret)
                             ? client.Secret
-                            : GetGuid();
+                            : client.ApiClientName; // GetGuid();
 
                         var apiClient = _clientAppRepo.CreateApiClient(user.UserId, client.ApiClientName, key, secret);
 
