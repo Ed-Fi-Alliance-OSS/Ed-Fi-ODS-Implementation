@@ -68,18 +68,7 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
+    
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/educationOrganizations
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
@@ -272,18 +261,7 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
+    
     -- Processing claim sets for http://ed-fi.org/ods/identity/claims/domains/people
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
@@ -476,26 +454,15 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
+    
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/course'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/course'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/course'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/course'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -511,23 +478,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('course', 'http://ed-fi.org/ods/identity/claims/course', @parentResourceClaimId)
+            VALUES ('course', 'http://ed-fi.org/ods/identity/claims/ed-fi/course', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/course
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/course
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -697,9 +653,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/courseOffering'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/courseOffering'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/courseOffering'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/courseOffering'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -715,23 +671,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('courseOffering', 'http://ed-fi.org/ods/identity/claims/courseOffering', @parentResourceClaimId)
+            VALUES ('courseOffering', 'http://ed-fi.org/ods/identity/claims/ed-fi/courseOffering', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/courseOffering
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/courseOffering
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -901,9 +846,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/gradingPeriod'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/gradingPeriod'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/gradingPeriod'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/gradingPeriod'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -919,23 +864,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('gradingPeriod', 'http://ed-fi.org/ods/identity/claims/gradingPeriod', @parentResourceClaimId)
+            VALUES ('gradingPeriod', 'http://ed-fi.org/ods/identity/claims/ed-fi/gradingPeriod', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/gradingPeriod
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/gradingPeriod
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1105,9 +1039,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/section'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/section'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/section'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/section'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1123,23 +1057,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('section', 'http://ed-fi.org/ods/identity/claims/section', @parentResourceClaimId)
+            VALUES ('section', 'http://ed-fi.org/ods/identity/claims/ed-fi/section', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/section
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/section
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1309,9 +1232,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/session'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/session'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/session'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/session'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1327,23 +1250,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('session', 'http://ed-fi.org/ods/identity/claims/session', @parentResourceClaimId)
+            VALUES ('session', 'http://ed-fi.org/ods/identity/claims/ed-fi/session', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/session
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/session
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1513,9 +1425,9 @@ BEGIN
     VALUES (@claimSetResourceClaimActionId, @authorizationStrategyId)
 
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentSectionAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentSectionAssociation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1531,23 +1443,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/studentSectionAssociation', @parentResourceClaimId)
+            VALUES ('studentSectionAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentSectionAssociation
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------
@@ -1743,26 +1644,15 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
+    
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/primaryRelationships
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentSchoolAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentSchoolAssociation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -1778,23 +1668,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/studentSchoolAssociation', @parentResourceClaimId)
+            VALUES ('studentSchoolAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentSchoolAssociation
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ownership Based Test'
     ----------------------------------------------------------------------------------------------------------------------------

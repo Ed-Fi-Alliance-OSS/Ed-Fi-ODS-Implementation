@@ -71,7 +71,7 @@
                   <AuthorizationStrategyOverrides>
                     <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
                     <AuthorizationStrategy
-                            name="RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes" />
+                      name="RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes" />
                     <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
                   </AuthorizationStrategyOverrides>
                 </Action>

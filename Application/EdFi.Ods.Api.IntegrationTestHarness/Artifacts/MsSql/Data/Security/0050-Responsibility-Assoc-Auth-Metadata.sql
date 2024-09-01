@@ -68,26 +68,15 @@ BEGIN
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
+    
     -- Push claimId to the stack
     INSERT INTO @claimIdStack (ResourceClaimId) VALUES (@claimId)
 
     -- Processing children of http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData
     ----------------------------------------------------------------------------------------------------------------------------
-    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation'
+    -- Resource Claim: 'http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation'
     ----------------------------------------------------------------------------------------------------------------------------
-    SET @claimName = 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation'
+    SET @claimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation'
     SET @claimId = NULL
 
     SELECT @claimId = ResourceClaimId, @existingParentResourceClaimId = ParentResourceClaimId
@@ -103,23 +92,12 @@ BEGIN
             PRINT 'Creating new claim: ' + @claimName
 
             INSERT INTO dbo.ResourceClaims(ResourceName, ClaimName, ParentResourceClaimId)
-            VALUES ('studentEducationOrganizationResponsibilityAssociation', 'http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation', @parentResourceClaimId)
+            VALUES ('studentEducationOrganizationResponsibilityAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation', @parentResourceClaimId)
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    ELSE
-        BEGIN
-            IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
-            BEGIN
-                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
-
-                UPDATE dbo.ResourceClaims
-                SET ParentResourceClaimId = @parentResourceClaimId
-                WHERE ResourceClaimId = @claimId
-            END
-        END
-  
-    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation
+    
+    -- Processing claim sets for http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation
     ----------------------------------------------------------------------------------------------------------------------------
     -- Claim set: 'Ed-Fi Sandbox'
     ----------------------------------------------------------------------------------------------------------------------------

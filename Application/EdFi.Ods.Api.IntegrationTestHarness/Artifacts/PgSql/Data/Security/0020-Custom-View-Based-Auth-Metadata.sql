@@ -61,14 +61,7 @@ BEGIN
         VALUES ('relationshipBasedData', 'http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Push claimId to the stack
@@ -94,14 +87,7 @@ BEGIN
         VALUES ('studentProgramAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentProgramAssociation
@@ -284,14 +270,7 @@ BEGIN
         VALUES ('studentSpecialEducationProgramEligibilityAssociation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentSpecialEducationProgramEligibilityAssociation
@@ -624,14 +603,7 @@ BEGIN
         VALUES ('studentTransportation', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentTransportation
@@ -889,14 +861,7 @@ BEGIN
         VALUES ('accountabilityRating', 'http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/accountabilityRating
@@ -1079,14 +1044,7 @@ BEGIN
         VALUES ('chartOfAccount', 'http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/chartOfAccount
@@ -1273,14 +1231,7 @@ BEGIN
         VALUES ('assessmentMetadata', 'http://ed-fi.org/ods/identity/claims/domains/assessmentMetadata', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Push claimId to the stack
@@ -1306,14 +1257,7 @@ BEGIN
         VALUES ('studentAssessment', 'http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    ELSE
-        IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
-
-            UPDATE dbo.ResourceClaims
-            SET ParentResourceClaimId = parent_resource_claim_id
-            WHERE ResourceClaimId = claim_id;
-        END IF;
+    
     END IF;
   
     -- Processing claimsets for http://ed-fi.org/ods/identity/claims/ed-fi/studentAssessment

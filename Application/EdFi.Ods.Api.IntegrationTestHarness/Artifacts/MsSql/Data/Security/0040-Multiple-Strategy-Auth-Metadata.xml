@@ -2,7 +2,7 @@
   <Claims>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
       <Claims>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentEducationOrganizationResponsibilityAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation">
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
@@ -15,7 +15,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation">
           <ClaimSets>
             <ClaimSet name="Ed-Fi Sandbox">
               <Actions>
@@ -52,7 +52,7 @@
         </Claim>
       </Claims>
     </Claim>
-    <Claim name="http://ed-fi.org/ods/identity/claims/educationContent">
+    <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/educationContent">
       <ClaimSets>
         <ClaimSet name="Ed-Fi Sandbox">
           <Actions>

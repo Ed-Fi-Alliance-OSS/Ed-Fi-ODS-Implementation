@@ -68,7 +68,7 @@
     </Claim>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
       <Claims>
-        <Claim name="http://ed-fi.org/ods/identity/claims/course">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/course">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -101,7 +101,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/courseOffering">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/courseOffering">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -134,7 +134,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/gradingPeriod">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/gradingPeriod">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -167,7 +167,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/section">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/section">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -200,7 +200,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/session">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/session">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -233,7 +233,7 @@
             </ClaimSet>
           </ClaimSets>
         </Claim>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentSectionAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentSectionAssociation">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
@@ -270,7 +270,7 @@
     </Claim>
     <Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
       <Claims>
-        <Claim name="http://ed-fi.org/ods/identity/claims/studentSchoolAssociation">
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation">
           <ClaimSets>
             <ClaimSet name="Ownership Based Test">
               <Actions>
