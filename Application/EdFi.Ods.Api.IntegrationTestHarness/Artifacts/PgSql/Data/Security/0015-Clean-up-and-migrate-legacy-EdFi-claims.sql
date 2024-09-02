@@ -4,7 +4,7 @@
 DELETE FROM dbo.ResourceClaims
 WHERE LEFT(ClaimName, 37) = 'http://ed-fi.org/ods/identity/claims/'
   AND POSITION('/' IN SUBSTRING(ClaimName FROM 38)) <= 0
-  AND NOT EXISTS (
+  AND EXISTS (
     SELECT 1
     FROM dbo.ResourceClaims rc
     WHERE ClaimName = 'http://ed-fi.org/ods/identity/claims/ed-fi/' || SUBSTRING(ResourceClaims.ClaimName FROM 38)
