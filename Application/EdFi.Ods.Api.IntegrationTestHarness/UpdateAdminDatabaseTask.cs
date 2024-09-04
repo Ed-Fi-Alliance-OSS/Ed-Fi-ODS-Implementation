@@ -260,11 +260,11 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                     {
                         var key = !string.IsNullOrEmpty(client.Key)
                             ? client.Key
-                            : client.ApiClientName; //GetGuid();
+                            : client.ApiClientName;
 
                         var secret = !string.IsNullOrEmpty(client.Secret)
                             ? client.Secret
-                            : client.ApiClientName; // GetGuid();
+                            : client.ApiClientName;
 
                         var apiClient = _clientAppRepo.CreateApiClient(user.UserId, client.ApiClientName, key, secret);
 
@@ -329,11 +329,6 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             }
 
             return postmanEnvironment;
-
-            string GetGuid()
-            {
-                return Guid.NewGuid().ToString("N").Substring(0, 20);
-            }
         }
 
         private long PreventEducationOrganizationIdOverflow(long educationOrganizationId)

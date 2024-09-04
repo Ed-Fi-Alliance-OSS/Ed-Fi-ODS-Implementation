@@ -3,7 +3,6 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System;
 using System.Collections.Generic;
 using EdFi.Ods.Api.Middleware;
 using EdFi.Ods.Common.Context;
@@ -11,6 +10,10 @@ using EdFi.Security.DataAccess.Providers;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Migrations;
 
+/// <summary>
+/// Implements an <see cref="ISecurityDatabaseConnectionStringCatalog" /> that returns a connection string
+/// for each of the tenant-specific EdFi_Security databases in a multitenant deployment.
+/// </summary>
 public class MultiTenantSecurityDatabaseConnectionStringCatalog : ISecurityDatabaseConnectionStringCatalog
 {
     private readonly ISecurityDatabaseConnectionStringProvider _securityConnectionStringProvider;
@@ -27,6 +30,10 @@ public class MultiTenantSecurityDatabaseConnectionStringCatalog : ISecurityDatab
         _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
     }
 
+    /// <summary>
+    /// Gets a connection string for each of the tenant-specific EdFi_Security databases in a multitenant deployment.
+    /// </summary>
+    /// <returns></returns>
     public string[] GetConnectionStrings()
     {
         List<string> connectionStrings = new();
