@@ -739,7 +739,50 @@
         }
       ],
       "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "test-multiple-auth@other.org",
+      "VendorName": "Multiple Auth Other Namespace",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Multiple Auth Test",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901_Other_Ns_MultAuth",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_Other",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_Other" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://other.org"]
+    },
+    {
+      "Email": "test-multiple-auth-2@other.org",
+      "VendorName": "Multiple Auth Ed-Fi Namespace",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Multiple Auth Test",
+          "ApiClients": [
+            {
+              "ApiClientName": "255901_EdFi_Ns_MultAuth",
+              "LocalEducationOrganizations": [255901],
+              "OwnershipToken": "OwnershipToken_255901",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_255901" ]
+            },
+            {
+              "ApiClientName": "255901001_EdFi_Ns_MultAuth",
+              "LocalEducationOrganizations": [255901001],
+              "OwnershipToken": "OwnershipToken_255901001",
+              "ApiClientOwnershipTokens": [ "OwnershipToken_255901001" ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     }
-    
   ]
 }
