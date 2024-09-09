@@ -21,7 +21,7 @@ on:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
       - completed
-    branches: [main, 'b-v*-patch*','feature-*']
+    branches: ['b-v*-patch*','feature-*']
 
 permissions: read-all
 

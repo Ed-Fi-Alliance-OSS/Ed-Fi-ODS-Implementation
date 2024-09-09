@@ -85,10 +85,153 @@ jobs:
           sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
           summary: true
           only-severities: "critical,high"
+          ignore-base: false
+
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
         uses: github/codeql-action/upload-sarif@df32e399139a3050671466d7d9b3cbacc1cfd034 #codeql-bundle-v2.15.2
         with:
-          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json          
-     
+          sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+
+      - name: Set Dockerfile Path with Hyphens
+        id: set-dockerfile-path
+        run: |
+          $newPath = "${{ matrix.dockerfile.path }}" -replace '/', '-'
+          echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Collect vulnerabilities as PR comment
+        run: |
+          # Function to extract data from the vulnerability message text
+          function Parse-VulnerabilityDetails {
+              param (
+                  [string]$messageText
+              )
+
+              # Using regex to extract values from the formatted message text
+              $vulnerability = ($messageText -match 'Vulnerability\s*:\s*(\S+)') ? $matches[1] : ""
+              $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
+              $package = ($messageText -match 'Package\s*:\s*(\S+)') ? $matches[1] : ""
+              $affectedRange = ($messageText -match 'Affected range\s*:\s*([^\r\n]+)') ? $matches[1] : ""
+              $fixedVersion = ($messageText -match 'Fixed version\s*:\s*(\S+)') ? $matches[1] : ""
+              $cvssScore = ($messageText -match 'CVSS Score\s*:\s*(\S+)') ? $matches[1] : ""
+
+              return @{
+                  Vulnerability = $vulnerability
+                  Severity = $severity
+                  Package = $package
+                  AffectedRange = $affectedRange
+                  FixedVersion = $fixedVersion
+                  CVSSScore = $cvssScore
+              }
+          }
+
+          # Prepare Markdown table structure for vulnerabilities
+          function ConvertTo-MarkdownTable {
+              param (
+                  [string]$vulnerability,
+                  [string]$severity,
+                  [string]$package,
+                  [string]$affectedRange,
+                  [string]$fixedVersion,
+                  [string]$cvssScore
+              )
+
+              return @"
+          |-------------------|-----------------------------------------|
+          | **Vulnerability** | **$vulnerability** |
+          |-------------------|-----------------------------------------|
+          | **Severity**      | 🚨 **$severity**              |
+          | **Package**       | $package                                |
+          | **Affected Range**| $affectedRange                          |
+          | **Fixed Version** | $fixedVersion                           |
+          | **CVSS Score**    | $cvssScore                              |
+
+
+          "@
+          }
+
+          # Read the SARIF file
+          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
+          $sarifData = Get-Content $sarifFile | ConvertFrom-Json
+
+          # Extract vulnerabilities from SARIF file
+          $vulnerabilities = $sarifData.runs.results | Where-Object { $_.level -in @('error') }
+
+          $commentBody =$null 
+
+          # If there are vulnerabilities, prepare the comment
+          if ($vulnerabilities.Count -gt 0) {
+            $commentBody = "`n### Vulnerabilities of **${{ matrix.dockerfile.name }}**:`n"
+            foreach ($vuln in $vulnerabilities) {
+
+              $messageText = $vuln.message.text
+
+              # Parse the vulnerability details from the message text
+              $vulnDetails = Parse-VulnerabilityDetails -messageText $messageText
+
+              # Create the Markdown table for each vulnerability
+              $markdownTable = ConvertTo-MarkdownTable `
+                  -vulnerability $vulnDetails.Vulnerability `
+                  -severity $vulnDetails.Severity `
+                  -package $vulnDetails.Package `
+                  -affectedRange $vulnDetails.AffectedRange `
+                  -fixedVersion $vulnDetails.FixedVersion `
+                  -cvssScore $vulnDetails.CVSSScore
+
+              # Append the table to the comment body
+              $commentBody += $markdownTable
+                  }
+
+          } else {
+            $commentBody ="No vulnerabilities found for ${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
+          }
+
+          $outputFile = "vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt"
+          Add-Content -Path $outputFile -Value $commentBody
+          echo "Saved vulnerabilities to $outputFile"
+        shell: pwsh
+      
+      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }} Report
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}
+          path: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt    
+
+  aggregate-results:
+    needs: analyze-docker  # Ensure this runs after the 'analyze-docker' job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download all vulnerability reports
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 #v4.1.1
+        with:
+          path: ./vulnerability-reports
+
+      - name: Combine vulnerability reports
+        id: combine-reports
+        shell: pwsh
+        run: |
+          # Create a file to store the combined report
+          $combinedReport = "combined-vulnerability-report.txt"
+          New-Item -Path $combinedReport -ItemType File -Force
+
+          # Get all files in the directory
+          $files = Get-ChildItem -Path ./vulnerability-reports -Recurse -File
+
+          foreach ($file in $files) {
+              Write-Host "Adding $($file.FullName) to the combined report."
+              Add-Content -Path $combinedReport -Value "`n### Vulnerabilities from $($file.Name):`n"
+              Get-Content -Path $file.FullName | Add-Content -Path $combinedReport
+              Add-Content -Path $combinedReport -Value "`n"  # Add a blank line between reports
+          }
+
+          # Display the combined report
+          Get-Content -Path $combinedReport
+          $combinedReportContent = Get-Content -Path $combinedReport -Raw
+          gh pr comment ${{ github.event.pull_request.number }} --body "$combinedReportContent"
+        env:
+          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}  
