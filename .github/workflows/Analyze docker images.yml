@@ -85,8 +85,7 @@ jobs:
           sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
           summary: true
           only-severities: "critical,high"
-          ignore-base: true
-
+          write-comment: true
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
@@ -216,18 +215,21 @@ jobs:
         run: |
           $prNumber = ${{ github.event.pull_request.number }}
           $repo = "${{ github.repository }}"
-          $keyword = "Vulnerabilities from"
+          $keyword = " Vulnerabilities of "
 
           # Get all comments on the PR
           $commentsJson = gh api /repos/$repo/issues/$prNumber/comments --jq '.[] | {id: .id, body: .body}'
 
           $comments = $commentsJson | ConvertFrom-Json
 
+          Write-Host "$comments"
           # Find and delete the previous comment containing the keyword
           foreach ($comment in $comments) {
               if ($comment.body -like "*$keyword*") {
-                  gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
-                  Write-Host "Deleted comment ID $($comment.id)"
+                  # gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
+                  # Write-Host "Deleted comment ID $($comment.id)"
+                  Write-Host "Comment Body: $($comment.body)"
+                  Write-Host "----------------------------"
               }
           }
         env:
