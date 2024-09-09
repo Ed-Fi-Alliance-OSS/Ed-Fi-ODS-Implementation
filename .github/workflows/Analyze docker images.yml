@@ -219,8 +219,10 @@ jobs:
           $keyword = "Vulnerabilities"
 
           # Get all comments on the PR
-          $comments = gh pr view $prNumber --json comments --jq '.comments[] | {id: .id, body: .body}'
+          $commentsJson = gh api /repos/$repo/issues/$prNumber/comments --jq '.[] | {id: .id, body: .body}'
 
+          $comments = $commentsJson | ConvertFrom-Json
+          
           # Find and delete the previous comment containing the keyword
           foreach ($comment in $comments) {
               if ($comment.body -like "*$keyword*") {
@@ -228,7 +230,6 @@ jobs:
                   Write-Host "Deleted comment ID $($comment.id)"
               }
           }
-
         env:
           GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}  
       - name: Combine vulnerability reports
