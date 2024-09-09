@@ -86,6 +86,7 @@ jobs:
           summary: true
           only-severities: "critical,high"
           keep-previous-comments: true
+
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
