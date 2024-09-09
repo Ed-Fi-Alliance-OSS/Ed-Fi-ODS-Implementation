@@ -211,8 +211,27 @@ jobs:
         with:
           path: ./vulnerability-reports
 
+      - name: Delete Previous vulnerability report in  PR comment
+        shell: pwsh
+        run: |
+          $prNumber = ${{ github.event.pull_request.number }}
+          $repo = "${{ github.repository }}"
+          $keyword = "Vulnerabilities"
+
+          # Get all comments on the PR
+          $comments = gh pr view $prNumber --json comments --jq '.comments[] | {id: .id, body: .body}'
+
+          # Find and delete the previous comment containing the keyword
+          foreach ($comment in $comments) {
+              if ($comment.body -like "*$keyword*") {
+                  gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
+                  Write-Host "Deleted comment ID $($comment.id)"
+              }
+          }
+
+        env:
+          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}  
       - name: Combine vulnerability reports
-        id: combine-reports
         shell: pwsh
         run: |
           # Create a file to store the combined report
@@ -234,4 +253,4 @@ jobs:
           $combinedReportContent = Get-Content -Path $combinedReport -Raw
           gh pr comment ${{ github.event.pull_request.number }} --body "$combinedReportContent"
         env:
-          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}  
+          GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }} 
