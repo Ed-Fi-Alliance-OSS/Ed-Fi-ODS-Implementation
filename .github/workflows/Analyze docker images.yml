@@ -169,6 +169,13 @@ jobs:
             $commentBody ="No vulnerabilities found for ${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
           }
 
+          $commentBody = @"
+          <details>
+            <summary>Vulnerabilities Report</summary>
+              $commentBody 
+          </details>
+          "@
+
           $outputFile = "vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt"
           Add-Content -Path $outputFile -Value $commentBody
           echo "Saved vulnerabilities to $outputFile"
