@@ -102,29 +102,6 @@ jobs:
 
       - name: Collect vulnerabilities as PR comment
         run: |
-          # Function to extract data from the vulnerability message text
-          function Parse-VulnerabilityDetails {
-              param (
-                  [string]$messageText
-              )
-
-              # Using regex to extract values from the formatted message text
-              $vulnerability = ($messageText -match 'Vulnerability\s*:\s*(\S+)') ? $matches[1] : ""
-              $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
-              $package = ($messageText -match 'Package\s*:\s*(\S+)') ? $matches[1] : ""
-              $affectedRange = ($messageText -match 'Affected range\s*:\s*([^\r\n]+)') ? $matches[1] : ""
-              $fixedVersion = ($messageText -match 'Fixed version\s*:\s*(\S+)') ? $matches[1] : ""
-              $cvssScore = ($messageText -match 'CVSS Score\s*:\s*(\S+)') ? $matches[1] : ""
-
-              return @{
-                  Vulnerability = $vulnerability
-                  Severity = $severity
-                  Package = $package
-                  AffectedRange = $affectedRange
-                  FixedVersion = $fixedVersion
-                  CVSSScore = $cvssScore
-              }
-          }
 
           # Prepare Markdown table structure for vulnerabilities
           function ConvertTo-MarkdownTable {
@@ -167,17 +144,22 @@ jobs:
 
               $messageText = $vuln.message.text
 
-              # Parse the vulnerability details from the message text
-              $vulnDetails = Parse-VulnerabilityDetails -messageText $messageText
+              # Using regex to extract values from the formatted message text
+              $vulnerability = ($messageText -match 'Vulnerability\s*:\s*(\S+)') ? $matches[1] : ""
+              $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
+              $package = ($messageText -match 'Package\s*:\s*(\S+)') ? $matches[1] : ""
+              $affectedRange = ($messageText -match 'Affected range\s*:\s*([^\r\n]+)') ? $matches[1] : ""
+              $fixedVersion = ($messageText -match 'Fixed version\s*:\s*(\S+)') ? $matches[1] : ""
+              $cvssScore = ($messageText -match 'CVSS Score\s*:\s*(\S+)') ? $matches[1] : ""
 
               # Create the Markdown table for each vulnerability
               $markdownTable = ConvertTo-MarkdownTable `
-                  -vulnerability $vulnDetails.Vulnerability `
-                  -severity $vulnDetails.Severity `
-                  -package $vulnDetails.Package `
-                  -affectedRange $vulnDetails.AffectedRange `
-                  -fixedVersion $vulnDetails.FixedVersion `
-                  -cvssScore $vulnDetails.CVSSScore
+                  -vulnerability $vulnerability `
+                  -severity $severity `
+                  -package $package `
+                  -affectedRange  $affectedRange `
+                  -fixedVersion $fixedVersion `
+                  -cvssScore $cvssScore
 
               # Append the table to the comment body
               $commentBody += $markdownTable
@@ -198,7 +180,7 @@ jobs:
           name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}
           path: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt    
 
-  aggregate-results:
+  aggregate-vulnerability-results:
     needs: analyze-docker  # Ensure this runs after the 'analyze-docker' job
     runs-on: ubuntu-latest
     steps:
@@ -215,7 +197,7 @@ jobs:
         run: |
           $prNumber = ${{ github.event.pull_request.number }}
           $repo = "${{ github.repository }}"
-          $keyword = " Vulnerabilities of "
+          $keyword = " Vulnerabilities"
 
           # Get all comments on the PR
           $commentsJson = gh api /repos/$repo/issues/$prNumber/comments --jq '.[] | {id: .id, body: .body}'
@@ -226,10 +208,10 @@ jobs:
           # Find and delete the previous comment containing the keyword
           foreach ($comment in $comments) {
               if ($comment.body -like "*$keyword*") {
-                  # gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
-                  # Write-Host "Deleted comment ID $($comment.id)"
-                  Write-Host "Comment Body: $($comment.body)"
+                  Write-Host "Deleted comment ID $($comment.id)"
+                  # Write-Host "Comment Body: $($comment.body)"
                   Write-Host "----------------------------"
+                  gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
               }
           }
         env:
