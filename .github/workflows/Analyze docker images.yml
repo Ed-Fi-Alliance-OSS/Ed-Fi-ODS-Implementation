@@ -234,7 +234,7 @@ jobs:
           }
 
           # Display the combined report
-          Get-Content -Path $combinedReport
+          # Get-Content -Path $combinedReport
           $combinedReportContent = Get-Content -Path $combinedReport -Raw
           gh pr comment ${{ github.event.pull_request.number }} --body "$combinedReportContent"
         env:
