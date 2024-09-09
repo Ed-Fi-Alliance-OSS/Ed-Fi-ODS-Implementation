@@ -86,6 +86,8 @@ jobs:
           summary: true
           only-severities: "critical,high"
           ignore-base: false
+          ignore:
+            type: transient
 
       - name: Upload SARIF result
         id: upload-sarif
@@ -216,13 +218,13 @@ jobs:
         run: |
           $prNumber = ${{ github.event.pull_request.number }}
           $repo = "${{ github.repository }}"
-          $keyword = "Vulnerabilities"
+          $keyword = "Vulnerabilities from"
 
           # Get all comments on the PR
           $commentsJson = gh api /repos/$repo/issues/$prNumber/comments --jq '.[] | {id: .id, body: .body}'
 
           $comments = $commentsJson | ConvertFrom-Json
-          
+
           # Find and delete the previous comment containing the keyword
           foreach ($comment in $comments) {
               if ($comment.body -like "*$keyword*") {
