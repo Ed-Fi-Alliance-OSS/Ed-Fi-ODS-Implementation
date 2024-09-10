@@ -102,20 +102,22 @@ jobs:
           $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
           $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
           
-          $vulnerabilities = $sarifData.runs.results | Where-Object { $_.level -in @('error') }
+          $criticalHighVulnerabilities = 0
 
-          if ($vulnerabilities.Count -gt 0) {
-                foreach ($vuln in $vulnerabilities) {
-                  $messageText = $vuln.message.text
-                    $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
-                    if ($severity -ieq "critical" -or $severity -ieq "high")
-                    {
-                      Write-Error "Found critical or high vulnerabilities in $($sarifFile)"
-                      exit 1
-                    }
-                }
+          foreach ($result in $sarifContent.results) {
+            $severity = ($result.message.text -match "Severity\s+:\s+(.*)\n") | Out-Null
+            $severity = $matches[1].Trim()
+
+            if ($severity -ieq "critical" -or $severity -ieq "high") {
+              $criticalHighVulnerabilities++
+              Write-Host "Found $severity vulnerability: $($result.ruleId)"
+            }
           }
-            else {
-              Write-Host "No critical or high vulnerabilities found."
+
+          if ($criticalHighVulnerabilities -gt 0) {
+            Write-Error "Found $criticalHighVulnerabilities critical or high vulnerabilities."
+            exit 1
+          } else {
+            Write-Host "No critical or high vulnerabilities found."
           }
         shell: pwsh
