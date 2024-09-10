@@ -108,19 +108,17 @@ END
 
             SET @claimId = SCOPE_IDENTITY()
         END
-    <xsl:if test="@relocate = 'true'">
     ELSE
         BEGIN
             IF @parentResourceClaimId != @existingParentResourceClaimId OR (@parentResourceClaimId IS NULL AND @existingParentResourceClaimId IS NOT NULL) OR (@parentResourceClaimId IS NOT NULL AND @existingParentResourceClaimId IS NULL)
             BEGIN
-                PRINT 'Relocating claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') under new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
+                PRINT 'Repointing claim ''' + @claimName + ''' (ResourceClaimId=' + CONVERT(nvarchar, @claimId) + ') to new parent (ResourceClaimId=' + CONVERT(nvarchar, @parentResourceClaimId) + ')'
 
                 UPDATE dbo.ResourceClaims
                 SET ParentResourceClaimId = @parentResourceClaimId
                 WHERE ResourceClaimId = @claimId
             END
         END
-    </xsl:if>
   <xsl:apply-templates select="DefaultAuthorization" mode="SqlServer" />
   <xsl:apply-templates select="ClaimSets" mode="SqlServer" />
   <xsl:apply-templates select="Claims" mode="SqlServer" />
@@ -316,16 +314,14 @@ END $$;
         VALUES ('<xsl:value-of select="tokenize(@name, '/')[last()]" />', '<xsl:value-of select="@name" />', parent_resource_claim_id)
         RETURNING ResourceClaimId
         INTO claim_id;
-    <xsl:if test="@relocate = 'true'">
     ELSE
         IF parent_resource_claim_id != existing_parent_resource_claim_id OR (parent_resource_claim_id IS NULL AND existing_parent_resource_claim_id IS NOT NULL) OR (parent_resource_claim_id IS NOT NULL AND existing_parent_resource_claim_id IS NULL) THEN
-            RAISE NOTICE USING MESSAGE = 'Relocating claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') under new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
+            RAISE NOTICE USING MESSAGE = 'Repointing claim ''' || claim_name || ''' (ResourceClaimId=' || claim_id || ') to new parent (from ResourceClaimId=' || COALESCE(existing_parent_resource_claim_id, 0) || ' to ResourceClaimId=' || COALESCE(parent_resource_claim_id, 0) || ')';
 
             UPDATE dbo.ResourceClaims
             SET ParentResourceClaimId = parent_resource_claim_id
             WHERE ResourceClaimId = claim_id;
         END IF;
-    </xsl:if>
     END IF;
   <xsl:apply-templates select="DefaultAuthorization" mode="PostgreSql" />
   <xsl:apply-templates select="ClaimSets" mode="PostgreSql" />
