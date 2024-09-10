@@ -21,7 +21,7 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate
 
         public void Execute(object sender, BindMappingEventArgs e)
         {
-            if (IsEdFiQueryMappingEvent(e))
+            if (IsViewMappingEvent(e))
             {
                 return;
             }
@@ -55,11 +55,10 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate
             }
         }
 
-        private static bool IsEdFiQueryMappingEvent(BindMappingEventArgs e)
+        private static bool IsViewMappingEvent(BindMappingEventArgs e)
         {
-            return (e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.BaseNamespace) ||
-                    e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views))
-                   && e.Mapping.assembly.Equals(Namespaces.Standard.BaseNamespace);
+            return e.Mapping.@namespace.Equals(Namespaces.Entities.NHibernate.QueryModels.Views)
+                && e.Mapping.assembly.Equals(Namespaces.Standard.BaseNamespace);
         }
     }
 }

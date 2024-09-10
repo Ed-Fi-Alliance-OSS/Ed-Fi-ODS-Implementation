@@ -1,0 +1,21 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/relationshipBasedData">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentEducationOrganizationResponsibilityAssociation">
+          <ClaimSets>
+            <ClaimSet name="Ed-Fi Sandbox">
+              <Actions>
+                <Action name="Create">
+                  <AuthorizationStrategyOverrides>
+                    <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly"/>
+                  </AuthorizationStrategyOverrides>
+                </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
