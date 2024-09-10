@@ -108,7 +108,7 @@ jobs:
                 foreach ($vuln in $vulnerabilities) {
                   $messageText = $vuln.message.text
                     $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
-                    if ($severity -eq "critical" -or $severity -eq "high")
+                    if ($severity -ieq "critical" -or $severity -ieq "high")
                     {
                       Write-Error "Found critical or high vulnerabilities in $($sarifFile)"
                       exit 1
