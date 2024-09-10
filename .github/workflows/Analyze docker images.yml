@@ -169,13 +169,6 @@ jobs:
             $commentBody ="No vulnerabilities found for ${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}"
           }
 
-          $commentBody = @"
-          <details>
-            <summary>Vulnerabilities Report</summary>
-              $commentBody 
-          </details>
-          "@
-
           $outputFile = "vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt"
           Add-Content -Path $outputFile -Value $commentBody
           echo "Saved vulnerabilities to $outputFile"
@@ -188,11 +181,11 @@ jobs:
           path: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.txt    
 
   aggregate-vulnerability-results:
-    needs: analyze-docker  # Ensure this runs after the 'analyze-docker' job
+    needs: analyze-docker
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
 
       - name: Download all vulnerability reports
         uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 #v4.1.1
@@ -215,10 +208,8 @@ jobs:
           # Find and delete the previous comment containing the keyword
           foreach ($comment in $comments) {
               if ($comment.body -like "*$keyword*") {
-                  Write-Host "Deleted comment ID $($comment.id)"
-                  # Write-Host "Comment Body: $($comment.body)"
-                  Write-Host "----------------------------"
                   gh api --method DELETE /repos/$repo/issues/comments/$($comment.id)
+                  Write-Host "Deleted comment ID $($comment.id)"                  
               }
           }
         env:
@@ -240,13 +231,7 @@ jobs:
               Add-Content -Path $combinedReport -Value "`n"  # Add a blank line between reports
           }
 
-          # Display the combined report
-          # Get-Content -Path $combinedReport
           $combinedReportContent = Get-Content -Path $combinedReport -Raw
-
-          $commentFile = "comment.txt"
-          $combinedReportContent | Out-File -FilePath $commentFile -Force
-
-          gh pr comment ${{ github.event.pull_request.number }} --body-file $commentFile
+          gh pr comment ${{ github.event.pull_request.number }} --body "$combinedReportContent"
         env:
           GH_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }} 
