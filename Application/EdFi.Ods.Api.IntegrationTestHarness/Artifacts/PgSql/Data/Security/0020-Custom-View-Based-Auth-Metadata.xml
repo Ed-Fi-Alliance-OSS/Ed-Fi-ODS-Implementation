@@ -71,7 +71,7 @@
                   <AuthorizationStrategyOverrides>
                     <AuthorizationStrategy name="RelationshipsWithEdOrgsAndPeopleIncludingDeletes" />
                     <AuthorizationStrategy
-                      name="RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes" />
+                            name="RelationshipsWithStudentsOnlyThroughResponsibilityIncludingDeletes" />
                     <AuthorizationStrategy name="StudentWithCTECourseEnrollments" />
                   </AuthorizationStrategyOverrides>
                 </Action>
@@ -226,6 +226,33 @@
                     <!-- <AuthorizationStrategy name="RelationshipsWithEdOrgsOnly" /> -->
                   </AuthorizationStrategyOverrides>
                 </Action>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <!-- This provides read access to a root resource used in a Composites test -->
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/primaryRelationships">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/studentSchoolAssociation">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Read" />
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/people">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/student">
+          <ClaimSets>
+            <ClaimSet name="Custom View Test">
+              <Actions>
+                <Action name="Read" />
               </Actions>
             </ClaimSet>
           </ClaimSets>
