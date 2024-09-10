@@ -105,9 +105,7 @@ jobs:
           $criticalHighVulnerabilities = 0
 
           foreach ($result in $sarifContent.runs.results) {
-            Write-Host "result.message.text is $result.message.text"
             $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
-            Write-Host "severity is $severity"            
             $severity = $matches[1].Trim()
 
             if ($severity -ieq "critical" -or $severity -ieq "high") {
