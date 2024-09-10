@@ -8,6 +8,8 @@ name: Analyze Docker Images
 on:
   pull_request:
     branches: [main, 'b-v*-patch*','feature-*']
+  schedule:
+    - cron: '0 0 * * 0'
   workflow_dispatch:
 
 permissions: read-all
@@ -54,6 +56,8 @@ jobs:
             { name: "ods-api-db-ods-sandbox", path: "ubuntu/mssql" }
           ]
     name: ${{ matrix.dockerfile.name }}/${{ matrix.dockerfile.path }} Image for (Standard ${{ matrix.StandardVersion }} Extension ${{ matrix.ExtensionVersion }}) 
+    continue-on-error: true
+
     steps:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
@@ -85,6 +89,7 @@ jobs:
           sarif-file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
           summary: true
           only-severities: "critical,high"
+
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
@@ -92,3 +97,25 @@ jobs:
         with:
           sarif_file: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json          
      
+      - name: Check for Critical and High vulnerabilities
+        run: |
+          $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
+          $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
+          
+          $vulnerabilities = $sarifData.runs.results | Where-Object { $_.level -in @('error') }
+
+          if ($vulnerabilities.Count -gt 0) {
+                foreach ($vuln in $vulnerabilities) {
+                  $messageText = $vuln.message.text
+                    $severity = ($messageText -match 'Severity\s*:\s*(\S+)') ? $matches[1] : ""
+                    if ($severity -eq "critical" -or $severity -eq "high")
+                    {
+                      Write-Error "Found critical or high vulnerabilities in $($sarifFile)"
+                      exit 1
+                    }
+                }
+          }
+            else {
+              Write-Host "No critical or high vulnerabilities found."
+          }
+        shell: pwsh
