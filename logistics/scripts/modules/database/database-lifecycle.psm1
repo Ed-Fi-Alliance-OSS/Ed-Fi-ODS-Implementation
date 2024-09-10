@@ -54,10 +54,15 @@ function Get-SQLServerDatabaseCreateStrategy {
 
     if (-not (Test-DatabaseExists -csb $csb) -and $CreateByRestoringBackup) {
         # Copy the backup to a location that the SQL Server has permission to see
-        Write-Host "Using backup $CreateByRestoringBackup"
-        $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-        $restorableBackup = Copy-Item $CreateByRestoringBackup $backupDir -PassThru
-        Write-Host "Copying to backup directory $backupDir"
+        Write-Host "Using backup $createByRestoringBackup"
+        $backupDir = if($Settings.DbServerBackupDirectory) { $Settings.DbServerBackupDirectory } elseif ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        $backupCopyDestinationDir = if($Settings.LocalDbBackupDirectory) { $Settings.LocalDbBackupDirectory } else { $backupDir }
+        $backupFileName = Split-Path $CreateByRestoringBackup -leaf
+        $restorableBackup = Join-Path $backupDir $backupFileName
+
+        Write-Host "Copying to backup directory $backupCopyDestinationDir"
+
+        Copy-Item $CreateByRestoringBackup $backupCopyDestinationDir -PassThru
         Restore-Database -csb $csb -backupFile $restorableBackup
     }
 }
@@ -188,9 +193,9 @@ function Get-SQLServerDatabaseBackupStrategy {
     )
 
     if ($databaseNeedsBackup) {
-        $msSqlBackupPath = if ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-        Write-Host "Backing up database $($csb.InitialCatalog) to $msSqlBackupPath..."
-        Backup-Database -csb $csb -backupDirectory "$msSqlBackupPath/" -overwriteExisting | Out-Null
+        $sqlBackupPath = if($Settings.DbServerBackupDirectory) { $Settings.DbServerBackupDirectory } elseif ($Settings.ApiSettings.msSqlBackupPath) { $Settings.ApiSettings.msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+        Write-Host "Backing up database $($csb.InitialCatalog) to $sqlBackupPath..."
+        Backup-Database -csb $csb -backupDirectory "$sqlBackupPath/" -DbServerBackupDirectory $Settings.DbServerBackupDirectory -LocalDbBackupDirectory $Settings.LocalDbBackupDirectory -overwriteExisting | Out-Null
     }
     else {
         Write-Host "No backup required for database $($csb.InitialCatalog)"
@@ -399,6 +404,12 @@ function Initialize-EdFiDatabase {
         $CSB['Encrypt'] = $false
     }
 
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+        $CSB['Uid'] = 'sa'
+        $CSB['Pwd'] = $Settings.MssqlSaPassword
+        $CSB['trusted_connection'] = 'False'
+    }
+
     Write-InvocationInfo $MyInvocation
 
     $lifecycle = New-EdFiDatabaseLifecycle @PSBoundParameters
@@ -522,8 +533,15 @@ backup is restored, the database will be synced normally. Note: The backup file
 must have a dbo.DeployJournal like the module expects.
 
 .parameter msSqlBackupPath
-A location to store backups of databases before they are dropped or migrated.
+When using a traditional SQLServer host, a location to store backups of databases before they are dropped or migrated.
 If this is not provided, the default backup path on the SQL server is used.
+
+.parameter LocalDbBackupDirectory
+When using a containerized SQLServer instance, a locally accessable path mapped to the backup directory within the SQLServer container
+
+.parameter DbServerBackupDirectory
+When using a containerized SQLServer instance, the directory within the container to which database backup should be saved
+
 #>
 function Initialize-EdFiDatabaseWithDbDeploy {
     [CmdletBinding()]
@@ -561,7 +579,9 @@ function Initialize-EdFiDatabaseWithDbDeploy {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
-        [string]  $extensionVersion
+        [string]  $extensionVersion,
+        [string]  $LocalDbBackupDirectory,
+        [string]  $DbServerBackupDirectory
     )
 
     Write-InvocationInfo $MyInvocation
@@ -610,6 +630,12 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         return;
     }
 
+    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+        $CSB['Uid'] = 'sa'
+        $CSB['Pwd'] = $Settings.MssqlSaPassword
+        $CSB['trusted_connection'] = 'False'
+    }
+
     $databaseNeedsBackup = (
         (-not $dropDatabase) -and
         (Test-DatabaseExists -csb $csb) -and
@@ -633,9 +659,16 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         if ($createByRestoringBackup) {
             # Copy the backup to a location that the SQL Server has permission to see
             Write-Host "Using backup $createByRestoringBackup"
-            $backupDir = if ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
-            $restorableBackup = Copy-Item $createByRestoringBackup $backupDir -PassThru
-            Write-Host "Copying to backup directory $backupDir"
+            $backupDir = if($DbServerBackupDirectory) { $DbServerBackupDirectory } elseif ($msSqlBackupPath) { $msSqlBackupPath } else { Get-Server -csb $csb | Select-Object -Expand BackupDirectory }
+            $backupCopyDestinationDir = if($LocalDbBackupDirectory) { $LocalDbBackupDirectory } else { $backupDir }
+            
+            $backupFileName = Split-Path $CreateByRestoringBackup -leaf
+    
+            $restorableBackup = "$backupDir/$backupFileName"
+    
+            Write-Host "Copying to backup directory $backupCopyDestinationDir"
+    
+            Copy-Item $CreateByRestoringBackup $backupCopyDestinationDir -PassThru
             Restore-Database -csb $csb -backupFile $restorableBackup
         }
     }

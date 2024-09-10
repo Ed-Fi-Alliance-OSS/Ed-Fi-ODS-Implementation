@@ -77,6 +77,12 @@ function Initialize-TPDMMinimalTemplate {
     .parameter Engine
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
+    .parameter LocalDbBackupDirectory
+        When using SQLServer, locally accessable path which is mapped to the backup directory of the SQLServer instance
+
+    .parameter DbServerBackupDirectory
+        When using SQLServer, a path accessable to the database engine in which the database backup should be saved
+
     .EXAMPLE
         PS> Initialize-TPDMMinimalTemplate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
     #>
@@ -101,7 +107,9 @@ function Initialize-TPDMMinimalTemplate {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
-        [string]  $ExtensionVersion
+        [string]  $ExtensionVersion,
+        [String] $LocalDbBackupDirectory,
+        [String] $DbServerBackupDirectory
     )
 
     Clear-Error
@@ -114,6 +122,8 @@ function Initialize-TPDMMinimalTemplate {
         createByRestoringBackup = $createByRestoringBackup
         standardVersion = $standardVersion
         extensionVersion = $extensionVersion
+        LocalDbBackupDirectory = $LocalDbBackupDirectory
+        DbServerBackupDirectory = $DbServerBackupDirectory
     }
 
     $config = (Get-TPDMMinimalConfiguration $paramConfig)

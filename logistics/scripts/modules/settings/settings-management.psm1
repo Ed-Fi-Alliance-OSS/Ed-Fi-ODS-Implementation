@@ -325,6 +325,20 @@ function Add-EncryptValueToConnectionStrings([hashtable] $Settings = @{ }, [stri
     return $newSettings
 }
 
+function Add-MssqlSqlLoginToConnectionStrings([hashtable] $Settings = @{ }, [string] $Username, [string] $Password) {
+    $csbs = Get-ConnectionStringBuildersFromSettings $Settings
+    $newConnectionStrings = @{ }
+    foreach ($key in $csbs.Keys) {
+        $csbs[$key]['trusted_connection'] = 'False'
+        $csbs[$key]['user id'] = $Username
+        $csbs[$key]['password'] = $Password
+        $newConnectionStrings[$key] = $csbs[$key].ToString()
+    }
+    $newSettings = Merge-Hashtables $Settings, @{ ConnectionStrings = $newConnectionStrings 
+                                                  Csbs = $csbs}
+    return $newSettings
+}
+
 function Format-Json {
     <#
     .SYNOPSIS
@@ -721,6 +735,11 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
         if ($Settings.ApiSettings.Engine -eq 'SQLServer')
         {
             $newDevelopmentSettings = Add-EncryptValueToConnectionStrings $newDevelopmentSettings $false
+        }
+
+        if(-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword)) {
+            $newDevelopmentSettings = Add-MssqlSqlLoginToConnectionStrings $newDevelopmentSettings 'sa' $Settings.MssqlSaPassword
+            $newDevelopmentSettings.Remove('MssqlSaPassword')
         }
        
         $newDevelopmentSettings = Merge-Hashtables $developmentSettingsByProject[$project], $newDevelopmentSettings
