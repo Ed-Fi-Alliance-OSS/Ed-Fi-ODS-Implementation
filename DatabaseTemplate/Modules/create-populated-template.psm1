@@ -60,10 +60,10 @@ function Initialize-PopulatedTemplate {
         The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .parameter LocalDbBackupDirectory
-        When using a containerized SQLServer instance, a locally accessable path mapped to the backup directory within the SQLServer container
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
 
     .parameter DbServerBackupDirectory
-        When using a containerized SQLServer instance, the directory within the container to which database backup should be saved
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
 
     .EXAMPLE
         PS> Initialize-PopulatedTempalate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
