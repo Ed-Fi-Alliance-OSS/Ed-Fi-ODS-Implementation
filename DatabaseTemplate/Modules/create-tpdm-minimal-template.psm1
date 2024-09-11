@@ -78,10 +78,10 @@ function Initialize-TPDMMinimalTemplate {
     The database engine provider, either 'SQLServer' or 'PostgreSQL'
 
     .parameter LocalDbBackupDirectory
-        When using SQLServer, locally accessable path which is mapped to the backup directory of the SQLServer instance
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
 
     .parameter DbServerBackupDirectory
-        When using SQLServer, a path accessable to the database engine in which the database backup should be saved
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
 
     .EXAMPLE
         PS> Initialize-TPDMMinimalTemplate -samplePath "C:/edfi/Ed-Fi-Standard/v3.2/"
