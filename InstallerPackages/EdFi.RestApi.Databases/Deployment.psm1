@@ -43,6 +43,10 @@ function Initialize-DeploymentEnvironment {
         Standard Version.
     .parameter ExtensionVersion
         Extension Version.
+    .parameter MssqlSaPassword
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+                   This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
+        When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
     #>
     param(
         [string] $PathResolverRepositoryOverride,
@@ -80,7 +84,10 @@ function Initialize-DeploymentEnvironment {
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
         })]
-        [String] $ExtensionVersion
+        [String] $ExtensionVersion,
+
+        [Parameter(Mandatory=$false)]
+        [string] $MssqlSaPassword
     )
 
     # if path-resolver is not present assume that the script is being ran in a deployment scenario
@@ -132,6 +139,7 @@ function Initialize-DeploymentEnvironment {
     if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
     if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
     if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
+    if ($MssqlSaPassword) { $settings.MssqlSaPassword = $MssqlSaPassword }
 
     Set-DeploymentSettings $settings | Out-Null
     $settings = Get-DeploymentSettings
@@ -234,6 +242,10 @@ function Get-DeploymentSettings {
     $mergedSettings = Add-DeploymentSpecificSettings $mergedSettings
 
     $mergedSettings = Update-DefaultDatabaseTemplate $mergedSettings
+
+    if(-not [string]::IsNullOrEmpty($mergedSettings.MssqlSaPassword)) {
+        $mergedSettings = Add-MssqlSqlLoginToConnectionStrings $mergedSettings 'sa' $mergedSettings.MssqlSaPassword
+    }
 
     return $mergedSettings
 }

@@ -84,6 +84,14 @@ function Initialize-DevelopmentEnvironment {
         Runs database scripts from downloaded plugin extensions in addition to extensions found in the Ed-Fi-Ods-Implementation.
     .parameter PackageVersion
         Package version passed from CI that is used in Invoke-SdkGen
+    .parameter MssqlSaPassword
+        IMPORTANT: Only use this parameter for deployment in isolated, ephemeral environments (i.e. a disposable container in an isolated CI/CD pipeline.) 
+                   This password will be stored as plain-text in connection strings and may be present in log files or other unprotected formats.
+        When using SQLServer, the password for 'sa' user account, which will be used for all database connection, overriding all other authentication methods or credentials.
+    .parameter LocalDbBackupDirectory
+        A locally accessable path mapped to the backup file directory used by a containerized SQLServer instance
+    .parameter DbServerBackupDirectory
+        A directory, within the filesystem of a containerized SQLServer instance, to which the database engine should write backup files
     .parameter StandardVersion
         Standard Version.
     .parameter ExtensionVersion
@@ -152,6 +160,15 @@ function Initialize-DevelopmentEnvironment {
         [string] $PackageVersion,
 
         [Parameter(Mandatory=$false)]
+        [string] $MssqlSaPassword,
+
+        [Parameter(Mandatory=$false)]
+        [string] $LocalDbBackupDirectory,
+
+        [Parameter(Mandatory=$false)]
+        [string] $DbServerBackupDirectory,
+
+        [Parameter(Mandatory=$false)]
         [ValidateSet('4.0.0', '5.1.0')]
         [String] $StandardVersion = '5.1.0',
 
@@ -177,6 +194,10 @@ function Initialize-DevelopmentEnvironment {
         throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
     }
 
+    if ((-not [string]::IsNullOrEmpty($MssqlSaPassword)) -and ($Engine -ne 'SQLServer')) {
+        throw "The MssqlSaPassword parameter can only be used with the 'SQLServer' Engine."
+    }
+
     Clear-Error
 
     $script:result = @()
@@ -191,6 +212,9 @@ function Initialize-DevelopmentEnvironment {
         if ($Engine) { $settings.ApiSettings.Engine = $Engine }
         if ($StandardVersion) { $settings.ApiSettings.StandardVersion = $StandardVersion }
         if ($ExtensionVersion) { $settings.ApiSettings.ExtensionVersion = $ExtensionVersion }
+        if ($MssqlSaPassword) { $settings.MssqlSaPassword = $MssqlSaPassword }
+        if ($DbServerBackupDirectory) { $settings.DbServerBackupDirectory = $DbServerBackupDirectory }
+        if ($LocalDbBackupDirectory) { $settings.LocalDbBackupDirectory = $LocalDbBackupDirectory }
         Set-DeploymentSettings $settings | Out-Null
 
         if ($UsePlugins.IsPresent) { $settings = (Merge-Hashtables $settings, (Get-EdFiDeveloperPluginSettings)) }
@@ -235,6 +259,7 @@ function Initialize-DevelopmentEnvironment {
                 DropDatabases = $true
                 NoDuration    = $true
                 UsePlugins    = $UsePlugins.IsPresent
+                MssqlSaPassword = $MssqlSaPassword
             }
             $script:result += Initialize-DeploymentEnvironment @params
         }
@@ -416,6 +441,12 @@ function Reset-TestPopulatedTemplateDatabase {
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+        if (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))
+        {
+            $csbs['trusted_connection'] = 'False'
+            $csbs['user id'] = 'sa'
+            $csbs['password'] = $settings.MssqlSaPassword
+        }
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
