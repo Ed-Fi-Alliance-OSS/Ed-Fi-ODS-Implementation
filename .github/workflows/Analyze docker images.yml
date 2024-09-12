@@ -37,12 +37,13 @@ jobs:
         echo "CRITICAL_HIGH_VULNERABILITIES=$criticalHighVulnerabilities" >> $Env:GITHUB_ENV
 
   FindStandardAndExtensionVersions:
+   needs: initialize  # Run after initialize job  
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
   analyze-docker:
-    needs: FindStandardAndExtensionVersions
+    needs: [initialize, FindStandardAndExtensionVersions]
     runs-on: ubuntu-latest
 
     permissions:
