@@ -23,27 +23,14 @@ env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}  
 
 jobs:
-  initialize:
-    runs-on: ubuntu-latest
-   
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4    
-
-    - name: Set Initial Critical/High Vulnerabilities Count
-      shell: pwsh
-      run: |
-        $criticalHighVulnerabilities = 0        
-        echo "CRITICAL_HIGH_VULNERABILITIES=$criticalHighVulnerabilities" >> $Env:GITHUB_ENV
 
   FindStandardAndExtensionVersions:
-   needs: initialize  # Run after initialize job  
    uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
    with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
 
   analyze-docker:
-    needs: [initialize, FindStandardAndExtensionVersions]
+    needs: FindStandardAndExtensionVersions 
     runs-on: ubuntu-latest
 
     permissions:
@@ -103,6 +90,19 @@ jobs:
           summary: true
           only-severities: "critical,high"
 
+      - name: Set Dockerfile Path with Hyphens
+        id: set-dockerfile-path
+        run: |
+          $newPath = "${{ matrix.dockerfile.path }}" -replace '/', '-'
+          echo "DockerFile-ModifiedPath=$newPath">> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Upload vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }} Report
+        uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
+        with:
+          name: vulnerabilities-${{ matrix.dockerfile.name }}.${{ env.DockerFile-ModifiedPath }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}
+          path: sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json
+
       - name: Upload SARIF result
         id: upload-sarif
         if: ${{ github.event_name != 'pull_request_target' }}
@@ -114,9 +114,6 @@ jobs:
         run: |
           $sarifFile = "sarif-${{ matrix.dockerfile.name }}.${{ env.PACKAGE_VERSION }}.0-${{ matrix.StandardVersion }}.output.json"
           $sarifContent = Get-Content -Path $sarifFile | ConvertFrom-Json
-          
-          $criticalHighVulnerabilities = ${{ env.CRITICAL_HIGH_VULNERABILITIES }}
-          Write-Host "CRITICAL_HIGH_VULNERABILITIES count is : ${{ env.CRITICAL_HIGH_VULNERABILITIES }}"
           foreach ($result in $sarifContent.runs.results) {
             $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
             $severity = $matches[1].Trim()
@@ -128,7 +125,6 @@ jobs:
           }
 
           if ($criticalHighVulnerabilities -gt 0) {
-           echo "CRITICAL_HIGH_VULNERABILITIES=$criticalHighVulnerabilities" >> $Env:GITHUB_ENV
             Write-Error "Found $criticalHighVulnerabilities critical or high vulnerabilities."
             exit 1
           } else {
@@ -140,9 +136,31 @@ jobs:
     runs-on: ubuntu-latest
     if: always()
     steps:
+      - name: Checkout code
+        uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
+
+      - name: Download all vulnerability reports
+        uses: actions/download-artifact@6b208ae046db98c579e8a3aa621ab581ff575935 #v4.1.1
+        with:
+          path: ./vulnerability-reports    
       - name: Determine if there were critical or high vulnerabilities
         run: |
-          if ( ${{ env.CRITICAL_HIGH_VULNERABILITIES }}  -gt 0) {
+          # Get all files in the directory
+          $files = Get-ChildItem -Path ./vulnerability-reports -Recurse -File
+          foreach ($file in $files) {
+            $sarifData = Get-Content $file.FullName | ConvertFrom-Json
+              foreach ($result in $sarifContent.runs.results) {
+                $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
+                $severity = $matches[1].Trim()
+
+                if ($severity -ieq "critical" -or $severity -ieq "high") {
+                  $criticalHighVulnerabilities++
+                  Write-Host "Found $severity vulnerability: $($result.ruleId) in $file.FullName"
+                }
+              }
+          }
+
+          if ( criticalHighVulnerabilities  -gt 0) {
             Write-Error "Critical or High vulnerabilities found in previous jobs."
             exit 1
           } else {
