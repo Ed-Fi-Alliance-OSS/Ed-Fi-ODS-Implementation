@@ -113,7 +113,22 @@ jobs:
           }
 
           if ($criticalHighVulnerabilities -gt 0) {
+           echo "CRITICAL_HIGH_VULNERABILITIES=$criticalHighVulnerabilities" >> $Env:GITHUB_ENV
             Write-Error "Found $criticalHighVulnerabilities critical or high vulnerabilities."
+            exit 1
+          } else {
+            Write-Host "No critical or high vulnerabilities found."
+          }
+        shell: pwsh
+  finalize:
+    needs: analyze-docker  # Depends on the analyze-docker job
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+      - name: Determine if there were critical or high vulnerabilities
+        run: |
+          if ( ${{ env.CRITICAL_HIGH_VULNERABILITIES }}  -gt 0) {
+            Write-Error "Critical or High vulnerabilities found in previous jobs."
             exit 1
           } else {
             Write-Host "No critical or high vulnerabilities found."
