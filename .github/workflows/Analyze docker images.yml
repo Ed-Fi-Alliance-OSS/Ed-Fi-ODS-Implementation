@@ -147,7 +147,7 @@ jobs:
           $files = Get-ChildItem -Path ./vulnerability-reports -Recurse -File
           foreach ($file in $files) {
             $sarifData = Get-Content $file.FullName | ConvertFrom-Json
-              foreach ($result in $sarifContent.runs.results) {
+              foreach ($result in $sarifData.runs.results) {
                 $severity = ($result.message.text -match "Severity\s+:\s+(.*)\s*\n") | Out-Null
                 $severity = $matches[1].Trim()
 
