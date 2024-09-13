@@ -783,6 +783,23 @@
         }
       ],
       "NamespacePrefixes": ["uri://ed-fi.org"]
+    },
+    {
+      "Email": "test-token-introspection@other.org",
+      "VendorName": "Token Introspection Test",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Token Introspection Test",
+          "ApiClients": [
+            {
+              "ApiClientName": "TokenIntrospection_255901",
+              "LocalEducationOrganizations": [255901]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": ["uri://ed-fi.org"]
     }
   ]
 }

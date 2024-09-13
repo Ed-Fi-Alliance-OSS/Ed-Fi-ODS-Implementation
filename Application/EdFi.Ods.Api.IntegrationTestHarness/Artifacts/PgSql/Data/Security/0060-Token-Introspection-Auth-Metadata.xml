@@ -1,0 +1,37 @@
+<SecurityMetadata>
+  <Claims>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/educationStandards">
+      <ClaimSets>
+        <ClaimSet name="Token Introspection Test">
+          <Actions>
+            <Action name="Create"/>
+            <Action name="Read"/>
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/domains/systemDescriptors">
+      <Claims>
+        <Claim name="http://ed-fi.org/ods/identity/claims/ed-fi/stateAbbreviationDescriptor">
+          <ClaimSets>
+            <ClaimSet name="Token Introspection Test">
+              <Actions>
+                <Action name="Update"/>
+                <Action name="Delete"/>
+              </Actions>
+            </ClaimSet>
+          </ClaimSets>
+        </Claim>
+      </Claims>
+    </Claim>
+    <Claim name="http://ed-fi.org/ods/identity/claims/services/identity">
+      <ClaimSets>
+        <ClaimSet name="Token Introspection Test">
+          <Actions>
+            <Action name="ReadChanges"/>
+          </Actions>
+        </ClaimSet>
+      </ClaimSets>
+    </Claim>
+  </Claims>
+</SecurityMetadata>
