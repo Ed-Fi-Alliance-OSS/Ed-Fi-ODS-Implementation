@@ -153,7 +153,7 @@ function Get-SQLServerDatabaseScriptStrategy {
     
     if([string]::IsNullOrEmpty($Settings.ApiSettings.StandardVersion))
     {
-        $Settings.ApiSettings.StandardVersion ='5.1.0'
+        $Settings.ApiSettings.StandardVersion ='5.2.0'
     }
     
     $params = @{
@@ -569,7 +569,7 @@ function Initialize-EdFiDatabaseWithDbDeploy {
 
         [Int] $databaseTimeoutInSeconds = 60,
         
-        [ValidateSet('4.0.0', '5.1.0')]
+        [ValidateSet('4.0.0', '5.2.0')]
         [String] $standardVersion,
 
         [ValidateScript({

@@ -44,11 +44,11 @@ function Install-EdFiOdsSandboxAdmin {
 
     .EXAMPLE
         PS c:/> $parameters = @{
-            PackageVersion     = '5.1.0'
+            PackageVersion     = '5.2.0'
             WebSitePath        = 'c:\inetpub\Ed-Fi'
             WebSitePort        = 8765
             WebApplicationPath = 'SandboxAdmin'
-            WebApplicationName = 'SandboxAdmin5.1.0'
+            WebApplicationName = 'SandboxAdmin5.2.0'
             UseAlternateUserName       = $false
             Settings           = @{
                 ConnectionStrings            = @{

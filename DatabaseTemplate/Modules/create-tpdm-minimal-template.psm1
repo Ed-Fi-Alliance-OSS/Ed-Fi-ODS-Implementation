@@ -98,7 +98,7 @@ function Initialize-TPDMMinimalTemplate {
         [ValidateSet('SQLServer', 'PostgreSQL')]
         [string] $engine = 'SQLServer',
         [string] $createByRestoringBackup,
-        [ValidateSet('4.0.0', '5.1.0')]
+        [ValidateSet('4.0.0', '5.2.0')]
         [String] $StandardVersion,
         [ValidateScript({
                 if ($_ -match '^(?!0\.0\.0)\d+\.\d+\.\d+?$') {

@@ -32,11 +32,11 @@ function Invoke-InstallCustomPackage {
 function Invoke-InstallCustomSettings {
     # this should match the example for the Install-EdFiOdsSandboxAdmin function in Install-EdFiOdsSandboxAdmin.psm1
     $parameters = @{
-        PackageVersion     = '5.1.0'
+        PackageVersion     = '5.2.0'
         WebSitePath        = 'c:\inetpub\SandboxAdmin'
         WebSitePort        = 8765
-        WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.1.0'
-        WebApplicationName = 'SandboxAdmin5.1.0'
+        WebApplicationPath = 'c:\inetpub\SandboxAdmin\5.2.0'
+        WebApplicationName = 'SandboxAdmin5.2.0'
         Settings           = @{
             ConnectionStrings            = @{
                 EdFi_Ods      = 'Server=(local); Trusted_Connection=True; Database=EdFi_{0}; Application Name=EdFi.Ods.SandboxAdmin'
