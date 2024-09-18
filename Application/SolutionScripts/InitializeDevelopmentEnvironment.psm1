@@ -476,7 +476,7 @@ function Invoke-CodeGen {
         
         [String] $RepositoryRoot,
         
-        [ValidateSet('4.0.0', '5.1.0')]
+        [ValidateSet('4.0.0', '5.2.0')]
         [Parameter(Mandatory=$true)]
         [string] $StandardVersion,
         
