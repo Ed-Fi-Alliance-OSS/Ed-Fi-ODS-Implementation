@@ -74,7 +74,7 @@ function Initialize-DeploymentEnvironment {
 
         [switch] $UsePlugins,
 
-        [ValidateSet('4.0.0', '5.1.0')]
+        [ValidateSet('4.0.0', '5.2.0')]
         [String] $StandardVersion,
 
         [ValidateScript({
