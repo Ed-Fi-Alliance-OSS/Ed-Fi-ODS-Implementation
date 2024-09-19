@@ -3,7 +3,7 @@
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
 
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Data.Common;
 using System.Reflection;
 using EdFi.Common.Database;
@@ -18,7 +18,7 @@ public class OdsDatabaseConnectionStringProviderMigratingDecorator : IOdsDatabas
     private readonly IDatabaseMigrationsApplicator _databaseMigrationsApplicator;
 
     private readonly ILog _logger = LogManager.GetLogger(typeof(OdsDatabaseConnectionStringProviderMigratingDecorator));
-    private readonly HashSet<ulong> _migratedConnections = new();
+    private readonly ConcurrentDictionary<ulong, bool> _migratedConnections = new();
     private readonly IOdsDatabaseConnectionStringProvider _odsDatabaseConnectionStringProvider;
     private readonly DbProviderFactory _dbProviderFactory;
 
@@ -36,7 +36,7 @@ public class OdsDatabaseConnectionStringProviderMigratingDecorator : IOdsDatabas
     {
         string connectionString = _odsDatabaseConnectionStringProvider.GetConnectionString();
 
-        if (_migratedConnections.Add(XxHash3Code.Combine(connectionString)))
+        if (_migratedConnections.TryAdd(XxHash3Code.Combine(connectionString), true))
         {
             // Get the Standard version
             string standardVersionText;
