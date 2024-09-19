@@ -4,292 +4,139 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 // @ts-check
-const newVersion = (suite, major, minor, patch, prerelease) => ({ suite, major, minor, patch, prerelease })
+// @ts-ignore
+import semver from 'https://cdn.jsdelivr.net/npm/semver@6.3.1/+esm'
 
-const getVersionString = (v) => `${v.major}.${v.minor}${(v.major <= 3 || (v.major == 5 && v.minor <= 1) || (v.major >= 5 && v.patch > 0)) ? '.' + v.patch : ''}${v.prerelease != null ? '-' + v.prerelease : ''}`
-
-// stops patch versions of 0 from being displayed in previous releases
-const getPatchVersion = (v) => ((v.patch === 0 && v.suite <= 3 && v.major <= 3) || (v.major > 3) ? '' : '.' + v.patch)
-
-const getDisplayVersion = (v) => `${v.major}.${v.minor}${getPatchVersion(v)}${v.prerelease != null ? '-prerelease' : ''}`
-
-const nextSuiteVersion = (v) => newVersion(v.suite + 1, 1, 0, 0, null)
-
-const nextMajorVersion = (v) => newVersion(v.suite, v.major + 1, 0, 0, null)
-
-const nextMinorVersion = (v) => newVersion(v.suite, v.major, v.minor + 1, 0, null)
-
-const nextPatchVersion = (v) => newVersion(v.suite, v.major, v.minor, v.patch + 1, null)
-
-const nextPrereleaseVersion = (state) =>
-  newVersion(state.version.suite, state.version.major, state.version.minor, state.version.patch, state.config.prerelease || '')
-
-const sortVersions = (vx, vy) => {
-  const keys = ['suite', 'major', 'minor', 'patch']
-
-  for (const key of keys) {
-    if (vx[key] < vy[key]) {
-      return 1
-    }
-    if (vx[key] > vy[key]) {
-      return -1
-    }
-  }
-
-  return 0
-}
-
-const docsUrlFor = (state) =>
-  state.config.docsUrlTemplate
-    .replace('{{version}}', getVersionString(state.version))
-    .replace('{{suite}}', state.version.suite.toString())
-
-const apiUrlFor = (state) =>
-  state.config.apiUrlTemplate
-    .replace('{{version}}', getVersionString(state.version))
-    .replace('{{suite}}', state.version.suite.toString())
-
-const getDisplayVersionFor = (state) =>
-    state.config.displayVersionTemplate
-        .replace('{{version}}', getDisplayVersion(state.version))
-        .replace('{{suite}}', state.version.suite.toString())
-
-const newTransitions = () => ({
-  default: {
-    next: 'initial',
-    version: (v) => v,
-  },
-  initial: {
-    next: 'patch',
-    version: (v) => nextPatchVersion(v),
-  },
-  patch: {
-    next: 'minor',
-    version: (v) => nextMinorVersion(v),
-  },
-  minor: {
-    next: 'major',
-    version: (v) => nextMajorVersion(v),
-  },
-  major: {
-    next: 'final',
-    version: (v) => nextSuiteVersion(v),
-  },
-  final: {
-    next: null,
-    version: (v) => {},
-  },
-})
-
-const newStateMachine = (transitions) => (state) => ({
-  ...state,
-  now: transitions[state.now].next,
-  version: transitions[state.now].version(state.version),
-})
-
-const resetState = (state) => ({ ...state, now: 'default' })
-
-const newRequest = (onSuccess, onFail) => async (state) =>
-  await fetch(docsUrlFor(state))
-    .then((r) => onSuccess(state, r))
-    .catch(onFail)
-
-const onSuccess = (state, response) => ({ ...state, response })
-
-const onFail = (err) => showError(err)
-
-const logResponse = (state) => {
-  if (state.response.ok != null && state.response.ok) {
-    console.log(`🟢 \t${getDisplayVersion(state.version)}`, docsUrlFor(state), state)
-  } else {
-    console.log(`🔴 \t${getDisplayVersion(state.version)}`, docsUrlFor(state), state)
-  }
-}
-
-const search = async (state) => {
-  const transitions = newTransitions()
-  const next = newStateMachine(transitions)
-
-  state = next(state)
-  state.versions = []
-
-  const request = newRequest(onSuccess, onFail)
-
-  while (state.now != null) {
-    state = await request(state)
-    logResponse(state)
-
-    if (state.config.prerelease != null) {
-      const version = nextPrereleaseVersion(state)
-      let prereleaseState = { ...state, version }
-
-      prereleaseState = await request(prereleaseState)
-
-      logResponse(prereleaseState)
-      if (prereleaseState.response.ok) {
-        state.versions.push(prereleaseState.version)
-      }
-    }
-
-    if (state.response.ok) {
-      state = next(resetState(state))
-      state.versions.push(state.version)
-    }
-
-    state = next(state)
-  }
-
-  return state
-}
-
-const createSections = (state) => {
-  state.forEach((s) => {
-    if (document.querySelector(`#suite${s.version.suite}`) != null) return
-
-    const template = document.querySelector('#sectionTemplate').innerHTML
-    const section = template.replace(/{{apiSuite}}/g, s.version.suite)
-
-    const div = document.createElement('div')
-    div.setAttribute('id', `suite${s.version.suite}`)
-    div.innerHTML = section
-
-    const sections = document.querySelector('#sections')
-    sections.appendChild(div)
-  })
-}
-
-const createVersionRows = (state) => {
-  state.forEach((s) => {
-    const template = document.querySelector('#versionTemplate').innerHTML
-    const versionRow = template.replace(/{{apiVersion}}/g, getDisplayVersionFor(s))
-
-    const div = document.createElement('div')
-    div.innerHTML = versionRow
-
-    const sections = document.querySelector(`#suite${s.version.suite}`).querySelector('div')
-    sections.appendChild(div)
-
-    let versionLinks = div.querySelector('.versionLinks')
-
-    if (s.config.apiUrlTemplate != null) {
-      const apiTemplate = document.querySelector('#apiTemplate').innerHTML
-      versionLinks.innerHTML += apiTemplate.replace(/{{apiUrl}}/g, apiUrlFor(s))
-    }
-
-    const docsTemplate = document.querySelector('#docsTemplate').innerHTML
-    versionLinks.innerHTML += docsTemplate.replace(/{{docsUrl}}/g, docsUrlFor(s))
-  })
-}
-
-const hideProgress = () => {
-  const progress = document.querySelector('#progress')
-  progress.classList.add('hide')
-
-  const progressDescription = document.querySelector('#progressDescription')
-  progressDescription.classList.add('hide')
-}
-
-const showSections = () => {
-  const sections = document.querySelector('#sections')
-  sections.classList.remove('hide')
-}
-
-const showError = (err) => {
-  hideProgress()
-  const errorDescription = document.getElementById('errorDescription')
-  errorDescription.innerHTML += `<div>${err}</div>`
-  errorDescription.classList.remove('hide')
-}
-
-/**
- * @typedef {Object} Config
- * @property {Object} initialVersion - the initial version to use when searching urls
- * @property {string} docsUrlTemplate - the template used when searching for swagger docs page
- * @property {string=} apiUrlTemplate - an optional template to display the api version endpoint
- * @property {string} displayVersionTemplate - the template used to display a human readable representation of the version
- * @property {string=} prerelease - an optional prerelease tag to look for in url route
- *
- * @description
+/*
  * Running Locally:
  *    Disable CORS in Chrome: Win + R -> chrome.exe --user-data-dir="C://chromeDev" --disable-web-security
  *    Open LandingPage/index.html in browser with CORS disabled
  *    Update apiUrlBaseForLocalTesting variable below if needed
  */
-const getConfigs = () => {
-  const apiUrlBaseForLocalTesting = 'https://api-stage.ed-fi.org'
+
+const versionRanges = [
+  // Version ranges to probe. The range syntax is documented in: https://github.com/npm/node-semver?tab=readme-ov-file#ranges
+  // Note that probing will continue until the end of the range even if a specific version failed to answer.
+  '5.0 - 5.10',
+  '6.0 - 6.10',
+  '7.0 - 7.10'
+];
+
+const versionVariants = [
+  // Variants to probe for each version
+  {
+    displayTemplate: 'Ed-Fi API v{{version}}',
+    apiUrlTemplate: '{{baseUrl}}/v{{version}}/api/',
+    docsUrlTemplate: '{{baseUrl}}/v{{version}}/docs/',
+  },
+  {
+    displayTemplate: 'Ed-Fi API v{{version}} - Shared Instance',
+    apiUrlTemplate: '{{baseUrl}}/SharedInstance_v{{version}}/api/',
+    docsUrlTemplate: '{{baseUrl}}/SharedInstance_v{{version}}/docs/',
+  },
+  {
+    displayTemplate: 'Ed-Fi API v{{version}} - Year Specific',
+    apiUrlTemplate: '{{baseUrl}}/YearSpecific_v{{version}}/api/',
+    docsUrlTemplate: '{{baseUrl}}/YearSpecific_v{{version}}/docs/',
+  },
+  {
+    displayTemplate: 'Ed-Fi API v{{version}} - Multi-tenant',
+    docsUrlTemplate: '{{baseUrl}}/Multitenant_v{{version}}/docs/',
+    apiUrlTemplate: '{{baseUrl}}/Multitenant_v{{version}}/api/',
+  }
+];
+
+const apiUrlBaseForLocalTesting = 'https://stage.api.ed-fi.org';
+
+async function init() {
+
   const apiUrlBase =
     window.location.protocol === 'file:' ? apiUrlBaseForLocalTesting : `${window.location.protocol}//${window.location.host}`
 
-  const configs = [
-    {
-      initialVersion: newVersion(2, 2, 4, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
-    },
-    {
-      initialVersion: newVersion(3, 3, 1, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
-    },
-    {
-      initialVersion: newVersion(3, 5, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}}`
-    },
-    {
-      initialVersion: newVersion(3, 5, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/SharedInstance_v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Shared Instance`
-    },
-    {
-      initialVersion: newVersion(3, 5, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/YearSpecific_v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Year Specific`
-    },
-    {
-      initialVersion: newVersion(3, 7, 0, 0, null),
-      docsUrlTemplate: `${apiUrlBase}/Multitenant_v{{version}}/docs/`,
-      apiUrlTemplate: `${apiUrlBase}/Multitenant_v{{version}}/api/`,
-      displayVersionTemplate: `Ed-Fi ODS / API Suite {{suite}} v{{version}} - Multi-tenant`
+  const versionsToProbe = [];
+  for (let major = 0; major < 100; major++) {
+    for (let minor = 0; minor < 100; minor++) {
+      const version = semver.parse(`${major}.${minor}.0`);
+      if (versionRanges.some(versionRange => semver.satisfies(version, versionRange))) {
+        versionsToProbe.push(version);
+      }
     }
-  ]
+  }
 
-  return configs
+  const requests = versionsToProbe
+    .reverse()
+    .flatMap(version => versionVariants.map(variant => [version, variant]))
+    .map(([version, variant]) => ([version, variant, buildApiProbeRequest(version, variant, apiUrlBase)]));
+
+  const responses = await Promise.all(requests.map(([, , request]) => request));
+
+  const succesfulResponses = requests
+    .map(([version, variant,], i) => [version, variant, responses[i]])
+    .filter(([, , response]) => response instanceof Response && response.status !== 404);
+
+  createVersionRows(succesfulResponses.map(([version, variant,]) => [version, variant]), apiUrlBase);
+  hideProgress();
+  showVersionRows();
 }
 
-const init = (configs = getConfigs()) => {
-  console.time('✔️')
-  configs.forEach((c) => console.log(c))
+await init();
 
-  const searches = configs.map((config) => {
-    const state = { config, now: 'default', version: config.initialVersion }
-
-    return new Promise((resolve, reject) => {
-      resolve(search(state))
-      reject(showError)
-    })
-  })
-
-  Promise.all(searches).then((states) => {
-    states.forEach((s) => console.log(s))
-
-    // @ts-ignore Property 'flat' does not exist on type 'any[]'. ts(2339)
-    const state = states.map((s) => s.versions.map((v) => ({ version: v, config: s.config }))).flat()
-    state.sort((x, y) => sortVersions(x.version, y.version))
-    console.log(state)
-
-    createSections(state)
-    createVersionRows(state)
-
-    hideProgress()
-    showSections()
-
-    console.timeEnd('✔️')
-  })
+function interpolateTemplate(stringTemplate, version, baseUrl) {
+  return stringTemplate
+    .replace(/{{version}}/g, `${version.major}.${version.minor}`)
+    .replace(/{{baseUrl}}/g, baseUrl);
 }
 
-init();
+function buildApiProbeRequest(version, variant, apiUrlBase) {
+  return fetch(interpolateTemplate(variant.apiUrlTemplate, version, apiUrlBase))
+    // If there's an error (connection issue, time out, ...) return null instead of bubbling the exception up
+    .catch(_ => null);
+}
+
+function hideProgress() {
+  document.querySelector('#progress')?.classList.add('d-none');
+}
+
+function showVersionRows() {
+  document.querySelector('#sections')?.classList.remove('d-none');
+}
+
+function createVersionRows(versions, baseUrl) {
+
+  versions.forEach(([version, variant]) => {
+
+    // @ts-ignore
+    const versionRowHTML = document
+      .querySelector('#versionTemplate')
+      .innerHTML
+      .replace(/{{apiVersion}}/g, interpolateTemplate(variant.displayTemplate, version, baseUrl));
+
+    const versionRow = document.createElement('div');
+    versionRow.innerHTML = versionRowHTML;
+    versionRow.classList.add("version-row");
+
+    const versionLinks = versionRow.querySelector('.versionLinks');
+
+    // @ts-ignore
+    versionLinks.innerHTML += document
+      .querySelector('#apiLinkTemplate')
+      .innerHTML
+      .replace(/{{apiUrl}}/g, interpolateTemplate(variant.apiUrlTemplate, version, baseUrl));
+
+    // @ts-ignore
+    versionLinks.innerHTML += document
+      .querySelector('#docsLinkTemplate')
+      .innerHTML
+      .replace(/{{docsUrl}}/g, interpolateTemplate(variant.docsUrlTemplate, version, baseUrl));
+
+    // @ts-ignore
+    document
+      .querySelector(`#sections`)
+      .querySelector('.card-body')
+      .appendChild(versionRow);
+  });
+
+  if (versions.length === 0) {
+    document.querySelector('#noApisMessage')?.classList.remove('d-none');
+  }
+}
