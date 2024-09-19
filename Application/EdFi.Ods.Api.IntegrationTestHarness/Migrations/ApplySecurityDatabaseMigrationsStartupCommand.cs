@@ -4,16 +4,17 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Reflection;
-using EdFi.Ods.Api.ExternalTasks;
+using System.Threading.Tasks;
+using EdFi.Ods.Api.Startup;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Migrations;
 
-public class SecurityDatabaseMigrationsTask : IExternalTask
+public class ApplySecurityDatabaseMigrationsStartupCommand : IStartupCommand
 {
     private readonly IDatabaseMigrationsApplicator _databaseMigrationsApplicator;
     private readonly ISecurityDatabaseConnectionStringCatalog _securityConnectionStringCatalog;
 
-    public SecurityDatabaseMigrationsTask(
+    public ApplySecurityDatabaseMigrationsStartupCommand(
         IDatabaseMigrationsApplicator databaseMigrationsApplicator,
         ISecurityDatabaseConnectionStringCatalog securityConnectionStringCatalog)
     {
@@ -21,7 +22,7 @@ public class SecurityDatabaseMigrationsTask : IExternalTask
         _securityConnectionStringCatalog = securityConnectionStringCatalog;
     }
 
-    public void Execute()
+    public Task ExecuteAsync()
     {
         foreach (var connectionString in _securityConnectionStringCatalog.GetConnectionStrings())
         {
@@ -31,5 +32,7 @@ public class SecurityDatabaseMigrationsTask : IExternalTask
                 MigrationArtifactType.Data,
                 MigrationDatabaseType.Security);
         }
+
+        return Task.CompletedTask;
     }
 }
