@@ -257,10 +257,10 @@ function InstallCredentialHandler {
 
     $pluginLocation = [System.IO.Path]::Combine($profilePath, ".nuget", "plugins");
     $tempZipLocation = [System.IO.Path]::Combine($tempPath, "CredProviderZip");
-    $localNetcoreCredProviderPath = [System.IO.Path]::Combine("net8", "CredentialProvider.Microsoft");
+    $localNetcoreCredProviderPath = [System.IO.Path]::Combine("netcore", "CredentialProvider.Microsoft");
     $fullNetcoreCredProviderPath = [System.IO.Path]::Combine($pluginLocation, $localNetcoreCredProviderPath)    
-    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.1.1/Microsoft.Net8.NuGet.CredentialProvider.zip'
-    $zipFile = 'Microsoft.Net8.NuGet.CredentialProvider.zip'
+    $sourceUrl = 'https://github.com/microsoft/artifacts-credprovider/releases/download/v1.1.1/Microsoft.Net6.NuGet.CredentialProvider.zip'
+    $zipFile = 'Microsoft.Net6.NuGet.CredentialProvider.zip'
     $pluginZip = Join-Path ([IO.Path]::GetTempPath()) $zipFile
     Write-Host "Downloading $sourceUrl to $pluginZip"
     try {
@@ -271,7 +271,7 @@ function InstallCredentialHandler {
     }
     Write-Host "Download complete." 
     if (-not (Test-Path $pluginZip)) {
-        Write-Warning "Microsoft.Net8.NuGet.CredentialProvider file '$zipFile' not found."
+        Write-Warning "Microsoft.Net6.NuGet.CredentialProvider file '$zipFile' not found."
         return
     }
     $tempZipLocation = Join-Path ([IO.Path]::GetTempPath()) 'CredProviderZip'

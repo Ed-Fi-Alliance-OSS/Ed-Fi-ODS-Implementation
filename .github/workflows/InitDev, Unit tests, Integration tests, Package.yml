@@ -35,11 +35,6 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
-  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
-  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
-  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
-  INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
-  REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -191,20 +186,3 @@ jobs:
       with:
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*.nupkg
-    - name: Install-credential-handler
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/      
-      run: |      
-        .\build.githubactions.ps1 InstallCredentialHandler
-      shell: powershell 
-    - name: Publish to Azure Artifacts
-      if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        Get-ChildItem "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages/" -Filter *.nupkg | 
-        Foreach-Object {
-            Write-Host "nupkg full path is " $_.FullName
-            $packagePath = $_.FullName
-            dotnet nuget push $packagePath --api-key ${{ env.AZURE_ARTIFACT_NUGET_KEY }} --source ${{env.AZURE_ARTIFACT_URL}} --skip-duplicate
-        }
-      shell: powershell        
