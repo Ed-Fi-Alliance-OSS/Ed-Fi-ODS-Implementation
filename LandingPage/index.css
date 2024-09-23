@@ -5,44 +5,28 @@ The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2
 See the LICENSE and NOTICES files in the project root for more information.
 */
 
-/* centers the progress element */
-#progress {
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: transparent;
+.page-title {
+  font-size: 2rem;
 }
 
-/* improve default link hovering */
-a {
-  transition: color 0.5s ease-in;
+.page-title .logo {
+  height: 3.7rem;
 }
 
-a:hover {
-  color: #1f69c0;
-  transition: color 0.1s ease-out;
+.notice {
+  background-color: #ffe484;
+  box-shadow: inset 0 -1px 1px rgba(var(--bs-body-color-rgb), 0.15), 0 0.25rem 1.5rem rgba(255, 255, 255, 0.75);
 }
 
-/* reduces spacing between rows */
-.row {
-  margin-bottom: 5px;
+.version-row {
+  border-bottom: 1px solid #e4e4e4;
 }
 
-/* adds the fade in animation for most elements */
-#cautionTitle,
-.section,
-.col,
-.row,
+.version-row:last-child {
+  border-bottom: initial;
+}
+
 #sections {
-  -webkit-animation: fadein 0.5s ease-out;
-  -moz-animation: fadein 0.5s ease-out;
-  -ms-animation: fadein 0.5s ease-out;
-  -o-animation: fadein 0.5s ease-out;
   animation: fadein 0.5s ease-out;
 }
 
@@ -54,67 +38,4 @@ a:hover {
   to {
     opacity: 1;
   }
-}
-
-@-moz-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-webkit-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-ms-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@-o-keyframes fadein {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-#cautionTitle {
-  font-style: italic !important;;
-  color: #3b4151;
-  font-family: sans-serif !important;;
-  font-size: 14px;
-  border-left: 0px;
-  box-sizing: inherit;
-  display: block;
-  margin-block-start: 1em;
-  margin-block-end: 1em;
-  margin-inline-start: 0px;
-  margin-inline-end: 0px;
-  text-align: center !important;;
-}
-
-.wrapper {
-  box-sizing: border-box;
-  margin: 0 auto;
-  max-width: 1460px;
-  padding: 0 20px;
-  width: 100%;
 }
