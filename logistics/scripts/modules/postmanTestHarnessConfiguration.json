@@ -799,7 +799,24 @@
           ]
         }
       ],
-      "NamespacePrefixes": ["uri://ed-fi.org"]
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
+      "Email": "test-multiple_employment_associations@ed-fi-org",
+      "VendorName": "Multiple Employment Associations Ed-Fi Namespace",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "MultipleEmpAss_255901001_255901044",
+              "LocalEducationOrganizations": [ 255901001, 255901044 ]
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     }
   ]
 }
