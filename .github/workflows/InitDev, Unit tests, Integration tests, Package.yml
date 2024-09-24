@@ -7,8 +7,7 @@ name: InitDev, Unit tests, Integration tests, Package
 
 on:
   pull_request:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - Application/**/*
       - tests/**/*
