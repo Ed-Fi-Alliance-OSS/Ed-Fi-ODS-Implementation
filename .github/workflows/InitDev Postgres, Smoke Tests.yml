@@ -8,13 +8,8 @@ name: InitDev Postgres, Smoke Tests
 on:
   pull_request:
     branches: [main-6x, 'b-v*-patch*','feature-*']      
-    paths:
-      - Application/**/*
   push:
-    branches:
-      - main-6x
-    paths:
-      - Application/**/*
+    branches: [main-6x, 'b-v*-patch*','feature-*']
       
   workflow_dispatch:
     inputs:
