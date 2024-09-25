@@ -12,8 +12,7 @@ on:
       - Application/**/*
       - tests/**/*
   push:
-    branches:
-      - main-6x
+    branches: [main-6x, 'b-v*-patch*','feature-*']
     paths:
       - Application/**/*
       - tests/**/*
