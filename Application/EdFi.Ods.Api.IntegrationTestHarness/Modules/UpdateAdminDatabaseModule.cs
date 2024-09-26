@@ -5,7 +5,7 @@
 
 using Autofac;
 using EdFi.Admin.DataAccess.Utils;
-using EdFi.Ods.Api.ExternalTasks;
+using EdFi.Ods.Api.Startup;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
 {
@@ -16,8 +16,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness.Modules
             builder.RegisterType<TestHarnessConfigurationProvider>()
                 .SingleInstance();
 
-            builder.RegisterType<UpdateAdminDatabaseTask>()
-                .As<IExternalTask>();
+            builder.RegisterType<UpdateAdminDatabaseStartupCommand>()
+                .As<IStartupCommand>();
 
             builder.RegisterType<DefaultApplicationCreator>()
                 .As<IDefaultApplicationCreator>();

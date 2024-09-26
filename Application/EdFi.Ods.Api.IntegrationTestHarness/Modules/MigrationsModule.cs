@@ -4,8 +4,8 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.IntegrationTestHarness.Migrations;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Database;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules;
@@ -18,8 +18,8 @@ public class MigrationsModule : Module
             .As<IDatabaseMigrationsApplicator>()
             .SingleInstance();
 
-        builder.RegisterType<SecurityDatabaseMigrationsTask>()
-            .As<IExternalTask>()
+        builder.RegisterType<ApplySecurityDatabaseMigrationsStartupCommand>()
+            .As<IStartupCommand>()
             .SingleInstance();
 
         builder.RegisterDecorator<OdsDatabaseConnectionStringProviderMigratingDecorator, IOdsDatabaseConnectionStringProvider>();

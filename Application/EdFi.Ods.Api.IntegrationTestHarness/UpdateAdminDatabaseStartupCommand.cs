@@ -8,13 +8,14 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 using System.Xml;
 using EdFi.Admin.DataAccess.Models;
 using EdFi.Admin.DataAccess.Repositories;
 using EdFi.Admin.DataAccess.Utils;
 using EdFi.Common.Extensions;
-using EdFi.Ods.Api.ExternalTasks;
 using EdFi.Ods.Api.Middleware;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Context;
@@ -30,9 +31,9 @@ using TenantConfiguration = EdFi.Ods.Api.Middleware.TenantConfiguration;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness
 {
-    public class UpdateAdminDatabaseTask : IExternalTask
+    public class UpdateAdminDatabaseStartupCommand : IStartupCommand
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabaseTask));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(UpdateAdminDatabaseStartupCommand));
         private readonly IClientAppRepo _clientAppRepo;
         private readonly IDefaultApplicationCreator _defaultApplicationCreator;
         private readonly IConfiguration _configuration;
@@ -44,7 +45,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         private readonly Version _edfiDomainModelVersion;
         private readonly long _maxSafeEducationOrganizationId;
 
-        public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
+        public UpdateAdminDatabaseStartupCommand(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
@@ -72,7 +73,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             _maxSafeEducationOrganizationId = _edfiDomainModelVersion.Major < 5 ? int.MaxValue : maxSafeInt64;
         }
 
-        public UpdateAdminDatabaseTask(IClientAppRepo clientAppRepo,
+        public UpdateAdminDatabaseStartupCommand(IClientAppRepo clientAppRepo,
             IDefaultApplicationCreator defaultApplicationCreator,
             IConfiguration configuration,
             ApiSettings apiSettings,
@@ -86,7 +87,7 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             _tenantConfigurationContextProvider = tenantConfigurationContextProvider;
         }
 
-        public void Execute()
+        public Task ExecuteAsync()
         {
             PostmanEnvironment postmanEnvironment;
 
@@ -111,6 +112,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
             }
 
             CreateEnvironmentFile();
+
+            return Task.CompletedTask;
 
             void CreateEnvironmentFile()
             {
