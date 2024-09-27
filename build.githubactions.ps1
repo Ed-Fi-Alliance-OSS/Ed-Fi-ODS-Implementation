@@ -385,7 +385,7 @@ function ComparePackageVersions {
 
 function CreateOrUpdateRepositoriesJson {
 
-    $FilePath = "repositories.json"
+    $FilePath = "$PSScriptRoot/repositories.json"
 
     $headers = @{
         Authorization = "Bearer $env:EDFI_ODS_TOKEN"
