@@ -184,7 +184,7 @@ jobs:
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: repositories-json
-        path: repositories.json
+        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/repositories.json
  
     - name: Check if any successful workflow run in Pkg EdFi.Ods.CodeGen.yml
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
