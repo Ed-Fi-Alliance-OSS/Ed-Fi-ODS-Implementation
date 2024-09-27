@@ -57,7 +57,7 @@ param(
     [string]
     $RelativeRepoPath,
 
-    [ValidateSet('4.0.0', '5.1.0')]
+    [ValidateSet('4.0.0', '5.2.0')]
     [string]  $StandardVersion,
 
     [string]$Url,
@@ -282,7 +282,11 @@ function InstallCredentialHandler {
         }
         $tempNetcorePath = Join-Path $tempZipLocation 'plugins' $localNetcoreCredProviderPath
         Write-Verbose "Copying Credential Provider from $tempNetcorePath to $fullNetcoreCredProviderPath"
-        Copy-Item $tempNetcorePath -Destination $fullNetcoreCredProviderPath -Force -Recurse
+        if (Test-Path $tempNetcorePath) {
+            Copy-Item $tempNetcorePath -Destination $fullNetcoreCredProviderPath -Force -Recurse
+        } else {
+            Write-Error "The Credential Provider was not found at $tempNetcorePath."
+        }
 
         # Remove $tempZipLocation directory
         Write-Verbose "Removing the Credential Provider temp directory $tempZipLocation"

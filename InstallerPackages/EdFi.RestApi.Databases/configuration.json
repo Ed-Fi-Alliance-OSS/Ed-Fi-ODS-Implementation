@@ -11,7 +11,7 @@
   "ApiSettings": {
     "Engine": "SQLServer",
     "ExtensionVersion": "1.1.0",
-    "StandardVersion": "5.1.0",
+    "StandardVersion": "5.2.0",
     "PopulatedTemplateDBTimeOutInSeconds": "600",
     "OdsTokens": [],
     "Features": [
