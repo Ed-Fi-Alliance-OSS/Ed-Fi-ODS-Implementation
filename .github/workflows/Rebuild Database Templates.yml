@@ -104,7 +104,7 @@ jobs:
         workflow: Rebuild Database Templates.yml
         name: repositories-json
         workflow_conclusion: ("failure","cancelled")
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
+        path: ${{ github.workspace }}/
         run_id: ${{  env.rebuild_database_templates_lastrunId }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
         check_artifacts: true
@@ -184,7 +184,7 @@ jobs:
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: repositories-json
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/repositories.json
+        path: ${{ github.workspace }}/repositories.json
  
     - name: Check if any successful workflow run in Pkg EdFi.Ods.CodeGen.yml
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
