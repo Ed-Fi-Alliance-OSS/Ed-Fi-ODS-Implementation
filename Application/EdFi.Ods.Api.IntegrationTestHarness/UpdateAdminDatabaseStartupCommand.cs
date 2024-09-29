@@ -148,7 +148,15 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             Value = _apiSettings.IsFeatureEnabled(ApiFeature.Profiles.ToString()),
                             Key = "ProfilesFeatureIsEnabled"
                         });
-                    
+
+                    postmanEnvironment.Values.Add(
+                        new ValueItem
+                        {
+                            Enabled = true,
+                            Value = _apiSettings.IsFeatureEnabled(ApiFeature.ChangeQueries.ToString()),
+                            Key = "ChangeQueriesFeatureIsEnabled"
+                        });
+
                     // The following variable provides the Postman collections with the correct parent/
                     // contact related entity name for the Ed-Fi data standard currently in use.
                     postmanEnvironment.Values.Add(
