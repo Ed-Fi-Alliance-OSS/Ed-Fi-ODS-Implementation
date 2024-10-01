@@ -692,8 +692,7 @@ function New-WebPackage {
         $params = @(
             "publish", $ProjectPath,
             "--configuration", $buildConfiguration,
-            "--no-restore",
-            "--no-build"
+            "--no-restore"
         )
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"
