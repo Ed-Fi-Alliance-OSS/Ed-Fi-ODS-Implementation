@@ -146,6 +146,7 @@ if (-not $NoPackaging) {
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
         OutputDirectory = $PackageOutput
+        StandardVersion = $StandardVersion
     }
     $result += New-WebPackage @parameters
 

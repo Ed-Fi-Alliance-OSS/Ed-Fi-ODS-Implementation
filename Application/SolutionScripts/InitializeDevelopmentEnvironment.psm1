@@ -671,6 +671,10 @@ function New-DatabasesPackage {
 
 function New-WebPackage {
     param(
+
+        [ValidateSet('4.0.0', '5.2.0')]
+        [string] $StandardVersion,
+
         [string] $ProjectPath,
 
         [string] $PackageDefinitionFile = "$ProjectPath/bin/*/*/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
@@ -692,7 +696,8 @@ function New-WebPackage {
         $params = @(
             "publish", $ProjectPath,
             "--configuration", $buildConfiguration,
-            "--no-restore"
+            "--no-restore",
+            "-p:StandardVersion=$StandardVersion"
         )
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"
