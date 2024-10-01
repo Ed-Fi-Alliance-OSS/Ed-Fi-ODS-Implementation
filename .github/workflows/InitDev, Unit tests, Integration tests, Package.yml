@@ -141,10 +141,6 @@ jobs:
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
         .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage  -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}   -MssqlSaPassword ${{ env.DB_PASS }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
       shell: pwsh
-    - name: Set permissions for database backup file
-      working-directory: ./
-      run: sudo chmod -R 777 Ed-Fi-ODS-Implementation/DatabaseTemplate/Database/
-      shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
