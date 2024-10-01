@@ -70,7 +70,11 @@ param(
     })]
     [String] $ExtensionVersion,
 
-    [string] $MssqlSaPassword
+    [string] $MssqlSaPassword,
+
+    [string] $LocalDbBackupDirectory,
+
+    [string] $DbServerBackupDirectory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -102,6 +106,8 @@ $params = @{
     ExtensionVersion       = $ExtensionVersion
 	JavaPath               = $JavaPath
 	MssqlSaPassword        = $MssqlSaPassword
+	LocalDbBackupDirectory = $LocalDbBackupDirectory
+	DbServerBackupDirectory = $DbServerBackupDirectory
 }
 
 Write-FlatHashtable $params
