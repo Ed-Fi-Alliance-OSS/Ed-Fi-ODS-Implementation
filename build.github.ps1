@@ -68,7 +68,9 @@ param(
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
     })]
-    [String] $ExtensionVersion
+    [String] $ExtensionVersion,
+
+    [string] $MssqlSaPassword
 )
 
 $ErrorActionPreference = 'Stop'
@@ -99,6 +101,7 @@ $params = @{
     StandardVersion        = $StandardVersion
     ExtensionVersion       = $ExtensionVersion
 	JavaPath               = $JavaPath
+	MssqlSaPassword        = $MssqlSaPassword
 }
 
 Write-FlatHashtable $params
