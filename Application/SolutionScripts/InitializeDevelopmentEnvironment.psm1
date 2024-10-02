@@ -424,7 +424,7 @@ function Reset-TestAdminDatabase {
             # Iterate through the keys and print each key-value pair
                 foreach ($key in $csb.Keys) {
                     $value = $csb[$key]
-                    Write-Host "$key: $value"
+                    Write-Host "$($key): $($value)"
                 }
         }
         Write-Host "Connection String: $($csb.ConnectionString)"
