@@ -466,17 +466,11 @@ function Reset-TestPopulatedTemplateDatabase {
         Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
         Write-Host "MssqlSaPassword Type: $($settings.MssqlSaPassword.GetType())"
 
-        Write-Host "Connection String: $($csb.ConnectionString)"
-        Write-Host "Before Reset-TestPopulatedTemplateDatabase Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
-
-        if (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))
-        {
-            $csbs['trusted_connection'] = $false
-            $csbs['user id'] = 'sa'
-            $csbs['password'] = $settings.MssqlSaPassword
-        }
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
+        foreach ($csb in $csbs) {
+            Write-Host "Connection String: $($csb.ConnectionString)"
+            Write-Host "Before Reset-TestPopulatedTemplateDatabase Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
+            Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
 }
 
