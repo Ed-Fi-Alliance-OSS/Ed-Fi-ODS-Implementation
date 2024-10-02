@@ -727,7 +727,6 @@ Function Remove-Database {
     }
     $databaseName = $csb['Database']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
-
     if (-not [string]::IsNullOrWhitespace($MssqlSaPassword)) {
         $masterCSB["Uid"] = 'sa'
         $masterCSB["Pwd"] = $MssqlSaPassword
@@ -737,7 +736,6 @@ Function Remove-Database {
     $masterConnStr = Get-SqlConnectionString -dbCSB $masterCSB
 
     Write-Host "Starting removal of database $databaseName..."
-
     if (Test-DatabaseExists -csb $csb) {
         Write-Host "Database '$databaseName' does exist. Clearing users and processes."
         Clear-DatabaseUsers -csb $csb -safe:$safe
@@ -755,7 +753,11 @@ Function Remove-Database {
         Write-Host "Dropping the $databaseName Database."
         Invoke-SqlScript -connectionString $masterConnStr -sql $dropDatabase
     }
+    else {
+        Write-Host "Database '$databaseName' did not exist and was not removed"
+    }    
 }
+
 Function New-Database {
     <#
     .Synopsis
