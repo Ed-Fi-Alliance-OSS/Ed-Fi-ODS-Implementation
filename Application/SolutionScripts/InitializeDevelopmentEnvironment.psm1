@@ -413,10 +413,12 @@ function Reset-TestAdminDatabase {
 
         Write-Host "Reset-TestAdminDatabase Inside Connection String Builder (csb): $csb"
 
-        Write-Host "MssqlSaPassword: $settings.MssqlSaPassword"
-        Write-Host "Engine: $settings.ApiSettings.Engine"
+        Write-Host "MssqlSaPassword: $($settings['MssqlSaPassword'])"
+        Write-Host "Engine: $($settings['ApiSettings']['Engine'])"
+
          if (($settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))) {
 
+            Write-Host "Inside if condition"
             $csb['User ID'] = 'sa'
             $csb['Password'] = $settings.MssqlSaPassword
             $csb['Integrated Security'] = 'False'
