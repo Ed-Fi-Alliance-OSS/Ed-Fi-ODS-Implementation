@@ -408,7 +408,18 @@ function Reset-TestAdminDatabase {
         $replacementTokens = @("$($databaseName)_Test")
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "${databaseName}_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb }
+
+        foreach ($csb in $csbs) { 
+
+        Write-Host "Reset-TestAdminDatabase Inside Connection String Builder (csb): $csb"
+         if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+            $csb['Uid'] = 'sa'
+            $csb['Pwd'] = $Settings.MssqlSaPassword
+            $csb['trusted_connection'] = 'False'
+         }
+        Initialize-EdFiDatabase $settings $databaseType $csb
+        
+        }
     }
 }
 

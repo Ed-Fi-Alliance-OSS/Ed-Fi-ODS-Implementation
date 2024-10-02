@@ -31,6 +31,9 @@ function Get-SQLServerDatabaseRemoveStrategy {
 
     if (-not $Settings.ApiSettings.DropDatabases) { return }
 
+
+    Write-Host "Before Executing Remove-Database..."
+
     Remove-Database -csb $csb -safe | Out-Null
 }
 
