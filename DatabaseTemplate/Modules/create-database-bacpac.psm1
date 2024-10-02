@@ -58,8 +58,9 @@ function Export-BacPac {
         [ValidateNotNullOrEmpty()]
         [string] $server = "."
     )
-    
-    $executable = Join-Path $sqlPackagePath "sqlpackage$(GetExeExtension)"
+    ls /home/runner/.dotnet/tools/sqlpackage
+
+    $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
     
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
