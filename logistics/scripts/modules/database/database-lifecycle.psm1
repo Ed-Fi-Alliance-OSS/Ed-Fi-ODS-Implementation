@@ -24,10 +24,7 @@ function Get-SQLServerDatabaseRemoveStrategy {
         $Database,
 
         [Parameter(Mandatory = $true)]
-        [System.Data.Common.DbConnectionStringBuilder] $csb,
-
-        [Parameter(Mandatory = $true)]
-        [string] $MssqlSaPassword
+        [System.Data.Common.DbConnectionStringBuilder] $csb
     )
 
     Write-Host "Executing SQLServerRemoveStrategy..."
@@ -37,7 +34,7 @@ function Get-SQLServerDatabaseRemoveStrategy {
 
     Write-Host "Before Executing Remove-Database..."
 
-    Remove-Database -csb $csb -safe -MssqlSaPassword $MssqlSaPassword | Out-Null
+    Remove-Database -csb $csb -safe | Out-Null
 }
 
 function Get-SQLServerDatabaseCreateStrategy {

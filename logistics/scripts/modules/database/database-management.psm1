@@ -714,12 +714,7 @@ Function Remove-Database {
 
         [Parameter(Position = 2, ParameterSetName = "csb")]
         [Parameter(Position = 4, ParameterSetName = "legacy")]
-        [switch] $safe,
-
-        [Parameter(Position = 3, ParameterSetName = "csb")]
-        [Parameter(Position = 5, ParameterSetName = "legacy")]
-        [switch] $MssqlSaPassword
-
+        [switch] $safe
 
     )
 
@@ -730,7 +725,6 @@ Function Remove-Database {
         Write-Host "Username: $username"
         Write-Host "Password: $($password | ConvertFrom-SecureString)"
         Write-Host "Safe Mode: $safe"
-        Write-Host "MssqlSaPassword: $MssqlSaPassword"
 
 
     Use-SqlServerModule
