@@ -34,7 +34,9 @@ param(
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
     })]
-    [string]  $ExtensionVersion
+    [string]  $ExtensionVersion,
+
+    [string] $MssqlSaPassword
 )
 
 $ErrorActionPreference = 'Stop'
@@ -116,6 +118,7 @@ $tasks = [ordered] @{
             dropDatabase     = $true
             standardVersion  = $StandardVersion
             extensionVersion = $ExtensionVersion
+            mssqlSaPassword  = $MssqlSaPassword
         }
         Initialize-EdFiDatabaseWithDbDeploy @params
     }

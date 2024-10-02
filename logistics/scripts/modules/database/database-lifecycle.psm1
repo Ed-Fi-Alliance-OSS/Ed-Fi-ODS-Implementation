@@ -580,8 +580,12 @@ function Initialize-EdFiDatabaseWithDbDeploy {
                 }
         })]
         [string]  $extensionVersion,
+
         [string]  $LocalDbBackupDirectory,
-        [string]  $DbServerBackupDirectory
+
+        [string]  $DbServerBackupDirectory,
+
+        [string]  $MssqlSaPassword
     )
 
     Write-InvocationInfo $MyInvocation
@@ -630,10 +634,10 @@ function Initialize-EdFiDatabaseWithDbDeploy {
         return;
     }
 
-    if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
-        $CSB['Uid'] = 'sa'
-        $CSB['Pwd'] = $Settings.MssqlSaPassword
-        $CSB['trusted_connection'] = 'False'
+    if (($engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($MssqlSaPassword))) {
+        $csb['Uid'] = 'sa'
+        $csb['Pwd'] = $MssqlSaPassword
+        $csb['trusted_connection'] = 'False'
     }
 
     $databaseNeedsBackup = (
