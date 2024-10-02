@@ -36,7 +36,11 @@ param(
     })]
     [string]  $ExtensionVersion,
 
-    [string] $MssqlSaPassword
+    [string] $MssqlSaPassword,
+
+    [string] $LocalDbBackupDirectory,
+
+    [string] $DbServerBackupDirectory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -145,6 +149,8 @@ $tasks = [ordered] @{
             backupDirectory          = $Output
             multipleBackups          = $true
             engine                   = $sqlServerSettings.ApiSettings.Engine
+            localDbBackupDirectory   = $LocalDbBackupDirectory
+            DbServerBackupDirectory  = $DbServerBackupDirectory
         }
         Write-FlatHashtable $params
         Backup-DatabaseTemplate $params
