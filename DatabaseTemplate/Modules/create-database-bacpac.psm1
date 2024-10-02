@@ -58,7 +58,8 @@ function Export-BacPac {
         [ValidateNotNullOrEmpty()]
         [string] $server = "."
     )
-    ls /home/runner/.dotnet/tools/sqlpackage
+
+    Write-Host "sqlPackagePath is $sqlPackagePath "
 
     $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
     
