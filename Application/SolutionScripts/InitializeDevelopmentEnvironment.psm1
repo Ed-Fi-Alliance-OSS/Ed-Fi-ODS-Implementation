@@ -458,9 +458,20 @@ function Reset-TestPopulatedTemplateDatabase {
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
+
+
+        Write-Host "Reset-TestPopulatedTemplateDatabase Inside Connection String Builder (csb): $csb"
+
+        Write-Host "Engine: $($settings.ApiSettings.Engine)"
+        Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
+        Write-Host "MssqlSaPassword Type: $($settings.MssqlSaPassword.GetType())"
+
+        Write-Host "Connection String: $($csb.ConnectionString)"
+        Write-Host "Before Reset-TestPopulatedTemplateDatabase Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
+
         if (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))
         {
-            $csbs['trusted_connection'] = 'False'
+            $csbs['trusted_connection'] = $false
             $csbs['user id'] = 'sa'
             $csbs['password'] = $settings.MssqlSaPassword
         }
