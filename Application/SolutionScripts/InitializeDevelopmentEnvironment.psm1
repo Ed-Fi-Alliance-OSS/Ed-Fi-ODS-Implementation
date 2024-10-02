@@ -414,16 +414,7 @@ function Reset-TestAdminDatabase {
 
         foreach ($csb in $csbs) { 
 
-        Write-Host "Reset-TestAdminDatabase Inside Connection String Builder (csb): $csb"
-
-        Write-Host "Engine: $($settings.ApiSettings.Engine)"
-        Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
-        Write-Host "MssqlSaPassword Type: $($settings.MssqlSaPassword.GetType())"
-
-        Write-Host "Connection String: $($csb.ConnectionString)"
-        Write-Host "Before Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
-
-        Initialize-EdFiDatabase $settings $databaseType $csb
+            Initialize-EdFiDatabase $settings $databaseType $csb
         
         }
     }
@@ -459,17 +450,8 @@ function Reset-TestPopulatedTemplateDatabase {
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
 
-
-        Write-Host "Reset-TestPopulatedTemplateDatabase Inside Connection String Builder (csb): $csb"
-
-        Write-Host "Engine: $($settings.ApiSettings.Engine)"
-        Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
-        Write-Host "MssqlSaPassword Type: $($settings.MssqlSaPassword.GetType())"
-
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         foreach ($csb in $csbs) {
-            Write-Host "Connection String: $($csb.ConnectionString)"
-            Write-Host "Before Reset-TestPopulatedTemplateDatabase Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
             Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
 }

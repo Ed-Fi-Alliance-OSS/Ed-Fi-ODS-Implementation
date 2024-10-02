@@ -81,7 +81,6 @@ $ErrorActionPreference = 'Stop'
 
 & "$PSScriptRoot/Initialize-PowershellForDevelopment.ps1"
 
-Write-Host "Inside Gihub build MssqlSaPassword: $MssqlSaPassword"
 # Build and Test
 $params = @{
     InstallType            = $InstallType
