@@ -714,19 +714,24 @@ Function Remove-Database {
 
         [Parameter(Position = 2, ParameterSetName = "csb")]
         [Parameter(Position = 4, ParameterSetName = "legacy")]
-        [switch] $safe
+        [switch] $safe,
+
+        [Parameter(Position = 3, ParameterSetName = "csb")]
+        [Parameter(Position = 5, ParameterSetName = "legacy")]
+        [switch] $MssqlSaPassword
+
+
     )
 
         # Print parameter values
-    if ($PSCmdlet.ParameterSetName -eq "csb") {
         Write-Host "Connection String Builder (csb): $csb"
-    } else {
         Write-Host "SQL Server: $sqlServer"
         Write-Host "Database: $database"
         Write-Host "Username: $username"
-        Write-Host "Password: $($password | ConvertFrom-SecureString)"  # Use carefully, for debugging only
+        Write-Host "Password: $($password | ConvertFrom-SecureString)"
         Write-Host "Safe Mode: $safe"
-    }
+        Write-Host "MssqlSaPassword: $MssqlSaPassword"
+
 
     Use-SqlServerModule
 
@@ -740,9 +745,10 @@ Function Remove-Database {
     }
     $databaseName = $csb['Database']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
-    if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
+
+    if (-not [string]::IsNullOrWhitespace($MssqlSaPassword)) {
         $masterCSB["Uid"] = 'sa'
-        $masterCSB["Pwd"] = $Settings.MssqlSaPassword
+        $masterCSB["Pwd"] = $MssqlSaPassword
         $masterCSB["Trusted_Connection"] = "no"
     }
 

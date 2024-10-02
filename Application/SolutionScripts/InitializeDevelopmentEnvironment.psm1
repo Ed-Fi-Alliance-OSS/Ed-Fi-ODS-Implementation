@@ -412,11 +412,12 @@ function Reset-TestAdminDatabase {
         foreach ($csb in $csbs) { 
 
         Write-Host "Reset-TestAdminDatabase Inside Connection String Builder (csb): $csb"
-         if (($Settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($Settings.MssqlSaPassword))) {
+         if (($settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))) {
             $csb['Uid'] = 'sa'
-            $csb['Pwd'] = $Settings.MssqlSaPassword
+            $csb['Pwd'] = $settings.MssqlSaPassword
             $csb['trusted_connection'] = 'False'
          }
+         Write-Host "before Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
         Initialize-EdFiDatabase $settings $databaseType $csb
         
         }
