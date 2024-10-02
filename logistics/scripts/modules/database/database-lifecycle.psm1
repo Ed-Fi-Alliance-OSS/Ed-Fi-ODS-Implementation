@@ -31,9 +31,6 @@ function Get-SQLServerDatabaseRemoveStrategy {
 
     if (-not $Settings.ApiSettings.DropDatabases) { return }
 
-
-    Write-Host "Before Executing Remove-Database..."
-
     Remove-Database -csb $csb -safe | Out-Null
 }
 
@@ -412,8 +409,6 @@ function Initialize-EdFiDatabase {
         $CSB['Pwd'] = $Settings.MssqlSaPassword
         $CSB['trusted_connection'] = 'False'
     }
-
-    Write-Host "Initialize-EdFiDatabase MssqlSaPassword : $Settings.MssqlSaPassword"
 
     Write-InvocationInfo $MyInvocation
 

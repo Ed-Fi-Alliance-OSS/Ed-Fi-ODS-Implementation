@@ -715,22 +715,11 @@ Function Remove-Database {
         [Parameter(Position = 2, ParameterSetName = "csb")]
         [Parameter(Position = 4, ParameterSetName = "legacy")]
         [switch] $safe
-
     )
-
-        # Print parameter values
-        Write-Host "Connection String Builder (csb): $csb"
-        Write-Host "SQL Server: $sqlServer"
-        Write-Host "Database: $database"
-        Write-Host "Username: $username"
-        Write-Host "Safe Mode: $safe"
-
 
     Use-SqlServerModule
 
     if ($PsCmdlet.ParameterSetName -match "legacy") {
-
-        Write-Host "legacy."
         $csb = New-DbConnectionStringBuilder -username $username -password $password -property @{
             Server = $sqlServer
             Database = $database
@@ -749,34 +738,24 @@ Function Remove-Database {
 
     Write-Host "Starting removal of database $databaseName..."
 
-    try {
-
-        if (Test-DatabaseExists -csb $csb) {
-            Write-Host "Database '$databaseName' does exist. Clearing users and processes."
-            Clear-DatabaseUsers -csb $csb -safe:$safe
-            # NOTE: We use DROP DATABASE rather than the SMO's .KillDatabase() function because the former can
-            #       drop a database stuck in "Restoring" state, but the latter cannot
-            $dropDatabase = @(
-                "IF DATABASEPROPERTYEX('$databaseName', 'Status') != 'RESTORING'"
-                "BEGIN"
-                    "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
-                "END"
-                "GO"
-                "DROP DATABASE [$databaseName]"
-                "GO"
-            ) -join "`n"
-            Write-Host "Dropping the $databaseName Database."
-            Invoke-SqlScript -connectionString $masterConnStr -sql $dropDatabase
-        }
-        else {
-            Write-Host "Database '$databaseName' did not exist and was not removed"
-        }
-    }
-    catch {
-        Write-Error $("Test-DatabaseExists Failed ERROR: " + $_.Exception.ToString());
+    if (Test-DatabaseExists -csb $csb) {
+        Write-Host "Database '$databaseName' does exist. Clearing users and processes."
+        Clear-DatabaseUsers -csb $csb -safe:$safe
+        # NOTE: We use DROP DATABASE rather than the SMO's .KillDatabase() function because the former can
+        #       drop a database stuck in "Restoring" state, but the latter cannot
+        $dropDatabase = @(
+            "IF DATABASEPROPERTYEX('$databaseName', 'Status') != 'RESTORING'"
+            "BEGIN"
+                "ALTER DATABASE [$databaseName] SET SINGLE_USER WITH ROLLBACK IMMEDIATE"
+            "END"
+            "GO"
+            "DROP DATABASE [$databaseName]"
+            "GO"
+        ) -join "`n"
+        Write-Host "Dropping the $databaseName Database."
+        Invoke-SqlScript -connectionString $masterConnStr -sql $dropDatabase
     }
 }
-
 Function New-Database {
     <#
     .Synopsis
@@ -1047,7 +1026,6 @@ Function Test-DatabaseExists {
     )
 
     Use-SqlServerModule
-    Write-Host "Test-DatabaseExists Inside Connection String Builder (csb): $csb"
 
     if ($PsCmdlet.ParameterSetName -match "csb") {  
         if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
@@ -1055,12 +1033,6 @@ Function Test-DatabaseExists {
             $csb["Pwd"] = $Settings.MssqlSaPassword
             $csb["Trusted_Connection"] = "no"
         }
-
-        Write-Host "Uid :$csb["Uid"]"
-        Write-Host "Pwd :$csb["Pwd"]"
-        Write-Host "Trusted_Connection :$csb["Trusted_Connection"]"
-        Write-Host "databaseName :$databaseName"
-        Write-Host "server :$server"
 
         $server = Get-Server -csb $csb
         $databaseName = $csb["Database"]
