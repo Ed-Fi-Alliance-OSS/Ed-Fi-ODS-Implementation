@@ -1048,6 +1048,7 @@ Function Test-DatabaseExists {
     )
 
     Use-SqlServerModule
+    Write-Host "Test-DatabaseExists Inside Connection String Builder (csb): $csb"
 
     if ($PsCmdlet.ParameterSetName -match "csb") {  
         if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
@@ -1055,6 +1056,12 @@ Function Test-DatabaseExists {
             $csb["Pwd"] = $Settings.MssqlSaPassword
             $csb["Trusted_Connection"] = "no"
         }
+
+        Write-Host "Uid :$csb["Uid"]"
+        Write-Host "Pwd :$csb["Pwd"]"
+        Write-Host "Trusted_Connection :$csb["Trusted_Connection"]"
+        Write-Host "databaseName :$databaseName"
+        Write-Host "server :$server"
 
         $server = Get-Server -csb $csb
         $databaseName = $csb["Database"]
