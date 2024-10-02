@@ -194,6 +194,9 @@ function Initialize-DevelopmentEnvironment {
         throw "The Tenants parameter is required with the 'MultiTenant' InstallType."
     }
 
+
+    Write-Host "Inside Gihub build MssqlSaPassword: $MssqlSaPassword"
+
     if ((-not [string]::IsNullOrEmpty($MssqlSaPassword)) -and ($Engine -ne 'SQLServer')) {
         throw "The MssqlSaPassword parameter can only be used with the 'SQLServer' Engine."
     }
@@ -415,7 +418,7 @@ function Reset-TestAdminDatabase {
 
         Write-Host "Engine: $($settings.ApiSettings.Engine)"
         Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
-
+        Write-Host "MssqlSaPassword Type: $($settings.MssqlSaPassword.GetType())"
          if (($settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))) {
 
             Write-Host "Inside if condition"
