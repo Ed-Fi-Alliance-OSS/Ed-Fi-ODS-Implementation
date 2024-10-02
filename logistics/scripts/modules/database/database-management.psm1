@@ -723,7 +723,6 @@ Function Remove-Database {
         Write-Host "SQL Server: $sqlServer"
         Write-Host "Database: $database"
         Write-Host "Username: $username"
-        Write-Host "Password: $($password | ConvertFrom-SecureString)"
         Write-Host "Safe Mode: $safe"
 
 
