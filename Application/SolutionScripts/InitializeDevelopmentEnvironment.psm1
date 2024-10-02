@@ -413,8 +413,8 @@ function Reset-TestAdminDatabase {
 
         Write-Host "Reset-TestAdminDatabase Inside Connection String Builder (csb): $csb"
 
-        Write-Host "MssqlSaPassword: $($settings['MssqlSaPassword'])"
-        Write-Host "Engine: $($settings['ApiSettings']['Engine'])"
+        Write-Host "Engine: $($settings.ApiSettings.Engine)"
+        Write-Host "MssqlSaPassword: $($settings.MssqlSaPassword)"
 
          if (($settings.ApiSettings.Engine -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))) {
 
@@ -428,6 +428,9 @@ function Reset-TestAdminDatabase {
                     $value = $csb[$key]
                     Write-Host "$($key): $($value)"
                 }
+        }
+        else {
+            Write-Host "Condition not met"
         }
         Write-Host "Connection String: $($csb.ConnectionString)"
         Write-Host "Before Initialize-EdFiDatabase Inside Connection String Builder (csb): $csb"
