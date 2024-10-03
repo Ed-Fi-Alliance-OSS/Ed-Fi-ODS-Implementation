@@ -71,21 +71,6 @@ function Export-BacPac {
         chmod +x /home/runner/.dotnet/tools/sqlpackage
         ls -la /home/runner/.dotnet/tools/sqlpackage  
         
-
-        $searchPath = '/home/runner/'
-
-        # Search for sqlpackage files in all subdirectories of /home/runner/
-        $sqlPackagePath = Get-ChildItem -Path $searchPath -Recurse -Filter 'sqlpackage*' -ErrorAction SilentlyContinue | 
-                          Where-Object { $_.PSIsContainer -eq $false } |
-                          Select-Object -First 1 -ExpandProperty FullName
-
-        if ($sqlPackagePath) {
-            Write-Host "Found sqlpackage at: $sqlPackagePath"
-        } else {
-            Write-Host "sqlpackage not found in the specified directory."
-        }
-
-
         Write-Host "Running export using sqlpackage..."
 
         $params = @()
