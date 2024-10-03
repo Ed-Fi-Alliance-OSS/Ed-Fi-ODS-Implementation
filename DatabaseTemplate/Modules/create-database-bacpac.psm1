@@ -39,7 +39,7 @@ function Export-BacPac {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $sqlPackagePath = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
+        [string] $sqlPackagePath,
 
         [Parameter(
             Mandatory = $true,
@@ -74,7 +74,6 @@ function Export-BacPac {
 
         Write-Host "Running export using sqlpackage..."
 
-        $executable = Join-Path $sqlPackagePath $executableName
         $params = @()
         $params += "/a:export"
         $params += "/sdn:" + $database
