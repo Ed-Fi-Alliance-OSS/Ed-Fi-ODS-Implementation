@@ -77,7 +77,6 @@ function Export-BacPac {
         } else {
             Write-Host "sqlpackage executable not found at $sqlPackageExecutable."
         }
-    }
 }
 
 Export-ModuleMember -Function Export-BacPac
