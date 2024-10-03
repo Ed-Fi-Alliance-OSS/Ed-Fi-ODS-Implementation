@@ -56,7 +56,10 @@ function Export-BacPac {
         [string] $artifactOutput,
 
         [ValidateNotNullOrEmpty()]
-        [string] $server = "."
+        [string] $server = ".",
+
+        [ValidateNotNullOrEmpty()]
+        [System.Data.Common.DbConnectionStringBuilder] $existingCSB
     )
 
     # Install sqlpackage if not already installed
@@ -79,6 +82,7 @@ function Export-BacPac {
     $currentDirectory = Get-Location
     Write-Host "Current directory is: $currentDirectory"
 
+    Write-Host "existingCSB is: $existingCSB"
 
     $params = @()
     $params += "/a:export"

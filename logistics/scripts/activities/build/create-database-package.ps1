@@ -158,8 +158,16 @@ $tasks = [ordered] @{
     "Export SQLServer $DatabaseType Database to BACPAC"    = {
         $connectionStringKey = $sqlServerSettings.ApiSettings.ConnectionStringKeys[$databaseType]
         $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
+
+        if (($sqlServerSettings.ApiSettings.Engine  -eq 'SQLServer') -and (-not [string]::IsNullOrEmpty($MssqlSaPassword))) {
+            $csb['Uid'] = 'sa'
+            $csb['Pwd'] = $MssqlSaPassword
+            $csb['trusted_connection'] = 'False'
+        }
+
         $databaseName = $csb['database']
         $params = @{
+            existingCSB = $csb
             sqlPackagePath = $SQLPackage
             database       = $databaseName
             artifactOutput = (Join-Path $Output "$databaseName.bacpac")
