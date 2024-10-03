@@ -58,28 +58,10 @@ function Export-BacPac {
         [ValidateNotNullOrEmpty()]
         [string] $server = "."
     )
+    
+     Write-Host "Checking sqlpackage command..."
 
-    if (-not (Test-Path $sqlPackagePath)) {
-        throw [System.IO.FileNotFoundException] "$sqlPackagePath not found."
-    }
-
-    # Determine the correct executable based on the platform
-    $executableName = if ($IsWindows) { "sqlpackage.exe" } else { "sqlpackage" }
-
-    # Join the path and executable correctly
-    $executable = Join-Path $sqlPackagePath $executableName
-
-    $params = @()
-    $params += "/a:export"
-    $params += "/sdn:" + $database
-    $params += "/tf:" + $artifactOutput
-    $params += "/ssn:" + $server
-    $params += "/sec:False" # Source Encrypt Connection
-
-    & /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
-
-    Write-Host -ForegroundColor Magenta $executable $params
-    & $executable $params
+    & /home/runner/.dotnet/tools/sqlpackage /? || echo "sqlpackage executed successfully or failed."
 }
 
 Export-ModuleMember -Function Export-BacPac
