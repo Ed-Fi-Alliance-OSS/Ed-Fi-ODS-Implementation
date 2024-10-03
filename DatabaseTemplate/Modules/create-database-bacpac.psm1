@@ -87,7 +87,7 @@ function Export-BacPac {
     $params = @()
     $params += "/a:export"
     $params += "/tf:" + $artifactOutput
-    $params += "/SourceConnectionString:" + "$existingCSB"
+    $params += "/p:SourceConnectionString=" + "$existingCSB"
     $params += "/sec:False" # Source Encrypt Connection
 
     Write-Host -ForegroundColor Magenta $executableName $params
