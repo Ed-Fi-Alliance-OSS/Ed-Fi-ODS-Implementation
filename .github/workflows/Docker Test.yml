@@ -66,9 +66,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        StandardVersion:
-          - "4.0.0"
-          - "5.1.0"
+        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
         dockerfile:
           [
