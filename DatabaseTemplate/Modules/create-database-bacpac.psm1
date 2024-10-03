@@ -64,7 +64,19 @@ function Export-BacPac {
 
         # Install sqlpackage if not already installed
         Write-Host "Installing sqlpackage tool..."
-        dotnet tool install --global microsoft.sqlpackage --verbosity minimal
+
+        # Run the installation and capture output
+        $installOutput = dotnet tool install --global microsoft.sqlpackage --verbosity minimal 2>&1
+
+        # Output the result of the installation
+        Write-Host $installOutput
+
+        # Check if installation was successful
+        if ($installOutput -notmatch "was successfully installed" -and $installOutput -notmatch "is already installed") {
+            Write-Host -ForegroundColor Red "Failed to install sqlpackage. Exiting script."
+            exit 1
+        }
+
 
         Write-Host "Checking if sqlpackage exists at $sqlPackageExecutable..."
 
