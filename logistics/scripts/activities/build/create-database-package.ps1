@@ -57,6 +57,7 @@ Import-Module -Force -Scope Global (Get-RepositoryResolvedPath 'logistics/script
 
 Clear-Error
 
+#if (-not (Test-Path $SQLPackage)) { throw "SQLPackage.exe not found at '$SQLPackage'" }
 if ([string]::IsNullOrWhitespace($PackageName)) { $PackageName = "EdFi.Database.$DatabaseType" }
 
 $settings = @{ ApiSettings = @{ } }
@@ -159,6 +160,7 @@ $tasks = [ordered] @{
         $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
         $databaseName = $csb['database']
         $params = @{
+            sqlPackagePath = "/home/runner/work/"
             database       = $databaseName
             artifactOutput = (Join-Path $Output "$databaseName.bacpac")
         }
