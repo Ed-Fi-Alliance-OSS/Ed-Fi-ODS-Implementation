@@ -71,8 +71,8 @@ function Export-BacPac {
     
     $executable = Join-Path $sqlPackagePath executableName
 
-    if (-not (Test-Path $executable)) {
-        throw [System.IO.FileNotFoundException] "$executable not found."
+    if (-not (Test-Path $sqlPackagePath)) {
+        throw [System.IO.FileNotFoundException] "$$sqlPackagePath not found."
     }
 
     $params = @()
