@@ -39,7 +39,7 @@ function Export-BacPac {
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript( { Resolve-Path $_ } )]
-        [string] $sqlPackagePath,
+        [string] $sqlPackagePath = 'C:/Program Files/Microsoft SQL Server/150/DAC/bin',
 
         [Parameter(
             Mandatory = $true,
@@ -58,9 +58,6 @@ function Export-BacPac {
         [ValidateNotNullOrEmpty()]
         [string] $server = "."
     )
-    
-        $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
-        $sqlPackageExecutable = "$sqlPackagePath/sqlpackage"
 
         # Install sqlpackage if not already installed
         Write-Host "Installing sqlpackage tool..."
@@ -77,7 +74,9 @@ function Export-BacPac {
             Write-Host -ForegroundColor Red "Failed to install sqlpackage. Exiting script."
             exit 1
         }
-
+        
+        $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
+        $sqlPackageExecutable = "$sqlPackagePath/sqlpackage"
 
         Write-Host "Checking if sqlpackage exists at $sqlPackageExecutable..."
 
