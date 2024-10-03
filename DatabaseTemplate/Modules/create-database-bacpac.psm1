@@ -63,15 +63,11 @@ function Export-BacPac {
         throw [System.IO.FileNotFoundException] "$sqlPackagePath not found."
     }
 
-    $executable = $null
+    # Determine the correct executable based on the platform
+    $executableName = if ($IsWindows) { "sqlpackage.exe" } else { "sqlpackage" }
 
-    if ($IsWindows){
-       $executableName = "sqlpackage.exe" 
-       $executable = Join-Path $sqlPackagePath $executableName
-    } else {
-        $executableName = "sqlpackage"
-        $executable = "$sqlPackagePath $executableName"
-    }
+    # Join the path and executable correctly
+    $executable = Join-Path $sqlPackagePath $executableName
 
     $params = @()
     $params += "/a:export"
