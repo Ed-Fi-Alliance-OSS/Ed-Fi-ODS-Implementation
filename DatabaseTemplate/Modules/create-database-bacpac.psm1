@@ -59,9 +59,25 @@ function Export-BacPac {
         [string] $server = "."
     )
     
-     Write-Host "Checking sqlpackage command..."
+    $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
+        $sqlPackageExecutable = "$sqlPackagePath/sqlpackage"
 
-    & /home/runner/.dotnet/tools/sqlpackage /? || echo "sqlpackage executed successfully or failed."
+        Write-Host "Checking if sqlpackage exists at $sqlPackageExecutable..."
+
+        if (Test-Path $sqlPackageExecutable) {
+            Write-Host "sqlpackage found at $sqlPackageExecutable"
+            Write-Host "Running sqlpackage /? to check if it's working..."
+
+            & $sqlPackageExecutable /? 
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host "sqlpackage executed successfully."
+            } else {
+                Write-Host "sqlpackage failed to execute."
+            }
+        } else {
+            Write-Host "sqlpackage executable not found at $sqlPackageExecutable."
+        }
+    }
 }
 
 Export-ModuleMember -Function Export-BacPac
