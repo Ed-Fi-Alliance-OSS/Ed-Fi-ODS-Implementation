@@ -59,12 +59,10 @@ function Export-BacPac {
         [string] $server = "."
     )
 
-    Get-ChildItem -Path $sqlPackagePath -Recurse
+    Write-Host "sqlPackagePath is $sqlPackagePath"
 
-    Write-Host "sqlPackagePath is $sqlPackagePath "
+    $executable = Join-Path $sqlPackagePath "sqlpackage" 
 
-    $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
-    
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
     }
