@@ -70,7 +70,8 @@ function Export-BacPac {
 
         # Output the result of the installation
         Write-Host $installOutput
-
+        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH 
+        chmod +x /home/runner/.dotnet/tools/sqlpackage
         # Check if installation was successful
         if ($installOutput -notmatch "was successfully installed" -and $installOutput -notmatch "is already installed") {
             Write-Host -ForegroundColor Red "Failed to install sqlpackage. Exiting script."
