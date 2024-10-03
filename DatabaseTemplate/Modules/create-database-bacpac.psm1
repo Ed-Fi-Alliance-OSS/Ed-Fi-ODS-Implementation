@@ -66,33 +66,25 @@ function Export-BacPac {
         $installOutput = dotnet tool install --global microsoft.sqlpackage --verbosity minimal 2>&1
 
         # Output the result of the installation
-        Write-Host $installOutput
+        Write-Host "output is " $installOutput
         echo "$HOME/.dotnet/tools" >> $GITHUB_PATH 
         chmod +x /home/runner/.dotnet/tools/sqlpackage
-        # Check if installation was successful
-        if ($installOutput -notmatch "was successfully installed" -and $installOutput -notmatch "is already installed") {
-            Write-Host -ForegroundColor Red "Failed to install sqlpackage. Exiting script."
-            exit 1
-        }
+        ls -la /home/runner/.dotnet/tools/sqlpackage  
         
-        $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
-        $sqlPackageExecutable = "$sqlPackagePath/sqlpackage"
 
-        Write-Host "Checking if sqlpackage exists at $sqlPackageExecutable..."
+        Write-Host "Running export using sqlpackage..."
 
-        if (Test-Path $sqlPackageExecutable) {
-            Write-Host "sqlpackage found at $sqlPackageExecutable"
-            Write-Host "Running sqlpackage /? to check if it's working..."
-
-            & $sqlPackageExecutable /? 
-            if ($LASTEXITCODE -eq 0) {
-                Write-Host "sqlpackage executed successfully."
-            } else {
-                Write-Host "sqlpackage failed to execute."
-            }
-        } else {
-            Write-Host "sqlpackage executable not found at $sqlPackageExecutable."
-        }
+        $executable = Join-Path $sqlPackagePath $executableName
+        $params = @()
+        $params += "/a:export"
+        $params += "/sdn:" + $database
+        $params += "/tf:" + $artifactOutput
+        $params += "/ssn:" + $server
+        $params += "/sec:False" # Source Encrypt Connection
+        $executable= "/home/runner/.dotnet/tools/sqlpackage sqlpackage"
+             
+        Write-Host -ForegroundColor Magenta $executable $params
+        & $executable $params
 }
 
 Export-ModuleMember -Function Export-BacPac
