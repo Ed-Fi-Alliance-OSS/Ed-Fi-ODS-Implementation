@@ -61,7 +61,15 @@ function Export-BacPac {
 
     Write-Host "sqlPackagePath is $sqlPackagePath"
 
-    $executable = Join-Path $sqlPackagePath "sqlpackage" 
+    $executableName = if ($PSVersionTable.PSPlatform -eq 'Unix') {
+        "sqlpackage"  # For Linux
+        Write-Host "Linux"
+    } else {
+        "sqlpackage.exe"  # For Windows
+        Write-Host "Windows"        
+    }
+    
+    $executable = Join-Path $sqlPackagePath executableName
 
     if (-not (Test-Path $executable)) {
         throw [System.IO.FileNotFoundException] "$executable not found."
