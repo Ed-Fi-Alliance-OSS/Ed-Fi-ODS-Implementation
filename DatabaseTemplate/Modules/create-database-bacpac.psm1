@@ -59,27 +59,31 @@ function Export-BacPac {
         [string] $server = "."
     )
 
-        # Install sqlpackage if not already installed
-        Write-Host "Installing sqlpackage tool..."
+    # Install sqlpackage if not already installed
+    Write-Host "Installing sqlpackage tool..."
 
-        # Run the installation and capture output
-        $installOutput = dotnet tool install --global microsoft.sqlpackage --verbosity minimal 2>&1
+    # Run the installation and capture output
+    $installOutput = dotnet tool install --global microsoft.sqlpackage --verbosity minimal 2>&1
 
-        # Output the result of the installation
-        Write-Host "output is " $installOutput
+    # Output the result of the installation
+    Write-Host "output is " $installOutput
          
-        Write-Host "Running export using sqlpackage..."
+    Write-Host "Running export using sqlpackage..."
 
-        $params = @()
-        $params += "/a:export"
-        $params += "/sdn:" + $database
-        $params += "/tf:" + $artifactOutput
-        $params += "/ssn:" + $server
-        $params += "/sec:False" # Source Encrypt Connection
-        $executable= "$sqlPackagePath sqlpackage"
-             
-        Write-Host -ForegroundColor Magenta $executable $params
-        & $executable $params
+    $executable = Join-Path $sqlPackagePath "sqlpackage$(GetExeExtension)"
+
+    Write-Host "executable is " $executable
+
+    $params = @()
+    $params += "/a:export"
+    $params += "/sdn:" + $database
+    $params += "/tf:" + $artifactOutput
+    $params += "/ssn:" + $server
+    $params += "/sec:False" # Source Encrypt Connection
+
+    Write-Host -ForegroundColor Magenta $executable $params
+    & $executable $params
+
 }
 
 Export-ModuleMember -Function Export-BacPac
