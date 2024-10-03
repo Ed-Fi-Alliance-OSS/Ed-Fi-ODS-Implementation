@@ -160,7 +160,7 @@ $tasks = [ordered] @{
         $csb = $sqlServerSettings.ApiSettings.csbs[$connectionStringKey]
         $databaseName = $csb['database']
         $params = @{
-            sqlPackagePath = "/home/runner/work/"
+            sqlPackagePath = "/home/runner/"
             database       = $databaseName
             artifactOutput = (Join-Path $Output "$databaseName.bacpac")
         }
