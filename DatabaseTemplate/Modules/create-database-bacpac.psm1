@@ -86,7 +86,6 @@ function Export-BacPac {
 
     $params = @()
     $params += "/a:export"
-    $params += "/sdn:" + $database
     $params += "/tf:" + $artifactOutput
     $params += "/SourceConnectionString:" + "$existingCSB"
     $params += "/sec:False" # Source Encrypt Connection
