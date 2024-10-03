@@ -59,6 +59,8 @@ function Export-BacPac {
         [string] $server = "."
     )
 
+    Get-ChildItem -Path $sqlPackagePath -Recurse
+
     Write-Host "sqlPackagePath is $sqlPackagePath "
 
     $executable = Join-Path $sqlPackagePath "sqlpackage.exe"
