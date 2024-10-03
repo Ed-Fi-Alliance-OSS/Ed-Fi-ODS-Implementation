@@ -25,7 +25,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  CURRENT_STANDARD_VERSION: "5.1.0"
+  CURRENT_STANDARD_VERSION: "5.2.0"
   PACKAGE_VERSION: "7.3"
 
 jobs:
@@ -66,7 +66,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}
+        StandardVersion:
+          - "4.0.0"
+          - "5.1.0"
         ExtensionVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.ExtensionVersions) }}
         dockerfile:
           [

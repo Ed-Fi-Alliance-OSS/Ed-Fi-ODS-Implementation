@@ -55,35 +55,14 @@ jobs:
       contents: write
 
     steps:
-
+    - name: Checkout Ed-Fi-ODS-Implementation
+      uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      with:
+          fetch-depth: 0
+    
     - name: Extract StandardVersion
       id: extract_version
       run: echo "standard_version=${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions)[0] }}" >> $GITHUB_ENV
-    - name: Checkout Ed-Fi-ODS-Implementation
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
-          path: Ed-Fi-ODS-Implementation/
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
-
-    - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
-
-    - name: Checkout Ed-Fi-ODS
-      uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-      with:
-          repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
-          path: Ed-Fi-ODS/
-          token: ${{ secrets.REPO_DISPATCH_TOKEN }}
-
-    - name: Is pull request branch exists in Ed-Fi-ODS
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-           .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
 
     - name: Set Current Branch Environment Variable
       shell: pwsh
@@ -100,7 +79,6 @@ jobs:
         }
 
     - name: Check ${{ env.current_branch }} branch exists in all 3 repositories or not 
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
 
@@ -112,7 +90,6 @@ jobs:
         .\build.githubactions.ps1  TestBranchExists -RepoName "Ed-Fi-Extensions" -BranchName "${{ env.current_branch }}" -Url $url
 
     - name: Check for any failed previous workflow runs in the current branch
-      working-directory: ./Ed-Fi-ODS-Implementation/ 
       shell: pwsh
       run: |
         $workflow_file_name = "Rebuild Database Templates.yml"
@@ -127,7 +104,7 @@ jobs:
         workflow: Rebuild Database Templates.yml
         name: repositories-json
         workflow_conclusion: ("failure","cancelled")
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/
+        path: ${{ github.workspace }}/
         run_id: ${{  env.rebuild_database_templates_lastrunId }}
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
         check_artifacts: true
@@ -136,7 +113,6 @@ jobs:
       continue-on-error: true
 
     - name: Read the last commit for Ed-Fi-ODS-Implementation and store it in repositories.json 
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
 
@@ -148,7 +124,6 @@ jobs:
         .\build.githubactions.ps1 'CreateOrUpdateRepositoriesJson' -Url $implementationUrl -RepoName 'Ed-Fi-ODS-Implementation'
 
     - name: Read the last commit for Ed-Fi-ODS and store it in repositories.json 
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
 
@@ -160,7 +135,6 @@ jobs:
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $odsUrl -RepoName 'Ed-Fi-ODS'
 
     - name: Read the last commit for Ed-Fi-Extensions and store it in repositories.json 
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
 
@@ -172,7 +146,6 @@ jobs:
         .\build.githubactions.ps1  'CreateOrUpdateRepositoriesJson' -Url $extensionsUrl -RepoName 'Ed-Fi-Extensions'
 
     - name: Check for IscommitChanged in repositories.json
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
         $FilePath = "repositories.json"
@@ -211,10 +184,9 @@ jobs:
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
       with:
         name: repositories-json
-        path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/repositories.json
+        path: ${{ github.workspace }}/repositories.json
  
     - name: Check if any successful workflow run in Pkg EdFi.Ods.CodeGen.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/     
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -223,7 +195,6 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'codeGen_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.CodeGen package version
-      working-directory: ./Ed-Fi-ODS-Implementation/    
       if: ${{ env.codeGen_successful_runexist == 'true' }}    
       shell: pwsh
       run: |
@@ -264,25 +235,8 @@ jobs:
         repo: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
         check_artifacts: true
 
-    - name: Import GPG key
-      id: import-gpg
-      uses: crazy-max/ghaction-import-gpg@82a020f1f7f605c65dd2449b392a52c3fcfef7ef # v6.0.0
-      with:
-        workdir: ./Ed-Fi-ODS-Implementation/
-        gpg_private_key: ${{ secrets.EDFIBUILDAGENT_PRIVATE_KEY }}
-        passphrase: ${{ secrets.EDFIBUILDAGENT_PASSPHRASE }}
-        git_user_signingkey: true
-        git_commit_gpgsign: true
-
-    - name: Git setup
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        git config user.name "${{ steps.import-gpg.outputs.name }}"
-        git config user.email "${{ steps.import-gpg.outputs.email }}"
-
     - name: Update configuration.packages.json with EdFi.Ods.CodeGen new package version
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'false' || (env.NoNewCommitsInAllThreeRepositories == 'true' && env.EdFi.Ods.CodeGen_package_alreadyupdated == 'false') }}  
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.CodeGen.${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
@@ -290,34 +244,29 @@ jobs:
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision"  
         Write-Host "packageversion"  $packageversion
-        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'EdFi.Ods.CodeGen'.PackageVersion = $packageversion
-        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+        $config | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8
+
+    - name: Add configuration.packages.json
+      run: |    
+        git add configuration.packages.json
+        git status        
 
     - name: Commit and push updated EdFi.Ods.CodeGen package reference
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh
-      run: |
-          # Define the file path
-          $filePath = "./configuration.packages.json"
+      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      with:
+        commit_message: "Updating for new CodeGen version"
+        repo: ${{ github.repository }}
+        branch: ${{ env.current_branch }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
-          # Check if there are any changes in the file
-          git diff --quiet $filePath
-          $changesDetected = $LASTEXITCODE -eq 1
+    - name: Pull latest changes from the remote repository
+      run: git pull origin ${{ env.current_branch }}
 
-          if ($changesDetected) {
-              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
-              git add $filePath
-              git commit -m "Updating for new CodeGen version"
-              git push -u origin $env:current_branch
-          } else {
-              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
-          }
-          exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Homograph.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -327,14 +276,12 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Homograph_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Homograph package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.Homograph_successful_runexist == 'true' }}
       shell: pwsh
       run: |
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'homograph' -StatusEnvName 'Homograph_package_alreadyupdated'
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.Sample.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -343,14 +290,12 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'Sample_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.Sample package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.Sample_successful_runexist == 'true' }}
       shell: pwsh
       run: |
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'sample' -StatusEnvName 'Sample_package_alreadyupdated'
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Extensions.TPDM.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -359,7 +304,6 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'TPDM_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Extensions.TPDM package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.TPDM_successful_runexist == 'true' }}
       shell: pwsh
       run: |
@@ -471,10 +415,8 @@ jobs:
         check_artifacts: true
 
     - name: Update configuration.packages.json with all Extensions Homograph, TPDM, Sample new package version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
@@ -527,30 +469,26 @@ jobs:
             $config.packages.'tpdm'.PackageVersion = $packageversion
         }
 
-        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+        $config | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8  
+
+    - name: Add configuration.packages.json
+      run: |    
+        git add configuration.packages.json
+        git status        
 
     - name: Commit and push updated Extensions- TPDM, Sample, Homograph package references
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh      
-      run: |
-          # Define the file path
-          $filePath = "./configuration.packages.json"
+      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      with:
+        commit_message: "Updating for new Extensions- TPDM, Sample, Homograph package version"
+        repo: ${{ github.repository }}
+        branch: ${{ env.current_branch }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
-          # Check if there are any changes in the file
-          git diff --quiet $filePath
-          $changesDetected = $LASTEXITCODE -eq 1
+    - name: Pull latest changes from the remote repository
+      run: git pull origin ${{ env.current_branch }}
 
-          if ($changesDetected) {
-              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
-              git add $filePath
-              git commit -m "Updating for new Extensions- TPDM, Sample, Homograph package version"
-              git push -u origin $env:current_branch
-          } else {
-              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
-          }
-          exit 0
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -559,14 +497,12 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.populated_template_successful_runexist == 'true' }}
       shell: pwsh
       run: |
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'GrandBend' -StatusEnvName 'populated_template_package_alreadyupdated'
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Populated.Template.PostgreSQL.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -575,14 +511,12 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'populated_template_postgreSQL_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Populated.Template.PostgreSQL package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.populated_template_postgreSQL_successful_runexist == 'true' }}
       shell: pwsh
       run: |
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'PostgreSqlPopulatedTemplate' -StatusEnvName 'populated_template_postgreSQL_package_alreadyupdated'
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Minimal.Template.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -591,14 +525,12 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.minimal_template_successful_runexist == 'true' }}
       shell: pwsh
       run: |
         .\build.githubactions.ps1  'ComparePackageVersions' -PackageName 'EdFiMinimalTemplate' -StatusEnvName 'minimal_template_package_alreadyupdated'
 
     - name: Check if any successful workflow run in Pkg EdFi.Ods.Minimal.Template.PostgreSQL.yml
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.NoNewCommitsInAllThreeRepositories == 'true' }}
       shell: pwsh
       run: |
@@ -607,7 +539,6 @@ jobs:
         .\build.githubactions.ps1  'WorkflowCheck' -Url $url -ExpectedStatus 'completed' -ExpectedConclusions  @('success') -StatusEnvName 'minimal_template_postgreSQL_successful_runexist'
   
     - name: Check if configuration.packages.json has an updated EdFi.Ods.Minimal.Template.PostgreSQL package Version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       if: ${{ env.minimal_template_postgreSQL_successful_runexist == 'true' }}
       shell: pwsh
       run: |
@@ -754,10 +685,8 @@ jobs:
         check_artifacts: true
 
     - name: Update configuration.packages.json with all EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
-        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
 
@@ -834,28 +763,25 @@ jobs:
             Write-Host " EdFi.Suite3.Ods.Populated.Template.PostgreSQL latestVersion"  $packageversion
             $config.packages.'PostgreSqlPopulatedTemplate'.PackageVersion = $packageversion
         }
-        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+        $config | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8
+
+    - name: Add configuration.packages.json
+      run: |    
+        git add configuration.packages.json
+        git status 
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL new package version
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: pwsh      
-      run: |
-          # Define the file path
-          $filePath = "./configuration.packages.json"
+      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      with:
+        commit_message: "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
+        repo: ${{ github.repository }}
+        branch: ${{ env.current_branch }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}    
 
-          # Check if there are any changes in the file
-          git diff --quiet $filePath
-          $changesDetected = $LASTEXITCODE -eq 1
+    - name: Pull latest changes from the remote repository
+      run: git pull origin ${{ env.current_branch }}
 
-          if ($changesDetected) {
-              Write-Host "Changes detected in configuration.packages.json. Committing and pushing."
-              git add $filePath
-              git commit -m "Updating for new EdFi.Ods.Minimal.Template , EdFi.Ods.Minimal.Template.PostgreSQL ,EdFi.Ods.Populated.Template ,EdFi.Ods.Populated.Template.PostgreSQL package version"
-              git push -u origin $env:current_branch
-          } else {
-              Write-Host "No changes detected in configuration.packages.json. Skipping commit."
-          }
-          exit 0
     - name: Dispatch EdFi.Ods.Populated.Template.TPDM  workflow
       if: inputs.rebuildLevel == 'DatabaseTemplates'
       uses: Codex-/return-dispatch@9a2340d279253061c98206106038aab6ef0be02e #v1.14.0
@@ -998,7 +924,6 @@ jobs:
 
     - name: Update configuration.packages.json with all EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
       if: inputs.rebuildLevel == 'DatabaseTemplates'
-      working-directory: ./Ed-Fi-ODS-Implementation/
       shell: pwsh
       run: |
         $packageFolder = Get-Item -Path "${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/EdFi.Suite3.Ods.Minimal.Template.TPDM.Core.*${{ env.INFORMATIONAL_VERSION }}.*" | Select-Object -Expand Name
@@ -1007,7 +932,6 @@ jobs:
         $newRevision =$folderParts[$folderParts.Count- 2]
         $packageversion = "${{ env.INFORMATIONAL_VERSION }}.$newRevision" 
         Write-Host "EdFi.Suite3.Ods.Minimal.Template.TPDM latestVersion"  $packageversion
-        Import-Module "./logistics/scripts/modules/settings/settings-management.psm1"
         $filePath = "./configuration.packages.json"
         $config = Get-Content $filePath | ConvertFrom-Json
         $config.packages.'TPDMCoreMinimalTemplate'.PackageVersion = $packageversion
@@ -1033,15 +957,22 @@ jobs:
         Write-Host " EdFi.Suite3.Ods.Populated.Template.TPDM.PostgreSQL latestVersion"  $packageversion
         $config.packages.'TPDMCorePostgreSqlPopulatedTemplate'.PackageVersion = $packageversion
 
-        $config | ConvertTo-Json | Format-Json | Out-File -FilePath $filePath -Encoding UTF8
+        $config | ConvertTo-Json -Depth 10 | Out-File -FilePath $filePath -Encoding UTF8
+
+    - name: Add configuration.packages.json
+      run: |    
+        git add configuration.packages.json
+        git status 
 
     - name: Commit and push updated EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL new package version
-      if: inputs.rebuildLevel == 'DatabaseTemplates'
-      working-directory: ./Ed-Fi-ODS-Implementation/
-      run: |
-        git add ./configuration.packages.json
-        git commit -m "Updating for new EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL  package version"
-        git push -u origin ${{ env.current_branch }}
+      uses: planetscale/ghcommit-action@4131649dbf2fdf1eb34421702972a5af7b0a8731 #v0.1.18
+      with:
+        commit_message: "Updating for new EdFi.Ods.Minimal.Template.TPDM , EdFi.Ods.Minimal.Template.TPDM.PostgreSQL ,EdFi.Ods.Populated.Template.TPDM ,EdFi.Ods.Populated.Template.TPDM.PostgreSQL  package version"
+        repo: ${{ github.repository }}
+        branch: ${{ env.current_branch }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}     
+      if: inputs.rebuildLevel == 'DatabaseTemplates'         
 
     - name: Upload NugetPackages created using Rebuild Database Templates worfklow
       if: success() 
