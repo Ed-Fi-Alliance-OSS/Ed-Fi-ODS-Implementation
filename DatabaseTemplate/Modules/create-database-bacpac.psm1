@@ -72,23 +72,19 @@ function Export-BacPac {
         ls -la /home/runner/.dotnet/tools/sqlpackage  
         
 
-         $sqlpackagePath = Get-Command sqlpackage -ErrorAction SilentlyContinue
-        if ($sqlpackagePath) {
-          Write-Host "sqlpackage.exe found at: $($sqlpackagePath.Source)"
+        $searchPath = '/home/runner/'
+
+        # Search for sqlpackage files in all subdirectories of /home/runner/
+        $sqlPackagePath = Get-ChildItem -Path $searchPath -Recurse -Filter 'sqlpackage*' -ErrorAction SilentlyContinue | 
+                          Where-Object { $_.PSIsContainer -eq $false } |
+                          Select-Object -First 1 -ExpandProperty FullName
+
+        if ($sqlPackagePath) {
+            Write-Host "Found sqlpackage at: $sqlPackagePath"
         } else {
-          Write-Host "sqlpackage.exe not found."
-          # Optionally search in specific directories
-          $potentialPaths = @(
-            "$HOME/.dotnet/tools/sqlpackage",
-            "/usr/local/bin/sqlpackage"
-          )
-          foreach ($path in $potentialPaths) {
-            if (Test-Path $path) {
-              Write-Host "sqlpackage.exe found at: $path"
-              break
-            }
-          }
+            Write-Host "sqlpackage not found in the specified directory."
         }
+
 
         Write-Host "Running export using sqlpackage..."
 
