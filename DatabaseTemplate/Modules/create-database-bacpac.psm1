@@ -76,6 +76,8 @@ function Export-BacPac {
     $params += "/ssn:" + $server
     $params += "/sec:False" # Source Encrypt Connection
 
+    /home/runner/.dotnet/tools/sqlpackage sqlpackage /? || echo "sqlpackage executed successfully or failed."        
+
     Write-Host -ForegroundColor Magenta $executable $params
     & $executable $params
 }
