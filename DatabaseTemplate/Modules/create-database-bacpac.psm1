@@ -67,10 +67,7 @@ function Export-BacPac {
 
         # Output the result of the installation
         Write-Host "output is " $installOutput
-        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH 
-        chmod +x /home/runner/.dotnet/tools/sqlpackage
-        ls -la /home/runner/.dotnet/tools/sqlpackage  
-        
+         
         Write-Host "Running export using sqlpackage..."
 
         $params = @()
@@ -79,7 +76,7 @@ function Export-BacPac {
         $params += "/tf:" + $artifactOutput
         $params += "/ssn:" + $server
         $params += "/sec:False" # Source Encrypt Connection
-        $executable= "/home/runner/.dotnet/tools/sqlpackage sqlpackage"
+        $executable= "$sqlPackagePath sqlpackage"
              
         Write-Host -ForegroundColor Magenta $executable $params
         & $executable $params
