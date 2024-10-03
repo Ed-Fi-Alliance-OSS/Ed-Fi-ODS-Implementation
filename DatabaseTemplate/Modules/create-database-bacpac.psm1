@@ -59,8 +59,12 @@ function Export-BacPac {
         [string] $server = "."
     )
     
-    $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
+        $sqlPackagePath = "/home/runner/.dotnet/tools/sqlpackage"
         $sqlPackageExecutable = "$sqlPackagePath/sqlpackage"
+
+        # Install sqlpackage if not already installed
+        Write-Host "Installing sqlpackage tool..."
+        dotnet tool install --global microsoft.sqlpackage --verbosity minimal
 
         Write-Host "Checking if sqlpackage exists at $sqlPackageExecutable..."
 
