@@ -70,9 +70,11 @@ function Export-BacPac {
          
     Write-Host "Running export using sqlpackage..."
 
-    $executable = Join-Path $sqlPackagePath "sqlpackage$(GetExeExtension)"
+    $executableName = if ($IsWindows) { "sqlpackage.exe" } else { "sqlpackage" }
 
-    Write-Host "executable is " $executable
+
+    Write-Host "executableName is " $executableName
+    Write-Host "sqlPackagePath is " $sqlPackagePath
 
     $params = @()
     $params += "/a:export"
@@ -81,9 +83,8 @@ function Export-BacPac {
     $params += "/ssn:" + $server
     $params += "/sec:False" # Source Encrypt Connection
 
-    dotnet tool run sqlpackage @params
-    Write-Host -ForegroundColor Magenta "dotnet tool run sqlpackage @params"
-    & "dotnet tool run sqlpackage @params"
+    Write-Host -ForegroundColor Magenta $sqlPackagePath $executableName $params
+    & $sqlPackagePath $executableName $params
 
 }
 
