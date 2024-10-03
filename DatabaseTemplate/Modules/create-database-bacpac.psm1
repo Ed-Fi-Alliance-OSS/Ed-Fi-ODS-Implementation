@@ -76,6 +76,10 @@ function Export-BacPac {
     Write-Host "executableName is " $executableName
     Write-Host "sqlPackagePath is " $sqlPackagePath
 
+    $currentDirectory = Get-Location
+    Write-Host "Current directory is: $currentDirectory"
+
+
     $params = @()
     $params += "/a:export"
     $params += "/sdn:" + $database
@@ -83,8 +87,8 @@ function Export-BacPac {
     $params += "/ssn:" + $server
     $params += "/sec:False" # Source Encrypt Connection
 
-    Write-Host -ForegroundColor Magenta $sqlPackagePath $executableName $params
-    & $sqlPackagePath $executableName $params
+    Write-Host -ForegroundColor Magenta $executableName $params
+    & $executableName $params
 
 }
 
