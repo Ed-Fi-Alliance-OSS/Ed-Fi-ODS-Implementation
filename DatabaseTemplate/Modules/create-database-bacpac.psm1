@@ -81,8 +81,9 @@ function Export-BacPac {
     $params += "/ssn:" + $server
     $params += "/sec:False" # Source Encrypt Connection
 
-    Write-Host -ForegroundColor Magenta $executable $params
-    & $executable $params
+    dotnet tool run sqlpackage @params
+    Write-Host -ForegroundColor Magenta "dotnet tool run sqlpackage @params"
+    & "dotnet tool run sqlpackage @params"
 
 }
 
