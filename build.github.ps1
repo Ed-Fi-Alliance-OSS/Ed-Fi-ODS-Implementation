@@ -68,7 +68,13 @@ param(
                     throw "Value '{0}' is an invalid version. Supply a valid version in the format 'X.Y.Z' where X, Y, and Z are non-zero digits."
                 }
     })]
-    [String] $ExtensionVersion
+    [String] $ExtensionVersion,
+
+    [string] $MssqlSaPassword,
+
+    [string] $LocalDbBackupDirectory,
+
+    [string] $DbServerBackupDirectory
 )
 
 $ErrorActionPreference = 'Stop'
@@ -99,6 +105,9 @@ $params = @{
     StandardVersion        = $StandardVersion
     ExtensionVersion       = $ExtensionVersion
 	JavaPath               = $JavaPath
+	MssqlSaPassword        = $MssqlSaPassword
+	LocalDbBackupDirectory = $LocalDbBackupDirectory
+	DbServerBackupDirectory = $DbServerBackupDirectory
 }
 
 Write-FlatHashtable $params
@@ -137,6 +146,7 @@ if (-not $NoPackaging) {
         Version         = $params.PackageVersion
         Properties      = (Get-DefaultNuGetProperties)
         OutputDirectory = $PackageOutput
+        StandardVersion = $StandardVersion
     }
     $result += New-WebPackage @parameters
 

@@ -35,6 +35,7 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
+  DB_PASS: temporaryDbP@ssw0rd!
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -44,7 +45,24 @@ jobs:
 
   build:
     needs: FindStandardAndExtensionVersions
-    runs-on: windows-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        volumes:
+          - /MssqlBackupVolume:/DatabaseBackups
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.DB_PASS }}
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "exit 0" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 3
+          --name mssql
+          --user root
+    runs-on: ubuntu-latest
     permissions:
       checks: write
     strategy:
@@ -56,8 +74,9 @@ jobs:
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
-    - name: Support longpaths
-      run: git config --system core.longpaths true
+    - name: Set permissions for database server container backup directory
+      run: docker exec --user root mssql chmod 777 /DatabaseBackups
+      shell: pwsh
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -65,7 +84,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
@@ -75,7 +94,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: update BUILD_INCREMENTER 
@@ -85,7 +104,7 @@ jobs:
                 $newRevision = 1
                 echo "BUILD_INCREMENTER=$newRevision">> $env:GITHUB_ENV
             }
-      shell: powershell
+      shell: pwsh
     - name: Cache Nuget packages   
       uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
       with:
@@ -101,12 +120,7 @@ jobs:
       run: |
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"      
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
-      shell: powershell
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
-      run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
+      shell: pwsh
     - name: Update build.props
       working-directory: ./Ed-Fi-ODS/
       run: |
@@ -116,7 +130,7 @@ jobs:
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
         (Get-Content $buildPropsPath).Replace("<AssemblyVersion>1.0.0</AssemblyVersion>","<AssemblyVersion>$version</AssemblyVersion>") | Set-Content $buildPropsPath
-      shell: powershell
+      shell: pwsh
     - name: ODS/API InitDev, SdkGen,Run Integration Tests,Run Unit Tests, Package
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -125,8 +139,8 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64\bin\java.exe
-      shell: powershell
+        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateApiSdkPackage  -RunPostman -RunPester -RunDotnetTest -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"  -NoRestore  -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}   -MssqlSaPassword ${{ env.DB_PASS }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+      shell: pwsh
     - name: Upload Unit And Integration Test Reports
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
@@ -179,7 +193,7 @@ jobs:
                 OutputDirectory       = $env:GITHUB_WORKSPACE + '/Ed-Fi-ODS-Implementation/NugetPackages'
         }
         New-WebPackage @params
-      shell: powershell
+      shell: pwsh
     - name: Upload SandboxAdmin,SwaggerUI,WebApi,Databases,EdFi.Ods.Api.Sdk,EdFi.SdkGen NugetPackages
       if: success()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0

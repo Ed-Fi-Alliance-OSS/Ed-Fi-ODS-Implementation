@@ -441,12 +441,6 @@ function Reset-TestPopulatedTemplateDatabase {
         $connectionStringKey = $settings.ApiSettings.ConnectionStringKeys[$databaseType]
         if ($settings.InstallType -eq 'MultiTenant') { $replacementTokens = $settings.Tenants.Keys | ForEach-Object { "$($settings.ApiSettings.populatedTemplateSuffix)_$($_)_Test" } }
         $csbs = Get-DbConnectionStringBuilderFromTemplate -templateCSB $settings.ApiSettings.csbs[$connectionStringKey] -replacementTokens $replacementTokens
-        if (-not [string]::IsNullOrEmpty($settings.MssqlSaPassword))
-        {
-            $csbs['trusted_connection'] = 'False'
-            $csbs['user id'] = 'sa'
-            $csbs['password'] = $settings.MssqlSaPassword
-        }
         $createByRestoringBackup = Get-PopulatedTemplateBackupPathFromSettings $settings
         foreach ($csb in $csbs) { Initialize-EdFiDatabase $settings $databaseType $csb $createByRestoringBackup }
     }
@@ -671,6 +665,10 @@ function New-DatabasesPackage {
 
 function New-WebPackage {
     param(
+
+        [ValidateSet('4.0.0', '5.2.0')]
+        [string] $StandardVersion,
+
         [string] $ProjectPath,
 
         [string] $PackageDefinitionFile = "$ProjectPath/bin/*/*/publish/$(Split-Path $ProjectPath -Leaf).nuspec",
@@ -693,7 +691,7 @@ function New-WebPackage {
             "publish", $ProjectPath,
             "--configuration", $buildConfiguration,
             "--no-restore",
-            "--no-build"
+            "-p:StandardVersion=$StandardVersion"
         )
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"

@@ -727,9 +727,9 @@ Function Remove-Database {
     }
     $databaseName = $csb['Database']
     $masterCSB = New-DbConnectionStringBuilder -existingCSB $csb -property @{'Database' = 'master' }
-    if (-not [string]::IsNullOrWhitespace($settings.MssqlSaPassword)) {
+    if (-not [string]::IsNullOrWhitespace($MssqlSaPassword)) {
         $masterCSB["Uid"] = 'sa'
-        $masterCSB["Pwd"] = $Settings.MssqlSaPassword
+        $masterCSB["Pwd"] = $MssqlSaPassword
         $masterCSB["Trusted_Connection"] = "no"
     }
 
