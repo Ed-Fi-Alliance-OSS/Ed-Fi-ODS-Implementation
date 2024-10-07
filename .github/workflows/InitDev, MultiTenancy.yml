@@ -150,7 +150,18 @@ jobs:
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
 
-        .\build.github.ps1 -InstallType MultiTenant -Tenants "Tenant1;Tenant2" -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}   -MssqlSaPassword ${{ env.DB_PASS }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+        .\build.github.ps1 -InstallType MultiTenant `
+                          -Tenants "Tenant1;Tenant2" `
+                          -RepositoryRoot $env:GITHUB_WORKSPACE `
+                          -UsePlugins `
+                          -NoPackaging `
+                          -NoRestore `
+                          -StandardVersion "${{ matrix.StandardVersion }}" `
+                          -ExtensionVersion "${{ matrix.ExtensionVersion }}" `
+                          -MssqlSaPassword "$env:DB_PASS" `
+                          -LocalDbBackupDirectory /MssqlBackupVolume `
+                          -DbServerBackupDirectory /DatabaseBackups
+
 
         if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
           Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
