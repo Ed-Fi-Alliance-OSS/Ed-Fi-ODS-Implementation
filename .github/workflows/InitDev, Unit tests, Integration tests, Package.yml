@@ -35,7 +35,7 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
-  DB_PASS: temporaryDbP@ssw0rd!
+  DB_PASS: ${{ secrets.BUILD_DB_PASS }}
 
 jobs:
   FindStandardAndExtensionVersions:
