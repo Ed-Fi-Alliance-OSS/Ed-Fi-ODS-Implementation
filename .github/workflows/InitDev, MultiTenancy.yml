@@ -35,6 +35,7 @@ env:
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
+  DB_PASS: ${{ secrets.BUILD_DB_PASS }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -44,7 +45,24 @@ jobs:
 
   build:
     needs: FindStandardAndExtensionVersions
-    runs-on: windows-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        volumes:
+          - /MssqlBackupVolume:/DatabaseBackups
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.DB_PASS }}
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "exit 0" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 3
+          --name mssql
+          --user root
+    runs-on: ubuntu-latest
     permissions:
       checks: write
     strategy:
@@ -57,8 +75,9 @@ jobs:
     steps:
     - name: echo distinct ID ${{ github.event.inputs.distinct_id }}
       run:  echo "${{ github.event.inputs.distinct_id }}"
-    - name: Support longpaths
-      run: git config --system core.longpaths true
+    - name: Set permissions for database server container backup directory
+      run: docker exec --user root mssql chmod 777 /DatabaseBackups
+      shell: pwsh
     - name: Checkout Ed-Fi-ODS-Implementation
       uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
       with:
@@ -66,7 +85,7 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Is pull request branch exists in Ed-Fi-ODS-Implementation
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "."
     - name: Checkout Ed-Fi-ODS
@@ -76,7 +95,7 @@ jobs:
           path: Ed-Fi-ODS/
     - name: Is pull request branch exists in Ed-Fi-ODS
       working-directory: ./Ed-Fi-ODS-Implementation/
-      shell: powershell
+      shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Cache Nuget packages   
@@ -95,12 +114,7 @@ jobs:
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/SdkGen/EdFi.SdkGen.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Application/Ed-Fi-Ods.sln"
         .\build.githubactions.ps1 restore -Solution "$env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/LoadTools.sln"
-      shell: powershell
-    - name: Install sql-server-2019 & sqlpackage
-      shell: powershell
-      run: |
-          choco install sql-server-2019  -y --params "'/IGNOREPENDINGREBOOT /IACCEPTSQLSERVERLICENSETERMS /Q /ACTION=install /INSTANCEID=MSSQLSERVER /INSTANCENAME=MSSQLSERVER /TCPENABLED=1 /UPDATEENABLED=FALSE /FEATURES=SQL,Tools'" --execution-timeout=$installTimeout
-          choco install sqlpackage
+      shell: pwsh
     - name: ODS/API InitDev and SdkGen
       working-directory: ./Ed-Fi-ODS-Implementation/
       run: |
@@ -109,8 +123,20 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -JavaPath $env:JAVA_HOME_11_X64/bin/java
-      shell: powershell
+        .\build.github.ps1 -PackageVersion $version `
+                          -RepositoryRoot $env:GITHUB_WORKSPACE `
+                          -UsePlugins `
+                          -RunSdkGen `
+                          -GenerateTestSdkPackage `
+                          -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" `
+                          -NoPackaging `
+                          -NoRestore `
+                          -StandardVersion "${{ matrix.StandardVersion }}" `
+                          -ExtensionVersion "${{ matrix.ExtensionVersion }}" `
+                          -MssqlSaPassword "$env:DB_PASS" `
+                          -LocalDbBackupDirectory /MssqlBackupVolume `
+                          -DbServerBackupDirectory /DatabaseBackups
+      shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
@@ -124,7 +150,18 @@ jobs:
         $ErrorActionPreference = 'Stop'
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
 
-        .\build.github.ps1 -InstallType MultiTenant -Tenants "Tenant1;Tenant2" -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+        .\build.github.ps1 -InstallType MultiTenant `
+                          -Tenants "Tenant1;Tenant2" `
+                          -RepositoryRoot $env:GITHUB_WORKSPACE `
+                          -UsePlugins `
+                          -NoPackaging `
+                          -NoRestore `
+                          -StandardVersion "${{ matrix.StandardVersion }}" `
+                          -ExtensionVersion "${{ matrix.ExtensionVersion }}" `
+                          -MssqlSaPassword "$env:DB_PASS" `
+                          -LocalDbBackupDirectory /MssqlBackupVolume `
+                          -DbServerBackupDirectory /DatabaseBackups
+
 
         if(Test-Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish) {
           Remove-Item -Path $env:GITHUB_WORKSPACE/Ed-Fi-ODS/Utilities/DataLoading/EdFi.SmokeTest.Console/bin/Release/net8.0/publish -Recurse
@@ -137,8 +174,9 @@ jobs:
                 apiUrl = "http://localhost:8765/Tenant1"
                 isMultiTenancy = $true
         }
+
         . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/logistics/scripts/run-smoke-tests.ps1 @params
-      shell: powershell
+      shell: pwsh
     - name: Upload MultiTenancy Smoke Tests Logs
       if: success() || failure()
       uses: actions/upload-artifact@26f96dfa697d77e81fd5907df203aa23a56210a8 # v4.3.0
@@ -159,7 +197,7 @@ jobs:
         
         Write-FlatHashtable (Get-DeploymentSettings)
         ./logistics/scripts/Invoke-PostmanIntegrationTests.ps1 -isMultiTenancy -configurationFile "./logistics/scripts/modules/postmanTestHarnessConfiguration-Multitenancy.json"
-      shell: powershell
+      shell: pwsh
     - name: Postman MultiTenancy Test Report
       uses: dorny/test-reporter@eaa763f6ffc21c7a37837f56cd5f9737f27fc6c8 # v1.8
       if: success() || failure()
