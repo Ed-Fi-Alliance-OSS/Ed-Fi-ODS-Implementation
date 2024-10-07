@@ -123,7 +123,19 @@ jobs:
         [int]$BuildIncrementer = "${{ env.BUILD_INCREMENTER }}"
         [int]$newRevision =  $BuildCounter + $BuildIncrementer
         [string]$version = "${{ env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
-        .\build.github.ps1 -PackageVersion $version -RepositoryRoot $env:GITHUB_WORKSPACE -UsePlugins -RunSdkGen -GenerateTestSdkPackage -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" -NoPackaging -NoRestore -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -MssqlSaPassword ${{ env.DB_PASS }} -LocalDbBackupDirectory /MssqlBackupVolume -DbServerBackupDirectory /DatabaseBackups
+        .\build.github.ps1 -PackageVersion $version `
+                          -RepositoryRoot $env:GITHUB_WORKSPACE `
+                          -UsePlugins `
+                          -RunSdkGen `
+                          -GenerateTestSdkPackage `
+                          -PackageOutput "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages" `
+                          -NoPackaging `
+                          -NoRestore `
+                          -StandardVersion "${{ matrix.StandardVersion }}" `
+                          -ExtensionVersion "${{ matrix.ExtensionVersion }}" `
+                          -MssqlSaPassword "$env:DB_PASS" `
+                          -LocalDbBackupDirectory /MssqlBackupVolume `
+                          -DbServerBackupDirectory /DatabaseBackups
       shell: pwsh
     - name: Upload initdev logs
       if: success() || failure()
