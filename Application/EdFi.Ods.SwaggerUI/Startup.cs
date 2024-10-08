@@ -49,8 +49,12 @@ namespace EdFi.Ods.SwaggerUI
                     options =>
                     {
                         options.ForwardedHeaders = ForwardedHeaders.XForwardedFor
-                                                   & ForwardedHeaders.XForwardedHost
-                                                   & ForwardedHeaders.XForwardedProto;
+                                                   | ForwardedHeaders.XForwardedHost
+                                                   | ForwardedHeaders.XForwardedProto;
+
+                        // Accept forwarded headers from any network and proxy
+                        options.KnownNetworks.Clear();
+                        options.KnownProxies.Clear();
                     });
             }
         }
