@@ -80,7 +80,7 @@ function Invoke-Uninstall { UnInstall-EdFiOdsSandboxAdmin }
 
 function Invoke-UninstallCustomSettings {
     $parameters = @{
-        WebApplicationPath = "c:\inetpub\SandboxAdmin\5.1.0"
+        WebApplicationPath = "c:\inetpub\SandboxAdmin\5.2.0"
         WebApplicationName = "SandboxAdmin"
     }
 
