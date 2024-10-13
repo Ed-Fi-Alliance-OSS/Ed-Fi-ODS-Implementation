@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+// SPDX-License-Identifier: Apache-2.0
 // Licensed to the Ed-Fi Alliance under one or more agreements.
 // The Ed-Fi Alliance licenses this file to you under the Apache License, Version 2.0.
 // See the LICENSE and NOTICES files in the project root for more information.
@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using EdFi.Common;
 using EdFi.Ods.Api.Security.Authorization;
+using EdFi.Ods.Api.Security.Authorization.AuthorizationBasis;
 using EdFi.Ods.Api.Security.Authorization.Filtering;
 using EdFi.Ods.Common.Models.Domain;
 using EdFi.Ods.Common.Repositories;
