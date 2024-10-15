@@ -28,7 +28,7 @@ jobs:
   analyze:
     needs: FindStandardAndExtensionVersions
     name: Analyze Code (Standard Version ${{ matrix.StandardVersion }})
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     permissions:
       actions: read
       contents: read
