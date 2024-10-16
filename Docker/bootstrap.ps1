@@ -22,7 +22,7 @@ if ($Hub) {
     $template = "hub"
 }
 else {
-  ./get-versions.ps1 -StandardVersion 5.1.0 -ExtensionVersion 1.1.0 -PreRelease
+  ./get-versions.ps1 -StandardVersion 5.2.0 -ExtensionVersion 1.1.0 -PreRelease
 }
 
 $database = "pgsql"
