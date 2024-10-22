@@ -47,7 +47,9 @@ namespace EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate
                     type = new HbmType {name = "short"},
                     notnull = false,
                     insert = true,
+                    insertSpecified = true,
                     update = false,
+                    updateSpecified = true,
                     generated = HbmPropertyGeneration.Never
                 };
 
