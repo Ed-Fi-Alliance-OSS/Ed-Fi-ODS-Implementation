@@ -825,6 +825,7 @@ function Get-DefaultFeatures() {
             @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
             @{ Name = 'XsdMetadata'; IsEnabled=$true }
             @{ Name = 'MultiTenancy'; IsEnabled=$false }
+            @{ Name = 'ResourceSerialization'; IsEnabled=$true }
         )
     }
 }
