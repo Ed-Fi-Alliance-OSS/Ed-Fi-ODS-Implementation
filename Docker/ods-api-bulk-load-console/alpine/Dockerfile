@@ -4,7 +4,7 @@
 # See the LICENSE and NOTICES files in the project root for more information.
 
 # SDK image used to install dotnet tool. Runtime image do not have 'dotnet tools' installed
-FROM mcr.microsoft.com/dotnet/sdk:8.0.303-alpine3.19@sha256:91cb46b0ee207d0df53e2e38f2e4013fe2668ab52dcca13c971afbbef94c83ef AS builder
+FROM mcr.microsoft.com/dotnet/sdk:8.0.403-alpine3.20@sha256:07cb8622ca6c4d7600b42b2eccba968dff4b37d41b43a9bf4bd800aa02fab117 AS builder
 
 ARG BULKLOAD_VERSION
 
