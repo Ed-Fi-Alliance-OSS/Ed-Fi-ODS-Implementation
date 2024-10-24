@@ -817,6 +817,24 @@
         }
       ],
       "NamespacePrefixes": [ "uri://ed-fi.org" ]
+    },
+    {
+      "Email": "unapproved-api-client@ed-fi-org",
+      "VendorName": "Unaproved API Client Ed-Fi Namespace",
+      "Applications": [
+        {
+          "ApplicationName": "ODS/API",
+          "ClaimSetName": "Ed-Fi Sandbox",
+          "ApiClients": [
+            {
+              "ApiClientName": "Unapproved_Client",
+              "LocalEducationOrganizations": [ 255901001 ],
+              "IsApproved": "false"
+            }
+          ]
+        }
+      ],
+      "NamespacePrefixes": [ "uri://ed-fi.org" ]
     }
   ]
 }

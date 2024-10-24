@@ -50,6 +50,8 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
         public string OwnershipToken { get; set; }
 
         public List<string> ApiClientOwnershipTokens { get; set; }
+        
+        public bool? IsApproved { get; set; }
     }
 
     public record EducationOrganizationRange(long Start, long Count = 1)
