@@ -277,7 +277,9 @@ namespace EdFi.Ods.Api.IntegrationTestHarness
                             ? client.Secret
                             : client.ApiClientName;
 
-                        var apiClient = _clientAppRepo.CreateApiClient(user.UserId, client.ApiClientName, key, secret);
+                        var isApproved = client.IsApproved ?? true;
+
+                        var apiClient = _clientAppRepo.CreateApiClient(user.UserId, client.ApiClientName, key, secret, isApproved);
 
                         postmanEnvironment.Values.Add(
                             new ValueItem
