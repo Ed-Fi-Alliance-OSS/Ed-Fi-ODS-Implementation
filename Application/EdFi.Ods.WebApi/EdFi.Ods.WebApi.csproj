@@ -4,7 +4,7 @@
     <AssemblyName>EdFi.Ods.WebApi</AssemblyName>
     <RootNamespace>EdFi.Ods.WebApi</RootNamespace>
     <Copyright>Copyright © 2020 Ed-Fi Alliance, LLC and Contributors</Copyright>
-    <TreatErrorsAsWarning>true</TreatErrorsAsWarning>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <RestorePackages>true</RestorePackages>
     <UserSecretsId>f1506d66-289c-44cb-a2e2-80411cc690ec</UserSecretsId>
   </PropertyGroup>
@@ -24,9 +24,8 @@
     <PackageReference Include="log4net" Version="2.0.15" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.22.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.Log4NetAppender" Version="2.22.0" />
-    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="8.0.0" />
-    <PackageReference Include="NHibernate" Version="5.5.0" />
+    <PackageReference Include="NHibernate" Version="5.5.2" />
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="Npgsql" Version="8.0.3" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="5.0.0" />
