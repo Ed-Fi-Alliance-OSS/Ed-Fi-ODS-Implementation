@@ -78,14 +78,11 @@ function Invoke-CreatePackage {
 
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
-    $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
     # Build release
     $parameters = @{
         PackageDefinitionFile = $PackageDefinitionFile
         Version               = $Version
         OutputDirectory       = $OutputDirectory
-        NuGet                 = $nuget
         Verbose               = $verbose
         Properties            = $Properties
     }
@@ -109,7 +106,6 @@ function Invoke-CreatePackage {
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
             Source      = $Source
             ApiKey      = $ApiKey
-            NuGet       = $nuget
             Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
@@ -137,40 +133,54 @@ function New-Package {
 
         [string]
         [Parameter(Mandatory = $true)]
-        $OutputDirectory,
-
-        [string]
-        [Parameter(Mandatory = $true)]
-        $NuGet
+        $OutputDirectory
     )
 
+    Get-Content $PackageDefinitionFile -ReadCount 10000 | ForEach-Object { $_ -replace "<version>0.0.0</version>", "<version>$($Version)</version>" } | set-content $PackageDefinitionFile
+
     $parameters = @(
-        "pack", $PackageDefinitionFile,
-        "-Version", $Version,
-        "-OutputDirectory", $OutputDirectory
+        "-p:NuspecFile=$($PackageDefinitionFile)",
+        "-p:Version=$($Version)",
+        "--output", $OutputDirectory
+        "--no-build"
     )
 
     if ($Suffix) {
-        $parameters += "-Suffix"
+        $parameters += "--version-suffix"
         $parameters += $Suffix
     }
 
-    if ($Properties.Count -gt 0) {
-        $parameters += "-Properties"
-        $parameters += $Properties -join ';'
+    foreach ($prop in $Properties) {
+        $splitProp = $prop.Split('=');
+        $parameters += "-p:$($splitProp[0])=""$($splitProp[1])"""
     }
 
     if ($Verbose) {
-        $parameters += "-Verbosity"
+        $parameters += "--verbosity"
         $parameters += "detailed"
     }
 
-    Write-Host $NuGet @parameters -ForegroundColor Magenta
-    if(Get-isWindows){
-        & $NuGet @parameters
-    }else {
-        mono $NuGet @parameters
-    }
+   # $projectDir = "$(Get-ChildItem $PackageDefinitionFile | Select-Object -ExpandProperty DirectoryName)/../../../../"
+
+    Write-Host dotnet pack $projectDir @parameters -ForegroundColor Magenta
+
+    & dotnet new classlib
+
+    & dotnet pack @parameters 
+
+    try {
+        Remove-Item -Path "./Class1.cs" -Recurse -Force | Out-Null
+        Remove-Item -Path "./Ed-Fi-ODS-Implementation.csproj" -Recurse -Force | Out-Null
+        Remove-Item -Path "./bin" -Recurse -Force | Out-Null
+        Remove-Item -Path "./obj" -Recurse -Force | Out-Null
+    } catch { }
+
+    # Write-Host $NuGet @parameters -ForegroundColor Magenta
+    # if(Get-isWindows){
+    #     & $NuGet @parameters
+    # }else {
+    #     mono $NuGet @parameters
+    # }
 }
 
 
@@ -201,12 +211,12 @@ function Publish-PrereleasePackage {
         $parameters += "detailed"
     }
 
-    Write-Host $NuGet @parameters -ForegroundColor Magenta
-    if(Get-isWindows){
-        & $NuGet @parameters
-    }else {
-        mono $NuGet @parameters
-    }
+    # Write-Host $NuGet @parameters -ForegroundColor Magenta
+    # if(Get-isWindows){
+    #     & $NuGet @parameters
+    # }else {
+    #     mono $NuGet @parameters
+    # }
 }
 
 Export-ModuleMember -Function Invoke-CreatePackage, New-Package

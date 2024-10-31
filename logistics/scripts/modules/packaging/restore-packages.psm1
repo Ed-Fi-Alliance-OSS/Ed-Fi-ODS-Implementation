@@ -27,16 +27,6 @@ function Restore-Packages {
         [string] $toolsPath
     )
 
-    Install-NuGetCli -toolsPath $toolsPath
-
-    if(Get-IsWindows){
-        $nuget = Join-Path $toolsPath "nuget"
-        & $nuget restore $solutionPath | Write-Host
-        
-    }else {
-        $nuget = Join-Path $toolsPath "nuget.exe"
-        & mono $nuget restore $solutionPath | Write-Host
-    }
     & dotnet restore $solutionPath | Write-Host
 }
 
