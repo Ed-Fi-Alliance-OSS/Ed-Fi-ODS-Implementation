@@ -16,15 +16,10 @@ function Restore-Packages {
 
     .PARAMETER solutionPath
         Full path to the solution file.
-
-    .PARAMETER toolsPath
-        OPtional. The path to store nuget.exe to
     #>
     Param(
         [Parameter(Mandatory = $true)]
-        [string] $solutionPath,
-
-        [string] $toolsPath
+        [string] $solutionPath
     )
 
     & dotnet restore $solutionPath | Write-Host

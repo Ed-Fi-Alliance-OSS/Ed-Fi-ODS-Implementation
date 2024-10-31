@@ -121,11 +121,9 @@ function Invoke-Restore-ApiSdk-Packages {
     param (
         [string] $sdkSolutionFile
     )
-    $toolsPath = (Join-Path (Get-RepositoryRoot "Ed-Fi-ODS-Implementation") 'tools')
 
     $params = @{
         SolutionPath = $sdkSolutionFile
-        ToolsPath = $toolsPath
     }
     Restore-Packages @params
 }
@@ -145,7 +143,6 @@ function Invoke-Pack-ApiSdk {
         Version               = $version
         OutputDirectory       = $nugetOutput
         Publish               = $false
-        ToolsPath             = "../../../tools"
         Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright © $((Get-Date).year) Ed-Fi Alliance, LLC and Contributors" )
     }
     

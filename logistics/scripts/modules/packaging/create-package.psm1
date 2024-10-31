@@ -27,7 +27,6 @@ function Invoke-CreatePackage {
             Publish = $true
             Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
             ApiKey = $env:azureArtifacts.apiKey
-            ToolsPath = "tools"
         }
         Invoke-CreatePackage @parameters
     #>
@@ -64,11 +63,7 @@ function Invoke-CreatePackage {
         [string]
         $ApiKey,
 
-        # Path to download and store nuget.exe if not already present in the path.
-        [string]
-        $ToolsPath,
-
-        # Additional Properties to pass to nuget.exe
+        # Additional Properties to pass when packaging
         [string[]]
         $Properties = @("copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"),
 
@@ -160,10 +155,6 @@ function New-Package {
         $parameters += "detailed"
     }
 
-   # $projectDir = "$(Get-ChildItem $PackageDefinitionFile | Select-Object -ExpandProperty DirectoryName)/../../../../"
-
-    Write-Host dotnet pack $projectDir @parameters -ForegroundColor Magenta
-
     & dotnet new classlib
 
     & dotnet pack @parameters 
@@ -175,12 +166,6 @@ function New-Package {
         Remove-Item -Path "./obj" -Recurse -Force | Out-Null
     } catch { }
 
-    # Write-Host $NuGet @parameters -ForegroundColor Magenta
-    # if(Get-isWindows){
-    #     & $NuGet @parameters
-    # }else {
-    #     mono $NuGet @parameters
-    # }
 }
 
 
@@ -194,29 +179,20 @@ function Publish-PrereleasePackage {
         $Source,
 
         [string]
-        $ApiKey,
-
-        [string]
-        [Parameter(Mandatory = $true)]
-        $NuGet
+        $ApiKey
     )
     $parameters = @(
         "push", $PackageFile,
-        "-Source", $Source,
-        "-ApiKey", $ApiKey
+        "--source", $Source,
+        "--api-key", $ApiKey
     )
 
     if ($Verbose) {
-        $parameters += "-Verbosity"
+        $parameters += "--verbosity"
         $parameters += "detailed"
     }
 
-    # Write-Host $NuGet @parameters -ForegroundColor Magenta
-    # if(Get-isWindows){
-    #     & $NuGet @parameters
-    # }else {
-    #     mono $NuGet @parameters
-    # }
+    & dotnet nuget @parameters
 }
 
 Export-ModuleMember -Function Invoke-CreatePackage, New-Package
