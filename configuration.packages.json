@@ -127,7 +127,7 @@
     },
     "EdFi.Ods.SandboxAdmin": {
       "PackageName": "EdFi.Suite3.Ods.SandboxAdmin",
-      "PackageVersion": "5.4.2272",
+      "PackageVersion": "5.4.2285",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.SwaggerUI": {
@@ -137,7 +137,7 @@
     },
     "EdFi.Ods.WebApi": {
       "PackageName": "EdFi.Suite3.Ods.WebApi",
-      "PackageVersion": "5.4.2272",
+      "PackageVersion": "5.4.2285",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.RestApi.Databases": {
@@ -157,7 +157,7 @@
     },
     "EdFi.Ods.Api": {
       "PackageName": "EdFi.Suite3.Ods.Api",
-      "PackageVersion": "5.4.467",
+      "PackageVersion": "5.4.792",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Standard": {
