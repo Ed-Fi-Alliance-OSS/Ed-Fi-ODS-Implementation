@@ -272,7 +272,7 @@ function Initialize-DevelopmentEnvironment {
 
         if ($RunSmokeTest) { $script:result += Invoke-SmokeTests }
 
-        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $NoRestore $StandardVersion $JavaPath }
+        if ($RunSdkGen) { $script:result += Invoke-SdkGen $GenerateApiSdkPackage $GenerateTestSdkPackage $PackageVersion $false $StandardVersion $JavaPath }
     }
 
     $script:result += New-TaskResult -name '-' -duration '-'
