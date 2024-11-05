@@ -702,8 +702,6 @@ function New-WebPackage {
             $xml.Save($PackageDefinitionFile)
         }
 
- #       $nuget = Install-NuGetCli -ToolsPath $ToolsPath
-
         $params = @{
             PackageDefinitionFile = $PackageDefinitionFile
             Version               = $Version

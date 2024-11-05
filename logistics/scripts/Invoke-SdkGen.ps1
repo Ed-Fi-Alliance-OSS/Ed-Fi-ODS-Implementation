@@ -79,7 +79,7 @@ function Invoke-SdkGen {
                 $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
-            $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
+            $script:result += Invoke-Task "Pack-ApiSdk" { Invoke-Pack-ApiSdk -OutputDirectory -ProjectPath (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/" | Select-Object -ExpandProperty Path) -BuildConfiguration $buildConfiguration -TeamCityParameters $teamCityParameters -Version $version -StandardVersion $standardVersion }
         }
 
         if($generateTestSdkPackage) {
@@ -107,6 +107,8 @@ function Invoke-SdkGen {
             } | Set-Content -Path $nuspecFile
 
             $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
+
+            $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk -ProjectPath (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/" | Select-Object -ExpandProperty Path) -BuildConfiguration $buildConfiguration -TeamCityParameters $teamCityParameters -Version $version }
         }
     }
 
@@ -129,24 +131,64 @@ function Invoke-Restore-ApiSdk-Packages {
 }
 
 function Invoke-Pack-ApiSdk {
-    param (
-        [string] $buildConfiguration = "Debug",
-        [string[]] $teamCityParameters = @(),
-        [string] $version = "0.0.0"
+    param(
+        [string] $BuildConfiguration = "Debug",
 
+        [string[]] $TeamCityParameters = @(),
+
+        [ValidateSet('4.0.0', '5.2.0')]
+        [string] $StandardVersion,
+
+        [string] $ProjectPath = "$ProjectPath/csharp",
+
+        [string] $PackageDefinitionFile = "$ProjectPath/EdFi.OdsApi.Sdk.nuspec",
+
+        [string] $PackageId,
+
+        [string] $Version = "0.0.0",
+
+        [string[]] $Properties = @()
     )
 
-    $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
+    Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-    $parameters = @{
-        PackageDefinitionFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/EdFi.OdsApi.Sdk.nuspec")
-        Version               = $version
-        OutputDirectory       = $nugetOutput
-        Publish               = $false
-        Properties            = @("configuration=$buildConfiguration","authors=Ed-Fi Alliance","owners=Ed-Fi Alliance","copyright=Copyright © $((Get-Date).year) Ed-Fi Alliance, LLC and Contributors" )
+        $buildConfiguration = 'debug'
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+        $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
+
+        $params = @(
+            "build", $ProjectPath,
+            "--configuration", $buildConfiguration,
+            "--no-restore",
+            "-p:StandardVersion=$StandardVersion"
+        )
+
+        $Properties += @("configuration=$buildConfiguration")
+
+        Write-Host "& dotnet $params" -ForegroundColor Magenta
+        & dotnet $params | Out-Host
+        Write-Host
+
+        $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
+        if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
+            [xml] $xml = Get-Content $PackageDefinitionFile
+            $xml.package.metadata.id = $PackageId
+            $xml.Save($PackageDefinitionFile)
+        }
+
+        $projectFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/EdFi.OdsApi.Sdk.csproj")
+
+        $params = @{
+            PackageDefinitionFile = $PackageDefinitionFile
+            Version               = $Version
+            Properties            = $Properties
+            OutputDirectory       = $nugetOutput
+            ProjectFile           = $projectFile
+        }
+
+        New-Package @params | Out-Host
     }
-    
-    Invoke-CreatePackage @parameters -Verbose:$verbose
 }
 
 function Invoke-Clean-SdkGen-Output {

@@ -64,8 +64,8 @@ function Invoke-CreatePackage {
         $ApiKey,
 
         # Additional Properties to pass when packaging
-        [string[]]
-        $Properties = @("copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"),
+        [string]
+        $Properties = "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors;version=$Version",
 
         [string]
         $AdditionalParameters
@@ -128,46 +128,65 @@ function New-Package {
 
         [string]
         [Parameter(Mandatory = $true)]
-        $OutputDirectory
+        $OutputDirectory,
+
+        [string]
+        $ProjectFile
     )
 
-    Get-Content $PackageDefinitionFile -ReadCount 10000 | ForEach-Object { $_ -replace "<version>0.0.0</version>", "<version>$($Version)</version>" } | set-content $PackageDefinitionFile
+    $parameters = @()
 
-    $parameters = @(
-        "-p:NuspecFile=$($PackageDefinitionFile)",
-        "-p:Version=$($Version)",
-        "--output", $OutputDirectory
-        "--no-build"
-    )
+    $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
+    $parameters += "--output"
+    $parameters += $OutputDirectory
+    $parameters += "--no-build"
+    
 
     if ($Suffix) {
         $parameters += "--version-suffix"
         $parameters += $Suffix
     }
 
+    $buildConfiguration = 'debug'
+
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+
+    $parameters += "--configuration"
+    $parameters += $buildConfiguration
+
+    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
+
+
     foreach ($prop in $Properties) {
-        $splitProp = $prop.Split('=');
-        $parameters += "-p:$($splitProp[0])=""$($splitProp[1])"""
+        $nuspecProperties += ";$prop"
     }
+
+    $nuspecProperties += """"
+
+    $parameters += $nuspecProperties
 
     if ($Verbose) {
         $parameters += "--verbosity"
         $parameters += "detailed"
     }
 
-    & dotnet new classlib
+    if ([string]::IsNullOrEmpty($ProjectFile)) {
+        & dotnet new classlib --name PlaceholderForPackaging
+        $parameters = @("PlaceholderForPackaging") + $parameters
+    } else {
+        $parameters = @($ProjectFile) + $parameters
+    }
 
-    & dotnet pack @parameters 
+    $parameters = @("pack") + $parameters
+
+    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
+    & dotnet $parameters 
 
     try {
-        Remove-Item -Path "./Class1.cs" -Recurse -Force | Out-Null
-        Remove-Item -Path "./Ed-Fi-ODS-Implementation.csproj" -Recurse -Force | Out-Null
-        Remove-Item -Path "./bin" -Recurse -Force | Out-Null
-        Remove-Item -Path "./obj" -Recurse -Force | Out-Null
+        Remove-Item -Path "./PlaceholderForPackaging" -Recurse -Force | Out-Null
     } catch { }
 
 }
-
 
 function Publish-PrereleasePackage {
     param (
