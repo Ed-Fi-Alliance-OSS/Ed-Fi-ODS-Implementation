@@ -106,8 +106,6 @@ function Invoke-SdkGen {
                 $_.replace("<id>EdFi.OdsApi.Sdk</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi.OdsApi.Sdk</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>").replace("<id>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</id>","<id>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</id>").replace("<title>EdFi$suffix.OdsApi.Sdk.Standard.$standardVersion</title>","<title>EdFi$suffix.OdsApi.TestSdk.Standard.$standardVersion</title>")
             } | Set-Content -Path $nuspecFile
 
-            $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk $buildConfiguration $teamCityParameters $version }
-
             $script:result += Invoke-Task "Pack-TestSdk" { Invoke-Pack-ApiSdk -ProjectPath (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/" | Select-Object -ExpandProperty Path) -BuildConfiguration $buildConfiguration -TeamCityParameters $teamCityParameters -Version $version }
         }
     }
