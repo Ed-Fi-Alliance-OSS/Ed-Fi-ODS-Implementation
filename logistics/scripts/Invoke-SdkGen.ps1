@@ -162,7 +162,7 @@ function Invoke-Pack-ApiSdk {
             "-p:StandardVersion=$StandardVersion"
         )
 
-        $Properties += @("configuration=$buildConfiguration")
+        $Properties += @("configuration=$($env:CONFIGURATION)")
 
         Write-Host "& dotnet $params" -ForegroundColor Magenta
         & dotnet $params | Out-Host
