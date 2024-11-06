@@ -149,7 +149,9 @@ function New-Package {
 
     $buildConfiguration = 'debug'
 
-    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { 
+        $buildConfiguration = $env:msbuild_buildConfiguration 
+    }
 
     $parameters += "--configuration"
     $parameters += $buildConfiguration
@@ -170,20 +172,22 @@ function New-Package {
         $parameters += "detailed"
     }
 
+    # 'dotnet pack' requires a project or solution be specified,
+    # even if it's contents are not used in the package.
+    # Therefore, when creating a package defined by a .nuspec file,
+    # we must create an empty project and then delete it after packing is complete
     if ([string]::IsNullOrEmpty($ProjectFile)) {
-        & dotnet new classlib --name PlaceholderForPackaging
-        $parameters = @("PlaceholderForPackaging") + $parameters
-    } else {
-        $parameters = @($ProjectFile) + $parameters
+        & dotnet new classlib --name EmptyProject
+        $ProjectFile = "EmptyProject"
     }
 
-    $parameters = @("pack") + $parameters
+    $parameters = @("pack") + @($ProjectFile) + $parameters
 
     Write-Host -ForegroundColor Magenta "& dotnet $parameters"
-    & dotnet $parameters 
+    & dotnet $parameters | Out-Host
 
     try {
-        Remove-Item -Path "./PlaceholderForPackaging" -Recurse -Force | Out-Null
+        Remove-Item -Path "./EmptyProject" -Recurse -Force | Out-Null
     } catch { }
 
 }

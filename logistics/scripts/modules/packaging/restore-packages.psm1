@@ -22,7 +22,8 @@ function Restore-Packages {
         [string] $solutionPath
     )
 
-    & dotnet restore $solutionPath | Write-Host
+    Write-Host -ForegroundColor Magenta "& dotnet restore $solutionPath"
+    & dotnet restore $solutionPath | Out-Host
 }
 
 Export-ModuleMember -Function Restore-Packages

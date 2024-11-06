@@ -164,9 +164,8 @@ function Invoke-Pack-ApiSdk {
 
         $Properties += @("configuration=$($env:CONFIGURATION)")
 
-        Write-Host "& dotnet $params" -ForegroundColor Magenta
+        Write-Host -ForegroundColor Magenta "& dotnet $params"
         & dotnet $params | Out-Host
-        Write-Host
 
         $PackageDefinitionFile = (Get-ChildItem $PackageDefinitionFile)
         if (-not [string]::IsNullOrWhiteSpace($PackageId)) {
