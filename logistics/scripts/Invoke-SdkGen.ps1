@@ -175,14 +175,11 @@ function Invoke-Pack-ApiSdk {
             $xml.Save($PackageDefinitionFile)
         }
 
-        $projectFile = (Get-RepositoryResolvedPath "Utilities/SdkGen/EdFi.SdkGen.Console/csharp/src/EdFi.OdsApi.Sdk/EdFi.OdsApi.Sdk.csproj")
-
         $params = @{
             PackageDefinitionFile = $PackageDefinitionFile
             Version               = $Version
             Properties            = $Properties
             OutputDirectory       = $nugetOutput
-            ProjectFile           = $projectFile
         }
 
         New-Package @params | Out-Host
