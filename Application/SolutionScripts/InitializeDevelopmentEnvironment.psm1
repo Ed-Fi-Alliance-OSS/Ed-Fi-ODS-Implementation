@@ -614,7 +614,7 @@ function Invoke-DotnetTest {
 }
 
 function Get-DefaultNuGetProperties {
-    $buildConfiguration = 'debug'
+    $buildConfiguration = 'Debug'
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
     return @(
@@ -681,7 +681,7 @@ function New-WebPackage {
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        $buildConfiguration = 'debug'
+        $buildConfiguration = 'Debug'
         if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
 
         $params = @(

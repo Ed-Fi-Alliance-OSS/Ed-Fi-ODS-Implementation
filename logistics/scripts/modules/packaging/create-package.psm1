@@ -134,7 +134,7 @@ function New-Package {
         $ProjectFile,
 
         [string]
-        $BuildConfiguration = 'debug'
+        $BuildConfiguration = 'Debug'
     )
 
     $parameters = @()
