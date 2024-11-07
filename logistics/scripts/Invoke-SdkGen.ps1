@@ -150,19 +150,18 @@ function Invoke-Pack-ApiSdk {
 
     Invoke-Task -name "$($MyInvocation.MyCommand.Name) ($(Split-Path $ProjectPath -Leaf))" -task {
 
-        $buildConfiguration = 'debug'
-        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $buildConfiguration = $env:msbuild_buildConfiguration }
+        if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { $BuildConfiguration = $env:msbuild_buildConfiguration }
 
         $nugetOutput = Get-ValueOrDefault $teamCityParameters['nuget.pack.output'] 'NugetPackages'
 
         $params = @(
             "build", $ProjectPath,
-            "--configuration", $buildConfiguration,
+            "--configuration", $BuildConfiguration,
             "--no-restore",
             "-p:StandardVersion=$StandardVersion"
         )
 
-        $Properties += @("configuration=$($env:CONFIGURATION)")
+        $Properties += @("configuration=$BuildConfiguration")
 
         Write-Host -ForegroundColor Magenta "& dotnet $params"
         & dotnet $params | Out-Host
