@@ -131,7 +131,10 @@ function New-Package {
         $OutputDirectory,
 
         [string]
-        $ProjectFile
+        $ProjectFile,
+
+        [string]
+        $BuildConfiguration = 'debug'
     )
 
     $parameters = @()
@@ -147,14 +150,12 @@ function New-Package {
         $parameters += $Suffix
     }
 
-    $buildConfiguration = 'debug'
-
     if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { 
-        $buildConfiguration = $env:msbuild_buildConfiguration 
+        $BuildConfiguration = $env:msbuild_buildConfiguration 
     }
 
     $parameters += "--configuration"
-    $parameters += $buildConfiguration
+    $parameters += $BuildConfiguration
 
     $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
 
