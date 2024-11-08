@@ -1,234 +1,169 @@
-DROP FUNCTION IF EXISTS dbo.GetClaimSetResourceClaimActionAuthorizationStrategyOverrides;
-CREATE OR REPLACE FUNCTION dbo.GetClaimSetResourceClaimActionAuthorizationStrategyOverrides (claim_set_resource_claim_action_id INT) 
-RETURNS SETOF XML
-AS
-$$
+WITH RECURSIVE claim_hierarchy AS (
+    -- Start with top-level claims (no parent)
+    SELECT
+        rc.ResourceClaimId AS claim_id,
+        rc.ClaimName AS claim_name,
+        rc.ResourceName AS resource_name,
+        rc.ParentResourceClaimId AS parent_claim_id
+    FROM
+        dbo.ResourceClaims rc
+    WHERE
+        rc.ParentResourceClaimId IS NULL
+
+    UNION ALL
+
+    -- Recursively join to find all descendants
+    SELECT
+        rc.ResourceClaimId,
+        rc.ClaimName,
+        rc.ResourceName,
+        rc.ParentResourceClaimId
+    FROM
+        dbo.ResourceClaims rc
+    INNER JOIN
+        claim_hierarchy ch ON rc.ParentResourceClaimId = ch.claim_id
+)
+
+SELECT xmlelement(
+    name "SecurityMetadata",
+    xmlelement(
+        name "Claims",
+        xmlagg(build_claim_hierarchy_xml(claim_id, claim_name, resource_name, parent_claim_id))
+    )
+) AS security_metadata
+FROM claim_hierarchy
+WHERE parent_claim_id IS NULL;
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-- Helper function to recursively build the hierarchy
+CREATE OR REPLACE FUNCTION build_claim_hierarchy_xml(
+    claim_id INT,
+    claim_name TEXT,
+    resource_name TEXT,
+    parent_claim_id INT
+) RETURNS XML LANGUAGE plpgsql AS $$
+DECLARE
+    claims XML;
+    defaultAuthorization XML;
 BEGIN
-    IF EXISTS  (SELECT  1 FROM   dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides strats
-			INNER JOIN dbo.AuthorizationStrategies strat ON strat.AuthorizationStrategyId = strats.AuthorizationStrategyId			
-			WHERE strats.ClaimSetResourceClaimActionId = claim_set_resource_claim_action_id)  THEN
-    RETURN QUERY (
-		SELECT xmlElement(name "AuthorizationStrategy", xmlattributes(a.name))
-		FROM
-			(SELECT strat.AuthorizationStrategyName AS "name"				
-			 FROM dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides strats
-			 INNER JOIN dbo.AuthorizationStrategies strat ON 
-			strat.AuthorizationStrategyId = strats.AuthorizationStrategyId			
-			WHERE strats.ClaimSetResourceClaimActionId = claim_set_resource_claim_action_id
-			ORDER BY strat.AuthorizationStrategyName) a
-	);
-	ELSE
-	RETURN QUERY (SELECT null::XML) ;
-END IF;
+    -- Find children recursively
+    SELECT xmlagg(build_claim_hierarchy_xml(rc.ResourceClaimId, rc.ClaimName, rc.ResourceName, rc.ParentResourceClaimId))
+    INTO claims
+    FROM dbo.ResourceClaims rc
+    WHERE rc.ParentResourceClaimId = claim_id;
+
+    -- Build DefaultAuthorization XML only if there are actions
+    SELECT xmlagg(
+        xmlelement(
+            name "Action",
+            xmlattributes(a.ActionName AS "name"),
+            CASE
+                WHEN EXISTS (
+                    SELECT 1
+                    FROM dbo.AuthorizationStrategies astrat
+                    JOIN dbo.resourceclaimactionauthorizationstrategies ao
+                    ON astrat.authorizationstrategyid = ao.authorizationstrategyid
+                    WHERE ao.resourceclaimactionid = rca.resourceclaimactionid
+                )
+                THEN xmlelement(
+                    name "AuthorizationStrategies",
+                    (
+                        SELECT xmlagg(
+                            xmlelement(
+                                name "AuthorizationStrategy",
+                                xmlattributes(astrat.authorizationstrategyname AS "name")
+                            )
+                        )
+                        FROM dbo.AuthorizationStrategies astrat
+                        JOIN dbo.resourceclaimactionauthorizationstrategies ao
+                            ON astrat.authorizationstrategyid = ao.authorizationstrategyid
+                        WHERE ao.resourceclaimactionid = rca.resourceclaimactionid
+                    )
+                )
+                ELSE NULL
+            END
+        )
+    )
+    INTO defaultAuthorization
+    FROM dbo.Actions a
+    JOIN dbo.resourceclaimactions rca ON a.actionid = rca.actionid
+    WHERE rca.resourceclaimid = claim_id;
+
+    -- Build the XML structure for this claim
+    RETURN xmlelement(
+        name "Claim",
+        xmlattributes(claim_id AS "claimId", claim_name AS "name"),
+
+        -- Include DefaultAuthorization if not empty
+        CASE WHEN defaultAuthorization IS NOT NULL THEN
+            xmlelement(name "DefaultAuthorization", defaultAuthorization)
+        ELSE NULL END,
+
+        -- Build ClaimSets only if there are claim sets associated with this claim
+        CASE WHEN EXISTS (
+            SELECT 1 FROM dbo.claimsetresourceclaimactions csrca WHERE csrca.resourceclaimid = claim_id
+        ) THEN xmlelement(
+            name "ClaimSets",
+            (
+                SELECT xmlagg(
+                    xmlelement(
+                        name "ClaimSet",
+                        xmlattributes(cs.claimsetname AS "name"),
+                        xmlelement(
+                            name "Actions",
+                            (
+                                SELECT xmlagg(
+                                    xmlelement(
+                                        name "Action",
+                                        xmlattributes(a.ActionName AS "name"),
+                                        CASE
+                                            WHEN EXISTS (
+                                                SELECT 1
+                                                FROM dbo.AuthorizationStrategies astrat
+                                                JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides ao
+                                                ON astrat.AuthorizationStrategyId = ao.AuthorizationStrategyId
+                                                WHERE ao.ClaimSetResourceClaimActionId = ca.ClaimSetResourceClaimActionId
+                                            )
+                                            THEN xmlelement(
+                                                name "AuthorizationStrategyOverrides",
+                                                (
+                                                    SELECT xmlagg(
+                                                        xmlelement(
+                                                            name "AuthorizationStrategy",
+                                                            xmlattributes(astrat.authorizationstrategyname AS "name")
+                                                        )
+                                                    )
+                                                    FROM dbo.AuthorizationStrategies astrat
+                                                    JOIN dbo.ClaimSetResourceClaimActionAuthorizationStrategyOverrides ao
+                                                        ON astrat.AuthorizationStrategyId = ao.AuthorizationStrategyId
+                                                    WHERE ao.ClaimSetResourceClaimActionId = ca.ClaimSetResourceClaimActionId
+                                                )
+                                            )
+                                            ELSE NULL
+                                        END
+                                    )
+                                )
+                                FROM dbo.Actions a
+                                JOIN dbo.ClaimSetResourceClaimActions ca ON a.ActionId = ca.ActionId
+                                WHERE ca.claimsetid = csrca.claimsetid
+                                    and ca.resourceclaimid = claim_id --resourceclaimactionid
+                            )
+                        )
+                    )
+                )
+                --FROM dbo.claimsetresourceclaimactions csrca
+
+                FROM (SELECT DISTINCT claimsetid, resourceclaimid FROM dbo.claimsetresourceclaimactions) csrca
+                INNER JOIN dbo.claimsets cs ON csrca.claimsetid = cs.claimsetid
+                WHERE csrca.resourceclaimid = claim_id
+            )
+        ) ELSE NULL END,
+
+        -- Include child Claims only if there are any
+        CASE WHEN claims IS NOT NULL THEN
+            xmlelement(name "Claims", claims)
+        ELSE NULL END
+    );
 END;
-$$
-LANGUAGE plpgsql;
-
---select dbo.GetClaimSetResourceClaimActionAuthorizationStrategyOverrides(76);
---select dbo.GetClaimSetResourceClaimActionAuthorizationStrategyOverrides(-76);
-
-
-DROP FUNCTION IF EXISTS dbo.GetClaimSetActionWithOverrides;
-CREATE OR REPLACE FUNCTION dbo.GetClaimSetActionWithOverrides (claim_set_id INT, resource_claim_id INT) 
-RETURNS SETOF XML
-AS
-$$
-BEGIN
-    IF EXISTS  (SELECT  1 FROM dbo.ClaimSetResourceClaimActions csrca			
-			INNER JOIN dbo.Actions a ON csrca.ActionId = a.ActionId
-			WHERE csrca.ResourceClaimId = resource_claim_id	AND csrca.ClaimSetId = claim_set_id)  THEN
-    RETURN QUERY (
-				   SELECT xmlElement(name "Action", xmlattributes(a.name, validationRuleSetOverride),
-				   CASE 
-					  WHEN (a.authorizationStrategyOverrides ::TEXT <> '') IS NOT TRUE  THEN xmlagg(a.authorizationStrategyOverrides::xml)
-					  ELSE  xmlelement(name "AuthorizationStrategyOverrides",xmlagg(a.authorizationStrategyOverrides::XML))
-				   END)
-		FROM
-			(SELECT	a.ActionName AS "name",	csrca.ValidationRuleSetNameOverride AS validationRuleSetOverride,
-		 	dbo.GetClaimSetResourceClaimActionAuthorizationStrategyOverrides(csrca.ClaimSetResourceClaimActionId)::TEXT AS authorizationStrategyOverrides		 
-			FROM dbo.ClaimSetResourceClaimActions csrca			
-			INNER JOIN dbo.Actions a ON csrca.ActionId = a.ActionId
-			WHERE csrca.ResourceClaimId = resource_claim_id	AND csrca.ClaimSetId = claim_set_id
-			ORDER BY a.ActionId ) a
-			GROUP BY a.name ,a.validationRuleSetOverride,a.authorizationStrategyOverrides
-	   );
-	   	ELSE
-	RETURN QUERY (SELECT null::XML) ;
-END IF;
-END;
-$$
-LANGUAGE plpgsql;
-
---select dbo.GetClaimSetActionWithOverrides(2,59);
---select dbo.GetClaimSetActionWithOverrides(4,59);
-
-CREATE OR REPLACE VIEW dbo.ClaimSetResource 
-AS
-    SELECT 	csrca.ResourceClaimId AS ResourceClaimId, 
-		cs.ClaimSetId, 	cs.ClaimSetName
-    FROM dbo.ClaimSetResourceClaimActions csrca
-    INNER JOIN dbo.ClaimSets cs ON 	csrca.ClaimSetId = cs.ClaimSetId
-	GROUP BY csrca.ResourceClaimId,	cs.ClaimSetId,	cs.ClaimSetName;
-
-DROP FUNCTION IF EXISTS dbo.GetClaimSetWithActions;
-CREATE OR REPLACE FUNCTION dbo.GetClaimSetWithActions (resource_claim_id INT) 
-RETURNS SETOF XML
-AS
-$$
-BEGIN
- IF EXISTS  (SELECT  1 FROM dbo.ClaimSetResource x 	WHERE x.ResourceClaimId = resource_claim_id)  THEN
-		 
-	RETURN QUERY (
-		SELECT xmlelement(name "ClaimSet", xmlattributes(a.name), xmlelement(name "Actions", null, xmlagg(a.Actions))) 
-		FROM
-			(SELECT	x.ClaimSetName as "name",
-			  dbo.GetClaimSetActionWithOverrides(x.ClaimSetId, resource_claim_id) as Actions
-			FROM dbo.ClaimSetResource x
-			WHERE 	x.ResourceClaimId = resource_claim_id) a
-		    GROUP BY a.name
-		);
-	
-	ELSE
-	RETURN QUERY (SELECT null::XML) ;
-  END IF;
-END;
-$$
-LANGUAGE plpgsql;
-
-
---select * FROM dbo.GetClaimSetWithActions(1);
---select * from dbo.GetClaimSetWithActions(223);
-
-DROP FUNCTION IF EXISTS dbo.GetResourceClaimActionAuthorizationStrategies;
-CREATE OR REPLACE FUNCTION dbo.GetResourceClaimActionAuthorizationStrategies (resource_claim_action_id INT) 
-RETURNS SETOF XML
-AS
-$$
-BEGIN
-    IF EXISTS  (SELECT  1 FROM dbo.ResourceClaimActionAuthorizationStrategies strats
-				INNER JOIN dbo.AuthorizationStrategies strat ON strats.AuthorizationStrategyId = strat.AuthorizationStrategyId
-				WHERE strats.ResourceClaimActionId = @resource_claim_action_id)  THEN
-			RETURN QUERY (
-				SELECT xmlelement(name "AuthorizationStrategy", xmlattributes(a.name)) 
-				FROM
-					(SELECT strat.AuthorizationStrategyName AS "name"
-					FROM dbo.ResourceClaimActionAuthorizationStrategies strats
-					INNER JOIN dbo.AuthorizationStrategies strat
-					ON strats.AuthorizationStrategyId = strat.AuthorizationStrategyId
-					WHERE strats.ResourceClaimActionId = @resource_claim_action_id
-					ORDER BY strat.AuthorizationStrategyName) a
-					GROUP BY a.name
-				);
-	ELSE
-	RETURN QUERY (SELECT null::XML);
-END IF;
-END;
-$$
-LANGUAGE plpgsql;
-
---select dbo.GetResourceClaimActionAuthorizationStrategies(1);
---select dbo.GetResourceClaimActionAuthorizationStrategies(45);
---select dbo.GetResourceClaimActionAuthorizationStrategies(148);
-
-
-DROP FUNCTION IF EXISTS dbo.GetResourceClaimAction;
-CREATE OR REPLACE FUNCTION dbo.GetResourceClaimAction (resource_claim_id INT) 
-RETURNS SETOF XML 
-AS
-$$
-BEGIN
-  IF EXISTS  (SELECT  1 FROM dbo.ResourceClaimActions meta
-		 INNER JOIN dbo.Actions a ON meta.ActionId = a.ActionId WHERE meta.ResourceClaimId = resource_claim_id)  THEN
-		 RETURN QUERY(SELECT xmlElement(name "Action", xmlattributes(a.name , a.validationRuleSet),xmlagg(CAST(x AS XML))) 
-			FROM
-			( SELECT DISTINCT a.ActionName AS "name",			
-			format('<AuthorizationStrategies> %1$s </AuthorizationStrategies>',dbo.GetResourceClaimActionAuthorizationStrategies(meta.ResourceClaimActionid))::TEXT x,				
-			meta.ValidationRuleSetName AS validationRuleSet
-			FROM dbo.ResourceClaimActions meta
-			INNER JOIN dbo.Actions a ON 
-				meta.ActionId = a.ActionId
-			WHERE 
-				meta.ResourceClaimId = resource_claim_id				
-			ORDER BY a.ActionName ) a
-			GROUP BY a.name, a.validationRuleSet) ;
-	ELSE
-	RETURN QUERY (SELECT null::XML) ;
-  END IF;
-END
-$$
-LANGUAGE plpgsql;
-
---select * from dbo.GetResourceClaimAction(178);
---select * from dbo.GetResourceClaimAction(223);
-
-DROP FUNCTION IF EXISTS dbo.GetResourceClaim;
-CREATE OR REPLACE FUNCTION dbo.GetResourceClaim (parent_resource_claim_id INT) 
-RETURNS SETOF XML 
-AS
-$$
-BEGIN
- IF EXISTS  (SELECT  1 FROM  dbo.ResourceClaims Claim WHERE Claim.ParentResourceClaimId = parent_resource_claim_id)  THEN
-    RETURN QUERY (	SELECT xmlelement(name "Claim", 
-						  xmlattributes(a.claimId,a.name), 
-						  CASE 
-						  WHEN (a.DefaultAuthorization ::TEXT <> '') IS NOT TRUE  THEN xmlagg(a.DefaultAuthorization::xml)
-						  ELSE  xmlelement(name "DefaultAuthorization",  xmlagg(a.DefaultAuthorization::XML))
-						  END,
-					  	  CASE 
-						  WHEN (a.ClaimSets ::TEXT <> '') IS NOT TRUE  THEN xmlagg(a.ClaimSets::xml)
-						  ELSE  xmlelement(name "ClaimSets",xmlagg(a.ClaimSets::XML))
-						  END,
-					  	  CASE 
-						  WHEN (a.Claims ::TEXT <> '') IS NOT TRUE  THEN xmlagg(a.Claims::xml)
-						  ELSE  xmlelement(name "Claims",xmlagg(a.Claims::XML))
-						  END)
-				FROM (
-					SELECT Claim.ClaimName as "name",  Claim.ResourceClaimId as claimId,
-					dbo.GetResourceClaimAction(Claim.ResourceClaimId)::TEXT as DefaultAuthorization,
-					dbo.GetClaimSetWithActions(Claim.ResourceClaimId)::TEXT as ClaimSets,
-					dbo.GetResourceClaim(Claim.ResourceClaimId)::TEXT AS Claims
-					FROM dbo.ResourceClaims Claim
-					WHERE Claim.ParentResourceClaimId = parent_resource_claim_id) a
-     				GROUP BY a.name, a.claimId,a.DefaultAuthorization,a.ClaimSets,a.Claims
-		    		ORDER BY  a.claimId
-		  );
-ELSE
-	RETURN QUERY (SELECT null::XML) ;
-END IF;
-END;
-$$
-LANGUAGE plpgsql;
-
---select * from dbo.GetResourceClaim(1);
---select * from dbo.GetResourceClaim(223);
-
-CREATE OR REPLACE FUNCTION dbo.GetAuthorizationMetadataDocument() 
-RETURNS XML 
-AS
-$$
-BEGIN
-	RETURN (
-		SELECT 
-			xmlelement(name "SecurityMetadata", null, xmlelement(name "Claims", null, xmlagg(claims)))
-		FROM
-		(SELECT xmlelement(name "Claim", 
-						  xmlattributes(a.name),
-						 xmlelement(name "DefaultAuthorization", null, xmlagg(a.DefaultAuthorization)),
-						 xmlelement(name "ClaimSets", null, xmlagg(a.ClaimSets)),
-						 xmlelement(name "Claims", null, xmlagg(a.Claims))) as Claims
-		FROM
-		(SELECT
-            Claim.ClaimName as "name",
-            dbo.GetResourceClaimAction(Claim.ResourceClaimId) as DefaultAuthorization,
-            dbo.GetClaimSetWithActions(Claim.ResourceClaimId) as ClaimSets,
-            dbo.GetResourceClaim(Claim.ResourceClaimId) AS Claims
-        FROM dbo.ResourceClaims Claim
-        WHERE Claim.ParentResourceClaimId IS NULL
-		ORDER BY Claim.ClaimName) a
-		GROUP BY a.name) b
-	);
-END
-$$
-LANGUAGE plpgsql;
-
-select dbo.GetAuthorizationMetadataDocument();
+$$;
