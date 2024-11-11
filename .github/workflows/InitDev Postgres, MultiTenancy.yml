@@ -34,7 +34,7 @@ env:
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
-  msbuild_buildConfiguration: "release"
+  msbuild_buildConfiguration: "Release"
   LANG: "en_US.utf8"
 
 jobs:
@@ -45,7 +45,7 @@ jobs:
 
   build:
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions: 
       checks: write
     strategy:

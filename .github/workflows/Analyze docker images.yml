@@ -30,7 +30,7 @@ jobs:
 
   analyze-docker:
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       pull-requests: write
       security-events: write
@@ -131,7 +131,7 @@ jobs:
         shell: pwsh
   finalize:
     needs: analyze-docker  # Depends on the analyze-docker job
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     if: always()
     steps:
       - name: Checkout code
