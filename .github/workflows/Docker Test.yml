@@ -29,7 +29,11 @@ env:
 jobs:
   docker-lint:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+<<<<<<< HEAD
     runs-on: ubuntu-latest
+=======
+    runs-on: ubuntu-24.04
+>>>>>>> 7226613 ([ODS-6530] Switch Ubuntu builds back to Ubuntu latest (24.04) (#1164))
     strategy:
       matrix:
         image:
@@ -58,7 +62,7 @@ jobs:
   docker-build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardAndExtensionVersions.outputs.StandardVersions) }}

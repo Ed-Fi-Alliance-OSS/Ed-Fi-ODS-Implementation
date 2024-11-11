@@ -33,7 +33,8 @@ env:
   REF_NAME:  ${{ GITHUB.REF_NAME }}
   REPOSITORY_DISPATCH_BRANCH: ${{ github.event.client_payload.branch }}
   EDFI_SUITE_NUMBER: "Suite3"
-  msbuild_buildConfiguration: "release"
+  msbuild_buildConfiguration: "Release"
+  DB_PASS: ${{ secrets.BUILD_DB_PASS }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -44,7 +45,24 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardAndExtensionVersions
-    runs-on: windows-latest
+    services:
+      mssql:
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        volumes:
+          - /MssqlBackupVolume:/DatabaseBackups
+        env:
+          ACCEPT_EULA: Y
+          SA_PASSWORD: ${{ env.DB_PASS }}
+        ports:
+          - 1433:1433
+        options: >-
+          --health-cmd "exit 0" 
+          --health-interval 10s 
+          --health-timeout 5s 
+          --health-retries 3
+          --name mssql
+          --user root
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false     
       matrix:

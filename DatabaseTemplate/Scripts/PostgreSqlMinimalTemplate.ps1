@@ -16,7 +16,6 @@ $parameters = @{
     packageVersion  = $configuration.packageVersion
     packageSource   = $configuration.packageSource
     outputDirectory = "$PSScriptRoot/../Database"
-    toolsPath       = (Get-ToolsPath)
 }
 $packagePath = Get-NuGetPackage @parameters
 

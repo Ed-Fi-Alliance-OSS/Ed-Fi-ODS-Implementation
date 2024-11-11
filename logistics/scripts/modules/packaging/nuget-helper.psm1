@@ -6,103 +6,35 @@
 & "$PSScriptRoot/../../../../logistics/scripts/modules/load-path-resolver.ps1"
 Import-Module -Force -Scope Global (Get-RepositoryResolvedPath "logistics/scripts/modules/utility/cross-platform.psm1")
 
-function Install-NuGetCli {
-    <#
-    .SYNOPSIS
-        Installs the latest version of the NuGet command line executable
+<#
+.SYNOPSIS
+    Downloads and extracts the latest compatible version of a NuGet package.
 
-    .DESCRIPTION
-        Installs the latest version of the NuGet command line executable
+.OUTPUTS
+    Directory name containing the downloaded files.
 
-    .PARAMETER toolsPath
-        The path to store nuget.exe to
-
-    .PARAMETER sourceNuGetExe
-        Web location to the nuget file. Defaulted to the version 5.3.1.0 of nuget.exe.
-    #>
+.EXAMPLE
+    Get-NugetPackage -PackageName "EdFi.Suite3.RestApi.Databases" -OutputDirectory ".packages"  -PackageVersion "5.3.0"
+#>
+function Get-NugetPackage {
     [CmdletBinding()]
-    Param(
+    [OutputType([String])]
+    param(
+        # Exact package name
         [Parameter(Mandatory = $true)]
-        [string] $ToolsPath,
-
-        [string] $sourceNuGetExe = "https://dist.nuget.org/win-x86-commandline/v5.3.1/nuget.exe"
-    )
-
-    if (!(Get-IsWindows)) {
-        EnsureCommandIsAvailable "mono"
-    }
-
-    if (-not $(Test-Path $ToolsPath)) {
-        mkdir $ToolsPath | Out-Null
-    }
-
-    $nuget = (Join-Path $ToolsPath "nuget.exe")
-
-    if (-not $(Test-Path $nuget)) {
-        Write-Host "Downloading nuget.exe official distribution from " $sourceNuGetExe
-        Invoke-WebRequest $sourceNuGetExe -OutFile $nuget
-    }
-    else {
-        $info = Get-Command $nuget
-
-        if ("5.3.1.0" -ne $info.Version.ToString()) {
-            Write-Host "Updating nuget.exe official distribution from " $sourceNuGetExe
-            Invoke-WebRequest $sourceNuGetExe -OutFile $nuget
-        }
-    }
-
-    # Add the tools directory to the path if not already there
-    if (-not ($ENV:PATH.Contains($ToolsPath))) {
-        $ENV:PATH = "$ToolsPath$([IO.Path]::PathSeparator)$ENV:PATH"
-    }
-
-    return $nuget
-}
-
-function Get-NuGetPackage {
-    <#
-    .SYNOPSIS
-        Download and unzip a NuGet package for the purpose of bundling into another package.
-    .DESCRIPTION
-        Uses nuget command line to download a NuGet package and unzip it into an output
-        directory. Uses the Ed-Fi Azure Artifacts package feed by default. Default output directory
-        is ./downloads.
-    .PARAMETER packageName
-        Alias "applicationId". Name of the package to download.
-    .PARAMETER packageVersion
-        Package version number. Can include pre-release information. Optional. If not
-        specified, installs the most recent full release version.
-    .PARAMETER toolsPath
-        The path in which to find the NuGet command line client.
-    .PARAMETER outputDirectory
-        The path into which the package is unzipped. Defaults to "./downloads".
-    .PARAMETER packageSource
-        The NuGet package source. Defaults to "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json".
-    .EXAMPLE
-        $parameters = @{
-            packageName = "EdFi.Suite3.Ods.WebApi"
-            packageVersion = "5.2.0-b11661"
-            toolsPath = "./tools"
-        }
-        Get-NuGetPackage @parameters
-    #>
-    [CmdletBinding()]
-    param (
         [string]
-        [Parameter(Mandatory = $true)]
-        [Alias("applicationId")]
         $PackageName,
 
+        # Extracted package output directory
+        [Parameter(Mandatory = $false)]
+        $OutputDirectory = './downloads',
+
+        # Exact package version
+        [Parameter(Mandatory = $true)]
         [string]
         $PackageVersion,
 
-        [string]
-        [Parameter(Mandatory = $true)]
-        $ToolsPath,
-
-        [string]
-        $OutputDirectory = './downloads',
-
+        # URL for the NuGet package feed
         [string]
         $PackageSource = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json",
 
@@ -110,33 +42,48 @@ function Get-NuGetPackage {
         $ExcludeVersion
     )
 
-    $nuget = Install-NuGetCli $ToolsPath
-    $parameters = @(
-        "install", $PackageName,
-        "-source", $PackageSource,
-        "-outputDirectory", $OutputDirectory
-    )
-    if ($ExcludeVersion) {
-        $parameters += "-ExcludeVersion"
+    # The first URL just contains metadata for looking up more useful services
+    $nugetServices = Invoke-RestMethod $PackageSource
+
+    $packageService = $nugetServices.resources `
+    | Where-Object { $_."@type" -like "PackageBaseAddress*" } `
+    | Select-Object -Property "@id" -ExpandProperty "@id"
+
+    $file = "$($PackageName).$($PackageVersion)"
+
+    $zipName = $file
+    
+    if($ExcludeVersion) {
+        $zipName = $PackageName
     }
-    if ($PackageVersion) {
-        $parameters += "-version"
-        $parameters += $PackageVersion
+    
+    New-Item -Path $OutputDirectory -Force -ItemType Directory | Out-Null
+
+    Push-Location $OutputDirectory
+
+    if ($null -ne (Get-ChildItem $zipName -ErrorAction SilentlyContinue)) {
+        # Already exists, don't re-download
+        Pop-Location
+        return "$($OutputDirectory)/$($zipName)"
     }
 
-    if(Get-IsWindows){
-        Write-Host -ForegroundColor Magenta "$ToolsPath/nuget $parameters"
-        & "$ToolsPath/nuget" $parameters | Out-Null
-    }else {
-        Write-Host -ForegroundColor Magenta "mono $ToolsPath/nuget.exe $parameters"
-        & mono "$ToolsPath/nuget.exe" $parameters | Out-Null
+    $lowerId = $PackageName.ToLower()
+
+    try {
+        Invoke-RestMethod "$($packageService)$($lowerId)/$($PackageVersion)/$($file).nupkg" -OutFile "$($zipName).zip"
+
+        Expand-Archive "$($zipName).zip" -Force
+
+        Remove-Item "$($zipName).zip"
+    }
+    catch {
+        throw $_
+    }
+    finally {
+        Pop-Location
     }
 
-    if ($ExcludeVersion) {
-        return Resolve-Path "$outputDirectory/$PackageName*" | Select-Object -Last 1
-    }
-
-    return Resolve-Path "$outputDirectory/$PackageName.$PackageVersion*" | Select-Object -Last 1
+    return "$($OutputDirectory)/$($zipName)"
 }
 
 $exports = @(
