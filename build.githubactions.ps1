@@ -518,6 +518,8 @@ function TestBranchExists {
 
     try {
         $response = Invoke-RestMethod -Uri $url -Headers $headers
+         Write-Host "Branch 'BranchName is $response.name"
+         Write-Host "Branch 'RepoName is $RepoName "         
         if ($response.name -eq $BranchName) {
             Write-Host "Branch '$BranchName' exists in repository '$RepoName'."
             return
