@@ -533,7 +533,7 @@ function TestBranchExists {
         }
     } catch {
         Write-Host "Branch '$BranchName' does not exist in repository '$RepoName'."
-        Write-Host "Exception is occurred."
+        Write-Host "Exception occurred: $($_.Exception.Message)"
         Write-Host "Stopping the build."
         exit 1
     }
