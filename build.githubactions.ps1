@@ -511,6 +511,8 @@ function CreateOrUpdateRepositoriesJson {
 
 function TestBranchExists {
 
+    Write-Host "Checking TestBranchExists" 
+
     $headers = @{
         Authorization = "Bearer $env:EDFI_ODS_TOKEN"
         Accept        = "application/vnd.github.v3+json"
@@ -518,8 +520,9 @@ function TestBranchExists {
 
     try {
         $response = Invoke-RestMethod -Uri $url -Headers $headers
-         Write-Host "Branch 'BranchName is $response.name"
-         Write-Host "Branch 'RepoName is $RepoName "         
+        Write-Host "Branch 'RepoName is $RepoName "  
+        Write-Host "Branch 'BranchName is $response.name"
+                
         if ($response.name -eq $BranchName) {
             Write-Host "Branch '$BranchName' exists in repository '$RepoName'."
             return
@@ -530,6 +533,7 @@ function TestBranchExists {
         }
     } catch {
         Write-Host "Branch '$BranchName' does not exist in repository '$RepoName'."
+        Write-Host "Exception is occurred."
         Write-Host "Stopping the build."
         exit 1
     }
