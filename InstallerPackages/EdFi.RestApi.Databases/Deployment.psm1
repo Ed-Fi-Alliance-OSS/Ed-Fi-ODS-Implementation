@@ -143,6 +143,7 @@ function Initialize-DeploymentEnvironment {
 
     $elapsed = Use-StopWatch {
         if (-not [string]::IsNullOrWhiteSpace((Get-DeploymentSettings).Plugin.Folder) -and -not (Test-TaskAlreadyInvoked("Install-Plugins"))) { $script:result += Install-Plugins }
+        if ($null -eq (Get-DotNetTool $env:toolsPath "EdFi.Db.Deploy").Version) { $script:result += Install-DbDeploy }
 
         $script:result += Reset-AdminDatabase
         $script:result += Reset-SecurityDatabase
@@ -245,6 +246,7 @@ function Get-DeploymentSettings {
 }
 
 function Install-Plugins { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
+function Install-DbDeploy { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-AdminDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-SecurityDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
 function Reset-OdsDatabase { Invoke-Task -name ($MyInvocation.MyCommand.Name) -task $deploymentTasks[$MyInvocation.MyCommand.Name] }
@@ -261,6 +263,19 @@ $deploymentTasks = @{
     'Install-Plugins'               = {
         $settings = Get-DeploymentSettings
         Get-Plugins $settings
+    }
+    'Install-DbDeploy'               = {
+        $settings = Get-DeploymentSettings
+
+        $packageSettings = $settings.packages['EdFi.Db.Deploy']
+        $parameters = @{
+            Name    = $packageSettings.packageName
+            Version = $packageSettings.packageVersion
+            Source  = @($packageSettings.packageSource, (Join-Path $env:toolsPath "CachedPackages"))
+            Path    = $env:toolsPath
+        }
+        
+        Install-DotNetTool @parameters
     }
     'Reset-AdminDatabase'             = {
         $settings = Get-DeploymentSettings
