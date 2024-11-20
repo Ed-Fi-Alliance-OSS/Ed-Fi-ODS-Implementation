@@ -81,7 +81,7 @@ function Install-DotNetTool {
         [string] $Path,
         [string] $Name,
         [string] $Version,
-        [string] $Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+        [string[]] $Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     )
 
     $installedVersion = (Get-DotNetTool $Path $Name).Version
@@ -97,10 +97,22 @@ function Install-DotNetTool {
         Uninstall-DotNetTool $Path $Name $installedVersion
     }
 
-    Write-Host "Installing $Name version $Version to $Path"
-    Write-Host -ForegroundColor Magenta "& dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source  --no-cache"
+    $arguments = @(
+        $Name, 
+        "--version", $Version, 
+        "--tool-path", $Path, 
+        "--no-cache"
+    )
 
-    & dotnet tool install $Name --version $Version --tool-path $Path --add-source $Source  --no-cache
+    # Add each source as a separate --add-source argument
+    foreach ($src in $Source) {
+        $arguments += @("--add-source", $src)
+    }
+
+    Write-Host "Installing $Name version $Version to $Path"
+    Write-Host -ForegroundColor Magenta "& dotnet tool install $arguments"
+
+    & dotnet tool install $arguments
 }
 
 function Install-ToolDbDeploy {

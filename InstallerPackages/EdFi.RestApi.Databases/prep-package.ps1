@@ -109,14 +109,14 @@ $nonrepoNuspecFiles = Get-ChildItem $outputDirectory -Exclude *.nuspec, prep-pac
 
 Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair $nonrepoNuspecFiles
 
-Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair  @{ source = Select-CumulativeRepositoryResolvedItems "tools/EdFi.Db.Deploy$(GetExeExtension)"; target = "tools" }
+# Add DbDeploy .nupkg to allow for offline installation. Pick the .nupkg file that has the version in its name
+# SemVer regex source: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string
+$semverRegex = "^.*(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?.*$"
+$dbDeployNupkg = (Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/edfi.suite3.db.deploy" )
+| Where-Object { $_.Name.EndsWith(".nupkg") -and $_.Name -match $semverRegex }
+| Select-Object -First 1
 
-$dbDeployToolfiles = @(((Select-CumulativeRepositoryResolvedItems -recurse "tools/.store/edfi.suite3.db.deploy" ) |  Where-Object { -not $_.Name.EndsWith(".nupkg")} ))
-
-Foreach ($eachtoolfile in $dbDeployToolfiles)
-{
-    Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair @{ source = $eachtoolfile.FullName; target =  $eachtoolfile.FullName.Substring($eachtoolfile.FullName.IndexOf('tools'))}
-}
+Add-FileToNuspec -nuspecPath $nuspecPath -sourceTargetPair @{ source = $dbDeployNupkg.FullName; target = "tools/CachedPackages/$($dbDeployNupkg.Name)" }
 
 Write-Host -ForegroundColor Green "Created nuspec at: $nuspecPath"
 
