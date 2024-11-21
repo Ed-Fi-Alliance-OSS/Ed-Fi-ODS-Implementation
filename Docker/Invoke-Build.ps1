@@ -152,7 +152,7 @@ param (
 
     [Parameter(Mandatory=$true)]
     [string]
-    $Path  
+    $Path
 )
 
 $ErrorActionPreference = "Stop"
@@ -223,6 +223,12 @@ function Invoke-Build {
         $stdVer = ""
     }
 
+    #building the images from a branch different than main, will add the package version suffix to the pre tag
+    $preTag = "pre"
+    if ($env:BASE_BRANCH -ne 'main') {
+      $preTag = $preTag+$PackageVersion.Replace(".", "")
+    }
+
     Write-Message "Building $ImageName with $BuildArgs"
     Push-Location $ImageName/$Path
     # Full semantic version
@@ -235,7 +241,7 @@ function Invoke-Build {
     # Major version
     &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$major$stdVer$mssql
     # Pre-release
-    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):pre$stdVer$mssql
+    &docker tag edfialliance/$($ImageName):$semVer-$StandardVersion$mssql edfialliance/$($ImageName):$preTag$stdVer$mssql
 
     if ($Push) {
         Write-Message "Pushing $ImageName"
