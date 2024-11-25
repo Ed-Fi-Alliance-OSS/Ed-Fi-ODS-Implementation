@@ -226,7 +226,7 @@ function Invoke-Build {
     #building the images from a branch different than main, will add the package version suffix to the pre tag
     $preTag = "pre"
     if ($env:BASE_BRANCH -ne 'main') {
-      $preTag = $preTag+$PackageVersion.Replace(".", "")
+      $preTag = $preTag+"-"+$PackageVersion.Replace(".", "")
     }
 
     Write-Message "Building $ImageName with $BuildArgs"
