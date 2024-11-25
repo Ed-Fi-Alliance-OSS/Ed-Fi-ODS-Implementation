@@ -7,6 +7,12 @@
 set -e
 set +x
 
+echo "Creating postgres role..."
+psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL 1> /dev/null
+  CREATE ROLE postgres WITH NOLOGIN INHERIT;
+  GRANT $POSTGRES_USER TO postgres;
+EOSQL
+
 echo "Creating base Admin and Security databases..."
 psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL 1> /dev/null
     CREATE DATABASE "EdFi_Admin" TEMPLATE template0;

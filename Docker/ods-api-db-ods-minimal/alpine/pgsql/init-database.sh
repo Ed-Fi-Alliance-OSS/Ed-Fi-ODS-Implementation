@@ -13,6 +13,12 @@ if [[ "$TPDM_ENABLED" = true ]]; then
   export MINIMAL_BACKUP=EdFi_Ods_Minimal_Template_TPDM_Core.sql
 fi
 
+echo "Creating postgres role..."
+psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL 1> /dev/null
+  CREATE ROLE postgres WITH NOLOGIN INHERIT;
+  GRANT $POSTGRES_USER TO postgres;
+EOSQL
+
 psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL 1> /dev/null
     CREATE DATABASE "EdFi_Ods" TEMPLATE template0;
     GRANT ALL PRIVILEGES ON DATABASE "EdFi_Ods" TO $POSTGRES_USER;
