@@ -18,6 +18,7 @@ $parameters = @{
     packageVersion  = $configuration.packageVersion
     packageSource   = $configuration.packageSource
     outputDirectory = "$PSScriptRoot"
+    toolsPath       = (Get-ToolsPath)
     excludeVersion  = $true
 }
 $pluginPaths += Get-NuGetPackage @parameters

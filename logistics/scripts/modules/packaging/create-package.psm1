@@ -27,6 +27,7 @@ function Invoke-CreatePackage {
             Publish = $true
             Source = "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
             ApiKey = $env:azureArtifacts.apiKey
+            ToolsPath = "tools"
         }
         Invoke-CreatePackage @parameters
     #>
@@ -63,9 +64,13 @@ function Invoke-CreatePackage {
         [string]
         $ApiKey,
 
-        # Additional Properties to pass when packaging
+        # Path to download and store nuget.exe if not already present in the path.
         [string]
-        $Properties = "copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors;version=$Version",
+        $ToolsPath,
+
+        # Additional Properties to pass to nuget.exe
+        [string[]]
+        $Properties = @("copyright=Copyright @ " + $((Get-Date).year) + " Ed-Fi Alliance, LLC and Contributors"),
 
         [string]
         $AdditionalParameters
@@ -73,11 +78,14 @@ function Invoke-CreatePackage {
 
     $verbose = $PSCmdlet.MyInvocation.BoundParameters["Verbose"]
 
+    $nuget = Install-NuGetCli -ToolsPath $ToolsPath
+
     # Build release
     $parameters = @{
         PackageDefinitionFile = $PackageDefinitionFile
         Version               = $Version
         OutputDirectory       = $OutputDirectory
+        NuGet                 = $nuget
         Verbose               = $verbose
         Properties            = $Properties
     }
@@ -101,6 +109,7 @@ function Invoke-CreatePackage {
             PackageFile = (Get-ChildItem "$OutputDirectory/$packageId*.$Version.nupkg").FullName
             Source      = $Source
             ApiKey      = $ApiKey
+            NuGet       = $nuget
             Verbose     = $verbose
         }
         Publish-PrereleasePackage @parameters
@@ -131,68 +140,39 @@ function New-Package {
         $OutputDirectory,
 
         [string]
-        $ProjectFile,
-
-        [string]
-        $BuildConfiguration = 'Debug'
+        [Parameter(Mandatory = $true)]
+        $NuGet
     )
 
-    $parameters = @()
-
-    $parameters += "-p:NuspecFile=$($PackageDefinitionFile)"
-    $parameters += "-p:NoDefaultExcludes=true" # Include .nupkg files in the package
-    $parameters += "--output"
-    $parameters += $OutputDirectory
-    $parameters += "--no-build"
-    
+    $parameters = @(
+        "pack", $PackageDefinitionFile,
+        "-Version", $Version,
+        "-OutputDirectory", $OutputDirectory
+    )
 
     if ($Suffix) {
-        $parameters += "--version-suffix"
+        $parameters += "-Suffix"
         $parameters += $Suffix
     }
 
-    if (-not [string]::IsNullOrWhiteSpace($env:msbuild_buildConfiguration)) { 
-        $BuildConfiguration = $env:msbuild_buildConfiguration 
+    if ($Properties.Count -gt 0) {
+        $parameters += "-Properties"
+        $parameters += $Properties -join ';'
     }
-
-    $parameters += "--configuration"
-    $parameters += $BuildConfiguration
-
-    $nuspecProperties = "-p:NuspecProperties=""version=$($Version)"
-
-
-    foreach ($prop in $Properties) {
-        $nuspecProperties += ";$prop"
-    }
-
-    $nuspecProperties += """"
-
-    $parameters += $nuspecProperties
 
     if ($Verbose) {
-        $parameters += "--verbosity"
+        $parameters += "-Verbosity"
         $parameters += "detailed"
     }
 
-    # 'dotnet pack' requires a project or solution be specified,
-    # even if it's contents are not used in the package.
-    # Therefore, when creating a package defined by a .nuspec file,
-    # we must create an empty project and then delete it after packing is complete
-    if ([string]::IsNullOrEmpty($ProjectFile)) {
-        & dotnet new classlib --name EmptyProject
-        $ProjectFile = "EmptyProject"
+    Write-Host $NuGet @parameters -ForegroundColor Magenta
+    if(Get-isWindows){
+        & $NuGet @parameters
+    }else {
+        mono $NuGet @parameters
     }
-
-    $parameters = @("pack") + @($ProjectFile) + $parameters
-
-    Write-Host -ForegroundColor Magenta "& dotnet $parameters"
-    & dotnet $parameters | Out-Host
-
-    try {
-        Remove-Item -Path "./EmptyProject" -Recurse -Force | Out-Null
-    } catch { }
-
 }
+
 
 function Publish-PrereleasePackage {
     param (
@@ -204,20 +184,29 @@ function Publish-PrereleasePackage {
         $Source,
 
         [string]
-        $ApiKey
+        $ApiKey,
+
+        [string]
+        [Parameter(Mandatory = $true)]
+        $NuGet
     )
     $parameters = @(
         "push", $PackageFile,
-        "--source", $Source,
-        "--api-key", $ApiKey
+        "-Source", $Source,
+        "-ApiKey", $ApiKey
     )
 
     if ($Verbose) {
-        $parameters += "--verbosity"
+        $parameters += "-Verbosity"
         $parameters += "detailed"
     }
 
-    & dotnet nuget @parameters
+    Write-Host $NuGet @parameters -ForegroundColor Magenta
+    if(Get-isWindows){
+        & $NuGet @parameters
+    }else {
+        mono $NuGet @parameters
+    }
 }
 
 Export-ModuleMember -Function Invoke-CreatePackage, New-Package

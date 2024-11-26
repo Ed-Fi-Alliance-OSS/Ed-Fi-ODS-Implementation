@@ -120,7 +120,7 @@ function Get-Plugins([hashtable] $Settings) {
         $sourcePath = Join-Path $folder $newExtensionFolderName
         
         if (Test-Path $sourcePath) {
-            Remove-Item $sourcePath -Recurse -Force
+            Remove-Item $sourcePath -Recurse 
         }
 
         Rename-Item -Path $extensionPath -NewName $newExtensionFolderName -Force
@@ -186,7 +186,7 @@ function Remove-Plugins([hashtable] $Settings) {
     if (-not (Test-Path $folder)) { return }
 
     Write-Host $folder
-    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse -Force
+    Get-ChildItem -Path $folder -Directory -Recurse | Remove-Item -Recurse
 }
 
 function Get-PluginScriptsForPackaging([hashtable] $Settings) {

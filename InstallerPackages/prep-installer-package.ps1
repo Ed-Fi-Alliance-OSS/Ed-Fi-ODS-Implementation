@@ -27,6 +27,7 @@ $parameters = @{
     PackageName = $configuration.packageName
     PackageVersion = $configuration.packageVersion
     packageSource  = $configuration.packageSource
+    ToolsPath = "../../tools"
 }
 $appCommonDirectory = Get-NuGetPackage @parameters
 

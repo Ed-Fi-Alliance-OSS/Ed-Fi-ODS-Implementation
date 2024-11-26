@@ -404,6 +404,7 @@ function Get-WebApiPackage {
         $parameters = @{
             PackageName = $Config.PackageName
             PackageVersion = $Config.PackageVersion
+            ToolsPath = $Config.ToolsPath
             OutputDirectory = $Config.DownloadPath
             PackageSource = $Config.PackageSource
         }

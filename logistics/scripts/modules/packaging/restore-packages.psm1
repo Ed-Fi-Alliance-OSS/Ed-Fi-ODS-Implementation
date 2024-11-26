@@ -16,14 +16,28 @@ function Restore-Packages {
 
     .PARAMETER solutionPath
         Full path to the solution file.
+
+    .PARAMETER toolsPath
+        OPtional. The path to store nuget.exe to
     #>
     Param(
         [Parameter(Mandatory = $true)]
-        [string] $solutionPath
+        [string] $solutionPath,
+
+        [string] $toolsPath
     )
 
-    Write-Host -ForegroundColor Magenta "& dotnet restore $solutionPath"
-    & dotnet restore $solutionPath | Out-Host
+    Install-NuGetCli -toolsPath $toolsPath
+
+    if(Get-IsWindows){
+        $nuget = Join-Path $toolsPath "nuget"
+        & $nuget restore $solutionPath | Write-Host
+        
+    }else {
+        $nuget = Join-Path $toolsPath "nuget.exe"
+        & mono $nuget restore $solutionPath | Write-Host
+    }
+    & dotnet restore $solutionPath | Write-Host
 }
 
 Export-ModuleMember -Function Restore-Packages
