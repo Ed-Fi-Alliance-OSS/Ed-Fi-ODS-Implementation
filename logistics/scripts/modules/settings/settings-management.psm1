@@ -826,6 +826,7 @@ function Get-DefaultFeatures() {
             @{ Name = 'XsdMetadata'; IsEnabled=$true }
             @{ Name = 'MultiTenancy'; IsEnabled=$false }
             @{ Name = 'SerializedData'; IsEnabled=$true }
+            @{ Name = 'ResourceLinks'; IsEnabled=$true }
         )
     }
 }
