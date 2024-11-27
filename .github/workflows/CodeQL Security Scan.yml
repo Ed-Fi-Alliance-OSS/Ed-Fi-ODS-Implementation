@@ -28,7 +28,7 @@ jobs:
   analyze:
     needs: FindStandardAndExtensionVersions
     name: Analyze Code (Standard Version ${{ matrix.StandardVersion }})
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     permissions:
       actions: read
       contents: read
@@ -75,6 +75,10 @@ jobs:
             $PSVersionTable
             . $env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/Initialize-PowershellForDevelopment.ps1
             Invoke-CodeGen -Engine PostgreSQL -RepositoryRoot $env:GITHUB_WORKSPACE -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+      # This step shall be removed in ODS-6572
+      - name: Install Mono and Nuget
+        working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
+        run: sudo ./install-mono.sh
       - name: Cache Nuget packages   
         uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
         with:

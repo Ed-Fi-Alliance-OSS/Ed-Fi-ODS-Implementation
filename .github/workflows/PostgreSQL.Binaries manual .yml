@@ -23,7 +23,7 @@ env:
 jobs:
   build:
 
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
  
     steps:
     - name: Check for Azure token
@@ -47,10 +47,10 @@ jobs:
           $ErrorActionPreference = 'Stop'
           Import-Module -Force -Scope Global $env:GITHUB_WORKSPACE/${{ env.SCRIPT_BUILD_POSTGRES_BINARIES }}
           New-PostgresBinariesPackage
-    - name: Use NuGet
-      uses: nuget/setup-nuget@b2bc17b761a1d88cab755a776c7922eb26eefbfa # v1
-      with:
-        nuget-version: '5.x'
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
+      run: sudo ./install-mono.sh
     - name: Pack Release version
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh
@@ -61,7 +61,7 @@ jobs:
         [string]$version = "${{env.INFORMATIONAL_VERSION}}"+ "." + $newRevision.ToString()
         $packageOutput = "$env:GITHUB_WORKSPACE/Ed-Fi-ODS-Implementation/NugetPackages"
         $NuspecFilePath = Join-Path ([IO.Path]::GetTempPath()) 'PostgreSQL.Binaries/package/package.nuspec'
-        nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
+        mono nuget pack $NuspecFilePath -OutputDirectory $packageOutput -Version $version -Properties "configuration=release" -Properties "authors=Ed-Fi Alliance" -Properties "owners=Ed-Fi Alliance" -Properties "copyright=Copyright © $(date +'%Y') Ed-Fi Alliance, LLC and Contributors" -Properties "id=PostgreSQL.Binaries" -Properties "title=PostgreSQL.Binaries" -Properties "description=PostgreSQL.Binaries" -NoPackageAnalysis -NoDefaultExcludes
     - name: Install-credential-handler
       if: ${{ env.AZURE_ARTIFACT_NUGET_KEY != '' }}
       working-directory: ./Ed-Fi-ODS-Implementation/      
