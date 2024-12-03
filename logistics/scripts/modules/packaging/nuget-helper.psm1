@@ -81,7 +81,7 @@ function Get-NuGetPackage {
     .EXAMPLE
         $parameters = @{
             packageName = "EdFi.Suite3.Ods.WebApi"
-            packageVersion = "5.0.0-b11661"
+            packageVersion = "5.2.0-b11661"
             toolsPath = "./tools"
         }
         Get-NuGetPackage @parameters

@@ -49,10 +49,10 @@ jobs:
           $ErrorActionPreference = 'Stop'
           Import-Module -Force -Scope Global $env:GITHUB_WORKSPACE/${{ env.SCRIPT_BUILD_POSTGRES_BINARIES }}
           New-PostgresBinariesPackage
-    - name: Use NuGet
-      uses: nuget/setup-nuget@323ab0502cd38fdc493335025a96c8fdb0edc71f # v2.0.1
-      with:
-        nuget-version: '5.x'
+    # This step shall be removed in ODS-6572
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
+      run: sudo ./install-mono.sh
     - name: Pack Release version
       working-directory: ./Ed-Fi-ODS-Implementation
       shell: pwsh

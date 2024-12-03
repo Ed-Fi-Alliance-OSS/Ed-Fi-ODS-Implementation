@@ -148,6 +148,7 @@ function New-Package {
         "pack", $PackageDefinitionFile,
         "-Version", $Version,
         "-OutputDirectory", $OutputDirectory
+        "-NoDefaultExcludes" # Include .nupkg files in the package
     )
 
     if ($Suffix) {
