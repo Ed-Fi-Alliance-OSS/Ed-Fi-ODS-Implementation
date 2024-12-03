@@ -39,6 +39,19 @@ function Find-BlockedFiles {
     }
 }
 
+function Install-RequiredPackageProvider {
+    # Ensure we have Tls12 support
+    if (-not [Net.ServicePointManager]::SecurityProtocol.HasFlag([Net.SecurityProtocolType]::Tls12)) {
+        [Net.ServicePointManager]::SecurityProtocol += [Net.SecurityProtocolType]::Tls12
+    }
+    $packageProvider = Get-PackageProvider | ? -Property Name -eq "NuGet"
+
+    if ($packageProvider -eq $null) {
+        Write-Host "Installing the required packageProvider"
+        Install-PackageProvider NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser | Out-Null
+    }
+}
+
 function global:Update-SolutionScripts {
     foreach ($file in (gci $global:SolutionScriptsDir)) {
         if ($file.extension -eq '.ps1') {
@@ -53,5 +66,6 @@ function global:Update-SolutionScripts {
 }
 
 Find-BlockedFiles
+Install-RequiredPackageProvider
 Update-SolutionScripts
 
