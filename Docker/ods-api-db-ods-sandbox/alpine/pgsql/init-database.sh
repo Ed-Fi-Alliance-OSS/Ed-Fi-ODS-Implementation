@@ -21,7 +21,7 @@ if [ "$POSTGRES_USER" != "postgres" ]; then
   psql --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" <<-EOSQL 1> /dev/null
     CREATE ROLE postgres WITH NOLOGIN INHERIT;
     GRANT $POSTGRES_USER TO postgres;
-  EOSQL
+EOSQL
 else
   echo "POSTGRES_USER is set to 'postgres'. Skipping role creation."
 fi
