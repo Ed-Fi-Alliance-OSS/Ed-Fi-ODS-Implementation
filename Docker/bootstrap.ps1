@@ -59,5 +59,5 @@ if ($MsSql) {
   docker exec -i --env-file .env ed-fi-db-admin sh -c '/opt/mssql-tools/bin/sqlcmd -U "$SQLSERVER_USER" -P "$SQLSERVER_PASSWORD" -d EdFi_Admin -i /tmp/bootstrap.sql'
 }
 else {
-  docker exec -i ed-fi-db-admin sh -c "psql -U postgres -d EdFi_Admin -f /tmp/bootstrap.sql"
+  docker exec -i ed-fi-db-admin sh -c "psql -U `$POSTGRES_USER  -d EdFi_Admin -f /tmp/bootstrap.sql"
 }

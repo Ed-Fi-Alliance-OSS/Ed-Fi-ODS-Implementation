@@ -25,7 +25,7 @@ do
       PGHOST=$HOST \
       PGPORT=$POSTGRES_PORT \
       PGUSER=$POSTGRES_USER \
-      pg_isready > /dev/null
+      pg_isready -d "$POSTGRES_DB" > /dev/null
   do
     >&2 echo "Postgres '$HOST' is unavailable - sleeping"
     sleep 10
