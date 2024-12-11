@@ -55,6 +55,52 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+    - name: Wait for dependent workflows to complete
+      run: |
+        $workflowNames = @("InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy")
+        $repository = "${{ github.repository }}"
+        $sha = "${{ github.event.workflow_run.head_sha }}"
+        $token = "${{ secrets.GITHUB_TOKEN }}"
+        $timeout = 1800  # Total wait time in seconds
+        $interval = 10   # Interval between checks in seconds
+        $elapsedTime = 0
+
+        while ($elapsedTime -lt $timeout) {
+          Write-Host "Checking workflow statuses..."
+          $allSuccess = $true
+
+          foreach ($workflow in $workflowNames) {
+            $url = "https://api.github.com/repos/$repository/actions/workflows/$workflow/runs?head_sha=$sha"
+            $response = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $token" } -Method Get -ContentType "application/json"
+
+            if ($response.workflow_runs.Count -eq 0) {
+              Write-Host "No runs found for workflow: $workflow"
+              $allSuccess = $false
+              break
+            }
+
+            $latestRun = $response.workflow_runs | Sort-Object -Property created_at -Descending | Select-Object -First 1
+            if ($latestRun.status -ne "completed" -or $latestRun.conclusion -ne "success") {
+              $allSuccess = $false
+              break
+            }
+          }
+
+          if ($allSuccess) {
+            Write-Host "All workflows completed successfully."
+            break
+          }
+
+          Start-Sleep -Seconds $interval
+          $elapsedTime += $interval
+        }
+
+        if (-not $allSuccess) {
+          Write-Host "Timeout reached or one or more workflows failed."
+          exit 1
+        }
+      shell: pwsh
+
     - name: Wait for  ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
       uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
       with:
