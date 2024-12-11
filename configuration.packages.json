@@ -152,7 +152,7 @@
     },
     "AppCommon": {
       "PackageName": "EdFi.Installer.AppCommon",
-      "PackageVersion": "3.2.0",
+      "PackageVersion": "3.4.0",
       "PackageSource": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
     },
     "EdFi.Ods.Common": {

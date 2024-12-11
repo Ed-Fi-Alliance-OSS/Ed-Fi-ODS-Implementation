@@ -43,9 +43,10 @@ function Install-EdFiOdsWebApi {
         PS c:/> $parameters = @{
             DbConnectionInfo = @{
                 Engine="SqlServer"
-                Server="my-sql-server.example"
+                Server="localhost"
                 UseIntegratedSecurity=$true
             }
+            UnEncryptedConnection = $true
         }
         PS c:/> Install-EdFiOdsWebApi @parameters
 
@@ -53,6 +54,37 @@ function Install-EdFiOdsWebApi {
         Connect to the database with integrated security. This will create IIS website "Ed-Fi" 
         with root c:\inetpub\Ed-Fi, and the application files will be in "c:\inetpub\Ed-Fi\WebApi".
         Installs the most recent full release of the WebApi software.
+
+    .EXAMPLE
+        PS c:/> $parameters = @{
+            DbConnectionInfo = @{
+                Engine="SqlServer"
+                Server="localhost"
+                Username="user123"
+                Password="password123"
+                UseIntegratedSecurity=$false
+            }
+        }
+        PS c:/> Install-EdFiOdsWebApi @parameters
+
+        Connect using SQL Server Authentication (with a user and a password). If the user does not already
+        exist in SQL Server, the installer will create it with "sysadmin" role.
+
+    .EXAMPLE
+        PS c:/> $parameters = @{
+            DbConnectionInfo = @{
+                Engine="SqlServer"
+                Server="localhost"
+                Username="NT AUTHORITY\LOCAL SERVICE"
+                UseIntegratedSecurity=$true
+            }
+        }
+        PS c:/> Install-EdFiOdsWebApi @parameters
+
+        Connect using integrated security with a specific Windows user. If the user does not already
+        exist in SQL Server, the installer will create it with "sysadmin" role.
+        After executing the installer, you must ensure that the application pool identity used by 
+        WebApi is the same as the Windows user.
 
     .EXAMPLE
         PS c:/> $parameters = @{
@@ -70,7 +102,22 @@ function Install-EdFiOdsWebApi {
         PS c:/> Install-EdFiOdsWebApi @parameters
 
         Install with all web application defaults, but using separate database connections.
-        Override the name of the ODS database and use username/password for the ODS connection.
+
+    .EXAMPLE
+        PS c:/> $parameters = @{
+            DbConnectionInfo = @{
+                Engine="PostgreSQL"
+                Server="localhost"
+                Username="postgres"
+            }
+        }
+        PS c:/> Install-EdFiOdsWebApi @parameters
+
+        Use all available default values, connecting to databases on a single PostgreSQL server
+        using the "postgres" user which has to be configured for password-less login in pgpass.conf.
+        This will create IIS website "Ed-Fi" with root c:\inetpub\Ed-Fi, and the application files will
+        be in "c:\inetpub\Ed-Fi\WebApi".
+        Installs the most recent full release of the WebApi software.
 
     .EXAMPLE
         PS c:/> $parameters = @{
