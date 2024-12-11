@@ -21,7 +21,7 @@ on:
     workflows: ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
       - completed
-    branches: [main, 'b-v*-patch*','feature-*','ODS-6577']
+    branches: [main, 'b-v*-patch*','feature-*']
 
 permissions: read-all
 
@@ -99,7 +99,6 @@ jobs:
           exit 1
         }
       shell: pwsh
-
     - name: Wait for  ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
       uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
       with:

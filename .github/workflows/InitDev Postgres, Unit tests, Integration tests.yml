@@ -9,7 +9,7 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: ['b-v*-patch*','feature-*']
+   branches: [main, 'b-v*-patch*','feature-*']
    types: [opened, synchronize, reopened, unlabeled]
   push:
    branches: [main, 'b-v*-patch*','feature-*']   
