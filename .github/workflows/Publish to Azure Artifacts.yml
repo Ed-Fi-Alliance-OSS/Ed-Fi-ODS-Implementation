@@ -83,6 +83,7 @@ jobs:
 
             $latestRun = $response.workflow_runs | Sort-Object -Property created_at -Descending | Select-Object -First 1
             if ($latestRun.status -ne "completed" -or $latestRun.conclusion -ne "success") {
+              Write-Host "latest Run status is $latestRun.status"
               $allSuccess = $false
               break
             }
@@ -94,7 +95,7 @@ jobs:
           }
 
         if (-not $allSuccess) {
-          Write-Host "Timeout reached or one or more workflows failed."
+          Write-Host "one or more workflows failed."
           exit 1
         }
       shell: pwsh
