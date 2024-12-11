@@ -59,14 +59,9 @@ jobs:
     - name: Wait for dependent workflows to complete
       run: |
         $workflowNames = @("InitDev, Smoke Tests.yml", "InitDev Postgres, Unit tests, Integration tests.yml", "InitDev, MultiTenancy.yml")
-        $repository = "${{ github.repository }}"
         $sha = "${{ github.event.workflow_run.head_sha }}"
-        $timeout = 1800  # Total wait time in seconds
-        $interval = 10   # Interval between checks in seconds
-        $elapsedTime = 0
         Write-Host "sha is $sha"
 
-        while ($elapsedTime -lt $timeout) {
           Write-Host "Checking workflow statuses..."
           $allSuccess = $true
 
@@ -97,10 +92,6 @@ jobs:
             Write-Host "All workflows completed successfully."
             break
           }
-
-          Start-Sleep -Seconds $interval
-          $elapsedTime += $interval
-        }
 
         if (-not $allSuccess) {
           Write-Host "Timeout reached or one or more workflows failed."
