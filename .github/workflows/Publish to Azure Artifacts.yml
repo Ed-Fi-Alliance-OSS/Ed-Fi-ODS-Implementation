@@ -31,6 +31,7 @@ env:
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -60,7 +61,6 @@ jobs:
         $workflowNames = @("InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy")
         $repository = "${{ github.repository }}"
         $sha = "${{ github.event.workflow_run.head_sha }}"
-        $token = "${{ secrets.REPO_DISPATCH_TOKEN }}"
         $timeout = 1800  # Total wait time in seconds
         $interval = 10   # Interval between checks in seconds
         $elapsedTime = 0
@@ -71,7 +71,12 @@ jobs:
 
           foreach ($workflow in $workflowNames) {
             $url = "https://api.github.com/repos/$repository/actions/workflows/$workflow/runs?head_sha=$sha"
-            $response = Invoke-RestMethod -Uri $url -Headers @{ Authorization = "Bearer $token" } -Method Get -ContentType "application/json"
+            $headers = @{
+                    Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+                    Accept = "application/vnd.github.v3+json"
+            }
+            
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
 
             if ($response.workflow_runs.Count -eq 0) {
               Write-Host "No runs found for workflow: $workflow"
