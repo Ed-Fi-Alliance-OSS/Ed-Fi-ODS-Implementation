@@ -60,7 +60,7 @@ jobs:
         $workflowNames = @("InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy")
         $repository = "${{ github.repository }}"
         $sha = "${{ github.event.workflow_run.head_sha }}"
-        $token = "${{ secrets.GITHUB_TOKEN }}"
+        $token = "${{ secrets.REPO_DISPATCH_TOKEN }}"
         $timeout = 1800  # Total wait time in seconds
         $interval = 10   # Interval between checks in seconds
         $elapsedTime = 0
