@@ -56,7 +56,7 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
-    - name: Wait for dependent workflows to complete
+    - name: Verify dependent workflows are success or not 
       run: |
         $workflowNames = @("InitDev, Smoke Tests.yml", "InitDev Postgres, Unit tests, Integration tests.yml", "InitDev, MultiTenancy.yml")
         $sha = "${{ github.event.workflow_run.head_sha }}"
@@ -82,7 +82,7 @@ jobs:
             }
 
             $latestRun = $response.workflow_runs | Sort-Object -Property created_at -Descending | Select-Object -First 1
-            if ($latestRun.status -ne "completed" -or $latestRun.conclusion -ne "success") {
+            if ($latestRun.conclusion -ne "success") {
               Write-Host "latest Run status is $latestRun.status"
               $allSuccess = $false
               break
@@ -95,7 +95,7 @@ jobs:
           }
 
         if (-not $allSuccess) {
-          Write-Host "one or more workflows failed."
+          Write-Host "one or more workflows failed.So cancelling the build"
           exit 1
         }
       shell: pwsh
