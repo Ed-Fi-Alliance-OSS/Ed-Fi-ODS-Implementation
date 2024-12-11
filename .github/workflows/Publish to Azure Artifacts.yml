@@ -58,19 +58,21 @@ jobs:
           path: Ed-Fi-ODS-Implementation/
     - name: Wait for dependent workflows to complete
       run: |
-        $workflowNames = @("InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy")
+        $workflowNames = @("InitDev, Smoke Tests.yml", "InitDev Postgres, Unit tests, Integration tests.yml", "InitDev, MultiTenancy.yml")
         $repository = "${{ github.repository }}"
         $sha = "${{ github.event.workflow_run.head_sha }}"
         $timeout = 1800  # Total wait time in seconds
         $interval = 10   # Interval between checks in seconds
         $elapsedTime = 0
+        Write-Host "sha is $sha"
 
         while ($elapsedTime -lt $timeout) {
           Write-Host "Checking workflow statuses..."
           $allSuccess = $true
 
           foreach ($workflow in $workflowNames) {
-            $url = "https://api.github.com/repos/$repository/actions/workflows/$workflow/runs?head_sha=$sha"
+            
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/workflows/$workflow/runs?head_sha=$sha"
             $headers = @{
                     Authorization = "Bearer $env:EDFI_ODS_TOKEN"
                     Accept = "application/vnd.github.v3+json"
