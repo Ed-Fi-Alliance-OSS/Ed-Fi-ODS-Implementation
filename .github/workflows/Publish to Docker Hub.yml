@@ -10,8 +10,6 @@ on:
       - "Docker Test"
     types:
       - completed
-    branches:
-      [main, 'b-v*-patch*','feature-*']
   release:
     types: [published]
   workflow_dispatch:
@@ -87,25 +85,25 @@ jobs:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ env.DOCKER_HUB_TOKEN }}
 
-      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }} and Push
-        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
-        run: |
-          # Note: all images will receive the same version number for this Docker release
-          if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch")) {
+#      - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }} and Push
+#        if: ${{ env.DOCKER_HUB_TOKEN != '' }}
+#        run: |
+#          # Note: all images will receive the same version number for this Docker release
+#          if (($env:EVENT_NAME -eq "release" -and $env:EVENT_ACTION -eq "published") -or ($env:EVENT_NAME -eq "workflow_dispatch")) {
 
-            $package_version="${{ env.PACKAGE_VERSION }}"
-            if ($env:EVENT_NAME -eq "workflow_dispatch") {
-              $package_version="${{ inputs.package_version }}"
-            }
+#            $package_version="${{ env.PACKAGE_VERSION }}"
+#            if ($env:EVENT_NAME -eq "workflow_dispatch") {
+#              $package_version="${{ inputs.package_version }}"
+#            }
 
-            ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
-            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
-            Write-Host "This step is triggered manually or by a published release."
-          }
-          else
-          {
-            ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
-            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
-          }
-        working-directory: Docker
-        shell: pwsh
+#            ./get-versions.ps1 -PackageVersion $package_version -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }}
+#            ./Invoke-Build.ps1 -Push -PackageVersion $package_version -Patch ${{ github.run_number }}  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
+#            Write-Host "This step is triggered manually or by a published release."
+#          }
+#          else
+#          {
+#            ./get-versions.ps1 -PackageVersion ${{ env.PACKAGE_VERSION }} -StandardVersion ${{ matrix.StandardVersion }} -ExtensionVersion ${{ matrix.ExtensionVersion }} -PreRelease
+#            ./Invoke-Build.ps1 -Push -PackageVersion ${{ env.PACKAGE_VERSION }} -Patch ${{ github.run_number }} -PreRelease  -ImageName ${{ matrix.dockerfile.name }} -Path ${{ matrix.dockerfile.path }}
+#          }
+#        working-directory: Docker
+#        shell: pwsh
