@@ -79,6 +79,8 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+throw "Throwing error to confirm that pipelines down the chain are working correctly."
+
 & "$PSScriptRoot/Initialize-PowershellForDevelopment.ps1"
 
 
