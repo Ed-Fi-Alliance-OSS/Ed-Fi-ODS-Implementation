@@ -19,7 +19,7 @@ on:
       package_version:
         description: 'Package Version'
         required: true
-        default: "7.3"
+        default: "7.4"
         type: string
 
 permissions: read-all
@@ -29,7 +29,7 @@ env:
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
   CURRENT_STANDARD_VERSION: "5.2.0"
-  PACKAGE_VERSION: "7.3"
+  PACKAGE_VERSION: "7.4"
   EVENT_NAME: ${{ GITHUB.EVENT_NAME }}
   EVENT_ACTION: ${{ GITHUB.EVENT.ACTION }}
   BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
