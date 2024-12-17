@@ -26,7 +26,7 @@ concurrency:
 
 env:
   CURRENT_STANDARD_VERSION: "5.2.0"
-  PACKAGE_VERSION: "7.4"
+  PACKAGE_VERSION: "7.3"
 
 jobs:
   docker-lint:
