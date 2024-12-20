@@ -27,8 +27,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  INFORMATIONAL_VERSION: "7.3"
-  BUILD_INCREMENTER: "-2910"
+  INFORMATIONAL_VERSION: "7.4"
+  BUILD_INCREMENTER: "-4197"
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
@@ -36,6 +36,9 @@ env:
   EDFI_SUITE_NUMBER: "Suite3"
   msbuild_buildConfiguration: "release"
   DB_PASS: ${{ secrets.BUILD_DB_PASS }}
+  AZURE_ARTIFACT_URL: "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json"
+  AZURE_ARTIFACT_NUGET_KEY: ${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}
+  VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
 
 jobs:
   FindStandardAndExtensionVersions:

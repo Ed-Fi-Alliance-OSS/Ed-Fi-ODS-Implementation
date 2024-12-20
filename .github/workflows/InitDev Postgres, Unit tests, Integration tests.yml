@@ -27,8 +27,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  INFORMATIONAL_VERSION: "7.3"
-  BUILD_INCREMENTER: "-1503"
+  INFORMATIONAL_VERSION: "7.4"
+  BUILD_INCREMENTER: "-2763"
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
