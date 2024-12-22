@@ -27,8 +27,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  INFORMATIONAL_VERSION: "7.3"
-  BUILD_INCREMENTER: "-2890"
+  INFORMATIONAL_VERSION: "7.4"
+  BUILD_INCREMENTER: "-4171"
   CONFIGURATION: "Release"
   HEAD_REF:  ${{ GITHUB.HEAD_REF }}
   REF_NAME:  ${{ GITHUB.REF_NAME }}
@@ -203,3 +203,5 @@ jobs:
       with:
         name: NugetPackages.Artifacts-${{ matrix.StandardVersion }}
         path: ${{ github.workspace }}/Ed-Fi-ODS-Implementation/NugetPackages/*TestSdk*.nupkg
+      
+       
