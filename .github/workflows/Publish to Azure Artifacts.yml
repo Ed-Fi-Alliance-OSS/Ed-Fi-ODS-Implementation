@@ -31,6 +31,7 @@ env:
   VSS_NUGET_EXTERNAL_FEED_ENDPOINTS : '{"endpointCredentials": [{"endpoint": "https://pkgs.dev.azure.com/ed-fi-alliance/Ed-Fi-Alliance-OSS/_packaging/EdFi/nuget/v3/index.json","password": "${{ secrets.AZURE_ARTIFACTS_PERSONAL_ACCESS_TOKEN }}"}]}'
   INITDEV_COMMIT: ${{ github.event.workflow_run.head_sha}}
   REPOSITORY_OWNER: ${{ GITHUB.REPOSITORY_OWNER }}
+  EDFI_ODS_TOKEN: ${{ secrets.REPO_DISPATCH_TOKEN }}
 
 jobs:
   FindStandardAndExtensionVersions:
@@ -41,7 +42,7 @@ jobs:
   build:
 
     runs-on: ubuntu-24.04    
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: FindStandardAndExtensionVersions
 
     strategy:
@@ -55,6 +56,56 @@ jobs:
       with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
           path: Ed-Fi-ODS-Implementation/
+    - name: Verify dependent workflows are success or not 
+      run: |
+        $workflowNames = @("InitDev, Smoke Tests.yml", "InitDev Postgres, Unit tests, Integration tests.yml", "InitDev, MultiTenancy.yml")
+        $sha = "${{ github.event.workflow_run.head_sha }}"
+        Write-Host "sha is $sha"
+
+          Write-Host "Checking workflow statuses..."
+          $allSuccess = $true
+
+          foreach ($workflow in $workflowNames) {
+            
+            $url = "https://api.github.com/repos/Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation/actions/workflows/$workflow/runs?head_sha=$sha"
+            $headers = @{
+                    Authorization = "Bearer $env:EDFI_ODS_TOKEN"
+                    Accept = "application/vnd.github.v3+json"
+            }
+            
+            $response = Invoke-RestMethod -Uri $url -Headers $headers
+
+            if ($response.workflow_runs.Count -eq 0) {
+              Write-Host "No runs found for workflow: $workflow"
+              $allSuccess = $false
+              break
+            }
+
+            $latestRun = $response.workflow_runs | Sort-Object -Property created_at -Descending | Select-Object -First 1
+            if ($latestRun.conclusion -ne "success") {
+              Write-Host "latest Run status is $latestRun.status"
+              $allSuccess = $false
+              break
+            }
+          }
+
+          if ($allSuccess) {
+            Write-Host "All workflows completed successfully."
+            break
+          }
+
+        if (-not $allSuccess) {
+          Write-Host "one or more workflows failed.So cancelling the build"
+          exit 1
+        }
+      shell: pwsh
+    # Adding a step to ensure the build job fails if it was skipped
+    - name: Fail the build job if skipped
+      if: ${{ needs.FindStandardAndExtensionVersions.result == 'skipped' }}
+      run: |
+        echo "Build job was skipped due to a failure in the previous job."
+        exit 1
+      shell: pwsh
     - name: Wait for  ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
       uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
       with:
