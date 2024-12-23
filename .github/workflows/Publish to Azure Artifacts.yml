@@ -42,7 +42,7 @@ jobs:
   build:
 
     runs-on: ubuntu-24.04    
-    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: FindStandardAndExtensionVersions
 
     strategy:
@@ -98,6 +98,13 @@ jobs:
           Write-Host "one or more workflows failed.So cancelling the build"
           exit 1
         }
+      shell: pwsh
+    # Adding a step to ensure the build job fails if it was skipped
+    - name: Fail the build job if skipped
+      if: ${{ needs.FindStandardAndExtensionVersions.result == 'skipped' }}
+      run: |
+        echo "Build job was skipped due to a failure in the previous job."
+        exit 1
       shell: pwsh
     - name: Wait for  ["InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
       uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
