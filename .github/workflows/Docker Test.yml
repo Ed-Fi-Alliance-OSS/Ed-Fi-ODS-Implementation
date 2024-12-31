@@ -16,6 +16,15 @@ on:
     paths:
       - "Docker/**/*"
   workflow_dispatch:
+    inputs:
+      timeout:
+        description: "Timeout before we stop trying (in milliseconds) for action-workflow-run-wait step"
+        required: true
+        default: '1800000'
+      delay:
+        description: "delay between status checks (in milliseconds) for action-workflow-run-wait step"
+        required: true
+        default: '10000'
 
 permissions: read-all
 
