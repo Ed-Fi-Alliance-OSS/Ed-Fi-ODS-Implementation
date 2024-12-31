@@ -7,8 +7,7 @@ name: Docker Test
 
 on:
   workflow_run:
-    workflows:
-      - "Publish to Azure Artifacts"
+    workflows: ["Publish to Azure Artifacts","InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"]
     types:
       - completed
     branches: [main, 'b-v*-patch*','feature-*']
@@ -88,7 +87,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
-
+      - name: Wait for  ["Publish to Azure Artifacts","InitDev, Smoke Tests", "InitDev, Unit tests, Integration tests, Package", "InitDev, MultiTenancy"] workflows to Complete
+        uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4 
+        with:
+            timeout: ${{inputs.timeout}}
+            delay: ${{inputs.delay}}   
       - name: Build  ${{ matrix.dockerfile.name }} image in path ${{ matrix.dockerfile.path }}
         # To confirm no errors occur. The "local" one will be built by the e2e
         # testing process.
