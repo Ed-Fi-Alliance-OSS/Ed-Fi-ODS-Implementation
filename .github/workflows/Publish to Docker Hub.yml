@@ -24,6 +24,10 @@ on:
 
 permissions: read-all
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 env:
   DOCKER_HUB_TOKEN: ${{ secrets.DOCKER_HUB_TOKEN }}
   DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
@@ -35,8 +39,16 @@ env:
   BASE_BRANCH: ${{ GITHUB.HEAD_REF || GITHUB.REF_NAME }}
 
 jobs:
+  assert-all-required-workflows-succeeded:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4
+        with:
+          timeout: 1800000
+          delay: 10000
 
   FindStandardAndExtensionVersions:
+    needs: assert-all-required-workflows-succeeded
     uses: Ed-Fi-Alliance-OSS/Ed-Fi-ODS/.github/workflows/Find Standard and Extension Versions.yml@874b608a0f3a14243e0035dd1222169fafcbe8d3
     with:
       calling_branch: ${{ github.head_ref || github.ref_name }}
