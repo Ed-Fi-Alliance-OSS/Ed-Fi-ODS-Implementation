@@ -34,7 +34,7 @@ env:
 
 jobs:
   FindStandardVersions:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-24.04    
     outputs:
       StandardVersions: ${{ steps.Set_StandardVersions.outputs.StandardVersions }}
     steps:
@@ -65,7 +65,7 @@ jobs:
   build:
     if: ${{ always() }}
     needs: FindStandardVersions
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         StandardVersion: ${{ fromJson(needs.FindStandardVersions.outputs.StandardVersions) }}
@@ -111,6 +111,9 @@ jobs:
       shell: pwsh
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
+    - name: Install Mono and Nuget
+      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
+      run: sudo ./install-mono.sh           
     - name: Cache Nuget packages   
       uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
       with:

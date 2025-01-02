@@ -19,7 +19,7 @@ env:
 jobs:
   analyze:
     name: Analyze Code
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     permissions:
       actions: read
