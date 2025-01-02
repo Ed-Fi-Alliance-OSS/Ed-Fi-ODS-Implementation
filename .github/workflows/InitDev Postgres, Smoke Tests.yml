@@ -9,9 +9,9 @@ run-name: ${{github.event.client_payload.branch}}
 
 on:
   pull_request:
-   branches: [main, 'ODS-*']
+   branches: [main, 'ODS-*',b-v*-patch*]
   push:
-   branches: [main, 'ODS-*']
+   branches: [main, 'ODS-*',b-v*-patch*]
   workflow_dispatch:
     inputs:
       distinct_id:
@@ -112,8 +112,10 @@ jobs:
       run: |
            .\build.githubactions.ps1 CheckoutBranch -RelativeRepoPath "../Ed-Fi-ODS"
     - name: Install Mono and Nuget
-      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows
-      run: sudo ./install-mono.sh           
+      working-directory: ./Ed-Fi-ODS-Implementation/.github/workflows/
+      run: |
+           chmod +x install-mono.sh
+           sudo ./install-mono.sh          
     - name: Cache Nuget packages   
       uses: actions/cache@ab5e6d0c87105b4c9c2047343972218f562e4319  #v4.0.1
       with:

@@ -11,7 +11,7 @@ on:
   pull_request:
    branches: [main, 'ODS-*',b-v*-patch*]
   push:
-   branches: [main, 'ODS-*']
+   branches: [main, 'ODS-*',b-v*-patch*]
   workflow_dispatch:
     inputs:
       distinct_id:
