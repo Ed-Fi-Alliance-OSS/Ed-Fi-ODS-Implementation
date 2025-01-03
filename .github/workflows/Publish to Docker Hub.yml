@@ -51,13 +51,13 @@ jobs:
         with:
                 repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS-Implementation
                 path: Ed-Fi-ODS-Implementation/
-
+                ref: ${{ github.ref_name || github.head_ref }}
       - name: Checkout Ed-Fi-ODS
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
           repository: Ed-Fi-Alliance-OSS/Ed-Fi-ODS
           path: Ed-Fi-ODS/
-
+          ref: ${{ github.ref_name || github.head_ref }}
       - name: Checkout Ed-Fi-Extensions
         uses: actions/checkout@8ade135a41bc03ea155e62e844d188df1ea18608 # v4
         with:
