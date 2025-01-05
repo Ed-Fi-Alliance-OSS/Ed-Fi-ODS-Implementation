@@ -46,6 +46,7 @@ jobs:
         with:
           timeout: 1800000
           delay: 10000
+          ignore-cancelled: true # Treat canceled as success
 
   FindStandardAndExtensionVersions:
     needs: assert-all-required-workflows-succeeded
