@@ -4,24 +4,24 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using Autofac;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
 using EdFi.Ods.Common.Infrastructure.Configuration;
 using EdFi.Ods.Common.Repositories;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.NHibernate;
 using EdFi.Ods.Features.OwnershipBasedAuthorization.Security;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Features.OwnershipBasedAuthorization.Container.Modules
 {
     public class OwnershipBasedAuthorizationModule : ConditionalModule
     {
-        public OwnershipBasedAuthorizationModule(ApiSettings apiSettings)
-            : base(apiSettings, nameof(OwnershipBasedAuthorizationModule)) { }
+        public OwnershipBasedAuthorizationModule(IFeatureManager featureManager)
+            : base(featureManager) { }
 
-        public override bool IsSelected() => IsFeatureEnabled(ApiFeature.OwnershipBasedAuthorization);
+        protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.OwnershipBasedAuthorization);
 
-        public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+        protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
         {
             builder.RegisterType<OwnershipBasedAuthorizationNHibernateConfigurationActivity>()
                 .As<INHibernateBeforeBindMappingActivity>();

@@ -478,7 +478,7 @@ function Get-ConnectionStringBuildersFromSettings([hashtable] $Settings = @{ }) 
 }
 
 function Get-EnabledFeaturesFromSettings([hashtable] $Settings = @{ }) {
-    return ($Settings.ApiSettings.Features | Where-Object { $_.IsEnabled -eq $true } | ForEach-Object { $_.Name })
+    return ($Settings.FeatureManagement.Keys | Where-Object { $Settings.FeatureManagement[$_] -eq $true })
 }
 
 function Get-FeatureSubTypesFromSettings([hashtable] $Settings = @{ }) {
@@ -606,10 +606,9 @@ function Add-MultiTenantSettings([hashtable] $Settings = @{ }, [string] $Project
     if ($ProjectName -ne (Get-ProjectTypes).WebApi) { return $Settings }
     
     $newSettings = @{
-        ApiSettings       = @{
-            Features = (Get-DefaultFeatures).Features
-        }
-        Tenants = @{}
+        FeatureManagement = (Get-DefaultFeatures).FeatureManagement
+        ApiSettings       = @{}
+        Tenants           = @{}
     }
 
     $csbs = Get-ConnectionStringBuildersFromSettings $Settings
@@ -669,9 +668,8 @@ function Add-MultiTenantTestHarnessSettings([hashtable] $Settings = @{ }, [strin
     
     $odsConnectionString = $Settings.ConnectionStrings.EdFi_Ods.replace('EdFi_Ods_Populated_Template_Test', 'EdFi_Ods_Populated_Template_{0}_Test')
     $newSettings = @{
-        ApiSettings       = @{
-            Features = (Get-DefaultFeatures).Features
-        }
+        FeatureManagement = (Get-DefaultFeatures).FeatureManagement
+        ApiSettings       = @{}
         Tenants = @{}
         ConnectionStrings = @{
             EdFi_Ods = $odsConnectionString
@@ -771,26 +769,12 @@ function New-DevelopmentAppSettings([hashtable] $Settings = @{ }) {
     return $newSettingsFiles
 }
 
-function Set-Feature([hashtable] $Settings = { }, [string] $FeatureName, [bool] $IsEnabled) {
-    $features = $Settings.ApiSettings.Features | Where-Object { $_.Name -eq $featureName }
-
-    if ($features.Length -eq 0) {
-        $properties = @{ Name = $FeatureName; IsEnabled = $IsEnabled }
-
-        if ($Settings.ApiSettings.Features.Length -eq 0) {
-            $Settings.ApiSettings.Features = @()
-        }
-
-        $Settings.ApiSettings.Features += New-Object psobject -Property $properties
-    }
-    else {
-        foreach ($feature in $Settings.ApiSettings.Features) {
-            if ($feature.Name -eq $FeatureName) {
-                $feature.IsEnabled = $IsEnabled
-            }
-        }
+function Set-Feature([hashtable] $Settings = @{ }, [string] $FeatureName, [bool] $IsEnabled) {
+    if (-not $Settings.FeatureManagement) {
+        $Settings.FeatureManagement = @{ }
     }
 
+    $Settings.FeatureManagement[$FeatureName] = $IsEnabled
     return $Settings
 }
 
@@ -812,21 +796,21 @@ function Get-ValueOrDefault($Value, $Default) {
 
 function Get-DefaultFeatures() {
     return @{
-        Features = @(
-            @{ Name = 'OpenApiMetadata'; IsEnabled=$true }
-            @{ Name = 'AggregateDependencies'; IsEnabled=$true }
-            @{ Name = 'TokenInfo'; IsEnabled=$true }
-            @{ Name = 'Extensions'; IsEnabled=$true }
-            @{ Name = 'Composites'; IsEnabled=$true }
-            @{ Name = 'Profiles'; IsEnabled=$true }
-            @{ Name = 'ChangeQueries'; IsEnabled=$true }
-            @{ Name = 'IdentityManagement'; IsEnabled=$false }
-            @{ Name = 'OwnershipBasedAuthorization'; IsEnabled=$true }
-            @{ Name = 'UniqueIdValidation'; IsEnabled=$false }
-            @{ Name = 'XsdMetadata'; IsEnabled=$true }
-            @{ Name = 'MultiTenancy'; IsEnabled=$false }
-            @{ Name = 'SerializedData'; IsEnabled=$true }
-            @{ Name = 'ResourceLinks'; IsEnabled=$true }
-        )
+        FeatureManagement = @{
+            OpenApiMetadata = $true
+            AggregateDependencies = $true
+            TokenInfo = $true
+            Extensions = $true
+            Composites = $true
+            Profiles = $true
+            ChangeQueries = $true
+            IdentityManagement = $false
+            OwnershipBasedAuthorization = $true
+            UniqueIdValidation = $false
+            XsdMetadata = $true
+            MultiTenancy = $false
+            SerializedData = $true
+            ResourceLinks = $true
+        }
     }
 }

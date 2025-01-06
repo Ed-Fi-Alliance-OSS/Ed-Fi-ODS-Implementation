@@ -5,20 +5,20 @@
 
 using Autofac;
 using EdFi.Ods.Api.IntegrationTestHarness.Migrations;
-using EdFi.Ods.Common.Configuration;
 using EdFi.Ods.Common.Constants;
 using EdFi.Ods.Common.Container;
+using Microsoft.FeatureManagement;
 
 namespace EdFi.Ods.Api.IntegrationTestHarness.Modules;
 
 public class MultiTenancyModule : ConditionalModule
 {
-    public MultiTenancyModule(ApiSettings apiSettings)
-        : base(apiSettings, nameof(MultiTenancyModule)) { }
+    public MultiTenancyModule(IFeatureManager featureManager)
+        : base(featureManager) { }
 
-    public override bool IsSelected() => IsFeatureEnabled(ApiFeature.MultiTenancy);
+    protected override bool IsSelected() => IsFeatureEnabled(ApiFeature.MultiTenancy);
 
-    public override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
+    protected override void ApplyConfigurationSpecificRegistrations(ContainerBuilder builder)
     {
         builder.RegisterType<MultiTenantSecurityDatabaseConnectionStringCatalog>()
             .As<ISecurityDatabaseConnectionStringCatalog>()
