@@ -35,7 +35,7 @@ jobs:
       - uses: ahmadnassri/action-workflow-run-wait@2aa3d9e1a12ecaaa9908e368eaf2123bb084323e #v1.4.4
         with:
             timeout: 1800000
-            delay: 10000
+            delay: 60000
             ignore-cancelled: true # Treat canceled as success
 
   docker-lint:
