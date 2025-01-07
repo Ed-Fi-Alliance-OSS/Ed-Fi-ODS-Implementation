@@ -7,6 +7,7 @@ using System;
 using System.Threading.Tasks;
 using Autofac.Extensions.DependencyInjection;
 using EdFi.Ods.Api.Helpers;
+using EdFi.Ods.Api.Startup;
 using EdFi.Ods.Common;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,7 @@ namespace EdFi.Ods.WebApi
                         webBuilder.ConfigureKestrel(
                             serverOptions => { serverOptions.AddServerHeader = false; });
 
-                        webBuilder.UseStartup<Startup>();
+                        webBuilder.UseStartup<OdsStartupBase>(context => StartupFactory.GetStartup(context));
                     });
 
             await ConfigureHostUsingPlugins();
