@@ -187,7 +187,7 @@ Describe 'Set-Feature' {
 
         $settings | Should -Not -BeNullOrEmpty
         $settings.FeatureManagement | Should -Not -BeNullOrEmpty
-        $settings.FeatureManagement.Keys.Length | Should -Be 1
+        $settings.FeatureManagement.Keys.Count | Should -Be 1
 
         $featureEnabled = $settings.FeatureManagement.NewFeature
 
@@ -197,14 +197,14 @@ Describe 'Set-Feature' {
 
     It "returns a settings file with an updated feature" {
         $appSettings = "TestDrive:\appSettings.json"
-        $settings = Set-Content $appSettings -value '{ "FeatureManagement": { "Feature": "false" } }'
+        $settings = Set-Content $appSettings -value '{ "FeatureManagement": { "Feature": false } }'
 
         $settings = Get-MergedAppSettings $appSettings
         $settings = Set-Feature -Settings $settings -FeatureName "Feature" -IsEnabled $true
 
         $settings | Should -Not -BeNullOrEmpty
         $settings.FeatureManagement | Should -Not -BeNullOrEmpty
-        $settings.FeatureManagement.Keys.Length | Should -Be 1
+        $settings.FeatureManagement.Keys.Count | Should -Be 1
 
         $featureEnabled = $settings.FeatureManagement.Feature
 
