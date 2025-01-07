@@ -108,7 +108,7 @@ Describe 'Get-FeatureSubTypesFromSettings' {
         $subtypes | Should -Contain 'RecordOwnership'
     }
 
-    It "returns $null if setting are not present" {
+    It "returns `$null if setting are not present" {
         $subtypes = Get-FeatureSubTypesFromSettings $null
 
         $subtypes | Should -BeNullOrEmpty
@@ -146,7 +146,7 @@ Describe 'Get-EnabledFeaturesFromSettings' {
         @($features).Length | Should -Be 0
     }
 
-    It "returns $null if setting are not present" {
+    It "returns `$null if setting are not present" {
         $features = Get-EnabledFeaturesFromSettings $null
 
         $features | Should -BeNullOrEmpty
@@ -180,7 +180,7 @@ Describe 'Get-MergedSettings' {
 Describe 'Set-Feature' {
     It "returns a settings object with a new feature when the feature does not exist" {
         $appSettings = "TestDrive:\appSettings.json"
-        Set-Content $appSettings -value '{ "FeatureManagement": { }'
+        Set-Content $appSettings -value '{ "FeatureManagement": { } }'
 
         $settings = Get-MergedAppSettings $appSettings
         $settings = Set-Feature -Settings $settings -FeatureName "NewFeature" -IsEnabled $true

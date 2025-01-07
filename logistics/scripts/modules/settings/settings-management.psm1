@@ -478,6 +478,8 @@ function Get-ConnectionStringBuildersFromSettings([hashtable] $Settings = @{ }) 
 }
 
 function Get-EnabledFeaturesFromSettings([hashtable] $Settings = @{ }) {
+    if ($Settings -eq $null) { return @() };
+
     return ($Settings.FeatureManagement.Keys | Where-Object { $Settings.FeatureManagement[$_] -eq $true })
 }
 
