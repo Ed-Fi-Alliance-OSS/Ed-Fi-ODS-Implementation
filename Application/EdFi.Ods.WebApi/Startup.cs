@@ -9,9 +9,9 @@ using Microsoft.Extensions.Configuration;
 
 namespace EdFi.Ods.WebApi
 {
-    public class DefaultStartup : OdsStartupBase
+    public class Startup : OdsStartupBase
     {
-        public DefaultStartup(IWebHostEnvironment env, IConfiguration configuration)
+        public Startup(IWebHostEnvironment env, IConfiguration configuration)
             : base(env, configuration) { }
     }
 }

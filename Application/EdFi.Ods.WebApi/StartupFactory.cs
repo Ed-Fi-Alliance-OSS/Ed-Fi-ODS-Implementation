@@ -17,7 +17,7 @@ namespace EdFi.Ods.WebApi
        
         private const string MissingStartupClassMessage =
             "Could not find the startup class. No loaded class member could be found matching the configured startup class name '{0}'.";
-        private const string DefaultStartupClassName = "DefaultStartup";
+        private const string DefaultStartupClassName = "Startup";
         public static OdsStartupBase GetStartup(WebHostBuilderContext webHostBuilderContext)
         {
 
