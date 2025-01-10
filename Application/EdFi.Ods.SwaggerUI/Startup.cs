@@ -5,11 +5,10 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace EdFi.Ods.SwaggerUI
+namespace EdFi.Ods.SwaggerUI;
+
+public class Startup : SwaggerStartupBase
 {
-    public class Startup : StartupBase
-    {
-        public Startup(IConfiguration configuration)
-            : base(configuration) { }
-    }
+    public Startup(IConfiguration configuration)
+        : base(configuration) { }
 }

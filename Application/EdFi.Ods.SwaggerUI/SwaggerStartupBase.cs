@@ -18,14 +18,14 @@ using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace EdFi.Ods.SwaggerUI
 {
-    public abstract class StartupBase
+    public abstract class SwaggerStartupBase
     {
         private readonly bool _useReverseProxyHeaders;
         private readonly string _pathBase;
-        private string _routePrefix;
+        private readonly string _routePrefix;
         private const string DefaultRoutePrefix = "swagger";
 
-        public StartupBase(IConfiguration configuration)
+        protected SwaggerStartupBase(IConfiguration configuration)
         {
             Configuration = configuration;
             _useReverseProxyHeaders = Configuration.GetValue<bool>("UseReverseProxyHeaders");
@@ -39,7 +39,7 @@ namespace EdFi.Ods.SwaggerUI
             }
         }
 
-        public IConfiguration Configuration { get; }
+        private IConfiguration Configuration { get; }
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
@@ -61,7 +61,7 @@ namespace EdFi.Ods.SwaggerUI
             services.AddHealthChecks();
         }
 
-        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<Startup> logger)
+        public virtual void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILogger<SwaggerStartupBase> logger)
         {
             string webApiUrl = Configuration.GetValue("WebApiVersionUrl", string.Empty);
             var years = Configuration.GetSection("Years").Get<List<Years>>() ?? new List<Years>();
