@@ -7,6 +7,7 @@ using System.Linq;
 using EdFi.Ods.Api.Startup;
 using Microsoft.AspNetCore.Hosting;
 using System;
+using EdFi.Common.Extensions;
 
 namespace EdFi.Ods.WebApi
 {
@@ -28,7 +29,7 @@ namespace EdFi.Ods.WebApi
             var startupType = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(assembly => assembly.GetName().Name?.StartsWith("EdFi.") ?? false)
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(t => t.Name.EqualsIgnoreCase(startupClassName) && typeof(OdsStartupBase).IsAssignableFrom(t))                
+                .Where(t => t.Name.EqualsIgnoreCase(startupClassName) && typeof(OdsStartupBase).IsAssignableFrom(t))      
                 .FirstOrDefault();
 
             if (startupType == null)
