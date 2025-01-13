@@ -13,7 +13,7 @@ namespace EdFi.Ods.SwaggerUI
     {
         private readonly string _startupClassName;
         private const string MissingStartupClassMessage =
-            "Could not find a startup class named '{0}' that derives from OdsStartupBase.";
+            "Could not find a startup class named '{0}' that derives from SwaggerStartupBase.";
         public StartupFactory(string startupClassName)
         {
             _startupClassName = startupClassName;
