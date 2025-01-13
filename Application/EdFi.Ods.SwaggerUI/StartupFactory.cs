@@ -31,7 +31,7 @@ namespace EdFi.Ods.SwaggerUI
             var startupType = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(assembly => assembly.GetName().Name?.StartsWith("EdFi.") ?? false)
                 .SelectMany(assembly => assembly.GetTypes())
-                .FirstOrDefault(t => t.Name == startupClassName);
+                .FirstOrDefault(t => t.Name == startupClassName && typeof(SwaggerStartupBase).IsAssignableFrom(t)));
 
             if (startupType == null)
             {
