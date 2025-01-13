@@ -4,8 +4,11 @@
 // See the LICENSE and NOTICES files in the project root for more information.
 
 using System.Threading.Tasks;
+using EdFi.Common.Extensions;
+using EdFi.Ods.Api.Helpers;
 using Microsoft.AspNetCore.Hosting;
-
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace EdFi.Ods.SwaggerUI
@@ -14,21 +17,37 @@ namespace EdFi.Ods.SwaggerUI
     {
         public static async Task Main(string[] args)
         {
-            await CreateHostBuilder(args).Build().RunAsync();
-        }
+            string startupClassName;
 
-        public static IHostBuilder CreateHostBuilder(string[] args)
-            => Host.CreateDefaultBuilder(args)
+            using (var hostBuilderInitial = Host.CreateDefaultBuilder(args).Build())
+            {
+                var config = hostBuilderInitial.Services.GetService<IConfiguration>();
+                startupClassName = config.GetValue<string>("SwaggerUIOptions:StartupClassName");
+
+                AssemblyLoaderHelper.LoadAssembliesFromFolder(
+                    AssemblyLoaderHelper.GetPluginFolder(
+                        config.GetValue<string>("Plugin:Folder") ?? string.Empty));
+            }
+
+            var hostBuilder = Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(
                     webBuilder =>
                     {
                         webBuilder.ConfigureKestrel(
-                            serverOptions =>
-                            {
-                                serverOptions.AddServerHeader = false;
-                            });
+                            serverOptions => { serverOptions.AddServerHeader = false; });
 
-                        webBuilder.UseStartup<Startup>();
+                        if (string.IsNullOrEmpty(startupClassName) || startupClassName.EqualsIgnoreCase("Startup"))
+                        {
+                            webBuilder.UseStartup<Startup>();
+                        }
+                        else
+                        {
+                            var startupFactory = new StartupFactory(startupClassName);
+                            webBuilder.UseStartup(context => startupFactory.CreateStartup(context));
+                        }
                     });
+
+            await hostBuilder.Build().RunAsync();
+        }
     }
 }
