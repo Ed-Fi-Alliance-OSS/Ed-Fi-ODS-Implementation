@@ -6,46 +6,37 @@
 using System.Linq;
 using EdFi.Ods.Api.Startup;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.IO;
 
 namespace EdFi.Ods.WebApi
 {
-    public static class StartupFactory
+    public class StartupFactory(string startupClassName)
     {
-       
+        private readonly string _startupClassName = startupClassName;
         private const string MissingStartupClassMessage =
-            "Could not find the startup class. No loaded class member could be found matching the configured startup class name '{0}'.";
-        private const string DefaultStartupClassName = "Startup";
-        public static OdsStartupBase GetStartup(WebHostBuilderContext webHostBuilderContext)
+            "Could not find a startup class named '{0}' that derives from OdsStartupBase.";
+
+        public OdsStartupBase Create(WebHostBuilderContext webHostBuilderContext)
         {
-
-            var config = new ConfigurationBuilder()
-                               .SetBasePath(Directory.GetCurrentDirectory())
-                               .AddJsonFile("appsettings.json", optional: false)
-                               .AddJsonFile($"appsettings.{webHostBuilderContext.HostingEnvironment.EnvironmentName}.json", optional: true)
-                               .Build();
-
-            string startupClassName = config.GetValue<string>("StartUpClassName")?? DefaultStartupClassName;
-          
-            var type = FindStartupClassType(startupClassName);
-            OdsStartupBase startup = (OdsStartupBase)Activator.CreateInstance(type, webHostBuilderContext.HostingEnvironment, webHostBuilderContext.Configuration);
+            var startupType = FindStartupClassType(_startupClassName);
+            var startup = (OdsStartupBase)Activator.CreateInstance(startupType, webHostBuilderContext.Configuration);
             return startup;
         }
 
-        private static Type FindStartupClassType(string startupClassName)
+        private Type FindStartupClassType(string startupClassName)
         {
             var startupType = AppDomain.CurrentDomain.GetAssemblies()
+                .Where(assembly => assembly.GetName().Name?.StartsWith("EdFi.") ?? false)
                 .SelectMany(assembly => assembly.GetTypes())
-                .FirstOrDefault(t => t.Name == startupClassName);
+                .Where(t => typeof(OdsStartupBase).IsAssignableFrom(t) && t.Name == startupClassName)
+                .FirstOrDefault();
 
             if (startupType == null)
             {
-                throw new MissingMemberException(string.Format(MissingStartupClassMessage, startupClassName));
+                throw new TypeLoadException(string.Format(MissingStartupClassMessage, startupClassName));
             }
-
             return startupType;
         }
+
     }
 }
