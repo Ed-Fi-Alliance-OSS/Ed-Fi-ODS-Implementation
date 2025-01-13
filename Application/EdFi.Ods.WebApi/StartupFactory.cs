@@ -28,7 +28,7 @@ namespace EdFi.Ods.WebApi
             var startupType = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(assembly => assembly.GetName().Name?.StartsWith("EdFi.") ?? false)
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(t => typeof(OdsStartupBase).IsAssignableFrom(t) && t.Name == startupClassName)
+                .Where(t => t.Name.EqualsIgnoreCase(startupClassName) && typeof(OdsStartupBase).IsAssignableFrom(t))                
                 .FirstOrDefault();
 
             if (startupType == null)
