@@ -25,4 +25,12 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EdFi.Common">
+      <HintPath>..\..\..\Ed-Fi-ODS\Application\EdFi.Common\bin\Debug\net8.0\EdFi.Common.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Ed-Fi-ODS\Application\EdFi.Ods.Api\EdFi.Ods.Api.csproj" />
+  </ItemGroup>
 </Project>
