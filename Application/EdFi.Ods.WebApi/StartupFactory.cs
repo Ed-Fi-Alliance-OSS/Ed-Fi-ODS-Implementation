@@ -20,7 +20,10 @@ namespace EdFi.Ods.WebApi
         public OdsStartupBase Create(WebHostBuilderContext webHostBuilderContext)
         {
             var startupType = FindStartupClassType(_startupClassName);
-            var startup = (OdsStartupBase)Activator.CreateInstance(startupType, webHostBuilderContext.Configuration);
+            var startup = (OdsStartupBase)Activator.CreateInstance(
+                startupType,
+                webHostBuilderContext.HostingEnvironment,
+                webHostBuilderContext.Configuration);
             return startup;
         }
 
@@ -29,8 +32,7 @@ namespace EdFi.Ods.WebApi
             var startupType = AppDomain.CurrentDomain.GetAssemblies()
                 .Where(assembly => assembly.GetName().Name?.StartsWith("EdFi.") ?? false)
                 .SelectMany(assembly => assembly.GetTypes())
-                .Where(t => t.Name.EqualsIgnoreCase(startupClassName) && typeof(OdsStartupBase).IsAssignableFrom(t))
-                .FirstOrDefault();
+                .FirstOrDefault(t => t.Name.EqualsIgnoreCase(startupClassName) && typeof(OdsStartupBase).IsAssignableFrom(t));
 
             if (startupType == null)
             {
@@ -38,6 +40,5 @@ namespace EdFi.Ods.WebApi
             }
             return startupType;
         }
-
     }
 }
